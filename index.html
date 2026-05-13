@@ -257,6 +257,29 @@
       color: var(--gold); font-style: normal;
     }
 
+    /* ─── DEMO ──────────────────────────────────────────── */
+    .demo-section { background: var(--surface); padding: 120px 72px 80px; }
+    .demo-header {
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      margin-bottom: 56px;
+    }
+    .demo-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.18;
+    }
+    .demo-title em { font-style: italic; color: var(--gold2); }
+    .demo-sub {
+      font-size: 14px; line-height: 1.85; color: var(--dim);
+      max-width: 520px; margin-top: 24px;
+    }
+    .calc-frame-outer {
+      border-top: 2px solid var(--gold);
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+    }
+    .calc-iframe { width: 100%; height: 1750px; border: none; display: block; }
+
     /* ─── FOUNDER ───────────────────────────────────────── */
     .founder-wrap {
       padding: 148px 72px;
@@ -360,6 +383,7 @@
   <a href="#" class="nav-logo">SuccessCode</a>
   <div class="nav-links">
     <a href="#method" class="nav-link">Method</a>
+    <a href="#demo" class="nav-link">Demo</a>
     <a href="#founder" class="nav-link">Founder</a>
     <a href="#waitlist" class="nav-btn">Request Access</a>
   </div>
@@ -499,6 +523,20 @@
     <cite>Olga Bressers &nbsp;—&nbsp; Founder, SuccessCode</cite>
   </div>
 </div>
+
+<!-- DEMO CALCULATOR -->
+<section class="demo-section" id="demo">
+  <div class="demo-header">
+    <div class="side-label">The Engine</div>
+    <div>
+      <h2 class="demo-title reveal">The chart that drives<br>the calendar.<br><em>See yours now.</em></h2>
+      <p class="demo-sub reveal">Enter your birth data below. The engine generates your Zi Wei Dou Shu chart — 36 stars, 12 palaces, decade and annual overlays. The same structure behind every SuccessCode strategic calendar.</p>
+    </div>
+  </div>
+  <div class="calc-frame-outer reveal">
+    <iframe src="../ZWDS Calculator/calculator.html" class="calc-iframe" title="Zi Wei Dou Shu Chart Calculator" loading="lazy"></iframe>
+  </div>
+</section>
 
 <!-- FOUNDER -->
 <section class="founder-wrap" id="founder">
