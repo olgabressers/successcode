@@ -273,8 +273,26 @@
       font-size: 14px; line-height: 1.85; color: var(--dim);
       max-width: 520px; margin-top: 24px;
     }
+    .demo-qualifiers {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 48px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .demo-q {
+      padding: 32px 44px 32px 0;
+      border-right: 1px solid var(--border);
+      display: flex; gap: 18px; align-items: flex-start;
+    }
+    .demo-q:nth-child(2) { padding-left: 44px; }
+    .demo-q:last-child { border-right: none; padding-left: 44px; padding-right: 0; }
+    .demo-q-marker {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; color: var(--gold);
+      flex-shrink: 0; line-height: 1.1;
+    }
+    .demo-q p { font-size: 13px; line-height: 1.8; color: var(--dim); }
     .calc-frame-outer {
-      border-top: 2px solid var(--gold);
       border: 1px solid var(--border);
       border-top: 2px solid var(--gold);
     }
@@ -529,8 +547,22 @@
   <div class="demo-header">
     <div class="side-label">The Engine</div>
     <div>
-      <h2 class="demo-title reveal">The chart that drives<br>the calendar.<br><em>See yours now.</em></h2>
-      <p class="demo-sub reveal">Enter your birth data below. The engine generates your Zi Wei Dou Shu chart — 36 stars, 12 palaces, decade and annual overlays. The same structure behind every SuccessCode strategic calendar.</p>
+      <h2 class="demo-title reveal">The analytical layer<br>beneath every executive<br><em>decision window.</em></h2>
+      <p class="demo-sub reveal">Senior leaders carry an invisible structural calendar — periods of maximum leverage, negotiation authority, and expansion that no consultant has ever mapped for them. This engine surfaces it. Enter your birth data. Your personal intelligence map generates in seconds.</p>
+    </div>
+  </div>
+  <div class="demo-qualifiers reveal">
+    <div class="demo-q">
+      <span class="demo-q-marker">—</span>
+      <p>You hold — or have held — P&amp;L, strategic, or executive decision authority.</p>
+    </div>
+    <div class="demo-q">
+      <span class="demo-q-marker">—</span>
+      <p>You make moves that affect capital, teams, or markets. Timing is not an abstraction.</p>
+    </div>
+    <div class="demo-q">
+      <span class="demo-q-marker">—</span>
+      <p>You want a rigorous analytical system — not a horoscope. Structural patterns, not predictions.</p>
     </div>
   </div>
   <div class="calc-frame-outer reveal">
@@ -588,7 +620,7 @@
     you move.
   </h2>
   <div class="cta-right reveal">
-    <p>SuccessCode launches Q3 2026. Join the waitlist for early access, founding member pricing, and your personal strategic overview — complimentary for the first 100 members.</p>
+    <p>SuccessCode launches Q3 2026. Early access is reserved for senior leaders and strategic decision-makers operating at scale. Founding members receive a complimentary personal strategic overview — before the platform opens publicly.</p>
     <div class="cta-fields" id="cta-form">
       <input type="text"  class="cta-input" placeholder="Your name"          id="cta-name">
       <input type="email" class="cta-input" placeholder="Your email address" id="cta-email">
