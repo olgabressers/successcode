@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuccessCode — a16z Speedrun 2026</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #08081a;
+            --gold: #c9a84c;
+            --gold-light: #e8c96a;
+            --white: #ffffff;
+            --muted: #8888aa;
+            --card: rgba(255,255,255,0.04);
+            --card-border: rgba(201,168,76,0.2);
+        }
+
+        html, body {
+            width: 100%; height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--white);
+        }
+
+        .deck { width: 100vw; height: 100vh; position: relative; }
+
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+            background: var(--bg);
+            overflow: hidden;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            pointer-events: all;
+        }
+
+        .slide.prev {
+            opacity: 0;
+            transform: translateX(-60px);
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--card-border);
+            background: var(--card);
+            color: var(--white);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+        .slide-counter { font-size: 12px; color: var(--muted); min-width: 50px; text-align: center; }
+
+        .dots { display: flex; gap: 6px; }
+
+        .dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: var(--muted);
+            transition: all 0.25s;
+            cursor: pointer;
+        }
+
+        .dot.active { background: var(--gold); width: 20px; border-radius: 3px; }
+
+        .keyboard-hint {
+            position: fixed;
+            top: 18px; right: 22px;
+            font-size: 11px;
+            color: var(--muted);
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        kbd {
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 10px;
+        }
+
+        /* Typography */
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        h2 {
+            font-size: clamp(26px, 3.2vw, 44px);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            font-size: clamp(15px, 1.6vw, 20px);
+            font-weight: 600;
+            color: var(--gold-light);
+            margin-bottom: 8px;
+        }
+
+        p {
+            font-size: clamp(13px, 1.3vw, 16px);
+            line-height: 1.7;
+            color: #c0c0d8;
+        }
+
+        .accent { color: var(--gold); }
+
+        .divider {
+            width: 56px; height: 2px;
+            background: var(--gold);
+            margin: 20px 0;
+        }
+
+        .divider.center { margin: 20px auto; }
+
+        /* Cards */
+        .card-grid { display: grid; gap: 18px; width: 100%; max-width: 920px; }
+        .card-grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
+        .card-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 24px 20px;
+        }
+
+        .card .big-num {
+            font-size: clamp(28px, 3vw, 40px);
+            font-weight: 800;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+
+        /* Background decoration */
+        .bg-orb {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(80px);
+        }
+
+        .orb-gold {
+            width: 500px; height: 500px;
+            background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+            top: -150px; right: -150px;
+        }
+
+        .orb-blue {
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(80,80,220,0.07) 0%, transparent 70%);
+            bottom: -100px; left: -100px;
+        }
+
+        /* Cover */
+        .cover-content { text-align: center; max-width: 820px; }
+
+        .logo-text {
+            font-size: clamp(56px, 8vw, 104px);
+            font-weight: 800;
+            letter-spacing: -3px;
+            background: linear-gradient(135deg, #ffffff 0%, var(--gold) 55%, var(--gold-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .tagline {
+            font-size: clamp(16px, 2.2vw, 26px);
+            color: #b0b0cc;
+            font-weight: 300;
+            margin-bottom: 28px;
+        }
+
+        /* Steps */
+        .steps { display: flex; width: 100%; max-width: 880px; position: relative; }
+
+        .step { flex: 1; text-align: center; padding: 20px 16px; position: relative; }
+
+        .step-num {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            color: var(--bg);
+            font-weight: 800;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+
+        .step-arrow {
+            position: absolute;
+            right: -10px; top: 40px;
+            color: var(--gold);
+            font-size: 20px;
+        }
+
+        /* Proof list */
+        .proof-list { list-style: none; width: 100%; }
+
+        .proof-list li {
+            padding: 11px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            font-size: clamp(13px, 1.3vw, 15px);
+            color: #c0c0d8;
+            line-height: 1.5;
+        }
+
+        .proof-list li:last-child { border-bottom: none; }
+
+        .check { color: var(--gold); flex-shrink: 0; margin-top: 1px; font-size: 14px; }
+
+        /* Headline block */
+        .headline-block { max-width: 920px; width: 100%; }
+
+        /* Print */
+        @media print {
+            .nav, .keyboard-hint { display: none; }
+            .slide {
+                position: relative;
+                opacity: 1;
+                transform: none;
+                page-break-after: always;
+                height: 100vh;
+            }
+            html, body { overflow: visible; }
+            .deck { height: auto; overflow: visible; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+    <!-- SLIDE 1: Cover -->
+    <div class="slide active">
+        <div class="bg-orb orb-gold"></div>
+        <div class="bg-orb orb-blue"></div>
+        <div class="cover-content">
+            <div class="eyebrow">a16z Speedrun · 2026</div>
+            <div class="logo-text">SuccessCode</div>
+            <div class="tagline">AI-Powered Strategic Timing Intelligence<br>for Executives and Founders</div>
+            <div class="divider center"></div>
+            <p style="max-width:500px;margin:0 auto;font-size:clamp(15px,1.6vw,19px);">
+                "The right move at the right time.<br>Not just <em>what</em> to do —&nbsp;<span class="accent"><strong>when</strong></span> to do it."
+            </p>
+            <div style="margin-top:44px;font-size:13px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;">
+                successcode.net
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Problem -->
+    <div class="slide">
+        <div class="bg-orb orb-gold"></div>
+        <div class="headline-block">
+            <div class="eyebrow">The Problem</div>
+            <h2>Leaders optimize <span class="accent">WHAT</span>.<br>Nobody optimizes <span style="text-decoration:underline;text-decoration-color:var(--gold)">WHEN.</span></h2>
+            <div class="divider"></div>
+            <div class="card-grid cols-3">
+                <div class="card">
+                    <h3>$15B spent annually</h3>
+                    <p>On executive coaching — 100% focused on decisions made. Zero on the timing of those decisions.</p>
+                </div>
+                <div class="card">
+                    <h3>Wrong timing kills</h3>
+                    <p>Bad hires, failed launches, lost negotiations. The strategy was often right. The timing was wrong.</p>
+                </div>
+                <div class="card">
+                    <h3>A kept secret</h3>
+                    <p>Asian business leaders have used strategic timing intelligence privately for generations. No English-language platform exists.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Solution -->
+    <div class="slide">
+        <div class="bg-orb orb-blue"></div>
+        <div class="headline-block" style="text-align:center;">
+            <div class="eyebrow">The Solution</div>
+            <h2>Your AI <span class="accent">Strategic Calendar</span></h2>
+            <p style="margin:10px auto 36px;max-width:580px;">
+                Input your birth data once. Get a 10-year strategic map with monthly decision windows —<br>
+                when to negotiate, hire, launch, invest — and when to wait.
+            </p>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Input</h3>
+                    <p>Date, time &amp; place of birth</p>
+                    <div class="step-arrow">→</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>AI Engine</h3>
+                    <p>600-year ZWDS methodology, fully automated</p>
+                    <div class="step-arrow">→</div>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Your Map</h3>
+                    <p>10-year strategy + monthly optimal windows</p>
+                </div>
+            </div>
+            <div class="card-grid cols-2" style="margin-top:28px;max-width:560px;margin-left:auto;margin-right:auto;">
+                <div class="card" style="text-align:left;">
+                    <h3>B2C</h3>
+                    <p>Senior professionals<br><span class="accent" style="font-weight:600;">$500 – $2K / year</span></p>
+                </div>
+                <div class="card" style="text-align:left;">
+                    <h3>B2B</h3>
+                    <p>Executive teams<br><span class="accent" style="font-weight:600;">$10K – $50K / year</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Why Now -->
+    <div class="slide">
+        <div class="bg-orb orb-gold"></div>
+        <div class="headline-block">
+            <div class="eyebrow">Why Now</div>
+            <h2>Ancient system.<br><span class="accent">Now finally scalable.</span></h2>
+            <div class="divider"></div>
+            <div class="card-grid cols-3">
+                <div class="card">
+                    <div class="big-num">600+</div>
+                    <p>Years of empirical timing data in Zi Wei Dou Shu — the strategic planning system trusted by Asian business leaders for centuries.</p>
+                </div>
+                <div class="card">
+                    <div class="big-num" style="font-size:clamp(18px,2vw,26px);line-height:1.3;padding-bottom:6px;">Until<br>now</div>
+                    <p>Required expert practitioners. Weeks per analysis. Expensive. Not scalable. Zero English-language tools = wide-open Western market.</p>
+                </div>
+                <div class="card">
+                    <div class="big-num">AI</div>
+                    <p>LLMs now allow full systematization of the methodology. Personalized decision intelligence at scale — for the first time in history.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Market -->
+    <div class="slide">
+        <div class="bg-orb orb-blue"></div>
+        <div class="headline-block" style="text-align:center;">
+            <div class="eyebrow">Market Opportunity</div>
+            <h2>A <span class="accent">$30B+ market</span> with no AI-native player</h2>
+            <div class="card-grid cols-3" style="margin-top:36px;">
+                <div class="card" style="text-align:center;">
+                    <div class="big-num">$15B</div>
+                    <h3 style="color:var(--muted);font-size:13px;margin-bottom:8px;">Executive Coaching</h3>
+                    <p style="font-size:13px;">Global market. 0% AI-powered timing intelligence today.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="big-num">$6B</div>
+                    <h3 style="color:var(--muted);font-size:13px;margin-bottom:8px;">AI Productivity</h3>
+                    <p style="font-size:13px;">Growing 34% YoY. Decision tools = fastest segment.</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div class="big-num">500M+</div>
+                    <h3 style="color:var(--muted);font-size:13px;margin-bottom:8px;">Target Users</h3>
+                    <p style="font-size:13px;">Senior professionals globally seeking a performance edge.</p>
+                </div>
+            </div>
+            <p style="margin-top:28px;color:var(--muted);font-size:13px;">
+                Entry: English-speaking executives in US/EU &nbsp;·&nbsp; Expansion: Asian diaspora business community + corporate team packages
+            </p>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Founder -->
+    <div class="slide">
+        <div class="bg-orb orb-gold"></div>
+        <div class="headline-block">
+            <div class="eyebrow">The Founder — Olga Bressers</div>
+            <h2>I am the <span class="accent">proof of concept.</span></h2>
+            <div class="divider"></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px;align-items:start;">
+                <div>
+                    <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;font-weight:600;">20 Years Corporate Leadership</p>
+                    <ul class="proof-list">
+                        <li><span class="check">◆</span>Richemont — Director, €150M e-commerce P&amp;L, 12 luxury brands, 26 EU countries</li>
+                        <li><span class="check">◆</span>Adidas — Director, omni-channel &amp; digital partner commerce</li>
+                        <li><span class="check">◆</span>Nike — Led Intersport digital transformation (EU's largest sporting goods retailer)</li>
+                        <li><span class="check">◆</span>IBM — Senior Supply Chain Consultant</li>
+                        <li><span class="check">◆</span>TU/e — Professional doctorate in logistics</li>
+                    </ul>
+                </div>
+                <div>
+                    <p style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:14px;font-weight:600;">10 Years Practice · €150K Invested</p>
+                    <ul class="proof-list">
+                        <li><span class="check">✓</span>Won 3 consecutive legal battles against a Fortune 500 company — all within 18 months — timed using this methodology</li>
+                        <li><span class="check">✓</span>Negotiated 1 full year salary compensation instead of 2 months offered — timing predicted in advance</li>
+                        <li><span class="check">✓</span>Predicted and timed property decisions, partnerships, and career transitions accurately across a decade</li>
+                        <li><span class="check">✓</span>€150K personal investment in mastering the system over 10 years</li>
+                    </ul>
+                </div>
+            </div>
+            <p style="margin-top:20px;color:var(--muted);font-style:italic;font-size:clamp(13px,1.3vw,15px);">
+                "I don't sell belief. I sell a system I tested on myself for 10 years."
+            </p>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Ask -->
+    <div class="slide">
+        <div class="bg-orb orb-blue"></div>
+        <div class="headline-block" style="text-align:center;">
+            <div class="eyebrow">The Ask</div>
+            <h2>Pre-seed: <span class="accent">$150K</span></h2>
+            <div class="divider center"></div>
+            <div class="card-grid cols-3" style="margin-top:28px;">
+                <div class="card" style="text-align:center;">
+                    <h3>Q2 2026</h3>
+                    <p>MVP development<br>First 50 beta users<br>Algorithm engine complete</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <h3>Q3 2026</h3>
+                    <p>Paid tier launch<br>First $10K MRR<br>B2C product-market fit</p>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <h3>Q4 2026</h3>
+                    <p>Series A preparation<br>B2B pilot clients<br>First enterprise contracts</p>
+                </div>
+            </div>
+            <div style="margin-top:32px;padding:24px 32px;background:var(--card);border:1px solid var(--card-border);border-radius:12px;max-width:480px;margin-left:auto;margin-right:auto;">
+                <div style="display:flex;gap:32px;justify-content:center;margin-bottom:16px;">
+                    <div>
+                        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Status</div>
+                        <div style="font-size:14px;margin-top:4px;">Domain live · Building now</div>
+                    </div>
+                    <div>
+                        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;">Founder</div>
+                        <div style="font-size:14px;margin-top:4px;">Full-time · Solo + AI</div>
+                    </div>
+                </div>
+                <div style="padding-top:16px;border-top:1px solid rgba(255,255,255,0.08);">
+                    <span class="accent" style="font-size:15px;font-weight:600;letter-spacing:1px;">successcode.net</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+    <button class="nav-btn" onclick="changeSlide(-1)">←</button>
+    <div class="dots" id="dots"></div>
+    <span class="slide-counter" id="counter">1 / 7</span>
+    <button class="nav-btn" onclick="changeSlide(1)">→</button>
+</div>
+
+<div class="keyboard-hint">
+    <kbd>←</kbd> <kbd>→</kbd> navigate &nbsp;·&nbsp; <kbd>P</kbd> print to PDF
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    const dotsEl = document.getElementById('dots');
+    const counterEl = document.getElementById('counter');
+    let current = 0;
+    const total = slides.length;
+
+    slides.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        d.onclick = () => goTo(i);
+        dotsEl.appendChild(d);
+    });
+
+    function goTo(index) {
+        slides[current].classList.remove('active');
+        slides[current].classList.add('prev');
+        const prev = current;
+        setTimeout(() => slides[prev].classList.remove('prev'), 420);
+        current = Math.max(0, Math.min(index, total - 1));
+        slides[current].classList.add('active');
+        document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+        counterEl.textContent = `${current + 1} / ${total}`;
+    }
+
+    function changeSlide(dir) { goTo(current + dir); }
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') changeSlide(1);
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') changeSlide(-1);
+        if (e.key === 'p' || e.key === 'P') window.print();
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuccessCode — Strategic Timing Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #070708;
+      --surface:  #0e0e11;
+      --surface2: #141418;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --gold-dim: rgba(184,144,58,0.12);
+      --white:    #f3ecdf;
+      --dim:      rgba(243,236,223,0.55);
+      --muted:    #52525c;
+      --border:   rgba(184,144,58,0.14);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 26px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(7,7,8,0.95) 0%, transparent 100%);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-link {
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--dim); text-decoration: none; transition: color .25s;
+    }
+    .nav-link:hover { color: var(--gold2); }
+    .nav-btn {
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: var(--black); background: var(--gold);
+      padding: 11px 26px; text-decoration: none; transition: background .25s;
+    }
+    .nav-btn:hover { background: var(--gold2); }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      height: 100vh; min-height: 700px;
+      display: grid;
+      grid-template-columns: 58% 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 72px 88px 72px;
+      position: relative; z-index: 2;
+    }
+    .hero-tag {
+      display: flex; align-items: center; gap: 18px;
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px;
+    }
+    .hero-tag::before { content: ''; width: 44px; height: 1px; background: var(--gold); }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(72px, 8vw, 118px);
+      font-weight: 300; line-height: 0.9;
+      letter-spacing: -2px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      font-size: 14px; line-height: 1.75; color: var(--dim);
+      max-width: 380px; margin-top: 36px; margin-bottom: 52px;
+    }
+    .inline-form {
+      display: flex; align-items: stretch;
+      max-width: 400px;
+      border-bottom: 1px solid var(--gold);
+    }
+    .inline-form input {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-size: 12px; letter-spacing: 1px; color: var(--white);
+      padding: 14px 0; font-family: 'Inter', sans-serif;
+    }
+    .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; }
+    .inline-form button {
+      background: transparent; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); padding: 14px 0 14px 24px;
+      font-family: 'Inter', sans-serif; transition: color .2s;
+    }
+    .inline-form button:hover { color: var(--gold2); }
+    .hero-success { display: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 14px 0; }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(.65);
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+    }
+    .scroll-word {
+      position: absolute; bottom: 48px; right: 0;
+      writing-mode: vertical-rl;
+      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--dim); z-index: 3;
+      display: flex; align-items: center; gap: 14px; padding-right: 32px;
+    }
+    .scroll-word::after { content: ''; width: 1px; height: 56px; background: var(--gold); }
+
+    /* ─── TICKER ────────────────────────────────────────── */
+    .ticker { background: var(--gold); overflow: hidden; padding: 15px 0; }
+    .ticker-track {
+      display: inline-flex; white-space: nowrap;
+      animation: slide 28s linear infinite;
+    }
+    .ticker-track span {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--black); font-weight: 600; padding: 0 36px;
+    }
+    .ticker-track span.dot { color: rgba(0,0,0,.35); padding: 0 8px; }
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── MANIFESTO ─────────────────────────────────────── */
+    .manifesto {
+      padding: 148px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px;
+    }
+    .manifesto-body {}
+    .manifesto-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.2vw, 64px);
+      font-weight: 300; line-height: 1.18;
+      max-width: 780px;
+    }
+    .manifesto-h2 strong { font-weight: 500; font-style: italic; color: var(--gold2); }
+    .manifesto-cols {
+      margin-top: 56px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      max-width: 780px;
+    }
+    .manifesto-cols p { font-size: 14px; line-height: 1.85; color: var(--dim); }
+
+    /* ─── STATS ─────────────────────────────────────────── */
+    .stats-wrap {
+      padding: 0 72px 148px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .stats-rule { grid-column: 1 / 3; height: 1px; background: var(--border); margin-bottom: 80px; }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .stat {
+      padding-right: 56px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:nth-child(2) { padding-left: 56px; }
+    .stat:last-child  { padding-left: 56px; padding-right: 0; border-right: none; }
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 6.5vw, 96px);
+      font-weight: 300; line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .stat-n sup { font-size: .42em; color: var(--gold); vertical-align: super; font-weight: 400; }
+    .stat-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+    .stat p  { font-size: 13px; line-height: 1.8; color: var(--dim); }
+
+    /* ─── METHOD ─────────────────────────────────────────── */
+    .method { background: var(--surface); padding: 148px 72px; }
+    .method-top {
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      margin-bottom: 72px; padding-bottom: 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .method-top h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 560px;
+    }
+    .method-top h2 em { font-style: italic; color: var(--gold2); }
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: grid;
+      grid-template-columns: 180px 64px 1fr 260px;
+      gap: 0 44px; align-items: start;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .step:last-child { border-bottom: none; }
+    .step.in { opacity: 1; transform: translateY(0); }
+    .step-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 88px; font-weight: 300; line-height: 1;
+      color: rgba(184,144,58,.18);
+    }
+    .step-icon {
+      width: 44px; height: 44px; margin-top: 6px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.4; }
+    .step-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400;
+      color: var(--white); margin-bottom: 14px; line-height: 1.2;
+    }
+    .step-text p { font-size: 14px; line-height: 1.8; color: var(--dim); max-width: 420px; }
+    .step-aside { font-size: 11px; line-height: 1.9; color: var(--muted); padding-top: 6px; }
+
+    /* ─── PULLQUOTE IMAGE ───────────────────────────────── */
+    .pullquote-wrap { height: 58vh; min-height: 400px; position: relative; overflow: hidden; }
+    .pullquote-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+      filter: brightness(.42);
+    }
+    .pullquote-text {
+      position: absolute; bottom: 64px; left: 72px; right: 72px; z-index: 2;
+    }
+    .pullquote-text blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 3vw, 46px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.3; color: var(--white); max-width: 780px;
+    }
+    .pullquote-text cite {
+      display: block; margin-top: 24px;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-style: normal;
+    }
+
+    /* ─── FOUNDER ───────────────────────────────────────── */
+    .founder-wrap {
+      padding: 148px 72px;
+      display: grid; grid-template-columns: 1fr 420px; gap: 96px;
+      align-items: start;
+    }
+    .founder-left {}
+    .founder-eyebrow {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .founder-eyebrow::before { content: ''; width: 44px; height: 1px; background: var(--gold); }
+    .founder-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300; line-height: 1.12; margin-bottom: 36px;
+    }
+    .founder-left h2 em { font-style: italic; color: var(--gold2); }
+    .founder-left p { font-size: 14px; line-height: 1.85; color: var(--dim); margin-bottom: 20px; max-width: 520px; }
+    .creds { margin-top: 44px; }
+    .cred {
+      display: flex; gap: 22px; align-items: flex-start;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
+    }
+    .cred:first-child { border-top: 1px solid var(--border); }
+    .cred-bar { width: 2px; flex-shrink: 0; height: auto; background: var(--gold); min-height: 18px; align-self: stretch; }
+    .cred-body strong { display: block; font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+    .cred-body span { font-size: 12px; color: var(--dim); line-height: 1.6; }
+    .founder-right { position: relative; }
+    .founder-right img {
+      width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+      filter: brightness(.75) saturate(.8);
+    }
+    .founder-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+      background: linear-gradient(to top, rgba(7,7,8,.88), transparent);
+    }
+    .founder-caption p { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 148px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+      align-items: center;
+    }
+    .cta-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 80px);
+      font-weight: 300; line-height: 1; letter-spacing: -1px;
+    }
+    .cta-left h2 em { font-style: italic; color: var(--gold2); }
+    .cta-right {}
+    .cta-right p { font-size: 14px; line-height: 1.8; color: var(--dim); margin-bottom: 44px; }
+    .cta-fields { display: flex; flex-direction: column; gap: 0; }
+    .cta-input {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(243,236,223,.2);
+      font-size: 14px; color: var(--white);
+      padding: 18px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-bottom-color: var(--gold); }
+    .cta-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: var(--black); border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 18px 52px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .cta-submit:hover { background: var(--gold2); }
+    .cta-note { font-size: 11px; color: var(--muted); margin-top: 18px; }
+    .cta-done { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 24px; line-height: 1.6; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      padding: 36px 72px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    footer small { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+
+    /* ─── REVEAL ─────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">SuccessCode</a>
+  <div class="nav-links">
+    <a href="#method" class="nav-link">Method</a>
+    <a href="#founder" class="nav-link">Founder</a>
+    <a href="#waitlist" class="nav-btn">Request Access</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Strategic Decision Intelligence</div>
+    <h1 class="hero-h1">
+      The Right<br>
+      Move at the<br>
+      <em>Right Time.</em>
+    </h1>
+    <p class="hero-sub">An AI platform that maps your personal strategic calendar — telling you exactly when to negotiate, hire, launch, and pivot.</p>
+    <div class="inline-form" id="hero-form">
+      <input type="email" placeholder="Your email address" id="hero-email">
+      <button onclick="joinList('hero')">Join Waitlist &rarr;</button>
+    </div>
+    <p class="hero-success" id="hero-done">You're on the list. We'll be in touch.</p>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="">
+    <div class="scroll-word">Scroll</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Strategic Timing</span><span class="dot">·</span>
+    <span>Executive Intelligence</span><span class="dot">·</span>
+    <span>AI-Powered Decisions</span><span class="dot">·</span>
+    <span>600 Years of Pattern Data</span><span class="dot">·</span>
+    <span>Personal Strategic Calendar</span><span class="dot">·</span>
+    <span>Ancient Methodology</span><span class="dot">·</span>
+    <span>Strategic Timing</span><span class="dot">·</span>
+    <span>Executive Intelligence</span><span class="dot">·</span>
+    <span>AI-Powered Decisions</span><span class="dot">·</span>
+    <span>600 Years of Pattern Data</span><span class="dot">·</span>
+    <span>Personal Strategic Calendar</span><span class="dot">·</span>
+    <span>Ancient Methodology</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="side-label">Manifesto</div>
+  <div class="manifesto-body reveal">
+    <h2 class="manifesto-h2">
+      You've spent your career<br>
+      optimizing <strong>what</strong> to do.<br>
+      Nobody told you <strong>when.</strong>
+    </h2>
+    <div class="manifesto-cols">
+      <p>Every major decision — a negotiation, a launch, a hire, a pivot — carries a timing dimension that strategy alone cannot capture. The world's most decisive leaders have always known this intuitively.</p>
+      <p>SuccessCode makes it precise. Using an AI engine built on Zi Wei Dou Shu — a 600-year Chinese strategic timing system used privately by business leaders across Asia for generations — we map your personal decision windows with a specificity no coach or consultant can match.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-wrap">
+  <div class="stats-rule"></div>
+  <div class="side-label">Proof</div>
+  <div class="stats-grid reveal">
+    <div class="stat">
+      <div class="stat-n">20<sup>yrs</sup></div>
+      <div class="stat-tag">Executive Experience</div>
+      <p>Built by a former Director at Richemont, Adidas, and Nike — managing €150M P&amp;L across 26 countries. This is not theory.</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n">€150<sup>K</sup></div>
+      <div class="stat-tag">Invested in the Methodology</div>
+      <p>10 years of personal practice and mastery in the underlying timing system before a single line of code was written.</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n">3<sup>/3</sup></div>
+      <div class="stat-tag">Verified Outcomes</div>
+      <p>Three consecutive legal victories against a Fortune 500. One year's salary negotiated. All predicted and timed using this system.</p>
+    </div>
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method" id="method">
+  <div class="method-top">
+    <div class="side-label">Method</div>
+    <h2 class="reveal">Your strategic calendar,<br>derived from data<br><em>that predates the algorithm.</em></h2>
+  </div>
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-no">01</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M19.07 4.93l-2.83 2.83M7.76 16.24l-2.83 2.83"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>Your Unique Pattern</h3>
+        <p>Input your birth data — date, time, location. The AI maps your personal energy structure using Zi Wei Dou Shu, a strategic timing methodology with 600 years of empirical pattern data, used privately by Asian business leaders for generations.</p>
+      </div>
+      <div class="step-aside">Birth date · Time · Location<br><br>2 minutes to complete<br><br>No recurring astrology subscription.<br>One map. Used for a lifetime.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">02</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="1"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>Your 10-Year Strategic Map</h3>
+        <p>Receive a decade-level overview: which years favour expansion, which demand consolidation, which are your peak negotiation and leadership windows. Not a horoscope. Structured pattern analysis with domain-specific guidance.</p>
+      </div>
+      <div class="step-aside">Career · Partnerships · Wealth<br><br>Decade + annual layers<br><br>Delivered as a structured<br>strategic document.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">03</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>Monthly Decision Windows</h3>
+        <p>Each month, receive your optimal action windows: when to initiate negotiations, when to hire, when to launch publicly, when to close deals — and which periods require patience. Specific, not abstract. Actionable from day one.</p>
+      </div>
+      <div class="step-aside">Monthly alerts · Specific domains<br><br>Push notifications or<br>email digest — your choice.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PULLQUOTE IMAGE -->
+<div class="pullquote-wrap">
+  <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1600&q=80" alt="">
+  <div class="pullquote-text">
+    <blockquote>"I don't sell belief. I sell a system I tested on myself for 10 years — across legal battles, salary negotiations, and career transitions."</blockquote>
+    <cite>Olga Bressers &nbsp;—&nbsp; Founder, SuccessCode</cite>
+  </div>
+</div>
+
+<!-- FOUNDER -->
+<section class="founder-wrap" id="founder">
+  <div class="founder-left reveal">
+    <div class="founder-eyebrow">The Founder</div>
+    <h2>
+      20 years running<br>
+      operations. 10 years<br>
+      <em>mastering the system.</em>
+    </h2>
+    <p>Olga Bressers spent two decades as a Director at Richemont Luxury Group, Adidas, and Nike — managing €150M e-commerce P&amp;L, 12 luxury brands, and digital operations across 26 countries.</p>
+    <p>She began using strategic timing methodology for personal decisions in 2016. Over the following 10 years, she invested €150K in mastering the system — and documented consistent, verifiable results across every high-stakes moment.</p>
+    <div class="creds">
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Richemont Luxury Group</strong>
+          <span>Director, E-Commerce Operations · 12 luxury brands · 26 EU countries · €150M P&amp;L</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Adidas &amp; Nike</strong>
+          <span>Director, Omni-channel and Digital Commerce · European market transformation</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>TU/e — Technical University Eindhoven</strong>
+          <span>Professional doctorate, logistics &amp; supply chain systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="founder-right reveal">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=840&q=80" alt="">
+    <div class="founder-caption"><p>SuccessCode · Founded 2026</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="waitlist">
+  <h2 class="cta-left reveal">
+    Know when<br>
+    to move<br>
+    <em>before</em><br>
+    you move.
+  </h2>
+  <div class="cta-right reveal">
+    <p>SuccessCode launches Q3 2026. Join the waitlist for early access, founding member pricing, and your personal strategic overview — complimentary for the first 100 members.</p>
+    <div class="cta-fields" id="cta-form">
+      <input type="text"  class="cta-input" placeholder="Your name"          id="cta-name">
+      <input type="email" class="cta-input" placeholder="Your email address" id="cta-email">
+      <button class="cta-submit" onclick="joinList('cta')">Request Early Access</button>
+      <p class="cta-note">No spam. No sharing. Waitlist members receive first access and founding pricing.</p>
+    </div>
+    <p class="cta-done" id="cta-done">You're on the list.<br>We'll be in touch before the Q3 launch.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <small>© 2026 SuccessCode &nbsp;·&nbsp; successcode.net</small>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Steps stagger
+  const stepIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = [...document.querySelectorAll('.step')].indexOf(e.target);
+        setTimeout(() => e.target.classList.add('in'), i * 160);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.step').forEach(el => stepIo.observe(el));
+
+  // Waitlist submit
+  function joinList(src) {
+    const email = document.getElementById(src + (src === 'cta' ? '-email' : '-email')).value;
+    if (!email || !email.includes('@')) return;
+    if (src === 'hero') {
+      document.getElementById('hero-form').style.display = 'none';
+      document.getElementById('hero-done').style.display  = 'block';
+    } else {
+      document.getElementById('cta-form').style.display = 'none';
+      document.getElementById('cta-done').style.display  = 'block';
+    }
+  }
+</script>
+</body>
+</html>
