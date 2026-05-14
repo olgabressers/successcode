@@ -48,6 +48,7 @@
       color: #c0c2d4; text-decoration: none; transition: color .25s;
     }
     .nav-back:hover { color: #cfa44e; }
+    .nav-back-short { display: none; }
 
     /* ─── PROFILE HERO ────────────────────────────────── */
     .profile {
@@ -122,8 +123,8 @@
     .section-label::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
     .section-intro h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 3.5vw, 52px);
-      font-weight: 300; line-height: 1.15;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300; line-height: 1.1;
     }
     .section-intro h2 em { font-style: italic; color: var(--gold2); }
 
@@ -221,6 +222,11 @@
       padding: 56px 64px;
       display: flex; flex-direction: column; justify-content: center;
       background: var(--black);
+      border-left: 3px solid var(--border);
+    }
+    .project-row.flip .project-text {
+      border-left: none;
+      border-right: 3px solid var(--border);
     }
     .project-category {
       font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
@@ -329,6 +335,11 @@
     .contact-sent { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 20px; }
 
     /* ─── FOOTER ──────────────────────────────────────── */
+    .gold-rule {
+      height: 3px;
+      background: linear-gradient(to right, var(--gold) 0%, var(--gold2) 40%, transparent 100%);
+    }
+
     footer {
       padding: 36px 72px;
       display: flex; justify-content: space-between; align-items: center;
@@ -340,6 +351,12 @@
       color: var(--dim);
     }
     footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+    .footer-links { display: flex; gap: 24px; align-items: center; }
+    .footer-link {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+    }
+    .footer-link:hover { color: var(--gold2); }
 
     /* ─── MOBILE ──────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -385,6 +402,11 @@
 
       /* FOOTER */
       footer { padding: 24px 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-links { justify-content: center; }
+
+      /* NAV back — short on mobile */
+      .nav-back-full { display: none; }
+      .nav-back-short { display: inline; }
     }
   </style>
 </head>
@@ -392,7 +414,7 @@
 
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
-  <a href="/speedrun/" class="nav-back">SuccessCode.net/speedrun →</a>
+  <a href="/speedrun/" class="nav-back"><span class="nav-back-full">SuccessCode.net/speedrun →</span><span class="nav-back-short">speedrun →</span></a>
 </nav>
 
 <!-- PROFILE -->
@@ -418,6 +440,8 @@
     </div>
   </div>
 </section>
+
+<div class="gold-rule"></div>
 
 <!-- SECTION INTRO -->
 <div class="section-intro">
@@ -592,6 +616,10 @@
 
 <footer>
   <div class="footer-logo">SuccessCode</div>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="mailto:olga.bressers@gmail.com" class="footer-link">Email</a>
+  </div>
   <small>© 2026 Olga Bressers &nbsp;·&nbsp; successcode.net/founderportfolio</small>
 </footer>
 
