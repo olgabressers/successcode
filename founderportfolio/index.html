@@ -48,17 +48,12 @@
       color: var(--muted); text-decoration: none; transition: color .25s;
     }
     .nav-back:hover { color: var(--gold2); }
-    .nav-toggle {
-      display: none; flex-direction: column; justify-content: center; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 8px; margin: -8px;
-    }
-    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); transition: transform .25s, opacity .25s; }
 
     /* ─── PROFILE HERO ────────────────────────────────── */
     .profile {
       min-height: 100vh;
       display: grid;
-      grid-template-columns: 46% 1fr;
+      grid-template-columns: 44% 1fr;
     }
     .profile-img {
       position: relative; overflow: hidden;
@@ -66,11 +61,11 @@
     .profile-img img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: center top;
-      filter: brightness(.75) saturate(.85);
+      filter: brightness(.72) saturate(.85);
     }
     .profile-img::after {
       content: ''; position: absolute; inset: 0;
-      background: linear-gradient(to right, rgba(58,60,72,0) 60%, var(--black) 100%);
+      background: linear-gradient(to right, rgba(58,60,72,0) 55%, var(--black) 100%);
     }
     .profile-right {
       display: flex; flex-direction: column; justify-content: center;
@@ -96,16 +91,16 @@
     }
     .profile-bio {
       font-size: 16px; line-height: 1.85; color: var(--dim);
-      max-width: 460px; margin-bottom: 44px;
+      max-width: 460px; margin-bottom: 40px;
     }
     .profile-tags {
-      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 44px;
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
     }
     .profile-tag {
       font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
       color: var(--gold); border: 1px solid var(--border); padding: 6px 14px;
     }
-    .profile-links { display: flex; gap: 24px; }
+    .profile-links { display: flex; gap: 24px; flex-wrap: wrap; }
     .profile-link {
       font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
       color: var(--dim); text-decoration: none;
@@ -114,7 +109,7 @@
     }
     .profile-link:hover { color: var(--gold2); border-color: var(--gold2); }
 
-    /* ─── SECTION LABEL ───────────────────────────────── */
+    /* ─── SECTION INTRO ───────────────────────────────── */
     .section-intro {
       padding: 80px 72px 56px;
       border-top: 1px solid var(--border);
@@ -138,7 +133,7 @@
     .project-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      min-height: 420px;
+      min-height: 480px;
       border-top: 1px solid var(--border);
       opacity: 0; transform: translateY(28px);
       transition: opacity .8s ease, transform .8s ease;
@@ -146,44 +141,69 @@
     .project-row.in { opacity: 1; transform: translateY(0); }
     .project-row:last-child { border-bottom: 1px solid var(--border); }
 
-    /* odd rows: visual left, text right */
+    /* ── SCREENSHOT VISUAL ── */
     .project-visual {
-      background: var(--surface);
       position: relative; overflow: hidden;
-      display: flex; align-items: flex-end;
-      padding: 48px;
+      background: var(--surface2);
     }
-    .project-visual::before {
-      content: ''; position: absolute; inset: 0;
-      background: linear-gradient(135deg, rgba(184,144,58,0.06) 0%, transparent 60%);
+    .project-screenshot {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform .6s ease, filter .4s ease;
+      filter: brightness(.65) saturate(.9);
+      display: block;
     }
-    .project-visual-inner { position: relative; z-index: 1; }
-    .project-number {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 120px; font-weight: 300; line-height: 1;
-      color: rgba(184,144,58,0.12);
-      position: absolute; top: 24px; right: 32px;
+    .project-row:hover .project-screenshot {
+      transform: scale(1.03);
+      filter: brightness(.8) saturate(1);
+    }
+    .project-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(58,60,72,0.92) 0%, rgba(58,60,72,0.15) 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 40px 44px;
     }
     .project-name-large {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 3.5vw, 52px);
+      font-size: clamp(34px, 3.2vw, 50px);
       font-weight: 300; line-height: 1.1;
-      color: var(--white); margin-bottom: 16px;
+      color: var(--white); margin-bottom: 14px;
     }
     .project-name-large em { font-style: italic; color: var(--gold2); }
     .project-status {
       display: inline-block;
       font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
       font-weight: 600; padding: 5px 12px;
-      border: 1px solid var(--gold); color: var(--gold);
+      border: 1px solid; align-self: flex-start;
     }
-    .project-status.live { border-color: #4a8a4a; color: #7ac87a; }
-    .project-status.building { border-color: var(--gold); color: var(--gold2); }
-    .project-status.mvp { border-color: #4a6aaa; color: #8aabda; }
+    .project-status.live    { border-color: #4a8a4a; color: #7ac87a; }
+    .project-status.building{ border-color: var(--gold); color: var(--gold2); }
+    .project-status.mvp     { border-color: #4a6aaa; color: #8aabda; }
 
+    /* fallback dark panel (no screenshot) */
+    .project-visual.no-screenshot {
+      display: flex; align-items: flex-end; padding: 48px;
+    }
+    .project-visual.no-screenshot::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(184,144,58,0.07) 0%, transparent 60%);
+    }
+    .project-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 120px; font-weight: 300; line-height: 1;
+      color: rgba(184,144,58,0.10);
+      position: absolute; top: 16px; right: 24px; z-index: 0;
+    }
+    .project-visual.no-screenshot .project-visual-overlay {
+      position: relative; background: none;
+      padding: 0; z-index: 1;
+    }
+
+    /* ── TEXT SIDE ── */
     .project-text {
       padding: 56px 64px;
       display: flex; flex-direction: column; justify-content: center;
+      background: var(--black);
     }
     .project-category {
       font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
@@ -191,25 +211,25 @@
     }
     .project-text h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(24px, 2.5vw, 36px);
+      font-size: clamp(24px, 2.4vw, 34px);
       font-weight: 400; line-height: 1.2;
       color: var(--white); margin-bottom: 20px;
     }
     .project-text p {
       font-size: 15px; line-height: 1.85; color: var(--dim);
-      max-width: 420px; margin-bottom: 32px;
+      max-width: 420px; margin-bottom: 28px;
     }
     .project-meta {
       display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px;
+      padding-top: 20px; border-top: 1px solid var(--border);
     }
-    .project-meta-row {
-      display: flex; gap: 12px; align-items: baseline;
-    }
+    .project-meta-row { display: flex; gap: 12px; align-items: baseline; }
     .meta-key {
       font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--muted); font-weight: 600; min-width: 72px;
+      color: var(--muted); font-weight: 600; min-width: 72px; flex-shrink: 0;
     }
     .meta-val { font-size: 13px; color: var(--dim); line-height: 1.5; }
+    .project-links-row { display: flex; gap: 12px; flex-wrap: wrap; }
     .project-link {
       display: inline-block;
       font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
@@ -218,17 +238,15 @@
       text-decoration: none; transition: background .25s; align-self: flex-start;
     }
     .project-link:hover { background: var(--gold2); }
-    .project-link.secondary {
+    .project-link.ghost {
       background: transparent; color: var(--muted);
       border: 1px solid var(--border); padding: 11px 28px;
     }
-    .project-links-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .project-link.ghost:hover { border-color: var(--gold); color: var(--gold2); background: transparent; }
 
-    /* even rows flip columns */
+    /* flip: odd = screenshot left · even = screenshot right */
     .project-row.flip .project-visual { order: 2; }
     .project-row.flip .project-text   { order: 1; }
-    .project-row.flip .project-text { padding-left: 72px; }
-    .project-row.flip .project-visual { }
 
     /* ─── FOOTER ──────────────────────────────────────── */
     footer {
@@ -245,24 +263,17 @@
 
     /* ─── MOBILE ──────────────────────────────────────── */
     @media (max-width: 768px) {
-      nav { padding: 18px 24px; flex-wrap: wrap; }
-      .nav-toggle { display: flex; }
-
-      .profile { grid-template-columns: 1fr; min-height: auto; }
-      .profile-img { height: 60vw; min-height: 260px; }
+      nav { padding: 18px 24px; }
+      .profile { grid-template-columns: 1fr; }
+      .profile-img { height: 65vw; min-height: 280px; }
       .profile-img::after { background: linear-gradient(to bottom, transparent 40%, var(--black) 100%); }
       .profile-right { padding: 40px 24px 64px; }
-
       .section-intro { padding: 56px 24px 40px; }
-
       .project-row { grid-template-columns: 1fr; min-height: auto; }
       .project-row.flip .project-visual { order: 1; }
       .project-row.flip .project-text   { order: 2; }
-      .project-row.flip .project-text { padding-left: 24px; }
-      .project-visual { min-height: 220px; padding: 32px; }
+      .project-visual { min-height: 260px; }
       .project-text { padding: 40px 24px; }
-      .project-number { font-size: 80px; }
-
       footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
@@ -271,7 +282,7 @@
 
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
-  <a href="/" class="nav-back">← Back to SuccessCode</a>
+  <a href="/" class="nav-back">← SuccessCode</a>
 </nav>
 
 <!-- PROFILE -->
@@ -283,7 +294,7 @@
     <div class="profile-eyebrow">Founder Portfolio</div>
     <h1 class="profile-name">Olga<br>Bressers</h1>
     <p class="profile-title">Builder · Operator · Founder</p>
-    <p class="profile-bio">20 years running €150M P&L across Richemont, Adidas, Nike, and IBM. Now building AI products that translate complex pattern systems into tools people actually use. Every product below was built by hand — no team, no agency.</p>
+    <p class="profile-bio">20 years running €150M P&L across Richemont, Adidas, Nike, and IBM. Now building AI products that translate complex systems into tools people actually use. Every product below was built by hand.</p>
     <div class="profile-tags">
       <span class="profile-tag">E-Commerce</span>
       <span class="profile-tag">AI Products</span>
@@ -311,8 +322,10 @@
   <!-- 1 — SuccessCode -->
   <div class="project-row">
     <div class="project-visual">
-      <div class="project-number">01</div>
-      <div class="project-visual-inner">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://successcode.net/zwds/"
+           alt="SuccessCode Calculator">
+      <div class="project-visual-overlay">
         <div class="project-name-large">Success<em>Code</em></div>
         <span class="project-status building">Building · 2025–</span>
       </div>
@@ -320,15 +333,15 @@
     <div class="project-text">
       <div class="project-category">AI · Strategic Timing Platform</div>
       <h3>The first AI engine for personal strategic timing</h3>
-      <p>Translates 600 years of Zi Wei Dou Shu pattern science into a personal decision calendar. Tells you which decade you're in, which months to act, and exactly when your leverage is highest — across career, money, and relationships.</p>
+      <p>Translates 600 years of Zi Wei Dou Shu pattern science into a personal decision calendar — revealing which decade you're in, which months to act, and when your leverage is highest across career, money, and relationships.</p>
       <div class="project-meta">
-        <div class="project-meta-row"><span class="meta-key">Stack</span><span class="meta-val">Vanilla JS · HTML · GitHub Pages · Supabase (Phase 1)</span></div>
-        <div class="project-meta-row"><span class="meta-key">Market</span><span class="meta-val">$40B professional development · first timing layer</span></div>
+        <div class="project-meta-row"><span class="meta-key">Market</span><span class="meta-val">$40B professional development · zero timing layer exists today</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stack</span><span class="meta-val">Vanilla JS · GitHub Pages · Supabase (Phase 1)</span></div>
         <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Live calculator · user accounts in build</span></div>
       </div>
       <div class="project-links-row">
         <a href="https://successcode.net/zwds/" target="_blank" class="project-link">Live Calculator →</a>
-        <a href="https://successcode.net/" target="_blank" class="project-link secondary">Investor Page →</a>
+        <a href="https://successcode.net/" target="_blank" class="project-link ghost">Investor Page →</a>
       </div>
     </div>
   </div>
@@ -336,8 +349,10 @@
   <!-- 2 — TrendsOnFire -->
   <div class="project-row flip">
     <div class="project-visual">
-      <div class="project-number">02</div>
-      <div class="project-visual-inner">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://trendsonfire.com"
+           alt="TrendsOnFire">
+      <div class="project-visual-overlay">
         <div class="project-name-large">Trends<em>OnFire</em></div>
         <span class="project-status live">Live · 2025–</span>
       </div>
@@ -345,10 +360,10 @@
     <div class="project-text">
       <div class="project-category">AI · Market Intelligence</div>
       <h3>See what others miss</h3>
-      <p>AI-powered strategic market intelligence for senior leaders. Scans European retail, technology, supply chain, and finance to surface the trends that matter — before they become mainstream. Built for executives who need signal, not noise.</p>
+      <p>AI-powered strategic market intelligence for senior leaders. Surfaces the trends that matter — across European retail, technology, supply chain, and finance — before they become mainstream.</p>
       <div class="project-meta">
         <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">Senior executives · strategy teams · investors</span></div>
-        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Live and publishing · active user base</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Live and publishing · active readership</span></div>
       </div>
       <div class="project-links-row">
         <a href="https://trendsonfire.com" target="_blank" class="project-link">Visit TrendsOnFire →</a>
@@ -358,9 +373,9 @@
 
   <!-- 3 — AstroCRM -->
   <div class="project-row">
-    <div class="project-visual">
+    <div class="project-visual no-screenshot">
       <div class="project-number">03</div>
-      <div class="project-visual-inner">
+      <div class="project-visual-overlay">
         <div class="project-name-large">Astro<em>CRM</em></div>
         <span class="project-status mvp">MVP · Jun 2026</span>
       </div>
@@ -368,23 +383,23 @@
     <div class="project-text">
       <div class="project-category">SaaS · Practice Management</div>
       <h3>Client management built for astrology practitioners</h3>
-      <p>A CRM designed specifically for professional astrologers and Chinese Metaphysics practitioners. Stores client charts, session notes, and timing calendars in one place — so practitioners spend time on readings, not on spreadsheets.</p>
+      <p>A CRM designed for professional astrologers and Chinese Metaphysics practitioners. Stores client charts, session notes, and timing calendars in one place — so practitioners spend time reading, not managing spreadsheets.</p>
       <div class="project-meta">
         <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">ZWDS · Ba Zi · Western astrology practitioners</span></div>
         <div class="project-meta-row"><span class="meta-key">Model</span><span class="meta-val">Subscription SaaS</span></div>
         <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">In build · MVP launch June 2026</span></div>
       </div>
       <div class="project-links-row">
-        <span class="project-link secondary" style="cursor:default;">Coming June 2026</span>
+        <span class="project-link ghost" style="cursor:default; opacity:.6;">Coming June 2026</span>
       </div>
     </div>
   </div>
 
   <!-- 4 — Beste Slaap Advies -->
   <div class="project-row flip">
-    <div class="project-visual">
+    <div class="project-visual no-screenshot">
       <div class="project-number">04</div>
-      <div class="project-visual-inner">
+      <div class="project-visual-overlay">
         <div class="project-name-large">Beste Slaap<em>Advies</em></div>
         <span class="project-status live">Live</span>
       </div>
@@ -392,7 +407,7 @@
     <div class="project-text">
       <div class="project-category">Content · Health &amp; Wellness</div>
       <h3>Evidence-based sleep guidance for Dutch audiences</h3>
-      <p>A Dutch-language platform delivering practical, science-backed sleep advice. Built to serve a gap in the Dutch wellness market — where most sleep content is either too clinical or too generic to be actionable.</p>
+      <p>A Dutch-language platform delivering practical, science-backed sleep advice. Built to fill a gap in the Dutch wellness market — where most sleep content is either too clinical or too generic to act on.</p>
       <div class="project-meta">
         <div class="project-meta-row"><span class="meta-key">Market</span><span class="meta-val">Dutch-language health &amp; wellness</span></div>
         <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Live</span></div>
@@ -402,16 +417,15 @@
 
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-logo">SuccessCode</div>
-  <small>© 2026 Olga Bressers &nbsp;·&nbsp; successcode.net/founder</small>
+  <small>© 2026 Olga Bressers &nbsp;·&nbsp; successcode.net/founderportfolio</small>
 </footer>
 
 <script>
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-  }, { threshold: 0.08 });
+  }, { threshold: 0.06 });
   document.querySelectorAll('.project-row').forEach(el => io.observe(el));
 </script>
 </body>
