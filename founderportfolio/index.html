@@ -158,7 +158,7 @@
       color: #eceef8; border-bottom-color: rgba(212,214,232,0.18);
     }
     .contact-section .contact-input::placeholder,
-    .contact-section .contact-textarea::placeholder { color: #c0c2d4; }
+    .contact-section .contact-textarea::placeholder { color: #c0c2d4; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
     .contact-section .contact-select { color: #c0c2d4; }
     .contact-section .contact-select:focus { color: #eceef8; }
     .contact-section .contact-sent { color: #b8903a; }
@@ -314,7 +314,7 @@
       font-family: 'Inter', sans-serif;
       transition: border-color .25s;
     }
-    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); }
+    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
     .contact-input:focus, .contact-select:focus, .contact-textarea:focus { border-bottom-color: var(--gold); }
     .contact-select { color: var(--muted); appearance: none; cursor: pointer; }
     .contact-select option { background: var(--surface); color: var(--white); }
@@ -543,18 +543,18 @@
   </div>
   <div class="contact-right">
     <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
-      <input class="contact-input" type="text"  placeholder="Name *"    required>
-      <input class="contact-input" type="text"  placeholder="Company">
-      <input class="contact-input" type="email" placeholder="Email *"   required>
+      <input class="contact-input" type="text"  placeholder="NAME *"    required>
+      <input class="contact-input" type="text"  placeholder="COMPANY">
+      <input class="contact-input" type="email" placeholder="EMAIL *"   required>
       <select class="contact-select">
-        <option value="" disabled selected>Inquiry type</option>
+        <option value="" disabled selected>INQUIRY TYPE</option>
         <option>Investment / Partnership</option>
         <option>Advisory</option>
         <option>Speaking</option>
         <option>Product feedback</option>
         <option>Other</option>
       </select>
-      <textarea class="contact-textarea" placeholder="Message *" rows="4" required></textarea>
+      <textarea class="contact-textarea" placeholder="MESSAGE *" rows="4" required></textarea>
       <button type="submit" class="contact-submit">Send Message →</button>
     </form>
     <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
