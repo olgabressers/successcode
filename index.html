@@ -517,6 +517,109 @@
     /* ─── REVEAL ─────────────────────────────────────────── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
     .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── HAMBURGER ───────────────────────────────────────── */
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 8px; margin: -8px; z-index: 201;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); transition: transform .25s, opacity .25s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* NAV */
+      nav { padding: 18px 24px; flex-wrap: wrap; align-items: center; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        width: 100%; order: 3; padding: 8px 0;
+        border-top: 1px solid var(--border);
+        background: rgba(58,60,72,0.98);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { padding: 14px 0; font-size: 13px; letter-spacing: 2px; border-bottom: 1px solid rgba(184,144,58,0.12); }
+      .nav-btn { display: block; text-align: center; padding: 14px 0; margin-top: 8px; width: 100%; }
+
+      /* HERO */
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+      .hero-right { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .hero-right::before { background: linear-gradient(to bottom, rgba(58,60,72,0.45) 0%, rgba(58,60,72,0.97) 75%); }
+      .hero-left { padding: 120px 24px 80px; min-height: 100vh; justify-content: flex-end; }
+      .inline-form { max-width: 100%; }
+      .scroll-word { display: none; }
+
+      /* COMMON LAYOUT — side-label grids */
+      .manifesto, .stats-wrap, .pillars-section, .market-section {
+        grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px;
+      }
+      .manifesto { padding-top: 72px; padding-bottom: 72px; gap: 20px; }
+      .stats-wrap { gap: 20px; padding-bottom: 72px; }
+      .pillars-section { padding-bottom: 72px; gap: 20px; }
+      .market-section { padding-top: 72px; padding-bottom: 72px; gap: 20px; }
+      .side-label { writing-mode: horizontal-tb; font-size: 11px; margin-bottom: 4px; }
+      .stats-rule { grid-column: 1; margin-bottom: 40px; }
+
+      /* MANIFESTO */
+      .manifesto-cols { grid-template-columns: 1fr; gap: 20px; }
+
+      /* STATS */
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2) { padding-left: 0; }
+      .stat:last-child   { padding-left: 0; border-bottom: none; }
+
+      /* PILLARS */
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .pillar:nth-child(2) { padding-left: 0; }
+      .pillar:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
+
+      /* METHOD */
+      .method { padding: 72px 24px; }
+      .method-top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; padding-bottom: 32px; }
+      .step {
+        grid-template-columns: 64px 1fr;
+        grid-template-areas: "num num" "icon text";
+        gap: 12px 20px; padding: 40px 0;
+      }
+      .step-no   { grid-area: num; font-size: 64px; }
+      .step-icon { grid-area: icon; }
+      .step-text { grid-area: text; }
+      .step-aside { display: none; }
+
+      /* PULLQUOTE */
+      .pullquote-text { left: 24px; right: 24px; bottom: 28px; }
+
+      /* DEMO */
+      .demo-section { padding: 72px 24px 48px; }
+      .demo-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+      .demo-qualifiers { grid-template-columns: 1fr; }
+      .demo-q { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+      .demo-q:nth-child(2) { padding-left: 0; }
+      .demo-q:last-child   { padding-left: 0; border-bottom: none; }
+      .calc-iframe { height: 1300px; }
+
+      /* MARKET */
+      .market-h2 { margin-bottom: 40px; }
+      .market-grid { grid-template-columns: 1fr; }
+      .market-stat { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .market-stat:nth-child(2) { padding-left: 0; }
+      .market-stat:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
+      .market-thesis { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+
+      /* FOUNDER */
+      .founder-wrap { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
+      .founder-right img { aspect-ratio: 4 / 3; }
+
+      /* CTA */
+      .cta-section { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
+
+      /* FOOTER */
+      footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    }
   </style>
 </head>
 <body>
@@ -524,6 +627,9 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">SuccessCode</a>
+  <button class="nav-toggle" aria-label="Menu" onclick="toggleNav(this)">
+    <span></span><span></span><span></span>
+  </button>
   <div class="nav-links">
     <a href="#method" class="nav-link">Method</a>
     <a href="#demo" class="nav-link">Demo</a>
@@ -870,6 +976,18 @@
     });
   }, { threshold: 0.1 });
   document.querySelectorAll('.step').forEach(el => stepIo.observe(el));
+
+  // Mobile nav toggle
+  function toggleNav(btn) {
+    btn.classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-link, .nav-btn').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelector('.nav-toggle').classList.remove('open');
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
 
   // Waitlist submit
   function joinList(src) {
