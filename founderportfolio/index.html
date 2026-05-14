@@ -149,17 +149,17 @@
     .project-screenshot {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top center;
-      transition: transform .6s ease, filter .4s ease;
-      filter: brightness(.6) saturate(.9);
+      transition: transform .5s ease, filter .3s ease;
+      filter: brightness(.92) saturate(1);
       display: block;
     }
     .project-row:hover .project-screenshot {
-      transform: scale(1.03);
-      filter: brightness(.78) saturate(1);
+      transform: scale(1.02);
+      filter: brightness(1) saturate(1.05);
     }
     .project-visual-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(30,28,36,0.96) 0%, rgba(30,28,36,0.3) 50%, transparent 100%);
+      background: linear-gradient(to top, rgba(20,18,28,0.90) 0%, rgba(20,18,28,0.45) 28%, transparent 55%);
       display: flex; flex-direction: column; justify-content: flex-end;
       padding: 40px 44px;
     }
@@ -224,12 +224,73 @@
       border: 1px solid var(--border); padding: 11px 28px;
     }
     .project-link.ghost:hover { border-color: var(--gold); color: var(--gold2); background: transparent; }
-    .project-link.red { background: #b02020; }
-    .project-link.red:hover { background: #cc2828; }
+    .project-link.red { background: #6e1515; color: #e8d0d0; }
+    .project-link.red:hover { background: #7e1c1c; }
 
     /* flip: odd = screenshot left · even = screenshot right */
     .project-row.flip .project-visual { order: 2; }
     .project-row.flip .project-text   { order: 1; }
+
+    /* ─── CONTACT SECTION ────────────────────────────── */
+    .contact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 100px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+      align-items: start;
+    }
+    .contact-left {}
+    .contact-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .contact-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.8vw, 56px);
+      font-weight: 300; line-height: 1.1; margin-bottom: 36px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold2); }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-detail-body { display: flex; flex-direction: column; gap: 3px; padding-top: 6px; }
+    .contact-detail-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .contact-detail-val {
+      font-size: 14px; color: var(--dim); text-decoration: none; transition: color .2s;
+    }
+    .contact-detail-val:hover { color: var(--gold2); }
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 0; }
+    .contact-input, .contact-select, .contact-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(212,214,232,0.2);
+      font-size: 14px; color: var(--white);
+      padding: 16px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+    }
+    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); }
+    .contact-input:focus, .contact-select:focus, .contact-textarea:focus { border-bottom-color: var(--gold); }
+    .contact-select { color: var(--muted); appearance: none; cursor: pointer; }
+    .contact-select option { background: var(--surface); color: var(--white); }
+    .contact-textarea { resize: none; min-height: 100px; margin-top: 8px; }
+    .contact-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: #1a1408; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 16px 44px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .contact-submit:hover { background: var(--gold2); }
+    .contact-sent { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 20px; }
 
     /* ─── FOOTER ──────────────────────────────────────── */
     footer {
@@ -257,6 +318,7 @@
       .project-row.flip .project-text   { order: 2; }
       .project-visual { min-height: 260px; }
       .project-text { padding: 40px 24px; }
+      .contact-section { grid-template-columns: 1fr; padding: 64px 24px; gap: 48px; }
       footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
@@ -265,7 +327,7 @@
 
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
-  <a href="/" class="nav-back">← SuccessCode</a>
+  <a href="/speedrun/" class="nav-back">SuccessCode.net/speedrun →</a>
 </nav>
 
 <!-- PROFILE -->
@@ -283,12 +345,12 @@
       <span class="profile-tag">AI Products</span>
       <span class="profile-tag">Digital Transformation</span>
       <span class="profile-tag">Chinese Metaphysics</span>
-      <span class="profile-tag">Netherlands</span>
+      <span class="profile-tag">Consumer Focused</span>
     </div>
     <div class="profile-links">
       <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="profile-link">LinkedIn</a>
-      <a href="mailto:olga.bressers@gmail.com" class="profile-link">Email</a>
       <a href="https://trendsonfire.com" target="_blank" class="profile-link">TrendsOnFire</a>
+      <a href="#contact" class="profile-link">Contact</a>
     </div>
   </div>
 </section>
@@ -409,12 +471,73 @@
 
 </div>
 
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="contact-eyebrow">Get in Touch</div>
+    <h2>Let's talk about<br><em>what's next.</em></h2>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Email</span>
+          <a href="mailto:olga.bressers@gmail.com" class="contact-detail-val">olga.bressers@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Phone</span>
+          <a href="tel:+31647779797" class="contact-detail-val">+31 6 4777 9797</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-detail-val">linkedin.com/in/olgabressers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
+      <input class="contact-input" type="text"  placeholder="Name *"    required>
+      <input class="contact-input" type="text"  placeholder="Company">
+      <input class="contact-input" type="email" placeholder="Email *"   required>
+      <select class="contact-select">
+        <option value="" disabled selected>Inquiry type</option>
+        <option>Investment / Partnership</option>
+        <option>Advisory</option>
+        <option>Speaking</option>
+        <option>Product feedback</option>
+        <option>Other</option>
+      </select>
+      <textarea class="contact-textarea" placeholder="Message *" rows="4" required></textarea>
+      <button type="submit" class="contact-submit">Send Message →</button>
+    </form>
+    <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
+  </div>
+</section>
+
 <footer>
   <div class="footer-logo">SuccessCode</div>
   <small>© 2026 Olga Bressers &nbsp;·&nbsp; successcode.net/founderportfolio</small>
 </footer>
 
 <script>
+  function submitContact(e) {
+    e.preventDefault();
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('contact-sent').style.display = 'block';
+  }
+
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
   }, { threshold: 0.06 });
