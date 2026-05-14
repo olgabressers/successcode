@@ -596,10 +596,10 @@
   </div>
   <div class="contact-right">
     <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
-      <input class="contact-input" type="text"  placeholder="NAME *"    required>
-      <input class="contact-input" type="text"  placeholder="COMPANY">
-      <input class="contact-input" type="email" placeholder="EMAIL *"   required>
-      <select class="contact-select">
+      <input class="contact-input" type="text"  name="name"    placeholder="NAME *"    required>
+      <input class="contact-input" type="text"  name="company" placeholder="COMPANY">
+      <input class="contact-input" type="email" name="email"   placeholder="EMAIL *"   required>
+      <select class="contact-select" name="inquiry">
         <option value="" disabled selected>INQUIRY TYPE</option>
         <option>Investment / Partnership</option>
         <option>Advisory</option>
@@ -607,8 +607,8 @@
         <option>Product feedback</option>
         <option>Other</option>
       </select>
-      <textarea class="contact-textarea" placeholder="MESSAGE *" rows="4" required></textarea>
-      <button type="submit" class="contact-submit">Send Message →</button>
+      <textarea class="contact-textarea" name="message" placeholder="MESSAGE *" rows="4" required></textarea>
+      <button type="submit" class="contact-submit" id="contact-btn">Send Message →</button>
     </form>
     <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
   </div>
@@ -624,10 +624,31 @@
 </footer>
 
 <script>
-  function submitContact(e) {
+  async function submitContact(e) {
     e.preventDefault();
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('contact-sent').style.display = 'block';
+    const form = document.getElementById('contact-form');
+    const btn  = document.getElementById('contact-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xrejwqlq', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('contact-sent').style.display = 'block';
+      } else {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        alert('Something went wrong. Please email olga.bressers@gmail.com directly.');
+      }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email olga.bressers@gmail.com directly.');
+    }
   }
 
   const io = new IntersectionObserver(entries => {
