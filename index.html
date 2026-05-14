@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SuccessCode — Strategic Timing Intelligence</title>
+  <title>SuccessCode — Know Your Structural Advantage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black:    #070708;
-      --surface:  #0e0e11;
-      --surface2: #141418;
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
       --gold:     #b8903a;
       --gold2:    #cfa44e;
-      --gold-dim: rgba(184,144,58,0.12);
-      --white:    #f3ecdf;
-      --dim:      rgba(243,236,223,0.55);
-      --muted:    #52525c;
-      --border:   rgba(184,144,58,0.14);
+      --gold-dim: rgba(184,144,58,0.10);
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -36,24 +36,24 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       padding: 26px 56px;
       display: flex; justify-content: space-between; align-items: center;
-      background: linear-gradient(to bottom, rgba(7,7,8,0.95) 0%, transparent 100%);
+      background: linear-gradient(to bottom, rgba(58,60,72,0.98) 0%, rgba(58,60,72,0) 100%);
     }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 17px; font-weight: 600;
       letter-spacing: 5px; text-transform: uppercase;
-      color: var(--white); text-decoration: none;
+      color: var(--gold); text-decoration: none;
     }
     .nav-links { display: flex; gap: 44px; align-items: center; }
     .nav-link {
-      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--dim); text-decoration: none; transition: color .25s;
     }
     .nav-link:hover { color: var(--gold2); }
     .nav-btn {
-      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-      font-weight: 600; color: var(--black); background: var(--gold);
-      padding: 11px 26px; text-decoration: none; transition: background .25s;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 12px 26px; text-decoration: none; transition: background .25s;
     }
     .nav-btn:hover { background: var(--gold2); }
 
@@ -71,10 +71,10 @@
     }
     .hero-tag {
       display: flex; align-items: center; gap: 18px;
-      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 36px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px; font-weight: 600;
     }
-    .hero-tag::before { content: ''; width: 44px; height: 1px; background: var(--gold); }
+    .hero-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
     .hero-h1 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(72px, 8vw, 118px);
@@ -83,7 +83,7 @@
     }
     .hero-h1 em { font-style: italic; color: var(--gold2); }
     .hero-sub {
-      font-size: 14px; line-height: 1.75; color: var(--dim);
+      font-size: 16px; line-height: 1.75; color: var(--white);
       max-width: 380px; margin-top: 36px; margin-bottom: 52px;
     }
     .inline-form {
@@ -96,7 +96,7 @@
       font-size: 12px; letter-spacing: 1px; color: var(--white);
       padding: 14px 0; font-family: 'Inter', sans-serif;
     }
-    .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 10px; }
+    .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
     .inline-form button {
       background: transparent; border: none; cursor: pointer;
       font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
@@ -116,13 +116,13 @@
     }
     .hero-right::before {
       content: ''; position: absolute; inset: 0; z-index: 1;
-      background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+      background: linear-gradient(to right, var(--black) 0%, rgba(58,60,72,0) 50%);
     }
     .scroll-word {
       position: absolute; bottom: 48px; right: 0;
       writing-mode: vertical-rl;
-      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--dim); z-index: 3;
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: #f3ecdf; z-index: 3;
       display: flex; align-items: center; gap: 14px; padding-right: 32px;
     }
     .scroll-word::after { content: ''; width: 1px; height: 56px; background: var(--gold); }
@@ -134,8 +134,8 @@
       animation: slide 28s linear infinite;
     }
     .ticker-track span {
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--black); font-weight: 600; padding: 0 36px;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: #1c1814; font-weight: 600; padding: 0 36px;
     }
     .ticker-track span.dot { color: rgba(0,0,0,.35); padding: 0 8px; }
     @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
@@ -148,8 +148,8 @@
     }
     .side-label {
       writing-mode: vertical-rl; text-orientation: mixed;
-      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); padding-top: 6px;
+      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px; font-weight: 600;
     }
     .manifesto-body {}
     .manifesto-h2 {
@@ -164,7 +164,7 @@
       display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
       max-width: 780px;
     }
-    .manifesto-cols p { font-size: 14px; line-height: 1.85; color: var(--dim); }
+    .manifesto-cols p { font-size: 16px; line-height: 1.85; color: var(--white); }
 
     /* ─── STATS ─────────────────────────────────────────── */
     .stats-wrap {
@@ -188,9 +188,9 @@
       color: var(--white);
       margin-bottom: 16px;
     }
-    .stat-n sup { font-size: .42em; color: var(--gold); vertical-align: super; font-weight: 400; }
-    .stat-tag { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-    .stat p  { font-size: 13px; line-height: 1.8; color: var(--dim); }
+    .stat-n sup { font-size: .52em; color: var(--gold); vertical-align: baseline; font-weight: 600; }
+    .stat-tag { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 600; }
+    .stat p  { font-size: 15px; line-height: 1.8; color: var(--white); }
 
     /* ─── METHOD ─────────────────────────────────────────── */
     .method { background: var(--surface); padding: 148px 72px; }
@@ -219,22 +219,22 @@
     .step.in { opacity: 1; transform: translateY(0); }
     .step-no {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 88px; font-weight: 300; line-height: 1;
-      color: rgba(184,144,58,.18);
+      font-size: 88px; font-weight: 700; line-height: 1;
+      color: var(--gold);
     }
     .step-icon {
       width: 44px; height: 44px; margin-top: 6px;
       border: 1px solid var(--border);
       display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .step-icon svg { width: 18px; height: 18px; stroke: var(--gold); fill: none; stroke-width: 1.4; }
+    .step-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 2.2; }
     .step-text h3 {
       font-family: 'Cormorant Garamond', serif;
       font-size: 26px; font-weight: 400;
       color: var(--white); margin-bottom: 14px; line-height: 1.2;
     }
-    .step-text p { font-size: 14px; line-height: 1.8; color: var(--dim); max-width: 420px; }
-    .step-aside { font-size: 11px; line-height: 1.9; color: var(--muted); padding-top: 6px; }
+    .step-text p { font-size: 16px; line-height: 1.8; color: var(--white); max-width: 420px; }
+    .step-aside { font-size: 14px; line-height: 1.9; color: var(--gold); padding-top: 6px; }
 
     /* ─── PULLQUOTE IMAGE ───────────────────────────────── */
     .pullquote-wrap { height: 58vh; min-height: 400px; position: relative; overflow: hidden; }
@@ -249,12 +249,12 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(26px, 3vw, 46px);
       font-weight: 300; font-style: italic;
-      line-height: 1.3; color: var(--white); max-width: 780px;
+      line-height: 1.3; color: #f3ecdf; max-width: 780px;
     }
     .pullquote-text cite {
       display: block; margin-top: 24px;
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); font-style: normal;
+      font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+      color: #cfa44e; font-style: normal;
     }
 
     /* ─── DEMO ──────────────────────────────────────────── */
@@ -270,7 +270,7 @@
     }
     .demo-title em { font-style: italic; color: var(--gold2); }
     .demo-sub {
-      font-size: 14px; line-height: 1.85; color: var(--dim);
+      font-size: 16px; line-height: 1.85; color: var(--white);
       max-width: 520px; margin-top: 24px;
     }
     .demo-qualifiers {
@@ -291,7 +291,7 @@
       font-size: 28px; color: var(--gold);
       flex-shrink: 0; line-height: 1.1;
     }
-    .demo-q p { font-size: 13px; line-height: 1.8; color: var(--dim); }
+    .demo-q p { font-size: 15px; line-height: 1.8; color: var(--white); }
     .calc-frame-outer {
       border: 1px solid var(--border);
       border-top: 2px solid var(--gold);
@@ -306,27 +306,27 @@
     }
     .founder-left {}
     .founder-eyebrow {
-      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 32px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 32px; font-weight: 600;
       display: flex; align-items: center; gap: 18px;
     }
-    .founder-eyebrow::before { content: ''; width: 44px; height: 1px; background: var(--gold); }
+    .founder-eyebrow::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
     .founder-left h2 {
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(36px, 4vw, 58px);
       font-weight: 300; line-height: 1.12; margin-bottom: 36px;
     }
     .founder-left h2 em { font-style: italic; color: var(--gold2); }
-    .founder-left p { font-size: 14px; line-height: 1.85; color: var(--dim); margin-bottom: 20px; max-width: 520px; }
+    .founder-left p { font-size: 16px; line-height: 1.85; color: var(--white); margin-bottom: 20px; max-width: 520px; }
     .creds { margin-top: 44px; }
     .cred {
       display: flex; gap: 22px; align-items: flex-start;
       padding: 20px 0; border-bottom: 1px solid var(--border);
     }
     .cred:first-child { border-top: 1px solid var(--border); }
-    .cred-bar { width: 2px; flex-shrink: 0; height: auto; background: var(--gold); min-height: 18px; align-self: stretch; }
-    .cred-body strong { display: block; font-size: 13px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
-    .cred-body span { font-size: 12px; color: var(--dim); line-height: 1.6; }
+    .cred-bar { width: 3px; flex-shrink: 0; height: auto; background: var(--gold); min-height: 18px; align-self: stretch; }
+    .cred-body strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+    .cred-body span { font-size: 13px; color: var(--white); line-height: 1.6; }
     .founder-right { position: relative; }
     .founder-right img {
       width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
@@ -337,7 +337,7 @@
       padding: 28px 24px;
       background: linear-gradient(to top, rgba(7,7,8,.88), transparent);
     }
-    .founder-caption p { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); }
+    .founder-caption p { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #cfa44e; }
 
     /* ─── CTA ────────────────────────────────────────────── */
     .cta-section {
@@ -354,11 +354,11 @@
     }
     .cta-left h2 em { font-style: italic; color: var(--gold2); }
     .cta-right {}
-    .cta-right p { font-size: 14px; line-height: 1.8; color: var(--dim); margin-bottom: 44px; }
+    .cta-right p { font-size: 16px; line-height: 1.8; color: var(--white); margin-bottom: 44px; }
     .cta-fields { display: flex; flex-direction: column; gap: 0; }
     .cta-input {
       background: transparent; border: none; outline: none;
-      border-bottom: 1px solid rgba(243,236,223,.2);
+      border-bottom: 1px solid rgba(226,228,236,.20);
       font-size: 14px; color: var(--white);
       padding: 18px 0; width: 100%;
       font-family: 'Inter', sans-serif;
@@ -368,12 +368,12 @@
     .cta-input:focus { border-bottom-color: var(--gold); }
     .cta-submit {
       margin-top: 28px; align-self: flex-start;
-      background: var(--gold); color: var(--black); border: none; cursor: pointer;
+      background: var(--gold); color: #f5f1eb; border: none; cursor: pointer;
       font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
       padding: 18px 52px; font-family: 'Inter', sans-serif; transition: background .25s;
     }
     .cta-submit:hover { background: var(--gold2); }
-    .cta-note { font-size: 11px; color: var(--muted); margin-top: 18px; }
+    .cta-note { font-size: 13px; color: var(--muted); margin-top: 18px; }
     .cta-done { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 24px; line-height: 1.6; }
 
     /* ─── FOOTER ─────────────────────────────────────────── */
@@ -387,7 +387,132 @@
       font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
       color: var(--dim);
     }
-    footer small { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+    footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+
+    /* ─── FOUNDER EXTRAS ────────────────────────────────── */
+    .founder-expertise {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 36px; margin-bottom: 28px;
+    }
+    .founder-expertise span {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 7px 14px;
+    }
+    .founder-linkedin-btn {
+      display: inline-block;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+      border-bottom: 1px solid var(--gold); padding-bottom: 3px;
+      transition: color .2s;
+    }
+    .founder-linkedin-btn:hover { color: var(--gold2); }
+
+    /* ─── CONTACT DIRECT ─────────────────────────────────── */
+    .contact-direct {
+      margin-top: 52px; padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-direct-label {
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px; font-weight: 600;
+    }
+    .contact-links-col { display: flex; flex-direction: column; gap: 16px; }
+    .contact-link {
+      font-size: 15px; color: var(--dim); text-decoration: none;
+      display: flex; align-items: center; gap: 14px;
+      transition: color .2s;
+    }
+    .contact-link:hover { color: var(--white); }
+    .contact-link-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-link-icon svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+
+    /* ─── PILLARS ────────────────────────────────────────── */
+    .pillars-section {
+      padding: 0 72px 148px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .pillar {
+      padding: 64px 56px 64px 0;
+      border-right: 1px solid var(--border);
+    }
+    .pillar:nth-child(2) { padding-left: 56px; }
+    .pillar:last-child   { padding-left: 56px; padding-right: 0; border-right: none; }
+    .pillar-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: var(--gold2); margin-bottom: 24px;
+      letter-spacing: 4px; font-weight: 700; text-transform: uppercase;
+    }
+    .pillar h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 400; color: var(--white);
+      margin-bottom: 20px; line-height: 1.15;
+    }
+    .pillar p { font-size: 15px; line-height: 1.85; color: var(--white); }
+    .pillar .pillar-detail { font-size: 13px; line-height: 1.85; color: var(--gold); margin-top: 16px; }
+
+    /* ─── MARKET ──────────────────────────────────────────── */
+    .market-section {
+      background: var(--surface);
+      padding: 148px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+    .market-body {}
+    .market-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px;
+      margin-bottom: 80px;
+    }
+    .market-h2 em { font-style: italic; color: var(--gold2); }
+    .market-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 72px;
+    }
+    .market-stat { padding: 48px 56px 48px 0; border-right: 1px solid var(--border); }
+    .market-stat:nth-child(2) { padding-left: 56px; }
+    .market-stat:last-child   { padding-left: 56px; padding-right: 0; border-right: none; }
+    .market-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 5.5vw, 84px);
+      font-weight: 300; line-height: 1; color: var(--white); margin-bottom: 16px;
+    }
+    .market-n sup { font-size: .52em; color: var(--gold); vertical-align: baseline; font-weight: 600; }
+    .market-stat p { font-size: 15px; line-height: 1.8; color: var(--white); }
+    .market-thesis {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 64px;
+    }
+    .market-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 20px; display: block;
+    }
+    .market-thesis p { font-size: 15px; line-height: 1.85; color: var(--white); }
+    .investor-cta-btn {
+      display: inline-block;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600;
+      color: #f5f1eb; background: var(--gold);
+      padding: 18px 44px; text-decoration: none; transition: background .25s;
+    }
+    .investor-cta-btn:hover { background: var(--gold2); }
+
+    /* ─── METALLIC SHEEN ────────────────────────────────── */
+    .method, .demo-section, .cta-section {
+      background-image: linear-gradient(160deg, rgba(200,204,220,0.035) 0%, rgba(200,204,220,0) 45%);
+    }
+    .stats-wrap, .manifesto {
+      background-image: linear-gradient(160deg, rgba(200,204,220,0.022) 0%, rgba(200,204,220,0) 40%);
+    }
 
     /* ─── REVEAL ─────────────────────────────────────────── */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
@@ -403,23 +528,24 @@
     <a href="#method" class="nav-link">Method</a>
     <a href="#demo" class="nav-link">Demo</a>
     <a href="#founder" class="nav-link">Founder</a>
-    <a href="#waitlist" class="nav-btn">Request Access</a>
+    <a href="#investors" class="nav-link">Investors</a>
+    <a href="#waitlist" class="nav-btn">Get Early Access</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-tag">Strategic Decision Intelligence</div>
+    <div class="hero-tag">Structural Life Intelligence</div>
     <h1 class="hero-h1">
-      The Right<br>
-      Move at the<br>
-      <em>Right Time.</em>
+      You Were<br>
+      Born with a<br>
+      <em>Blueprint.</em>
     </h1>
-    <p class="hero-sub">An AI platform that maps your personal strategic calendar — telling you exactly when to negotiate, hire, launch, and pivot.</p>
+    <p class="hero-sub">SuccessCode decodes it. An AI platform built on 600 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
     <div class="inline-form" id="hero-form">
       <input type="email" placeholder="Your email address" id="hero-email">
-      <button onclick="joinList('hero')">Join Waitlist &rarr;</button>
+      <button onclick="joinList('hero')">Get Early Access &rarr;</button>
     </div>
     <p class="hero-success" id="hero-done">You're on the list. We'll be in touch.</p>
   </div>
@@ -432,33 +558,33 @@
 <!-- TICKER -->
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>Strategic Timing</span><span class="dot">·</span>
-    <span>Executive Intelligence</span><span class="dot">·</span>
-    <span>AI-Powered Decisions</span><span class="dot">·</span>
-    <span>600 Years of Pattern Data</span><span class="dot">·</span>
-    <span>Personal Strategic Calendar</span><span class="dot">·</span>
-    <span>Ancient Methodology</span><span class="dot">·</span>
-    <span>Strategic Timing</span><span class="dot">·</span>
-    <span>Executive Intelligence</span><span class="dot">·</span>
-    <span>AI-Powered Decisions</span><span class="dot">·</span>
-    <span>600 Years of Pattern Data</span><span class="dot">·</span>
-    <span>Personal Strategic Calendar</span><span class="dot">·</span>
-    <span>Ancient Methodology</span><span class="dot">·</span>
+    <span>Know Your Strengths</span><span class="dot">·</span>
+    <span>Own Your Decade</span><span class="dot">·</span>
+    <span>Move at the Right Time</span><span class="dot">·</span>
+    <span>600 Years of Pattern Science</span><span class="dot">·</span>
+    <span>Your Life Structure — Decoded</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
+    <span>Know Your Strengths</span><span class="dot">·</span>
+    <span>Own Your Decade</span><span class="dot">·</span>
+    <span>Move at the Right Time</span><span class="dot">·</span>
+    <span>600 Years of Pattern Science</span><span class="dot">·</span>
+    <span>Your Life Structure — Decoded</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
   </div>
 </div>
 
 <!-- MANIFESTO -->
 <section class="manifesto">
-  <div class="side-label">Manifesto</div>
+  <div class="side-label">The Problem</div>
   <div class="manifesto-body reveal">
     <h2 class="manifesto-h2">
-      You've spent your career<br>
-      optimizing <strong>what</strong> to do.<br>
-      Nobody told you <strong>when.</strong>
+      You've optimized<br>
+      <strong>what</strong> to do.<br>
+      No one told you <strong>when.</strong>
     </h2>
     <div class="manifesto-cols">
-      <p>Every major decision — a negotiation, a launch, a hire, a pivot — carries a timing dimension that strategy alone cannot capture. The world's most decisive leaders have always known this intuitively.</p>
-      <p>SuccessCode makes it precise. Using an AI engine built on Zi Wei Dou Shu — a 600-year Chinese strategic timing system used privately by business leaders across Asia for generations — we map your personal decision windows with a specificity no coach or consultant can match.</p>
+      <p>Every major decision — a salary negotiation, a career pivot, a launch, a legal battle — has two dimensions: strategy and timing. Every coaching platform, every advisor, every MBA programme focuses on strategy. Timing is treated as luck, intuition, or gut feeling. It is none of those things.</p>
+      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using a 600-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first AI engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
     </div>
   </div>
 </section>
@@ -469,19 +595,44 @@
   <div class="side-label">Proof</div>
   <div class="stats-grid reveal">
     <div class="stat">
-      <div class="stat-n">20<sup>yrs</sup></div>
-      <div class="stat-tag">Executive Experience</div>
-      <p>Built by a former Director at Richemont, Adidas, and Nike — managing €150M P&amp;L across 26 countries. This is not theory.</p>
+      <div class="stat-n">600<sup>yrs</sup></div>
+      <div class="stat-tag">Empirical Pattern Data</div>
+      <p>Zi Wei Dou Shu has been refined across six centuries of observation. It predates the algorithm — and outlasted every trend in personal development.</p>
     </div>
     <div class="stat">
       <div class="stat-n">€150<sup>K</sup></div>
-      <div class="stat-tag">Invested in the Methodology</div>
-      <p>10 years of personal practice and mastery in the underlying timing system before a single line of code was written.</p>
+      <div class="stat-tag">Invested Before Launch</div>
+      <p>The founder spent 10 years and €150,000 mastering the methodology on herself — using it to navigate every high-stakes move before building a single feature.</p>
     </div>
     <div class="stat">
-      <div class="stat-n">3<sup>/3</sup></div>
-      <div class="stat-tag">Verified Outcomes</div>
-      <p>Three consecutive legal victories against a Fortune 500. One year's salary negotiated. All predicted and timed using this system.</p>
+      <div class="stat-n">10<sup>yrs</sup></div>
+      <div class="stat-tag">Personal Validation Period</div>
+      <p>A decade of high-stakes decisions — salary negotiations, career pivots, strategic timing calls — all mapped using the system before a product was built. Every predicted window delivered.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS: WHAT YOU GET -->
+<section class="pillars-section">
+  <div class="side-label">What You Get</div>
+  <div class="pillars-grid reveal">
+    <div class="pillar">
+      <div class="pillar-no">I &nbsp;·&nbsp; Blueprint</div>
+      <h3>Your Innate Structural Advantage</h3>
+      <p>Your natural talents. Your optimal career domains. The industries and roles where your pattern has maximum structural leverage — and the ones quietly working against you.</p>
+      <p class="pillar-detail">Derived from your birth data, not from a questionnaire. Permanent and specific — this does not change as trends change. It is the map you were born with.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-no">II &nbsp;·&nbsp; Decade</div>
+      <h3>Your 10-Year Strategic Arc</h3>
+      <p>Which decade you are currently in. Whether it is structurally built for expansion, consolidation, transformation, or harvest. What your dominant domain is for the next 10 years.</p>
+      <p class="pillar-detail">Most people make decade-scale decisions without knowing which decade they are in. When your actions align with your arc, results compound. When they oppose it, even perfect strategy fails.</p>
+    </div>
+    <div class="pillar">
+      <div class="pillar-no">III &nbsp;·&nbsp; Timing</div>
+      <h3>Your Year and Month in Focus</h3>
+      <p>What this year is structurally optimised for: negotiation, expansion, visibility, relationships, money, or strategic patience. Updated annually. Specific to your pattern, not a general season.</p>
+      <p class="pillar-detail">This is where strategic intelligence becomes operational — specific enough to act on, structured enough to trust, and precise enough to plan around.</p>
     </div>
   </div>
 </section>
@@ -490,7 +641,7 @@
 <section class="method" id="method">
   <div class="method-top">
     <div class="side-label">Method</div>
-    <h2 class="reveal">Your strategic calendar,<br>derived from data<br><em>that predates the algorithm.</em></h2>
+    <h2 class="reveal">One input.<br>A lifetime of<br><em>structural clarity.</em></h2>
   </div>
   <div class="steps">
 
@@ -500,10 +651,10 @@
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M19.07 4.93l-2.83 2.83M7.76 16.24l-2.83 2.83"/></svg>
       </div>
       <div class="step-text">
-        <h3>Your Unique Pattern</h3>
-        <p>Input your birth data — date, time, location. The AI maps your personal energy structure using Zi Wei Dou Shu, a strategic timing methodology with 600 years of empirical pattern data, used privately by Asian business leaders for generations.</p>
+        <h3>One Input. Permanent Output.</h3>
+        <p>Date of birth, time, location. That's all. No quiz, no survey, no personality framework that changes with your mood. Your birth data encodes a fixed structural pattern — the AI reads it and produces a map that is permanently yours, across 12 domains of life.</p>
       </div>
-      <div class="step-aside">Birth date · Time · Location<br><br>2 minutes to complete<br><br>No recurring astrology subscription.<br>One map. Used for a lifetime.</div>
+      <div class="step-aside">Birth date · Time · Location<br><br>2 minutes to complete<br><br>One chart. Valid for a lifetime.<br>Updated annually for timing layers.</div>
     </div>
 
     <div class="step">
@@ -512,10 +663,10 @@
         <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="1"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
       </div>
       <div class="step-text">
-        <h3>Your 10-Year Strategic Map</h3>
-        <p>Receive a decade-level overview: which years favour expansion, which demand consolidation, which are your peak negotiation and leadership windows. Not a horoscope. Structured pattern analysis with domain-specific guidance.</p>
+        <h3>Your Decade — Identified.</h3>
+        <p>You are never in a neutral period. Right now, your chart is in a specific decade that is structurally built for one dominant domain. SuccessCode identifies it — and tells you whether your current strategy is running with your arc or against it. The difference is not marginal. It is the difference between effort that compounds and effort that drains.</p>
       </div>
-      <div class="step-aside">Career · Partnerships · Wealth<br><br>Decade + annual layers<br><br>Delivered as a structured<br>strategic document.</div>
+      <div class="step-aside">Career · Wealth · Relationships<br><br>Expansion vs. Consolidation<br><br>Decade + annual + monthly layers<br>delivered as a strategic document.</div>
     </div>
 
     <div class="step">
@@ -524,10 +675,10 @@
         <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
       </div>
       <div class="step-text">
-        <h3>Monthly Decision Windows</h3>
-        <p>Each month, receive your optimal action windows: when to initiate negotiations, when to hire, when to launch publicly, when to close deals — and which periods require patience. Specific, not abstract. Actionable from day one.</p>
+        <h3>Monthly Windows. Specific Actions.</h3>
+        <p>Each month has a structural quality for your specific pattern — a quality that favours negotiation, or launch, or hiring, or patience. SuccessCode turns that into a decision calendar. Not abstract seasons. Specific windows mapped to your individual structure and the domains that matter to you right now.</p>
       </div>
-      <div class="step-aside">Monthly alerts · Specific domains<br><br>Push notifications or<br>email digest — your choice.</div>
+      <div class="step-aside">Monthly precision alerts<br><br>Domain-specific guidance<br>(career · money · relationships)<br><br>Push notification or email digest.</div>
     </div>
 
   </div>
@@ -537,17 +688,50 @@
 <div class="pullquote-wrap">
   <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1600&q=80" alt="">
   <div class="pullquote-text">
-    <blockquote>"I don't sell belief. I sell a system I tested on myself for 10 years — across legal battles, salary negotiations, and career transitions."</blockquote>
+    <blockquote>"I didn't find this in a retreat. I found it when I needed to win — against a Fortune 500, in court, with no safety net. It worked every time. Then I built the platform."</blockquote>
     <cite>Olga Bressers &nbsp;—&nbsp; Founder, SuccessCode</cite>
   </div>
 </div>
+
+<!-- MARKET OPPORTUNITY -->
+<section class="market-section" id="investors">
+  <div class="side-label">For Investors</div>
+  <div class="market-body reveal">
+    <h2 class="market-h2">Building the timing layer<br>for a $40 billion market<br><em>that doesn't have one.</em></h2>
+    <div class="market-grid">
+      <div class="market-stat">
+        <div class="market-n">8<sup>B+</sup></div>
+        <p>Every person alive has a birth date, time, and location. Every one of them has a structural map. Most of them — outside of a narrow circle of Chinese Metaphysics professionals — have never seen it. That is the market.</p>
+      </div>
+      <div class="market-stat">
+        <div class="market-n">$40<sup>B</sup></div>
+        <p>The global professional development and coaching market — coaching platforms, advisory tools, self-optimisation apps. None of them have a timing layer. SuccessCode is building the first.</p>
+      </div>
+      <div class="market-stat">
+        <div class="market-n">$0</div>
+        <p>What currently exists in AI-native personal strategic timing for a Western audience. This is not a crowded category. It is an empty one.</p>
+      </div>
+    </div>
+    <div class="market-thesis">
+      <div>
+        <span class="market-label">The thesis</span>
+        <p>Every major decision-support platform — coaching, HR tech, career advisory, financial planning — will need a timing layer in the next decade. SuccessCode is building that layer, starting with the individual. The individual chart is the first product. The outcome data accumulated across thousands of users is the long-term moat — the first AI model that can predict when interventions land, across any domain of life.</p>
+      </div>
+      <div>
+        <span class="market-label">Why now</span>
+        <p>Three forces converge in 2025–2026: AI cost reduction makes per-user chart generation economically viable at scale for the first time; post-pandemic demand for personal agency frameworks has created mass-market appetite for individualised decision tools; and Western audiences are now receptive to non-Western methodologies at a scale that simply did not exist five years ago. Meditation apps, Ayurveda-adjacent wellness, TCM-derived products have all crossed over. The strategic timing vertical is next.</p>
+      </div>
+    </div>
+    <a href="mailto:olga.bressers@gmail.com" class="investor-cta-btn" target="_blank">Request Investor Briefing &rarr;</a>
+  </div>
+</section>
 
 <!-- DEMO CALCULATOR -->
 <section class="demo-section" id="demo">
   <div class="demo-header">
     <div class="side-label">The Engine</div>
     <div>
-      <h2 class="demo-title reveal">The analytical layer<br>beneath every executive<br><em>decision window.</em></h2>
+      <h2 class="demo-title reveal">The analytical layer<br>beneath every important<br><em>decision window.</em></h2>
       <p class="demo-sub reveal">Every person carries an invisible structural calendar — periods of maximum leverage, negotiation authority, and expansion that no coach or consultant has ever mapped for them. This engine surfaces it. Enter your birth data. Your personal intelligence map generates in seconds.</p>
     </div>
   </div>
@@ -575,12 +759,12 @@
   <div class="founder-left reveal">
     <div class="founder-eyebrow">The Founder</div>
     <h2>
-      20 years running<br>
-      operations. 10 years<br>
-      <em>mastering the system.</em>
+      An operator.<br>
+      Not a believer.<br>
+      <em>A track record.</em>
     </h2>
-    <p>Olga Bressers spent two decades as a Director at Richemont Luxury Group, Adidas, and Nike — managing €150M e-commerce P&amp;L, 12 luxury brands, and digital operations across 26 countries.</p>
-    <p>She began using strategic timing methodology for personal decisions in 2016. Over the following 10 years, she invested €150K in mastering the system — and documented consistent, verifiable results across every high-stakes moment.</p>
+    <p>Olga Bressers brings two rare disciplines to one platform: 20 years as a senior executive at Richemont, Adidas, Nike, and IBM — running €150M P&amp;L, 12 luxury brands, digital transformation across 26 countries — and 10 years of deep study in Chinese Metaphysics under leading Asian masters.</p>
+    <p>She built SuccessCode because she lived both sides. She used the system on herself for a decade, applying it to every high-stakes career decision, negotiation, and transition. Every predicted window delivered. Then she built the platform to make that same precision available to everyone.</p>
     <div class="creds">
       <div class="cred">
         <div class="cred-bar"></div>
@@ -599,28 +783,36 @@
       <div class="cred">
         <div class="cred-bar"></div>
         <div class="cred-body">
+          <strong>IBM</strong>
+          <span>Senior Supply Chain Consultant · 2006–2010</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
           <strong>TU/e — Technical University Eindhoven</strong>
           <span>Professional doctorate, logistics &amp; supply chain systems</span>
         </div>
       </div>
     </div>
+    <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="founder-linkedin-btn">View LinkedIn Profile &rarr;</a>
   </div>
   <div class="founder-right reveal">
-    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=840&q=80" alt="">
-    <div class="founder-caption"><p>SuccessCode · Founded 2026</p></div>
+    <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode">
+    <div class="founder-caption"><p>SuccessCode · Founded 2025</p></div>
   </div>
 </section>
 
 <!-- CTA -->
 <section class="cta-section" id="waitlist">
   <h2 class="cta-left reveal">
-    Know when<br>
-    to move<br>
-    <em>before</em><br>
-    you move.
+    Your blueprint.<br>
+    Your decade.<br>
+    Your timing.<br>
+    <em>All of it — yours.</em>
   </h2>
   <div class="cta-right reveal">
-    <p>SuccessCode launches Q3 2026. Early access is reserved for senior leaders and strategic decision-makers operating at scale. Founding members receive a complimentary personal strategic overview — before the platform opens publicly.</p>
+    <p>SuccessCode launches Q3 2026. Founding members receive a complimentary personal strategic overview — your structural blueprint, your current decade analysis, and your timing map for the next 12 months. Before the platform opens publicly, and before founding pricing closes.</p>
     <div class="cta-fields" id="cta-form">
       <input type="text"  class="cta-input" placeholder="Your name"          id="cta-name">
       <input type="email" class="cta-input" placeholder="Your email address" id="cta-email">
@@ -628,13 +820,36 @@
       <p class="cta-note">No spam. No sharing. Waitlist members receive first access and founding pricing.</p>
     </div>
     <p class="cta-done" id="cta-done">You're on the list.<br>We'll be in touch before the Q3 launch.</p>
+    <div class="contact-direct">
+      <p class="contact-direct-label">Or reach out directly</p>
+      <div class="contact-links-col">
+        <a href="mailto:olga.bressers@gmail.com" class="contact-link">
+          <span class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          olga.bressers@gmail.com
+        </a>
+        <a href="tel:+31647779797" class="contact-link">
+          <span class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </span>
+          +31 6 4777 9797
+        </a>
+        <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-link">
+          <span class="contact-link-icon">
+            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </span>
+          linkedin.com/in/olgabressers
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">SuccessCode</div>
-  <small>© 2026 SuccessCode &nbsp;·&nbsp; successcode.net</small>
+  <small>© 2025 SuccessCode &nbsp;·&nbsp; successcode.net</small>
 </footer>
 
 <script>
