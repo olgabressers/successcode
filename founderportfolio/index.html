@@ -127,8 +127,44 @@
     }
     .section-intro h2 em { font-style: italic; color: var(--gold2); }
 
+    /* ─── DARK SECTION OVERRIDES ─────────────────────── */
+    .profile {
+      background: #3a3c48;
+    }
+    .profile .profile-name  { color: #eceef8; }
+    .profile .profile-bio   { color: #d4d6e8; }
+    .profile .profile-title { color: #cfa44e; }
+    .profile .profile-tag   { color: #b8903a; border-color: rgba(184,144,58,0.25); }
+    .profile .profile-link  { color: #d4d6e8; border-color: rgba(184,144,58,0.25); }
+    .profile .profile-link:hover { color: #cfa44e; border-color: #cfa44e; }
+    .profile-img::after {
+      background: linear-gradient(to right, rgba(58,60,72,0) 50%, rgba(58,60,72,1) 100%);
+    }
+    @media (max-width: 768px) {
+      .profile-img::after { background: linear-gradient(to bottom, rgba(58,60,72,0) 40%, rgba(58,60,72,1) 100%); }
+    }
+
+    .contact-section {
+      background: #3a3c48 !important;
+      border-top: 1px solid rgba(184,144,58,0.25);
+    }
+    .contact-section .contact-left h2  { color: #eceef8; }
+    .contact-section .contact-detail-val   { color: #d4d6e8; }
+    .contact-section .contact-detail-label { color: #c0c2d4; }
+    .contact-section .contact-detail-val:hover { color: #cfa44e; }
+    .contact-section .contact-input,
+    .contact-section .contact-select,
+    .contact-section .contact-textarea {
+      color: #eceef8; border-bottom-color: rgba(212,214,232,0.18);
+    }
+    .contact-section .contact-input::placeholder,
+    .contact-section .contact-textarea::placeholder { color: #c0c2d4; }
+    .contact-section .contact-select { color: #c0c2d4; }
+    .contact-section .contact-select:focus { color: #eceef8; }
+    .contact-section .contact-sent { color: #b8903a; }
+
     /* ─── PROJECT ROWS ────────────────────────────────── */
-    .projects { padding: 0 0 120px; }
+    .projects { padding: 0; }
 
     .project-row {
       display: grid;
@@ -310,7 +346,7 @@
       nav { padding: 18px 24px; }
       .profile { grid-template-columns: 1fr; }
       .profile-img { height: 65vw; min-height: 280px; }
-      .profile-img::after { background: linear-gradient(to bottom, rgba(248,246,241,0) 40%, rgba(248,246,241,1) 100%); }
+      .profile-img::after { background: linear-gradient(to bottom, rgba(58,60,72,0) 40%, rgba(58,60,72,1) 100%); }
       .profile-right { padding: 40px 24px 64px; }
       .section-intro { padding: 56px 24px 40px; }
       .project-row { grid-template-columns: 1fr; min-height: auto; }
