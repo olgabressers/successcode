@@ -610,7 +610,60 @@
       letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase;
     }
 
-    .method, .demo-section, .cta-section, .output-section {
+    /* ─── CONTACT SECTION ───────────────────────────────── */
+    .contact-section {
+      border-top: 1px solid var(--border);
+      padding: 100px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+      align-items: start;
+    }
+    .contact-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .contact-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.8vw, 56px);
+      font-weight: 300; line-height: 1.1; margin-bottom: 36px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold2); }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-detail-body { display: flex; flex-direction: column; gap: 3px; padding-top: 6px; }
+    .contact-detail-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .contact-detail-val { font-size: 14px; color: var(--dim); text-decoration: none; transition: color .2s; }
+    .contact-detail-val:hover { color: var(--gold2); }
+    .contact-form { display: flex; flex-direction: column; gap: 0; }
+    .contact-input, .contact-select, .contact-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(212,214,232,0.2);
+      font-size: 14px; color: var(--white);
+      padding: 16px 0; width: 100%;
+      font-family: 'Inter', sans-serif; transition: border-color .25s;
+    }
+    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+    .contact-input:focus, .contact-select:focus, .contact-textarea:focus { border-bottom-color: var(--gold); }
+    .contact-select { color: var(--muted); appearance: none; cursor: pointer; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+    .contact-select option { background: var(--surface); color: var(--white); }
+    .contact-textarea { resize: none; min-height: 100px; margin-top: 8px; }
+    .contact-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: #1a1408; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 16px 44px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .contact-submit:hover { background: var(--gold2); }
+    .contact-sent { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 20px; }
+
+    .method, .demo-section, .output-section {
       background-image: linear-gradient(160deg, rgba(200,204,220,0.035) 0%, rgba(200,204,220,0) 45%);
     }
     .stats-wrap, .manifesto {
@@ -754,7 +807,7 @@
     <a href="#demo" class="nav-link">Demo</a>
     <a href="#founder" class="nav-link">Founder</a>
     <a href="#investors" class="nav-link">Investors</a>
-    <a href="#waitlist" class="nav-btn">Get Early Access</a>
+    <a href="#contact" class="nav-btn">Get in Touch</a>
   </div>
 </nav>
 
@@ -1201,54 +1254,64 @@
         </div>
       </div>
     </div>
-    <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="founder-linkedin-btn">View LinkedIn Profile &rarr;</a>
-  </div>
-  <div class="founder-right reveal">
-    <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode">
-    <div class="founder-caption"><p>SuccessCode · Founded 2025</p></div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta-section" id="waitlist">
-  <h2 class="cta-left reveal">
-    Your blueprint.<br>
-    Your decade.<br>
-    Your timing.<br>
-    <em>All of it — yours.</em>
-  </h2>
-  <div class="cta-right reveal">
-    <p>SuccessCode launches Q3 2026. Founding members receive a complimentary personal strategic overview — your structural blueprint, your current decade analysis, and your timing map for the next 12 months. Before the platform opens publicly, and before founding pricing closes.</p>
-    <div class="cta-fields" id="cta-form">
-      <input type="text"  class="cta-input" placeholder="Your name"          id="cta-name">
-      <input type="email" class="cta-input" placeholder="Your email address" id="cta-email">
-      <button class="cta-submit" onclick="joinList('cta')">Request Early Access</button>
-      <p class="cta-note">No spam. No sharing. Waitlist members receive first access and founding pricing.</p>
-    </div>
-    <p class="cta-done" id="cta-done">You're on the list.<br>We'll be in touch before the Q3 launch.</p>
-    <div class="contact-direct">
-      <p class="contact-direct-label">Or reach out directly</p>
-      <div class="contact-links-col">
-        <a href="mailto:olga.bressers@gmail.com" class="contact-link">
-          <span class="contact-link-icon">
-            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </span>
-          olga.bressers@gmail.com
-        </a>
-        <a href="tel:+31647779797" class="contact-link">
-          <span class="contact-link-icon">
-            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-          </span>
-          +31 6 4777 9797
-        </a>
-        <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-link">
-          <span class="contact-link-icon">
-            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-          </span>
-          linkedin.com/in/olgabressers
-        </a>
+<!-- GET IN TOUCH -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="contact-eyebrow">Get in Touch</div>
+    <h2>Exploring investment<br>or <em>partnership</em> opportunities.</h2>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Email</span>
+          <a href="mailto:olga.bressers@gmail.com" class="contact-detail-val">olga.bressers@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Phone</span>
+          <a href="tel:+31647779797" class="contact-detail-val">+31 6 4777 9797</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-detail-val">linkedin.com/in/olgabressers</a>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="contact-right">
+    <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
+      <input class="contact-input" type="text"  name="name"    placeholder="NAME *"    required>
+      <input class="contact-input" type="text"  name="company" placeholder="COMPANY">
+      <input class="contact-input" type="email" name="email"   placeholder="EMAIL *"   required>
+      <select class="contact-select" name="inquiry">
+        <option value="" disabled selected>INQUIRY TYPE</option>
+        <option>Investment / Partnership</option>
+        <option>Advisory</option>
+        <option>Speaking</option>
+        <option>Product feedback</option>
+        <option>Other</option>
+      </select>
+      <textarea class="contact-textarea" name="message" placeholder="MESSAGE *" rows="4" required></textarea>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px;">
+        <button type="submit" class="contact-submit" id="contact-btn" style="margin-top:0;">Send Message →</button>
+        <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="project-link ghost" style="font-size:10px;letter-spacing:2px;">Connect on LinkedIn →</a>
+      </div>
+    </form>
+    <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
   </div>
 </section>
 
@@ -1288,6 +1351,32 @@
       document.querySelector('.nav-links').classList.remove('open');
     });
   });
+
+  // Contact form
+  async function submitContact(e) {
+    e.preventDefault();
+    const form = document.getElementById('contact-form');
+    const btn  = document.getElementById('contact-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xrejwqlq', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('contact-sent').style.display = 'block';
+      } else {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  }
 
   // Waitlist submit
   function joinList(src) {
