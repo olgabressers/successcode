@@ -318,13 +318,14 @@
     }
     .founder-left h2 em { font-style: italic; color: var(--gold2); font-size: clamp(13px, 1.4vw, 20px); letter-spacing: 0.5px; }
     .founder-left p { font-size: 16px; line-height: 1.85; color: var(--white); margin-bottom: 20px; max-width: 520px; }
-    .creds { margin-top: 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 0 48px; }
-    .creds-col { display: flex; flex-direction: column; }
+    .creds { margin-top: 44px; }
     .cred {
       display: flex; gap: 22px; align-items: flex-start;
       padding: 20px 0; border-bottom: 1px solid var(--border);
     }
-    .creds-col .cred:first-child { border-top: 1px solid var(--border); }
+    .cred:first-child { border-top: 1px solid var(--border); }
+    .founder-right-creds { margin-top: 8px; }
+    .founder-right-creds .cred:first-child { border-top: 1px solid var(--border); }
     .cred-bar { width: 3px; flex-shrink: 0; height: auto; background: var(--gold); min-height: 18px; align-self: stretch; }
     .cred-body strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
     .cred-body span { font-size: 13px; color: var(--white); line-height: 1.6; }
@@ -515,6 +516,22 @@
       padding: 18px 44px; text-decoration: none; transition: background .25s;
     }
     .investor-cta-btn:hover { background: var(--gold2); }
+
+    /* ─── LIGHT SECTION OVERRIDE ───────────────────────── */
+    .s-light {
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.20);
+      background: #f8f6f1;
+      color: #1e1c28;
+    }
 
     /* ─── METALLIC SHEEN ────────────────────────────────── */
     /* ─── OUTPUT DEMO CARDS ─────────────────────────────── */
@@ -795,7 +812,6 @@
       /* FOUNDER */
       .founder-wrap { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
       .founder-right img { aspect-ratio: 4 / 3; }
-      .creds { grid-template-columns: 1fr; }
 
       /* CTA */
       .cta-section { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
@@ -814,6 +830,7 @@
     <span></span><span></span><span></span>
   </button>
   <div class="nav-links">
+    <a href="#value" class="nav-link">Value</a>
     <a href="#method" class="nav-link">Method</a>
     <a href="#demo" class="nav-link">Demo</a>
     <a href="#investors" class="nav-link">Investors</a>
@@ -862,6 +879,22 @@
   </div>
 </div>
 
+<!-- VALUE / PROBLEM -->
+<section class="manifesto s-light" id="value">
+  <div class="side-label">The Problem</div>
+  <div class="manifesto-body reveal">
+    <h2 class="manifesto-h2">
+      High-stakes decisions.<br>
+      <strong>No personal</strong><br>
+      <strong>intelligence layer.</strong>
+    </h2>
+    <div class="manifesto-cols">
+      <p>Every person faces high-stakes decisions — career, partnerships, money, health, investments — with no personal decision or timing intelligence layer. They rely on generic advice, gut instinct, or consultants who don't know their specific profile. The result is preventable mistakes at the worst possible moments.</p>
+      <p>Zi Wei Dou Shu is an over 1,000-year-old mathematically derived system — used by emperors, built from precise birth data — that maps individual timing windows, risk periods, and winning angles. Not generic horoscopes. Structural personal intelligence, used by Eastern businesses for centuries. SuccessCode brings it to everyone, through AI.</p>
+    </div>
+  </div>
+</section>
+
 <!-- MANIFESTO -->
 <section class="manifesto">
   <div class="side-label">The Problem</div>
@@ -879,7 +912,7 @@
 </section>
 
 <!-- STATS -->
-<section class="stats-wrap">
+<section class="stats-wrap s-light">
   <div class="stats-rule"></div>
   <div class="side-label">Proof</div>
   <div class="stats-grid reveal">
@@ -927,7 +960,7 @@
 </section>
 
 <!-- METHOD -->
-<section class="method" id="method">
+<section class="method s-light" id="method">
   <div class="method-top">
     <div class="side-label">Method</div>
     <h2 class="reveal">One input.<br>A lifetime of<br><em>structural clarity.</em></h2>
@@ -1016,7 +1049,7 @@
 </section>
 
 <!-- DEMO CALCULATOR -->
-<section class="demo-section" id="demo">
+<section class="demo-section s-light" id="demo">
   <div class="demo-header">
     <div class="side-label">The Engine</div>
     <div>
@@ -1205,7 +1238,7 @@
 </section>
 
 <!-- FOUNDER -->
-<section class="founder-wrap" id="founder">
+<section class="founder-wrap s-light" id="founder">
   <div class="founder-left reveal">
     <div class="founder-eyebrow">The Founder</div>
     <h2>
@@ -1215,57 +1248,32 @@
     <p>Olga Bressers brings two rare disciplines to one platform: 20 years as a senior executive at Richemont, Adidas, Nike, and IBM — running €150M P&amp;L, 12 luxury brands, digital transformation across 26 countries — and 10 years of deep study in Chinese Metaphysics under leading Asian masters.</p>
     <p>She built SuccessCode because she lived both sides. She used the system on herself for a decade, applying it to every high-stakes career decision, negotiation, and transition. Tested methodology with 600+ clients. Every predicted window delivered. Then she built the platform to make that same precision available to everyone.</p>
     <div class="creds">
-      <div class="creds-col">
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>TrendsOnFire</strong>
-            <span>Founder &amp; Creator · AI-powered strategic market intelligence platform</span>
-          </div>
-        </div>
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>Richemont Luxury Group</strong>
-            <span>Director, E-Commerce Sales &amp; Operations · 12 luxury brands · 26 EU countries · €150M P&amp;L</span>
-          </div>
-        </div>
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>Adidas</strong>
-            <span>Director, Omni-channel and Digital Partner Commerce Strategy</span>
-          </div>
-        </div>
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>Nike</strong>
-            <span>Director, Digital Transformation · European Sporting Goods market</span>
-          </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>TrendsOnFire</strong>
+          <span>Founder &amp; Creator · AI-powered strategic market intelligence platform</span>
         </div>
       </div>
-      <div class="creds-col">
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>IBM</strong>
-            <span>Senior Supply Chain Consultant</span>
-          </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Richemont Luxury Group</strong>
+          <span>Director, E-Commerce Sales &amp; Operations · 12 luxury brands · 26 EU countries · €150M P&amp;L</span>
         </div>
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>TU/e — Technical University Eindhoven</strong>
-            <span>Professional doctorate, logistics &amp; supply chain systems Engineer</span>
-          </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Adidas</strong>
+          <span>Director, Omni-channel and Digital Partner Commerce Strategy</span>
         </div>
-        <div class="cred">
-          <div class="cred-bar"></div>
-          <div class="cred-body">
-            <strong>Saratov State University named after N.G.Chernyshevsky</strong>
-            <span>Master's Degree, Applied Mathematics</span>
-          </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Nike</strong>
+          <span>Director, Digital Transformation · European Sporting Goods market</span>
         </div>
       </div>
     </div>
@@ -1273,6 +1281,29 @@
   <div class="founder-right reveal">
     <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode">
     <div class="founder-caption"><p>SuccessCode · Founded 2025</p></div>
+    <div class="founder-right-creds">
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>IBM</strong>
+          <span>Senior Supply Chain Consultant</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>TU/e — Technical University Eindhoven</strong>
+          <span>Professional doctorate, logistics &amp; supply chain systems</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Saratov State University</strong>
+          <span>Master's Degree, Applied Mathematics</span>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
