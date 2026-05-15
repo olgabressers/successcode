@@ -507,7 +507,110 @@
     .investor-cta-btn:hover { background: var(--gold2); }
 
     /* ─── METALLIC SHEEN ────────────────────────────────── */
-    .method, .demo-section, .cta-section {
+    /* ─── OUTPUT DEMO CARDS ─────────────────────────────── */
+    .output-section {
+      padding: 148px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+    .output-intro-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px; margin-bottom: 20px;
+    }
+    .output-intro-h2 em { font-style: italic; color: var(--gold2); }
+    .output-intro-sub { font-size: 16px; line-height: 1.82; color: var(--dim); max-width: 560px; }
+    .output-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+    }
+    .output-card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column;
+    }
+    .output-card-q {
+      padding: 28px 32px 22px;
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid rgba(184,144,58,0.15);
+      background: rgba(184,144,58,0.04);
+    }
+    .output-card-q-label {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 12px;
+    }
+    .output-card-q-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--white); line-height: 1.3;
+    }
+    .output-card-a {
+      padding: 22px 32px 32px; flex: 1;
+      background: var(--surface2);
+    }
+    .output-card-a-label {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .output-card-a-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .output-card-a p { font-size: 13.5px; line-height: 1.82; color: var(--dim); }
+    .output-card-a strong { color: var(--gold2); font-weight: 600; }
+
+    /* ─── TIERS SECTION ──────────────────────────────────── */
+    .tiers-section {
+      background: var(--surface);
+      padding: 148px 72px;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .tiers-intro-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px; margin-bottom: 20px;
+    }
+    .tiers-intro-h2 em { font-style: italic; color: var(--gold2); }
+    .tiers-intro-sub { font-size: 16px; line-height: 1.82; color: var(--dim); max-width: 560px; }
+    .tiers-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      margin-top: 64px; border-top: 1px solid var(--border);
+    }
+    .tier {
+      padding: 48px 44px 48px 0;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+    }
+    .tier:nth-child(n+2) { padding-left: 44px; }
+    .tier:last-child { border-right: none; padding-right: 0; }
+    .tier-badge {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 20px;
+      border: 1px solid var(--border); padding: 4px 10px;
+      display: inline-block; align-self: flex-start;
+    }
+    .tier-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 400; color: var(--white);
+      line-height: 1.1; margin-bottom: 6px;
+    }
+    .tier-tagline { font-size: 13px; color: var(--gold2); margin-bottom: 28px; font-style: italic; }
+    .tier-features {
+      list-style: none; display: flex; flex-direction: column; gap: 10px;
+      margin-bottom: 32px; flex: 1;
+    }
+    .tier-features li {
+      font-size: 13px; line-height: 1.6; color: var(--dim);
+      padding-left: 16px; position: relative;
+    }
+    .tier-features li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .tier-price {
+      font-size: 12px; color: var(--gold);
+      border-top: 1px solid var(--border); padding-top: 20px;
+      letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase;
+    }
+
+    .method, .demo-section, .cta-section, .output-section {
       background-image: linear-gradient(160deg, rgba(200,204,220,0.035) 0%, rgba(200,204,220,0) 45%);
     }
     .stats-wrap, .manifesto {
@@ -610,6 +713,19 @@
       .market-stat:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
       .market-thesis { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
 
+      /* OUTPUT CARDS */
+      .output-section { grid-template-columns: 1fr; padding: 72px 24px; gap: 20px; }
+      .output-cards { grid-template-columns: 1fr; }
+      .output-card-q { padding: 22px 20px 18px; }
+      .output-card-a { padding: 18px 20px 28px; }
+
+      /* TIERS */
+      .tiers-section { grid-template-columns: 1fr; padding: 72px 24px; gap: 20px; }
+      .tiers-grid { grid-template-columns: 1fr; }
+      .tier { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .tier:nth-child(n+2) { padding-left: 0; }
+      .tier:last-child { border-bottom: none; }
+
       /* FOUNDER */
       .founder-wrap { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
       .founder-right img { aspect-ratio: 4 / 3; }
@@ -633,6 +749,7 @@
   <div class="nav-links">
     <a href="#method" class="nav-link">Method</a>
     <a href="#demo" class="nav-link">Demo</a>
+    <a href="#output" class="nav-link">Reports</a>
     <a href="#founder" class="nav-link">Founder</a>
     <a href="#investors" class="nav-link">Investors</a>
     <a href="#waitlist" class="nav-btn">Get Early Access</a>
@@ -857,6 +974,163 @@
   </div>
   <div class="calc-frame-outer reveal">
     <iframe src="/zwds/" class="calc-iframe" title="Zi Wei Dou Shu Chart Calculator" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- OUTPUT DEMO CARDS -->
+<section class="output-section" id="output">
+  <div class="side-label">Reports</div>
+  <div>
+    <h2 class="output-intro-h2 reveal">Real questions.<br><em>Structural answers.</em></h2>
+    <p class="output-intro-sub reveal">This is what SuccessCode delivers — not horoscopes, not personality types. Specific, structured responses to the decisions that define careers, capital, and life. Every answer is derived from your permanent structural map and the timing layer active in your current period. Below are six example question types and the form of output each produces.</p>
+    <div class="output-cards">
+
+      <!-- 1 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">What is my winning edge — and where am I wasting leverage?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your structural advantage is concentrated in <strong>high-stakes complexity</strong> — roles where others bring problems and you bring structure. Your mental palace carries a prestige-and-wealth configuration that performs best at the intersection of significant capital and significant systems. <strong>Optimal domains: financial leadership, premium markets, enterprise technology.</strong> Weakest structural domain: mass-market creative output. Your pattern says fewer bets, bigger stakes — breadth dilutes your structural leverage.</p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">When should I make my next major investment or capital move?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your wealth palace activates directly in Q2 2026 via annual cycle — a <strong>high-leverage window for capital deployment</strong>. Your current decade (2025–2034) carries a permanent authority channel in your network domain: cold deal-sourcing structurally outperforms warm referrals for you this entire arc. <strong>Best entry window: April–September 2026.</strong> Caution: real-asset positions initiated before January 2026 carry a friction signal — expect renegotiation. Plant in 2026, harvest in 2027.</p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">Should I take on a co-founder or build this alone?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your collaboration domain carries a <strong>decade-long friction marker (2025–2034)</strong> — equity partnerships entered in this arc have a structurally elevated probability of requiring dissolution. This is not a prohibition; it is a pattern. <strong>What works for your structure: contractual collaborators</strong> (agencies, advisors on retainer, contractors) outperform equity co-founders. Solo with a strong operator team is the higher-probability path this decade. If equity is unavoidable: document everything before commitment.</p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">What are my legal and regulatory risks this year?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>2026 carries a <strong>documentation friction signal</strong> in your Life palace — contracts and regulatory filings initiated in <strong>August–October 2026 carry a structurally elevated probability of requiring amendment.</strong> Protective action: close critical agreements before August or after October. Your chart also carries a permanent protection configuration — a noble-influence pattern that consistently surfaces the right advisor when legal pressure appears. The structural pattern is clear: pressure arrives, protection responds.</p>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">When is the best window to raise my next funding round?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your decade (2025–2034) carries a <strong>permanent international recognition channel</strong> — structurally your strongest period for outbound visibility to international audiences. 2026 activates a double authority signal on your network domain: <strong>cold outreach to investors you have no prior relationship with converts at unusually high rates this year.</strong> Structural window for first close: <strong>August–October 2026.</strong> Avoid initiating new investor relationships in Q1 2027 — your asset domain enters a friction period. Plant the seeds in 2026. Close in Q3.</p>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">I'm planning a major career move — what is my optimal timing?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your Career palace activates directly via the 2026 annual cycle — the <strong>same structural type that produced your strongest expansion years historically</strong> (every 12 years when this cycle returns). Your current decade reinforces this: your career palace sits in the dominant position of your decade arc. <strong>Peak window for a public move or offer acceptance: September–November 2026.</strong> Tactical note: June–July is your negotiation window — put terms on the table then. Sign in October. The sequence matters more than the month.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section class="tiers-section" id="plans">
+  <div class="side-label">Plans</div>
+  <div>
+    <h2 class="tiers-intro-h2 reveal">Four levels of<br>structural <em>intelligence.</em></h2>
+    <p class="tiers-intro-sub reveal">Every level starts from the same permanent structural map. What changes is the depth of timing, the specificity of the questions answered, and the speed of response — from a one-time blueprint to an always-on personal strategic intelligence system.</p>
+    <div class="tiers-grid reveal">
+
+      <div class="tier">
+        <div class="tier-badge">Basic</div>
+        <div class="tier-name">Blueprint</div>
+        <div class="tier-tagline">Know your structure</div>
+        <ul class="tier-features">
+          <li>Full natal chart analysis — 12 life domains mapped</li>
+          <li>Innate talent structure and winning domains identified</li>
+          <li>Career domain mapping — industries and roles where your pattern has maximum leverage</li>
+          <li>Decade identification — which arc you are in and what it is built for</li>
+          <li>Annual timing snapshot — what this year is structurally optimised for</li>
+          <li>Format: PDF report · 20–30 pages</li>
+        </ul>
+        <div class="tier-price">One-time · Personal</div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-badge">Full</div>
+        <div class="tier-name">Strategic Calendar</div>
+        <div class="tier-tagline">Know your timing</div>
+        <ul class="tier-features">
+          <li>Everything in Blueprint</li>
+          <li>Full 12-month timing calendar with monthly window quality by domain</li>
+          <li>Domain-specific guidance: career · wealth · relationships · property</li>
+          <li>Annual update: new timing layer generated each year</li>
+          <li>Decision alerts: push or email when a peak window opens</li>
+          <li>2 specific question reports per month</li>
+          <li>Format: PDF + dashboard + monthly digest</li>
+        </ul>
+        <div class="tier-price">Annual subscription · Personal</div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-badge">VIP</div>
+        <div class="tier-name">Decision Intelligence</div>
+        <div class="tier-tagline">Ask anything, anytime</div>
+        <ul class="tier-features">
+          <li>Everything in Strategic Calendar</li>
+          <li>Unlimited specific question reports — like the examples above</li>
+          <li>48-hour turnaround on custom questions</li>
+          <li>2 live strategy sessions per year</li>
+          <li>Major decision framing on demand: investment · hiring · launch · legal</li>
+          <li>Decade strategy brief: full 10-year arc priorities mapped</li>
+        </ul>
+        <div class="tier-price">Annual subscription · Personal</div>
+      </div>
+
+      <div class="tier">
+        <div class="tier-badge">Company</div>
+        <div class="tier-name">Executive Intelligence</div>
+        <div class="tier-tagline">Timing at the team level</div>
+        <ul class="tier-features">
+          <li>Structural mapping for founding team and key executives</li>
+          <li>Hiring timing: when your organisation is structurally ready to expand</li>
+          <li>Team dynamics: whose patterns complement, whose create friction</li>
+          <li>Quarterly strategic briefing: org-level timing and domain priorities</li>
+          <li>Board and investor relationship timing</li>
+          <li>Bespoke scoping and custom depth</li>
+        </ul>
+        <div class="tier-price">Custom pricing · Enterprise</div>
+      </div>
+
+    </div>
   </div>
 </section>
 
