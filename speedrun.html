@@ -6,6 +6,8 @@
   <title>SuccessCode — Know Your Structural Advantage</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg">
+  <link rel="preconnect" href="https://trendsonfire.com">
   <style>
     :root {
       --black:    #3a3c48;
@@ -86,25 +88,6 @@
       font-size: 16px; line-height: 1.75; color: var(--white);
       max-width: 380px; margin-top: 36px; margin-bottom: 52px;
     }
-    .inline-form {
-      display: flex; align-items: stretch;
-      max-width: 400px;
-      border-bottom: 1px solid var(--gold);
-    }
-    .inline-form input {
-      flex: 1; background: transparent; border: none; outline: none;
-      font-size: 12px; letter-spacing: 1px; color: var(--white);
-      padding: 14px 0; font-family: 'Inter', sans-serif;
-    }
-    .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
-    .inline-form button {
-      background: transparent; border: none; cursor: pointer;
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); padding: 14px 0 14px 24px;
-      font-family: 'Inter', sans-serif; transition: color .2s;
-    }
-    .inline-form button:hover { color: var(--gold2); }
-    .hero-success { display: none; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); padding: 14px 0; }
 
     .hero-right {
       position: relative; overflow: hidden;
@@ -455,17 +438,12 @@
     }
     .approach-block { padding: 52px 48px 56px; }
     .approach-block:first-child { border-right: 1px solid var(--border); }
-    .approach-heading { margin-bottom: 28px; }
-    .approach-big-word {
+    .approach-heading {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(52px, 5.5vw, 80px);
+      font-size: clamp(48px, 5vw, 76px);
       font-weight: 300; line-height: 1;
       color: var(--gold2); letter-spacing: 1px;
-      margin-bottom: 6px;
-    }
-    .approach-num-tag {
-      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600;
+      margin-bottom: 28px;
     }
     .approach-box {
       border: 1px solid var(--border);
@@ -474,19 +452,19 @@
     }
     .approach-box h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px; font-weight: 400; color: var(--white);
-      margin-bottom: 12px; line-height: 1.15;
+      font-size: 30px; font-weight: 400; color: var(--white);
+      margin-bottom: 14px; line-height: 1.15;
     }
-    .approach-box p { font-size: 14px; line-height: 1.82; color: var(--dim); }
-    .approach-examples { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .approach-box p { font-size: 16px; line-height: 1.82; color: var(--dim); }
+    .approach-examples { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     .approach-examples li {
-      font-size: 13.5px; line-height: 1.7; color: var(--dim);
-      padding-left: 18px; position: relative;
+      font-size: 16px; line-height: 1.75; color: var(--dim);
+      padding-left: 20px; position: relative;
     }
     .approach-examples li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
     .approach-examples strong { color: var(--gold2); font-weight: 600; }
     .approach-note {
-      font-size: 12px; color: var(--muted); font-style: italic;
+      font-size: 14px; color: var(--muted); font-style: italic;
       margin-top: 20px; line-height: 1.65;
     }
     .pillars-sublabel {
@@ -811,7 +789,7 @@
       .approach-grid { grid-template-columns: 1fr; }
       .approach-block:first-child { border-right: none; border-bottom: 1px solid var(--border); }
       .approach-block { padding: 40px 24px 44px; }
-      .approach-big-word { font-size: clamp(44px, 12vw, 64px); }
+      .approach-heading { font-size: clamp(40px, 10vw, 56px); }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
       .pillar:nth-child(2) { padding-left: 0; }
@@ -906,11 +884,6 @@
       <em>Blueprint.</em>
     </h1>
     <p class="hero-sub">SuccessCode decodes it. An AI platform built on over 1,000 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
-    <div class="inline-form" id="hero-form">
-      <input type="email" placeholder="Your email address" id="hero-email">
-      <button onclick="joinList('hero')">Get Early Access &rarr;</button>
-    </div>
-    <p class="hero-success" id="hero-done">You're on the list. We'll be in touch.</p>
   </div>
   <div class="hero-right">
     <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="">
@@ -998,10 +971,7 @@
 
     <div class="approach-grid reveal">
       <div class="approach-block">
-        <div class="approach-heading">
-          <div class="approach-big-word">Approach</div>
-          <div class="approach-num-tag">01</div>
-        </div>
+        <div class="approach-heading">Approach 01</div>
         <div class="approach-box">
           <h3>Question-Driven</h3>
           <p>Bring your specific decision. SuccessCode maps it against your structural pattern and active timing layers — delivering a structured answer calibrated to your situation and your current period.</p>
@@ -1018,10 +988,7 @@
         <p class="approach-note">Any important question a person is facing. A specific, structured answer — derived entirely from your unique map.</p>
       </div>
       <div class="approach-block">
-        <div class="approach-heading">
-          <div class="approach-big-word">Approach</div>
-          <div class="approach-num-tag">02</div>
-        </div>
+        <div class="approach-heading">Approach 02</div>
         <div class="approach-box">
           <h3>Pre-Defined Packages</h3>
           <p>Choose from structured report formats covering your core life domains — career, wealth, relationships, property, timing. Each package is derived from your permanent structural map and the timing layer active in your current period.</p>
@@ -1381,7 +1348,7 @@
   </div>
   <div class="founder-right reveal">
     <div class="founder-photo-wrap">
-      <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode">
+      <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode" fetchpriority="high">
       <div class="founder-caption"><p>SuccessCode · Founded 2025</p></div>
     </div>
     <div class="founder-right-creds">
