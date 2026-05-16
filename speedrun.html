@@ -36,20 +36,23 @@
     /* ─── NAV ──────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      padding: 26px 56px;
+      padding: 22px 56px;
       display: flex; justify-content: space-between; align-items: center;
-      background: linear-gradient(to bottom, rgba(58,60,72,0.98) 0%, rgba(58,60,72,0) 100%);
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
     }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 17px; font-weight: 600;
+      font-size: 18px; font-weight: 700;
       letter-spacing: 5px; text-transform: uppercase;
       color: var(--white); text-decoration: none;
     }
     .nav-links { display: flex; gap: 44px; align-items: center; }
     .nav-link {
       font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--dim); text-decoration: none; transition: color .25s;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; transition: color .25s;
     }
     .nav-link:hover { color: var(--gold2); }
     .nav-btn {
@@ -646,9 +649,9 @@
       border: 1px solid; padding: 5px 12px;
       display: inline-block; align-self: flex-start;
     }
-    .phase-status.live   { color: #72b882; border-color: rgba(114,184,130,0.4); }
-    .phase-status.inbuild { color: var(--gold); border-color: var(--border); }
-    .phase-status.planned { color: var(--muted); border-color: rgba(192,194,212,0.25); }
+    .phase-status.live    { color: #1a3a22; background: #72b882; border-color: #72b882; }
+    .phase-status.inbuild { color: #2a1800; background: var(--gold); border-color: var(--gold); }
+    .phase-status.planned { color: var(--white); background: transparent; border-color: var(--muted); }
     .phase-title {
       font-family: 'Cormorant Garamond', serif;
       font-size: 30px; font-weight: 400; color: var(--white);
@@ -1117,6 +1120,54 @@
   </div>
 </section>
 
+<!-- ROADMAP / PHASES -->
+<section class="tiers-section" id="plans">
+  <div class="side-label">Roadmap</div>
+  <div>
+    <h2 class="tiers-intro-h2 reveal" style="color:var(--gold)">Three phases.</h2>
+    <div class="phases-grid reveal">
+
+      <div class="phase">
+        <div class="phase-n">01</div>
+        <div class="phase-status live">Live</div>
+        <div class="phase-title">Calculator &amp; Foundation</div>
+        <ul class="phase-items">
+          <li>Live ZWDS calculator at successcode.net — full chart generation from birth data</li>
+          <li>Model foundation established</li>
+          <li>User accounts in build</li>
+        </ul>
+        <div class="phase-timeline">Foundation · Live Now</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-n">02</div>
+        <div class="phase-status inbuild">In Build</div>
+        <div class="phase-title">AI Interpretation Layer</div>
+        <ul class="phase-items">
+          <li>Chart reading AI model</li>
+          <li>Personalised recommendation reports</li>
+          <li>Question-answer interface over your chart</li>
+          <li>Annual, decade, and lifetime timing layers</li>
+        </ul>
+        <div class="phase-timeline">Target · Q3 2026</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-n">03</div>
+        <div class="phase-status planned">Planned</div>
+        <div class="phase-title">Consumer Launch</div>
+        <ul class="phase-items">
+          <li>Consumer subscriptions — Blueprint · Full · VIP · Company</li>
+          <li>Target 500+ subscribers</li>
+          <li>International market activation</li>
+        </ul>
+        <div class="phase-timeline">Target · Q4 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- DEMO CALCULATOR -->
 <section class="demo-section s-light" id="demo">
   <div class="demo-header">
@@ -1253,55 +1304,6 @@
 
   <div class="calc-frame-outer reveal">
     <iframe src="/zwds" class="calc-iframe" title="Zi Wei Dou Shu Chart Calculator" loading="lazy"></iframe>
-  </div>
-</section>
-
-<!-- ROADMAP / PHASES -->
-<section class="tiers-section" id="plans">
-  <div class="side-label">Roadmap</div>
-  <div>
-    <h2 class="tiers-intro-h2 reveal">Three phases.<br><em>Clear milestones.</em></h2>
-    <p class="tiers-intro-sub reveal">What is live, what is in build, and what comes next — for investors and early partners tracking progress.</p>
-    <div class="phases-grid reveal">
-
-      <div class="phase">
-        <div class="phase-n">01</div>
-        <div class="phase-status live">Live</div>
-        <div class="phase-title">Calculator &amp; Foundation</div>
-        <ul class="phase-items">
-          <li>Live ZWDS calculator at successcode.net — full chart generation from birth data</li>
-          <li>Model foundation established</li>
-          <li>User accounts in build</li>
-        </ul>
-        <div class="phase-timeline">Foundation · Live Now</div>
-      </div>
-
-      <div class="phase">
-        <div class="phase-n">02</div>
-        <div class="phase-status inbuild">In Build</div>
-        <div class="phase-title">AI Interpretation Layer</div>
-        <ul class="phase-items">
-          <li>Chart reading AI model</li>
-          <li>Personalised recommendation reports</li>
-          <li>Question-answer interface over your chart</li>
-          <li>Annual, decade, and lifetime timing layers</li>
-        </ul>
-        <div class="phase-timeline">Target · Q3 2026</div>
-      </div>
-
-      <div class="phase">
-        <div class="phase-n">03</div>
-        <div class="phase-status planned">Planned</div>
-        <div class="phase-title">Consumer Launch</div>
-        <ul class="phase-items">
-          <li>Consumer subscriptions — Blueprint · Full · VIP · Company</li>
-          <li>Target 500+ subscribers</li>
-          <li>International market activation</li>
-        </ul>
-        <div class="phase-timeline">Target · Q4 2026</div>
-      </div>
-
-    </div>
   </div>
 </section>
 
