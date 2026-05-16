@@ -148,7 +148,7 @@
     }
     .side-label {
       writing-mode: vertical-rl; text-orientation: mixed;
-      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 18px; letter-spacing: 5px; text-transform: uppercase;
       color: var(--gold); padding-top: 6px; font-weight: 600;
     }
     .manifesto-body {}
@@ -453,21 +453,32 @@
       display: grid; grid-template-columns: 1fr 1fr;
       border: 1px solid var(--border);
     }
-    .approach-block { padding: 44px 44px 48px; }
+    .approach-block { padding: 52px 48px 56px; }
     .approach-block:first-child { border-right: 1px solid var(--border); }
-    .approach-tag {
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; margin-bottom: 16px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .approach-tag::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
-    .approach-block h3 {
+    .approach-heading { margin-bottom: 28px; }
+    .approach-big-word {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; font-weight: 400; color: var(--white);
-      margin-bottom: 14px; line-height: 1.15;
+      font-size: clamp(52px, 5.5vw, 80px);
+      font-weight: 300; line-height: 1;
+      color: var(--gold2); letter-spacing: 1px;
+      margin-bottom: 6px;
     }
-    .approach-block > p { font-size: 14px; line-height: 1.82; color: var(--dim); }
-    .approach-examples { list-style: none; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .approach-num-tag {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    .approach-box {
+      border: 1px solid var(--border);
+      padding: 28px 32px 30px; margin-bottom: 28px;
+      background: rgba(0,0,0,0.14);
+    }
+    .approach-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400; color: var(--white);
+      margin-bottom: 12px; line-height: 1.15;
+    }
+    .approach-box p { font-size: 14px; line-height: 1.82; color: var(--dim); }
+    .approach-examples { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     .approach-examples li {
       font-size: 13.5px; line-height: 1.7; color: var(--dim);
       padding-left: 18px; position: relative;
@@ -479,8 +490,8 @@
       margin-top: 20px; line-height: 1.65;
     }
     .pillars-sublabel {
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--muted); font-weight: 600; padding-bottom: 0;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
     }
     .pillars-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
@@ -777,7 +788,7 @@
       .stats-wrap { gap: 20px; padding-bottom: 72px; }
       .pillars-section { padding-bottom: 72px; gap: 20px; }
       .market-section { padding-top: 72px; padding-bottom: 72px; gap: 20px; }
-      .side-label { writing-mode: horizontal-tb; font-size: 11px; margin-bottom: 4px; }
+      .side-label { writing-mode: horizontal-tb; font-size: 13px; margin-bottom: 8px; letter-spacing: 3px; }
       .stats-rule { grid-column: 1; margin-bottom: 40px; }
 
       /* MANIFESTO */
@@ -792,7 +803,8 @@
       /* PILLARS */
       .approach-grid { grid-template-columns: 1fr; }
       .approach-block:first-child { border-right: none; border-bottom: 1px solid var(--border); }
-      .approach-block { padding: 36px 28px 40px; }
+      .approach-block { padding: 40px 24px 44px; }
+      .approach-big-word { font-size: clamp(44px, 12vw, 64px); }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
       .pillar:nth-child(2) { padding-left: 0; }
@@ -870,8 +882,8 @@
   <div class="nav-links">
     <a href="#value" class="nav-link">Value</a>
     <a href="#method" class="nav-link">Method</a>
-    <a href="#demo" class="nav-link">Demo</a>
     <a href="#investors" class="nav-link">Investors</a>
+    <a href="#demo" class="nav-link">Demo</a>
     <a href="#founder" class="nav-link">Founder</a>
     <a href="#contact" class="nav-btn">Get in Touch</a>
   </div>
@@ -919,7 +931,7 @@
 
 <!-- VALUE / PROBLEM -->
 <section class="manifesto s-light" id="value">
-  <div class="side-label">The Problem</div>
+  <div class="side-label">Value · The Problem</div>
   <div class="manifesto-body reveal">
     <h2 class="manifesto-h2">
       High-stakes decisions.<br>
@@ -935,7 +947,7 @@
 
 <!-- MANIFESTO -->
 <section class="manifesto">
-  <div class="side-label">The Problem</div>
+  <div class="side-label">Value · The Problem</div>
   <div class="manifesto-body reveal">
     <h2 class="manifesto-h2">
       You've optimized<br>
@@ -952,7 +964,7 @@
 <!-- STATS -->
 <section class="stats-wrap s-light">
   <div class="stats-rule"></div>
-  <div class="side-label">Proof</div>
+  <div class="side-label">Value · Proof</div>
   <div class="stats-grid reveal">
     <div class="stat">
       <div class="stat-n">1,000<sup>+yrs</sup></div>
@@ -974,14 +986,19 @@
 
 <!-- THREE PILLARS: WHAT YOU GET -->
 <section class="pillars-section">
-  <div class="side-label">What You Get</div>
+  <div class="side-label">Value · What You Get</div>
   <div class="pillars-content">
 
     <div class="approach-grid reveal">
       <div class="approach-block">
-        <div class="approach-tag">Approach 01</div>
-        <h3>Question-Driven</h3>
-        <p>Bring your specific decision. SuccessCode maps it against your structural pattern and active timing layers — delivering a structured answer calibrated to your situation and your current period.</p>
+        <div class="approach-heading">
+          <div class="approach-big-word">Approach</div>
+          <div class="approach-num-tag">01</div>
+        </div>
+        <div class="approach-box">
+          <h3>Question-Driven</h3>
+          <p>Bring your specific decision. SuccessCode maps it against your structural pattern and active timing layers — delivering a structured answer calibrated to your situation and your current period.</p>
+        </div>
         <ul class="approach-examples">
           <li>What is my optimal timing window for a job search this year?</li>
           <li>Should I take this co-founder or build alone?</li>
@@ -991,12 +1008,17 @@
           <li>What is my structural edge — and where am I wasting leverage?</li>
           <li>When should I make my next major investment or capital move?</li>
         </ul>
-        <p class="approach-note">Any strategic question. A specific, structured answer — derived entirely from your unique map.</p>
+        <p class="approach-note">Any important question a person is facing. A specific, structured answer — derived entirely from your unique map.</p>
       </div>
       <div class="approach-block">
-        <div class="approach-tag">Approach 02</div>
-        <h3>Pre-Defined Packages</h3>
-        <p>Choose from structured report formats covering your core life domains — career, wealth, relationships, property, timing. Each package is derived from your permanent structural map and the timing layer active in your current period.</p>
+        <div class="approach-heading">
+          <div class="approach-big-word">Approach</div>
+          <div class="approach-num-tag">02</div>
+        </div>
+        <div class="approach-box">
+          <h3>Pre-Defined Packages</h3>
+          <p>Choose from structured report formats covering your core life domains — career, wealth, relationships, property, timing. Each package is derived from your permanent structural map and the timing layer active in your current period.</p>
+        </div>
         <ul class="approach-examples">
           <li><strong>Blueprint</strong> — Full natal map, 12 domains, innate edge, decade identification</li>
           <li><strong>Strategic Calendar</strong> — 12-month timing map with monthly window quality by domain</li>
