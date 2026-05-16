@@ -540,6 +540,58 @@
     }
     .investor-cta-btn:hover { background: var(--gold2); }
 
+    /* ─── REVENUE PROJECTION ────────────────────────────── */
+    .revenue-projection {
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .rev-eyebrow {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; display: block; margin-bottom: 36px;
+    }
+    .pricing-boxes {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid var(--border); margin-bottom: 40px;
+    }
+    .pricing-box {
+      padding: 22px 24px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .pricing-box:last-child { border-right: none; }
+    .pricing-tier {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 10px;
+    }
+    .pricing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3vw, 42px); font-weight: 300;
+      color: var(--gold2); line-height: 1; margin-bottom: 8px;
+    }
+    .pricing-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .rev-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--border);
+    }
+    .rev-col {
+      padding: 28px 32px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .rev-col:last-child { border-right: none; }
+    .rev-year {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 12px;
+    }
+    .rev-subs { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .rev-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px); font-weight: 300;
+      color: var(--white); line-height: 1;
+    }
+    .rev-assumption {
+      font-size: 11px; color: var(--muted); font-style: italic;
+      margin-top: 16px; line-height: 1.65;
+    }
+
     /* ─── LIGHT SECTION OVERRIDE ───────────────────────── */
     .s-light {
       --black:    #f8f6f1;
@@ -1113,6 +1165,50 @@
         <p>Three forces converge in 2025–2026: AI cost reduction makes per-user chart generation economically viable at scale for the first time; post-pandemic demand for personal agency frameworks has created mass-market appetite for individualised decision tools; and Western audiences are now receptive to non-Western methodologies at a scale that simply did not exist five years ago. Meditation apps, Ayurveda-adjacent wellness, TCM-derived products have all crossed over. The strategic timing vertical is next.</p>
       </div>
     </div>
+
+    <div class="revenue-projection reveal">
+      <span class="rev-eyebrow">Projected Revenue</span>
+      <div class="pricing-boxes">
+        <div class="pricing-box">
+          <div class="pricing-tier">Basic</div>
+          <div class="pricing-price">€49</div>
+          <div class="pricing-desc">One-time report</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Single Question</div>
+          <div class="pricing-price">€99</div>
+          <div class="pricing-desc">Per question</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Annual Analysis</div>
+          <div class="pricing-price">€199</div>
+          <div class="pricing-desc">Annual subscription</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Corporate</div>
+          <div class="pricing-price">€5,000</div>
+          <div class="pricing-desc">Team / Enterprise</div>
+        </div>
+      </div>
+      <div class="rev-grid">
+        <div class="rev-col">
+          <div class="rev-year">2026</div>
+          <div class="rev-subs">100 subscribers</div>
+          <div class="rev-amount">€33K</div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-year">2027</div>
+          <div class="rev-subs">500 subscribers · 5× growth</div>
+          <div class="rev-amount">€167K</div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-year">2028</div>
+          <div class="rev-subs">2,000 subscribers · 4× growth</div>
+          <div class="rev-amount">€668K</div>
+        </div>
+      </div>
+      <p class="rev-assumption">Mix assumed: 50% Basic · 30% Single Q · 15% Annual · 5% Corporate. Conservative scenario; excludes repeat purchases and upsell.</p>
+    </div>
   </div>
 </section>
 
@@ -1224,15 +1320,15 @@
         </div>
       </div>
 
-      <!-- 4 — Health Risks -->
+      <!-- 4 — Capital Deployment Timing -->
       <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
-        <div style="padding:26px 30px 20px; border-top:2px solid #7a2020; border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c05050;font-weight:600;margin-bottom:10px;">Question to SuccessCode — Health</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">What are the structural health risks in my current decade — and in 2026 specifically?</div>
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">I am about to deploy capital into major new ventures and real-asset positions. What does my structural timing say — when do I commit, and when do I wait?</div>
         </div>
         <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:#c05050;display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
-          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your current decade (2021–2030) is structurally health-dominant — the decade's focal energy sits directly in the health domain for the entire arc. Three concurrent risk indicators are active: a <strong style="color:#e07070;">200%-strength cardiovascular and circulatory obstacle signal</strong>, a latent-pattern indicator (conditions that develop below detection thresholds and surface suddenly), and a chronic-overextension signal driven by sustained high-pressure operation. 2026 triples this activation — it is the <strong style="color:#e07070;">peak health-risk year of the decade</strong>. The same domain also carries a systematic institutional-protection indicator — the structural support is available when actively sought. The risk is not seeking it. Highest-risk window: <strong style="color:#e07070;">September–October 2026.</strong></p>
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your wealth domain in 2026 carries a <strong style="color:var(--gold2);">double-authority configuration</strong> — both the decade layer and the annual layer send power signals into your financial and asset domain simultaneously. This is the strongest capital-deployment window of your current decade. <strong style="color:var(--gold2);">Optimal commitment window: Q2–Q3 2026</strong> — positions initiated in this range carry the highest structural probability of conversion to long-term gain. Caution: Q4 2026 through Q1 2027 introduces a friction signal in the asset domain — initiating new positions in this window tends toward renegotiation cycles and delayed settlement. Strategy: <strong style="color:var(--gold2);">commit before September 2026.</strong> Q2 2027 opens a second consolidation window for positions already seeded.</p>
         </div>
       </div>
 
