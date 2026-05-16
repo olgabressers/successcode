@@ -259,25 +259,21 @@
       font-size: 16px; line-height: 1.85; color: var(--white);
       max-width: 520px; margin-top: 24px;
     }
-    .demo-qualifiers {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      margin-bottom: 48px;
+    .demo-reading-intro {
       border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
+      padding-top: 56px; margin-bottom: 48px;
     }
-    .demo-q {
-      padding: 32px 44px 32px 0;
-      border-right: 1px solid var(--border);
-      display: flex; gap: 18px; align-items: flex-start;
-    }
-    .demo-q:nth-child(2) { padding-left: 44px; }
-    .demo-q:last-child { border-right: none; padding-left: 44px; padding-right: 0; }
-    .demo-q-marker {
+    .demo-reading-h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; color: var(--gold);
-      flex-shrink: 0; line-height: 1.1;
+      font-size: clamp(38px, 4.5vw, 64px);
+      font-weight: 300; line-height: 1.12;
+      margin-bottom: 20px;
     }
-    .demo-q p { font-size: 15px; line-height: 1.8; color: var(--white); }
+    .demo-reading-h2 em { font-style: italic; color: var(--gold2); }
+    .demo-reading-sub {
+      font-size: 16px; line-height: 1.82; color: var(--white);
+      max-width: 640px;
+    }
     .calc-frame-outer {
       border: 1px solid var(--border);
       border-top: 2px solid var(--gold);
@@ -1132,7 +1128,7 @@
         <div class="phase-status live">Live</div>
         <div class="phase-title">Calculator &amp; Foundation</div>
         <ul class="phase-items">
-          <li>Live ZWDS calculator at successcode.net — full chart generation from birth data</li>
+          <li>Live ZWDS calculator at successcode.net/zwds — full chart generation from birth data</li>
           <li>Model foundation established</li>
           <li>User accounts in build</li>
         </ul>
@@ -1177,21 +1173,11 @@
       <p class="demo-sub reveal">Every person carries an invisible structural calendar — periods of maximum leverage, negotiation authority, and expansion that no coach or consultant has ever mapped for them. This engine surfaces it. Enter your birth data. Your personal intelligence map generates in seconds.</p>
     </div>
   </div>
-  <div class="demo-qualifiers reveal">
-    <div class="demo-q">
-      <span class="demo-q-marker">—</span>
-      <p>Your peak negotiation windows — the months when leverage structurally favours your position.</p>
-    </div>
-    <div class="demo-q">
-      <span class="demo-q-marker">—</span>
-      <p>Your expansion periods — when to launch, hire, and move publicly versus when to consolidate.</p>
-    </div>
-    <div class="demo-q">
-      <span class="demo-q-marker">—</span>
-      <p>Your decade map — the structural arc of the next 10 years, domain by domain.</p>
-    </div>
-  </div>
   <!-- TRUMP CASE STUDY CARDS -->
+  <div class="demo-reading-intro reveal">
+    <h2 class="demo-reading-h2">Demo — analytical reading<br>from chart <em>and calculator.</em></h2>
+    <p class="demo-reading-sub">The calculator is the backbone. Every answer below is generated entirely from structured birth data — no interpretation layer added by hand. This is what SuccessCode produces from a single input.</p>
+  </div>
   <div style="margin-bottom: 48px;" class="reveal">
     <div style="display:flex; align-items:center; gap:18px; margin-bottom:28px; padding-top:24px; border-top:1px solid var(--border);">
       <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;">Case Study — Public Chart</span>
