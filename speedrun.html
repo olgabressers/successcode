@@ -448,6 +448,40 @@
       padding: 0 72px 60px;
       display: grid; grid-template-columns: 180px 1fr; gap: 80px;
     }
+    .pillars-content { display: flex; flex-direction: column; gap: 56px; }
+    .approach-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+    }
+    .approach-block { padding: 44px 44px 48px; }
+    .approach-block:first-child { border-right: 1px solid var(--border); }
+    .approach-tag {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .approach-tag::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .approach-block h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 400; color: var(--white);
+      margin-bottom: 14px; line-height: 1.15;
+    }
+    .approach-block > p { font-size: 14px; line-height: 1.82; color: var(--dim); }
+    .approach-examples { list-style: none; margin: 22px 0 0; display: flex; flex-direction: column; gap: 10px; }
+    .approach-examples li {
+      font-size: 13.5px; line-height: 1.7; color: var(--dim);
+      padding-left: 18px; position: relative;
+    }
+    .approach-examples li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .approach-examples strong { color: var(--gold2); font-weight: 600; }
+    .approach-note {
+      font-size: 12px; color: var(--muted); font-style: italic;
+      margin-top: 20px; line-height: 1.65;
+    }
+    .pillars-sublabel {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; padding-bottom: 0;
+    }
     .pillars-grid {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
       border-top: 1px solid var(--border);
@@ -756,6 +790,9 @@
       .stat:last-child   { padding-left: 0; border-bottom: none; }
 
       /* PILLARS */
+      .approach-grid { grid-template-columns: 1fr; }
+      .approach-block:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .approach-block { padding: 36px 28px 40px; }
       .pillars-grid { grid-template-columns: 1fr; }
       .pillar { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
       .pillar:nth-child(2) { padding-left: 0; }
@@ -868,13 +905,13 @@
     <span>Know Your Strengths</span><span class="dot">·</span>
     <span>Own Your Decade</span><span class="dot">·</span>
     <span>Move at the Right Time</span><span class="dot">·</span>
-    <span>600 Years of Pattern Science</span><span class="dot">·</span>
+    <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
     <span>Your Life Structure — Decoded</span><span class="dot">·</span>
     <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
     <span>Know Your Strengths</span><span class="dot">·</span>
     <span>Own Your Decade</span><span class="dot">·</span>
     <span>Move at the Right Time</span><span class="dot">·</span>
-    <span>600 Years of Pattern Science</span><span class="dot">·</span>
+    <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
     <span>Your Life Structure — Decoded</span><span class="dot">·</span>
     <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
   </div>
@@ -907,7 +944,7 @@
     </h2>
     <div class="manifesto-cols">
       <p>Every major decision — a salary negotiation, a career pivot, a launch, a legal battle — has two dimensions: strategy and timing. Every coaching platform, every advisor, every MBA programme focuses on strategy. Timing is treated as luck, intuition, or gut feeling. It is none of those things.</p>
-      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using a 600-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first AI engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
+      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using an over 1,000-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first AI engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
     </div>
   </div>
 </section>
@@ -918,9 +955,9 @@
   <div class="side-label">Proof</div>
   <div class="stats-grid reveal">
     <div class="stat">
-      <div class="stat-n">600<sup>yrs</sup></div>
+      <div class="stat-n">1,000<sup>+yrs</sup></div>
       <div class="stat-tag">Empirical Pattern Data</div>
-      <p>Zi Wei Dou Shu has been refined across six centuries of observation. It predates the algorithm — and outlasted every trend in personal development.</p>
+      <p>Zi Wei Dou Shu has been refined across over ten centuries of observation. It predates the algorithm — and outlasted every trend in personal development.</p>
     </div>
     <div class="stat">
       <div class="stat-n">€150<sup>K</sup></div>
@@ -938,25 +975,60 @@
 <!-- THREE PILLARS: WHAT YOU GET -->
 <section class="pillars-section">
   <div class="side-label">What You Get</div>
-  <div class="pillars-grid reveal">
-    <div class="pillar">
-      <div class="pillar-no">I &nbsp;·&nbsp; Blueprint</div>
-      <h3>Your Innate Structural Advantage</h3>
-      <p>Your natural talents. Your optimal career domains. The industries and roles where your pattern has maximum structural leverage — and the ones quietly working against you.</p>
-      <p class="pillar-detail">Derived from your birth data, not from a questionnaire. Permanent and specific — this does not change as trends change. It is the map you were born with.</p>
+  <div class="pillars-content">
+
+    <div class="approach-grid reveal">
+      <div class="approach-block">
+        <div class="approach-tag">Approach 01</div>
+        <h3>Question-Driven</h3>
+        <p>Bring your specific decision. SuccessCode maps it against your structural pattern and active timing layers — delivering a structured answer calibrated to your situation and your current period.</p>
+        <ul class="approach-examples">
+          <li>What is my optimal timing window for a job search this year?</li>
+          <li>Should I take this co-founder or build alone?</li>
+          <li>When is my peak window to raise my next funding round?</li>
+          <li>What are my legal and regulatory risks in the next 12 months?</li>
+          <li>Is this the right decade for a geographic relocation?</li>
+          <li>What is my structural edge — and where am I wasting leverage?</li>
+          <li>When should I make my next major investment or capital move?</li>
+        </ul>
+        <p class="approach-note">Any strategic question. A specific, structured answer — derived entirely from your unique map.</p>
+      </div>
+      <div class="approach-block">
+        <div class="approach-tag">Approach 02</div>
+        <h3>Pre-Defined Packages</h3>
+        <p>Choose from structured report formats covering your core life domains — career, wealth, relationships, property, timing. Each package is derived from your permanent structural map and the timing layer active in your current period.</p>
+        <ul class="approach-examples">
+          <li><strong>Blueprint</strong> — Full natal map, 12 domains, innate edge, decade identification</li>
+          <li><strong>Strategic Calendar</strong> — 12-month timing map with monthly window quality by domain</li>
+          <li><strong>Decision Intelligence</strong> — Unlimited questions, 48-hour turnaround, major decision framing</li>
+          <li><strong>Company</strong> — Structural mapping for founding teams and key executives</li>
+        </ul>
+        <p class="approach-note">These are early examples. The final product will offer a much wider range of package types and delivery formats.</p>
+      </div>
     </div>
-    <div class="pillar">
-      <div class="pillar-no">II &nbsp;·&nbsp; Decade</div>
-      <h3>Your 10-Year Strategic Arc</h3>
-      <p>Which decade you are currently in. Whether it is structurally built for expansion, consolidation, transformation, or harvest. What your dominant domain is for the next 10 years.</p>
-      <p class="pillar-detail">Most people make decade-scale decisions without knowing which decade they are in. When your actions align with your arc, results compound. When they oppose it, even perfect strategy fails.</p>
+
+    <div class="pillars-sublabel">The Three Intelligence Layers · Present in Every Package and Every Answer</div>
+    <div class="pillars-grid reveal">
+      <div class="pillar">
+        <div class="pillar-no">I &nbsp;·&nbsp; Blueprint</div>
+        <h3>Your Innate Structural Advantage</h3>
+        <p>Your natural talents. Your optimal career domains. The industries and roles where your pattern has maximum structural leverage — and the ones quietly working against you.</p>
+        <p class="pillar-detail">Derived from your birth data, not from a questionnaire. Permanent and specific — this does not change as trends change. It is the map you were born with.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-no">II &nbsp;·&nbsp; Decade</div>
+        <h3>Your 10-Year Strategic Arc</h3>
+        <p>Which decade you are currently in. Whether it is structurally built for expansion, consolidation, transformation, or harvest. What your dominant domain is for the next 10 years.</p>
+        <p class="pillar-detail">Most people make decade-scale decisions without knowing which decade they are in. When your actions align with your arc, results compound. When they oppose it, even perfect strategy fails.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-no">III &nbsp;·&nbsp; Timing</div>
+        <h3>Your Year and Month in Focus</h3>
+        <p>What this year is structurally optimised for: negotiation, expansion, visibility, relationships, money, or strategic patience. Updated annually. Specific to your pattern, not a general season.</p>
+        <p class="pillar-detail">This is where strategic intelligence becomes operational — specific enough to act on, structured enough to trust, and precise enough to plan around.</p>
+      </div>
     </div>
-    <div class="pillar">
-      <div class="pillar-no">III &nbsp;·&nbsp; Timing</div>
-      <h3>Your Year and Month in Focus</h3>
-      <p>What this year is structurally optimised for: negotiation, expansion, visibility, relationships, money, or strategic patience. Updated annually. Specific to your pattern, not a general season.</p>
-      <p class="pillar-detail">This is where strategic intelligence becomes operational — specific enough to act on, structured enough to trust, and precise enough to plan around.</p>
-    </div>
+
   </div>
 </section>
 
