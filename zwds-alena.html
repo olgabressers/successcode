@@ -67,10 +67,18 @@
         var m = tzStr.match(/GMT([+-])(\d+)(?::(\d+))?/);
         if (m) offset = (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
       } catch(e) { return; }
+      var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var utcEl = document.getElementById('utc-offset');
       if (utcEl) {
-        utcEl.value = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
+        utcEl.value = offStr;
         if (typeof updateSolarPreview === 'function') updateSolarPreview();
+      }
+      var cr = document.getElementById('city-result');
+      if (cr) {
+        cr.innerHTML = cr.innerHTML.replace(
+          /UTC[+\-]?\d+(\.\d+)?(\s*\([^)]*\))?/i,
+          'UTC' + (offset >= 0 ? '+' : '') + offStr
+        );
       }
     }
   </script>
