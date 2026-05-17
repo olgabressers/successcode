@@ -1357,9 +1357,19 @@
   });
 
   // Waitlist / early access
-  function joinWaitlist(src) {
-    const email = document.getElementById(src === 'hero' ? 'hero-email' : 'cta-email').value;
+  async function joinWaitlist(src) {
+    const emailId = src === 'hero' ? 'hero-email' : 'cta-email';
+    const nameId  = src === 'cta' ? 'cta-name' : null;
+    const email   = document.getElementById(emailId).value;
+    const name    = nameId ? document.getElementById(nameId).value : '';
     if (!email || !email.includes('@')) return;
+    try {
+      await fetch('https://formspree.io/f/xnjrawvz', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, name, source: src })
+      });
+    } catch(e) {}
     if (src === 'hero') {
       document.getElementById('hero-form').style.display = 'none';
       document.getElementById('hero-done').style.display = 'block';
