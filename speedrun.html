@@ -547,12 +547,23 @@
     }
     .rev-eyebrow {
       font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; display: block; margin-bottom: 36px;
+      color: var(--gold); font-weight: 600; display: block; margin-bottom: 12px;
+    }
+    .section-big-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300; line-height: 1.1; color: var(--gold2);
+      margin-bottom: 40px;
     }
     .competitor-matrix {
-      margin-top: 64px; padding-top: 48px;
-      border-top: 1px solid var(--border);
+      margin-top: 80px; padding: 64px 72px 72px;
+      margin-left: -72px; margin-right: -72px;
+      background: #f8f6f1; color: #1e1c28;
+      --gold: #9a6e20; --gold2: #b8882a; --white: #1e1c28;
+      --dim: #3a3844; --muted: #6a6878; --border: rgba(154,110,32,0.20);
     }
+    .competitor-matrix .section-big-title { color: #b8882a; }
+    .competitor-matrix .rev-eyebrow { color: #9a6e20; }
     .comp-table {
       width: 100%; border-collapse: collapse;
       border: 1px solid var(--border);
@@ -560,20 +571,21 @@
     }
     .comp-table th {
       font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; padding: 18px 22px;
-      border: 1px solid var(--border); text-align: left;
-      background: rgba(0,0,0,0.2); line-height: 1.4;
+      color: #9a6e20; font-weight: 600; padding: 18px 22px;
+      border: 1px solid rgba(154,110,32,0.25); text-align: left;
+      background: rgba(154,110,32,0.07); line-height: 1.4;
     }
     .comp-table td {
-      font-size: 14px; color: var(--dim); padding: 16px 22px;
-      border: 1px solid var(--border); line-height: 1.6;
+      font-size: 14px; color: #3a3844; padding: 16px 22px;
+      border: 1px solid rgba(154,110,32,0.20); line-height: 1.6;
+      background: #fff;
     }
-    .comp-table td:first-child { font-weight: 600; font-size: 15px; color: var(--white); }
-    .comp-table tbody tr:first-child td { color: var(--gold2); background: rgba(184,144,58,0.06); }
-    .comp-table tbody tr:first-child td:first-child { color: var(--gold2); }
-    .comp-check { color: #72b882; font-size: 16px; font-weight: 700; }
-    .comp-cross { color: var(--muted); font-size: 16px; }
-    .comp-partial { color: var(--gold); font-size: 15px; }
+    .comp-table td:first-child { font-weight: 600; font-size: 15px; color: #1e1c28; }
+    .comp-table tbody tr:first-child td { color: #b8882a; background: rgba(184,144,58,0.08); }
+    .comp-table tbody tr:first-child td:first-child { color: #b8882a; font-size: 16px; }
+    .comp-check { color: #2a7a3a; font-size: 16px; font-weight: 700; }
+    .comp-cross { color: #aaa; font-size: 16px; }
+    .comp-partial { color: #9a6e20; font-size: 15px; }
     .pricing-boxes {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
       border: 1px solid var(--border); margin-bottom: 40px;
@@ -996,7 +1008,7 @@
     </h2>
     <div class="manifesto-cols">
       <p>Every person faces high-stakes decisions — career, partnerships, money, health, investments — with no personal decision or timing intelligence layer. They rely on generic advice, gut instinct, or consultants who don't know their specific profile. The result is preventable mistakes at the worst possible moments.</p>
-      <p>Zi Wei Dou Shu is an over 1,000-year-old mathematically derived system — used by emperors, built from precise birth data — that maps individual timing windows, risk periods, and winning angles. Structural personal intelligence, used by Eastern businesses for centuries. SuccessCode brings it to everyone, through AI.</p>
+      <p>Zi Wei Dou Shu is an over 1,000-year-old mathematically derived system — used by emperors, built from precise birth data — that maps individual timing windows, risk periods, and winning angles. Structural personal intelligence, used by Eastern businesses for centuries. Many Western executives, investors, and founders quietly use alternative timing and decision frameworks — from astrology to numerology to biorhythm cycles — without making it public. The difference: those methods are informal and unverifiable. SuccessCode is built on a mathematically structured system with a 1,000-year empirical record. SuccessCode brings it to everyone, through AI.</p>
     </div>
   </div>
 </section>
@@ -1192,7 +1204,8 @@
     </div>
 
     <div class="revenue-projection reveal">
-      <span class="rev-eyebrow">Projected Revenue</span>
+      <span class="rev-eyebrow">Investors</span>
+      <h2 class="section-big-title">Projected Revenue.</h2>
       <div class="pricing-boxes">
         <div class="pricing-box">
           <div class="pricing-tier">Basic</div>
@@ -1236,7 +1249,8 @@
     </div>
 
     <div class="competitor-matrix reveal">
-      <span class="rev-eyebrow">Competitive Landscape</span>
+      <span class="rev-eyebrow">Competitive position</span>
+      <h2 class="section-big-title">No direct competitor.</h2>
       <table class="comp-table">
         <thead>
           <tr>
@@ -1258,15 +1272,7 @@
             <td><span class="comp-check">✓</span> Phase 2</td>
           </tr>
           <tr>
-            <td>Horoscope apps<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(Astrology.com, Cafe Astrology)</span></td>
-            <td><span class="comp-partial">~</span> Sun sign only</td>
-            <td><span class="comp-cross">✗</span> No timing layer</td>
-            <td><span class="comp-cross">✗</span> Generic daily content</td>
-            <td><span class="comp-cross">✗</span> Pop astrology</td>
-            <td><span class="comp-cross">✗</span> None</td>
-          </tr>
-          <tr>
-            <td>Executive coaching<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(BetterUp, Torch, Exec coaches)</span></td>
+            <td>Executive coaching<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(BetterUp, Torch, Exec coaches)</span></td>
             <td><span class="comp-partial">~</span> Coach-dependent</td>
             <td><span class="comp-cross">✗</span> No timing layer</td>
             <td><span class="comp-check">✓</span> Goal-specific</td>
@@ -1274,7 +1280,7 @@
             <td><span class="comp-partial">~</span> Session assist only</td>
           </tr>
           <tr>
-            <td>Personality assessments<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(Myers-Briggs, DISC, Enneagram)</span></td>
+            <td>Personality assessments<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(Myers-Briggs, DISC, Enneagram)</span></td>
             <td><span class="comp-partial">~</span> Personality type</td>
             <td><span class="comp-cross">✗</span> Static, no timing</td>
             <td><span class="comp-partial">~</span> Communication style</td>
@@ -1282,7 +1288,15 @@
             <td><span class="comp-cross">✗</span> None</td>
           </tr>
           <tr>
-            <td>AI assistants<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(ChatGPT, Claude, Gemini)</span></td>
+            <td>Horoscope apps<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(Astrology.com, Cafe Astrology)</span></td>
+            <td><span class="comp-partial">~</span> Sun sign only</td>
+            <td><span class="comp-cross">✗</span> No timing layer</td>
+            <td><span class="comp-cross">✗</span> Generic daily content</td>
+            <td><span class="comp-cross">✗</span> Pop astrology</td>
+            <td><span class="comp-cross">✗</span> None</td>
+          </tr>
+          <tr>
+            <td>AI assistants<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(ChatGPT, Claude, Gemini)</span></td>
             <td><span class="comp-cross">✗</span> No personal map</td>
             <td><span class="comp-cross">✗</span> No timing model</td>
             <td><span class="comp-partial">~</span> General advice only</td>
