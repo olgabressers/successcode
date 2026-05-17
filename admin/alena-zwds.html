@@ -38,6 +38,7 @@
 
     /* ── DARK ZONE (back-bar + page-header) ─────────────── */
     .dark-zone {
+      padding-top: 53px;
       background: #3a3c48;
       color: #eceef8;
       --gold:   #b8903a;
@@ -61,14 +62,16 @@
     .back-link::before { content: '← '; color: var(--gold); }
     .back-link:hover { color: var(--gold2); }
 
-    /* ── Top Nav (sticky) ───────────────────────────────── */
+    /* ── Top Nav (fixed) ───────────────────────────────── */
     .top-nav {
-      position: sticky; top: 0; z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; width: 100%;
+      z-index: 200;
       background: rgba(58,60,72,0.97);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--border);
       padding: 16px 56px;
     }
+    .back-bar { display: none; }
     .top-nav-inner {
       display: flex; align-items: center; justify-content: space-between;
       gap: 24px; flex-wrap: wrap;
@@ -777,6 +780,7 @@
   <!-- TOP NAVIGATION -->
   <nav class="top-nav">
     <div class="top-nav-inner">
+      <a href="delisted.html" class="back-link" style="margin-right:20px;">Admin Index</a>
       <a href="#top" class="top-nav-logo">SuccessCode</a>
       <div class="top-nav-links">
         <a href="#natal-chart">Natal Chart</a>
