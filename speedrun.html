@@ -23,13 +23,18 @@
     }
 
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      max-width: 100vw;
+      width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
     html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Inter', sans-serif;
       background: var(--black);
       color: var(--white);
-      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -931,8 +936,12 @@
       .market-stat:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
       .market-thesis { grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px; }
 
-      /* TAM $48B+ inline heading — override the inline clamp(52px,7vw,96px) */
-      .market-body [style*="clamp(52px"] { font-size: clamp(28px, 8vw, 40px) !important; }
+      /* TAM $48B+ heading — direct class targeting */
+      .tam-heading {
+        font-size: clamp(26px, 7vw, 38px) !important;
+        line-height: 1.05 !important;
+        word-break: break-word !important;
+      }
 
       /* TRUMP / DEMO CASE STUDY CARDS — collapse 2-col inline grid */
       .trump-cards-grid {
@@ -1013,6 +1022,25 @@
 
       /* FORCE ALL ANIMATED ELEMENTS VISIBLE — iOS Safari fix */
       .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+      /* BRUTE-FORCE: nothing on mobile may exceed viewport width */
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+
+      /* Neutralize competitor matrix negative margins — fit table in viewport instead of scrolling */
+      .competitor-matrix {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 32px 16px 40px !important;
+        max-width: 100% !important;
+        overflow-x: auto;
+      }
+      .comp-table {
+        min-width: 0 !important;
+        width: 100% !important;
+        table-layout: fixed;
+      }
+      .comp-table th, .comp-table td { word-break: break-word; }
     }
   </style>
 </head>
@@ -1249,7 +1277,7 @@
   <div class="market-body reveal">
     <div style="margin-bottom:32px;">
       <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Total Addressable Market</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1;color:var(--gold2);">TAM $48B+</div>
+      <div class="tam-heading" style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1;color:var(--gold2);">TAM $48B+</div>
       <div style="font-size:11px;color:var(--muted);margin-top:8px;font-style:italic;"><a href="https://www.grandviewresearch.com/industry-analysis/personal-development-market" target="_blank" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Source: Grand View Research, 2024</a></div>
       <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin-top:20px;">
         <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">2024</span> &nbsp;$48.4B market size</div>
