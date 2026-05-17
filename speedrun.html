@@ -940,6 +940,27 @@
       /* CTA */
       .cta-section { grid-template-columns: 1fr; padding: 72px 24px; gap: 48px; }
 
+      /* REVENUE PROJECTION */
+      .revenue-projection { margin-top: 48px; padding-top: 32px; }
+      .pricing-boxes { grid-template-columns: repeat(2, 1fr); }
+      .pricing-box:nth-child(n+3) { border-top: 1px solid var(--border); }
+      .pricing-box:nth-child(even) { border-right: none; }
+      .rev-grid { grid-template-columns: 1fr; }
+      .rev-col { border-right: none; border-bottom: 1px solid var(--border); padding: 24px 0; }
+      .rev-col:last-child { border-bottom: none; }
+      .rev-assumption { font-size: 11px; margin-top: 16px; }
+
+      /* COMPETITOR MATRIX */
+      .competitor-matrix {
+        margin-left: -24px; margin-right: -24px;
+        padding: 48px 24px 56px;
+        overflow-x: auto;
+      }
+      .comp-table { min-width: 520px; font-size: 12px; }
+      .comp-table th { font-size: 9px; padding: 12px 10px; }
+      .comp-table td { font-size: 12px; padding: 12px 10px; }
+      .comp-table td:first-child { font-size: 13px; }
+
       /* FOOTER */
       footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
     }
