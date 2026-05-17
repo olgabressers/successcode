@@ -27,10 +27,58 @@
 
     // DOMContentLoaded fires after the obfuscated script has defined loadTrump.
     // Replace it so the auto-call on window 'load' fills Alena's data instead.
+    // Also patch selectCity to use real timezone lookup (fixes UTC+0 for NL etc.).
     window.addEventListener('DOMContentLoaded', function() {
       window.loadTrump = __loadAlenaDefaults;
       setTimeout(__loadAlenaDefaults, 100);
+
+      var _origSC = window.selectCity;
+      if (typeof _origSC === 'function') {
+        window.selectCity = function(i) {
+          _origSC(i);
+          __tzCorrect(i);
+        };
+      }
     });
+
+    function __tzCorrect(i) {
+      var dd  = document.getElementById('city-dropdown');
+      var lonEl = document.getElementById('birth-longitude');
+      if (!dd || !dd._data || !dd._data[i] || !lonEl) return;
+      var lat = parseFloat(dd._data[i].lat);
+      var lon = parseFloat(lonEl.value);
+      if (isNaN(lat) || isNaN(lon)) return;
+      fetch('https://timeapi.io/api/timezone/coordinate?latitude=' + lat.toFixed(4) +
+            '&longitude=' + lon.toFixed(4))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || !data.timeZone) return;
+          var dateStr = (document.getElementById('birth-date') || {}).value || '2000-01-01';
+          var timeStr = (document.getElementById('birth-time') || {}).value || '12:00';
+          var birthDT = new Date(dateStr + 'T' + timeStr + ':00Z');
+          var offset = 0;
+          try {
+            var parts = new Intl.DateTimeFormat('en', {
+              timeZone: data.timeZone, timeZoneName: 'shortOffset'
+            }).formatToParts(birthDT);
+            var tzStr = '';
+            for (var k = 0; k < parts.length; k++) {
+              if (parts[k].type === 'timeZoneName') { tzStr = parts[k].value; break; }
+            }
+            var m = tzStr.match(/GMT([+-])(\d+)(?::(\d+))?/);
+            if (m) offset = (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
+            else offset = (data.currentUtcOffset || {}).hours || 0;
+          } catch(e) {
+            offset = (data.currentUtcOffset || {}).hours || 0;
+          }
+          var utcEl = document.getElementById('utc-offset');
+          if (utcEl) {
+            utcEl.value = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
+            if (typeof updateSolarPreview === 'function') updateSolarPreview();
+          }
+        })
+        .catch(function() {});
+    }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>

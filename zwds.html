@@ -5,11 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator</title>
   <script>
-    // Override loadTrump AFTER the obfuscated script has defined it.
-    // Object.defineProperty(configurable:false) breaks the obfuscated script's
-    // initialization in modern V8 (SyntaxError at GlobalDeclarationInstantiation).
-    // Safe approach: simple assignment in DOMContentLoaded, which fires after
-    // all synchronous scripts have run but before window 'load' triggers the auto-call.
     window.addEventListener('DOMContentLoaded', function() {
       window.loadTrump = function() {};
       setTimeout(function() {
@@ -26,7 +21,62 @@
         var dd = document.getElementById('city-dropdown');
         if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
       }, 50);
+
+      // Timezone correction: the obfuscated selectCity uses Math.round(lon/15)
+      // which is wrong for countries whose political timezone differs from their
+      // geographic one (Netherlands: lon ~5°E → naive UTC+0, actual UTC+1/+2).
+      // We intercept selectCity, fetch the real IANA timezone by coordinates, then
+      // compute the historically-correct UTC offset for the actual birth date.
+      var _origSC = window.selectCity;
+      if (typeof _origSC === 'function') {
+        window.selectCity = function(i) {
+          _origSC(i);
+          __tzCorrect(i);
+        };
+      }
     });
+
+    function __tzCorrect(i) {
+      var dd  = document.getElementById('city-dropdown');
+      var lonEl = document.getElementById('birth-longitude');
+      if (!dd || !dd._data || !dd._data[i] || !lonEl) return;
+      var lat = parseFloat(dd._data[i].lat);
+      var lon = parseFloat(lonEl.value);
+      if (isNaN(lat) || isNaN(lon)) return;
+      fetch('https://timeapi.io/api/timezone/coordinate?latitude=' + lat.toFixed(4) +
+            '&longitude=' + lon.toFixed(4))
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data || !data.timeZone) return;
+          // Compute UTC offset for the birth date in the detected timezone.
+          // Using the birth timestamp (approximate, treated as UTC) is fine for
+          // DST determination — transitions are sharp and never ambiguous by hours.
+          var dateStr = (document.getElementById('birth-date') || {}).value || '2000-01-01';
+          var timeStr = (document.getElementById('birth-time') || {}).value || '12:00';
+          var birthDT = new Date(dateStr + 'T' + timeStr + ':00Z');
+          var offset = 0;
+          try {
+            var parts = new Intl.DateTimeFormat('en', {
+              timeZone: data.timeZone, timeZoneName: 'shortOffset'
+            }).formatToParts(birthDT);
+            var tzStr = '';
+            for (var k = 0; k < parts.length; k++) {
+              if (parts[k].type === 'timeZoneName') { tzStr = parts[k].value; break; }
+            }
+            var m = tzStr.match(/GMT([+-])(\d+)(?::(\d+))?/);
+            if (m) offset = (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
+            else offset = (data.currentUtcOffset || {}).hours || 0;
+          } catch(e) {
+            offset = (data.currentUtcOffset || {}).hours || 0;
+          }
+          var utcEl = document.getElementById('utc-offset');
+          if (utcEl) {
+            utcEl.value = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
+            if (typeof updateSolarPreview === 'function') updateSolarPreview();
+          }
+        })
+        .catch(function() {});
+    }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
