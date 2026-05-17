@@ -8,6 +8,30 @@
     // Wipe any saved chart state from a previous visit so the form
     // reliably re-hydrates from this page's HTML defaults (Alena's data).
     try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
+
+    // Block the obfuscated init's auto-call to loadTrump() which would
+    // otherwise overwrite Alena's HTML defaults with the President's data.
+    try {
+      Object.defineProperty(window, 'loadTrump', {
+        value: function(){},
+        writable: false,
+        configurable: false
+      });
+    } catch(e) {}
+
+    // Re-apply Alena's defaults after init in case anything was overwritten.
+    window.addEventListener('DOMContentLoaded', function(){
+      setTimeout(function(){
+        var d = document.getElementById('birth-date');
+        var t = document.getElementById('birth-time');
+        var s = document.getElementById('birth-sex');
+        var u = document.getElementById('utc-offset');
+        if (d && !d.value) d.value = '1979-04-19';
+        if (t && !t.value) t.value = '13:30';
+        if (s) s.value = 'female';
+        if (u && !u.value) u.value = '3';
+      }, 100);
+    });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
