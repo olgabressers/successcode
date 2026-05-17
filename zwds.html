@@ -5,44 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator</title>
   <script>
-    // Public calculator must always start blank.
-    try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
-
-    // The obfuscated calculator code auto-calls loadTrump() on init.
-    // Block that by neutering loadTrump on window. Function declarations
-    // hoist into window in non-strict mode, so we install a non-writable
-    // no-op first to prevent the demo loader from ever filling the form.
-    try {
-      Object.defineProperty(window, 'loadTrump', {
-        value: function(){},
-        writable: false,
-        configurable: false
-      });
-    } catch(e) {}
-
-    // Belt-and-suspenders: after the page loads, if anything still
-    // managed to populate fields, blank them. Three timed sweeps catch
-    // synchronous, near-async, and any async geocoding fills.
-    function __blankForm(){
-      ['birth-date','birth-time','birth-name','birth-city','utc-offset'].forEach(function(id){
-        var el = document.getElementById(id);
-        if (el) el.value = '';
-      });
-      var sex = document.getElementById('birth-sex');
-      if (sex) sex.selectedIndex = 0;
-      var lon = document.getElementById('birth-longitude');
-      if (lon) lon.value = '0';
-      var cr = document.getElementById('city-result');
-      if (cr) cr.textContent = '';
-      var si = document.getElementById('solar-correction-info');
-      if (si) { si.style.display = 'none'; si.innerHTML = ''; }
-      var dd = document.getElementById('city-dropdown');
-      if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
-    }
-    window.addEventListener('DOMContentLoaded', function(){
-      __blankForm();
-      setTimeout(__blankForm, 50);
-      setTimeout(__blankForm, 300);
+    // Override loadTrump AFTER the obfuscated script has defined it.
+    // Object.defineProperty(configurable:false) breaks the obfuscated script's
+    // initialization in modern V8 (SyntaxError at GlobalDeclarationInstantiation).
+    // Safe approach: simple assignment in DOMContentLoaded, which fires after
+    // all synchronous scripts have run but before window 'load' triggers the auto-call.
+    window.addEventListener('DOMContentLoaded', function() {
+      window.loadTrump = function() {};
+      setTimeout(function() {
+        ['birth-date','birth-time','birth-name','birth-city','utc-offset'].forEach(function(id){
+          var el = document.getElementById(id);
+          if (el) el.value = '';
+        });
+        var sex = document.getElementById('birth-sex');
+        if (sex) sex.selectedIndex = 0;
+        var cr = document.getElementById('city-result');
+        if (cr) cr.textContent = '';
+        var si = document.getElementById('solar-correction-info');
+        if (si) { si.style.display = 'none'; si.innerHTML = ''; }
+        var dd = document.getElementById('city-dropdown');
+        if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
+      }, 50);
     });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">

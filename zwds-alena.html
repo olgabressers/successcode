@@ -5,48 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator — Alena</title>
   <script>
-    // Wipe any saved chart state from a previous visit so the form
-    // reliably re-hydrates from this page's HTML defaults (Alena's data).
-    try { localStorage.clear(); sessionStorage.clear(); } catch(e) {}
-
-    // Block the obfuscated init's auto-call to loadTrump() which would
-    // otherwise overwrite Alena's HTML defaults with the President's data.
-    function __loadAlenaDefaults(){
-      var d = document.getElementById('birth-date');
-      var t = document.getElementById('birth-time');
-      var s = document.getElementById('birth-sex');
-      var n = document.getElementById('birth-name');
-      var c = document.getElementById('birth-city');
-      var u = document.getElementById('utc-offset');
-      if (d) d.value = '1979-04-19';
-      if (t) t.value = '13:30';
-      if (s) s.value = 'female';
-      if (n) n.value = 'Alena';
-      if (c) c.value = 'Saratov, Russia';
-      if (u) u.value = '3';
-      // Trigger any solar/city handlers
-      try {
-        if (typeof onCityInput === 'function') onCityInput();
-        if (typeof updateSolarPreview === 'function') updateSolarPreview();
-      } catch(e) {}
+    // Fill Alena's birth data directly (same pattern as the obfuscated loadTrump —
+    // sets fields + longitude directly, then calls buildChart).
+    // Saratov, Russia: 51.53°N 46.02°E, UTC+3
+    function __loadAlenaDefaults() {
+      var d = document.getElementById('birth-date');   if (d) d.value = '1979-04-19';
+      var t = document.getElementById('birth-time');   if (t) t.value = '13:30';
+      var s = document.getElementById('birth-sex');    if (s) s.value = 'female';
+      var n = document.getElementById('birth-name');   if (n) n.value = 'Alena';
+      var c = document.getElementById('birth-city');   if (c) c.value = 'Saratov, Russia';
+      var u = document.getElementById('utc-offset');   if (u) u.value = '3';
+      var lon = document.getElementById('birth-longitude'); if (lon) lon.value = '46.0167';
+      var cr = document.getElementById('city-result');
+      if (cr) cr.innerHTML = '<span style="color:var(--gold)">✓</span> Saratov, Russia · 46.02° E · UTC+3';
+      var si = document.getElementById('solar-correction-info'); if (si) si.style.display = 'none';
+      var dd = document.getElementById('city-dropdown');
+      if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
+      if (typeof buildChart === 'function') buildChart();
     }
-    // Replace loadTrump with loadAlenaDefaults so the obfuscated init
-    // (which auto-calls window.loadTrump on load) instead fills Alena.
-    try {
-      Object.defineProperty(window, 'loadTrump', {
-        value: __loadAlenaDefaults,
-        writable: false,
-        configurable: false
-      });
-    } catch(e) {}
-    // Public name for the button click.
     window.loadAlena = __loadAlenaDefaults;
 
-    // Re-apply Alena's defaults after init in case the obfuscated code
-    // managed to clear or overwrite the form.
-    window.addEventListener('DOMContentLoaded', function(){
+    // DOMContentLoaded fires after the obfuscated script has defined loadTrump.
+    // Replace it so the auto-call on window 'load' fills Alena's data instead.
+    window.addEventListener('DOMContentLoaded', function() {
+      window.loadTrump = __loadAlenaDefaults;
       setTimeout(__loadAlenaDefaults, 100);
-      setTimeout(__loadAlenaDefaults, 400);
     });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -765,7 +748,7 @@
             <div id="city-dropdown" class="city-dropdown" style="display:none;"></div>
           </div>
           <div id="city-result" style="font-size:11px;color:#888;margin-top:4px;min-height:16px;"></div>
-          <input type="hidden" id="birth-longitude" value="0">
+          <input type="hidden" id="birth-longitude" value="46.0167">
         </div>
         <div class="form-group" style="margin-bottom:16px;">
           <label>UTC Offset at birth (e.g. 4 for UTC+4)</label>
