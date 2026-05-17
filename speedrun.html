@@ -29,7 +29,7 @@
       font-family: 'Inter', sans-serif;
       background: var(--black);
       color: var(--white);
-      overflow-x: hidden;
+      overflow-x: clip;
       -webkit-font-smoothing: antialiased;
     }
 
@@ -963,6 +963,9 @@
 
       /* FOOTER */
       footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+
+      /* FORCE ALL ANIMATED ELEMENTS VISIBLE — iOS Safari IntersectionObserver fix */
+      .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
   </style>
 </head>
