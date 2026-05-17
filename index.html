@@ -989,10 +989,11 @@
       <em>Blueprint.</em>
     </h1>
     <p class="hero-sub">SuccessCode decodes it. An AI strategic intelligence platform built on over 1,000 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
-    <div class="inline-form" id="hero-form">
-      <input type="email" placeholder="Your email address" id="hero-email">
-      <button onclick="joinWaitlist('hero')">Get Early Access &rarr;</button>
-    </div>
+    <form class="inline-form" id="hero-form" onsubmit="submitWaitlist(event,'hero')">
+      <input type="email" name="email" placeholder="Your email address" required>
+      <input type="hidden" name="source" value="hero">
+      <button type="submit">Get Early Access &rarr;</button>
+    </form>
     <p class="hero-success" id="hero-done">You're on the list. We'll be in touch.</p>
   </div>
   <div class="hero-right">
@@ -1309,12 +1310,13 @@
   </h2>
   <div class="cta-right reveal">
     <p>SuccessCode launches Q3 2026. Founding members receive a complimentary personal strategic overview — your structural blueprint, your current decade analysis, and your timing map for the next 12 months. Before the platform opens publicly, and before founding pricing closes.</p>
-    <div class="cta-fields" id="cta-form">
-      <input type="text"  class="cta-input" placeholder="Your name"          id="cta-name">
-      <input type="email" class="cta-input" placeholder="Your email address" id="cta-email">
-      <button class="cta-submit" onclick="joinWaitlist('cta')">Request Early Access</button>
+    <form class="cta-fields" id="cta-form" onsubmit="submitWaitlist(event,'cta')">
+      <input type="text"  class="cta-input" name="name"  placeholder="Your name">
+      <input type="email" class="cta-input" name="email" placeholder="Your email address" required>
+      <input type="hidden" name="source" value="cta">
+      <button type="submit" class="cta-submit" id="cta-btn">Request Early Access</button>
       <p class="cta-note">No spam. No sharing. Waitlist members receive first access and founding pricing.</p>
-    </div>
+    </form>
     <p class="cta-done" id="cta-done">You're on the list.<br>We'll be in touch before the Q3 launch.</p>
   </div>
 </section>
@@ -1357,27 +1359,25 @@
   });
 
   // Waitlist / early access
-  async function joinWaitlist(src) {
-    const email = document.getElementById(src === 'hero' ? 'hero-email' : 'cta-email').value;
-    const name  = src === 'cta' ? document.getElementById('cta-name').value : '';
-    if (!email || !email.includes('@')) return;
-    const data = new FormData();
-    data.append('email', email);
-    if (name) data.append('name', name);
-    data.append('source', src);
+  async function submitWaitlist(e, src) {
+    e.preventDefault();
+    const form = e.target;
+    const btn  = form.querySelector('button[type=submit]');
+    if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
     try {
-      await fetch('https://formspree.io/f/xnjrawvz', {
+      const res = await fetch('https://formspree.io/f/xnjrawvz', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
-        body: data
+        body: new FormData(form)
       });
-    } catch(e) {}
-    if (src === 'hero') {
-      document.getElementById('hero-form').style.display = 'none';
-      document.getElementById('hero-done').style.display = 'block';
-    } else {
-      document.getElementById('cta-form').style.display = 'none';
-      document.getElementById('cta-done').style.display = 'block';
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById(src === 'hero' ? 'hero-done' : 'cta-done').style.display = 'block';
+      } else {
+        if (btn) { btn.textContent = src === 'hero' ? 'Get Early Access →' : 'Request Early Access'; btn.disabled = false; }
+      }
+    } catch(e) {
+      if (btn) { btn.textContent = src === 'hero' ? 'Get Early Access →' : 'Request Early Access'; btn.disabled = false; }
     }
   }
 </script>
