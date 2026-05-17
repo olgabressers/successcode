@@ -1358,16 +1358,18 @@
 
   // Waitlist / early access
   async function joinWaitlist(src) {
-    const emailId = src === 'hero' ? 'hero-email' : 'cta-email';
-    const nameId  = src === 'cta' ? 'cta-name' : null;
-    const email   = document.getElementById(emailId).value;
-    const name    = nameId ? document.getElementById(nameId).value : '';
+    const email = document.getElementById(src === 'hero' ? 'hero-email' : 'cta-email').value;
+    const name  = src === 'cta' ? document.getElementById('cta-name').value : '';
     if (!email || !email.includes('@')) return;
+    const data = new FormData();
+    data.append('email', email);
+    if (name) data.append('name', name);
+    data.append('source', src);
     try {
       await fetch('https://formspree.io/f/xnjrawvz', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, source: src })
+        headers: { 'Accept': 'application/json' },
+        body: data
       });
     } catch(e) {}
     if (src === 'hero') {
