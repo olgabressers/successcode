@@ -5,28 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator</title>
   <script>
-    window.addEventListener('DOMContentLoaded', function() {
-      window.loadTrump = function() {};
-      setTimeout(function() {
-        ['birth-date','birth-time','birth-name','birth-city','utc-offset'].forEach(function(id){
-          var el = document.getElementById(id);
-          if (el) el.value = '';
-        });
-        var sex = document.getElementById('birth-sex');
-        if (sex) sex.selectedIndex = 0;
-        var cr = document.getElementById('city-result');
-        if (cr) cr.textContent = '';
-        var si = document.getElementById('solar-correction-info');
-        if (si) { si.style.display = 'none'; si.innerHTML = ''; }
-        var dd = document.getElementById('city-dropdown');
-        if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
-      }, 50);
+    function __loadAmsterdamDefaults() {
+      var now = new Date();
+      var pad = function(n) { return n < 10 ? '0' + n : String(n); };
+      var dateStr = now.getFullYear() + '-' + pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+      var timeStr = pad(now.getHours()) + ':' + pad(now.getMinutes());
+      var d = document.getElementById('birth-date');    if (d) d.value = dateStr;
+      var t = document.getElementById('birth-time');    if (t) t.value = timeStr;
+      var c = document.getElementById('birth-city');    if (c) c.value = 'Amsterdam, Netherlands';
+      var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '4.9041';
+      var offset = __computeUtcOffset(52.3676, 4.9041, dateStr, timeStr);
+      if (offset === null) offset = 2;
+      var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
+      var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
+      var cr = document.getElementById('city-result');
+      if (cr) cr.innerHTML = '<span style="color:var(--gold)">✓</span> Amsterdam, Netherlands · 4.90° E · UTC' + (offset >= 0 ? '+' : '') + offStr;
+      var si = document.getElementById('solar-correction-info'); if (si) si.style.display = 'none';
+      var dd = document.getElementById('city-dropdown');
+      if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
+      if (typeof buildChart === 'function') buildChart();
+    }
 
-      // Timezone correction: the obfuscated selectCity uses Math.round(lon/15)
-      // which is wrong for countries whose political timezone differs from their
-      // geographic one (Netherlands: lon ~5°E → naive UTC+0, actual UTC+1/+2).
-      // We intercept selectCity, fetch the real IANA timezone by coordinates, then
-      // compute the historically-correct UTC offset for the actual birth date.
+    window.addEventListener('DOMContentLoaded', function() {
+      window.loadTrump = __loadAmsterdamDefaults;
+
       var _origSC = window.selectCity;
       if (typeof _origSC === 'function') {
         window.selectCity = function(i) {
