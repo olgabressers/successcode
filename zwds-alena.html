@@ -11,26 +11,42 @@
 
     // Block the obfuscated init's auto-call to loadTrump() which would
     // otherwise overwrite Alena's HTML defaults with the President's data.
+    function __loadAlenaDefaults(){
+      var d = document.getElementById('birth-date');
+      var t = document.getElementById('birth-time');
+      var s = document.getElementById('birth-sex');
+      var n = document.getElementById('birth-name');
+      var c = document.getElementById('birth-city');
+      var u = document.getElementById('utc-offset');
+      if (d) d.value = '1979-04-19';
+      if (t) t.value = '13:30';
+      if (s) s.value = 'female';
+      if (n) n.value = 'Alena';
+      if (c) c.value = 'Saratov, Russia';
+      if (u) u.value = '3';
+      // Trigger any solar/city handlers
+      try {
+        if (typeof onCityInput === 'function') onCityInput();
+        if (typeof updateSolarPreview === 'function') updateSolarPreview();
+      } catch(e) {}
+    }
+    // Replace loadTrump with loadAlenaDefaults so the obfuscated init
+    // (which auto-calls window.loadTrump on load) instead fills Alena.
     try {
       Object.defineProperty(window, 'loadTrump', {
-        value: function(){},
+        value: __loadAlenaDefaults,
         writable: false,
         configurable: false
       });
     } catch(e) {}
+    // Public name for the button click.
+    window.loadAlena = __loadAlenaDefaults;
 
-    // Re-apply Alena's defaults after init in case anything was overwritten.
+    // Re-apply Alena's defaults after init in case the obfuscated code
+    // managed to clear or overwrite the form.
     window.addEventListener('DOMContentLoaded', function(){
-      setTimeout(function(){
-        var d = document.getElementById('birth-date');
-        var t = document.getElementById('birth-time');
-        var s = document.getElementById('birth-sex');
-        var u = document.getElementById('utc-offset');
-        if (d && !d.value) d.value = '1979-04-19';
-        if (t && !t.value) t.value = '13:30';
-        if (s) s.value = 'female';
-        if (u && !u.value) u.value = '3';
-      }, 100);
+      setTimeout(__loadAlenaDefaults, 100);
+      setTimeout(__loadAlenaDefaults, 400);
     });
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -735,6 +751,7 @@
         </div>
       </div>
       <div class="form-actions">
+        <button class="secondary" onclick="loadAlena()">Demo Client · Alena</button>
         <button class="secondary" onclick="printChart()">Print / PDF</button>
       </div>
     </div>
