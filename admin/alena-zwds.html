@@ -228,6 +228,32 @@
     }
     .palace-meaning strong { color: var(--text); font-weight: 600; }
 
+    /* ── Karma / Heaven two-column ──────────────────────── */
+    .heaven-two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin: 20px 0 28px;
+    }
+    .heaven-col-left, .heaven-col-right { padding: 22px 24px; }
+    .heaven-col-left { border-right: 1px solid var(--border); background: rgba(154,110,32,0.03); }
+    .heaven-col-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+    }
+    .heaven-palace-ref {
+      font-size: 11px; color: var(--muted); background: var(--surface2);
+      display: inline-block; padding: 2px 8px; border-radius: 3px;
+      margin-bottom: 10px; letter-spacing: 0.3px;
+    }
+    .heaven-two-col p { font-size: 13.5px; line-height: 1.7; color: var(--dim); }
+    @media (max-width: 768px) {
+      .heaven-two-col { grid-template-columns: 1fr; }
+      .heaven-col-left { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
     /* ── ZWDS Chart section ─────────────────────────────── */
     .chart-frame-wrap {
       margin-top: 16px;
@@ -959,47 +985,30 @@
   <div class="subsection">
     <div class="subsection-eyebrow">E · 12 palaces — key characteristics</div>
     <h3 class="subsection-h3">Your <em>twelve domains</em>, each with its dominant stars and structural meaning.</h3>
-    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars sitting in each palace, plus any natal enhancers from year stem 己, determine the structural character of that domain. Below: a quick reference card for each.</p>
+    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars sitting in each palace, plus any natal enhancers from year stem 己, determine the structural character of that domain. Cards are ordered as they appear clockwise in the calculator grid (Section 06) — compare directly.</p>
+
+    <div class="heaven-two-col">
+      <div class="heaven-col-left">
+        <div class="heaven-col-label">Karma · Early Heaven (先天)</div>
+        <div class="heaven-palace-ref">Year stem 己 → 化忌 → Wen Qu → P1 Life</div>
+        <p>The soul theme you carry forward. Year stem 己 sends Ji (karma / blockage) to Wen Qu in the Life palace. Wen Qu = written talent, academic gifts, refined communication — with Ji, this is the recurring friction: documents, contracts, bureaucracy, and self-expression blocked or weaponised. Past-life pattern: truth spoken, written, recorded — and met with institutional resistance. The task is not to avoid this; it runs as a life constant. Complete what was left unfinished: bring expertise into documented, visible form.</p>
+      </div>
+      <div class="heaven-col-right">
+        <div class="heaven-col-label">Later Heaven (後天) · This Life</div>
+        <div class="heaven-palace-ref">P1 Life · 戌 Dog · Po Jun + Wen Qu · Body palace</div>
+        <p>What you are here to build. Po Jun (破軍 — Army Destroyer) is the Life star. You arrived to dismantle outdated structures — in your own life and in the institutions around you. Every major adversity follows the arc: disruption → dismantling → transformation → emergence stronger. The Body palace coincides here — identity and physical experience are one arena. SPL axis palace: Ji landing here = BEST (mechanism A-natal, permanent SPL engine). The instruction is transformation, not management.</p>
+      </div>
+    </div>
 
     <div class="palaces-grid">
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">01</div>
-          <div class="palace-name">Life · 命</div>
-          <div class="palace-branch">戌 · 甲</div>
+          <div class="palace-number">06</div>
+          <div class="palace-name">Health · 疾厄</div>
+          <div class="palace-branch">巳 · 己</div>
         </div>
-        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
-        <div class="palace-meaning">The reconstruction archetype. Athletic, dynamic build. <strong>Demolish-rebuild approach to life decisions.</strong> Documentation and contracts are a permanent life theme — never fully resolved, structurally returning.</div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">02</div>
-          <div class="palace-name">Siblings · 兄弟</div>
-          <div class="palace-branch">酉 · 癸</div>
-        </div>
-        <div class="palace-stars">(empty)</div>
-        <div class="palace-meaning">Empty palace — read via the opposite (P8 Friends). <strong>Sibling / peer relations require conscious effort to activate</strong> — does not fire automatically through natal stars. Branch activation in 酉 years is significant.</div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">03</div>
-          <div class="palace-name">Spouse · 夫妻</div>
-          <div class="palace-branch">申 · 壬</div>
-        </div>
-        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
-        <div class="palace-meaning">Traditional courtship archetype with hidden support stars. Beautiful romantic timing signals (Hong Luan), quiet protective partner energy (Tian Yue). <strong>Decade D5 sends Ji here for 2025–2034 — relationship is the pressure axis of this decade.</strong></div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">04</div>
-          <div class="palace-name">Children · 子女</div>
-          <div class="palace-branch">未 · 辛</div>
-        </div>
-        <div class="palace-stars">Qing Yang</div>
-        <div class="palace-meaning">No main star. Qing Yang alone signals <strong>sharp / sudden challenges in the children domain — possible nervous-system or limb concerns to monitor</strong>. Read via opposite P10 Property for the bigger picture.</div>
+        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
+        <div class="palace-meaning">Longevity star with permanent protection (the "right doctor appears" pattern). <strong>Tian Ma = movement is medicine — sedentary lifestyle harms.</strong> Di Kong + Di Jie together = spiritual / esoteric signal; Tuo Luo = chronic slow-grinding issues to manage proactively.</div>
       </div>
 
       <div class="palace-card">
@@ -1014,52 +1023,52 @@
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">06</div>
-          <div class="palace-name">Health · 疾厄</div>
-          <div class="palace-branch">巳 · 己</div>
+          <div class="palace-number">04</div>
+          <div class="palace-name">Children · 子女</div>
+          <div class="palace-branch">未 · 辛</div>
         </div>
-        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
-        <div class="palace-meaning">Longevity star with permanent protection (the "right doctor appears" pattern). <strong>Tian Ma = movement is medicine — sedentary lifestyle harms.</strong> Di Kong + Di Jie together = spiritual / esoteric signal; Tuo Luo = chronic slow-grinding issues to manage proactively.</div>
+        <div class="palace-stars">Qing Yang</div>
+        <div class="palace-meaning">No main star. Qing Yang alone signals <strong>sharp / sudden challenges in the children domain — possible nervous-system or limb concerns to monitor</strong>. Read via opposite P10 Property for the bigger picture.</div>
       </div>
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">07</div>
-          <div class="palace-name">Travel · 遷移</div>
-          <div class="palace-branch">辰 · 戊</div>
+          <div class="palace-number">03</div>
+          <div class="palace-name">Spouse · 夫妻</div>
+          <div class="palace-branch">申 · 壬</div>
         </div>
-        <div class="palace-stars">Zi Wei · Tian Xiang · Wen Chang · Ling Xing</div>
-        <div class="palace-meaning">Zi Wei in P7 = <strong>recognised abroad more than at home; business-class lifestyle</strong>. Wen Chang adds international intellectual recognition. Ling Xing = latent cool reception in some foreign environments. Your structurally strongest channel is international.</div>
+        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
+        <div class="palace-meaning">Traditional courtship archetype with hidden support stars. Beautiful romantic timing signals (Hong Luan), quiet protective partner energy (Tian Yue). <strong>Decade D5 sends Ji here for 2025–2034 — relationship is the pressure axis of this decade.</strong></div>
       </div>
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">08</div>
-          <div class="palace-name">Friends · 交友</div>
-          <div class="palace-branch">卯 · 丁</div>
+          <div class="palace-number">02</div>
+          <div class="palace-name">Siblings · 兄弟</div>
+          <div class="palace-branch">酉 · 癸</div>
         </div>
-        <div class="palace-stars">Tian Ji · Ju Men · Tian Yao · Huo Xing</div>
-        <div class="palace-meaning">Collegial peer network (Tian Ji), but with a "second-agenda" star (Ju Men) and a sudden-fire / explosive marker (Huo Xing). <strong>Network betrayal risk is structural — confirmed by 2023 Richemont incident (3 direct reports filed complaints).</strong> Decade D5 sends powerful Quan here, but the substrate carries volatility.</div>
+        <div class="palace-stars">(empty)</div>
+        <div class="palace-meaning">Empty palace — read via the opposite (P8 Friends). <strong>Sibling / peer relations require conscious effort to activate</strong> — does not fire automatically through natal stars. Branch activation in 酉 years is significant.</div>
       </div>
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">09</div>
-          <div class="palace-name">Career · 官祿</div>
-          <div class="palace-branch">寅 · 丙</div>
+          <div class="palace-number">01</div>
+          <div class="palace-name">Life · 命</div>
+          <div class="palace-branch">戌 · 甲</div>
         </div>
-        <div class="palace-stars">Tan Lang 权 · Tian Xi</div>
-        <div class="palace-meaning">Career built through personal brand, image, premium presentation. <strong>Quan = structural authority signal for life</strong> — Tan Lang Quan is one of your two permanent SPL engines. Operates best at significant scale, in premium / luxury / regulated environments.</div>
+        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
+        <div class="palace-meaning">The reconstruction archetype. Athletic, dynamic build. <strong>Demolish-rebuild approach to life decisions.</strong> Documentation and contracts are a permanent life theme — never fully resolved, structurally returning.</div>
       </div>
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">10</div>
-          <div class="palace-name">Property · 田宅</div>
-          <div class="palace-branch">丑 · 丁</div>
+          <div class="palace-number">12</div>
+          <div class="palace-name">Parents · 父母</div>
+          <div class="palace-branch">亥 · 乙</div>
         </div>
-        <div class="palace-stars">Tai Yang · Tai Yin</div>
-        <div class="palace-meaning">Sun-Moon formation = strong <strong>dual property energy — public and private, active and passive</strong>. Tai Yin in P10 confirms you own and manage real estate structurally. Tai Yang Ji (annual / decade overlays) blocks visibility when sales are required.</div>
+        <div class="palace-stars">Tian Tong · Tian Xing</div>
+        <div class="palace-meaning">Sentimental, child-like (Tian Tong) plus law / discipline / contracts star (Tian Xing). <strong>Authority sphere — bosses, regulators, lawyers — structurally responds favourably to you.</strong> This palace plus Tian Kui in P11 produces the verified 3-of-3 protection record across recent legal challenges.</div>
       </div>
 
       <div class="palace-card">
@@ -1074,12 +1083,42 @@
 
       <div class="palace-card">
         <div class="palace-head">
-          <div class="palace-number">12</div>
-          <div class="palace-name">Parents · 父母</div>
-          <div class="palace-branch">亥 · 乙</div>
+          <div class="palace-number">10</div>
+          <div class="palace-name">Property · 田宅</div>
+          <div class="palace-branch">丑 · 丁</div>
         </div>
-        <div class="palace-stars">Tian Tong · Tian Xing</div>
-        <div class="palace-meaning">Sentimental, child-like (Tian Tong) plus law / discipline / contracts star (Tian Xing). <strong>Authority sphere — bosses, regulators, lawyers — structurally responds favourably to you.</strong> This palace plus Tian Kui in P11 produces the verified 3-of-3 protection record across recent legal challenges.</div>
+        <div class="palace-stars">Tai Yang · Tai Yin</div>
+        <div class="palace-meaning">Sun-Moon formation = strong <strong>dual property energy — public and private, active and passive</strong>. Tai Yin in P10 confirms you own and manage real estate structurally. Tai Yang Ji (annual / decade overlays) blocks visibility when sales are required.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">09</div>
+          <div class="palace-name">Career · 官祿</div>
+          <div class="palace-branch">寅 · 丙</div>
+        </div>
+        <div class="palace-stars">Tan Lang 权 · Tian Xi</div>
+        <div class="palace-meaning">Career built through personal brand, image, premium presentation. <strong>Quan = structural authority signal for life</strong> — Tan Lang Quan is one of your two permanent SPL engines. Operates best at significant scale, in premium / luxury / regulated environments.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">08</div>
+          <div class="palace-name">Friends · 交友</div>
+          <div class="palace-branch">卯 · 丁</div>
+        </div>
+        <div class="palace-stars">Tian Ji · Ju Men · Tian Yao · Huo Xing</div>
+        <div class="palace-meaning">Collegial peer network (Tian Ji), but with a "second-agenda" star (Ju Men) and a sudden-fire / explosive marker (Huo Xing). <strong>Network betrayal risk is structural — confirmed by 2023 Richemont incident (3 direct reports filed complaints).</strong> Decade D5 sends powerful Quan here, but the substrate carries volatility.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">07</div>
+          <div class="palace-name">Travel · 遷移</div>
+          <div class="palace-branch">辰 · 戊</div>
+        </div>
+        <div class="palace-stars">Zi Wei · Tian Xiang · Wen Chang · Ling Xing</div>
+        <div class="palace-meaning">Zi Wei in P7 = <strong>recognised abroad more than at home; business-class lifestyle</strong>. Wen Chang adds international intellectual recognition. Ling Xing = latent cool reception in some foreign environments. Your structurally strongest channel is international.</div>
       </div>
     </div>
   </div>
