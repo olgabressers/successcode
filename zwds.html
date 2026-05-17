@@ -36,41 +36,43 @@
       }
     });
 
+    function __computeUtcOffset(lat, lon, dateStr, timeStr) {
+      if (typeof tzlookup !== 'function') return null;
+      var tzName;
+      try { tzName = tzlookup(lat, lon); } catch(e) { return null; }
+      if (!tzName) return null;
+      var birthDT = new Date((dateStr || '2000-01-01') + 'T' + (timeStr || '12:00') + ':00Z');
+      try {
+        var parts = new Intl.DateTimeFormat('en', {
+          timeZone: tzName, timeZoneName: 'shortOffset'
+        }).formatToParts(birthDT);
+        for (var k = 0; k < parts.length; k++) {
+          if (parts[k].type === 'timeZoneName') {
+            var m = parts[k].value.match(/GMT([+-])(\d+)(?::(\d+))?/);
+            if (m) return (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
+          }
+        }
+      } catch(e) {}
+      return null;
+    }
+
     function __tzCorrect(i) {
-      if (typeof tzlookup !== 'function') return;
       var dd  = document.getElementById('city-dropdown');
       var lonEl = document.getElementById('birth-longitude');
       if (!dd || !dd._data || !dd._data[i] || !lonEl) return;
       var lat = parseFloat(dd._data[i].lat);
       var lon = parseFloat(lonEl.value);
       if (isNaN(lat) || isNaN(lon)) return;
-      var tzName;
-      try { tzName = tzlookup(lat, lon); } catch(e) { return; }
-      if (!tzName) return;
       var dateStr = (document.getElementById('birth-date') || {}).value || '2000-01-01';
       var timeStr = (document.getElementById('birth-time') || {}).value || '12:00';
-      var birthDT = new Date(dateStr + 'T' + timeStr + ':00Z');
-      var offset = 0;
-      try {
-        var parts = new Intl.DateTimeFormat('en', {
-          timeZone: tzName, timeZoneName: 'shortOffset'
-        }).formatToParts(birthDT);
-        var tzStr = '';
-        for (var k = 0; k < parts.length; k++) {
-          if (parts[k].type === 'timeZoneName') { tzStr = parts[k].value; break; }
-        }
-        var m = tzStr.match(/GMT([+-])(\d+)(?::(\d+))?/);
-        if (m) offset = (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
-      } catch(e) { return; }
+      var offset = __computeUtcOffset(lat, lon, dateStr, timeStr);
+      if (offset === null) return;
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var utcEl = document.getElementById('utc-offset');
       if (utcEl) {
         utcEl.value = offStr;
         if (typeof updateSolarPreview === 'function') updateSolarPreview();
       }
-      // Also fix the city-result display text — obfuscated selectCity set it
-      // to the naive UTC+0 plus "(verify for birth year)" hint. Replace that
-      // portion with the corrected offset so display matches the input field.
       var cr = document.getElementById('city-result');
       if (cr) {
         cr.innerHTML = cr.innerHTML.replace(
