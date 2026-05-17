@@ -5,21 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator — Alena</title>
   <script>
-    // Fill Alena's birth data directly (same pattern as the obfuscated loadTrump —
-    // sets fields + longitude directly, then calls buildChart).
+    // Returns numeric UTC offset for (lat, lon) at (dateStr, timeStr) using IANA lookup.
+    // Same pipeline used by both __loadAlenaDefaults and __tzCorrect.
+    function __computeUtcOffset(lat, lon, dateStr, timeStr) {
+      if (typeof tzlookup !== 'function') return null;
+      var tzName;
+      try { tzName = tzlookup(lat, lon); } catch(e) { return null; }
+      if (!tzName) return null;
+      var birthDT = new Date((dateStr || '2000-01-01') + 'T' + (timeStr || '12:00') + ':00Z');
+      try {
+        var parts = new Intl.DateTimeFormat('en', {
+          timeZone: tzName, timeZoneName: 'shortOffset'
+        }).formatToParts(birthDT);
+        for (var k = 0; k < parts.length; k++) {
+          if (parts[k].type === 'timeZoneName') {
+            var m = parts[k].value.match(/GMT([+-])(\d+)(?::(\d+))?/);
+            if (m) return (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
+          }
+        }
+      } catch(e) {}
+      return null;
+    }
+
+    // Fill Alena's birth data. UTC offset is computed automatically via IANA lookup —
+    // same pipeline as any user selecting a city from the dropdown.
     // Saratov, Russia: 51.53°N 46.02°E
-    // UTC+4: Northern school uses decree-time correction for Russia (permanent 1h forward
-    // shift since 1930). UTC+3 gives LMT 13:34 = Goat; UTC+4 gives LMT 12:34 = Horse ✓
     function __loadAlenaDefaults() {
       var d = document.getElementById('birth-date');   if (d) d.value = '1979-04-19';
       var t = document.getElementById('birth-time');   if (t) t.value = '13:30';
       var s = document.getElementById('birth-sex');    if (s) s.value = 'female';
       var n = document.getElementById('birth-name');   if (n) n.value = 'Alena';
       var c = document.getElementById('birth-city');   if (c) c.value = 'Saratov, Russia';
-      var u = document.getElementById('utc-offset');   if (u) u.value = '4';
-      var lon = document.getElementById('birth-longitude'); if (lon) lon.value = '46.0167';
+      var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '46.0167';
+
+      var offset = __computeUtcOffset(51.5333, 46.0167, '1979-04-19', '13:30');
+      if (offset === null) offset = 4; // fallback if tz.js not yet loaded
+      var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
+      var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
       var cr = document.getElementById('city-result');
-      if (cr) cr.innerHTML = '<span style="color:var(--gold)">✓</span> Saratov, Russia · 46.02° E · UTC+4';
+      if (cr) cr.innerHTML = '<span style="color:var(--gold)">✓</span> Saratov, Russia · 46.02° E · UTC' + (offset >= 0 ? '+' : '') + offStr;
+
       var si = document.getElementById('solar-correction-info'); if (si) si.style.display = 'none';
       var dd = document.getElementById('city-dropdown');
       if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
@@ -44,31 +69,16 @@
     });
 
     function __tzCorrect(i) {
-      if (typeof tzlookup !== 'function') return;
       var dd  = document.getElementById('city-dropdown');
       var lonEl = document.getElementById('birth-longitude');
       if (!dd || !dd._data || !dd._data[i] || !lonEl) return;
       var lat = parseFloat(dd._data[i].lat);
       var lon = parseFloat(lonEl.value);
       if (isNaN(lat) || isNaN(lon)) return;
-      var tzName;
-      try { tzName = tzlookup(lat, lon); } catch(e) { return; }
-      if (!tzName) return;
       var dateStr = (document.getElementById('birth-date') || {}).value || '2000-01-01';
       var timeStr = (document.getElementById('birth-time') || {}).value || '12:00';
-      var birthDT = new Date(dateStr + 'T' + timeStr + ':00Z');
-      var offset = 0;
-      try {
-        var parts = new Intl.DateTimeFormat('en', {
-          timeZone: tzName, timeZoneName: 'shortOffset'
-        }).formatToParts(birthDT);
-        var tzStr = '';
-        for (var k = 0; k < parts.length; k++) {
-          if (parts[k].type === 'timeZoneName') { tzStr = parts[k].value; break; }
-        }
-        var m = tzStr.match(/GMT([+-])(\d+)(?::(\d+))?/);
-        if (m) offset = (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
-      } catch(e) { return; }
+      var offset = __computeUtcOffset(lat, lon, dateStr, timeStr);
+      if (offset === null) return;
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var utcEl = document.getElementById('utc-offset');
       if (utcEl) {
@@ -804,7 +814,7 @@
         </div>
         <div class="form-group" style="margin-bottom:16px;">
           <label>UTC Offset at birth (e.g. 4 for UTC+4)</label>
-          <input type="number" id="utc-offset" value="4" step="0.5" min="-12" max="14" oninput="updateSolarPreview()">
+          <input type="number" id="utc-offset" value="0" step="0.5" min="-12" max="14" oninput="updateSolarPreview()">
         </div>
         <button onclick="buildChart()" style="width:100%;margin-bottom:0;">Calculate Chart</button>
         <div id="solar-correction-info" class="solar-info" style="display:none;margin-top:10px;"></div>
