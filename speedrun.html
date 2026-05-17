@@ -559,19 +559,21 @@
       margin-top: 24px;
     }
     .comp-table th {
-      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; padding: 14px 18px;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; padding: 18px 22px;
       border: 1px solid var(--border); text-align: left;
-      background: rgba(0,0,0,0.2);
+      background: rgba(0,0,0,0.2); line-height: 1.4;
     }
     .comp-table td {
-      font-size: 12.5px; color: var(--dim); padding: 13px 18px;
-      border: 1px solid var(--border); line-height: 1.5;
+      font-size: 14px; color: var(--dim); padding: 16px 22px;
+      border: 1px solid var(--border); line-height: 1.6;
     }
-    .comp-table tr:first-child td { font-weight: 600; color: var(--gold2); background: rgba(184,144,58,0.06); }
-    .comp-check { color: #72b882; font-size: 14px; }
-    .comp-cross { color: var(--muted); font-size: 14px; }
-    .comp-partial { color: var(--gold); font-size: 13px; }
+    .comp-table td:first-child { font-weight: 600; font-size: 15px; color: var(--white); }
+    .comp-table tbody tr:first-child td { color: var(--gold2); background: rgba(184,144,58,0.06); }
+    .comp-table tbody tr:first-child td:first-child { color: var(--gold2); }
+    .comp-check { color: #72b882; font-size: 16px; font-weight: 700; }
+    .comp-cross { color: var(--muted); font-size: 16px; }
+    .comp-partial { color: var(--gold); font-size: 15px; }
     .pricing-boxes {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
       border: 1px solid var(--border); margin-bottom: 40px;
@@ -1256,34 +1258,34 @@
             <td><span class="comp-check">✓</span> Phase 2</td>
           </tr>
           <tr>
-            <td>Co-Star / The Pattern</td>
-            <td><span class="comp-partial">~</span> Sun sign based</td>
+            <td>Horoscope apps<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(Astrology.com, Cafe Astrology)</span></td>
+            <td><span class="comp-partial">~</span> Sun sign only</td>
             <td><span class="comp-cross">✗</span> No timing layer</td>
-            <td><span class="comp-cross">✗</span> Generic personality</td>
+            <td><span class="comp-cross">✗</span> Generic daily content</td>
             <td><span class="comp-cross">✗</span> Pop astrology</td>
-            <td><span class="comp-partial">~</span> Notification copy</td>
+            <td><span class="comp-cross">✗</span> None</td>
           </tr>
           <tr>
-            <td>BetterUp / Coaching</td>
+            <td>Executive coaching<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(BetterUp, Torch, Exec coaches)</span></td>
             <td><span class="comp-partial">~</span> Coach-dependent</td>
             <td><span class="comp-cross">✗</span> No timing layer</td>
             <td><span class="comp-check">✓</span> Goal-specific</td>
             <td><span class="comp-partial">~</span> Psychology-based</td>
-            <td><span class="comp-partial">~</span> Session assist</td>
+            <td><span class="comp-partial">~</span> Session assist only</td>
           </tr>
           <tr>
-            <td>Crystal / DISC tools</td>
+            <td>Personality assessments<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(Myers-Briggs, DISC, Enneagram)</span></td>
             <td><span class="comp-partial">~</span> Personality type</td>
-            <td><span class="comp-cross">✗</span> Static snapshot</td>
-            <td><span class="comp-partial">~</span> Communication tips</td>
+            <td><span class="comp-cross">✗</span> Static, no timing</td>
+            <td><span class="comp-partial">~</span> Communication style</td>
             <td><span class="comp-partial">~</span> Survey-based</td>
-            <td><span class="comp-partial">~</span> Recommendations</td>
+            <td><span class="comp-cross">✗</span> None</td>
           </tr>
           <tr>
-            <td>Generic AI assistants</td>
+            <td>AI assistants<br><span style="font-size:12px;color:var(--muted);font-weight:400;">(ChatGPT, Claude, Gemini)</span></td>
             <td><span class="comp-cross">✗</span> No personal map</td>
             <td><span class="comp-cross">✗</span> No timing model</td>
-            <td><span class="comp-partial">~</span> General advice</td>
+            <td><span class="comp-partial">~</span> General advice only</td>
             <td><span class="comp-cross">✗</span> Training data only</td>
             <td><span class="comp-check">✓</span> Native</td>
           </tr>
@@ -1389,18 +1391,6 @@
         </div>
       </div>
 
-      <!-- 3 — Military/Conflict Timing -->
-      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
-        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">I launched a military operation in February 2026. What does the structural pattern say about how this resolves?</div>
-        </div>
-        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
-          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
-          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your 2026 timing layer activates a domain carrying <strong style="color:var(--gold2);">four concurrent high-force indicators</strong> — together they signal maximum structural support for rapid, asymmetric, decisive action. This configuration does not support sustained attritional campaigns — its energy concentrates in shock-and-breakthrough dynamics, not prolonged siege. Extended operations under this pattern tend toward escalation cycles and failed ceasefire intervals. The structural window for durable resolution opens when the annual focal layer rotates away from this volatile domain — <strong style="color:var(--gold2);">spring 2027 onwards.</strong></p>
-        </div>
-      </div>
-
       <!-- 4 — Capital Deployment Timing -->
       <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
         <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
@@ -1429,7 +1419,7 @@
       <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
         <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
           <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
-          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">My approval is at historic lows. Half the world opposes me. Is this a structural pattern or a recoverable situation?</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">My approval is at historic lows. Is this a structural pattern or a recoverable situation?</div>
         </div>
         <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
           <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
