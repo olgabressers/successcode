@@ -633,6 +633,80 @@
     }
     .calendar-cell p strong { color: var(--text); font-weight: 600; }
 
+    /* ── Decade ratings table ───────────────────────────── */
+    .decade-ratings-wrap {
+      margin-top: 56px;
+    }
+    .decade-ratings-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .decade-ratings-grid {
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .decade-ratings-head,
+    .dr-row {
+      display: grid;
+      grid-template-columns: 200px repeat(3, 1fr);
+    }
+    .decade-ratings-head {
+      background: var(--surface2);
+    }
+    .dr-domain-col,
+    .dr-dec-col {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .dr-domain-col {
+      font-size: 13.5px; color: var(--dim); font-weight: 600;
+      display: flex; align-items: center;
+    }
+    .decade-ratings-head .dr-domain-col { color: transparent; }
+    .dr-dec-col {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700;
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 4px;
+    }
+    .dr-dec-col small {
+      font-size: 11px; color: var(--muted); text-transform: none;
+      letter-spacing: 0; font-weight: 400;
+    }
+    .dr-past { opacity: 0.7; }
+    .dr-now { background: rgba(154,110,32,0.04); }
+    .dr-dec-col.dr-now { color: var(--gold2); opacity: 1; }
+    .dr-stars { color: var(--gold); font-size: 15px; letter-spacing: 1px; }
+    .dr-empty { color: var(--border); font-size: 15px; letter-spacing: 1px; }
+    @media (max-width: 768px) {
+      .decade-ratings-head,
+      .dr-row { grid-template-columns: 120px repeat(3, 1fr); }
+      .dr-domain-col,
+      .dr-dec-col { padding: 12px 10px; }
+      .dr-domain-col { font-size: 12px; }
+      .dr-stars, .dr-empty { font-size: 12px; letter-spacing: 0; }
+    }
+
+    /* ── Go-up button ───────────────────────────────────── */
+    .go-up-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      z-index: 300;
+      width: 44px; height: 44px;
+      background: var(--gold); color: #fdf8ec;
+      border: none; cursor: pointer;
+      font-size: 20px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      opacity: 0.88;
+      transition: opacity .2s;
+    }
+    .go-up-btn:hover { opacity: 1; }
+    @media (max-width: 768px) {
+      .go-up-btn { bottom: 18px; right: 16px; width: 38px; height: 38px; font-size: 17px; }
+    }
+
     /* ── Disclaimer ─────────────────────────────────────── */
     .disclaimer {
       padding: 48px 56px;
@@ -780,12 +854,13 @@
   <!-- TOP NAVIGATION -->
   <nav class="top-nav">
     <div class="top-nav-inner">
-      <a href="delisted.html" class="back-link" style="margin-right:20px;">Admin Index</a>
-      <a href="#top" class="top-nav-logo">SuccessCode</a>
+      <a href="delisted.html" class="top-nav-logo">← Admin</a>
       <div class="top-nav-links">
         <a href="#natal-chart">Natal Chart</a>
         <a href="#current-decade">Current Decade</a>
-        <a href="#year-and-forward">2026 &amp; Next Years</a>
+        <a href="#year-and-forward">2026</a>
+        <a href="#decision-support">Decision Support</a>
+        <a href="#forward-calendar">Forward Calendar</a>
         <a href="#zwds-chart">ZWDS Chart</a>
       </div>
     </div>
@@ -795,7 +870,6 @@
   <header class="page-header" id="top">
     <div class="eyebrow">SuccessCode · Customer Report Prototype</div>
     <h1>Alena.<br><em>Your structural blueprint.</em></h1>
-    <p class="header-sub">A SuccessCode report built on your permanent chart structure and the timing layers active in your current period. Not horoscopes. Not personality types. Structural decision intelligence derived from your precise birth data using a 1,000-year mathematically-derived system.</p>
 
     <div class="header-meta">
       <div class="header-meta-cell">
@@ -1246,7 +1320,7 @@
 <!-- ─────────────────────────────────────────────────────── -->
 <!-- 4. DECISION SUPPORT — Q&A                               -->
 <!-- ─────────────────────────────────────────────────────── -->
-<section>
+<section id="decision-support">
   <div class="section-eyebrow">Section 04 · Decision support</div>
   <h2 class="section-h2">Specific decisions, <em>derived directly</em> from your chart structure.</h2>
   <p class="section-intro">This is the question-driven product. Real decisions, mapped to your permanent structure and active timing layers. Below: four examples derived from your chart and current period. The full product handles any decision you bring.</p>
@@ -1311,7 +1385,7 @@
 <!-- ─────────────────────────────────────────────────────── -->
 <!-- 5. FORWARD CALENDAR                                     -->
 <!-- ─────────────────────────────────────────────────────── -->
-<section>
+<section id="forward-calendar">
   <div class="section-eyebrow">Section 05 · Forward calendar</div>
   <h2 class="section-h2">The next nine years, <em>mapped</em>.</h2>
   <p class="section-intro">Your decade continues through 2034. Below: the five high-priority years and their structural signature. Years not shown are middle-priority or stabilisation-only.</p>
@@ -1361,6 +1435,80 @@
     </div>
 
   </div>
+
+  <!-- Decade ratings table -->
+  <div class="decade-ratings-wrap">
+    <div class="decade-ratings-label">Past · Current · Next decade — domain ratings</div>
+    <div class="decade-ratings-grid">
+      <div class="decade-ratings-head">
+        <div class="dr-domain-col"></div>
+        <div class="dr-dec-col dr-past">D4 · 2015–2024<small>丁 Ding · Property decade</small></div>
+        <div class="dr-dec-col dr-now">D5 · 2025–2034<small>丙 Bing · Career decade</small></div>
+        <div class="dr-dec-col dr-next">D6 · 2035–2044<small>丁 Ding · Network decade</small></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Career</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Money / Income</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Relationships</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Children / Family</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Health</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Property</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★★</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Travel / International</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Network / Friends</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Mental Wellbeing</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★★</span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">Authority / Legal</div>
+        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
+        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ─────────────────────────────────────────────────────── -->
@@ -1383,6 +1531,9 @@
 <div class="disclaimer">
   <p><strong>Prototype reference.</strong> This document demonstrates the format, depth, and decision-support character of a SuccessCode customer report. The chart, decade analysis, annual analysis, and decision-support outputs above are derived from a real ZWDS natal chart and verified life events. The final customer product will deliver this depth across the full set of question types and timing layers, generated on demand from each customer's birth data.</p>
 </div>
+
+<!-- GO UP BUTTON -->
+<a href="#top" class="go-up-btn" title="Back to top">↑</a>
 
 <!-- FOOTER -->
 <footer>
