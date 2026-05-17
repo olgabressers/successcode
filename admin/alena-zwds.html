@@ -61,6 +61,190 @@
     .back-link::before { content: '← '; color: var(--gold); }
     .back-link:hover { color: var(--gold2); }
 
+    /* ── Top Nav (sticky) ───────────────────────────────── */
+    .top-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(58,60,72,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 56px;
+    }
+    .top-nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .top-nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold2);
+      text-decoration: none;
+    }
+    .top-nav-links {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .top-nav-links a {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; text-decoration: none;
+      transition: color .25s;
+      padding: 4px 0; border-bottom: 1px solid transparent;
+    }
+    .top-nav-links a:hover {
+      color: var(--gold2); border-bottom-color: var(--gold);
+    }
+
+    /* ── Natal sub-section block ────────────────────────── */
+    .subsection {
+      margin-top: 64px; padding-top: 56px;
+      border-top: 1px solid var(--border);
+    }
+    .subsection:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .subsection-eyebrow {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .subsection-h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3.6vw, 44px);
+      font-weight: 500; line-height: 1.15;
+      color: var(--text); margin-bottom: 24px;
+      letter-spacing: -0.5px; max-width: 820px;
+    }
+    .subsection-h3 em { font-style: italic; color: var(--gold); }
+    .subsection-intro {
+      font-size: 17px; line-height: 1.85; color: var(--dim);
+      max-width: 720px; margin-bottom: 36px;
+    }
+
+    /* ── Up/Down sides ──────────────────────────────────── */
+    .upside-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .upside-cell {
+      padding: 32px 36px;
+      border-right: 1px solid var(--border);
+    }
+    .upside-cell:last-child { border-right: none; }
+    .upside-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .upside-cell.up   .upside-label { color: var(--green); }
+    .upside-cell.down .upside-label { color: var(--red); }
+    .upside-cell ul { list-style: none; padding: 0; margin: 0; }
+    .upside-cell li {
+      font-size: 15.5px; line-height: 1.75; color: var(--dim);
+      padding: 9px 0 9px 22px; position: relative;
+      border-top: 1px solid rgba(154,110,32,0.10);
+    }
+    .upside-cell li:first-child { border-top: none; }
+    .upside-cell.up li::before {
+      content: '+'; position: absolute; left: 0; top: 8px;
+      color: var(--green); font-weight: 700; font-size: 16px;
+    }
+    .upside-cell.down li::before {
+      content: '−'; position: absolute; left: 0; top: 8px;
+      color: var(--red); font-weight: 700; font-size: 18px;
+    }
+
+    /* ── Industries grid ────────────────────────────────── */
+    .industries-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 16px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .industry-card {
+      padding: 28px 32px 30px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .industry-source {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 10px;
+    }
+    .industry-star {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500;
+      color: var(--text); margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .industry-star em { font-style: italic; color: var(--gold); }
+    .industry-list {
+      font-size: 15px; line-height: 1.75; color: var(--dim);
+    }
+    .industry-match {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(154,110,32,0.15);
+      font-size: 13.5px; color: var(--muted); font-style: italic;
+    }
+    .industry-match strong { color: var(--text); font-weight: 600; font-style: normal; }
+
+    /* ── 12 Palaces grid ────────────────────────────────── */
+    .palaces-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 0; margin-top: 16px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .palace-card {
+      padding: 22px 24px 26px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .palace-head {
+      display: flex; align-items: baseline; gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(154,110,32,0.15);
+    }
+    .palace-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500;
+      color: var(--gold); line-height: 1;
+    }
+    .palace-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 500; color: var(--text);
+      line-height: 1.2;
+    }
+    .palace-branch {
+      margin-left: auto;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .palace-stars {
+      font-size: 13px; line-height: 1.65; color: var(--gold);
+      font-weight: 600; margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+    .palace-meaning {
+      font-size: 13.5px; line-height: 1.7; color: var(--dim);
+    }
+    .palace-meaning strong { color: var(--text); font-weight: 600; }
+
+    /* ── ZWDS Chart section ─────────────────────────────── */
+    .chart-frame-wrap {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      background: #f5f3ee;
+    }
+    .chart-frame {
+      width: 100%; height: 1750px; border: none; display: block;
+    }
+    .chart-instruction {
+      padding: 22px 28px;
+      background: var(--surface2);
+      font-size: 14px; line-height: 1.7; color: var(--dim);
+      border-bottom: 1px solid var(--border);
+    }
+    .chart-instruction strong { color: var(--text); font-weight: 600; }
+
     /* ── Page Header ────────────────────────────────────── */
     .page-header {
       padding: 88px 56px 64px;
@@ -513,6 +697,42 @@
       .disclaimer { padding: 32px 24px; font-size: 13px; }
       footer { padding: 24px 24px; font-size: 10px; }
 
+      /* Top nav mobile */
+      .top-nav { padding: 14px 24px; }
+      .top-nav-inner { gap: 14px; }
+      .top-nav-logo { font-size: 15px; letter-spacing: 2px; }
+      .top-nav-links { gap: 14px 16px; }
+      .top-nav-links a { font-size: 10px; letter-spacing: 1.5px; }
+
+      /* Subsection mobile */
+      .subsection { margin-top: 48px; padding-top: 40px; }
+      .subsection-h3 { font-size: clamp(22px, 6.5vw, 30px); margin-bottom: 20px; }
+      .subsection-intro { font-size: 15px; margin-bottom: 28px; }
+
+      /* Up/Down sides mobile */
+      .upside-grid { grid-template-columns: 1fr; }
+      .upside-cell { padding: 24px 22px; border-right: none; border-bottom: 1px solid var(--border); }
+      .upside-cell:last-child { border-bottom: none; }
+      .upside-cell li { font-size: 14.5px; }
+
+      /* Industries mobile */
+      .industries-grid { grid-template-columns: 1fr; }
+      .industry-card { padding: 24px 22px 26px; }
+      .industry-star { font-size: 20px; }
+      .industry-list { font-size: 14px; }
+      .industry-match { font-size: 13px; }
+
+      /* Palaces mobile */
+      .palaces-grid { grid-template-columns: 1fr; }
+      .palace-card { padding: 20px 22px 24px; }
+      .palace-number { font-size: 24px; }
+      .palace-name { font-size: 17px; }
+      .palace-meaning { font-size: 13.5px; }
+
+      /* Chart frame mobile */
+      .chart-frame { height: 1300px; }
+      .chart-instruction { padding: 18px 22px; font-size: 13px; }
+
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
     }
@@ -520,7 +740,7 @@
 </head>
 <body>
 
-<!-- DARK ZONE: back-bar + page header -->
+<!-- DARK ZONE: back-bar + nav + page header -->
 <div class="dark-zone">
 
   <!-- BACK BAR -->
@@ -528,8 +748,21 @@
     <a href="delisted.html" class="back-link">Admin Index</a>
   </div>
 
+  <!-- TOP NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="#top" class="top-nav-logo">SuccessCode</a>
+      <div class="top-nav-links">
+        <a href="#natal-chart">Natal Chart</a>
+        <a href="#current-decade">Current Decade</a>
+        <a href="#year-and-forward">2026 &amp; Next Years</a>
+        <a href="#zwds-chart">ZWDS Chart</a>
+      </div>
+    </div>
+  </nav>
+
   <!-- HEADER -->
-  <header class="page-header">
+  <header class="page-header" id="top">
     <div class="eyebrow">SuccessCode · Customer Report Prototype</div>
     <h1>Alena.<br><em>Your structural blueprint.</em></h1>
     <p class="header-sub">A SuccessCode report built on your permanent chart structure and the timing layers active in your current period. Not horoscopes. Not personality types. Structural decision intelligence derived from your precise birth data using a 1,000-year mathematically-derived system.</p>
@@ -557,78 +790,307 @@
 </div>
 
 <!-- ─────────────────────────────────────────────────────── -->
-<!-- 1. STRUCTURAL IDENTITY                                  -->
+<!-- 1. NATAL CHART — Who you are, structurally              -->
 <!-- ─────────────────────────────────────────────────────── -->
-<section>
-  <div class="section-eyebrow">Section 01 · Structural identity</div>
-  <h2 class="section-h2">Your chart is a <em>dual-trigger</em> structure built for high-stakes transformation.</h2>
-  <p class="section-intro">Most charts run on standard polarity — stable wins, smooth flow, comfort signals what's working. Your chart runs on inverted polarity. Friction is the activation signal. Pressure is the engine. This is not a flaw. This is what your chart structurally produces wins from.</p>
+<section id="natal-chart">
+  <div class="section-eyebrow">Section 01 · Natal chart</div>
+  <h2 class="section-h2">Who you are, <em>structurally.</em></h2>
+  <p class="section-intro">Your natal chart is the layer that does not change. Birth data — date, time, location — fixes 12 palaces in 12 zodiac branches, distributes 18 main stars across them, and identifies which stars receive permanent enhancers from your year stem. This is the structural baseline. Decades and annual cycles overlay timing on top of it. Below: the chart structure, your personality, the industries that match your structure, and a palace-by-palace breakdown.</p>
 
-  <div class="identity-grid">
-    <div class="identity-cell">
-      <div class="identity-label">Chart type</div>
-      <div class="identity-headline">SPL + Transformational</div>
-      <div class="identity-body">A <strong>dual-trigger reversed polarity chart</strong> formed by two simultaneous structural features: the Sha-Po-Lang star formation across your career–life–wealth axis, and two Ji (忌) markers landing in the same 1-5-9 axis. Both formations are confirmed by calculator. This is rare. Most charts have one or the other; you have both.</div>
+  <!-- ─────────────────── A. CHART STRUCTURE ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">A · Chart structure &amp; polarity</div>
+    <h3 class="subsection-h3">A <em>dual-trigger</em> structure built for high-stakes transformation.</h3>
+    <p class="subsection-intro">Most charts run on standard polarity — stable wins, smooth flow, comfort signals what's working. Your chart runs on inverted polarity. Friction is the activation signal. Pressure is the engine. This is not a flaw. This is what your chart structurally produces wins from.</p>
+
+    <div class="identity-grid">
+      <div class="identity-cell">
+        <div class="identity-label">Chart type</div>
+        <div class="identity-headline">SPL + Transformational</div>
+        <div class="identity-body">A <strong>dual-trigger reversed polarity chart</strong> formed by two simultaneous structural features: the Sha-Po-Lang star formation across your career–life–wealth axis, and two Ji (忌) markers landing in the same 1-5-9 axis. Both formations are confirmed by calculator. This is rare — most charts have one or the other; you have both.</div>
+      </div>
+      <div class="identity-cell">
+        <div class="identity-label">Named formations</div>
+        <div class="identity-headline">SPL · RYZB · 2-Ji</div>
+        <div class="identity-body">Sha-Po-Lang (七殺破軍貪狼) — the transformation triad — anchors your career, life and wealth palaces. RYZB (Sun-Moon Property) layers a permanent dual visibility-and-property signal on top. Two Ji markers on the 1-5-9 axis (natal 己 + Liu Chu from P2) make you a Transformational chart.</div>
+      </div>
     </div>
-    <div class="identity-cell">
-      <div class="identity-label">Named formations</div>
-      <div class="identity-headline">SPL · RYZB · 2-Ji</div>
-      <div class="identity-body">Sha-Po-Lang (七殺破軍貪狼) — the transformation triad — anchors your career, life, and wealth palaces. RYZB (Sun-Moon Property) layers a permanent dual visibility-and-property signal on top. Two Ji markers on your 1-5-9 axis (natal 己 + Liu Chu from P2) make you a Transformational chart — adversity converts directly into structural advancement.</div>
+
+    <div class="polarity-note">
+      <div class="polarity-note-label">Reversed polarity rule</div>
+      <p>For your chart specifically: <strong>Ji (忌) markers on your career–life–wealth axis are the BEST outcome</strong> — they activate the SPL engine and produce your biggest income years. Lu (禄) markers in the same axis are the WORST — they suppress activation. This inverts the standard reading. Three of your strongest career years (2003, 2013, 2024) all carried a Ji marker on this axis. Your 2025 had zero activators — and produced no career outcome.</p>
+    </div>
+
+    <div class="upside-grid" style="margin-top: 44px;">
+      <div class="upside-cell up">
+        <div class="upside-label">What this structure gives you</div>
+        <ul>
+          <li>Adversity converts directly into advancement. Your biggest wins arrive through pressure, not comfort.</li>
+          <li>Three permanent tailwinds: career authority (Quan→P9), inner financial flow (Lu→P11), structural protection in health and legal domains (Ke→P6, Tian Kui in P11).</li>
+          <li>You are built for high-stakes complexity — premium markets, regulated industries, senior leadership at significant scale.</li>
+          <li>Court / legal / authority challenges: structurally protected. Verified track record 3 wins from 3 challenges, 2023–2025.</li>
+          <li>Decade and annual layers that land on your 1-5-9 axis stack predictably — peak windows are forecastable years in advance.</li>
+        </ul>
+      </div>
+      <div class="upside-cell down">
+        <div class="upside-label">What this structure costs you</div>
+        <ul>
+          <li>Comfort years produce nothing. Years with zero activators do not yield career outcomes — flat by structure.</li>
+          <li>Documentation, contracts and paperwork are a permanent life theme (Wen Qu Ji on P1) — never fully resolved, always returning.</li>
+          <li>Relationships require conscious effort throughout life (Lian Zhen on P3) — partnership is not a passive domain.</li>
+          <li>Pace is exhausting — the engine runs on pressure. Rest cycles must be structured deliberately or burnout signals appear.</li>
+          <li>Small-scale or low-trust environments compress your structural advantage. Mass-market roles dilute the channels.</li>
+        </ul>
+      </div>
     </div>
   </div>
 
-  <div class="polarity-note">
-    <div class="polarity-note-label">What this means in practice</div>
-    <p>For your chart specifically: <strong>Ji (忌) markers on your career–life–wealth axis are the BEST outcome</strong> — they activate the SPL engine and produce your biggest income years, your highest-stakes wins. Lu (禄) markers in the same axis are the WORST — they suppress activation. This inverts the normal interpretation. Three of your strongest career events (2003, 2013, 2024) all happened in years carrying a Ji marker on this axis. Your 2025 had zero activators — and produced no career outcome.</p>
+  <!-- ─────────────────── B. PERMANENT ENHANCERS ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">B · Your permanent engine</div>
+    <h3 class="subsection-h3">Four channels running <em>continuously</em> across your entire life.</h3>
+    <p class="subsection-intro">Your year stem 己 (Ji) is the only stem that fires permanent natal enhancers in Northern-school ZWDS. These four channels do not weaken with age. They are present every year, every decade, every annual cycle. The rest of your chart's signals overlay on top of these — they are your structural baseline.</p>
+
+    <div class="enhancers-grid">
+      <div class="enhancer">
+        <div class="enhancer-icon">禄</div>
+        <div class="enhancer-tag">Lu · Smooth flow channel</div>
+        <h3 class="enhancer-h3">Wu Qu in <em>P11 Mental</em></h3>
+        <p>Your inner relationship with money runs smooth and structurally favourable. <strong>Wealth shows up where you put your mind.</strong> Mental discipline around capital — research, frameworks, written analysis, financial systems thinking — is permanently rewarded.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">权</div>
+        <div class="enhancer-tag">Quan · Permanent SPL activator</div>
+        <h3 class="enhancer-h3">Tan Lang in <em>P9 Career</em></h3>
+        <p>One of your two permanent SPL engines. Tan Lang in the career palace receives Quan (authority) for life. <strong>Your career structurally demands and rewards visibility, scale and high-stakes leadership.</strong> Smaller roles compress this signal.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">科</div>
+        <div class="enhancer-tag">Ke · Protection channel</div>
+        <h3 class="enhancer-h3">Tian Liang in <em>P6 Health</em></h3>
+        <p>Tian Liang is the protection star. With Ke permanently in Health, you carry a structural signal that <strong>the right doctor, advisor or protective intervention appears when needed</strong>. Combined with Tian Kui in P11, this pattern surfaced three lawyers across three legal challenges.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">忌</div>
+        <div class="enhancer-tag">Ji · Permanent SPL activator</div>
+        <h3 class="enhancer-h3">Wen Qu in <em>P1 Life</em></h3>
+        <p>Your second permanent SPL engine. Wen Qu — the paperwork, document and contract star — sits in your Life palace receiving Ji for life. <strong>Contracts and documentation are a life theme</strong>, not a catastrophe. Adversity in this domain is where you transform.</p>
+      </div>
+    </div>
   </div>
+
+  <!-- ─────────────────── C. PERSONALITY ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">C · Personality &amp; style</div>
+    <h3 class="subsection-h3">Built from <em>three dominant stars</em> on your central axis.</h3>
+    <p class="subsection-intro">Your 1-5-9 axis (Life, Wealth, Career) holds the SPL triad: Po Jun in P1, Qi Sha in P5, Tan Lang in P9. The character of these three stars dominates how you operate. Layered on top: your mental palace (P11 Wu Qu + Tian Fu + Tian Kui) sets your inner posture, and P12 Parents (Tian Tong + Tian Xing) shapes your relationship to authority.</p>
+
+    <div class="enhancers-grid">
+      <div class="enhancer">
+        <div class="enhancer-tag">Po Jun in P1 Life</div>
+        <h3 class="enhancer-h3">The <em>reconstruction</em> archetype.</h3>
+        <p>Po Jun = "destroy before rebuild" — stubborn, dynamic, athletic build. You don't iterate gradually; you tear down and reconstruct. This shows up in career (digital transformation, restructuring roles), in property (renovation, "buy big and split"), and in life decisions. <strong>Wen Qu Ji</strong> on top makes paperwork and contracts a permanent life theme — not catastrophic, structural.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">Qi Sha in P5 Wealth</div>
+        <h3 class="enhancer-h3">The <em>warrior</em> approach to money.</h3>
+        <p>Qi Sha = aggressive, instant decisions, independent — "no concept of competition, just goes and does." You need <strong>war mode</strong> to realise wealth — passivity does not generate income for your structure. Lu Cun in the same palace gives a lifelong financial floor; Zuo Fu means a team helps you earn (direct reports outperform solo).</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">Tan Lang in P9 Career</div>
+        <h3 class="enhancer-h3">The <em>premium presentation</em> star.</h3>
+        <p>Tan Lang = charm, branding, "expensive show" — the peach blossom star applied to career. <strong>Career built through personal brand, image building and self-presentation at premium price points.</strong> Quan on top gives this star power and authority. You operate best where presentation matters: luxury, premium B2B, regulated visibility.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">P11 Mental + P12 Parents</div>
+        <h3 class="enhancer-h3">Inner <em>steadiness</em> + protected authority.</h3>
+        <p>Wu Qu Lu + Tian Fu + Tian Kui in P11 = "you have enough already," karma-stable inner posture with a noble protector that arrives in dark moments. P12 Tian Tong + Tian Xing = child-like sentimentality combined with discipline / law / contracts protection — explains why <strong>authority figures and lawyers structurally respond favourably to you</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── D. INDUSTRIES ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">D · Industries where you thrive</div>
+    <h3 class="subsection-h3">Mapped <em>directly</em> from the main stars in your career, life and wealth palaces.</h3>
+    <p class="subsection-intro">Each main star in ZWDS maps to specific industry domains where its energy converts cleanly into outcomes. Your structural fit is strongest where multiple stars overlap — domains that match Tan Lang (career) AND Po Jun (life) AND Qi Sha (wealth) compound. Your verified 20-year track record (Richemont luxury, Adidas / Nike sportswear, IBM supply chain) sits exactly inside these mappings.</p>
+
+    <div class="industries-grid">
+      <div class="industry-card">
+        <div class="industry-source">Career star · P9</div>
+        <div class="industry-star">Tan Lang <em>权</em></div>
+        <div class="industry-list">Premium products · luxury · PR · social marketing · branding · entertainment · art · education · easy money / image-based business · religion · premium professional services.</div>
+        <div class="industry-match"><strong>Verified match:</strong> Richemont (12 luxury brands, €150M e-commerce P&amp;L, 2019–2025).</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Life star · P1</div>
+        <div class="industry-star">Po Jun</div>
+        <div class="industry-list">Destroy-then-rebuild / restructure · repair · renovation · marketing · trucking and logistics · livestock / seafood · shipping · restoration · feng shui · event planning · digital transformation.</div>
+        <div class="industry-match"><strong>Verified match:</strong> digital transformation lead at Nike Intersport (2010–2016) — exactly "destroy old, rebuild new."</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Wealth star · P5</div>
+        <div class="industry-star">Qi Sha</div>
+        <div class="industry-list">Heavy industry · sports / military · police · surgery · mining · archaeology · special skills · competitive performance environments · roles requiring aggressive execution.</div>
+        <div class="industry-match"><strong>Verified match:</strong> Adidas (omni-channel director 2016–2018) and Nike (digital transformation 2010–2016) — sportswear is structurally Qi Sha territory.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Travel star · P7</div>
+        <div class="industry-star">Zi Wei + Wen Chang</div>
+        <div class="industry-list">Government service · luxury products · jewelry · watches · computers · enterprise technology · premium professional collaboration · international intellectual roles.</div>
+        <div class="industry-match"><strong>Verified match:</strong> IBM Senior Supply Chain Consultant (2006–2010); Zi Wei in Travel means <strong>recognised abroad more than at home</strong> — your structurally strongest channel is international.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Property star · P10</div>
+        <div class="industry-star">Tai Yang + Tai Yin</div>
+        <div class="industry-list">Real estate · rental · hostel / hospitality · luxury cars · women's products · cosmetics · fashion · cleaning industry · competitive branded products · politics / lawyer · energy / electrics.</div>
+        <div class="industry-match"><strong>Note:</strong> Sun-Moon formation in P10 means you own and manage property structurally — confirmed by current ownership of three properties.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Mental star · P11</div>
+        <div class="industry-star">Wu Qu <em>禄</em></div>
+        <div class="industry-list">Finance · banking · insurance · metal products · dentistry · breathing systems · cosmetology · production · financial systems and frameworks · capital research.</div>
+        <div class="industry-match"><strong>Direction:</strong> the Lu on Wu Qu in your mental palace means financial / strategic-intelligence platforms (TrendsOnFire, SuccessCode) are structurally aligned with your inner posture.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── E. 12 PALACES ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">E · 12 palaces — key characteristics</div>
+    <h3 class="subsection-h3">Your <em>twelve domains</em>, each with its dominant stars and structural meaning.</h3>
+    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars sitting in each palace, plus any natal enhancers from year stem 己, determine the structural character of that domain. Below: a quick reference card for each.</p>
+
+    <div class="palaces-grid">
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">01</div>
+          <div class="palace-name">Life · 命</div>
+          <div class="palace-branch">戌 · 甲</div>
+        </div>
+        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
+        <div class="palace-meaning">The reconstruction archetype. Athletic, dynamic build. <strong>Demolish-rebuild approach to life decisions.</strong> Documentation and contracts are a permanent life theme — never fully resolved, structurally returning.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">02</div>
+          <div class="palace-name">Siblings · 兄弟</div>
+          <div class="palace-branch">酉 · 癸</div>
+        </div>
+        <div class="palace-stars">(empty)</div>
+        <div class="palace-meaning">Empty palace — read via the opposite (P8 Friends). <strong>Sibling / peer relations require conscious effort to activate</strong> — does not fire automatically through natal stars. Branch activation in 酉 years is significant.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">03</div>
+          <div class="palace-name">Spouse · 夫妻</div>
+          <div class="palace-branch">申 · 壬</div>
+        </div>
+        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
+        <div class="palace-meaning">Traditional courtship archetype with hidden support stars. Beautiful romantic timing signals (Hong Luan), quiet protective partner energy (Tian Yue). <strong>Decade D5 sends Ji here for 2025–2034 — relationship is the pressure axis of this decade.</strong></div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">04</div>
+          <div class="palace-name">Children · 子女</div>
+          <div class="palace-branch">未 · 辛</div>
+        </div>
+        <div class="palace-stars">Qing Yang</div>
+        <div class="palace-meaning">No main star. Qing Yang alone signals <strong>sharp / sudden challenges in the children domain — possible nervous-system or limb concerns to monitor</strong>. Read via opposite P10 Property for the bigger picture.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">05</div>
+          <div class="palace-name">Wealth · 財帛</div>
+          <div class="palace-branch">午 · 庚</div>
+        </div>
+        <div class="palace-stars">Qi Sha · Zuo Fu · Lu Cun</div>
+        <div class="palace-meaning">Warrior approach to money. <strong>"War mode" required to realise wealth</strong> — passivity does not generate income. Zuo Fu = team helps you earn (direct reports outperform solo). Lu Cun = lifelong financial floor / savings.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">06</div>
+          <div class="palace-name">Health · 疾厄</div>
+          <div class="palace-branch">巳 · 己</div>
+        </div>
+        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
+        <div class="palace-meaning">Longevity star with permanent protection (the "right doctor appears" pattern). <strong>Tian Ma = movement is medicine — sedentary lifestyle harms.</strong> Di Kong + Di Jie together = spiritual / esoteric signal; Tuo Luo = chronic slow-grinding issues to manage proactively.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">07</div>
+          <div class="palace-name">Travel · 遷移</div>
+          <div class="palace-branch">辰 · 戊</div>
+        </div>
+        <div class="palace-stars">Zi Wei · Tian Xiang · Wen Chang · Ling Xing</div>
+        <div class="palace-meaning">Zi Wei in P7 = <strong>recognised abroad more than at home; business-class lifestyle</strong>. Wen Chang adds international intellectual recognition. Ling Xing = latent cool reception in some foreign environments. Your structurally strongest channel is international.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">08</div>
+          <div class="palace-name">Friends · 交友</div>
+          <div class="palace-branch">卯 · 丁</div>
+        </div>
+        <div class="palace-stars">Tian Ji · Ju Men · Tian Yao · Huo Xing</div>
+        <div class="palace-meaning">Collegial peer network (Tian Ji), but with a "second-agenda" star (Ju Men) and a sudden-fire / explosive marker (Huo Xing). <strong>Network betrayal risk is structural — confirmed by 2023 Richemont incident (3 direct reports filed complaints).</strong> Decade D5 sends powerful Quan here, but the substrate carries volatility.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">09</div>
+          <div class="palace-name">Career · 官祿</div>
+          <div class="palace-branch">寅 · 丙</div>
+        </div>
+        <div class="palace-stars">Tan Lang 权 · Tian Xi</div>
+        <div class="palace-meaning">Career built through personal brand, image, premium presentation. <strong>Quan = structural authority signal for life</strong> — Tan Lang Quan is one of your two permanent SPL engines. Operates best at significant scale, in premium / luxury / regulated environments.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">10</div>
+          <div class="palace-name">Property · 田宅</div>
+          <div class="palace-branch">丑 · 丁</div>
+        </div>
+        <div class="palace-stars">Tai Yang · Tai Yin</div>
+        <div class="palace-meaning">Sun-Moon formation = strong <strong>dual property energy — public and private, active and passive</strong>. Tai Yin in P10 confirms you own and manage real estate structurally. Tai Yang Ji (annual / decade overlays) blocks visibility when sales are required.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">11</div>
+          <div class="palace-name">Mental · 福德</div>
+          <div class="palace-branch">子 · 丙</div>
+        </div>
+        <div class="palace-stars">Wu Qu 禄 · Tian Fu · Tian Kui</div>
+        <div class="palace-meaning">Easy financial mind (Wu Qu Lu). <strong>Tian Fu = "you have enough already" — karma-stable inner posture, never destitute.</strong> Tian Kui = noble protector activates in dark moments. This palace is the source of your composure under pressure.</div>
+      </div>
+
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">12</div>
+          <div class="palace-name">Parents · 父母</div>
+          <div class="palace-branch">亥 · 乙</div>
+        </div>
+        <div class="palace-stars">Tian Tong · Tian Xing</div>
+        <div class="palace-meaning">Sentimental, child-like (Tian Tong) plus law / discipline / contracts star (Tian Xing). <strong>Authority sphere — bosses, regulators, lawyers — structurally responds favourably to you.</strong> This palace plus Tian Kui in P11 produces the verified 3-of-3 protection record across recent legal challenges.</div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ─────────────────────────────────────────────────────── -->
-<!-- 2. PERMANENT ENGINE — 4 Natal Enhancers                 -->
+<!-- 2. CURRENT DECADE — D5                                  -->
 <!-- ─────────────────────────────────────────────────────── -->
-<section>
-  <div class="section-eyebrow">Section 02 · Permanent engine</div>
-  <h2 class="section-h2">Four channels running <em>continuously</em> across your entire life.</h2>
-  <p class="section-intro">Your year stem 己 (Ji) is the only stem that fires permanent natal enhancers in your chart. These four channels do not weaken with age. They are present every year, every decade, every annual cycle. The rest of your chart's signals overlay on top of these. These are your structural baseline — the engine that runs no matter what.</p>
-
-  <div class="enhancers-grid">
-
-    <div class="enhancer">
-      <div class="enhancer-icon">禄</div>
-      <div class="enhancer-tag">Lu · Smooth flow channel</div>
-      <h3 class="enhancer-h3">Wu Qu in <em>P11 Mental</em></h3>
-      <p>Your inner relationship with money runs smooth and structurally favourable. <strong>Wealth shows up where you put your mind.</strong> Mental discipline around capital — research, frameworks, written analysis, financial systems thinking — is permanently rewarded in your chart. This is not luck. This is structure.</p>
-    </div>
-
-    <div class="enhancer">
-      <div class="enhancer-icon">权</div>
-      <div class="enhancer-tag">Quan · Permanent SPL activator</div>
-      <h3 class="enhancer-h3">Tan Lang in <em>P9 Career</em></h3>
-      <p>This is one of your two permanent SPL engines. Tan Lang in your career palace receives Quan (authority) for life. <strong>Your career structurally demands and rewards visibility, scale, and high-stakes leadership.</strong> You are built to operate at senior levels with significant scope. Smaller roles compress this signal.</p>
-    </div>
-
-    <div class="enhancer">
-      <div class="enhancer-icon">科</div>
-      <div class="enhancer-tag">Ke · Protection channel</div>
-      <h3 class="enhancer-h3">Tian Liang in <em>P6 Health</em></h3>
-      <p>Tian Liang is the protection star. With Ke landed permanently in your Health palace, you carry a structural signal that <strong>the right doctor, advisor, or protective intervention appears when needed</strong>. Combined with Tian Kui (noble protector) in P11, this pattern has surfaced three different lawyers across your last three legal/authority challenges.</p>
-    </div>
-
-    <div class="enhancer">
-      <div class="enhancer-icon">忌</div>
-      <div class="enhancer-tag">Ji · Permanent SPL activator</div>
-      <h3 class="enhancer-h3">Wen Qu in <em>P1 Life</em></h3>
-      <p>Your second permanent SPL engine. Wen Qu — the paperwork, document, contract star — sits in your Life palace receiving Ji (the friction marker) for life. <strong>This is why contracts, paperwork, and legal documentation are a life-theme</strong>, not a catastrophe. Adversity in this domain is structurally where you transform and emerge stronger.</p>
-    </div>
-
-  </div>
-</section>
-
-<!-- ─────────────────────────────────────────────────────── -->
-<!-- 3. CURRENT DECADE — D5                                  -->
-<!-- ─────────────────────────────────────────────────────── -->
-<section>
-  <div class="section-eyebrow">Section 03 · Your current decade</div>
+<section id="current-decade">
+  <div class="section-eyebrow">Section 02 · Your current decade</div>
   <h2 class="section-h2">2025–2034: the decade your <em>career palace</em> sits in the dominant position.</h2>
   <p class="section-intro">You are now in your fifth decade. Decade-level signals run as background tailwinds and headwinds for the entire 10-year arc, layered underneath your annual cycles. Your D5 sends four structural flights into specific domains — three powerful tailwinds and one chronic pressure.</p>
 
@@ -672,10 +1134,10 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────── -->
-<!-- 4. 2026 ANNUAL LAYER                                    -->
+<!-- 3. 2026 ANNUAL LAYER                                    -->
 <!-- ─────────────────────────────────────────────────────── -->
-<section>
-  <div class="section-eyebrow">Section 04 · 2026 annual layer</div>
+<section id="year-and-forward">
+  <div class="section-eyebrow">Section 03 · 2026 annual layer</div>
   <h2 class="section-h2">2026 is a <em>double-stack year</em> — the annual stem matches your decade stem.</h2>
   <p class="section-intro">The 2026 annual stem 丙 (Bing) matches the stem of your current decade. When this happens, decade flights and annual flights stack on the same stars in the same palaces — producing doubled signals on already-active channels. Three of your four decade flights are doubled this year. One mechanism on your SPL axis activates additionally via annual branch. Below: the four 2026 structural events.</p>
 
@@ -739,10 +1201,10 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────── -->
-<!-- 5. DECISION SUPPORT — Q&A                               -->
+<!-- 4. DECISION SUPPORT — Q&A                               -->
 <!-- ─────────────────────────────────────────────────────── -->
 <section>
-  <div class="section-eyebrow">Section 05 · Decision support</div>
+  <div class="section-eyebrow">Section 04 · Decision support</div>
   <h2 class="section-h2">Specific decisions, <em>derived directly</em> from your chart structure.</h2>
   <p class="section-intro">This is the question-driven product. Real decisions, mapped to your permanent structure and active timing layers. Below: four examples derived from your chart and current period. The full product handles any decision you bring.</p>
 
@@ -804,10 +1266,10 @@
 </section>
 
 <!-- ─────────────────────────────────────────────────────── -->
-<!-- 6. FORWARD CALENDAR                                     -->
+<!-- 5. FORWARD CALENDAR                                     -->
 <!-- ─────────────────────────────────────────────────────── -->
 <section>
-  <div class="section-eyebrow">Section 06 · Forward calendar</div>
+  <div class="section-eyebrow">Section 05 · Forward calendar</div>
   <h2 class="section-h2">The next nine years, <em>mapped</em>.</h2>
   <p class="section-intro">Your decade continues through 2034. Below: the five high-priority years and their structural signature. Years not shown are middle-priority or stabilisation-only.</p>
 
@@ -855,6 +1317,22 @@
       <p>Decade D6 begins on Palace 8 Friends with stem 丁. Decade flights identical to D4 (2015–2024) but with different decade-Life palace. Network domain becomes the dominant decade-position.</p>
     </div>
 
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 6. ZWDS CHART — live calculator with your chart         -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="zwds-chart">
+  <div class="section-eyebrow">Section 06 · ZWDS chart</div>
+  <h2 class="section-h2">Your <em>chart</em>, live.</h2>
+  <p class="section-intro">The full calculator below renders your complete ZWDS chart from your birth data — palaces, branches, stems, all 18 main stars, support stars, evil stars, helpers, and the four enhancer flights from your year stem. Every conclusion in the sections above is derived from what you see here.</p>
+
+  <div class="chart-frame-wrap">
+    <div class="chart-instruction">
+      <strong>Birth data is pre-filled</strong> — 19 April 1979, 13:30, Saratov, Russia, female. Click <strong>Generate Chart</strong> inside the calculator to render. Do not click the demo button. Use the natal / decade / annual / monthly toggles inside the chart to explore each timing layer.
+    </div>
+    <iframe src="/zwds" class="chart-frame" title="ZWDS Chart Calculator — Alena" loading="lazy"></iframe>
   </div>
 </section>
 
