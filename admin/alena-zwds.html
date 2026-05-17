@@ -97,25 +97,57 @@
 
     /* ── Natal sub-section block ────────────────────────── */
     .subsection {
-      margin-top: 64px; padding-top: 56px;
+      margin-top: 48px; padding-top: 40px;
       border-top: 1px solid var(--border);
     }
     .subsection:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
     .subsection-eyebrow {
       font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+      color: var(--gold); font-weight: 700; margin-bottom: 14px;
     }
     .subsection-h3 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(28px, 3.6vw, 44px);
-      font-weight: 500; line-height: 1.15;
-      color: var(--text); margin-bottom: 24px;
+      font-size: clamp(30px, 3.8vw, 48px);
+      font-weight: 500; line-height: 1.12;
+      color: var(--text); margin-bottom: 20px;
       letter-spacing: -0.5px; max-width: 820px;
     }
     .subsection-h3 em { font-style: italic; color: var(--gold); }
     .subsection-intro {
-      font-size: 17px; line-height: 1.85; color: var(--dim);
-      max-width: 720px; margin-bottom: 36px;
+      font-size: 16px; line-height: 1.8; color: var(--dim);
+      max-width: 720px; margin-bottom: 28px;
+    }
+
+    /* ── Formations glossary ─────────────────────────────── */
+    .formations-box {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .formations-cell {
+      padding: 26px 30px 30px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .formations-cell:nth-child(2n) { border-right: none; }
+    .formations-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .formations-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 8px;
+    }
+    .formations-term {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px; font-weight: 500; color: var(--text);
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .formations-cell p { font-size: 14px; line-height: 1.75; color: var(--dim); }
+    .formations-cell strong { color: var(--text); font-weight: 600; }
+    @media (max-width: 768px) {
+      .formations-box { grid-template-columns: 1fr; }
+      .formations-cell { border-right: none; border-bottom: 1px solid var(--border) !important; }
+      .formations-cell:last-child { border-bottom: none !important; }
     }
 
     /* ── Up/Down sides ──────────────────────────────────── */
@@ -189,14 +221,20 @@
 
     /* ── 12 Palaces grid ────────────────────────────────── */
     .palaces-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
+      display: grid; grid-template-columns: repeat(4, 1fr);
       gap: 0; margin-top: 16px;
       background: var(--surface);
       border-left: 1px solid var(--border);
       border-top: 1px solid var(--border);
     }
+    .palace-empty {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+      min-height: 100px;
+    }
     .palace-card {
-      padding: 22px 24px 26px;
+      padding: 20px 22px 24px;
       border-right: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
@@ -276,7 +314,7 @@
 
     /* ── Page Header ────────────────────────────────────── */
     .page-header {
-      padding: 88px 56px 64px;
+      padding: 56px 56px 36px;
     }
     .eyebrow {
       font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
@@ -327,31 +365,31 @@
 
     /* ── Section base ───────────────────────────────────── */
     section {
-      padding: 96px 56px;
+      padding: 56px 56px;
       border-bottom: 1px solid var(--border);
       position: relative;
     }
     section:nth-child(even-of-section) { background: var(--surface2); }
     .section-eyebrow {
-      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
       color: var(--gold); font-weight: 700;
       display: flex; align-items: center; gap: 14px;
-      margin-bottom: 26px;
+      margin-bottom: 20px;
     }
     .section-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
     .section-h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 4.6vw, 60px);
-      font-weight: 400; line-height: 1.1;
-      letter-spacing: -1px;
-      margin-bottom: 26px; max-width: 880px;
+      font-size: clamp(48px, 5.8vw, 76px);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px; max-width: 1000px;
       color: var(--text);
     }
     .section-h2 em { font-style: italic; color: var(--gold); }
     .section-h2 strong { font-weight: 500; font-style: italic; color: var(--gold); }
     .section-intro {
-      font-size: 18px; line-height: 1.85; color: var(--dim);
-      max-width: 760px; margin-bottom: 56px;
+      font-size: 17px; line-height: 1.85; color: var(--dim);
+      max-width: 760px; margin-bottom: 40px;
     }
 
     /* ── Identity / Chart Type Box ──────────────────────── */
@@ -649,7 +687,7 @@
     .decade-ratings-head,
     .dr-row {
       display: grid;
-      grid-template-columns: 200px repeat(3, 1fr);
+      grid-template-columns: 180px repeat(3, 1fr);
     }
     .decade-ratings-head {
       background: var(--surface2);
@@ -717,13 +755,34 @@
     }
     .disclaimer strong { color: var(--text); font-style: normal; font-weight: 600; }
 
+    /* ── Stars ──────────────────────────────────────────── */
+    .stars-wrap { white-space: nowrap; display: inline-block; }
+    .s-f { color: #9a6e20; font-size: 15px; }
+    .s-e { color: rgba(154,110,32,0.22); font-size: 15px; }
+
     /* ── Footer ─────────────────────────────────────────── */
     footer {
-      padding: 32px 56px;
+      padding: 48px 56px;
+      background: #3a3c48;
       text-align: center;
-      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-      color: var(--muted);
-      background: var(--bg);
+      border-top: 1px solid rgba(184,144,58,0.25);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500; letter-spacing: 4px;
+      text-transform: uppercase; color: #cfa44e;
+      margin-bottom: 10px;
+    }
+    .footer-sub {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c0c2d4; margin-bottom: 14px;
+    }
+    .footer-legal {
+      font-size: 11px; color: rgba(192,194,212,0.45); letter-spacing: 0.5px;
+    }
+    @media (max-width: 768px) {
+      footer { padding: 36px 20px; }
+      .footer-logo { font-size: 22px; }
     }
 
     /* ── MOBILE ─────────────────────────────────────────── */
@@ -744,10 +803,10 @@
       .header-meta-value { font-size: 19px; }
       .header-meta-value small { font-size: 11.5px; }
 
-      section { padding: 64px 24px; }
-      .section-eyebrow { font-size: 11px; margin-bottom: 20px; }
-      .section-h2 { font-size: clamp(26px, 7.5vw, 38px); margin-bottom: 22px; }
-      .section-intro { font-size: 16px; margin-bottom: 40px; }
+      section { padding: 40px 20px; }
+      .section-eyebrow { font-size: 11px; margin-bottom: 16px; }
+      .section-h2 { font-size: clamp(34px, 9vw, 52px); letter-spacing: -1px; margin-bottom: 16px; }
+      .section-intro { font-size: 15px; margin-bottom: 28px; }
 
       .identity-grid { grid-template-columns: 1fr; }
       .identity-cell { border-right: none; border-bottom: 1px solid var(--border); padding: 26px 24px; }
@@ -808,9 +867,9 @@
       .top-nav-links a { font-size: 10px; letter-spacing: 1.5px; }
 
       /* Subsection mobile */
-      .subsection { margin-top: 48px; padding-top: 40px; }
-      .subsection-h3 { font-size: clamp(22px, 6.5vw, 30px); margin-bottom: 20px; }
-      .subsection-intro { font-size: 15px; margin-bottom: 28px; }
+      .subsection { margin-top: 36px; padding-top: 30px; }
+      .subsection-h3 { font-size: clamp(24px, 7vw, 34px); margin-bottom: 16px; }
+      .subsection-intro { font-size: 14.5px; margin-bottom: 22px; }
 
       /* Up/Down sides mobile */
       .upside-grid { grid-template-columns: 1fr; }
@@ -826,8 +885,9 @@
       .industry-match { font-size: 13px; }
 
       /* Palaces mobile */
-      .palaces-grid { grid-template-columns: 1fr; }
-      .palace-card { padding: 20px 22px 24px; }
+      .palaces-grid { grid-template-columns: 1fr 1fr; }
+      .palace-empty { display: none; }
+      .palace-card { padding: 18px 18px 20px; }
       .palace-number { font-size: 24px; }
       .palace-name { font-size: 17px; }
       .palace-meaning { font-size: 13.5px; }
@@ -900,6 +960,30 @@
   <div class="section-eyebrow">Section 01 · Natal chart</div>
   <h2 class="section-h2">Who you are, <em>structurally.</em></h2>
   <p class="section-intro">Your natal chart is the layer that does not change. Birth data — date, time, location — fixes 12 palaces in 12 zodiac branches, distributes 18 main stars across them, and identifies which stars receive permanent enhancers from your year stem. This is the structural baseline. Decades and annual cycles overlay timing on top of it. Below: the chart structure, your personality, the industries that match your structure, and a palace-by-palace breakdown.</p>
+
+  <!-- ─────────────────── FOUNDATIONS GLOSSARY ─────────────────── -->
+  <div class="formations-box">
+    <div class="formations-cell">
+      <div class="formations-label">Formation · 七殺破軍貪狼</div>
+      <div class="formations-term">Sha Po Lang (SPL)</div>
+      <p>Three stars — <strong>Qi Sha</strong> (Seven Killings), <strong>Po Jun</strong> (Army Destroyer) and <strong>Tan Lang</strong> (Greedy Wolf) — that occupy the Life, Wealth and Career palaces simultaneously. When this triad forms, the chart activates through adversity and high-stakes transformation, not through comfort or smooth accumulation. Every peak career and income event in an SPL chart arrives through challenge.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Chart types</div>
+      <div class="formations-term">Normal · SPL · Transformational</div>
+      <p>A <strong>Normal chart</strong> runs on standard polarity — smooth flow (Lu) in the 1-5-9 axis is good; friction (Ji) is an obstacle. An <strong>SPL chart</strong> carries the Sha-Po-Lang triad — activations are more intense. A <strong>Transformational chart</strong> has two or more Ji markers in the 1-5-9 axis, which <strong>reverses polarity entirely</strong>: Ji in the axis becomes the best signal; Lu in the axis becomes suppression. This chart is simultaneously SPL and Transformational.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Polarity · Yin–Yang reversal</div>
+      <div class="formations-term">Reversed Polarity</div>
+      <p>In a normal chart, Lu (smooth flow) in the 1-5-9 Life–Wealth–Career axis signals the best outcome. In this reversed chart, <strong>Ji (friction, karma) in the 1-5-9 axis is the activation signal for the highest career and income years.</strong> Lu in the same axis suppresses activation. This is not a flaw — it is the structural law of how this chart generates outcomes. Verified by every major career peak in the life history.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Si Hua · Four Enhancers</div>
+      <div class="formations-term">禄 · 权 · 科 · 忌</div>
+      <p>Four qualities that fly from a stem onto specific stars. <strong>Lu 禄</strong> = smooth flow, ease, support in the receiving palace · <strong>Quan 权</strong> = authority, power, amplified influence · <strong>Ke 科</strong> = recognition, status, intellectual reputation · <strong>Ji 忌</strong> = friction, blockage, karmic weight (in reversed charts: activation on the 1-5-9 axis). The year stem fires permanently (natal); the decade stem fires for 10 years; the annual stem fires for one year.</p>
+    </div>
+  </div>
 
   <!-- ─────────────────── A. CHART STRUCTURE ─────────────────── -->
   <div class="subsection">
@@ -1063,82 +1147,25 @@
   <div class="subsection">
     <div class="subsection-eyebrow">E · 12 palaces — key characteristics</div>
     <h3 class="subsection-h3">Your <em>twelve domains</em>, each with its dominant stars and structural meaning.</h3>
-    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars sitting in each palace, plus any natal enhancers from year stem 己, determine the structural character of that domain. Cards are ordered as they appear clockwise in the calculator grid (Section 06) — compare directly.</p>
+    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars in each palace determine its structural character. Cards are arranged in the same 4×4 grid as the calculator — empty center, clockwise from top-right. Compare directly with Section 06 below.</p>
 
     <div class="heaven-two-col">
       <div class="heaven-col-left">
-        <div class="heaven-col-label">Karma · Early Heaven (先天)</div>
-        <div class="heaven-palace-ref">Year stem 己 → 化忌 → Wen Qu → P1 Life</div>
-        <p>The soul theme you carry forward. Year stem 己 sends Ji (karma / blockage) to Wen Qu in the Life palace. Wen Qu = written talent, academic gifts, refined communication — with Ji, this is the recurring friction: documents, contracts, bureaucracy, and self-expression blocked or weaponised. Past-life pattern: truth spoken, written, recorded — and met with institutional resistance. The task is not to avoid this; it runs as a life constant. Complete what was left unfinished: bring expertise into documented, visible form.</p>
+        <div class="heaven-col-label">Karma · Early Heaven Palace (先天宮)</div>
+        <div class="heaven-palace-ref">P1 Life · 戌 Dog · stem 甲 · Po Jun · Wen Qu 忌</div>
+        <p>The Early Heaven palace is P1 Life — it defines the soul theme carried into this life. Stars: <strong>Po Jun</strong> (Army Destroyer) + <strong>Wen Qu 忌</strong> (Written Talent with permanent friction). Po Jun is the archetype who demolishes what no longer serves so something stronger can be built. Wen Qu is the gift of written and verbal brilliance — with Ji, this gift meets recurring institutional friction. The karmic pattern: something important was created, spoken or documented and was suppressed or resisted. The task carried forward is to bring expertise into visible, structured form and hold it through the resistance.</p>
       </div>
       <div class="heaven-col-right">
-        <div class="heaven-col-label">Later Heaven (後天) · This Life</div>
-        <div class="heaven-palace-ref">P1 Life · 戌 Dog · Po Jun + Wen Qu · Body palace</div>
-        <p>What you are here to build. Po Jun (破軍 — Army Destroyer) is the Life star. You arrived to dismantle outdated structures — in your own life and in the institutions around you. Every major adversity follows the arc: disruption → dismantling → transformation → emergence stronger. The Body palace coincides here — identity and physical experience are one arena. SPL axis palace: Ji landing here = BEST (mechanism A-natal, permanent SPL engine). The instruction is transformation, not management.</p>
+        <div class="heaven-col-label">Later Heaven Palace (後天宮) · This Life</div>
+        <div class="heaven-palace-ref">P1 Life · 戌 Dog · stem 甲 · Po Jun · Wen Qu 忌 · Body palace</div>
+        <p>The Later Heaven palace also falls on P1 Life — identity and body are one arena in this chart. <strong>Po Jun</strong> defines the life mission: to fundamentally transform outdated structures, in your own life and in the institutions you move through. You do not patch or adjust — you reconstruct. Athletic, dynamic, strong. <strong>Wen Qu 忌</strong> — the recurring documentation and contract theme — is the structural material through which transformation arrives. Not a wound. A mechanism.</p>
       </div>
     </div>
 
+    <!-- 4×4 grid: top row P12–P9, mid rows P1/[]/[]/P8 and P2/[]/[]/P7, bottom row P3–P6 -->
     <div class="palaces-grid">
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">06</div>
-          <div class="palace-name">Health · 疾厄</div>
-          <div class="palace-branch">巳 · 己</div>
-        </div>
-        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
-        <div class="palace-meaning">Longevity star with permanent protection (the "right doctor appears" pattern). <strong>Tian Ma = movement is medicine — sedentary lifestyle harms.</strong> Di Kong + Di Jie together = spiritual / esoteric signal; Tuo Luo = chronic slow-grinding issues to manage proactively.</div>
-      </div>
 
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">05</div>
-          <div class="palace-name">Wealth · 財帛</div>
-          <div class="palace-branch">午 · 庚</div>
-        </div>
-        <div class="palace-stars">Qi Sha · Zuo Fu · Lu Cun</div>
-        <div class="palace-meaning">Warrior approach to money. <strong>"War mode" required to realise wealth</strong> — passivity does not generate income. Zuo Fu = team helps you earn (direct reports outperform solo). Lu Cun = lifelong financial floor / savings.</div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">04</div>
-          <div class="palace-name">Children · 子女</div>
-          <div class="palace-branch">未 · 辛</div>
-        </div>
-        <div class="palace-stars">Qing Yang</div>
-        <div class="palace-meaning">No main star. Qing Yang alone signals <strong>sharp / sudden challenges in the children domain — possible nervous-system or limb concerns to monitor</strong>. Read via opposite P10 Property for the bigger picture.</div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">03</div>
-          <div class="palace-name">Spouse · 夫妻</div>
-          <div class="palace-branch">申 · 壬</div>
-        </div>
-        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
-        <div class="palace-meaning">Traditional courtship archetype with hidden support stars. Beautiful romantic timing signals (Hong Luan), quiet protective partner energy (Tian Yue). <strong>Decade D5 sends Ji here for 2025–2034 — relationship is the pressure axis of this decade.</strong></div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">02</div>
-          <div class="palace-name">Siblings · 兄弟</div>
-          <div class="palace-branch">酉 · 癸</div>
-        </div>
-        <div class="palace-stars">(empty)</div>
-        <div class="palace-meaning">Empty palace — read via the opposite (P8 Friends). <strong>Sibling / peer relations require conscious effort to activate</strong> — does not fire automatically through natal stars. Branch activation in 酉 years is significant.</div>
-      </div>
-
-      <div class="palace-card">
-        <div class="palace-head">
-          <div class="palace-number">01</div>
-          <div class="palace-name">Life · 命</div>
-          <div class="palace-branch">戌 · 甲</div>
-        </div>
-        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
-        <div class="palace-meaning">The reconstruction archetype. Athletic, dynamic build. <strong>Demolish-rebuild approach to life decisions.</strong> Documentation and contracts are a permanent life theme — never fully resolved, structurally returning.</div>
-      </div>
-
+      <!-- Row 1: P12 P11 P10 P9 -->
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">12</div>
@@ -1146,9 +1173,8 @@
           <div class="palace-branch">亥 · 乙</div>
         </div>
         <div class="palace-stars">Tian Tong · Tian Xing</div>
-        <div class="palace-meaning">Sentimental, child-like (Tian Tong) plus law / discipline / contracts star (Tian Xing). <strong>Authority sphere — bosses, regulators, lawyers — structurally responds favourably to you.</strong> This palace plus Tian Kui in P11 produces the verified 3-of-3 protection record across recent legal challenges.</div>
+        <div class="palace-meaning">A warm, disarming quality in how you relate to authority. Tian Tong brings childlike openness and emotional softness — you can be genuinely earnest with people in power, which paradoxically earns their trust. Tian Xing is the law and formal structure star: you move naturally within official and institutional environments. <strong>Regulators, senior figures and formal processes respond to you with unusual openness.</strong></div>
       </div>
-
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">11</div>
@@ -1156,9 +1182,8 @@
           <div class="palace-branch">子 · 丙</div>
         </div>
         <div class="palace-stars">Wu Qu 禄 · Tian Fu · Tian Kui</div>
-        <div class="palace-meaning">Easy financial mind (Wu Qu Lu). <strong>Tian Fu = "you have enough already" — karma-stable inner posture, never destitute.</strong> Tian Kui = noble protector activates in dark moments. This palace is the source of your composure under pressure.</div>
+        <div class="palace-meaning">Your inner life is stable and financially grounded. Wu Qu Lu gives you a natural, easy relationship with money — wealth flows toward where you place your mental focus. <strong>Tian Fu carries a deep inner sense of "enough" — contentment that does not depend on external validation.</strong> Tian Kui is the noble protector: a mentor or helper arrives precisely when you are at your lowest point.</div>
       </div>
-
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">10</div>
@@ -1166,9 +1191,8 @@
           <div class="palace-branch">丑 · 丁</div>
         </div>
         <div class="palace-stars">Tai Yang · Tai Yin</div>
-        <div class="palace-meaning">Sun-Moon formation = strong <strong>dual property energy — public and private, active and passive</strong>. Tai Yin in P10 confirms you own and manage real estate structurally. Tai Yang Ji (annual / decade overlays) blocks visibility when sales are required.</div>
+        <div class="palace-meaning">Sun and Moon together — the rare dual formation. <strong>You carry both a bright outward-facing public presence (Tai Yang, the Sun) and a deep, private inner world (Tai Yin, the Moon).</strong> Property is a natural domain: owning and managing real estate is structurally built into your chart's design. The home is also an expression of personal identity.</div>
       </div>
-
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">09</div>
@@ -1176,9 +1200,21 @@
           <div class="palace-branch">寅 · 丙</div>
         </div>
         <div class="palace-stars">Tan Lang 权 · Tian Xi</div>
-        <div class="palace-meaning">Career built through personal brand, image, premium presentation. <strong>Quan = structural authority signal for life</strong> — Tan Lang Quan is one of your two permanent SPL engines. Operates best at significant scale, in premium / luxury / regulated environments.</div>
+        <div class="palace-meaning">Career built through personal presence, magnetism and visible authority. Tan Lang is charm and the ability to make premium things desirable. With permanent Quan: <strong>you carry structural authority in your field for life</strong> — not from title but from presence and expertise. Tian Xi brings genuine satisfaction and joy in the work itself when it is aligned with your nature.</div>
       </div>
 
+      <!-- Row 2: P1 [empty] [empty] P8 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">01</div>
+          <div class="palace-name">Life · 命</div>
+          <div class="palace-branch">戌 · 甲</div>
+        </div>
+        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
+        <div class="palace-meaning">The reconstruction archetype. You don't patch or improve — you demolish and rebuild from the foundation. Athletic, dynamic, physically strong build. <strong>Wen Qu Ji: a written and verbal talent that meets persistent structural friction</strong> — documents, contracts and formal language are a permanent life theme, never catastrophic, always returning.</div>
+      </div>
+      <div class="palace-empty"></div>
+      <div class="palace-empty"></div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">08</div>
@@ -1186,9 +1222,21 @@
           <div class="palace-branch">卯 · 丁</div>
         </div>
         <div class="palace-stars">Tian Ji · Ju Men · Tian Yao · Huo Xing</div>
-        <div class="palace-meaning">Collegial peer network (Tian Ji), but with a "second-agenda" star (Ju Men) and a sudden-fire / explosive marker (Huo Xing). <strong>Network betrayal risk is structural — confirmed by 2023 Richemont incident (3 direct reports filed complaints).</strong> Decade D5 sends powerful Quan here, but the substrate carries volatility.</div>
+        <div class="palace-meaning">An intelligent, analytical inner circle (Tian Ji) with inherent complexity beneath the surface. Ju Men brings hidden agendas and indirect communication in peer relationships — what people say is rarely what they mean. Tian Yao = natural social magnetism and charm. <strong>Huo Xing = sudden explosive breaks. Trust in the network must be earned over time, not assumed from warmth.</strong></div>
       </div>
 
+      <!-- Row 3: P2 [empty] [empty] P7 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">02</div>
+          <div class="palace-name">Siblings · 兄弟</div>
+          <div class="palace-branch">酉 · 癸</div>
+        </div>
+        <div class="palace-stars">(empty palace)</div>
+        <div class="palace-meaning">No main star. The sibling and close-peer domain activates through deliberate attention rather than automatic warmth. <strong>Read via its opposite, P8 Friends, for the fuller picture of how you relate to your inner circle.</strong> Years whose branch falls in 酉 bring this palace alive.</div>
+      </div>
+      <div class="palace-empty"></div>
+      <div class="palace-empty"></div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">07</div>
@@ -1196,8 +1244,47 @@
           <div class="palace-branch">辰 · 戊</div>
         </div>
         <div class="palace-stars">Zi Wei · Tian Xiang · Wen Chang · Ling Xing</div>
-        <div class="palace-meaning">Zi Wei in P7 = <strong>recognised abroad more than at home; business-class lifestyle</strong>. Wen Chang adds international intellectual recognition. Ling Xing = latent cool reception in some foreign environments. Your structurally strongest channel is international.</div>
+        <div class="palace-meaning">The Emperor star in the Travel palace: <strong>you are structurally more recognised and valued abroad than in your home environment.</strong> Tian Xiang = extraordinary administrative ability, building order from complexity. Wen Chang = intellectual authority and the power of the written word. Ling Xing = an occasionally cool reception in certain foreign environments. Your strongest channel is always international.</div>
       </div>
+
+      <!-- Row 4: P3 P4 P5 P6 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">03</div>
+          <div class="palace-name">Spouse · 夫妻</div>
+          <div class="palace-branch">申 · 壬</div>
+        </div>
+        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
+        <div class="palace-meaning">Relationships are never casual — they carry intensity, meaning and the force of transformation. Lian Zhen = passion and complexity at the core of intimate partnership. You Bi = quiet, steady support that arrives alongside. Tian Yue = a protective, nurturing partner energy. <strong>Hong Luan = the capacity for genuine romantic joy and emotional bloom when the right conditions are present.</strong></div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">04</div>
+          <div class="palace-name">Children · 子女</div>
+          <div class="palace-branch">未 · 辛</div>
+        </div>
+        <div class="palace-stars">Qing Yang</div>
+        <div class="palace-meaning">No main star. Qing Yang — the sharp metal blade — signals sudden or unexpected events in the children domain. <strong>Health and circumstances in this area deserve proactive attention rather than a reactive response.</strong> Read alongside P10 Property (opposite palace) for the complete picture. Children bring sharp, intense energy into life.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">05</div>
+          <div class="palace-name">Wealth · 財帛</div>
+          <div class="palace-branch">午 · 庚</div>
+        </div>
+        <div class="palace-stars">Qi Sha · Zuo Fu · Lu Cun</div>
+        <div class="palace-meaning">A warrior's approach to money. Qi Sha = bold, fast and independent — income arrives through decisive action and high-stakes execution, not through passive accumulation. <strong>Zuo Fu: a helper or team structure amplifies what you earn; you outperform substantially with the right support system in place.</strong> Lu Cun = a structural financial floor — destitution is not in this chart's design.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">06</div>
+          <div class="palace-name">Health · 疾厄</div>
+          <div class="palace-branch">巳 · 己</div>
+        </div>
+        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
+        <div class="palace-meaning">Longevity star (Tian Liang) with permanent Ke: the right healer or protective intervention appears when most needed. <strong>Tian Ma = movement is structural medicine — a sedentary lifestyle directly depletes your vitality; physical activity is non-negotiable.</strong> Di Kong and Di Jie together = a deep pull toward esoteric and philosophical knowledge. Tuo Luo = slow-grinding chronic issues, best managed proactively.</div>
+      </div>
+
     </div>
   </div>
 
@@ -1436,9 +1523,9 @@
 
   </div>
 
-  <!-- Decade ratings table -->
+  <!-- Decade ratings table — P1 through P12 -->
   <div class="decade-ratings-wrap">
-    <div class="decade-ratings-label">Past · Current · Next decade — domain ratings</div>
+    <div class="decade-ratings-label">Past · Current · Next decade — rating per palace domain</div>
     <div class="decade-ratings-grid">
       <div class="decade-ratings-head">
         <div class="dr-domain-col"></div>
@@ -1447,64 +1534,76 @@
         <div class="dr-dec-col dr-next">D6 · 2035–2044<small>丁 Ding · Network decade</small></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Career</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-domain-col">P1 · Life</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Money / Income</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-domain-col">P2 · Siblings</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Relationships</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-domain-col">P3 · Spouse</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Children / Family</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-domain-col">P4 · Children</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Health</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-domain-col">P5 · Wealth</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Property</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★★</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-domain-col">P6 · Health</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Travel / International</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-domain-col">P7 · Travel</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Network / Friends</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★</span><span class="dr-empty">☆☆☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
+        <div class="dr-domain-col">P8 · Friends</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Mental Wellbeing</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★</span><span class="dr-empty">☆☆</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★★</span></div>
+        <div class="dr-domain-col">P9 · Career</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
       </div>
       <div class="dr-row">
-        <div class="dr-domain-col">Authority / Legal</div>
-        <div class="dr-dec-col dr-past"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
-        <div class="dr-dec-col dr-now"><span class="dr-stars">★★★★★</span></div>
-        <div class="dr-dec-col dr-next"><span class="dr-stars">★★★★</span><span class="dr-empty">☆</span></div>
+        <div class="dr-domain-col">P10 · Property</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P11 · Mental</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P12 · Parents</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
       </div>
     </div>
   </div>
@@ -1527,17 +1626,14 @@
   </div>
 </section>
 
-<!-- DISCLAIMER -->
-<div class="disclaimer">
-  <p><strong>Prototype reference.</strong> This document demonstrates the format, depth, and decision-support character of a SuccessCode customer report. The chart, decade analysis, annual analysis, and decision-support outputs above are derived from a real ZWDS natal chart and verified life events. The final customer product will deliver this depth across the full set of question types and timing layers, generated on demand from each customer's birth data.</p>
-</div>
-
 <!-- GO UP BUTTON -->
 <a href="#top" class="go-up-btn" title="Back to top">↑</a>
 
 <!-- FOOTER -->
 <footer>
-  <small>SuccessCode · Admin · Customer report prototype · Not indexed</small>
+  <div class="footer-logo">SuccessCode</div>
+  <div class="footer-sub">Structural decision intelligence · successcode.net</div>
+  <div class="footer-legal">© 2026 SuccessCode · Confidential · Not for distribution</div>
 </footer>
 
 </body>
