@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>SuccessCode — Admin · Delisted Pages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:   #3a3c48;
+      --surface: #42444e;
+      --gold:    #b8903a;
+      --gold2:   #cfa44e;
+      --white:   #eceef8;
+      --dim:     #d4d6e8;
+      --muted:   #c0c2d4;
+      --border:  rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      max-width: 100vw; width: 100%;
+      overflow-x: hidden; position: relative;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black); color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .page {
+      max-width: 980px; margin: 0 auto;
+      padding: 72px 56px 96px;
+    }
+
+    .header {
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 300; line-height: 1.05;
+      letter-spacing: -1px;
+    }
+    h1 em { font-style: italic; color: var(--gold2); }
+    .header-note {
+      font-size: 13px; line-height: 1.7;
+      color: var(--muted); margin-top: 18px;
+      font-style: italic;
+    }
+
+    .section { margin-bottom: 56px; }
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400;
+      color: var(--gold2);
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .section-heading-emoji { margin-right: 10px; }
+
+    .entry {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(184,144,58,0.10);
+      display: flex; flex-direction: column; gap: 6px;
+    }
+    .entry:last-child { border-bottom: none; }
+    .entry-title {
+      font-size: 16px; font-weight: 500;
+      color: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap;
+    }
+    .entry-tag {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      border: 1px solid var(--border);
+      padding: 4px 10px;
+      white-space: nowrap;
+    }
+    .entry-desc {
+      font-size: 13px; line-height: 1.7; color: var(--dim);
+    }
+    .entry-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--gold2);
+      text-decoration: none; word-break: break-all;
+    }
+    .entry-link:hover { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+    .entry-link::before { content: '→'; color: var(--gold); }
+
+    .footer {
+      margin-top: 64px; padding-top: 32px;
+      border-top: 1px solid var(--border);
+      font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .page { padding: 56px 24px 72px; }
+      .section { margin-bottom: 44px; }
+      .section-heading { font-size: 22px; }
+      .entry-title { font-size: 15px; }
+      .entry-tag { font-size: 9px; padding: 3px 8px; }
+      .header-note { font-size: 12px; }
+      .footer { font-size: 10px; }
+
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <header class="header">
+    <div class="eyebrow">Admin · Internal Reference</div>
+    <h1>Delisted <em>Pages.</em></h1>
+    <p class="header-note">Not indexed by Google · Not linked from public navigation. Pages below are accessible via direct URL only.</p>
+  </header>
+
+  <section class="section">
+    <h2 class="section-heading"><span class="section-heading-emoji">📊</span>Chart Analysis</h2>
+
+    <div class="entry">
+      <div class="entry-title">
+        <span>Alena — ZWDS Customer Report Prototype</span>
+        <span class="entry-tag">Reference · May 2026</span>
+      </div>
+      <div class="entry-desc">
+        Full natal analysis prototype for a SuccessCode customer report. Demonstrates the report format, depth, and decision-support output delivered to paying customers. Built on Alena's real chart (SPL + Transformational, year stem 己, decade D5 2025–2034).
+      </div>
+      <a href="alena-zwds.html" class="entry-link">admin/alena-zwds.html</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <small>SuccessCode · Admin reference</small>
+    <small>successcode.net</small>
+  </footer>
+
+</div>
+
+</body>
+</html>
