@@ -910,12 +910,16 @@
       .calc-iframe { height: 1300px; }
 
       /* MARKET */
-      .market-h2 { margin-bottom: 40px; }
+      .market-h2 { font-size: clamp(20px, 5.5vw, 28px); margin-bottom: 32px; }
+      .market-n { font-size: clamp(40px, 11vw, 52px); }
+      .market-stat p { font-size: 14px; }
       .market-grid { grid-template-columns: 1fr; }
       .market-stat { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--border); }
       .market-stat:nth-child(2) { padding-left: 0; }
       .market-stat:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
       .market-thesis { grid-template-columns: 1fr; gap: 32px; margin-bottom: 40px; }
+      .section-big-title { font-size: clamp(22px, 6vw, 30px); margin-bottom: 28px; }
+      .rev-amount { font-size: clamp(30px, 8vw, 40px); }
 
       /* TRUMP CARDS */
       .trump-cards-grid { grid-template-columns: 1fr !important; }
@@ -954,12 +958,14 @@
       .competitor-matrix {
         margin-left: -24px; margin-right: -24px;
         padding: 48px 24px 56px;
-        overflow-x: auto;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
       }
-      .comp-table { min-width: 520px; font-size: 12px; }
-      .comp-table th { font-size: 9px; padding: 12px 10px; }
-      .comp-table td { font-size: 12px; padding: 12px 10px; }
-      .comp-table td:first-child { font-size: 13px; }
+      .comp-table { min-width: 480px; width: max-content; font-size: 12px; }
+      .comp-table th { font-size: 9px; padding: 10px 8px; letter-spacing: 0.5px; }
+      .comp-table td { font-size: 11px; padding: 10px 8px; }
+      .comp-table td:first-child { font-size: 12px; }
+      .pricing-box { padding: 16px 14px 18px; }
 
       /* FOOTER */
       footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
