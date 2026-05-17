@@ -6,118 +6,213 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
   <title>SuccessCode — Admin · Delisted Pages</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --black:   #3a3c48;
-      --surface: #42444e;
-      --gold:    #b8903a;
-      --gold2:   #cfa44e;
-      --white:   #eceef8;
-      --dim:     #d4d6e8;
-      --muted:   #c0c2d4;
-      --border:  rgba(184,144,58,0.25);
-    }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       max-width: 100vw; width: 100%;
       overflow-x: hidden; position: relative;
     }
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black); color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f6f1;
+      color: #1e1c28;
+      line-height: 1.6;
+      padding: 56px 32px 80px;
       -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
     }
+    .wrapper { max-width: 980px; margin: 0 auto; }
 
-    .page {
-      max-width: 980px; margin: 0 auto;
-      padding: 72px 56px 96px;
-    }
-
-    .header {
-      padding-bottom: 36px;
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 48px;
-    }
-    .eyebrow {
-      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600;
-      display: flex; align-items: center; gap: 14px;
-      margin-bottom: 20px;
-    }
-    .eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    /* ── Header ─────────────────────────────────────────── */
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 5vw, 56px);
-      font-weight: 300; line-height: 1.05;
-      letter-spacing: -1px;
+      font-size: 44px;
+      font-weight: 500;
+      color: #1e1c28;
+      line-height: 1.05;
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
     }
-    h1 em { font-style: italic; color: var(--gold2); }
-    .header-note {
-      font-size: 13px; line-height: 1.7;
-      color: var(--muted); margin-top: 18px;
-      font-style: italic;
+    h1 em { font-style: italic; color: #9a6e20; }
+    .meta {
+      font-size: 14px;
+      color: #6a6878;
+      margin-bottom: 16px;
+      letter-spacing: 0.3px;
     }
+    .notice {
+      background: #fef9e0;
+      border: 1px solid #f0d770;
+      padding: 14px 20px;
+      font-size: 14px;
+      color: #6b5400;
+      margin-bottom: 48px;
+      line-height: 1.65;
+    }
+    .notice strong { color: #5a4400; font-weight: 600; }
 
-    .section { margin-bottom: 56px; }
-    .section-heading {
+    /* ── Block (card) ───────────────────────────────────── */
+    .block {
+      background: #ffffff;
+      border: 1px solid #ece6d4;
+      box-shadow: 0 1px 6px rgba(154,110,32,0.06);
+      margin-bottom: 32px;
+      overflow: hidden;
+      border-top: 3px solid #b8882a;
+    }
+    .block-header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 28px;
+      border-bottom: 1px solid #f0eada;
+      background: linear-gradient(to right, rgba(184,136,42,0.05), rgba(184,136,42,0));
+    }
+    .block-icon {
+      width: 46px; height: 46px;
+      background: #f5e9d4;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; flex-shrink: 0;
+    }
+    .block-header-text h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 26px; font-weight: 400;
-      color: var(--gold2);
-      margin-bottom: 22px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
+      font-size: 24px;
+      font-weight: 600;
+      color: #1e1c28;
+      line-height: 1.15;
     }
-    .section-heading-emoji { margin-right: 10px; }
+    .block-header-text .sub {
+      font-size: 12.5px;
+      color: #8a8a9a;
+      margin-top: 3px;
+      letter-spacing: 0.3px;
+    }
 
-    .entry {
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(184,144,58,0.10);
-      display: flex; flex-direction: column; gap: 6px;
+    /* ── Row ────────────────────────────────────────────── */
+    .row {
+      display: flex; align-items: flex-start; gap: 20px;
+      padding: 20px 28px;
+      border-bottom: 1px solid #f5f0e0;
+      transition: background .15s;
     }
-    .entry:last-child { border-bottom: none; }
-    .entry-title {
-      font-size: 16px; font-weight: 500;
-      color: var(--white);
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 16px; flex-wrap: wrap;
+    .row:last-child { border-bottom: none; }
+    .row:hover { background: #fbf8f0; }
+    .row-left { flex: 1; min-width: 0; }
+    .row-left a {
+      font-size: 17px;
+      font-weight: 600;
+      color: #9a6e20;
+      text-decoration: none;
+      letter-spacing: -0.1px;
     }
-    .entry-tag {
-      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600;
-      border: 1px solid var(--border);
-      padding: 4px 10px;
+    .row-left a:hover {
+      color: #b8882a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .file-path {
+      font-size: 12px;
+      color: #aaa698;
+      font-family: 'SF Mono', Menlo, monospace;
+      margin-top: 4px;
+      word-break: break-all;
+    }
+    .row-note {
+      font-size: 14px;
+      color: #4a4858;
+      margin-top: 10px;
+      line-height: 1.65;
+    }
+    .row-right {
+      display: flex; flex-direction: column; align-items: flex-end;
+      gap: 8px; flex-shrink: 0; padding-top: 4px;
+    }
+    .row-date {
+      font-size: 11.5px;
+      color: #aaa698;
       white-space: nowrap;
+      letter-spacing: 0.2px;
     }
-    .entry-desc {
-      font-size: 13px; line-height: 1.7; color: var(--dim);
-    }
-    .entry-link {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 12px; color: var(--gold2);
-      text-decoration: none; word-break: break-all;
-    }
-    .entry-link:hover { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
-    .entry-link::before { content: '→'; color: var(--gold); }
 
-    .footer {
-      margin-top: 64px; padding-top: 32px;
-      border-top: 1px solid var(--border);
-      font-size: 11px; letter-spacing: 2px;
+    /* ── Tags ───────────────────────────────────────────── */
+    .tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 11px;
+      letter-spacing: 0.6px;
+      white-space: nowrap;
       text-transform: uppercase;
-      color: var(--muted);
-      display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .tag-prototype { background: #f5e9d4; color: #8b6a2f; }
+    .tag-reference { background: #e8e0c8; color: #6a4e10; }
+
+    /* ── Relist instructions ────────────────────────────── */
+    .relist { margin-top: 48px; }
+    .relist h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: #1e1c28;
+      margin-bottom: 12px;
+    }
+    .relist .steps {
+      background: #ffffff;
+      border: 1px solid #ece6d4;
+      padding: 24px 28px;
+      box-shadow: 0 1px 4px rgba(154,110,32,0.05);
+    }
+    .relist ol {
+      padding-left: 22px;
+      font-size: 14px;
+      color: #3a3844;
+      line-height: 1.85;
+    }
+    .relist li { margin-bottom: 8px; }
+    code {
+      background: #f5f0e0;
+      padding: 2px 7px;
+      font-size: 12.5px;
+      font-family: 'SF Mono', Menlo, monospace;
+      color: #6a4e10;
     }
 
+    .home {
+      display: inline-block;
+      margin-top: 36px;
+      font-size: 13px;
+      color: #8a8a9a;
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+    .home:hover { color: #1e1c28; }
+    .home::before { content: '← '; color: #b8882a; }
+
+    /* ── Mobile ─────────────────────────────────────────── */
     @media (max-width: 768px) {
-      .page { padding: 56px 24px 72px; }
-      .section { margin-bottom: 44px; }
-      .section-heading { font-size: 22px; }
-      .entry-title { font-size: 15px; }
-      .entry-tag { font-size: 9px; padding: 3px 8px; }
-      .header-note { font-size: 12px; }
-      .footer { font-size: 10px; }
+      body { padding: 40px 20px 56px; }
+      h1 { font-size: 32px; }
+      .meta { font-size: 13px; }
+      .notice { padding: 12px 16px; font-size: 13px; margin-bottom: 36px; }
+
+      .block-header { padding: 18px 20px; gap: 12px; }
+      .block-icon { width: 40px; height: 40px; font-size: 19px; }
+      .block-header-text h2 { font-size: 21px; }
+
+      .row {
+        flex-direction: column;
+        padding: 18px 20px;
+        gap: 10px;
+      }
+      .row-left a { font-size: 16px; }
+      .row-note { font-size: 13.5px; }
+      .row-right {
+        flex-direction: row;
+        align-items: center;
+        align-self: flex-start;
+        padding-top: 0;
+      }
+
+      .relist .steps { padding: 20px 22px; }
+      .relist ol { font-size: 13.5px; }
 
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
@@ -126,33 +221,53 @@
 </head>
 <body>
 
-<div class="page">
+<div class="wrapper">
 
-  <header class="header">
-    <div class="eyebrow">Admin · Internal Reference</div>
-    <h1>Delisted <em>Pages.</em></h1>
-    <p class="header-note">Not indexed by Google · Not linked from public navigation. Pages below are accessible via direct URL only.</p>
-  </header>
+  <h1>SuccessCode — Hidden &amp; <em>Delisted Pages</em></h1>
+  <div class="meta">Admin view · Not indexed by Google · Not linked from public navigation</div>
+  <div class="notice"><strong>Internal reference only.</strong> All hidden pages listed below by category. Add new pages here when created.</div>
 
-  <section class="section">
-    <h2 class="section-heading"><span class="section-heading-emoji">📊</span>Chart Analysis</h2>
-
-    <div class="entry">
-      <div class="entry-title">
-        <span>Alena — ZWDS Customer Report Prototype</span>
-        <span class="entry-tag">Reference · May 2026</span>
+  <!-- ══════════════════════════════ -->
+  <!-- CHART ANALYSIS                 -->
+  <!-- ══════════════════════════════ -->
+  <div class="block">
+    <div class="block-header">
+      <div class="block-icon">📊</div>
+      <div class="block-header-text">
+        <h2>Chart Analysis</h2>
+        <div class="sub">Customer report prototypes built on real charts</div>
       </div>
-      <div class="entry-desc">
-        Full natal analysis prototype for a SuccessCode customer report. Demonstrates the report format, depth, and decision-support output delivered to paying customers. Built on Alena's real chart (SPL + Transformational, year stem 己, decade D5 2025–2034).
-      </div>
-      <a href="alena-zwds.html" class="entry-link">admin/alena-zwds.html</a>
     </div>
-  </section>
 
-  <footer class="footer">
-    <small>SuccessCode · Admin reference</small>
-    <small>successcode.net</small>
-  </footer>
+    <div class="row">
+      <div class="row-left">
+        <a href="alena-zwds.html">Alena — ZWDS Customer Report Prototype</a>
+        <div class="file-path">admin/alena-zwds.html</div>
+        <div class="row-note">Full natal analysis prototype demonstrating the format, depth and decision-support output delivered to paying customers. Built on Alena's real chart (SPL + Transformational, year stem 己, decade D5 2025–2034). Six sections including structural identity, permanent enhancers, current decade, 2026 timing, decision Q&amp;A and forward calendar.</div>
+      </div>
+      <div class="row-right">
+        <span class="tag tag-prototype">Prototype</span>
+        <span class="row-date">May 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── How to relist ── -->
+  <div class="relist">
+    <h2>How to relist a delisted page</h2>
+    <div class="steps">
+      <ol>
+        <li>Remove <code>&lt;meta name="robots" content="noindex, nofollow"&gt;</code> from the page <code>&lt;head&gt;</code>.</li>
+        <li>Remove <code>&lt;meta name="googlebot" content="noindex, nofollow"&gt;</code> as well.</li>
+        <li>Add a link to the page from a public-facing page (homepage nav, footer, or sitemap).</li>
+        <li>Submit the URL to Google Search Console for re-indexing.</li>
+        <li>Move the entry from this admin index to the appropriate public page reference.</li>
+        <li>Verify with <code>curl -I</code> that the page returns 200 and the noindex header is gone.</li>
+      </ol>
+    </div>
+  </div>
+
+  <a href="/" class="home">Back to successcode.net</a>
 
 </div>
 
