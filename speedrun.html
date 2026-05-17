@@ -549,6 +549,29 @@
       font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
       color: var(--gold); font-weight: 600; display: block; margin-bottom: 36px;
     }
+    .competitor-matrix {
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .comp-table {
+      width: 100%; border-collapse: collapse;
+      border: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .comp-table th {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; padding: 14px 18px;
+      border: 1px solid var(--border); text-align: left;
+      background: rgba(0,0,0,0.2);
+    }
+    .comp-table td {
+      font-size: 12.5px; color: var(--dim); padding: 13px 18px;
+      border: 1px solid var(--border); line-height: 1.5;
+    }
+    .comp-table tr:first-child td { font-weight: 600; color: var(--gold2); background: rgba(184,144,58,0.06); }
+    .comp-check { color: #72b882; font-size: 14px; }
+    .comp-cross { color: var(--muted); font-size: 14px; }
+    .comp-partial { color: var(--gold); font-size: 13px; }
     .pricing-boxes {
       display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
       border: 1px solid var(--border); margin-bottom: 40px;
@@ -1209,6 +1232,64 @@
       </div>
       <p class="rev-assumption">Mix: 10% Basic (€49) · 30% Single Q (€99) · 60% Annual (€499). 80% annual retention on Single Q and Annual. Corporate €10,000/client. Excludes upsell and expansion revenue.</p>
     </div>
+
+    <div class="competitor-matrix reveal">
+      <span class="rev-eyebrow">Competitive Landscape</span>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Individual precision</th>
+            <th>Timing intelligence</th>
+            <th>Decision-specific output</th>
+            <th>Science-derived</th>
+            <th>AI layer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SuccessCode</td>
+            <td><span class="comp-check">✓</span> Birth-data chart</td>
+            <td><span class="comp-check">✓</span> Annual + decade layers</td>
+            <td><span class="comp-check">✓</span> Question-driven output</td>
+            <td><span class="comp-check">✓</span> 1,000-yr methodology</td>
+            <td><span class="comp-check">✓</span> Phase 2</td>
+          </tr>
+          <tr>
+            <td>Co-Star / The Pattern</td>
+            <td><span class="comp-partial">~</span> Sun sign based</td>
+            <td><span class="comp-cross">✗</span> No timing layer</td>
+            <td><span class="comp-cross">✗</span> Generic personality</td>
+            <td><span class="comp-cross">✗</span> Pop astrology</td>
+            <td><span class="comp-partial">~</span> Notification copy</td>
+          </tr>
+          <tr>
+            <td>BetterUp / Coaching</td>
+            <td><span class="comp-partial">~</span> Coach-dependent</td>
+            <td><span class="comp-cross">✗</span> No timing layer</td>
+            <td><span class="comp-check">✓</span> Goal-specific</td>
+            <td><span class="comp-partial">~</span> Psychology-based</td>
+            <td><span class="comp-partial">~</span> Session assist</td>
+          </tr>
+          <tr>
+            <td>Crystal / DISC tools</td>
+            <td><span class="comp-partial">~</span> Personality type</td>
+            <td><span class="comp-cross">✗</span> Static snapshot</td>
+            <td><span class="comp-partial">~</span> Communication tips</td>
+            <td><span class="comp-partial">~</span> Survey-based</td>
+            <td><span class="comp-partial">~</span> Recommendations</td>
+          </tr>
+          <tr>
+            <td>Generic AI assistants</td>
+            <td><span class="comp-cross">✗</span> No personal map</td>
+            <td><span class="comp-cross">✗</span> No timing model</td>
+            <td><span class="comp-partial">~</span> General advice</td>
+            <td><span class="comp-cross">✗</span> Training data only</td>
+            <td><span class="comp-check">✓</span> Native</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </section>
 
@@ -1250,7 +1331,7 @@
         <div class="phase-title">Consumer Launch</div>
         <ul class="phase-items">
           <li>Consumer subscriptions — Blueprint · Full · VIP · Company</li>
-          <li>Target 500+ subscribers</li>
+          <li>Revenue target: €177K in 2026, €1.9M in 2027</li>
           <li>International market activation</li>
         </ul>
         <div class="phase-timeline">Target · Q4 2026</div>
@@ -1277,7 +1358,7 @@
   <div style="margin-bottom: 48px;" class="reveal">
     <div style="display:flex; align-items:center; gap:18px; margin-bottom:28px; padding-top:24px; border-top:1px solid var(--border);">
       <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;">Case Study — Public Chart</span>
-      <span style="font-size:9px;letter-spacing:2px;color:var(--muted);">Donald J. Trump · b. June 14 1946 · 10:54 AM · Queens, New York</span>
+      <span style="font-size:9px;letter-spacing:2px;color:var(--muted);">The President · b. June 14 1946 · 10:54 AM · Queens, New York</span>
     </div>
     <div style="
       display:grid; grid-template-columns:1fr 1fr;
