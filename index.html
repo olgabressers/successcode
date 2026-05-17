@@ -92,14 +92,15 @@
       max-width: 380px; margin-top: 36px; margin-bottom: 36px;
     }
     .inline-form {
-      display: flex; align-items: stretch;
-      max-width: 400px; border-bottom: 1px solid var(--gold);
+      display: flex; align-items: center;
+      max-width: 520px; border-bottom: 1px solid var(--gold); gap: 0;
     }
     .inline-form input {
       flex: 1; background: transparent; border: none; outline: none;
       font-size: 12px; letter-spacing: 1px; color: var(--white);
-      padding: 14px 0; font-family: 'Inter', sans-serif;
+      padding: 14px 0; font-family: 'Inter', sans-serif; min-width: 0;
     }
+    .inline-form input + input { border-left: 1px solid rgba(184,144,58,0.3); padding-left: 14px; }
     .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
     .inline-form button {
       background: transparent; border: none; cursor: pointer;
@@ -989,9 +990,9 @@
       Born with a<br>
       <em>Blueprint.</em>
     </h1>
-    <p class="hero-sub">SuccessCode decodes it. An AI strategic intelligence platform built on over 1,000 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
+    <p class="hero-sub">SuccessCode decodes it. An algorithm driven strategic intelligence platform built on over 1,000 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
     <form class="inline-form" id="hero-form" onsubmit="submitWaitlist(event,'hero')">
-      <input type="text"  name="name"  placeholder="Your name" style="margin-bottom:8px;">
+      <input type="text"  name="name"  placeholder="Your name">
       <input type="email" name="email" placeholder="Your email address" required>
       <input type="hidden" name="source" value="hero">
       <button type="submit">Get Early Access &rarr;</button>
@@ -1012,13 +1013,13 @@
     <span>Move at the Right Time</span><span class="dot">·</span>
     <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
     <span>Your Life Structure — Decoded</span><span class="dot">·</span>
-    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · Algorithm Driven</span><span class="dot">·</span>
     <span>Know Your Strengths</span><span class="dot">·</span>
     <span>Own Your Decade</span><span class="dot">·</span>
     <span>Move at the Right Time</span><span class="dot">·</span>
     <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
     <span>Your Life Structure — Decoded</span><span class="dot">·</span>
-    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · Algorithm Driven</span><span class="dot">·</span>
   </div>
 </div>
 
@@ -1049,7 +1050,7 @@
     </h2>
     <div class="manifesto-cols">
       <p>Every major decision — a salary negotiation, a career pivot, a launch, a legal battle — has two dimensions: strategy and timing. Every coaching platform, every advisor, every MBA programme focuses on strategy. Timing is treated as luck, intuition, or gut feeling. It is none of those things.</p>
-      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using an over 1,000-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first AI engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
+      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using an over 1,000-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first algorithm driven engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
     </div>
   </div>
 </section>
