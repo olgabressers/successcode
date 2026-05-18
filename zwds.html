@@ -86,79 +86,80 @@
 
     // Dynamic annual layer: off by default; toggle on/off by clicking a year tag
     (function() {
-      var _listenerAdded = false;
-      var _activeYear    = null;
-      var _curYear       = String(new Date().getFullYear());
-      var _timer         = null;
-      // All three selectors cover annual palace labels + enhancer blocks + inline badges
-      var _ANN           = '.pal-ann-mov, .ebadge-ann, .pal-annual';
+      var _activeYear = null;
+      var _curYear    = String(new Date().getFullYear());
+      var _timer      = null;
+      var _ANN        = '.pal-ann-mov, .ebadge-ann, .pal-annual';
 
       function __getYr(el) {
         var m = el.textContent.match(/(20\d\d)/);
         return m ? m[1] : null;
       }
 
-      // Use inline styles (highest specificity — beats engine's own inline styles)
       function __applyState(co) {
         var on = co.classList.contains('annual-on');
         co.querySelectorAll(_ANN).forEach(function(el) {
           if (on) { el.style.removeProperty('display'); }
           else    { el.style.setProperty('display', 'none', 'important'); }
         });
-        // Re-mark current year after each render
         co.querySelectorAll('.pal-year-tag').forEach(function(tag) {
-          if (tag.textContent.indexOf(_curYear) !== -1) {
-            tag.classList.add('current-year');
-          }
+          if (tag.textContent.indexOf(_curYear) !== -1) tag.classList.add('current-year');
+        });
+      }
+
+      function __onYearClick(co, yr) {
+        if (co.classList.contains('annual-on') && yr === _activeYear) {
+          co.classList.remove('annual-on');
+          _activeYear = null;
+        } else {
+          co.classList.add('annual-on');
+          _activeYear = yr;
+        }
+        // Delay lets the engine finish its own re-render before we apply visibility
+        setTimeout(function() { __applyState(co); }, 60);
+      }
+
+      // Bind directly on each interactive element — direct listeners are NOT blocked
+      // by stopPropagation() called by the engine's own handlers on those same elements
+      function __bind(co) {
+        co.querySelectorAll('.pal-year-tag').forEach(function(tag) {
+          if (tag._ab) return;
+          tag._ab = true;
+          tag.addEventListener('click', function() {
+            var yr = __getYr(tag);
+            if (yr) __onYearClick(co, yr);
+          });
+        });
+        co.querySelectorAll('.year-btn').forEach(function(btn) {
+          if (btn._ab) return;
+          btn._ab = true;
+          btn.addEventListener('click', function() {
+            co.classList.add('annual-on');
+            setTimeout(function() {
+              var yv = co.querySelector('.annual-year-val');
+              if (yv) _activeYear = yv.textContent.replace(/\D/g, '');
+              __applyState(co);
+            }, 60);
+          });
+        });
+        co.querySelectorAll('.ltag-annual').forEach(function(el) {
+          if (el._ab) return;
+          el._ab = true;
+          el.addEventListener('click', function() {
+            var nowOn = !co.classList.contains('annual-on');
+            if (!nowOn) _activeYear = null;
+            co.classList.toggle('annual-on');
+            setTimeout(function() { __applyState(co); }, 60);
+          });
         });
       }
 
       var obs = new MutationObserver(function() {
         var co = document.getElementById('chart-output');
         if (!co || !co.querySelector('.layer-controls')) return;
-        // Debounce: apply state after engine finishes DOM updates
+        // Re-bind and re-apply after every engine re-render (decade change, year change, etc.)
         clearTimeout(_timer);
-        _timer = setTimeout(function() { __applyState(co); }, 80);
-
-        if (_listenerAdded) return;
-        _listenerAdded = true;
-
-        co.addEventListener('click', function(e) {
-          var el = e.target;
-          while (el && el !== co) {
-            if (el.classList.contains('pal-year-tag')) {
-              var yr = __getYr(el);
-              if (yr) {
-                if (co.classList.contains('annual-on') && yr === _activeYear) {
-                  co.classList.remove('annual-on');
-                  _activeYear = null;
-                } else {
-                  co.classList.add('annual-on');
-                  _activeYear = yr;
-                }
-                setTimeout(function() { __applyState(co); }, 50);
-              }
-              break;
-            }
-            if (el.classList.contains('year-btn')) {
-              co.classList.add('annual-on');
-              setTimeout(function() {
-                var yv = co.querySelector('.annual-year-val');
-                if (yv) _activeYear = yv.textContent.replace(/\D/g, '');
-                __applyState(co);
-              }, 50);
-              break;
-            }
-            if (el.classList.contains('ltag-annual')) {
-              var nowOn = !co.classList.contains('annual-on');
-              co.classList.toggle('annual-on');
-              if (!nowOn) _activeYear = null;
-              setTimeout(function() { __applyState(co); }, 50);
-              break;
-            }
-            el = el.parentElement;
-          }
-        });
+        _timer = setTimeout(function() { __bind(co); __applyState(co); }, 80);
       });
 
       document.addEventListener('DOMContentLoaded', function() {
