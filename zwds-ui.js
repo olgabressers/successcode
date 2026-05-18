@@ -284,17 +284,34 @@ function __tzCorrect(i) {
     co.appendChild(svg);
   }
 
+  // Detect which .star-en was clicked.
+  // Walks up from target looking for an element that has .star-en as a direct
+  // child (= the star's own wrapper, whatever class the engine gives it), or
+  // that IS .star-en itself. Stops at .palace-cell so it never crosses palaces.
+  function __findStarEn(target) {
+    var el = target;
+    while (el && el !== document.body) {
+      if (el.classList && el.classList.contains('palace-cell')) break;
+      if (el.classList && el.classList.contains('star-en')) return el;
+      // Check direct children for .star-en
+      if (el.children) {
+        for (var i = 0; i < el.children.length; i++) {
+          if (el.children[i].classList && el.children[i].classList.contains('star-en')) {
+            return el.children[i];
+          }
+        }
+      }
+      el = el.parentElement;
+    }
+    return null;
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     // Capture phase fires before the engine's bubbling handlers
     document.addEventListener('click', function(e) {
-      // Find .star-item ancestor of clicked element
-      var el = e.target;
-      while (el && el !== document.body) {
-        if (el.classList && el.classList.contains('star-item')) break;
-        el = el.parentElement;
-      }
+      var starEnEl = __findStarEn(e.target);
 
-      if (!el || !el.classList || !el.classList.contains('star-item')) {
+      if (!starEnEl) {
         // Clicked outside a star — clear arrows and let event proceed normally
         __clearArrows();
         return;
@@ -303,13 +320,12 @@ function __tzCorrect(i) {
       // Star was clicked — stop engine's palace-activation handler
       e.stopPropagation();
 
-      var enEl = el.querySelector('.star-en');
-      var nameEn = enEl ? enEl.textContent.trim() : '';
+      var nameEn = starEnEl.textContent.trim();
       if (!nameEn) return;
 
       var revEntries = REV[nameEn];
       var co = document.getElementById('chart-output');
-      var targetCell = __palaceCell(el);
+      var targetCell = __palaceCell(starEnEl);
 
       if (!revEntries || !revEntries.length || !co || !targetCell) {
         __clearArrows();
