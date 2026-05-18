@@ -156,11 +156,18 @@ Implemented via a CSS class `annual-on` on `#chart-output`:
 #chart-output:not(.annual-on) .ltag-annual { opacity: 0.35; }
 ```
 
-A MutationObserver watches `#chart-output` for first render (`.layer-controls` appearing), then:
+A MutationObserver watches `#chart-output` continuously. After chart renders:
 - Removes `annual-on` (starts hidden)
-- Adds a click delegation handler:
-  - `.pal-year-tag` or `.year-btn` click → adds `annual-on` (shows annual)
-  - `.ltag-annual` click → toggles `annual-on`
+- Marks the tag matching current calendar year with `.current-year` class (blue border, bold) — re-applied after every DOM change via debounced 60 ms timer
+- Adds a click delegation handler (added once):
+  - `.pal-year-tag` click: if `annual-on` is active **and** the same year was already selected → **toggle OFF** (removes `annual-on`); otherwise → **toggle ON** (adds `annual-on`)
+  - `.year-btn` (± buttons) click → adds `annual-on` and updates `_activeYear` after 30 ms
+  - `.ltag-annual` click → toggles `annual-on`; clears `_activeYear` when turning off
+
+CSS for current-year marker:
+```css
+.pal-year-tag.current-year { border-color: var(--annual-col); background: #eef0ff; font-weight: 700; }
+```
 
 ### Colour coding
 
