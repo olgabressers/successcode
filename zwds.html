@@ -83,6 +83,38 @@
         );
       }
     }
+
+    // Dynamic annual layer: off by default, on when year tag / ± btn / Annual label clicked
+    (function() {
+      var _init = false;
+      var obs = new MutationObserver(function() {
+        var co = document.getElementById('chart-output');
+        if (!co || _init) return;
+        if (co.querySelector('.layer-controls')) {
+          _init = true;
+          obs.disconnect();
+          co.classList.remove('annual-on');
+          co.addEventListener('click', function(e) {
+            var el = e.target;
+            while (el && el !== co) {
+              if (el.classList.contains('pal-year-tag') || el.classList.contains('year-btn')) {
+                co.classList.add('annual-on');
+                break;
+              }
+              if (el.classList.contains('ltag-annual')) {
+                co.classList.toggle('annual-on');
+                break;
+              }
+              el = el.parentElement;
+            }
+          });
+        }
+      });
+      document.addEventListener('DOMContentLoaded', function() {
+        var co = document.getElementById('chart-output');
+        if (co) obs.observe(co, { childList: true, subtree: true });
+      });
+    })();
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -725,6 +757,12 @@
     .year-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 3px 10px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; }
     .year-btn:hover { background: #f0ece4; }
     .annual-year-val { font-size: 15px; font-weight: 600; color: var(--text); min-width: 40px; text-align: center; }
+
+    /* Dynamic annual layer: hidden until user selects a year */
+    #chart-output:not(.annual-on) .pal-ann-mov { display: none !important; }
+    #chart-output:not(.annual-on) .ebadge-ann  { display: none !important; }
+    #chart-output:not(.annual-on) .ltag-annual { opacity: 0.35; }
+    #chart-output.annual-on .ltag-annual       { opacity: 1; }
 
     @media (max-width: 700px) {
       .form-grid { grid-template-columns: 1fr; }

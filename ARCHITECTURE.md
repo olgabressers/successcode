@@ -144,6 +144,24 @@ Each palace cell shows the years that fall within that palace's decade range as 
 - `.is-active` state on the selected year tag
 - `.out-decade` styling for years outside the currently selected decade
 
+### Dynamic annual layer (`zwds.html` only)
+
+Annual enhancers are **hidden by default** on first load. They appear only when the user explicitly selects a year.
+
+Implemented via a CSS class `annual-on` on `#chart-output`:
+
+```css
+#chart-output:not(.annual-on) .pal-ann-mov { display: none !important; }
+#chart-output:not(.annual-on) .ebadge-ann  { display: none !important; }
+#chart-output:not(.annual-on) .ltag-annual { opacity: 0.35; }
+```
+
+A MutationObserver watches `#chart-output` for first render (`.layer-controls` appearing), then:
+- Removes `annual-on` (starts hidden)
+- Adds a click delegation handler:
+  - `.pal-year-tag` or `.year-btn` click → adds `annual-on` (shows annual)
+  - `.ltag-annual` click → toggles `annual-on`
+
 ### Colour coding
 
 | Layer | Colour | CSS variable |
