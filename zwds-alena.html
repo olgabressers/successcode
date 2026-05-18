@@ -4,32 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZWDS Calculator — Alena</title>
+  <script src="/zwds-ui.js"></script>
   <script>
-    // Returns numeric UTC offset for (lat, lon) at (dateStr, timeStr) using IANA lookup.
-    // Same pipeline used by both __loadAlenaDefaults and __tzCorrect.
-    function __computeUtcOffset(lat, lon, dateStr, timeStr) {
-      if (typeof tzlookup !== 'function') return null;
-      var tzName;
-      try { tzName = tzlookup(lat, lon); } catch(e) { return null; }
-      if (!tzName) return null;
-      var birthDT = new Date((dateStr || '2000-01-01') + 'T' + (timeStr || '12:00') + ':00Z');
-      try {
-        var parts = new Intl.DateTimeFormat('en', {
-          timeZone: tzName, timeZoneName: 'shortOffset'
-        }).formatToParts(birthDT);
-        for (var k = 0; k < parts.length; k++) {
-          if (parts[k].type === 'timeZoneName') {
-            var m = parts[k].value.match(/GMT([+-])(\d+)(?::(\d+))?/);
-            if (m) return (m[1] === '+' ? 1 : -1) * (parseInt(m[2]) + (m[3] ? parseInt(m[3]) / 60 : 0));
-          }
-        }
-      } catch(e) {}
-      return null;
-    }
-
-    // Fill Alena's birth data. UTC offset is computed automatically via IANA lookup —
-    // same pipeline as any user selecting a city from the dropdown.
-    // Saratov, Russia: 51.53°N 46.02°E
+    // Alena's chart pre-fill. Shared utilities (__computeUtcOffset, __tzCorrect,
+    // dynamic annual layer) come from zwds-ui.js.
     function __loadAlenaDefaults() {
       var d = document.getElementById('birth-date');   if (d) d.value = '1979-04-19';
       var t = document.getElementById('birth-time');   if (t) t.value = '13:30';
@@ -39,7 +17,7 @@
       var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '46.0167';
 
       var offset = __computeUtcOffset(51.5333, 46.0167, '1979-04-19', '13:30');
-      if (offset === null) offset = 4; // fallback if tz.js not yet loaded
+      if (offset === null) offset = 4;
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
       var cr = document.getElementById('city-result');
@@ -52,47 +30,14 @@
     }
     window.loadAlena = __loadAlenaDefaults;
 
-    // DOMContentLoaded fires after the obfuscated script has defined loadTrump.
-    // Replace it so the auto-call on window 'load' fills Alena's data instead.
-    // Also patch selectCity to use real timezone lookup (fixes UTC+0 for NL etc.).
     window.addEventListener('DOMContentLoaded', function() {
       window.loadTrump = __loadAlenaDefaults;
       setTimeout(__loadAlenaDefaults, 100);
-
       var _origSC = window.selectCity;
       if (typeof _origSC === 'function') {
-        window.selectCity = function(i) {
-          _origSC(i);
-          __tzCorrect(i);
-        };
+        window.selectCity = function(i) { _origSC(i); __tzCorrect(i); };
       }
     });
-
-    function __tzCorrect(i) {
-      var dd  = document.getElementById('city-dropdown');
-      var lonEl = document.getElementById('birth-longitude');
-      if (!dd || !dd._data || !dd._data[i] || !lonEl) return;
-      var lat = parseFloat(dd._data[i].lat);
-      var lon = parseFloat(lonEl.value);
-      if (isNaN(lat) || isNaN(lon)) return;
-      var dateStr = (document.getElementById('birth-date') || {}).value || '2000-01-01';
-      var timeStr = (document.getElementById('birth-time') || {}).value || '12:00';
-      var offset = __computeUtcOffset(lat, lon, dateStr, timeStr);
-      if (offset === null) return;
-      var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
-      var utcEl = document.getElementById('utc-offset');
-      if (utcEl) {
-        utcEl.value = offStr;
-        if (typeof updateSolarPreview === 'function') updateSolarPreview();
-      }
-      var cr = document.getElementById('city-result');
-      if (cr) {
-        cr.innerHTML = cr.innerHTML.replace(
-          /UTC[+\-]?\d+(\.\d+)?(\s*\([^)]*\))?/i,
-          'UTC' + (offset >= 0 ? '+' : '') + offStr
-        );
-      }
-    }
   </script>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
@@ -735,6 +680,14 @@
     .year-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 3px 10px; cursor: pointer; font-size: 13px; font-family: 'Inter', sans-serif; }
     .year-btn:hover { background: #f0ece4; }
     .annual-year-val { font-size: 15px; font-weight: 600; color: var(--text); min-width: 40px; text-align: center; }
+
+    /* Dynamic annual layer: CSS fallback (JS inline styles are the primary mechanism) */
+    #chart-output:not(.annual-on) .pal-ann-mov,
+    #chart-output:not(.annual-on) .ebadge-ann,
+    #chart-output:not(.annual-on) .pal-annual  { display: none !important; }
+    #chart-output:not(.annual-on) .ltag-annual { opacity: 0.35; }
+    #chart-output.annual-on .ltag-annual       { opacity: 1; }
+    .pal-year-tag.current-year { border: 2px solid var(--annual-col) !important; background: #dde8ff !important; font-weight: 700; }
 
     @media (max-width: 700px) {
       .form-grid { grid-template-columns: 1fr; }
