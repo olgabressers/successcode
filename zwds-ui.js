@@ -138,3 +138,130 @@ function __tzCorrect(i) {
     if (co) obs.observe(co, { childList: true, subtree: true });
   });
 })();
+
+// Si Hua reverse lookup: click a star → show which stems send which enhancer to it
+(function() {
+  var REV = {
+    'Lian Zhen':  [{s:'甲',t:'Lu'},{s:'丙',t:'Ji'}],
+    'Po Jun':     [{s:'甲',t:'Quan'},{s:'癸',t:'Lu'}],
+    'Wu Qu':      [{s:'甲',t:'Ke'},{s:'己',t:'Lu'},{s:'庚',t:'Quan'},{s:'壬',t:'Ji'}],
+    'Tai Yang':   [{s:'甲',t:'Ji'},{s:'庚',t:'Lu'},{s:'辛',t:'Quan'}],
+    'Tian Ji':    [{s:'乙',t:'Lu'},{s:'丙',t:'Quan'},{s:'丁',t:'Ke'},{s:'戊',t:'Ji'}],
+    'Tian Liang': [{s:'乙',t:'Quan'},{s:'己',t:'Ke'},{s:'壬',t:'Lu'}],
+    'Zi Wei':     [{s:'乙',t:'Ke'},{s:'壬',t:'Quan'}],
+    'Tai Yin':    [{s:'乙',t:'Ji'},{s:'丁',t:'Lu'},{s:'戊',t:'Quan'},{s:'庚',t:'Ke'},{s:'癸',t:'Ke'}],
+    'Tian Tong':  [{s:'丙',t:'Lu'},{s:'丁',t:'Quan'},{s:'庚',t:'Ji'}],
+    'Wen Chang':  [{s:'丙',t:'Ke'},{s:'辛',t:'Ji'}],
+    'Ju Men':     [{s:'丁',t:'Ji'},{s:'辛',t:'Lu'},{s:'癸',t:'Quan'}],
+    'Tan Lang':   [{s:'戊',t:'Lu'},{s:'己',t:'Quan'},{s:'癸',t:'Ji'}],
+    'You Bi':     [{s:'戊',t:'Ke'}],
+    'Wen Qu':     [{s:'己',t:'Ji'},{s:'辛',t:'Ke'}],
+    'Zuo Fu':     [{s:'壬',t:'Ke'}]
+  };
+
+  var COLORS = { Lu: '#166020', Quan: '#1020b8', Ke: '#a08000', Ji: '#aa1010' };
+  var LABELS = { Lu: '禄 Lu', Quan: '权 Quan', Ke: '科 Ke', Ji: '忌 Ji' };
+
+  function __injectCSS() {
+    if (document.getElementById('slp-css')) return;
+    var s = document.createElement('style');
+    s.id = 'slp-css';
+    s.textContent = [
+      '#slp{position:fixed;z-index:9999;background:#fff;border:1.5px solid #ccc;border-radius:8px;',
+      'box-shadow:0 4px 18px rgba(0,0,0,.18);padding:12px 14px 14px;min-width:220px;max-width:300px;',
+      'font-family:inherit;font-size:13px;line-height:1.5;}',
+      '#slp-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}',
+      '#slp-name{font-weight:700;font-size:14px;color:#222;}',
+      '#slp-cn{font-size:12px;color:#666;margin-left:5px;}',
+      '#slp-close{cursor:pointer;font-size:16px;color:#999;line-height:1;padding:0 2px;margin-left:8px;flex-shrink:0;}',
+      '#slp-close:hover{color:#333;}',
+      '#slp-sub{font-size:11px;color:#888;margin-bottom:8px;}',
+      '#slp-rows{}',
+      '.slp-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}',
+      '.slp-badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;',
+      'color:#fff;min-width:60px;text-align:center;}',
+      '.slp-stem{font-size:13px;color:#333;}'
+    ].join('');
+    document.head.appendChild(s);
+  }
+
+  function __show(nameEn, nameCn, x, y) {
+    __injectCSS();
+    var p = document.getElementById('slp');
+    if (!p) { p = document.createElement('div'); p.id = 'slp'; document.body.appendChild(p); }
+
+    var rows = REV[nameEn];
+    var rowsHtml = '';
+    if (!rows || rows.length === 0) {
+      rowsHtml = '<div style="color:#888;font-size:12px">No Si Hua enhancers reach this star</div>';
+    } else {
+      var byType = {};
+      rows.forEach(function(r) {
+        if (!byType[r.t]) byType[r.t] = [];
+        byType[r.t].push(r.s);
+      });
+      ['Lu','Quan','Ke','Ji'].forEach(function(t) {
+        if (!byType[t]) return;
+        rowsHtml += '<div class="slp-row">' +
+          '<span class="slp-badge" style="background:' + COLORS[t] + '">' + LABELS[t] + '</span>' +
+          '<span class="slp-stem">' + byType[t].join('  ') + '</span>' +
+          '</div>';
+      });
+    }
+
+    p.innerHTML =
+      '<div id="slp-head">' +
+        '<div><span id="slp-name">' + nameEn + '</span><span id="slp-cn">' + (nameCn || '') + '</span></div>' +
+        '<span id="slp-close">×</span>' +
+      '</div>' +
+      '<div id="slp-sub">Incoming Si Hua (by stem)</div>' +
+      '<div id="slp-rows">' + rowsHtml + '</div>';
+
+    p.style.display = 'block';
+
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var pw = p.offsetWidth || 240, ph = p.offsetHeight || 160;
+    var left = Math.min(x + 10, vw - pw - 10);
+    var top  = Math.min(y + 10, vh - ph - 10);
+    if (left < 6) left = 6;
+    if (top  < 6) top  = 6;
+    p.style.left = left + 'px';
+    p.style.top  = top  + 'px';
+
+    document.getElementById('slp-close').addEventListener('click', function(e) {
+      e.stopPropagation();
+      p.style.display = 'none';
+    });
+  }
+
+  function __hide() {
+    var p = document.getElementById('slp');
+    if (p) p.style.display = 'none';
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    // Capture phase: fires before engine bubbling handlers
+    document.addEventListener('click', function(e) {
+      var el = e.target;
+      // Walk up to find .star-item
+      while (el && el !== document.body) {
+        if (el.classList && el.classList.contains('star-item')) break;
+        el = el.parentElement;
+      }
+      if (!el || !el.classList || !el.classList.contains('star-item')) {
+        // Click outside panel → close
+        var p = document.getElementById('slp');
+        if (p && p.style.display !== 'none' && !p.contains(e.target)) __hide();
+        return;
+      }
+      // Found a star-item — show panel
+      e.stopPropagation();
+      var enEl = el.querySelector('.star-en');
+      var cnEl = el.querySelector('.star-cn');
+      var nameEn = enEl ? enEl.textContent.trim() : '';
+      var nameCn = cnEl ? cnEl.textContent.trim() : '';
+      if (!nameEn) return;
+      __show(nameEn, nameCn, e.clientX, e.clientY);
+    }, true);
+  });
+})();
