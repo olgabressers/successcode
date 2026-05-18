@@ -201,25 +201,15 @@ function __tzCorrect(i) {
     if (el) el.remove();
   }
 
-  function __drawArrows(co, targetCell, sources) {
+  function __drawArrows(targetCell, sources) {
     __clearArrows();
     if (!sources.length) return;
 
-    // Ensure positioning context
-    var pos = window.getComputedStyle(co).position;
-    if (pos === 'static') co.style.position = 'relative';
-
-    var coRect = co.getBoundingClientRect();
-    var tRect  = targetCell.getBoundingClientRect();
-    var tx = tRect.left  - coRect.left + tRect.width  / 2;
-    var ty = tRect.top   - coRect.top  + tRect.height / 2;
-
+    // Full-viewport fixed SVG on body — viewport coords match getBoundingClientRect directly
     var svg = document.createElementNS(NS, 'svg');
     svg.id = 'sihua-in';
-    svg.setAttribute('xmlns', NS);
-    svg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8500;overflow:visible;';
+    svg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8500;';
 
-    // Arrow-head markers, one per enhancer type
     var defs = document.createElementNS(NS, 'defs');
     ['Lu','Quan','Ke','Ji'].forEach(function(t) {
       var m = document.createElementNS(NS, 'marker');
@@ -237,44 +227,46 @@ function __tzCorrect(i) {
     });
     svg.appendChild(defs);
 
+    var tRect = targetCell.getBoundingClientRect();
+    var tx = tRect.left + tRect.width  / 2;
+    var ty = tRect.top  + tRect.height / 2;
+
     var n = sources.length;
     sources.forEach(function(src, i) {
       var sRect = src.cell.getBoundingClientRect();
-      var sx = sRect.left - coRect.left + sRect.width  / 2;
-      var sy = sRect.top  - coRect.top  + sRect.height / 2;
+      var sx = sRect.left + sRect.width  / 2;
+      var sy = sRect.top  + sRect.height / 2;
       var col = COLORS[src.type];
 
-      // Perpendicular offset so multiple arrows between same pair fan out
       var dx = tx - sx, dy = ty - sy;
       var len = Math.sqrt(dx * dx + dy * dy) || 1;
       var spread = (i - (n - 1) / 2) * 12;
       var ox = (-dy / len) * spread;
       var oy = ( dx / len) * spread;
 
-      // Quadratic bezier: control point pulled perpendicular to midpoint
       var mx = (sx + tx) / 2 + ox * 3;
       var my = (sy + ty) / 2 + oy * 3;
 
       var path = document.createElementNS(NS, 'path');
       path.setAttribute('d',
-        'M' + (sx + ox) + ' ' + (sy + oy) +
+        'M' + (sx+ox) + ' ' + (sy+oy) +
         ' Q' + mx + ' ' + my +
-        ' ' + (tx + ox) + ' ' + (ty + oy));
+        ' ' + (tx+ox) + ' ' + (ty+oy));
       path.setAttribute('stroke', col);
-      path.setAttribute('stroke-width', '2.2');
+      path.setAttribute('stroke-width', '2.5');
       path.setAttribute('fill', 'none');
       path.setAttribute('marker-end', 'url(#sia-' + src.type + ')');
-      path.setAttribute('opacity', '0.88');
+      path.setAttribute('opacity', '0.9');
       svg.appendChild(path);
 
-      // Stem label near the source end
-      var lx = sx + ox + (dx / len) * 22;
-      var ly = sy + oy + (dy / len) * 22;
+      // Stem label near source
+      var lx = sx + ox + (dx / len) * 24;
+      var ly = sy + oy + (dy / len) * 24;
       var txt = document.createElementNS(NS, 'text');
-      txt.setAttribute('x', lx);
-      txt.setAttribute('y', ly);
+      txt.setAttribute('x', String(lx));
+      txt.setAttribute('y', String(ly));
       txt.setAttribute('fill', col);
-      txt.setAttribute('font-size', '12');
+      txt.setAttribute('font-size', '13');
       txt.setAttribute('font-weight', 'bold');
       txt.setAttribute('text-anchor', 'middle');
       txt.setAttribute('dominant-baseline', 'middle');
@@ -282,7 +274,7 @@ function __tzCorrect(i) {
       svg.appendChild(txt);
     });
 
-    co.appendChild(svg);
+    document.body.appendChild(svg);
   }
 
   // Hit-test: find a .star-en whose bounding box contains the click point.
@@ -365,7 +357,7 @@ function __tzCorrect(i) {
             '\nsource palaces: ' + sources.length +
             '\n→ drawing arrows');
 
-      __drawArrows(co, targetCell, sources);
+      __drawArrows(targetCell, sources);
     }, true);
 
     var co = document.getElementById('chart-output');
