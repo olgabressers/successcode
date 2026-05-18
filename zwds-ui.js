@@ -236,44 +236,38 @@ function __tzCorrect(i) {
     if (!sources.length) return;
     _lastDraw = Date.now();
 
-    // Full-viewport fixed SVG on body.
-    // Use 100vw/100vh instead of 100%/100% — percentage dimensions on a
-    // position:fixed element are relative to the viewport in modern browsers
-    // but some engines fall back to the containing block (body, which has
-    // height:auto here), producing a zero-height SVG that clips all content.
+    // Absolute-positioned SVG on body at document origin.
+    // position:absolute scrolls with the page (unlike fixed), so arrows stay
+    // anchored to palace cells as the user scrolls.
+    // Coordinates = getBoundingClientRect() + current scroll offset = document space.
+    var scrollX = window.scrollX || window.pageXOffset || 0;
+    var scrollY = window.scrollY || window.pageYOffset || 0;
+    var dW = Math.max(document.documentElement.scrollWidth,  window.innerWidth);
+    var dH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
     var svg = document.createElementNS(NS, 'svg');
     svg.id = 'sihua-in';
     svg.setAttribute('xmlns', NS);
     svg.style.cssText = [
-      'position:fixed',
+      'position:absolute',
       'top:0',
       'left:0',
-      'width:100vw',
-      'height:100vh',
+      'width:'  + dW + 'px',
+      'height:' + dH + 'px',
       'pointer-events:none',
       'z-index:8500',
-      'overflow:visible'   // don't clip arrowheads that fall near SVG edges
+      'overflow:visible'
     ].join(';');
 
-    // Diagnostic: small red circle at viewport centre to confirm SVG renders.
-    // Remove this element once arrows are confirmed working.
-    var diag = document.createElementNS(NS, 'circle');
-    diag.setAttribute('cx', String(window.innerWidth  / 2));
-    diag.setAttribute('cy', String(window.innerHeight / 2));
-    diag.setAttribute('r',  '6');
-    diag.setAttribute('fill', 'red');
-    diag.setAttribute('opacity', '0.7');
-    svg.appendChild(diag);
-
     var tRect = targetCell.getBoundingClientRect();
-    var tx = tRect.left + tRect.width  / 2;
-    var ty = tRect.top  + tRect.height / 2;
+    var tx = tRect.left + scrollX + tRect.width  / 2;
+    var ty = tRect.top  + scrollY + tRect.height / 2;
 
     var n = sources.length;
     sources.forEach(function(src, i) {
       var sRect = src.cell.getBoundingClientRect();
-      var sx = sRect.left + sRect.width  / 2;
-      var sy = sRect.top  + sRect.height / 2;
+      var sx = sRect.left + scrollX + sRect.width  / 2;
+      var sy = sRect.top  + scrollY + sRect.height / 2;
       var col = COLORS[src.type];
 
       var dx = tx - sx, dy = ty - sy;
