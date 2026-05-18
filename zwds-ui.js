@@ -162,6 +162,11 @@ function __tzCorrect(i) {
   var COLORS = { Lu: '#166020', Quan: '#1020b8', Ke: '#a08000', Ji: '#aa1010' };
   var NS = 'http://www.w3.org/2000/svg';
 
+  // Timestamp of the last __drawArrows call — used to suppress MutationObserver
+  // clearing that fires because the engine re-renders after our stopPropagation
+  // call only blocks capture-phase handlers, not the engine's bubble handlers.
+  var _lastDraw = 0;
+
   // Walk up from el to find nearest .palace-cell ancestor
   function __palaceCell(el) {
     var e = el;
@@ -201,31 +206,64 @@ function __tzCorrect(i) {
     if (el) el.remove();
   }
 
+  // Draw a filled arrowhead polygon at the tip of each arrow.
+  // We avoid url(#marker-id) entirely because that reference is resolved
+  // against document.URL (not the SVG element), which breaks on any page
+  // served from a sub-path or after a history.pushState URL change.
+  // Instead we compute the tip position and orientation from the bezier
+  // tangent and append a plain <polygon> element directly to the SVG.
+  function __arrowhead(svg, tx, ty, dx, dy, col) {
+    var len = Math.sqrt(dx * dx + dy * dy) || 1;
+    var ux = dx / len, uy = dy / len;    // unit vector toward tip
+    var px = -uy,     py =  ux;          // perpendicular
+    var size = 10, half = 3.5;
+    // Three vertices: tip, left-base, right-base
+    var x0 = tx,                 y0 = ty;
+    var x1 = tx - ux*size + px*half, y1 = ty - uy*size + py*half;
+    var x2 = tx - ux*size - px*half, y2 = ty - uy*size - py*half;
+    var poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('points',
+      x0.toFixed(2) + ',' + y0.toFixed(2) + ' ' +
+      x1.toFixed(2) + ',' + y1.toFixed(2) + ' ' +
+      x2.toFixed(2) + ',' + y2.toFixed(2));
+    poly.setAttribute('fill', col);
+    poly.setAttribute('opacity', '0.92');
+    svg.appendChild(poly);
+  }
+
   function __drawArrows(targetCell, sources) {
     __clearArrows();
     if (!sources.length) return;
+    _lastDraw = Date.now();
 
-    // Full-viewport fixed SVG on body — viewport coords match getBoundingClientRect directly
+    // Full-viewport fixed SVG on body.
+    // Use 100vw/100vh instead of 100%/100% — percentage dimensions on a
+    // position:fixed element are relative to the viewport in modern browsers
+    // but some engines fall back to the containing block (body, which has
+    // height:auto here), producing a zero-height SVG that clips all content.
     var svg = document.createElementNS(NS, 'svg');
     svg.id = 'sihua-in';
-    svg.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8500;';
+    svg.setAttribute('xmlns', NS);
+    svg.style.cssText = [
+      'position:fixed',
+      'top:0',
+      'left:0',
+      'width:100vw',
+      'height:100vh',
+      'pointer-events:none',
+      'z-index:8500',
+      'overflow:visible'   // don't clip arrowheads that fall near SVG edges
+    ].join(';');
 
-    var defs = document.createElementNS(NS, 'defs');
-    ['Lu','Quan','Ke','Ji'].forEach(function(t) {
-      var m = document.createElementNS(NS, 'marker');
-      m.setAttribute('id', 'sia-' + t);
-      m.setAttribute('markerWidth',  '8');
-      m.setAttribute('markerHeight', '6');
-      m.setAttribute('refX', '7');
-      m.setAttribute('refY', '3');
-      m.setAttribute('orient', 'auto');
-      var poly = document.createElementNS(NS, 'polygon');
-      poly.setAttribute('points', '0 0, 8 3, 0 6');
-      poly.setAttribute('fill', COLORS[t]);
-      m.appendChild(poly);
-      defs.appendChild(m);
-    });
-    svg.appendChild(defs);
+    // Diagnostic: small red circle at viewport centre to confirm SVG renders.
+    // Remove this element once arrows are confirmed working.
+    var diag = document.createElementNS(NS, 'circle');
+    diag.setAttribute('cx', String(window.innerWidth  / 2));
+    diag.setAttribute('cy', String(window.innerHeight / 2));
+    diag.setAttribute('r',  '6');
+    diag.setAttribute('fill', 'red');
+    diag.setAttribute('opacity', '0.7');
+    svg.appendChild(diag);
 
     var tRect = targetCell.getBoundingClientRect();
     var tx = tRect.left + tRect.width  / 2;
@@ -244,20 +282,35 @@ function __tzCorrect(i) {
       var ox = (-dy / len) * spread;
       var oy = ( dx / len) * spread;
 
+      // Control point for quadratic bezier (offset perpendicular to midpoint)
       var mx = (sx + tx) / 2 + ox * 3;
       var my = (sy + ty) / 2 + oy * 3;
 
+      // Shorten the path end by 9px so the arrowhead polygon sits exactly
+      // at the visual tip and the stroke doesn't poke through it.
+      var shortFrac = Math.max(0, (len - 9)) / (len || 1);
+      var tipX = sx + ox + (tx - sx + ox - ox) * shortFrac;  // approximate shortened tip
+      // Simpler: compute the last few pixels of the straight approach to the tip
+      // using the tangent at the bezier end (which is the vector from Q to end).
+      var bEndX = tx + ox, bEndY = ty + oy;
+      var tangX = bEndX - mx,  tangY = bEndY - my;
+      var tangLen = Math.sqrt(tangX*tangX + tangY*tangY) || 1;
+      var pathEndX = bEndX - (tangX/tangLen)*9;
+      var pathEndY = bEndY - (tangY/tangLen)*9;
+
       var path = document.createElementNS(NS, 'path');
       path.setAttribute('d',
-        'M' + (sx+ox) + ' ' + (sy+oy) +
-        ' Q' + mx + ' ' + my +
-        ' ' + (tx+ox) + ' ' + (ty+oy));
+        'M' + (sx+ox).toFixed(2) + ' ' + (sy+oy).toFixed(2) +
+        ' Q' + mx.toFixed(2) + ' ' + my.toFixed(2) +
+        ' ' + pathEndX.toFixed(2) + ' ' + pathEndY.toFixed(2));
       path.setAttribute('stroke', col);
       path.setAttribute('stroke-width', '2.5');
       path.setAttribute('fill', 'none');
-      path.setAttribute('marker-end', 'url(#sia-' + src.type + ')');
       path.setAttribute('opacity', '0.9');
       svg.appendChild(path);
+
+      // Inline arrowhead polygon at the true tip (avoids url(#marker) entirely)
+      __arrowhead(svg, bEndX, bEndY, tangX, tangY, col);
 
       // Stem label near source
       var lx = sx + ox + (dx / len) * 24;
@@ -328,7 +381,11 @@ function __tzCorrect(i) {
         return;
       }
 
-      e.stopPropagation();
+      // Use preventDefault + stopImmediatePropagation so the engine's own
+      // click handler (which re-renders #chart-output and would trigger the
+      // MutationObserver that clears our arrows) does not fire.
+      e.preventDefault();
+      e.stopImmediatePropagation();
 
       var nameEn = starEnEl.textContent.trim();
       var revEntries = REV[nameEn];
@@ -362,8 +419,13 @@ function __tzCorrect(i) {
 
     var co = document.getElementById('chart-output');
     if (co) {
-      new MutationObserver(function() { __clearArrows(); })
-        .observe(co, { childList: true });
+      new MutationObserver(function() {
+        // Suppress clearing if arrows were drawn within the last 600ms —
+        // this covers engine re-renders that race with our draw call even
+        // after stopImmediatePropagation (e.g. deferred engine timeouts).
+        if (Date.now() - _lastDraw < 600) return;
+        __clearArrows();
+      }).observe(co, { childList: true });
     }
   });
 })();
