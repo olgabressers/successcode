@@ -89,11 +89,25 @@
       var _listenerAdded = false;
       var _activeYear    = null;
       var _curYear       = String(new Date().getFullYear());
-      var _markTimer     = null;
+      var _timer         = null;
+      // All three selectors cover annual palace labels + enhancer blocks + inline badges
+      var _ANN           = '.pal-ann-mov, .ebadge-ann, .pal-annual';
 
-      function __markCurrentYear(co) {
+      function __getYr(el) {
+        var m = el.textContent.match(/(20\d\d)/);
+        return m ? m[1] : null;
+      }
+
+      // Use inline styles (highest specificity — beats engine's own inline styles)
+      function __applyState(co) {
+        var on = co.classList.contains('annual-on');
+        co.querySelectorAll(_ANN).forEach(function(el) {
+          if (on) { el.style.removeProperty('display'); }
+          else    { el.style.setProperty('display', 'none', 'important'); }
+        });
+        // Re-mark current year after each render
         co.querySelectorAll('.pal-year-tag').forEach(function(tag) {
-          if (tag.textContent.trim() === _curYear) {
+          if (tag.textContent.indexOf(_curYear) !== -1) {
             tag.classList.add('current-year');
           }
         });
@@ -102,28 +116,27 @@
       var obs = new MutationObserver(function() {
         var co = document.getElementById('chart-output');
         if (!co || !co.querySelector('.layer-controls')) return;
-
-        // Debounced re-mark current year after every DOM change
-        clearTimeout(_markTimer);
-        _markTimer = setTimeout(function() { __markCurrentYear(co); }, 60);
+        // Debounce: apply state after engine finishes DOM updates
+        clearTimeout(_timer);
+        _timer = setTimeout(function() { __applyState(co); }, 80);
 
         if (_listenerAdded) return;
         _listenerAdded = true;
-        co.classList.remove('annual-on');
 
         co.addEventListener('click', function(e) {
           var el = e.target;
           while (el && el !== co) {
             if (el.classList.contains('pal-year-tag')) {
-              var yr = el.textContent.trim();
-              if (co.classList.contains('annual-on') && yr === _activeYear) {
-                // Same year clicked again → turn annual OFF
-                co.classList.remove('annual-on');
-                _activeYear = null;
-              } else {
-                // New year selected → turn annual ON
-                co.classList.add('annual-on');
-                _activeYear = yr;
+              var yr = __getYr(el);
+              if (yr) {
+                if (co.classList.contains('annual-on') && yr === _activeYear) {
+                  co.classList.remove('annual-on');
+                  _activeYear = null;
+                } else {
+                  co.classList.add('annual-on');
+                  _activeYear = yr;
+                }
+                setTimeout(function() { __applyState(co); }, 50);
               }
               break;
             }
@@ -131,13 +144,16 @@
               co.classList.add('annual-on');
               setTimeout(function() {
                 var yv = co.querySelector('.annual-year-val');
-                if (yv) _activeYear = yv.textContent.trim();
-              }, 30);
+                if (yv) _activeYear = yv.textContent.replace(/\D/g, '');
+                __applyState(co);
+              }, 50);
               break;
             }
             if (el.classList.contains('ltag-annual')) {
+              var nowOn = !co.classList.contains('annual-on');
               co.classList.toggle('annual-on');
-              if (!co.classList.contains('annual-on')) _activeYear = null;
+              if (!nowOn) _activeYear = null;
+              setTimeout(function() { __applyState(co); }, 50);
               break;
             }
             el = el.parentElement;
@@ -793,13 +809,14 @@
     .year-btn:hover { background: #f0ece4; }
     .annual-year-val { font-size: 15px; font-weight: 600; color: var(--text); min-width: 40px; text-align: center; }
 
-    /* Dynamic annual layer: hidden until user selects a year */
-    #chart-output:not(.annual-on) .pal-ann-mov { display: none !important; }
-    #chart-output:not(.annual-on) .ebadge-ann  { display: none !important; }
+    /* Dynamic annual layer: CSS fallback (JS inline styles are the primary mechanism) */
+    #chart-output:not(.annual-on) .pal-ann-mov,
+    #chart-output:not(.annual-on) .ebadge-ann,
+    #chart-output:not(.annual-on) .pal-annual  { display: none !important; }
     #chart-output:not(.annual-on) .ltag-annual { opacity: 0.35; }
     #chart-output.annual-on .ltag-annual       { opacity: 1; }
-    /* Current year always highlighted in palace year-tag strip */
-    .pal-year-tag.current-year { border-color: var(--annual-col); background: #eef0ff; font-weight: 700; }
+    /* Current year highlighted in palace year-tag strip */
+    .pal-year-tag.current-year { border: 2px solid var(--annual-col) !important; background: #dde8ff !important; font-weight: 700; }
 
     @media (max-width: 700px) {
       .form-grid { grid-template-columns: 1fr; }
