@@ -139,7 +139,7 @@ function __tzCorrect(i) {
   });
 })();
 
-// Si Hua reverse lookup: click a star → show which stems send which enhancer to it
+// Si Hua reverse lookup: click a star → draw incoming arrows from source palaces
 (function() {
   var REV = {
     'Lian Zhen':  [{s:'甲',t:'Lu'},{s:'丙',t:'Ji'}],
@@ -160,108 +160,180 @@ function __tzCorrect(i) {
   };
 
   var COLORS = { Lu: '#166020', Quan: '#1020b8', Ke: '#a08000', Ji: '#aa1010' };
-  var LABELS = { Lu: '禄 Lu', Quan: '权 Quan', Ke: '科 Ke', Ji: '忌 Ji' };
+  var NS = 'http://www.w3.org/2000/svg';
 
-  function __injectCSS() {
-    if (document.getElementById('slp-css')) return;
-    var s = document.createElement('style');
-    s.id = 'slp-css';
-    s.textContent = [
-      '#slp{position:fixed;z-index:9999;background:#fff;border:1.5px solid #ccc;border-radius:8px;',
-      'box-shadow:0 4px 18px rgba(0,0,0,.18);padding:12px 14px 14px;min-width:220px;max-width:300px;',
-      'font-family:inherit;font-size:13px;line-height:1.5;}',
-      '#slp-head{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}',
-      '#slp-name{font-weight:700;font-size:14px;color:#222;}',
-      '#slp-cn{font-size:12px;color:#666;margin-left:5px;}',
-      '#slp-close{cursor:pointer;font-size:16px;color:#999;line-height:1;padding:0 2px;margin-left:8px;flex-shrink:0;}',
-      '#slp-close:hover{color:#333;}',
-      '#slp-sub{font-size:11px;color:#888;margin-bottom:8px;}',
-      '#slp-rows{}',
-      '.slp-row{display:flex;align-items:center;gap:6px;margin-bottom:5px;}',
-      '.slp-badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:11px;font-weight:700;',
-      'color:#fff;min-width:60px;text-align:center;}',
-      '.slp-stem{font-size:13px;color:#333;}'
-    ].join('');
-    document.head.appendChild(s);
-  }
-
-  function __show(nameEn, nameCn, x, y) {
-    __injectCSS();
-    var p = document.getElementById('slp');
-    if (!p) { p = document.createElement('div'); p.id = 'slp'; document.body.appendChild(p); }
-
-    var rows = REV[nameEn];
-    var rowsHtml = '';
-    if (!rows || rows.length === 0) {
-      rowsHtml = '<div style="color:#888;font-size:12px">No Si Hua enhancers reach this star</div>';
-    } else {
-      var byType = {};
-      rows.forEach(function(r) {
-        if (!byType[r.t]) byType[r.t] = [];
-        byType[r.t].push(r.s);
-      });
-      ['Lu','Quan','Ke','Ji'].forEach(function(t) {
-        if (!byType[t]) return;
-        rowsHtml += '<div class="slp-row">' +
-          '<span class="slp-badge" style="background:' + COLORS[t] + '">' + LABELS[t] + '</span>' +
-          '<span class="slp-stem">' + byType[t].join('  ') + '</span>' +
-          '</div>';
-      });
+  // Walk up from el to find nearest .palace-cell ancestor
+  function __palaceCell(el) {
+    var e = el;
+    while (e && e !== document.body) {
+      if (e.classList && e.classList.contains('palace-cell')) return e;
+      e = e.parentElement;
     }
-
-    p.innerHTML =
-      '<div id="slp-head">' +
-        '<div><span id="slp-name">' + nameEn + '</span><span id="slp-cn">' + (nameCn || '') + '</span></div>' +
-        '<span id="slp-close">×</span>' +
-      '</div>' +
-      '<div id="slp-sub">Incoming Si Hua (by stem)</div>' +
-      '<div id="slp-rows">' + rowsHtml + '</div>';
-
-    p.style.display = 'block';
-
-    var vw = window.innerWidth, vh = window.innerHeight;
-    var pw = p.offsetWidth || 240, ph = p.offsetHeight || 160;
-    var left = Math.min(x + 10, vw - pw - 10);
-    var top  = Math.min(y + 10, vh - ph - 10);
-    if (left < 6) left = 6;
-    if (top  < 6) top  = 6;
-    p.style.left = left + 'px';
-    p.style.top  = top  + 'px';
-
-    document.getElementById('slp-close').addEventListener('click', function(e) {
-      e.stopPropagation();
-      p.style.display = 'none';
-    });
+    return null;
   }
 
-  function __hide() {
-    var p = document.getElementById('slp');
-    if (p) p.style.display = 'none';
+  // Find all .palace-cell elements whose stem text node matches the given stem.
+  // Stems appear as standalone text nodes (the engine renders each palace stem
+  // as a single-character element whose textContent.trim() === the stem glyph).
+  function __palacesForStem(stem, co) {
+    var found = [];
+    var walker = document.createTreeWalker(co, NodeFilter.SHOW_TEXT);
+    var node;
+    while ((node = walker.nextNode())) {
+      if (node.textContent.trim() !== stem) continue;
+      // Skip text inside a star-item
+      var insideStar = false;
+      var p = node.parentElement;
+      while (p && p !== co) {
+        if (p.classList && p.classList.contains('star-item')) { insideStar = true; break; }
+        p = p.parentElement;
+      }
+      if (insideStar) continue;
+      var cell = __palaceCell(node.parentElement);
+      if (cell && found.indexOf(cell) === -1) found.push(cell);
+    }
+    return found;
+  }
+
+  function __clearArrows() {
+    var el = document.getElementById('sihua-in');
+    if (el) el.remove();
+  }
+
+  function __drawArrows(co, targetCell, sources) {
+    __clearArrows();
+    if (!sources.length) return;
+
+    // Ensure positioning context
+    var pos = window.getComputedStyle(co).position;
+    if (pos === 'static') co.style.position = 'relative';
+
+    var coRect = co.getBoundingClientRect();
+    var tRect  = targetCell.getBoundingClientRect();
+    var tx = tRect.left  - coRect.left + tRect.width  / 2;
+    var ty = tRect.top   - coRect.top  + tRect.height / 2;
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.id = 'sihua-in';
+    svg.setAttribute('xmlns', NS);
+    svg.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:8500;overflow:visible;';
+
+    // Arrow-head markers, one per enhancer type
+    var defs = document.createElementNS(NS, 'defs');
+    ['Lu','Quan','Ke','Ji'].forEach(function(t) {
+      var m = document.createElementNS(NS, 'marker');
+      m.setAttribute('id', 'sia-' + t);
+      m.setAttribute('markerWidth',  '8');
+      m.setAttribute('markerHeight', '6');
+      m.setAttribute('refX', '7');
+      m.setAttribute('refY', '3');
+      m.setAttribute('orient', 'auto');
+      var poly = document.createElementNS(NS, 'polygon');
+      poly.setAttribute('points', '0 0, 8 3, 0 6');
+      poly.setAttribute('fill', COLORS[t]);
+      m.appendChild(poly);
+      defs.appendChild(m);
+    });
+    svg.appendChild(defs);
+
+    var n = sources.length;
+    sources.forEach(function(src, i) {
+      var sRect = src.cell.getBoundingClientRect();
+      var sx = sRect.left - coRect.left + sRect.width  / 2;
+      var sy = sRect.top  - coRect.top  + sRect.height / 2;
+      var col = COLORS[src.type];
+
+      // Perpendicular offset so multiple arrows between same pair fan out
+      var dx = tx - sx, dy = ty - sy;
+      var len = Math.sqrt(dx * dx + dy * dy) || 1;
+      var spread = (i - (n - 1) / 2) * 12;
+      var ox = (-dy / len) * spread;
+      var oy = ( dx / len) * spread;
+
+      // Quadratic bezier: control point pulled perpendicular to midpoint
+      var mx = (sx + tx) / 2 + ox * 3;
+      var my = (sy + ty) / 2 + oy * 3;
+
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d',
+        'M' + (sx + ox) + ' ' + (sy + oy) +
+        ' Q' + mx + ' ' + my +
+        ' ' + (tx + ox) + ' ' + (ty + oy));
+      path.setAttribute('stroke', col);
+      path.setAttribute('stroke-width', '2.2');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('marker-end', 'url(#sia-' + src.type + ')');
+      path.setAttribute('opacity', '0.88');
+      svg.appendChild(path);
+
+      // Stem label near the source end
+      var lx = sx + ox + (dx / len) * 22;
+      var ly = sy + oy + (dy / len) * 22;
+      var txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('x', lx);
+      txt.setAttribute('y', ly);
+      txt.setAttribute('fill', col);
+      txt.setAttribute('font-size', '12');
+      txt.setAttribute('font-weight', 'bold');
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.textContent = src.stem;
+      svg.appendChild(txt);
+    });
+
+    co.appendChild(svg);
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    // Capture phase: fires before engine bubbling handlers
+    // Capture phase fires before the engine's bubbling handlers
     document.addEventListener('click', function(e) {
+      // Find .star-item ancestor of clicked element
       var el = e.target;
-      // Walk up to find .star-item
       while (el && el !== document.body) {
         if (el.classList && el.classList.contains('star-item')) break;
         el = el.parentElement;
       }
+
       if (!el || !el.classList || !el.classList.contains('star-item')) {
-        // Click outside panel → close
-        var p = document.getElementById('slp');
-        if (p && p.style.display !== 'none' && !p.contains(e.target)) __hide();
+        // Clicked outside a star — clear arrows and let event proceed normally
+        __clearArrows();
         return;
       }
-      // Found a star-item — show panel
+
+      // Star was clicked — stop engine's palace-activation handler
       e.stopPropagation();
+
       var enEl = el.querySelector('.star-en');
-      var cnEl = el.querySelector('.star-cn');
       var nameEn = enEl ? enEl.textContent.trim() : '';
-      var nameCn = cnEl ? cnEl.textContent.trim() : '';
       if (!nameEn) return;
-      __show(nameEn, nameCn, e.clientX, e.clientY);
+
+      var revEntries = REV[nameEn];
+      var co = document.getElementById('chart-output');
+      var targetCell = __palaceCell(el);
+
+      if (!revEntries || !revEntries.length || !co || !targetCell) {
+        __clearArrows();
+        return;
+      }
+
+      // Collect source palaces for every incoming enhancer
+      var sources = [];
+      revEntries.forEach(function(entry) {
+        __palacesForStem(entry.s, co).forEach(function(cell) {
+          if (cell !== targetCell) {
+            sources.push({ cell: cell, type: entry.t, stem: entry.s });
+          }
+        });
+      });
+
+      __drawArrows(co, targetCell, sources);
     }, true);
+
+    // Clear arrows whenever the chart re-renders (decade/year change)
+    var co = document.getElementById('chart-output');
+    if (co) {
+      new MutationObserver(function() { __clearArrows(); })
+        .observe(co, { childList: true });
+    }
   });
 })();
