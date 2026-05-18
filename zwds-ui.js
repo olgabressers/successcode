@@ -173,19 +173,20 @@ function __tzCorrect(i) {
   }
 
   // Find all .palace-cell elements whose stem text node matches the given stem.
-  // Stems appear as standalone text nodes (the engine renders each palace stem
-  // as a single-character element whose textContent.trim() === the stem glyph).
+  // The engine renders each palace stem as a single-character text inside the
+  // palace header. We skip any text found inside a .star-en element (star names)
+  // and match only exact single-char stem glyphs.
   function __palacesForStem(stem, co) {
     var found = [];
     var walker = document.createTreeWalker(co, NodeFilter.SHOW_TEXT);
     var node;
     while ((node = walker.nextNode())) {
       if (node.textContent.trim() !== stem) continue;
-      // Skip text inside a star-item
-      var insideStar = false;
+      // Skip text that lives inside a .star-en (English star name)
       var p = node.parentElement;
+      var insideStar = false;
       while (p && p !== co) {
-        if (p.classList && p.classList.contains('star-item')) { insideStar = true; break; }
+        if (p.classList && p.classList.contains('star-en')) { insideStar = true; break; }
         p = p.parentElement;
       }
       if (insideStar) continue;
@@ -284,24 +285,17 @@ function __tzCorrect(i) {
     co.appendChild(svg);
   }
 
-  // Detect which .star-en was clicked.
-  // Walks up from target looking for an element that has .star-en as a direct
-  // child (= the star's own wrapper, whatever class the engine gives it), or
-  // that IS .star-en itself. Stops at .palace-cell so it never crosses palaces.
-  function __findStarEn(target) {
-    var el = target;
-    while (el && el !== document.body) {
-      if (el.classList && el.classList.contains('palace-cell')) break;
-      if (el.classList && el.classList.contains('star-en')) return el;
-      // Check direct children for .star-en
-      if (el.children) {
-        for (var i = 0; i < el.children.length; i++) {
-          if (el.children[i].classList && el.children[i].classList.contains('star-en')) {
-            return el.children[i];
-          }
-        }
+  // Hit-test: find a .star-en whose bounding box contains the click point.
+  // Completely avoids guessing the star wrapper class — purely coordinate-based.
+  function __hitStarEn(clientX, clientY) {
+    var stars = document.querySelectorAll('#chart-output .star-en');
+    var pad = 8;
+    for (var i = 0; i < stars.length; i++) {
+      var r = stars[i].getBoundingClientRect();
+      if (clientX >= r.left - pad && clientX <= r.right  + pad &&
+          clientY >= r.top  - pad && clientY <= r.bottom + pad) {
+        return stars[i];
       }
-      el = el.parentElement;
     }
     return null;
   }
@@ -309,7 +303,7 @@ function __tzCorrect(i) {
   document.addEventListener('DOMContentLoaded', function() {
     // Capture phase fires before the engine's bubbling handlers
     document.addEventListener('click', function(e) {
-      var starEnEl = __findStarEn(e.target);
+      var starEnEl = __hitStarEn(e.clientX, e.clientY);
 
       if (!starEnEl) {
         // Clicked outside a star — clear arrows and let event proceed normally
