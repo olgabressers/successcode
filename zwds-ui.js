@@ -300,33 +300,57 @@ function __tzCorrect(i) {
     return null;
   }
 
+  function __dbg(msg) {
+    var d = document.getElementById('sihua-dbg');
+    if (!d) {
+      d = document.createElement('div');
+      d.id = 'sihua-dbg';
+      d.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:99999;background:rgba(0,0,0,.82);color:#aef;font:11px/1.5 monospace;padding:8px 12px;border-radius:5px;max-width:320px;white-space:pre-wrap;pointer-events:none;';
+      document.body.appendChild(d);
+    }
+    d.textContent = msg;
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     // Capture phase fires before the engine's bubbling handlers
     document.addEventListener('click', function(e) {
+      var co = document.getElementById('chart-output');
+
+      // Report basic state
+      var starCount = co ? co.querySelectorAll('.star-en').length : -1;
+      var palCount  = co ? co.querySelectorAll('.palace-cell').length : -1;
+      __dbg('click x=' + Math.round(e.clientX) + ' y=' + Math.round(e.clientY) +
+            '\n.star-en found: ' + starCount +
+            '\n.palace-cell found: ' + palCount +
+            '\ntarget: ' + (e.target.className || e.target.tagName));
+
       var starEnEl = __hitStarEn(e.clientX, e.clientY);
 
       if (!starEnEl) {
-        // Clicked outside a star — clear arrows and let event proceed normally
+        __dbg('click x=' + Math.round(e.clientX) + ' y=' + Math.round(e.clientY) +
+              '\n.star-en found: ' + starCount +
+              '\n.palace-cell found: ' + palCount +
+              '\ntarget: ' + (e.target.className || e.target.tagName) +
+              '\n→ no star hit');
         __clearArrows();
         return;
       }
 
-      // Star was clicked — stop engine's palace-activation handler
       e.stopPropagation();
 
       var nameEn = starEnEl.textContent.trim();
-      if (!nameEn) return;
-
       var revEntries = REV[nameEn];
-      var co = document.getElementById('chart-output');
       var targetCell = __palaceCell(starEnEl);
 
-      if (!revEntries || !revEntries.length || !co || !targetCell) {
+      __dbg('STAR HIT: "' + nameEn + '"' +
+            '\nREV entries: ' + (revEntries ? revEntries.length : 'none') +
+            '\ntargetCell: ' + (targetCell ? targetCell.className.slice(0,30) : 'NOT FOUND'));
+
+      if (!nameEn || !revEntries || !revEntries.length || !co || !targetCell) {
         __clearArrows();
         return;
       }
 
-      // Collect source palaces for every incoming enhancer
       var sources = [];
       revEntries.forEach(function(entry) {
         __palacesForStem(entry.s, co).forEach(function(cell) {
@@ -336,10 +360,14 @@ function __tzCorrect(i) {
         });
       });
 
+      __dbg('STAR HIT: "' + nameEn + '"' +
+            '\nREV entries: ' + revEntries.length +
+            '\nsource palaces: ' + sources.length +
+            '\n→ drawing arrows');
+
       __drawArrows(co, targetCell, sources);
     }, true);
 
-    // Clear arrows whenever the chart re-renders (decade/year change)
     var co = document.getElementById('chart-output');
     if (co) {
       new MutationObserver(function() { __clearArrows(); })
