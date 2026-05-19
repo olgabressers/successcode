@@ -219,6 +219,29 @@
       background: var(--surface2);
       min-height: 100px;
     }
+    .palace-center {
+      grid-column: 2 / span 2;
+      grid-row: 2 / span 2;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+      padding: 32px 36px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .palace-center-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 14px;
+    }
+    .palace-center-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500; color: var(--text);
+      line-height: 1.2; margin-bottom: 18px;
+    }
+    .palace-center-name em { font-style: italic; color: var(--gold); }
+    .palace-center-rows { display: grid; grid-template-columns: 130px 1fr; gap: 8px 18px; font-size: 13px; line-height: 1.55; }
+    .palace-center-rows .lbl { color: var(--muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; }
+    .palace-center-rows .val { color: var(--text); }
+    .palace-center-rows .val strong { color: var(--gold); }
     .palace-card {
       padding: 20px 22px 24px;
       border-right: 1px solid var(--border);
@@ -723,79 +746,79 @@
 <section id="natal-chart">
   <div class="section-eyebrow">Section 01 · Natal chart</div>
   <h2 class="section-h2">Who you are, <em>structurally.</em></h2>
-  <p class="section-intro">Your natal chart is the layer that does not change. Birth data — date, time, location — fixes 12 palaces in 12 zodiac branches, distributes 18 main stars across them, and identifies which stars receive permanent enhancers from your year stem. This is the structural baseline. Decades and annual cycles overlay timing on top of it.</p>
+  <p class="section-intro">Your natal chart is the layer that does not change. Birth data — date, time, location — sets twelve life domains, distributes the active stars across them, and identifies which stars carry permanent positive or friction signals throughout your life. This section breaks down what your chart actually means: who you are structurally, where your energy concentrates, where your money comes from, and which life domains are smooth versus demanding. Decade and annual layers (Sections 02–05) overlay timing on top of this permanent baseline.</p>
 
   <div class="formations-box">
     <div class="formations-cell">
-      <div class="formations-label">Formation · 天府天相</div>
-      <div class="formations-term">Fu Xiang Chao Yuan</div>
-      <p><strong>Tian Fu</strong> (Treasury star) sits in your Career palace and <strong>Tian Xiang</strong> (Seal star) sits in your Wealth palace. Together they stabilise the 1-5-9 life–wealth–career axis. This formation provides a guaranteed structural comfort baseline — career and income remain stable across the lifespan. The ceiling exists, however: breakthrough results require active outward expansion through the P7 Travel / outer-world domain.</p>
+      <div class="formations-label">Your stable floor</div>
+      <div class="formations-term">A guaranteed comfortable baseline</div>
+      <p>Your Life position holds the careful steward energy, your Career holds the supportive minister energy. <strong>Together these guarantee that career and basic income remain stable across your entire lifetime</strong> — you will not face destitution. The cost: this floor cannot transform on its own. To break beyond comfortable into exceptional results, you need to engage your international / outer-world domain (see Section 1.D Industries).</p>
     </div>
     <div class="formations-cell">
       <div class="formations-label">Chart type</div>
-      <div class="formations-term">Normal · Standard Polarity</div>
-      <p>This is a <strong>Normal chart</strong> with standard polarity throughout. Lu (smooth flow) landing in any palace is a good signal; Ji (friction) is a challenge signal. The SPL trio — Qi Sha, Tan Lang, Po Jun — sits at the <strong>3-7-11 axis</strong> (Spouse · Travel · Mental), not at 1-5-9. Life transformation arrives through relationships and the outer world, not through career disruption.</p>
+      <div class="formations-term">Standard polarity</div>
+      <p>This is a standard-polarity chart. <strong>Smooth-flow signals and authority signals on any star are positive</strong> — they bring opportunity, ease, momentum. <strong>Recognition signals</strong> add status and credentials. <strong>Friction signals are the challenge marker</strong> — resistance, pressure, things harder than they should be. Read every overlay in this report with these meanings; there are no reversals.</p>
     </div>
     <div class="formations-cell">
-      <div class="formations-label">3-7-11 axis · 七殺破軍貪狼</div>
-      <div class="formations-term">SPL at Relationship Axis</div>
-      <p>Qi Sha (P3 Spouse), Tan Lang (P7 Travel) and Po Jun (P11 Mental) sit on the personal-relationship and outer-world axis. <strong>The upheaval and transformation pattern in this chart runs through intimate partnerships, external engagement, and inner rebuilding</strong> — not through the career track. Career stays stable (Tian Fu); relationships and self-identity transform repeatedly.</p>
+      <div class="formations-label">Where transformation happens</div>
+      <div class="formations-term">Personal life, not career</div>
+      <p>Three intense-energy stars sit on your personal-life axis (Spouse · International work · Inner life) rather than your career axis. <strong>The upheaval-and-renewal pattern in your chart runs through intimate partnerships, external/international engagement, and inner rebuilding</strong> — not through your career track. Career stays steady. Relationships, outer-world ventures, and self-identity transform repeatedly.</p>
     </div>
     <div class="formations-cell">
-      <div class="formations-label">Si Hua · Four Enhancers</div>
-      <div class="formations-term">禄 · 权 · 科 · 忌</div>
-      <p>Four qualities that fly from a stem onto specific stars. <strong>Lu 禄</strong> = smooth flow, ease, support · <strong>Quan 权</strong> = authority, amplified influence · <strong>Ke 科</strong> = recognition, intellectual reputation · <strong>Ji 忌</strong> = friction, difficulty (in this Normal chart: always a challenge signal, never reversed). The year stem fires permanently; the decade stem fires for 10 years; the annual stem fires for one year.</p>
+      <div class="formations-label">How the four signals work</div>
+      <div class="formations-term">Smooth flow · Authority · Recognition · Friction</div>
+      <p>Throughout this report, four energetic signals fire on specific stars: <strong>Smooth flow (禄)</strong> = ease, support, opportunity · <strong>Authority (权)</strong> = command, amplified influence · <strong>Recognition (科)</strong> = status, intellectual credibility · <strong>Friction (忌)</strong> = challenge, resistance. Your birth energy fires four of these permanently for life. Each decade adds four more for ten years. Each year adds four more for that year. Where these layers stack matters most.</p>
     </div>
   </div>
 
   <!-- A. CHART STRUCTURE -->
   <div class="subsection">
-    <div class="subsection-eyebrow">A · Chart structure &amp; polarity</div>
-    <h3 class="subsection-h3">Institutional steward with a <em>strategist mind</em> and a passion-driven inner tension.</h3>
-    <p class="subsection-intro">Your 1-5-9 Life axis is structurally quiet: Tian Fu in P1, an empty P5 Wealth, and Tian Xiang in P9 Career form Fu Xiang Chao Yuan. Reliable and self-sustaining — but no main star on this axis can receive any enhancer, so the Life axis itself is not where transformation fires. All three positive natal enhancers (Lu, Quan, Ke) land OUTSIDE the 1-5-9 axis. The chart's centre of activation sits on two other axes: the 4-8 axis (P4 Children and P8 Friends, both heavily loaded with natal flights) and the 3-7-11 personal axis (where the SPL trio Qi Sha–Po Jun–Tan Lang distributes across Spouse, Travel and Mental).</p>
+    <div class="subsection-eyebrow">A · Who you are, structurally</div>
+    <h3 class="subsection-h3">A <em>steady steward</em> with a strategist's mind and a constant inner pull between rules and ambition.</h3>
+    <p class="subsection-intro">Your chart has three layers that matter most:<br><br><strong>The stable floor (Life / Money / Career)</strong> — your core character is a careful steward. You hold and protect what exists rather than chase what's new. Your career and your basic income are structurally guaranteed to be stable across your entire life — you will not be destitute, you will not lose ground. The trade-off is that this layer cannot transform you. It is the floor, not the ladder. To break beyond comfortable into exceptional, you have to engage with the other two layers.<br><br><strong>The growth engine (Intelligence + Network)</strong> — this is where all the positive energy of your chart actually lives. Your strategic thinking is recognised AND carries authority, both at once. Your professional network is one of the warmest and most active parts of your chart — people genuinely like you and bring you opportunities without being asked. These two together are the real engine: you think things through clearly, your network distributes that thinking, and recognition follows. This is where you make your living.<br><br><strong>The transformation track (Relationships / Outer world / Inner life)</strong> — your major life upheavals do NOT happen in your career. They happen in your personal life, in your international/outer-world ventures, and in your inner world. Partnerships go through demolish-and-rebuild cycles. International work carries both opportunity and disruption together. Your inner life carries a permanent tension between system-discipline and ambition that never fully resolves — you appear more contained than you feel.</p>
 
     <div class="identity-grid">
       <div class="identity-cell">
-        <div class="identity-label">Life–Wealth–Career axis (1-5-9)</div>
-        <div class="identity-headline">Fu Xiang Chao Yuan · structural floor, quiet ceiling</div>
-        <div class="identity-body">P1 Life (卯 Rabbit) holds Tian Fu + Zuo Fu + Lu Cun — the Treasury Steward with permanent wealth-keeper protection. P9 Career (未 Goat) holds Tian Xiang alone. P5 Wealth (亥 Pig) is empty of main stars — read via opposite P11. <strong>Tian Fu and Tian Xiang both receive zero enhancers from any stem, ever — so this axis cannot be activated and cannot transform. It guarantees you will not be destitute. Breakthrough has to come from other palaces.</strong></div>
+        <div class="identity-label">The stable floor — Life · Money · Career</div>
+        <div class="identity-headline">Guaranteed comfort, modest ceiling</div>
+        <div class="identity-body">Your Life position holds the Treasury Steward energy — careful, selective, institutionally trustworthy. Your Career position holds the supportive Minister energy — you serve and execute inside established institutions. Your Money position has no dominant star — wealth is read through your inner-life palace instead. <strong>None of these three stars can ever be activated or transformed by life's timing. They are permanent — your floor — but they do not break ceilings on their own.</strong> Stable income for life is guaranteed. Exceptional income requires the other two layers below.</div>
       </div>
       <div class="identity-cell">
-        <div class="identity-label">Spouse–Travel–Mental axis (3-7-11)</div>
-        <div class="identity-headline">SPL trio on the personal axis · transformation lives here</div>
-        <div class="identity-body">P3 Spouse holds Zi Wei + Po Jun — the Emperor and the Demolisher in intimate partnership. P7 Travel holds Wu Qu + Qi Sha — the direct money star and the warrior in the outer world. P11 Mental holds Lian Zhen 忌 + Tan Lang at Horse 200% — system-discipline against permanent passion. <strong>SPL stars sit on this axis, not on 1-5-9, so the classic SPL reversed-polarity rule does NOT apply. But the SPL flavour — disruption then renewal — flows through your relationships, your outer-world engagements, and your inner life.</strong></div>
+        <div class="identity-label">The growth engine — Intelligence · Network</div>
+        <div class="identity-headline">Where your real income comes from</div>
+        <div class="identity-body">Your strategic-intelligence star carries authority for life. Your written/credentialed work star carries recognition for life. <strong>Both sit in the same position together</strong> — a rare double-stack that makes documented analytical work your natural monetisable output: advisory, strategy, research, written expertise. Simultaneously, your network is unusually warm and active (double-strength on the friendship signal). People help you not just because you are useful but because they like you. Together, these two are the engine: think clearly, write it down, let the network distribute it.</div>
       </div>
       <div class="identity-cell" style="grid-column: 1 / -1;">
-        <div class="identity-label">4-8 axis (P4 Children · P8 Friends)</div>
-        <div class="identity-headline">Where every natal flight actually lands</div>
-        <div class="identity-body">P4 Children (子 Rat) holds Tian Ji 权 + Wen Chang 科 — both natal Quan and natal Ke land in the same palace. Per the formation rule, this is the chart's intellectual-authority stack: strategic intelligence that commands authority (Quan on Tian Ji) plus the same intelligence that is formally recognised (Ke on Wen Chang). P8 Friends (申 Monkey, Horse 200%) holds Tian Tong 禄 + Tian Liang — permanent Lu on the warmth star at double Horse-palace strength. <strong>SQJH (San Qi Jia Hui — three luck enhancers) operates here, on the 4-8 axis, not on 1-5-9. WGWH (Wen Chang/Wen Qu in 1-5-9) is the formal-credentials configuration confirmed by the calculator.</strong></div>
+        <div class="identity-label">The transformation track — Relationships · Outer world · Inner life</div>
+        <div class="identity-headline">Where your big life changes actually happen</div>
+        <div class="identity-body">Three high-intensity signals sit on your personal/external axis — NOT on your career axis. <strong>Intimate partnerships</strong> carry the Emperor and the Demolisher together: relationships start rocky, restructure, and stabilise only after a rebuild phase. Don't formalise too fast. <strong>International / external work</strong> carries the chart's most financially aggressive pairing — the direct money star and the warrior. The further from home, the higher the financial ceiling. Domestic-only work caps the upside. <strong>Inner life</strong> carries the dominant friction signal of the chart — a permanent tension between rules and desire, system and ambition. It is loud (double-strength), constant, and never fully resolves. You manage it through structure, but you never stop feeling it.</div>
       </div>
     </div>
 
     <div class="polarity-note">
-      <div class="polarity-note-label">Standard polarity — Normal chart rules apply</div>
-      <p>This is a Normal-polarity chart. <strong>Lu and Quan landing anywhere are positive. Ke is recognition and status. Ji is friction.</strong> There is no SPL reversal, no activation mechanism that makes Ji "good." Read all decade and annual overlays with standard polarity throughout. Confirmed by mingli.ru: formations are SQJH (three luck enhancers in 1-5-9 by the classical definition; in your chart Quan + Ke concentrate on P4 with Lu on P8) + WGWH (Wen Chang/Wen Qu in 1-5-9 supporting the intellectual configuration).</p>
+      <div class="polarity-note-label">How to read the year-by-year overlays in this report</div>
+      <p>This is a standard-polarity chart. <strong>Smooth-flow energy (禄 Lu) and authority energy (权 Quan) landing on any of your stars are positive signals — flows, openings, momentum.</strong> Recognition energy (科 Ke) is status, credentials, formal acknowledgement. <strong>Friction energy (忌 Ji) is the challenge signal — resistance, pressure, things harder than they should be.</strong> Throughout the rest of this report, when we say "your career star got Quan" or "your inner-life star got Ji", these are the meanings to apply.</p>
     </div>
 
     <div class="upside-grid" style="margin-top: 44px;">
       <div class="upside-cell up">
         <div class="upside-label">What this structure gives you</div>
         <ul>
-          <li>The intellectual-authority stack on P4 (natal Quan on Tian Ji + natal Ke on Wen Chang in the same palace) is the chart's standout signal — strategic, analytical and formally recognised intelligence as the natural monetisable output.</li>
-          <li>P8 Friends carries permanent Lu on Tian Tong at Horse-palace 200% strength: the social and professional network is the chart's most energetically activated palace. People help you because they like you, not only because you are useful.</li>
-          <li>Tian Fu + Lu Cun in P1 Life guarantees a permanent wealth floor. Tian Fu does not chase; it conserves and selects. Institutional stewardship is your default mode.</li>
-          <li>D6 (2030–2039) decade stem 丙 will match your natal year stem 丙 exactly — every natal flight doubles at the decade level for ten years. This is structurally your golden decade ahead.</li>
-          <li>P7 Travel (Wu Qu + Qi Sha) carries the chart's most financially aggressive star pairing — international and high-stakes external work is where the financial ceiling sits.</li>
+          <li><strong>A permanent intelligence-and-recognition stack</strong> in the same chart position — your strategic thinking is structurally authoritative AND formally recognisable for life. Advisory, analytical, and writing-based work is your natural channel.</li>
+          <li><strong>A double-strength warm network</strong> — your professional and social circle is structurally generous. People bring you opportunities, defer to your experience, and stay loyal long-term.</li>
+          <li><strong>A guaranteed financial floor for life</strong> — you have a built-in "wealth keeper" signal on your Life position. You will not face destitution. Stability is structural.</li>
+          <li><strong>An upcoming golden decade (2030–2039)</strong>. The decade-level energy will match your birth-year energy exactly — meaning every positive natal channel will run at double strength for ten straight years. This is the strongest decade structurally ahead of you.</li>
+          <li><strong>An international / high-stakes external money channel</strong> — when activated by the right years, your financial ceiling sits in outer-world work, not domestic-only contexts.</li>
         </ul>
       </div>
       <div class="upside-cell down">
         <div class="upside-label">What this structure costs you</div>
         <ul>
-          <li>Permanent Ji on Lian Zhen in P11 at Horse 200% is the chart's dominant friction. Lian Zhen is the System star — your inner life carries chronic tension between rules and desire, structure and ambition. It never fully resolves.</li>
-          <li>Zi Wei + Po Jun in P3 Spouse means intimate partnership starts rocky and stabilises only after restructuring. Per the rule: don't formalise too fast. Build a testing period into significant collaborations.</li>
-          <li>D5 (2020–2029, current) sends decade Ji to Tai Yin in P12 Parents — a ten-year sustained complexity in the family-of-origin domain. Storage palace, so it grinds slowly rather than erupting.</li>
-          <li>2026 specifically: annual stem 丙 matches natal year stem 丙 → every natal enhancer doubles INCLUDING the Ji on Lian Zhen. Peak intellectual amplification AND peak inner friction in the same year.</li>
-          <li>The Career palace (P9 Tian Xiang) is structurally inert — it cannot receive enhancers. Your career engine fires through P4 (intellectual output) and P8 (network), not directly through P9.</li>
+          <li><strong>A loud, permanent inner-friction signal</strong> on the rules-vs-desire star — double strength, always running. You carry chronic tension between conservative discipline and ambition. It does not break down; it does not resolve either. Manage actively.</li>
+          <li><strong>Intimate partnerships are structurally demanding.</strong> The Emperor + Demolisher pairing in the spouse position means relationships start rocky and stabilise only after a restructuring phase. Build a testing period into significant business partnerships too.</li>
+          <li><strong>The current decade (2020–2029) carries quiet, sustained pressure on the family-of-origin domain.</strong> Parents, heritage, family-origin matters grind slowly across these ten years. Not crisis — but a continuous undertone.</li>
+          <li><strong>2026 specifically is the peak inner-friction year</strong> of the current decade. The annual energy matches your birth energy, doubling every signal — including the friction one. Maximum amplification AND maximum inner pressure in the same year.</li>
+          <li><strong>The Career star itself cannot be activated</strong> — it is one of three stars in the entire system that never receives any energetic flight. Your career engine fires THROUGH your career position but FROM intelligence and network. Don't expect the career star itself to do dramatic work.</li>
         </ul>
       </div>
     </div>
@@ -803,110 +826,110 @@
 
   <!-- B. PERMANENT ENHANCERS -->
   <div class="subsection">
-    <div class="subsection-eyebrow">B · Your permanent channels</div>
-    <h3 class="subsection-h3">Four natal flights from year stem 丙 — <em>running continuously</em>.</h3>
-    <p class="subsection-intro">Your ZWDS year stem is 丙 (Bing, Fire Yang). ZWDS uses the lunar-calendar year boundary (Chinese New Year), not 立春 — and your birth on 15 Feb 1977 falls BEFORE CNY 1977 (Feb 18), so the lunar year is still 丙辰. (The BaZi solar year, which crosses at 立春 on Feb 4, gives 丁巳 — but BaZi convention does NOT govern ZWDS enhancers in the Northern school.) Year stem 丙 fires four permanent natal enhancers. Three positive (Lu, Quan, Ke) all land on the 4-8 axis — both Quan and Ke concentrate on the same palace P4, and Lu lands on P8 at Horse 200% strength. The Ji lands on P11 Mental at Horse 200% — your dominant permanent friction. These channels do not weaken with age.</p>
+    <div class="subsection-eyebrow">B · Your four permanent channels</div>
+    <h3 class="subsection-h3">Four signals that <em>run for your whole life</em> — three are positive, one is the cost.</h3>
+    <p class="subsection-intro">Every chart has four permanent energetic signals set at birth that never weaken with age. Three of yours are positive — smooth flow, authority, and recognition — and they all land on your intelligence and network. One is the friction signal, and it lands on your inner life. Together they shape how you naturally make a living, where opportunities reach you, and what stays hard for you no matter how successful you become.</p>
 
     <div class="enhancers-grid">
       <div class="enhancer">
         <div class="enhancer-icon">禄</div>
-        <div class="enhancer-tag">Lu · P8 Friends (申 Monkey · Horse 200%)</div>
-        <h3 class="enhancer-h3">天同 Tian Tong — <em>permanent Lu in P8</em></h3>
-        <p>Lu on Tian Tong sits in P8 Friends at <strong>Horse-palace 200% activation strength</strong> — your strongest natal channel. Tian Tong is the Child star: warm, sentimental, service-minded, fundamentally approachable. With Lu in the Friends palace at 200%, your social and professional network flows with exceptional ease throughout life. Other people find you genuinely likeable, trust you quickly, and connect you to opportunities without being asked. This is not just strategic networking — the warmth is real. Network opportunities arrive frequently, unsolicited, and with genuine goodwill behind them. In 2026 annual stem 丙 doubles this flight: P8 carries natal Lu + annual Lu = double Lu on Tian Tong at Horse 200% — the year's peak network channel.</p>
+        <div class="enhancer-tag">Smooth flow signal · Your Network</div>
+        <h3 class="enhancer-h3">Your <em>network</em> flows for you, for life.</h3>
+        <p>The smooth-flow signal sits permanently on your "warmth and approachability" star, in your Network position, at <strong>double strength</strong>. This is your single strongest permanent signal. In plain terms: people genuinely like you and trust you quickly. Your professional and social network is unusually generous — opportunities, introductions, and goodwill arrive without you having to chase them. This is not strategic networking; the warmth is real, and other people feel it. In <strong>2026</strong> this signal doubles again, making 2026 your peak networking year — introductions and referrals will be at their most productive level of the decade.</p>
       </div>
       <div class="enhancer">
         <div class="enhancer-icon">权</div>
-        <div class="enhancer-tag">Quan · P4 Children (子 Rat · Cardinal 100%)</div>
-        <h3 class="enhancer-h3">天机 Tian Ji — <em>permanent Quan in P4</em></h3>
-        <p>Quan on Tian Ji sits in P4 Children. Tian Ji is the Strategist: fast-moving analytical intelligence, systems thinking, decisive pattern recognition. With Quan, that intelligence carries authority — others defer to it because it works. P4 receives this stack so the channel monetises through what you generate (analytical projects, strategies, advisory frameworks, intellectual progeny) rather than through hierarchical title alone. <strong>This is one half of the chart's standout intellectual-authority formation</strong> (the other half is the Ke on Wen Chang, also in P4 — see next card). D5 decade adds Lu→Tian Ji→P4 from 2020–2029: smooth-flow plus authority on the same star = Lu-Quan compound on Tian Ji, a rare combination that carries the strategic intelligence into easy, fluid expression for the whole decade.</p>
+        <div class="enhancer-tag">Authority signal · Your Strategic Intelligence</div>
+        <h3 class="enhancer-h3">Your <em>strategic thinking</em> carries authority, for life.</h3>
+        <p>The authority signal sits permanently on your "strategist" star — the part of your mind that thinks fast, sees systems clearly, and makes decisive analytical calls. Others defer to your judgement because it works. This is one half of your standout formation (the other half is the recognition signal on your writing star — they land in the SAME chart position together, which is rare). From <strong>2020 through 2029 (current decade)</strong>, smooth-flow energy is also running on this same star — meaning your strategic intelligence flows AND carries authority simultaneously throughout the whole decade. Best income channel: advisory work, analytical engagements, strategic frameworks.</p>
       </div>
       <div class="enhancer">
         <div class="enhancer-icon">科</div>
-        <div class="enhancer-tag">Ke · P4 Children (子 Rat · Cardinal 100%)</div>
-        <h3 class="enhancer-h3">文昌 Wen Chang — <em>permanent Ke in P4</em></h3>
-        <p>Ke on Wen Chang lands in P4 Children — <strong>the same palace as the Quan on Tian Ji</strong>. Wen Chang is the academic/intellectual helper: paperwork, exams, formal documentation, credentialed expertise. With Ke, the recognition channel is structural: credentials, publications, certificates, public intellectual standing. Two natal enhancers in one palace = a compounded activation. Quan signals the intelligence is authoritative; Ke signals it is formally recognised. Together they form a permanent intellectual recognition stack in P4 that operates lifelong. The WGWH formation (Wen Chang/Wen Qu) confirmed by mingli.ru validates this configuration as chart-structural, not incidental. In 2026, annual stem 丙 doubles Ke→Wen Chang again — paired with the doubled Quan, P4 reaches a quadruple stack (natal Quan + annual Quan + natal Ke + annual Ke + decade Lu on Tian Ji) = the year's most amplified palace.</p>
+        <div class="enhancer-tag">Recognition signal · Your Written / Credentialed Work</div>
+        <h3 class="enhancer-h3">Your <em>credentials and writing</em> are formally recognised, for life.</h3>
+        <p>The recognition signal sits permanently on your "academic and written work" star, <strong>in the same chart position as the authority signal above</strong>. Two permanent positive signals in one position is a structurally rare formation. Together they tell a clear story: your strategic thinking has authority (others defer to it) AND your documented work is recognised (credentials, publications, formal standing). This is why documented analytical output — writing, research, certifications, knowledge products — is your most natural way to monetise your mind. In <strong>2026</strong> this signal also doubles, joining the network double — meaning 2026 will be your strongest year for publishing, certifying, or formalising intellectual work.</p>
       </div>
       <div class="enhancer">
         <div class="enhancer-icon">忌</div>
-        <div class="enhancer-tag">Ji · P11 Mental (巳 Snake · Horse 200%)</div>
-        <h3 class="enhancer-h3">廉贞 Lian Zhen — <em>permanent Ji in P11</em></h3>
-        <p>Ji on Lian Zhen sits in P11 Mental at <strong>Horse-palace 200% strength</strong> — this is the chart's dominant continuous friction. Lian Zhen is the System star: conservative, rule-conscious, traditional. With Ji at 200% in the Mental palace, you carry chronic inner tension between disciplined rule-following and the systems you operate within. This does not manifest as outer chaos — it shows up as persistent psychological friction: a sense that institutions should reward structure and frequently disappoint, a conservatism that chafes against environments not built around it, a continuous tension between desire and discipline. Tan Lang in the same palace adds the ambitious, sensual undercurrent — passion is real and constant. The combination of Lian Zhen Ji and Tan Lang at Horse 200% means deep, continuous inner tension between what you want and what your systems permit. In 2026, annual 丙 fires the same Ji→Lian Zhen — natal Ji + annual Ji = double Ji on the same star at 200% = the year's peak inner-friction event. Build deliberate decompression channels for 2026.</p>
+        <div class="enhancer-tag">Friction signal · Your Inner Life</div>
+        <h3 class="enhancer-h3">A permanent <em>inner tension</em> between rules and desire.</h3>
+        <p>This is the cost. The friction signal sits permanently on your "system and discipline" star, in your Inner Life position, at <strong>double strength</strong>. In plain language: you carry a chronic, never-fully-resolving tension between disciplined rule-following and what you actually want. Institutions should reward your structure and they frequently disappoint. Your conservative side chafes against environments that don't match it. Your desires are intense and real. None of this is visible from outside — you appear contained — but you feel it constantly. This is not a problem to fix; it is part of your structure. The way to handle it is active management: physical practice, time genuinely away from systems, contained outlets for the ambition. In <strong>2026 this signal also doubles</strong>, making 2026 the peak inner-pressure year of the decade. Build deliberate decompression into your 2026 calendar — non-negotiable.</p>
       </div>
     </div>
   </div>
 
   <!-- C. PERSONALITY -->
   <div class="subsection">
-    <div class="subsection-eyebrow">C · Personality &amp; style</div>
-    <h3 class="subsection-h3">Treasury steward on the surface, <em>passion-and-discipline tension</em> underneath.</h3>
-    <p class="subsection-intro">Your Life palace (P1, 卯 Rabbit) carries Tian Fu + Zuo Fu + Lu Cun — the institutional steward as your default character. P8 Friends runs hot with Tian Tong Lu and Tian Liang at Horse 200%, making your network the most energetically live system in the chart. P3 Spouse holds Zi Wei + Po Jun, the Emperor and the Demolisher, so intimate partnership requires restructuring before settling. P11 Mental carries Lian Zhen 忌 + Tan Lang at Horse 200% — the permanent inner tension between system-discipline and passion. The personality is a paradox: professionally steady, socially warm, internally pressurised.</p>
+    <div class="subsection-eyebrow">C · How you actually come across</div>
+    <h3 class="subsection-h3">Steady steward on the outside, <em>passion-and-discipline tension</em> underneath.</h3>
+    <p class="subsection-intro">Your personality is a layered structure. On the surface you are reliable, careful, institutionally trustworthy — the person organisations hand resources to because you can be counted on. Around you, your network runs warm and active — people like you genuinely and bring you opportunities. In your intimate relationships, intensity is structural — partnerships start rocky, demand restructuring, and stabilise only after a rebuild phase. Inside, you carry a constant tension between discipline and ambition that you manage but never escape. The contrast between how steady you appear and how pressurised you feel is real and chart-structural.</p>
 
     <div class="enhancers-grid">
       <div class="enhancer">
-        <div class="enhancer-tag">Tian Fu + Zuo Fu + Lu Cun in P1 Life (卯)</div>
-        <h3 class="enhancer-h3">The <em>institutional steward</em>.</h3>
-        <p>Tian Fu in the Life palace is the foundational character anchor: karma-stable, conservative, "you have enough already." Tian Fu does not chase — it holds, conserves, and selects carefully. With Zuo Fu (practical helper) and Lu Cun (Wealth Keeper, permanent financial floor) also in P1, your personality default is the institutional steward: someone who manages systems, protects what exists, and functions best when given structured responsibility. <strong>You are not the frontline salesman or the disruptor — you are the person who makes the organisation solvent and stable.</strong> Lu Cun in the Life palace provides a permanent floor: you will not be poor. Zuo Fu brings external helpers who arrive consistently and practically.</p>
+        <div class="enhancer-tag">Core character</div>
+        <h3 class="enhancer-h3">The <em>steady institutional steward</em>.</h3>
+        <p>Your default character is careful, selective, and structurally trustworthy. You hold and protect what exists rather than chase what's new. You select carefully rather than grab broadly. You work best when given structured responsibility within an established institution. <strong>You are not the frontline salesman, not the disruptor — you are the person who makes an organisation solvent and stable.</strong> A permanent wealth-keeper signal sits in your core position too, providing a built-in financial floor: you will not face destitution. Practical helpers arrive consistently in your life when you need them.</p>
       </div>
       <div class="enhancer">
-        <div class="enhancer-tag">Zi Wei + Po Jun in P3 Spouse (丑)</div>
-        <h3 class="enhancer-h3">The <em>emperor-demolisher in partnership</em>.</h3>
-        <p>The Emperor (authority, self-conscious isolation) sitting with the Destroyer (dynamic disruption before renewal) in the Spouse palace tells a clear story: intimate partnerships begin with restructuring, the Emperor within you asserts authority that the Demolisher then tests, and stability arrives only after an initial dynamic phase. Di Kong (Earthly Emptiness) in the same palace adds the occasional invisible drain or unexplained withdrawal in the partnership dynamic. <strong>Don't formalise too fast — live together first.</strong> The ideal partnership needs time, cohabitation before commitment, and a partner who can handle the Emperor's leadership need without triggering the Demolisher's all-or-nothing energy. The Storage-palace branch (丑) slows the cycle further — P3 events arrive deliberately, with accumulation.</p>
+        <div class="enhancer-tag">In partnerships (personal and business)</div>
+        <h3 class="enhancer-h3">The <em>emperor in a rebuilding relationship</em>.</h3>
+        <p>Two intense energies sit in your intimate-partnership position together: the Emperor (authority, self-conscious independence, sometimes detached from daily warmth) and the Demolisher (the rebuild-before-stable energy). The story this tells is clear: relationships begin rocky and stabilise only after a restructuring phase. There is also an emptiness signal in the same position — occasional invisible withdrawals in the partnership dynamic, unexplained disengagement. <strong>The rule: do not formalise too fast. Live together first. Build a testing period into significant business partnerships too.</strong> A partner (personal or business) who can handle your leadership need without triggering all-or-nothing reactions is the structural fit.</p>
       </div>
       <div class="enhancer">
-        <div class="enhancer-tag">Tian Tong 禄 + Tian Liang in P8 Friends (申 · Horse 200%)</div>
-        <h3 class="enhancer-h3">The <em>warm institutional networker</em>.</h3>
-        <p>P8 carries the two most elder-oriented friendly stars in the catalogue: Tian Tong (the Child, warmth, service) with natal Lu, and Tian Liang (the Old Man, wisdom, principles, professionalism). At Horse-palace 200% amplification, this is the chart's most energetically live palace. You radiate warmth and credibility simultaneously — Tian Tong Lu makes you approachable and likeable, Tian Liang gives you the elder-statesman quality of someone whose experience is trusted. <strong>You build long-term, age-diverse relationships that are simultaneously warm and substantively useful.</strong> Institutions, mentors, and long-tenure professionals are your natural peer group — not transient transactional contacts. Tian Liang receives no natal Ji, making this a clean star: the network does not generate friction from your own structure.</p>
+        <div class="enhancer-tag">In your professional network</div>
+        <h3 class="enhancer-h3">The <em>warm institutional networker with elder credibility</em>.</h3>
+        <p>Two complementary energies sit in your network position together. One is genuine warmth — you are approachable, likeable, easy to trust. The other is elder-statesman credibility — your experience is taken seriously even by people older or more senior than you. <strong>You build long-term, age-diverse relationships that are both warm and substantively useful.</strong> Your natural peer group is institutions, mentors, and long-tenure professionals — not transient transactional contacts. Your network does not generate inner friction (unlike your partnerships); it is the cleanest, most reliable structural relationship channel in your chart.</p>
       </div>
       <div class="enhancer">
-        <div class="enhancer-tag">Lian Zhen 忌 + Tan Lang in P11 Mental (巳 · Horse 200%)</div>
-        <h3 class="enhancer-h3">The <em>system-disciplined passion</em>.</h3>
-        <p>The Mental palace is the chart's most pressurised interior. Lian Zhen Ji at 200% Horse strength = permanent system-frustration signal: rules and hierarchies are felt deeply, and the tension between compliance and desire never fully resolves. Tan Lang alongside it brings the ambitious, desire-rich quality — Tan Lang wants, accumulates, projects charisma. Lu Cun in P11 as a financial anchor means accumulation continues quietly even when the friction is high. Tian Xi (Heavenly Joy) adds genuine capacity for inner celebration — this is not a depressive constitution but one that carries passion and discipline as permanent companions. <strong>You appear more contained and structured than you feel inside.</strong> You manage your desires through systems and rules but never stop feeling them at full intensity. Release comes through channels that honour both structure and ambition simultaneously.</p>
+        <div class="enhancer-tag">In your inner life</div>
+        <h3 class="enhancer-h3">A <em>permanent tension</em> between discipline and desire.</h3>
+        <p>Your inner-life position is the most pressurised part of the chart. The permanent friction signal sits on your "system and discipline" star at double strength — meaning a continuous, never-fully-resolving tension between rules and what you actually want. Right next to it sits a passion/ambition star: deep desires, sensory richness, real charisma. A quiet accumulation signal (a financial anchor) is also there — meaning even when the friction is high, things continue to build quietly. And a genuine joy signal too — this is not a depressive constitution. <strong>You appear more contained and structured than you feel inside.</strong> You manage your desires through rules but never stop feeling them at full intensity. The healthy outlets are channels that honour both structure AND ambition — physical practice, time genuinely off the systems clock, contained ways to express what is real.</p>
       </div>
     </div>
   </div>
 
   <!-- D. INDUSTRIES -->
   <div class="subsection">
-    <div class="subsection-eyebrow">D · Industries where you thrive</div>
-    <h3 class="subsection-h3">Mapped from the <em>intellectual-authority stack, network palace, and outer-world money axis</em>.</h3>
-    <p class="subsection-intro">The chart's standout industry signal is the P4 stack: natal Quan on Tian Ji and natal Ke on Wen Chang both in the same palace point directly to strategic advisory, analytical, and credentialed-intellectual work. P8 (Tian Tong Lu + Tian Liang at Horse 200%) suggests institutional networking and mentorship roles. P7 (Wu Qu + Qi Sha) is the outer-world money channel — international and high-stakes external work. P1 (Tian Fu + Lu Cun) anchors the institutional-steward default. P9 Career holds only Tian Xiang (no enhancer ever), so the career engine actually fires through P4 and P8 rather than P9 directly.</p>
+    <div class="subsection-eyebrow">D · Industries that fit you</div>
+    <h3 class="subsection-h3">Built around your <em>three strongest channels</em>: intelligence, network, and international money.</h3>
+    <p class="subsection-intro">Your chart points to a clear hierarchy of industries. The strongest signal is for advisory and credentialed analytical work — your double-stack of intelligence and recognition makes you a natural strategist whose written output is taken seriously. The second strongest is professional environments rich in long-term relationships — networks, mentorship, institutional service. The third is international and high-stakes external work — this is where your financial ceiling actually sits. Below the table: which industries to lean into, in what order.</p>
 
     <div class="industries-grid">
       <div class="industry-card">
-        <div class="industry-source">Primary intellectual-authority stack · P4</div>
-        <div class="industry-star">Tian Ji 权 + Wen Chang 科</div>
-        <div class="industry-list">Strategic / management consulting · advisory research · intelligence analysis · think-tank work · technology and systems strategy · R&amp;D leadership · published intellectual output · curriculum and knowledge-product design · senior advisory positions where analytical frameworks drive decisions.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> Two natal enhancers compounding on one palace = the chart's standout signal. Strategic intelligence that both commands authority (Quan on Tian Ji) and is formally recognised (Ke on Wen Chang). The optimal industry is one where analytical frameworks are documented, recognised, and acted upon.</div>
+        <div class="industry-source">Tier 1 — your standout channel</div>
+        <div class="industry-star">Strategic Advisory &amp; Analytical Work</div>
+        <div class="industry-list">Management consulting · strategic advisory · research leadership · intelligence analysis · think-tank work · senior R&amp;D positions · technology and systems strategy · published thought-leadership · curriculum and knowledge-product design.</div>
+        <div class="industry-match"><strong>Why this fits you most:</strong> Two of your permanent positive signals — authority on strategic intelligence AND recognition on documented expertise — sit together in the same chart position. This is structurally rare and tells one clear story: roles where you generate analytical frameworks, document them, and have decisions made on them are your most natural channel for income and reputation.</div>
       </div>
       <div class="industry-card">
-        <div class="industry-source">Network &amp; mentorship · P8 (Horse 200%)</div>
-        <div class="industry-star">Tian Tong 禄 + Tian Liang</div>
-        <div class="industry-list">Institutional HR &amp; talent leadership · insurance and risk advisory · long-tenure client consulting · public health administration · government advisory · senior service-organisation roles · industries where elder-wisdom and relationship-stewardship are central · mentorship-rich professional environments.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> Tian Tong's service orientation + Tian Liang's elder-wisdom quality, at Horse 200% amplification, makes professional environments rich in long-term relationships your most natural habitat. Maintenance-of-trust industries reward your structure more than churn-heavy ones.</div>
+        <div class="industry-source">Tier 2 — your reliable network channel</div>
+        <div class="industry-star">Institutional / Mentorship-rich Roles</div>
+        <div class="industry-list">Senior HR &amp; talent leadership · insurance and risk advisory · long-tenure client consulting · public health administration · government advisory · senior roles in service-oriented organisations · industries where elder-wisdom and relationship-stewardship are central.</div>
+        <div class="industry-match"><strong>Why this fits you:</strong> Your network signal is double-strength and continuous. Industries where the same client relationships compound for years (rather than churn-heavy short-term ones) reward your structure most. You are the trusted senior voice, not the disruptive new entrant.</div>
       </div>
       <div class="industry-card">
-        <div class="industry-source">Outer-world money channel · P7</div>
-        <div class="industry-star">Wu Qu + Qi Sha</div>
-        <div class="industry-list">International high-stakes deals · cross-border financial execution · external markets · foreign business development · roles requiring decisive financial command outside the domestic comfort zone · expat or international-based finance/strategy positions.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> Wu Qu (direct money star, strict, demanding) + Qi Sha (decisive warrior) in the Travel palace = guiding-star quality: the outer world is where the financial ceiling sits. Domestic-only or institutionally cautious contexts cap the upside. Di Jie alongside warns of sudden-loss risk — protect with structure.</div>
+        <div class="industry-source">Tier 3 — your highest ceiling</div>
+        <div class="industry-star">International / High-stakes External Work</div>
+        <div class="industry-list">International / cross-border deals · external markets · foreign business development · expat-based senior positions · high-stakes external financial execution · roles requiring decisive financial command outside your home country.</div>
+        <div class="industry-match"><strong>Why this is your ceiling:</strong> The direct money star and the warrior star sit in your outer-world position together. The further from home, the higher the financial ceiling. Domestic-only or institutionally cautious contexts will pay you well but cap your upside. A risk signal sits in this position too — protect international ventures with structure rather than expecting them to be friction-free.</div>
       </div>
       <div class="industry-card">
-        <div class="industry-source">Institutional steward · P1</div>
-        <div class="industry-star">Tian Fu + Lu Cun</div>
+        <div class="industry-source">Default tier — your stable baseline</div>
+        <div class="industry-star">Institutional Finance &amp; Asset Stewardship</div>
         <div class="industry-list">Institutional finance · asset management · fund stewardship · corporate treasury · long-horizon investment management · conservative wealth advisory · roles centred on protection and accumulation of existing capital.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> Tian Fu in Life palace = treasury character: conservative, accumulation-oriented, structurally sound. Lu Cun reinforces the permanent floor. Best for roles that reward precision, long-term orientation, and steady custody of resources.</div>
+        <div class="industry-match"><strong>Why this is your default fit:</strong> Your core character is the careful, conservative steward who is trusted with significant resources. Roles that reward precision and long-term thinking over short-term aggression fit your steady-state best. This is your fallback — always available, always works, but with a modest ceiling on its own.</div>
       </div>
       <div class="industry-card">
-        <div class="industry-source">Knowledge products &amp; credentials · WGWH formation</div>
-        <div class="industry-star">Wen Chang 科 · Wen Qu in P2</div>
-        <div class="industry-list">Education design · academic / professional publishing · curriculum and certification businesses · executive writing · documented research output · knowledge-product entrepreneurship · roles that monetise credentialed expertise.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> WGWH (Wen Chang + Wen Qu configuration confirmed by mingli) signals that formal recognition through written / certified intellectual work is structurally available. The Ke on Wen Chang specifically activates the credentials channel — this is the publishing-and-credentialing version of your intellectual output.</div>
+        <div class="industry-source">Adjacent tier — your credentials channel</div>
+        <div class="industry-star">Education, Publishing, Knowledge Products</div>
+        <div class="industry-list">Curriculum design · academic / professional publishing · certification businesses · executive writing · documented research output · knowledge-product entrepreneurship · roles that monetise credentialed expertise.</div>
+        <div class="industry-match"><strong>Why this works for you:</strong> The recognition signal on your writing star tells you that formal credentials and published intellectual output are structurally rewarded. This is the "make money from your expertise" version of Tier 1. Higher effort to start than consulting, but more leveraged once built.</div>
       </div>
       <div class="industry-card">
-        <div class="industry-source">Career palace · P9</div>
-        <div class="industry-star">Tian Xiang (no enhancer)</div>
-        <div class="industry-list">Compliance / governance / regulatory roles · administrative authority · operational deputy or chief-of-staff positions · roles inside established institutions rather than standalone entrepreneurship · institutional advisory where the Minister's diligence is the structural asset.</div>
-        <div class="industry-match"><strong>Structural fit:</strong> Tian Xiang in Career = the Minister beside the Emperor — supports, advises, executes. Cannot receive enhancers, so P9 does not transform — but it provides the institutional vessel through which P4's intellectual authority and P8's network actually deploy. Your career engine runs THROUGH P9 even though it FIRES from P4 and P8.</div>
+        <div class="industry-source">Career role-type — where you operate best</div>
+        <div class="industry-star">Inside Institutions, not Solo Entrepreneurship</div>
+        <div class="industry-list">Compliance · governance · regulatory roles · administrative authority · operational deputy or chief-of-staff positions · senior in-house strategy · institutional advisory · roles inside established organisations.</div>
+        <div class="industry-match"><strong>Why this matters:</strong> Your Career star itself is the institutional Minister — supporting, executing, advising authority figures. It does not transform on its own. <strong>This means your career engine fires through your intelligence and network — but DEPLOYS through institutional structures.</strong> You are not built for standalone solo entrepreneurship. Senior roles inside established firms, or being a key partner inside an established practice, fit your structure best.</div>
       </div>
     </div>
   </div>
@@ -915,127 +938,139 @@
   <div class="subsection">
     <div class="subsection-eyebrow">E · 12 palaces — key characteristics</div>
     <h3 class="subsection-h3">Your <em>twelve domains</em>, each with its dominant stars and structural meaning.</h3>
-    <p class="subsection-intro">Cards are arranged in the same 4×4 grid as the calculator — empty centre. Life palace P1 is at 卯 Rabbit (branch 卯, stem 辛 derived via Five Tigers from year stem 丙); palaces rotate counter-clockwise through the branch sequence. Natal enhancers (from year stem 丙) shown in bold. Verify against the live calculator in Section 07.</p>
+    <p class="subsection-intro">Your chart has twelve life domains — each one a slice of life that holds specific energetic signals. Below they are arranged in the same 4×4 layout as the calculator chart (Section 07), with a summary in the middle. Read each card as: "what this domain carries for you", "what kind of events tend to happen there", and "is this a good or hard area in your chart". Star names from Chinese astrology are kept in italics so you can cross-reference the live chart — but the explanation is what matters for understanding your life.</p>
 
     <div class="palaces-grid">
       <!-- Row 1: P12 P11 P10 P9 -->
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">12</div>
-          <div class="palace-name">Parents · 父母</div>
-          <div class="palace-branch">辰 · 壬 · Storage 50%</div>
+          <div class="palace-name">Parents &amp; Family Origin</div>
+          <div class="palace-branch">slow / quiet</div>
         </div>
-        <div class="palace-stars">太阴 Tai Yin · 陀罗 Tuo Luo</div>
-        <div class="palace-meaning">Tai Yin in P12 indicates a family-of-origin with a soft, background-operating feminine influence, possible hidden resources from family heritage, and a quiet emotional inheritance. Tuo Luo (Rolling Stone) adds chronic slow-release tension — something that builds and delays rather than erupts. <strong>D5 decade (stem 乙) sends Ji to Tai Yin in P12 throughout 2020–2029</strong> — the entire current decade carries continuous background friction in the parents/heritage/origin-identity domain. Storage palace slows it: not catastrophe, but sustained quiet pressure.</div>
+        <div class="palace-stars"><em>Tai Yin · Tuo Luo</em></div>
+        <div class="palace-meaning">Your family-of-origin domain carries a soft, background-operating energy — quiet emotional inheritance, possibly hidden resources from family heritage, a feminine influence that worked in the background of your upbringing. There is also a chronic slow-friction signal here — something that has built slowly over time rather than erupting. <strong>The current decade (2020–2029) carries sustained background pressure on this domain</strong> — parents, heritage, or family-origin matters require continuous quiet management across these ten years. Not crisis. Slow grind. <strong>Read this as: a domain that needs conscious attention but won't blow up.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">11</div>
-          <div class="palace-name">Mental · 福德</div>
-          <div class="palace-branch">巳 · 癸 · Horse 200%</div>
+          <div class="palace-name">Inner Life</div>
+          <div class="palace-branch">loud / pressurised</div>
         </div>
-        <div class="palace-stars">廉贞 Lian Zhen <strong>忌</strong> · 贪狼 Tan Lang · 禄存 Lu Cun · 天喜 Tian Xi</div>
-        <div class="palace-meaning">The chart's most intensely charged interior palace. Lian Zhen Ji at Horse 200% is the permanent system-frustration signal in the inner life. Tan Lang adds the passion, desire, and sensory richness that makes the frustration feel meaningful rather than merely irritating — you want deeply, and the inner censor is equally strong. Lu Cun provides a quiet but reliable thread of material accumulation. Tian Xi adds genuine capacity for inner celebration. <strong>In 2026, annual stem 丙 sends a second Ji to Lian Zhen here — doubling natal Ji and making 2026 the peak inner-pressure year.</strong></div>
+        <div class="palace-stars"><em>Lian Zhen 忌 · Tan Lang · Lu Cun · Tian Xi</em></div>
+        <div class="palace-meaning">This is the most pressurised interior domain in your chart. A permanent friction signal sits on your system-and-discipline star at double strength — the rules-vs-desire tension that runs through your inner life for life. Right next to it is a passion star (ambition, sensory richness, charisma) — meaning your desires are intense and real. A quiet financial-accumulation signal is also here (you keep building even under inner pressure), and a joy signal (genuine moments of inner celebration). <strong>2026 is the peak inner-pressure year of the decade — the friction signal doubles.</strong> Build deliberate decompression into your 2026 calendar. <strong>Read this as: a permanent challenge area requiring active management — never solves on its own.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">10</div>
-          <div class="palace-name">Property · 田宅</div>
-          <div class="palace-branch">午 · 甲 · Cardinal 100%</div>
+          <div class="palace-name">Property &amp; Assets</div>
+          <div class="palace-branch">standard</div>
         </div>
-        <div class="palace-stars">巨门 Ju Men · 擎羊 Qing Yang</div>
-        <div class="palace-meaning">Ju Men (Dark Gate) in Property suggests assets and ownership carry a non-obvious, not-immediately-apparent character — what you own may not be fully visible, or property transactions involve a layer of hidden complexity. Qing Yang (Sharp Blade) adds aggressive negotiation and dispute energy to property matters. <strong>2026 annual branch 午 directly hits P10 — Property is structurally activated as the year's focal domain</strong>: decisions about property, potential sharp negotiations or disputes, hidden complexities coming to light.</div>
+        <div class="palace-stars"><em>Ju Men · Qing Yang</em></div>
+        <div class="palace-meaning">Property and ownership in your life carries a not-immediately-obvious character — what you own may not be fully visible to others, or property transactions tend to involve a hidden layer of complexity. There is also a sharp-negotiation signal here, so property matters can involve aggressive deals or disputes. <strong>2026 activates this domain directly — property decisions surface as a focal event of the year.</strong> Sharp negotiations, hidden complexities coming to light, possible disputes. <strong>Read this as: a domain where 2026 will bring decisions or events — handle with care, not avoidance.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">09</div>
-          <div class="palace-name">Career · 官祿</div>
-          <div class="palace-branch">未 · 乙 · Storage 50%</div>
+          <div class="palace-name">Career</div>
+          <div class="palace-branch">quiet / structural</div>
         </div>
-        <div class="palace-stars">天相 Tian Xiang</div>
-        <div class="palace-meaning">Tian Xiang alone in P9 Career, with no natal enhancer (year stem 丙 does not fly to Tian Xiang) and no enhancer receivable by Tian Xiang at all (Tian Xiang is one of the three stars in ZWDS that never receives any enhancer, ever). <strong>The Career palace is structurally the quietest in your chart.</strong> Your actual career trajectory fires through P4 (intellectual authority from Tian Ji Quan + Wen Chang Ke) and P8 (network authority), with P9 serving as the institutional vessel. D5 decade Life palace is at P9 — the decade's lens, but P9's own activation is via flights to neighbouring palaces, not flights into Tian Xiang.</div>
+        <div class="palace-stars"><em>Tian Xiang</em></div>
+        <div class="palace-meaning">Your Career star is the Minister — someone who supports, executes, advises authority figures inside established institutions. Importantly, this star <strong>cannot receive any of the four energetic signals</strong>, ever — meaning your career position itself does not transform or get amplified. <strong>This sounds bad but is structural information: your actual career engine fires through your intelligence domain and your network, not through the career position itself.</strong> The current decade does sit here (Career governs 2020–2029 as the decade's home base) — but career events come from neighbouring domains. <strong>Read this as: stable institutional roles fit you; standalone solo entrepreneurship does not.</strong></div>
       </div>
 
-      <!-- Row 2: P1 [] [] P8 -->
+      <!-- Row 2: P1 [center] P8 -->
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">01</div>
-          <div class="palace-name">Life · 命</div>
-          <div class="palace-branch">卯 · 辛 · Cardinal 100%</div>
+          <div class="palace-name">Life &amp; Core Self</div>
+          <div class="palace-branch">stable</div>
         </div>
-        <div class="palace-stars">天府 Tian Fu · 左辅 Zuo Fu · 禄存 Lu Cun</div>
-        <div class="palace-meaning">Tian Fu in the Life palace anchors your core character as the Treasury Steward — conservative, selective, structurally sound. Tian Fu does not chase; it holds and conserves. Lu Cun (Wealth Keeper) reinforces a permanent financial floor — you will not be poor. Zuo Fu brings external practical helpers consistently. <strong>The Life palace is stable, not exciting — it does not ignite across the chart, but it holds the structural baseline in place.</strong> This is the platform from which everything else operates. Tian Fu cannot receive any enhancer, so the Life palace itself does not transform — your transformation lives on other axes.</div>
+        <div class="palace-stars"><em>Tian Fu · Zuo Fu · Lu Cun</em></div>
+        <div class="palace-meaning">Your core character is the Treasury Steward — careful, selective, structurally trustworthy. You hold and conserve rather than chase. You select carefully rather than grab broadly. A permanent wealth-keeper signal sits in your Life position too, meaning you have a built-in financial floor: <strong>you will not face destitution. Stability is structural.</strong> Practical helpers arrive in your life consistently. <strong>Read this as: a permanent foundation — reliable, stable, will not break — but cannot transform on its own. It is the floor, not the ladder.</strong></div>
       </div>
-      <div class="palace-empty"></div>
-      <div class="palace-empty"></div>
+      <div class="palace-center">
+        <div class="palace-center-label">Chart summary</div>
+        <div class="palace-center-name">Maxim's <em>chart at a glance</em></div>
+        <div class="palace-center-rows">
+          <div class="lbl">Born</div><div class="val">15 Feb 1977 · 20:30 · Moscow</div>
+          <div class="lbl">Bureau</div><div class="val"><strong>Wood 3</strong> — first decade starts age 3</div>
+          <div class="lbl">Year energy</div><div class="val"><strong>丙 Bing</strong> (Fire Yang) — fires your four permanent signals</div>
+          <div class="lbl">Polarity</div><div class="val">Standard (flow / authority / recognition are good; friction is challenge)</div>
+          <div class="lbl">Standout</div><div class="val">Two positive signals stacked on your intelligence — strategic authority + formal recognition together</div>
+          <div class="lbl">Network</div><div class="val">Double-strength warmth signal — your most active permanent channel</div>
+          <div class="lbl">Inner pressure</div><div class="val">Double-strength friction signal — chronic, never fully resolves</div>
+          <div class="lbl">Money ceiling</div><div class="val">International / high-stakes external work</div>
+          <div class="lbl">Now (D5)</div><div class="val">2020–2029 · Career-governed decade · senior advisory positioning</div>
+          <div class="lbl">Ahead (D6)</div><div class="val">2030–2039 · your strongest decade — every natal signal doubles</div>
+        </div>
+      </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">08</div>
-          <div class="palace-name">Friends · 交友</div>
-          <div class="palace-branch">申 · 丙 · Horse 200%</div>
+          <div class="palace-name">Friends &amp; Network</div>
+          <div class="palace-branch">double-strength / loud</div>
         </div>
-        <div class="palace-stars">天同 Tian Tong <strong>禄</strong> · 天梁 Tian Liang · 天刑 Tian Xing · 铃星 Ling Xing</div>
-        <div class="palace-meaning">The chart's most energetically activated palace by branch weighting. Tian Tong with natal Lu at Horse 200% = permanent social-warmth engine. Tian Liang brings elder wisdom, mentorship, professional longevity. Tian Xing (Punishment/discipline/contracts) suggests that formal agreements, contractual relationships, and structured professional bonds matter more than casual friendships. Ling Xing introduces a slow-burn signal — some network relationships simmer before surfacing. <strong>D5 decade sends Quan to Tian Liang in P8 throughout 2020–2029</strong> — decade authority overlays the natal Lu = elder-statesman positioning runs at peak across the entire decade. 2026 stacks annual Lu on top of natal Lu = triple-source activation.</div>
+        <div class="palace-stars"><em>Tian Tong 禄 · Tian Liang · Tian Xing · Ling Xing</em></div>
+        <div class="palace-meaning">Your most energetically active domain. The warmth-and-approachability star sits here with permanent smooth-flow, at double strength — people genuinely like you and bring you opportunities throughout life. Right next to it is the elder-wisdom star — your experience is trusted, your professional credibility runs ahead of you. There is also a contracts-and-discipline signal (formal agreements matter more than casual friendships in your network) and a slow-burn signal (some network relationships simmer before surfacing). <strong>The current decade adds authority on top of the warmth — for 2020–2029 your network not only likes you but defers to you as the senior voice.</strong> <strong>Read this as: your strongest and most reliable life-channel. Lean in here whenever possible.</strong></div>
       </div>
 
-      <!-- Row 3: P2 [] [] P7 -->
+      <!-- Row 3: P2 [center continues] P7 -->
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">02</div>
-          <div class="palace-name">Siblings · 兄弟</div>
-          <div class="palace-branch">寅 · 庚 · Horse 200%</div>
+          <div class="palace-name">Siblings &amp; Close Peers</div>
+          <div class="palace-branch">double-strength activation</div>
         </div>
-        <div class="palace-stars">文曲 Wen Qu · 天马 Tian Ma · 陀罗 Tuo Luo</div>
-        <div class="palace-meaning">Wen Qu (intellectual/documentary helper) in P2 carries the WGWH formation's complement to Wen Chang in P4 — intellectual and documentary channels (writing, contracts, formal communications) have financial significance (P2 also functions as the secondary "Property of Wealth" indicator). Tian Ma adds momentum and movement to the siblings/close-peers domain. Tuo Luo introduces slow-grinding friction — chronic low-level drag in close relationships or business partnerships, not dramatic conflict. <strong>Horse 200% branch weighting means any natal or temporal enhancer landing here fires loudly.</strong></div>
+        <div class="palace-stars"><em>Wen Qu · Tian Ma · Tuo Luo</em></div>
+        <div class="palace-meaning">An intellectual/documentary helper star sits here, paired with your writing star in another position — together they form the credentials configuration that makes your written work structurally recognised. There is also a movement/momentum signal (close-peer relationships involve travel and business motion) and a slow-grind friction signal (low-level drag in close-peer business partnerships — not dramatic conflict, but persistent friction). This domain also functions as a hidden savings indicator — quiet assets accumulating in the background. <strong>Read this as: a supporting domain for both income and intellectual reputation; manage close-peer business partnerships carefully because friction is structural.</strong></div>
       </div>
-      <div class="palace-empty"></div>
-      <div class="palace-empty"></div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">07</div>
-          <div class="palace-name">Travel · 遷移</div>
-          <div class="palace-branch">酉 · 丁 · Cardinal 100%</div>
+          <div class="palace-name">Travel &amp; International / Outer World</div>
+          <div class="palace-branch">aggressive / high-stakes</div>
         </div>
-        <div class="palace-stars">武曲 Wu Qu · 七杀 Qi Sha · 地劫 Di Jie · 天钺 Tian Yue</div>
-        <div class="palace-meaning">The outer-world palace carries the chart's most financially aggressive star combination: Wu Qu (direct money star, strict, demanding) + Qi Sha (decisive warrior, high-stakes). Di Jie (Earthly Robber) warns of potential sudden loss in external/travel contexts — international ventures carry real downside risk alongside the upside. Tian Yue (Yin Noble) provides quiet hidden protection in foreign environments, softening Qi Sha's sharper edge. <strong>This palace is the guiding-star direction</strong>: external markets, international engagements, high-stakes outer-world work are where the financial ceiling sits. The further from home, the more this axis fires. Domestic-only contexts cap the upside.</div>
+        <div class="palace-stars"><em>Wu Qu · Qi Sha · Di Jie · Tian Yue</em></div>
+        <div class="palace-meaning">The chart's most financially aggressive domain. The direct money star (strict, demanding, high-intensity) sits here with the warrior star (decisive, all-or-nothing). Together they make international and high-stakes external work your highest-ceiling money channel. A risk signal also sits here — sudden-loss potential in foreign or external ventures — meaning you need structure around international deals, not blind optimism. A quiet protection signal too: hidden help arrives in foreign environments when needed. <strong>The further from home, the more this channel fires.</strong> Domestic-only contexts pay you well but cap the upside. <strong>Read this as: your highest financial ceiling lives here, but it must be activated, and it requires structural protection.</strong></div>
       </div>
 
       <!-- Row 4: P3 P4 P5 P6 -->
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">03</div>
-          <div class="palace-name">Spouse · 夫妻</div>
-          <div class="palace-branch">丑 · 辛 · Storage 50%</div>
+          <div class="palace-name">Spouse &amp; Intimate Partnership</div>
+          <div class="palace-branch">demanding / restructuring</div>
         </div>
-        <div class="palace-stars">紫微 Zi Wei · 破军 Po Jun · 地空 Di Kong</div>
-        <div class="palace-meaning">The Emperor (authority, isolated leadership) with the Destroyer (demolish-then-rebuild) + Di Kong (invisible drains, occasional spiritual emptiness) in the intimate partnership palace. Without helper stars in P3, Zi Wei becomes the "isolated emperor" — highly independent within partnership, somewhat detached from its daily warmth. Po Jun guarantees a rocky start before stability. Storage palace slows the cycle. <strong>D5 decade sends Ke to Zi Wei in P3</strong> — the current decade adds formal recognition and social legitimacy to the partnership domain. Partnerships consolidated in D5 carry publicly acknowledged, status-conferring quality. Per the rule: don't formalise too fast — live together first.</div>
+        <div class="palace-stars"><em>Zi Wei · Po Jun · Di Kong</em></div>
+        <div class="palace-meaning">Two intense energies sit together in your intimate-partnership domain: the Emperor (authority, independence, sometimes detached from daily warmth) and the Demolisher (the demolish-and-rebuild energy that restructures before stabilising). An emptiness signal also sits here — occasional invisible withdrawals or unexplained disengagement in the relationship dynamic. <strong>The current decade (2020–2029) adds formal recognition to the partnership domain</strong> — partnerships consolidated in this decade gain publicly acknowledged, status-conferring quality. But the rule remains: <strong>don't formalise too fast. Live together first.</strong> <strong>Read this as: a demanding domain — never frictionless, but a genuine source of life transformation when navigated well.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">04</div>
-          <div class="palace-name">Children · 子女</div>
-          <div class="palace-branch">子 · 庚 · Cardinal 100%</div>
+          <div class="palace-name">Children &amp; Strategic Output</div>
+          <div class="palace-branch">your strongest signal</div>
         </div>
-        <div class="palace-stars">天机 Tian Ji <strong>权</strong> · 文昌 Wen Chang <strong>科</strong> · 天姚 Tian Yao · 火星 Huo Xing</div>
-        <div class="palace-meaning"><strong>The chart's most richly enhanced palace.</strong> Tian Ji Quan + Wen Chang Ke from year stem 丙 create a permanent intellectual-authority stack: strategic intelligence that commands authority AND is formally recognised, both in the same palace. Tian Yao adds a sensory/charisma quality — your strategic output is naturally attractive, not just dry. Huo Xing introduces volatility: launched-with-force, occasionally ended-abruptly intensity in P4 Children (both literal children/direct reports and intellectual progeny — ideas, projects, strategies). <strong>D5 decade adds Lu→Tian Ji→P4</strong> = Lu+Quan compound on Tian Ji (best wealth combo per formation rules), running 2020–2029. 2026 doubles BOTH natal flights: P4 reaches quadruple activation = the chart's standout year-domain.</div>
+        <div class="palace-stars"><em>Tian Ji 权 · Wen Chang 科 · Tian Yao · Huo Xing</em></div>
+        <div class="palace-meaning"><strong>The most positively-charged domain in your entire chart.</strong> Two of your four permanent signals — authority on the strategist star AND recognition on the writing star — sit together here. This is rare. Together they make strategic advisory and credentialed analytical work your natural channel for income and reputation. A charisma signal is also present (your output has natural appeal, not just dry competence) and a volatility signal (your ideas and projects can be launched with force and occasionally ended abruptly). <strong>The current decade adds smooth-flow on the strategist star — meaning your strategic intelligence flows AND carries authority for all of 2020–2029.</strong> 2026 amplifies this domain to its lifetime peak. <strong>Read this as: your standout life-channel. Build your career around this.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">05</div>
-          <div class="palace-name">Wealth · 財帛</div>
-          <div class="palace-branch">亥 · 己 · Horse 200%</div>
+          <div class="palace-name">Wealth</div>
+          <div class="palace-branch">read via mirror</div>
         </div>
-        <div class="palace-stars">(empty main) · 右弼 You Bi · 天魁 Tian Kui · 红鸾 Hong Luan</div>
-        <div class="palace-meaning">P5 holds no main star — per the palace-reading rule, read primarily via its OPPOSITE P11 (Lian Zhen Ji + Tan Lang). This means the wealth channel reads through the P11 lens: Tan Lang (ambitious, multiple income streams, passion-driven earnings) and Lian Zhen Ji (system-friction on the wealth channel — inner experience that money is harder than it should be, even when objective earnings are strong). You Bi (Right Helper) and Tian Kui (Yang Noble, visible mentor) in P5 mean wealth consistently arrives with institutional assistance and mentor-figure enabling. Hong Luan (Red Phoenix) suggests certain earnings link to romantic/aesthetic social dynamics. <strong>Horse 200% branch weighting</strong>: any annual or decade enhancer landing in P5 fires at full double intensity.</div>
+        <div class="palace-stars"><em>(no main star) · You Bi · Tian Kui · Hong Luan</em></div>
+        <div class="palace-meaning">Your wealth position holds no main star — so it is read primarily through its mirror, your Inner Life domain. This means your wealth signal is heavily influenced by the inner tension that lives there: ambition that drives multiple income streams (positive), plus the chronic friction that makes you feel money is harder than it should be (negative — even when actual earnings are strong, the inner experience is "this should be easier"). Two helper signals do sit here: a practical helper signal (institutional assistance accompanies your income) and a visible mentor signal (mentor figures consistently enable your wealth flow). <strong>Read this as: wealth comes through your network and institutional support, with an inner friction layered on top that is psychological, not structural.</strong></div>
       </div>
       <div class="palace-card">
         <div class="palace-head">
           <div class="palace-number">06</div>
-          <div class="palace-name">Health · 疾厄</div>
-          <div class="palace-branch">戌 · 戊 · Storage 50%</div>
+          <div class="palace-name">Health</div>
+          <div class="palace-branch">standard / preventive</div>
         </div>
-        <div class="palace-stars">太阳 Tai Yang</div>
-        <div class="palace-meaning">Tai Yang in P6 Health, no natal Ji on it. The Sun in the Health palace makes public-facing, social, and high-visibility activity the context in which health is stressed — your constitution responds to over-extension in public roles. Head, vision, and cardiovascular system are the structural watch areas (Tai Yang's organ associations). <strong>No constitutional compromise from natal signals</strong> — this is not a Ji-loaded health palace — but the star's organ-system associations remain the relevant preventive focus. Storage-palace 50% weighting slows external activations into this palace.</div>
+        <div class="palace-stars"><em>Tai Yang</em></div>
+        <div class="palace-meaning">The Sun star sits in your Health domain — meaning your constitution responds to over-extension in public-facing or high-visibility roles. The associated organ-system areas are vision (eyes), the heart, and stress patterns from public exposure. <strong>Importantly: there is no permanent friction signal on your Health position</strong> — meaning your underlying constitution is NOT structurally compromised. (This is a good thing — many people have permanent health-friction signals; you do not.) The advice is preventive, not corrective: watch vision and cardiovascular wear from over-exposure in demanding roles. <strong>Read this as: a structurally healthy domain — but the past decade did add slow-build pressure on it, so recovery and preventive care matter.</strong></div>
       </div>
     </div>
   </div>
@@ -1046,14 +1081,14 @@
 <!-- ─────────────────────────────────────────────── -->
 <section id="current-decade">
   <div class="section-eyebrow">Section 02 · Your current decade</div>
-  <h2 class="section-h2">2020–2029: the <em>network-authority and intellectual-partnership</em> decade.</h2>
-  <p class="section-intro">You are in your fifth decade (D5), ages 43–52. The decade Life palace sits at P9 Career branch 未 (Goat, Storage). The decade stem is <strong>乙 (Yi, Yin Wood)</strong> — derived from year stem 丙 via Five Tigers (丙/辛 row maps 未 → 乙). 乙 connects specifically to quiet recognition through Tian Ji intelligence, aligning directly with your natal Tian Ji Quan in P4. The four decade flights distribute notably: they activate the SAME palaces where your natal Lu and natal Quan already sit — P4 and P8 — creating compound effects on the chart's primary activation zones.</p>
+  <h2 class="section-h2">2020–2029: the decade of <em>senior advisory positioning</em>.</h2>
+  <p class="section-intro">You are 43–52 during this decade, and its energetic home is your Career position. This is structurally a decade for positioning yourself as the senior voice in your field — not the executor anymore, not the disruptor, but the trusted authority others come to for judgement. What makes this decade unusual is that all four of its energetic signals land on positions where your permanent signals already sit. Instead of opening new domains, this decade amplifies the channels that were already your strongest — making your intelligence-and-network engine the clear monetisation channel for ten years.</p>
 
   <div class="decade-card">
     <div class="decade-card-head">
       <div class="decade-card-name">
-        <small>Decade D5 · 2020–2029 · ages 43–52</small>
-        Palace 9 Career · Tian Xiang · stem 乙 Yi
+        <small>Current Decade · 2020–2029 · ages 43–52</small>
+        Career-governed decade
       </div>
       <div class="decade-card-pill">Active</div>
     </div>
@@ -1061,31 +1096,31 @@
     <div class="decade-flights">
       <div class="flight-cell">
         <div class="flight-symbol">禄</div>
-        <div class="flight-route">Lu → Tian Ji → <strong>P4 Children</strong> · 子 Cardinal 100%</div>
-        <div class="flight-note">Decade Lu lands on Tian Ji in P4, where <strong>natal Quan</strong> on the same star already runs permanently. Result: a Lu-Quan compound on Tian Ji — smooth flow PLUS authority on the strategic intelligence star. Per the formation rule, Lu+Quan on the same star is the best wealth combination: money plus the power to manage it. For the full decade, your analytical and advisory output carries unprecedented compound weight. This is the structural foundation for advisory-led recognition across 2020–2029.</div>
+        <div class="flight-route">Smooth flow → <strong>your Strategic Intelligence</strong></div>
+        <div class="flight-note">The decade's smooth-flow signal lands on the same star that already carries your permanent authority — meaning for ten years, your strategic intelligence flows easily AND commands authority simultaneously. This compound (smooth flow PLUS authority on the same channel) is the best money combination in the system: money flows AND you have the power to manage it. <strong>This is why advisory and analytical work is your decade's primary income channel.</strong></div>
       </div>
       <div class="flight-cell">
         <div class="flight-symbol">权</div>
-        <div class="flight-route">Quan → Tian Liang → <strong>P8 Friends</strong> · 申 Horse 200%</div>
-        <div class="flight-note">Decade Quan lands on Tian Liang in P8, where <strong>natal Lu</strong> on Tian Tong already sits in the same palace at Horse 200%. Tian Liang receiving Quan means elder-wisdom and professional experience now command formal authority — your network does not just like you (natal Lu Tian Tong), it now respects and defers to you (decade Quan Tian Liang). <strong>The decade of becoming the senior voice in professional communities.</strong> Per the rule: Tian Liang with Quan = "sell your personal experience." This runs 2020–2029 — professional networking with a mentorship or senior-advisory character is the decade's most structurally supported external activity.</div>
+        <div class="flight-route">Authority → <strong>your Elder-Credibility / Network</strong></div>
+        <div class="flight-note">The decade's authority signal lands in your Network position, on the elder-wisdom star — the same position where your permanent warmth signal already runs at double strength. Result: for ten years, your professional network does not just like you, it now respects and defers to you as the senior voice. <strong>This is the decade of becoming the trusted experienced authority in your professional community.</strong> Mentor positioning, senior advisory roles, long-tenure client relationships are the most structurally supported activities.</div>
       </div>
       <div class="flight-cell">
         <div class="flight-symbol">科</div>
-        <div class="flight-route">Ke → Zi Wei → <strong>P3 Spouse</strong> · 丑 Storage 50%</div>
-        <div class="flight-note">Decade Ke lands on Zi Wei in the Spouse palace. <strong>Recognition involving the partnership domain</strong>: a partnership achieves public status, a relationship becomes formally acknowledged, or a significant personal alliance gains social legitimacy. The Storage palace slows the cycle — events accumulate rather than erupt. This does not guarantee harmony (Zi Wei with Po Jun and Di Kong in P3 still describes the palace's structural demands) but the decade adds a Ke overlay that makes the partnership domain socially legible and formally acknowledged during 2020–2029.</div>
+        <div class="flight-route">Recognition → <strong>your Partnership domain</strong></div>
+        <div class="flight-note">The decade's recognition signal lands on the Emperor star in your intimate-partnership position. <strong>This means a partnership formed or consolidated during this decade gains formal social recognition</strong> — it becomes publicly acknowledged, status-conferring, legitimate in the world's eyes. Partnerships built during 2020–2029 carry this overlay. Note: this does NOT guarantee harmony — the partnership domain's underlying difficulty remains — but it adds a layer of public legitimacy to any commitment made in this period.</div>
       </div>
       <div class="flight-cell">
         <div class="flight-symbol">忌</div>
-        <div class="flight-route">Ji → Tai Yin → <strong>P12 Parents</strong> · 辰 Storage 50%</div>
-        <div class="flight-note">Decade Ji on Tai Yin in P12 means the family-of-origin domain, heritage, or parental relationships carry a blocked or strained quality throughout 2020–2029. Storage 50% slows and absorbs the effect — it is sustained background pressure, not crisis. Parents-related matters, inheritance questions, or the emotional weight of family-of-origin patterns require continuous conscious management across the full decade. Not catastrophic — but persistent.</div>
+        <div class="flight-route">Friction → <strong>your Family Origin / Parents</strong></div>
+        <div class="flight-note">The decade's friction signal lands on the family-origin domain. <strong>This means parents, heritage, family-origin matters carry a sustained low-grade pressure for all ten years.</strong> Not crisis — this is slow-grinding, background, persistent rather than acute. Inheritance questions, parental relationships, or the emotional weight of family origin patterns require continuous quiet management across the decade. Manage as long-term work, not emergency.</div>
       </div>
     </div>
 
     <div class="decade-takeaways">
-      <p><strong>The 4-8 axis runs the decade.</strong> Both Lu and Quan from the decade land on palaces where your natal Quan and natal Lu already sit (P4 and P8 respectively). This is unusually concentrated activation: instead of the decade firing new domains, it amplifies the chart's already-strongest channels. P4 (intellectual authority) becomes a Lu-Quan compound = the decade's wealth/recognition engine. P8 (network) carries natal Lu + decade Quan simultaneously = the decade's relationship and visibility engine.</p>
-      <p><strong>D5 vs the prior D4 (2010–2019, stem 甲, P10).</strong> D4 sent Lu→Lian Zhen→P11 (temporarily smoothing the permanent inner Ji), Quan→Po Jun→P3 (demolish-and-rebuild authority in partnership), Ke→Wu Qu→P7 (international financial recognition), Ji→Tai Yang→P6 (health visibility pressure). D4 was a decade of high external movement, partnership restructuring, and internationally recognised financial competence. D5 by contrast is more inward and institutional — concentrating on the 4-8 axis (intellectual output + network authority), with the Spouse-Ke overlay adding social legitimacy to partnership.</p>
-      <p><strong>D5 optimal strategy.</strong> Position as a senior analytical authority within established institutional networks. Let the decade-Lu-on-Tian-Ji channel produce intellectual output organically — papers, frameworks, advisory engagements. Let the decade-Quan-on-Tian-Liang signal do the visibility work — be the trusted senior voice in your professional community. Aggressive self-promotion is not the mechanism. Structured expert positioning within trusted professional communities IS the mechanism.</p>
-      <p><strong>What to manage.</strong> The decade-Ji on Tai Yin in P12 grinds quietly across all 10 years on the parents/heritage domain. The 2026-specific double Ji on Lian Zhen P11 (annual stem 丙 matches natal stem 丙) makes the inner-friction peak event of D5 occur in 2026. Manage these as inner work, not as outer crisis — Storage palace and Mental palace are domains where conscious attention dissolves what suppression would amplify.</p>
+      <p><strong>What makes this decade unusual.</strong> Both the smooth-flow and the authority signals of the decade land on positions where your permanent positive signals already sit. So instead of activating new life areas, the decade amplifies the channels that were already strongest — your intelligence and your network. Translation: your career engine in 2020–2029 IS your intelligence + your network, working together at compound strength.</p>
+      <p><strong>How this decade is different from the last one.</strong> Your previous decade (2010–2019, see Section 06 for the full retrospective) was the international-money decade — high-stakes external execution drove income. This current decade is more inward and institutional — income comes from analytical authority deployed inside trusted professional networks. The mechanism shifted at the decade boundary. If your income volume changed in 2020, the channel changed, not your effort.</p>
+      <p><strong>Best strategy for this decade.</strong> Position yourself as a senior analytical authority inside established institutional or professional networks. Let your intelligence produce documented output — papers, frameworks, advisory engagements. Let your network distribute that output and confer the senior-voice positioning. Aggressive self-promotion is NOT the mechanism. Structured expert positioning within trusted communities IS the mechanism.</p>
+      <p><strong>What to actively manage.</strong> Two friction signals run across the decade: the slow background pressure on family origin (Section 06 explains how this works), and the 2026-specific peak inner friction (Section 03 covers this). Both are manageable but require conscious attention. The Family Origin pressure benefits from continuous quiet work — don't avoid the parents/heritage domain, engage with it deliberately. The 2026 inner-pressure year benefits from structured decompression — build it into your calendar before the year starts.</p>
     </div>
   </div>
 </section>
@@ -1095,65 +1130,65 @@
 <!-- ─────────────────────────────────────────────── -->
 <section id="year-and-forward">
   <div class="section-eyebrow">Section 03 · 2026 annual layer</div>
-  <h2 class="section-h2">2026 (丙午): every natal channel <em>doubled</em> — peak amplification year.</h2>
-  <p class="section-intro">2026 annual stem 丙 = natal year stem 丙. All four natal enhancers fire a second time at the annual level: Lu→Tian Tong→P8, Quan→Tian Ji→P4, Ke→Wen Chang→P4, Ji→Lian Zhen→P11. Combined with the ongoing D5 decade flights (Lu→Tian Ji→P4, Quan→Tian Liang→P8, Ke→Zi Wei→P3, Ji→Tai Yin→P12), 2026 produces unprecedented stacking on the chart's already-strongest palaces. Annual branch 午 directly hits P10 Property — the year's structural property-domain activation event.</p>
+  <h2 class="section-h2">2026: your <em>biggest amplification year</em> of the decade — and your hardest inner year.</h2>
+  <p class="section-intro">2026 carries a special signal: the energy of the year exactly matches your birth-year energy. This means all four of your permanent signals — three positive, one friction — fire a second time at the annual level, doubling every channel for one year. Combined with the current decade&apos;s running signals, 2026 stacks unprecedented intensity onto the parts of your chart that are already strongest. The trade-off: the friction signal also doubles, so 2026 is structurally your peak inner-pressure year of the decade. Plan accordingly — the year is huge for output and visibility, and demanding internally.</p>
 
   <div class="annual-grid">
     <div class="annual-cell">
-      <div class="annual-mech">QUADRUPLE stack · Intellectual authority palace</div>
-      <div class="annual-headline">P4 Children — <em>natal Quan + annual Quan + natal Ke + annual Ke + decade Lu</em></div>
-      <p>Tian Ji in P4 carries natal Quan + annual Quan + decade Lu = triple activation. Wen Chang in same palace P4 carries natal Ke + annual Ke = double activation. <strong>P4 is the year's most amplified palace in the entire chart, by a wide margin.</strong> Per the rule "Same star, different sources — triple = extreme": the chart structurally demands intellectual and strategic output be put into the world in 2026. Advisory engagements, analytical projects, intellectual publishing initiatives, research-based deliverables launched in 2026 carry maximum structural support. This is not a year to sit on ideas.</p>
+      <div class="annual-mech">Your standout domain — Intelligence &amp; Strategic Output</div>
+      <div class="annual-headline">2026 is your <em>peak intellectual visibility year</em>.</div>
+      <p>Your intelligence domain receives an unprecedented stack in 2026: permanent authority + annual authority + decade smooth-flow on your strategist star, AND permanent recognition + annual recognition on your writing star. That is five signals stacked on one chart position. <strong>2026 is structurally the year your chart most demands intellectual and strategic output be put into the world.</strong> Advisory engagements, analytical projects, publishing initiatives, research-based deliverables, formal credentials — anything that translates your thinking into documented form — carries maximum structural support. <strong>This is not a year to sit on ideas. Publish, present, formalise.</strong></p>
     </div>
     <div class="annual-cell">
-      <div class="annual-mech">TRIPLE stack · Network authority palace</div>
-      <div class="annual-headline">P8 Friends — <em>natal Lu + annual Lu (×2 on Tian Tong) + decade Quan on Tian Liang</em></div>
-      <p>Tian Tong in P8 carries natal Lu + annual Lu = double Lu at Horse-palace 200% branch weighting = effective 400% network-warmth signal. Tian Liang in same palace P8 carries D5 decade Quan = decade authority on the elder-wisdom star. <strong>2026 is structurally the year when professional relationships are most frictionless, most productive, and most likely to generate unsolicited opportunities.</strong> Introductions, collaborations, referrals, institutional access all come more easily in 2026 than in any other year of D5.</p>
+      <div class="annual-mech">Your second-strongest domain — Network &amp; Senior Relationships</div>
+      <div class="annual-headline">2026 is your <em>peak professional-networking year</em>.</div>
+      <p>Your network position runs at triple stack: permanent warmth signal + annual warmth signal on one star (effectively quadruple strength because the position itself is already double-strength), plus the current decade&apos;s authority signal on the elder-wisdom star next to it. <strong>2026 is structurally the year when professional relationships are most frictionless, most productive, and most likely to generate unsolicited opportunities.</strong> Introductions, collaborations, referrals, institutional access — all of these come more easily in 2026 than in any other year of the decade. <strong>Lean into the network heavily this year — it is the channel doing the most work for you.</strong></p>
     </div>
     <div class="annual-cell">
-      <div class="annual-mech">DOUBLE Ji · Peak inner friction</div>
-      <div class="annual-headline">P11 Mental — <em>natal Ji + annual Ji on Lian Zhen, Horse 200%</em></div>
-      <p>Annual stem 丙 also sends Ji→Lian Zhen→P11, doubling the natal Ji already permanent at Horse 200%. The Lian Zhen Ji at 200% natal baseline becomes effective 400% in 2026 (double Ji, Horse amplification). The character is system-related and value-related: tension between rules/structures and inner desire, amplified frustration with institutional constraints, heightened need to reconcile Tan Lang's ambition with Lian Zhen's conservatism. <strong>2026 will feel psychologically more demanding than surrounding years.</strong> Not a breakdown signal — a peak-intensity inner-tension year. Build deliberate decompression channels: physical practice, contained outlets for the desire-discipline tension, time genuinely off the systems-clock.</p>
+      <div class="annual-mech">The cost — Inner Life pressure</div>
+      <div class="annual-headline">2026 is your <em>peak inner-friction year</em>.</div>
+      <p>The friction signal that runs permanently on your rules-vs-desire star doubles in 2026 because the annual energy adds friction to the same star. Translation: the chronic inner tension that you carry through life will be at its most intense level of the decade during this year. This shows up as: amplified frustration with institutional constraints, heightened tension between what you want and what your structure permits, more inner pressure than usual. <strong>This is not a breakdown signal — your chart is not breaking — it is a peak-intensity inner-tension year.</strong> Build deliberate decompression into the year before it starts: physical practice, contained outlets for the desire-discipline tension, time genuinely off the systems clock. Non-negotiable for 2026.</p>
     </div>
     <div class="annual-cell">
-      <div class="annual-mech">Branch activation · Property domain</div>
-      <div class="annual-headline">P10 Property (午) — <em>annual branch 午 directly activates</em></div>
-      <p>Annual branch 午 = P10's natal branch. Direct branch hit on the Property palace, where Ju Men (Dark Gate — hidden agendas) + Qing Yang (Sharp Blade — aggressive disputes) reside. <strong>Property and asset matters surface as a focal domain in 2026</strong>: decisions about property, potential sharp negotiations or disputes over assets, hidden complexities coming to light. The annual stem flights do not deposit anything new onto P10's stars themselves (Ji→Lian Zhen flies to P11, not P10) — the activation here is the branch hit, which means EVENTS in the property domain rather than a smooth-or-friction flow on its stars.</p>
+      <div class="annual-mech">Activated domain — Property &amp; Assets</div>
+      <div class="annual-headline">2026 brings <em>property decisions</em> to the front.</div>
+      <p>The annual signal hits your Property position directly — meaning property and asset matters surface as a focal event of the year. Possible: decisions about real estate or significant assets, sharp negotiations or disputes, hidden complexities coming to light. The Property position carries a hidden-agendas signal and a sharp-negotiations signal at baseline, so 2026 activates exactly that flavour. <strong>This is not friction on the Property domain — it is activation.</strong> Events happen here this year. Handle them with structure and care rather than avoidance.</p>
     </div>
   </div>
 
   <div class="months-block">
-    <div class="months-block-h3">2026 timing windows by lunar month</div>
-    <p style="font-size:13px; color: var(--muted); margin-bottom: 20px;">Monthly stems derived from annual stem 丙 via Five Tigers (丙/辛 row): M1(寅)=庚, M2(卯)=辛, M3(辰)=壬, M4(巳)=癸, M5(午)=甲, M6(未)=乙, M7(申)=丙, M8(酉)=丁, M9(戌)=戊, M10(亥)=己, M11(子)=庚, M12(丑)=辛. Significant months below.</p>
+    <div class="months-block-h3">2026 month-by-month — when to act, when to pause</div>
+    <p style="font-size:13px; color: var(--muted); margin-bottom: 20px;">Each lunar month carries its own energy on top of the annual layer. Below are the six structurally most significant months of 2026 — when channels open, when they peak, and when to slow down.</p>
 
     <div class="month-row">
-      <div class="month-when">Month 3 · stem 壬 (approx Apr 2026)</div>
-      <div class="month-what">壬 fires Lu→Tian Tong (P8), Quan→Zi Wei (P3), Ke→Zuo Fu (P1), Ji→Wu Qu (P7). Lu→Tian Tong P8 = third Lu layer on P8 in this month (combining with natal and annual). <strong>Single strongest network-flow month of 2026 — optimal for outreach, introductions, collaborative engagement.</strong></div>
-      <div class="month-quality quality-peak">Network triple-Lu peak</div>
+      <div class="month-when">Month 3 (approx April 2026)</div>
+      <div class="month-what">Your network channel reaches a triple-flow peak this month. <strong>Best single month for outreach, introductions, collaborative engagement, network-driven business development.</strong> If you have major relationship-driven moves to make, schedule them here.</div>
+      <div class="month-quality quality-peak">Network peak</div>
     </div>
     <div class="month-row">
-      <div class="month-when">Month 4 · stem 癸 (approx May 2026)</div>
-      <div class="month-what">癸 fires Lu→Po Jun (P3), Quan→Ju Men (P10), Ke→Tai Yin (P12), Ji→Tan Lang (P11). Quan→Ju Men→P10 adds authority on the property-domain branch-activated palace. Ji→Tan Lang→P11 stacks against the year's already-doubled Lian Zhen Ji in the same palace. <strong>Active month for property — Property decisions carry monthly Quan support. Inner-life pressure intensifies — Tan Lang Ji compounds the P11 friction.</strong></div>
-      <div class="month-quality quality-mid">Property active · Mental load up</div>
+      <div class="month-when">Month 4 (approx May 2026)</div>
+      <div class="month-what">Property domain gets monthly authority support — combined with the year&apos;s branch activation on Property, this is a strong window for high-stakes property decisions. The inner-life pressure also intensifies this month — manage decompression carefully.</div>
+      <div class="month-quality quality-mid">Property active · Inner pressure up</div>
     </div>
     <div class="month-row">
-      <div class="month-when">Month 5 · stem 甲 (approx Jun 2026)</div>
-      <div class="month-what">甲 fires Lu→Lian Zhen (P11), Quan→Po Jun (P3), Ke→Wu Qu (P7), Ji→Tai Yang (P6). Lu→Lian Zhen P11 provides one month of temporary RELIEF from the year's Ji-dominated Mental pressure — a welcome smooth-flow window for the inner life. Ji→Tai Yang→P6 = mind health attention advisable. <strong>Best month of 2026 for inner-life clarity and creative output.</strong></div>
+      <div class="month-when">Month 5 (approx June 2026)</div>
+      <div class="month-what">The year&apos;s inner-pressure signal gets temporary relief this month — a smooth-flow energy briefly lands on the friction star. <strong>Best month of 2026 for inner-life clarity, creative output, and personal reflection.</strong> Use it. Watch general health (mild stress signal on the Sun in Health).</div>
       <div class="month-quality quality-peak">Inner-life relief window</div>
     </div>
     <div class="month-row">
-      <div class="month-when">Month 6 · stem 乙 (approx Jul 2026)</div>
-      <div class="month-what">乙 = decade stem 乙 → all four D5 decade flights DOUBLE this month. Lu→Tian Ji→P4 doubles (adding to the year's already-stacked P4). Quan→Tian Liang→P8 doubles (peak network-authority month). Ke→Zi Wei→P3 doubles. Ji→Tai Yin→P12 doubles. <strong>Peak intellectual-output and network-authority month within 2026. Best month for high-stakes advisory engagements, formal presentations, senior-positioning actions.</strong></div>
-      <div class="month-quality quality-peak">Decade-double · P4 + P8 peak</div>
+      <div class="month-when">Month 6 (approx July 2026)</div>
+      <div class="month-what">The month&apos;s energy matches the current decade&apos;s energy, so all four decade signals double during this month. Your intelligence and network domains both peak. <strong>Best month for high-stakes advisory engagements, formal presentations, senior-positioning actions, partnership decisions.</strong> If you have one big professional move to make, this is the structural window.</div>
+      <div class="month-quality quality-peak">Decade-double · big move month</div>
     </div>
     <div class="month-row">
-      <div class="month-when">Month 7 · stem 丙 (approx Aug 2026)</div>
-      <div class="month-what">丙 = annual stem = natal year stem. ALL natal enhancers TRIPLE in this month (natal + annual + monthly all 丙). Triple Lu on Tian Tong P8, triple Quan on Tian Ji P4, triple Ke on Wen Chang P4, triple Ji on Lian Zhen P11. <strong>Year's maximum amplification month — extraordinary external signal strength, also maximum inner friction.</strong> Structurally the most powerful AND most demanding month of 2026. Best for culminating major professional initiatives; worst for inner calm. Plan accordingly.</div>
-      <div class="month-quality quality-peak">Year's maximum · TRIPLE 丙 stack</div>
+      <div class="month-when">Month 7 (approx August 2026)</div>
+      <div class="month-what">The month&apos;s energy matches both the year&apos;s energy AND your birth energy — three layers of the same signal stacked on one month. Every permanent signal in your chart triples this month. <strong>Maximum external signal strength of the year — and maximum inner friction too.</strong> Best for culminating major professional initiatives. Worst for inner calm. Plan high-stakes output for this month, plan extra recovery around it.</div>
+      <div class="month-quality quality-peak">Year&apos;s maximum amplification</div>
     </div>
     <div class="month-row">
-      <div class="month-when">Month 11 · stem 庚 (approx Dec 2026)</div>
-      <div class="month-what">庚 fires Lu→Tai Yang (P6), Quan→Wu Qu (P7), Ke→Tian Tong (P8), Ji→Tian Tong (P8 — also fires Ji). Note conflict: 庚 sends BOTH Ke and Ji to Tian Tong simultaneously (table verified). Ke and Ji on the same star = mixed signal on P8 this month. Quan→Wu Qu→P7 = international-financial channel activates. <strong>Second outer-world activation window — P7 (international/Wu Qu) gets monthly Quan.</strong> Year-end consolidation through external channels works; complex network signal needs care.</div>
-      <div class="month-quality quality-mid">P7 outer-world Quan · P8 mixed</div>
+      <div class="month-when">Month 11 (approx December 2026)</div>
+      <div class="month-what">Your international / outer-world money channel activates this month — a second outer-world window after the main year ones. The network channel gets a mixed signal this month though (both recognition and friction on the same star) — so use the month for outer-world or international-financial moves rather than complex network-driven actions.</div>
+      <div class="month-quality quality-mid">International channel opens</div>
     </div>
   </div>
 </section>
@@ -1163,61 +1198,63 @@
 <!-- ─────────────────────────────────────────────── -->
 <section id="decision-support">
   <div class="section-eyebrow">Section 04 · Decision support</div>
-  <h2 class="section-h2">Specific decisions, <em>derived directly</em> from your chart structure.</h2>
-  <p class="section-intro">Real decisions, mapped to your permanent structure and active timing layers.</p>
+  <h2 class="section-h2">Specific decisions, <em>derived directly from your chart</em>.</h2>
+  <p class="section-intro">Real questions a person asks at this stage of life, answered using the actual structure of your chart — not generic advice. Each answer ties back to specific signals identified in Section 01.</p>
 
   <div class="qa-grid">
 
     <div class="qa-card">
       <div class="qa-q">
         <div class="qa-q-label">Your question</div>
-        <div class="qa-q-text">What is my optimal career strategy for the D5 decade (2020–2029)?</div>
+        <div class="qa-q-text">What is my optimal career strategy for the next ten years?</div>
       </div>
       <div class="qa-a">
-        <div class="qa-a-label">SuccessCode output</div>
-        <p><strong>Senior analytical authority within established institutional networks.</strong> The decade sends Lu to Tian Ji in P4 (smooth flow on intellectual capacity, compounding with natal Quan = Lu-Quan combo, the best wealth combination) and Quan to Tian Liang in P8 (network authority on the elder-wisdom star, where natal Lu already sits). P9 Career holds Tian Xiang — a star that receives no enhancers and describes the Minister's supportive institutional role. Your career engine actually fires through P4 (strategic intellectual output) and P8 (network distributing it), with P9 as the institutional vessel.</p>
-        <p>The 乙 (Yi) decade stem maps to quiet recognition through Tian Ji intelligence — meaning the method is NOT aggressive self-promotion but documented, institutionally validated analytical expertise. <strong>Generate high-credibility analytical output. Circulate it through established professional networks rather than cold channels. Let decade-Quan-on-Tian-Liang create senior-advisor positioning within institutional contexts.</strong></p>
-        <p>The P9 Career palace's Tian Xiang character confirms that you thrive within established institutions rather than as a standalone independent operator. The institutional context is not a constraint — it is the structural vessel through which your intellectual authority channels and gets distributed. Best leverage: senior advisory, in-house strategy leadership, or established consulting firms — not solo entrepreneurship.</p>
+        <div class="qa-a-label">Direct answer</div>
+        <p><strong>Position yourself as a senior analytical authority inside established professional networks.</strong> Do not try to be a solo entrepreneur or an aggressive self-promoter — your chart is not built that way. Your Career star supports institutional roles, not standalone ones.</p>
+        <p>Your real career engine is your intelligence + your network working together. The current decade specifically amplifies both: your strategic thinking flows easily and carries authority, and your professional network adds the senior-voice positioning on top. The mechanism is: <strong>generate high-quality analytical output → document it → let your existing professional network distribute it and confer the senior positioning.</strong> Cold outreach does NOT work for your structure. Trusted network relationships DO.</p>
+        <p>For 2026 specifically: prioritise publishing, formal presentations, and senior advisory engagements. Months 6 and 7 of 2026 are the structural peak windows for big professional moves.</p>
       </div>
     </div>
 
     <div class="qa-card">
       <div class="qa-q">
         <div class="qa-q-label">Your question</div>
-        <div class="qa-q-text">What does the chart say about partnerships and collaboration?</div>
+        <div class="qa-q-text">What does my chart say about partnerships — personal and business?</div>
       </div>
       <div class="qa-a">
-        <div class="qa-a-label">SuccessCode output</div>
-        <p><strong>The Spouse palace is structurally demanding; the network palace is structurally smooth.</strong> P3 Spouse carries Zi Wei (Emperor, isolated authority, needs helpers to realise), Po Jun (Destroyer, demolish-before-renewal, rocky starts), and Di Kong (invisible emptiness). Without helper stars nearby, the Emperor energy creates a partner who appears independent and somewhat isolated from daily relational warmth; Po Jun guarantees that significant partnerships go through a demolish-and-rebuild cycle.</p>
-        <p>The decade adds Ke→Zi Wei→P3 — D5 brings formal recognition to the partnership domain. Partnerships begun or consolidated in D5 carry publicly acknowledged, status-conferring quality. This applies to business partnerships as well as personal ones. <strong>Per the chart rule: don't formalise too fast — live together first.</strong> The same logic transfers to significant business collaborations: build a testing period before formalising. Initial friction acknowledged and worked through is far more sustainable than friction avoided or denied.</p>
-        <p>P8 (Tian Tong Lu + Tian Liang at Horse 200%, plus decade Quan) is the structurally smooth alternative. <strong>For collaboration in D5: prefer advisory, consultative, or referral-based relationships over full equity co-ventures.</strong> These structures use the strong P8 channel rather than testing the demanding P3 channel. P8 collaborations compound; P3 collaborations require dedicated cycle management.</p>
+        <div class="qa-a-label">Direct answer</div>
+        <p><strong>Your intimate-partnership domain is structurally demanding, not frictionless. Your network domain is structurally smooth.</strong> These are very different channels — treat them differently.</p>
+        <p>Intimate partnerships in your chart carry the Emperor and the Demolisher together: relationships start rocky, restructure, and stabilise only after a rebuild phase. The rule: <strong>do not formalise too fast. Live together first. Build a testing period into significant business partnerships too.</strong> The current decade adds public recognition to partnerships — meaning anything you formalise during 2020–2029 gains social legitimacy — but it does not make the partnership itself easier. The structural difficulty remains.</p>
+        <p>For business: <strong>prefer advisory, consultative, or referral-based relationships over full equity co-ventures.</strong> Advisory relationships use your strong network channel. Equity co-ventures use your demanding partnership channel. The first compounds; the second requires cycle management. If you must form an equity partnership, build in a long testing period before formalising.</p>
       </div>
     </div>
 
     <div class="qa-card">
       <div class="qa-q">
         <div class="qa-q-label">Your question</div>
-        <div class="qa-q-text">What is my structural relationship with money and wealth generation?</div>
+        <div class="qa-q-text">How does money actually work in my chart? Where does income come from?</div>
       </div>
       <div class="qa-a">
-        <div class="qa-a-label">SuccessCode output</div>
-        <p><strong>Wealth reads through P11 mirror, with P7 as the outer-world ceiling channel.</strong> P5 is empty of main stars — per the palace-reading rule, read it via opposite P11 (Tan Lang: ambitious, multi-stream, passion-driven earnings; Lian Zhen Ji: chronic system-friction on the wealth channel). You Bi (Right Helper) and Tian Kui (Yang Noble) in P5 mean wealth consistently arrives with institutional assistance and visible mentor support.</p>
-        <p>P7 Travel holds Wu Qu (direct money star, strict, demanding) + Qi Sha (decisive, high-stakes warrior) — the chart's most financially aggressive star pairing. The outer-world palace carries the financial ceiling. <strong>Domestic and institutionally cautious contexts cap the upside; international and external-market engagement breaks it open.</strong> The natal Lu on Tian Tong in P8 (Horse 200%) means the network is a consistent income-generation channel — referrals, introductions, peer-sourced opportunities all compound earnings.</p>
-        <p>The permanent Ji on Lian Zhen in P11 produces a chronic inner experience that money is harder than it should be — that systems do not reward you fairly even when objective earnings are strong. This is inner perception, not outer fact. Lu Cun in P1 (Life palace) AND P11 (Mental palace) provides a permanent quiet accumulation signal — the financial floor is structurally guaranteed. In D5, decade-Lu compounds with natal-Quan on Tian Ji P4 = the wealth/recognition engine of the decade.</p>
+        <div class="qa-a-label">Direct answer</div>
+        <p>Three things to know about your money channel:</p>
+        <p><strong>1. You have a permanent financial floor.</strong> A wealth-keeper signal sits in your core position for life. You will not face destitution. Your stable institutional income is structurally guaranteed.</p>
+        <p><strong>2. Your highest financial ceiling is international / high-stakes external work.</strong> The direct money star and the warrior star sit together in your outer-world position. The further from home, the higher your earning ceiling. Domestic-only work pays you reliably but caps the upside. International deals, foreign markets, cross-border financial execution — this is where you break ceilings. (But protect international ventures with structure — there is a sudden-loss signal there too.)</p>
+        <p><strong>3. In the current decade, your money comes from advisory authority, not external execution.</strong> The previous decade (2010–2019) monetised through international financial work directly. The current decade (2020–2029) monetises through analytical / advisory positioning inside professional networks. The channel shifted at the decade boundary. If your income volume is different now than it was in your peak years (2014, 2019) — the channel changed, not your effort. Section 06 covers this in detail.</p>
+        <p>One inner-experience note: a permanent friction signal makes you feel money is harder than it should be — even when objective earnings are strong. This is psychological perception, not structural reality. Lu Cun (the wealth keeper) is always running quietly beneath the friction.</p>
       </div>
     </div>
 
     <div class="qa-card">
       <div class="qa-q">
         <div class="qa-q-label">Your question</div>
-        <div class="qa-q-text">When are the highest-activation career and income windows ahead?</div>
+        <div class="qa-q-text">When are the biggest career and income windows coming up?</div>
       </div>
       <div class="qa-a">
-        <div class="qa-a-label">SuccessCode output</div>
-        <p><strong>2026 (丙午)</strong> — annual stem 丙 = natal year stem = quadruple stack on P4 (intellectual authority) + triple stack on P8 (network authority) + double Ji P11 (peak inner friction). Branch 午 activates P10 Property. The year to publish, present, formalise high-stakes advisory engagements, and address property-domain decisions. Manage inner friction deliberately.</p>
-        <p><strong>2029 (己酉)</strong> — Lu→Wu Qu→P7 (international financial channel opens with smooth flow), Ke→Tian Liang→P8 (third Tian Liang activation, with decade Quan and natal Lu in same palace = peak elder-wisdom recognition), Quan→Tan Lang→P11 (ambitions carry unusual executive force). Branch 酉 directly activates P7 Travel — combined with Lu→Wu Qu→P7, this is a direct financial/international event year. The decade's second peak activation year for international and external-market engagements.</p>
-        <p><strong>2030 (庚戌) — D6 begins.</strong> Decade Life palace moves to P8 Friends (申), decade stem becomes 丙 — matching your natal year stem exactly. <strong>Decade flights become IDENTICAL to natal flights, running for ten years.</strong> D6 (2030–2039) is structurally your golden decade — every natal channel runs doubled across the entire decade. Plan D6 positioning during D5's closing years.</p>
-        <p><strong>2033 (丙辰)</strong> — annual stem 丙 again, INSIDE the 丙-decade D6. Natal 丙 + D6 decade 丙 + annual 丙 = TRIPLE 丙 effect, all natal flights tripled simultaneously. This is the chart's single highest-activation year across all visible forward horizon. Track 2033 as the structural peak year.</p>
+        <div class="qa-a-label">Direct answer</div>
+        <p><strong>2026 — your peak intellectual visibility year.</strong> Quadruple stack on your intelligence domain (Section 03 covers this). Best year to publish, present, formalise, and position yourself as the senior expert. Network channel also at decade peak. Inner pressure also at peak — build decompression in.</p>
+        <p><strong>2029 — your peak international money year.</strong> Direct money star gets smooth-flow energy, Travel position gets direct activation. This is the year to engage international or external-market work for maximum financial return. Best year of the current decade for cross-border financial moves.</p>
+        <p><strong>2030 — start of your strongest decade.</strong> The new decade begins, and its energy matches your birth energy exactly. This means every permanent signal in your chart runs DOUBLED at the decade level for ten straight years (2030–2039). The current decade is good. The next one is structurally the best decade of your visible future.</p>
+        <p><strong>2033 — your single biggest year ahead.</strong> Triple-layer match (birth + decade + year all carrying the same energy). Every permanent signal triples. This is structurally the single highest-activation year across your entire forward horizon. Plan major life initiatives — career, intellectual products, network consolidation — to converge on this year.</p>
       </div>
     </div>
 
@@ -1229,92 +1266,221 @@
 <!-- ─────────────────────────────────────────────── -->
 <section id="forward-calendar">
   <div class="section-eyebrow">Section 05 · Forward calendar</div>
-  <h2 class="section-h2">The next eight years, <em>mapped</em>.</h2>
-  <p class="section-intro">D5 decade runs 2020–2029 (ages 43–52, stem 乙, decade Life at P9). D6 begins 2030 at P8 Friends (branch 申, stem 丙 — matches natal year stem). Below: structurally significant years within the current arc and the D6 transition.</p>
+  <h2 class="section-h2">The <em>next eight years</em>, mapped.</h2>
+  <p class="section-intro">The current decade runs until end of 2029. Then your strongest decade ahead begins. Below: structurally significant years one by one — what each year activates, what it is good or hard for, and how it stacks against the decade running underneath.</p>
 
   <div class="calendar-grid">
 
     <div class="calendar-cell">
       <div class="calendar-year">2026</div>
-      <div class="calendar-stem">丙午 Bing Wu</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Peak career visibility year — publish, present, formalise</div>
-      <p>Annual stem 丙 = natal year stem → ALL natal flights doubled. Quadruple stack on P4 (natal Quan + annual Quan + natal Ke + annual Ke + decade Lu, all on Tian Ji and Wen Chang). Triple stack on P8 (natal Lu + annual Lu on Tian Tong + decade Quan on Tian Liang). Double Ji on Lian Zhen P11 = peak inner friction. <strong>Branch 午 directly activates P10 Property.</strong> Year to publish intellectual output, formalise high-stakes advisory engagements, and address property decisions.</p>
+      <div class="calendar-stem">age 49 · the amplification year</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Peak career visibility — publish, present, formalise</div>
+      <p>Your biggest amplification year of the decade. Every permanent signal in your chart fires twice this year — three positive doubled (intelligence, network, recognition) and the friction signal doubled (inner pressure). <strong>2026 is structurally the year your chart most demands intellectual output be put into the world.</strong> Property domain also gets direct activation — decisions and possible disputes around assets surface. <strong>Inner life under maximum pressure</strong> — build decompression in. See Section 03 for the full month-by-month playbook.</p>
     </div>
 
     <div class="calendar-cell">
       <div class="calendar-year">2027</div>
-      <div class="calendar-stem">丁未 Ding Wei</div>
+      <div class="calendar-stem">age 50 · the career-domain year</div>
       <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Career-domain year — but bad year for property moves</div>
-      <p>Stem 丁 fires Lu→Tai Yin (P12), Quan→Tian Tong (P8 — adds Quan to the already Lu-stacked P8 network), Ke→Tian Ji (P4 — third Ke layer on P4 with natal/annual), Ji→Ju Men (P10 — Ji on the property palace's main star). Branch 未 = P9 Career (decade Life palace) — direct branch activation of P9. <strong>Network maintains Quan signal. Property in friction year (Ji on Ju Men): not the year for major property transactions.</strong> Parents domain smooths (Lu→Tai Yin on P12).</p>
+      <p>Career position gets direct activation this year — career-domain events surface. Your network keeps its authority signal. Your intelligence channel gets a third recognition layer added. <strong>Bad year for property transactions</strong> — friction signal lands on the Property star, making it the wrong window for major real-estate moves. Family-origin domain smooths slightly this year (some relief on the parents background pressure).</p>
     </div>
 
     <div class="calendar-cell">
       <div class="calendar-year">2028</div>
-      <div class="calendar-stem">戊申 Wu Shen</div>
+      <div class="calendar-stem">age 51 · the critical-reception year</div>
       <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Critical year for your ideas — focus on network instead</div>
-      <p>Stem 戊 fires Lu→Tan Lang (P11), Quan→Tai Yin (P12), Ke→You Bi (P5), Ji→Tian Ji (P4 — direct Ji on the chart's intellectual-authority star). Branch 申 = P8 Friends (Horse 200%) — direct branch hit on the network palace. <strong>Ji on Tian Ji P4 introduces a correction/friction in the intellectual-advisory domain after 2026's peak.</strong> Expect more critical reception of ideas, or internal intellectual doubt. P8 branch activation keeps network channel live. Not a year to launch major intellectual products — better for relationship consolidation.</p>
+      <p>First real friction year for your intellectual-authority channel since 2011. <strong>Expect more critical reception of ideas, internal doubt, or pushback on advisory output.</strong> Network channel gets direct activation though, keeping that lever alive. <strong>Not the year to launch major intellectual products</strong> — better year for relationship consolidation, network maintenance, and quieter institutional positioning. Plan launches before 2028 or wait until 2029.</p>
     </div>
 
     <div class="calendar-cell">
       <div class="calendar-year">2029</div>
-      <div class="calendar-stem">己酉 Ji You</div>
+      <div class="calendar-stem">age 52 · the international money year</div>
       <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Big international money year</div>
-      <p>Stem 己 fires Lu→Wu Qu (P7 — smooth flow on direct money star in Travel), Quan→Tan Lang (P11 — authority on desire/ambition), Ke→Tian Liang (P8 — third activation layer on the elder-wisdom star), Ji→Wen Qu (P2). Branch 酉 = P7 Travel — direct branch hit. <strong>Lu on Wu Qu + branch on P7 in same year = direct international/financial event.</strong> Decade's second peak year (after 2026): primary channel is international/external financial. Career network simultaneously peaks with triple Tian Liang stack.</p>
+      <p>Your peak international / external-financial year of the decade. The direct money star gets smooth-flow energy AND the outer-world position gets direct activation in the same year — meaning the international financial channel fires at maximum compound. Your network also peaks (third layer added to the elder-wisdom star). <strong>Best year of the decade for cross-border deals, foreign-market work, and high-stakes external financial moves.</strong></p>
     </div>
 
     <div class="calendar-cell">
       <div class="calendar-year">2030</div>
-      <div class="calendar-stem">庚戌 Geng Xu</div>
+      <div class="calendar-stem">age 53 · the golden decade begins</div>
       <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">New decade begins — your strongest decade ahead</div>
-      <p><strong>D6 begins. Decade Life palace moves to P8 Friends (申). Decade stem 丙 = your natal year stem.</strong> Decade flights become IDENTICAL to natal flights: decade Lu→Tian Tong→P8, decade Quan→Tian Ji→P4, decade Ke→Wen Chang→P4, decade Ji→Lian Zhen→P11. All four natal channels run doubled at decade level for the entire 2030–2039 arc. Stem 庚 also fires this year (Lu→Tai Yang→P6, Quan→Wu Qu→P7, Ke→Tian Tong→P8, Ji→Tian Tong→P8). Branch 戌 = P6 Health.</p>
+      <p>The new decade starts. Its energy matches your birth energy exactly — meaning every permanent signal in your chart runs DOUBLED at the decade level for ten straight years. Translation: <strong>2030–2039 is structurally your strongest decade. Every positive natal channel will run at double strength continuously.</strong> Your network position becomes the decade home — the social/professional channel governs everything. Plan now for what you want to consolidate in this decade — position yourself in the right institutions, the right networks, the right writing/research output BEFORE 2030 so the decade carries it forward.</p>
     </div>
 
     <div class="calendar-cell">
       <div class="calendar-year">2033</div>
-      <div class="calendar-stem">丙辰 Bing Chen</div>
+      <div class="calendar-stem">age 56 · the single biggest year ahead</div>
       <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">The single biggest year of your visible future</div>
-      <p>Natal 丙 + D6 decade 丙 + annual 丙 = <strong>TRIPLE 丙 effect</strong>. All four natal flights triple simultaneously. P4 Children (Tian Ji + Wen Chang) reaches its lifetime peak amplification. P8 Friends reaches its lifetime network peak. P11 Mental reaches its lifetime inner-friction peak. Branch 辰 = P12 Parents (Storage 50%). <strong>The chart's single highest-activation year across all visible forward horizon.</strong> Position major life initiatives — career, intellectual product launches, network consolidation — to converge on 2033.</p>
+      <p>The annual energy AGAIN matches your birth energy — but now inside a decade that also matches. <strong>Three layers of the same energy stacked on one year — every permanent signal in your chart TRIPLES.</strong> Your intelligence domain reaches its lifetime peak. Your network reaches its lifetime peak. Your inner-friction signal also triples — same as 2026 but more so. <strong>This is structurally the single highest-activation year across your entire visible future horizon.</strong> Position major life initiatives — career milestones, intellectual product launches, network consolidations — to converge on 2033.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ─────────────────────────────────────────────── -->
+<!-- 6. D4 RETROSPECTIVE — career & money            -->
+<!-- ─────────────────────────────────────────────── -->
+<section id="d4-retrospective">
+  <div class="section-eyebrow">Section 06 · Your last decade — what actually happened</div>
+  <h2 class="section-h2">2010–2019: the <em>international money decade</em>, mapped retrospectively.</h2>
+  <p class="section-intro">This is the most useful retrospective section in this report. Your last decade ran from age 33 to 42. Looking at it through the chart, you can verify whether what the chart says happened actually happened — which builds trust in everything else this report tells you about the future. Below: what your last decade was structurally, what each year inside it should have looked like, and what the decade left behind that you are still living with now.</p>
+
+  <div class="decade-card">
+    <div class="decade-card-head">
+      <div class="decade-card-name">
+        <small>Past Decade · 2010–2019 · ages 33–42</small>
+        Property-governed decade — the international money decade
+      </div>
+      <div class="decade-card-pill" style="background: var(--surface2); color: var(--dim);">Past</div>
+    </div>
+
+    <div class="decade-flights">
+      <div class="flight-cell">
+        <div class="flight-symbol">禄</div>
+        <div class="flight-route">Smooth flow → <strong>your Inner Life</strong></div>
+        <div class="flight-note">For all ten years, smooth-flow energy landed on the friction star in your inner life — meaning the chronic inner tension that runs through your chart was cushioned during this entire decade. <strong>You probably felt more inwardly aligned, less internally conflicted, during 2010–2019 than you do now.</strong> The buffer is gone now (the current decade does NOT carry this smoothing), which is part of why life feels more pressurised inside today than it did then.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">权</div>
+        <div class="flight-route">Authority → <strong>your Partnerships</strong></div>
+        <div class="flight-note">For all ten years, the demolish-and-rebuild star in your intimate-partnership position received decade-level authority. Translation: <strong>partnerships you formed or remade in this decade carried decisive authority and likely had real financial consequence.</strong> If you formed a major business partnership, took on a co-founder, married or significantly restructured a relationship between 2010 and 2019, the chart structurally accounts for it.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">科</div>
+        <div class="flight-route">Recognition → <strong>your International Money channel</strong></div>
+        <div class="flight-note"><strong>This is the signature flight of the entire decade.</strong> For all ten years, recognition energy ran on your direct money star, in your international / outer-world position. In plain language: international and high-stakes external financial work was structurally amplified and recognised during this whole decade. <strong>If 2010–2019 was your peak earning decade, this is the structural reason why.</strong> Cross-border deals, foreign-market engagements, expatriate financial work, high-stakes external execution — these were your decade&apos;s money channel.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">忌</div>
+        <div class="flight-route">Friction → <strong>your Health (public-exposure stress)</strong></div>
+        <div class="flight-note">The cost of the decade. Decade-level friction landed on your Health position — specifically the star associated with vision, the heart, and public-exposure stress. This was slow-grinding, not acute, but cumulative over ten years. <strong>If you experienced visual strain, cardiovascular concerns, or burnout from over-extension in public-facing roles during this decade, this is the structural reason.</strong> The body absorbed the cost of the high-output years.</div>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subsection-h3" style="margin-top: 56px;">Year by year — career and money <em>retrospectively</em></h3>
+  <p class="subsection-intro">Below: the ten years of your last decade, one card per year. Use this to verify the chart against what actually happened to you — which years were strong, which were challenging, what each one activated.</p>
+
+  <div class="calendar-grid">
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2010</div>
+      <div class="calendar-stem">age 33</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong international money year</div>
+      <p>A peak year for high-stakes international financial work. Your direct money signal got both authority and recognition stacked together — meaning you were not just earning, you were earning with command AND being formally recognised for it. Close-peer and business-partner relationships also got direct activation this year. <strong>If you formed a major business partnership or commercial alliance with a peer this year, the chart structurally accounts for it.</strong> Mild downside: your network warmth signal faced some friction this year — one of the few years where the social channel had headwinds.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2011</div>
+      <div class="calendar-stem">age 34</div>
+      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Property advanced — but written work hit resistance</div>
+      <p>A divided year. Your property domain (the home base of your decade) got smooth-flow energy — asset positioning advanced. But your formal credential channel — written work, academic recognition, formal documents — faced its first real friction year of the decade. <strong>If you experienced rejection of a publication, a credential challenge, or a setback with a written project in 2011, the chart shows it.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2012</div>
+      <div class="calendar-stem">age 35</div>
+      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Turbulent money year — but partnerships consolidated</div>
+      <p>The money channel hit turbulence — recognition kept flowing on your direct money signal, but with friction layered on top (disputes, restructuring, complications). This is the kind of year where money still moves but the path is rough. Meanwhile, in partnership: a major decision-making moment with authority consolidated in your intimate-partnership domain. <strong>If a significant partnership decision (personal or business) firmed up in 2012, this is the structural moment.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2013</div>
+      <div class="calendar-stem">age 36</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong property and partnership year</div>
+      <p>Two strong external signals: property/asset decisions got direct authority support, and the partnership restructuring authority running for the whole decade got an additional smooth-flow boost this year. <strong>Property choices and partnership consolidations made in 2013 were structurally well-positioned.</strong> The cost: this was the peak inner-pressure year of the decade — your inner life got direct activation plus annual friction.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2014</div>
+      <div class="calendar-stem">age 37</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">PEAK earnings year of the decade</div>
+      <p>Structurally the strongest year of the decade. The annual energy matched the decade energy, so every decade signal ran at double strength for one year. Most importantly: international financial recognition was at peak intensity, and your property position (the decade&apos;s home base) got direct activation. <strong>If you had a single biggest earnings year, a major financial milestone, or a peak international deal between 2010 and 2019, 2014 is structurally the year it most likely happened.</strong> If the channel was available and you did not use it — that&apos;s worth noting, because the same kind of compound stack will not reappear until your next decade.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2015</div>
+      <div class="calendar-stem">age 38</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong career year</div>
+      <p>Your intelligence channel got smooth-flow energy this year while your network channel got authority energy. Plus direct activation on the Career position. <strong>Career milestones, role expansions, or institutional positioning gained in 2015 were structurally well-supported.</strong> Income through career achievement amplified this year.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2016</div>
+      <div class="calendar-stem">age 39</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Career visibility peak — like 2026 will be, but inside life was easier</div>
+      <p>The annual energy matched your birth energy this year, so all four of your permanent natal channels doubled. Network warmth at maximum. Intellectual authority at maximum. Formal recognition at maximum. The friction signal also doubled — BUT the decade buffer cushioned it, so 2016 felt much smoother inside than 2026 will. <strong>This is structurally what your career-visibility peaks look like.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2017</div>
+      <div class="calendar-stem">age 40</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong international and career year</div>
+      <p>Your international money position got direct activation (event year in that domain), and your intelligence channel got a third recognition layer. Network kept flowing with authority. Family-origin domain smoothed slightly. Property had some friction. <strong>Net: a strong year for career and international engagement, with property issues to manage.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2018</div>
+      <div class="calendar-stem">age 41</div>
+      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Tough year for getting your ideas accepted</div>
+      <p>The first real friction year for your intelligence channel since 2011. <strong>Critical reception of ideas, internal doubt, or pushback on advisory output was structurally elevated.</strong> Income through career consulting was harder this year. Your Health position got direct activation plus the decade&apos;s running health pressure — the hardest health-domain year of the decade. <strong>Watch this pattern — 2028 will be similar.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2019</div>
+      <div class="calendar-stem">age 42</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Last and strongest money year of the decade</div>
+      <p>The decade&apos;s closing money peak. Your direct money signal got both smooth-flow AND recognition stacked together in the outer-world position — the maximum compound on this channel of the decade. Plus direct activation on the Wealth position itself, the only such activation across all of 2010–2019. <strong>If income consolidated, a major financial closure happened, or you exited a financially-significant arrangement near the end of the decade, 2019 is the structural moment.</strong></p>
     </div>
 
   </div>
 
+  <div class="decade-takeaways" style="margin-top: 40px;">
+    <p><strong>What the last decade was, in one line.</strong> The international money decade. Recognition on your direct money star for ten straight years made cross-border, high-stakes external work the amplified channel of your life during that period.</p>
+    <p><strong>The three peaks inside the decade.</strong> 2014 was the peak earnings year (every decade signal doubled). 2016 was the peak career-visibility year (every birth signal doubled). 2019 was the closing money peak (the international money channel ran at maximum compound right before the decade ended). If specific financial or career milestones you remember map to these years, the chart explains them.</p>
+    <p><strong>What this decade left behind, and what you are living with now.</strong> Two important things ended in 2020 when the current decade started:</p>
+    <p style="margin-top: 8px;"><strong>1. The inner-life buffer is gone.</strong> The smooth-flow signal on your friction star that cushioned you for ten years is no longer running. This is part of why the current decade — especially 2026 — feels more pressurised inwardly than the last decade did. The pressure was always there structurally; it was just buffered before.</p>
+    <p><strong>2. The international money channel is no longer running at decade level.</strong> To activate it now, you need specific years where the annual energy fires it. The 2029 year is the structural window for this within the current decade. Within 2026, month 11 is the closest window. Otherwise, the channel is dormant at decade level until your next decade.</p>
+    <p><strong>Why the current decade feels different.</strong> The last decade made money through high-stakes external execution. The current decade makes money through analytical authority deployed inside trusted networks. The mechanism shifted at the boundary. If your income volume is lower now than it was in 2014 or 2019 — the channel changed, not your competence. The channels stack back up properly in your next decade (2030 onward), which is structurally your strongest.</p>
+  </div>
+
   <div class="decade-ratings-wrap">
-    <div class="decade-ratings-label">D4 → D5 → D6 — how each life domain shifts decade by decade (plain language)</div>
+    <div class="decade-ratings-label">Last decade · Current decade · Next decade — life domain by life domain</div>
     <div class="decade-ratings-grid">
       <div class="decade-ratings-head">
         <div class="dr-domain-col"></div>
-        <div class="dr-dec-col dr-past">D4 · 2010–2019 (past)</div>
-        <div class="dr-dec-col dr-now">D5 · 2020–2029 (now)</div>
-        <div class="dr-dec-col">D6 · 2030–2039 (next)</div>
+        <div class="dr-dec-col dr-past">2010–2019 (past)</div>
+        <div class="dr-dec-col dr-now">2020–2029 (now)</div>
+        <div class="dr-dec-col">2030–2039 (next)</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">How money came in</div>
-        <div class="dr-dec-col dr-past">International, high-stakes external work paid the most. The "money star" got recognised abroad for ten straight years.</div>
-        <div class="dr-dec-col dr-now">Income through expertise and advisory positioning inside trusted networks. Less volume, more authority.</div>
-        <div class="dr-dec-col">Income channels stack back up. Every natal money signal runs at decade level — the strongest decade ahead.</div>
+        <div class="dr-dec-col dr-past">International, high-stakes external work paid the most. The money star got recognised abroad for ten straight years.</div>
+        <div class="dr-dec-col dr-now">Income through expertise and advisory positioning inside trusted networks. Less volume than before, more authority.</div>
+        <div class="dr-dec-col">Income channels stack back up. Every natal money signal runs at decade level — your strongest decade ahead.</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Career mood</div>
-        <div class="dr-dec-col dr-past">Restructuring and high-stakes execution. Partnerships shaped through demolish-and-rebuild.</div>
+        <div class="dr-dec-col dr-past">Restructuring and high-stakes execution. Partnerships shaped through demolish-and-rebuild cycles.</div>
         <div class="dr-dec-col dr-now">Senior positioning. You are now the person others ask for advice — not the executor.</div>
         <div class="dr-dec-col">Authority compounded. Career identity becomes the established institutional voice in your field.</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Network strength</div>
-        <div class="dr-dec-col dr-past">Already warm and well-connected (200% from birth).</div>
-        <div class="dr-dec-col dr-now">Network adds authority — peers don't just like you, they defer to you.</div>
-        <div class="dr-dec-col">Network is the decade governor itself. Network IS the career engine in D6.</div>
+        <div class="dr-dec-col dr-past">Already warm and well-connected.</div>
+        <div class="dr-dec-col dr-now">Network adds authority — peers don&apos;t just like you, they defer to you.</div>
+        <div class="dr-dec-col">Network is the decade governor itself. The network IS the career engine.</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Inner life</div>
-        <div class="dr-dec-col dr-past">Easier than usual. The chart's permanent inner-friction was cushioned by a decade smooth-flow signal for all ten years.</div>
-        <div class="dr-dec-col dr-now">Cushion is gone. Permanent inner tension is back at full intensity — 2026 is the peak inner-pressure year.</div>
-        <div class="dr-dec-col">Inner pressure stays — the natal-Ji on Lian Zhen doubles again at decade level. Manage actively.</div>
+        <div class="dr-dec-col dr-past">Easier than usual. The chart&apos;s permanent inner-friction was cushioned by a decade smooth-flow signal for all ten years.</div>
+        <div class="dr-dec-col dr-now">Cushion gone. Permanent inner tension back at full intensity — 2026 is the peak inner-pressure year.</div>
+        <div class="dr-dec-col">Inner pressure stays. The friction signal doubles again at decade level. Manage actively.</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Health</div>
-        <div class="dr-dec-col dr-past">Watch decade. Decade friction pressed slowly on vision, heart, public-exposure stress.</div>
-        <div class="dr-dec-col dr-now">No decade-level health pressure. Better health decade than D4 was.</div>
+        <div class="dr-dec-col dr-past">Watch decade. Slow pressure on vision, heart, public-exposure stress for all ten years.</div>
+        <div class="dr-dec-col dr-now">No decade-level health pressure. Better health decade than the last one.</div>
         <div class="dr-dec-col">No decade-level health pressure either. The body gets a break.</div>
       </div>
       <div class="dr-row">
@@ -1325,143 +1491,17 @@
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Property / assets</div>
-        <div class="dr-dec-col dr-past">Decade lived here — the Property palace was the decade's energetic platform.</div>
-        <div class="dr-dec-col dr-now">Quiet. Only 2026 (branch hit) and 2027 (Ji on the Property star) bring property-specific events.</div>
+        <div class="dr-dec-col dr-past">Decade lived here — Property was the decade&apos;s home base.</div>
+        <div class="dr-dec-col dr-now">Quiet. Only 2026 (activation) and 2027 (friction) bring property-specific events.</div>
         <div class="dr-dec-col">Quiet.</div>
       </div>
       <div class="dr-row">
         <div class="dr-domain-col">Family / parents / origin</div>
         <div class="dr-dec-col dr-past">No decade signal.</div>
-        <div class="dr-dec-col dr-now">Sustained background pressure on the parents/heritage domain for all ten years. Slow-grinding, not dramatic.</div>
+        <div class="dr-dec-col dr-now">Sustained background pressure on parents/heritage for all ten years. Slow-grinding, not dramatic.</div>
         <div class="dr-dec-col">Background pressure releases. Quieter.</div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ─────────────────────────────────────────────── -->
-<!-- 6. D4 RETROSPECTIVE — career & money            -->
-<!-- ─────────────────────────────────────────────── -->
-<section id="d4-retrospective">
-  <div class="section-eyebrow">Section 06 · D4 retrospective</div>
-  <h2 class="section-h2">D4 · 2010–2019: the <em>international money</em> decade, mapped retrospectively.</h2>
-  <p class="section-intro">D4 ran ages 33–42 with decade Life palace at P10 Property (午 Horse, Cardinal 100%) and decade stem 甲 (Jia, Yang Wood). The four decade flights from stem 甲 — Lu→Lian Zhen, Quan→Po Jun, Ke→Wu Qu, Ji→Tai Yang — distributed remarkably across your chart: Ke landed directly on the chart's direct money star (Wu Qu in P7 Travel), Quan landed on the Demolisher in P3 Spouse, Lu landed on the Mental palace temporarily smoothing the natal Ji, and Ji landed on the Sun in P6 Health. This was structurally your peak international-money decade. What follows is the year-by-year retrospective so you can verify against memory and identify which structural windows were used and which were not.</p>
-
-  <div class="decade-card">
-    <div class="decade-card-head">
-      <div class="decade-card-name">
-        <small>Decade D4 · 2010–2019 · ages 33–42</small>
-        Palace 10 Property · Ju Men · stem 甲 Jia
-      </div>
-      <div class="decade-card-pill" style="background: var(--surface2); color: var(--dim);">Past</div>
-    </div>
-
-    <div class="decade-flights">
-      <div class="flight-cell">
-        <div class="flight-symbol">禄</div>
-        <div class="flight-route">Lu → Lian Zhen → <strong>P11 Mental</strong> · 巳 Horse 200%</div>
-        <div class="flight-note">Decade Lu lands on Lian Zhen in P11 — temporarily smoothing the permanent natal Ji on the same star for the entire decade. P11's chronic system-frustration was therefore eased throughout 2010–2019 — the inner-life pressure that normally runs at 200% intensity was buffered by smooth-flow energy. <strong>Money implication:</strong> the inner perception that "money is harder than it should be" relaxes. Decisions feel more aligned with desire. Internal blockers to monetisation are quieter than they will be in D5 or D6.</div>
-      </div>
-      <div class="flight-cell">
-        <div class="flight-symbol">权</div>
-        <div class="flight-route">Quan → Po Jun → <strong>P3 Spouse</strong> · 丑 Storage 50%</div>
-        <div class="flight-note">Decade Quan on Po Jun in P3 means the Demolisher in the Spouse palace receives authority for the full decade. Partnerships — both personal and business — went through demolish-and-rebuild cycles with decisive command, not passive drift. The Storage 50% strength slowed the cycle (changes accumulated rather than erupted). <strong>Money implication:</strong> if significant partnerships were formed or restructured in D4, they carried decision-making authority and likely had financial consequence — partnerships started here would have established financial structure that still influences D5.</div>
-      </div>
-      <div class="flight-cell">
-        <div class="flight-symbol">科</div>
-        <div class="flight-route">Ke → Wu Qu → <strong>P7 Travel</strong> · 酉 Cardinal 100%</div>
-        <div class="flight-note"><strong>The signature money flight of D4.</strong> Ke on Wu Qu in P7 means the direct money star in the outer-world palace received formal recognition for the entire decade. Wu Qu is the high-intensity, decisive financial star; in P7 (Travel/external markets); plus Qi Sha (warrior) and Tian Yue (yin noble) as palace co-occupants. With Ke for ten years, this configuration ran as: international/external financial work was structurally recognised and rewarded. Cross-border deals, foreign-market engagements, expatriate or high-stakes external financial work — these were the decade's amplified income channel. <strong>If D4 was your peak earnings decade, this is the structural reason why.</strong></div>
-      </div>
-      <div class="flight-cell">
-        <div class="flight-symbol">忌</div>
-        <div class="flight-route">Ji → Tai Yang → <strong>P6 Health</strong> · 戌 Storage 50%</div>
-        <div class="flight-note">Decade Ji on Tai Yang in P6 Health = sustained health-visibility pressure across the decade. Tai Yang governs vision, heart, and public-facing exposure. Ji here at Storage 50% means slow-building rather than acute — chronic over-extension in public roles, vision/eye stress, cardiovascular wear from the pace. This is the decade's cost. The international Wu Qu Ke channel monetised heavily, and the body absorbed the impact in P6.</div>
-      </div>
-    </div>
-  </div>
-
-  <h3 class="subsection-h3" style="margin-top: 56px;">D4 — career and money <em>year by year</em></h3>
-  <p class="subsection-intro">Each year carries its own annual stem (firing four annual flights) plus a branch hit on a specific palace. The years below show which structural levers fired each year, the implications for career and money specifically, and how each year stacked against the decade's running channels.</p>
-
-  <div class="calendar-grid">
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2010</div>
-      <div class="calendar-stem">庚寅 Geng Yin · age 33</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong international money year</div>
-      <p>Stem 庚 fires Quan→Wu Qu→P7 (annual authority on direct money star) stacking with D4 decade Ke→Wu Qu→P7 = <strong>Quan+Ke compound on Wu Qu in Travel.</strong> Per formation rule: Quan+Ke combo = power + recognition together. Lu→Tai Yang→P6 brought smooth flow on the same star that decade Ji was pressuring — Health gets mixed signal. Ji→Tian Tong→P8 = network friction (one of the few years natal Lu on Tian Tong was contested). Branch 寅 → P2 Siblings (Horse 200%) = direct activation of close peers / business partners domain. <strong>Net: a peak year for high-stakes international financial work and for forming business partnerships with peers.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2011</div>
-      <div class="calendar-stem">辛卯 Xin Mao · age 34</div>
-      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Property advanced — but written work hit resistance</div>
-      <p>Stem 辛 fires Lu→Ju Men→P10 = smooth flow on the Property palace's main star (decade Life palace gets annual Lu). Quan→Tai Yang→P6 stacks with decade Ji on the same star = Quan+Ji compound on Tai Yang (authority under friction in health/visibility). <strong>Ji→Wen Chang→P4 = friction on the chart's natal Ke star</strong> — intellectual reception/credentials had a tougher year. Branch 卯 → P1 Life direct hit. <strong>Net: property and asset positioning advanced smoothly; written/credentialed intellectual work faced a correction year.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2012</div>
-      <div class="calendar-stem">壬辰 Ren Chen · age 35</div>
-      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Turbulent money year — but partnerships consolidated</div>
-      <p>Stem 壬 fires <strong>Ji→Wu Qu→P7</strong> = friction directly on the chart's money star — but decade Ke→Wu Qu→P7 was already running, producing a Ke+Ji compound (recognition with complications). Money inflows came with disruption / disputes / restructuring. Quan→Zi Wei→P3 = Emperor authority lands in Spouse — partnerships restructured with command. Ke→Zuo Fu→P1 = formal recognition on the practical helper in Life palace. Branch 辰 → P12 Parents. <strong>Net: a financially turbulent year — money kept flowing but with friction, while partnership decisions consolidated with authority.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2013</div>
-      <div class="calendar-stem">癸巳 Gui Si · age 36</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong property and partnership year</div>
-      <p>Stem 癸 fires <strong>Quan→Ju Men→P10</strong> = annual authority on the Property palace's main star (compound with decade Life palace at P10) = property/asset decisions carry full power. Lu→Po Jun→P3 stacks with D4 decade Quan→Po Jun→P3 = <strong>Lu+Quan compound on Po Jun in Spouse</strong> = restructuring authority running smoothly. Ji→Tan Lang→P11 + branch 巳 → P11 direct hit = peak inner-pressure year in Mental palace. <strong>Net: best property year of D4 and peak partnership-restructuring year — but inner life under heavy load.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2014</div>
-      <div class="calendar-stem">甲午 Jia Wu · age 37</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">PEAK earnings year of the decade</div>
-      <p>Stem 甲 = decade stem 甲. <strong>ALL four D4 decade flights DOUBLE this year.</strong> Lu→Lian Zhen→P11 doubled (peak inner relief). Quan→Po Jun→P3 doubled (peak partnership authority). <strong>Ke→Wu Qu→P7 DOUBLED = peak international financial recognition of the entire decade.</strong> Ji→Tai Yang→P6 doubled (peak health pressure). Branch 午 = P10 Property = decade Life palace direct hit. <strong>This was structurally the peak year of D4 — and likely the peak earnings year of your career to date.</strong> If a financial milestone, major international deal, or peak income event happened in 2014, this is why.</p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2015</div>
-      <div class="calendar-stem">乙未 Yi Wei · age 38</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong career year — intelligence + network + direct career hit</div>
-      <p>Stem 乙 fires <strong>Lu→Tian Ji→P4</strong> stacking with natal Quan = <strong>Lu+Quan compound on Tian Ji</strong> (the chart's intellectual-authority star). This is the same compound D5 decade is now running continuously — but 2015 ran it as an annual peak. Quan→Tian Liang→P8 = network authority. Ke→Zi Wei→P3 = recognition on Emperor in Spouse. Ji→Tai Yin→P12 = parents/heritage friction (foreshadowing the D5 decade pattern). Branch 未 → P9 Career direct hit. <strong>Net: strong career year — intellectual authority + network authority + direct P9 branch activation. Income via career achievement amplified.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2016</div>
-      <div class="calendar-stem">丙申 Bing Shen · age 39</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Career visibility peak — like 2026 will be, but inside life was easier</div>
-      <p>Stem 丙 = natal year stem. ALL natal flights DOUBLED. Lu→Tian Tong→P8 doubled (peak network warmth, Horse 200% × double). Quan→Tian Ji→P4 doubled (peak intellectual authority). Ke→Wen Chang→P4 doubled (peak intellectual recognition). Ji→Lian Zhen→P11 doubled — but decade Lu on Lian Zhen was also running, producing Lu+Ji compound = the inner-friction signal was BUFFERED that year compared to 2026 in D5. Branch 申 → P8 Friends (Horse 200%) direct hit. <strong>The D4 equivalent of 2026 — peak natal amplification, but with the decade Lu cushioning the Mental palace.</strong> Career and intellectual reputation peaked.</p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2017</div>
-      <div class="calendar-stem">丁酉 Ding You · age 40</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Strong international and career year</div>
-      <p>Stem 丁 fires Ke→Tian Ji→P4 = third source layer on Tian Ji (natal Quan + decade nothing + annual Ke). Quan→Tian Tong→P8 = authority on natal Lu Tian Tong = Lu+Quan compound on Tian Tong. Lu→Tai Yin→P12 (parents domain smooths). Ji→Ju Men→P10 = Property gets Ji friction. <strong>Branch 酉 → P7 Travel direct hit — international event year</strong>, with decade Ke→Wu Qu→P7 still running underneath. <strong>Net: a strong international/career year; property domain encountered friction.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2018</div>
-      <div class="calendar-stem">戊戌 Wu Xu · age 41</div>
-      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Tough year for getting your ideas accepted</div>
-      <p>Stem 戊 fires <strong>Ji→Tian Ji→P4</strong> — annual friction directly on the chart's intellectual-authority star, the first real challenge to the P4 stack since 2011's Wen Chang Ji. Money via career consultation faced critical reception. Lu→Tan Lang→P11 (inner desires/ambition flows smoothly). Quan→Tai Yin→P12 (authority in parents/heritage). Ke→You Bi→P5 (recognition on helper in Wealth — smooth visible institutional support to income). Branch 戌 → P6 Health direct hit — combined with decade Ji on Tai Yang in P6, this was the decade's hardest health-domain year. <strong>Net: career strain year; income via existing channels still works (P5 Ke→You Bi) but intellectual output faces resistance; health needed attention.</strong></p>
-    </div>
-
-    <div class="calendar-cell">
-      <div class="calendar-year">2019</div>
-      <div class="calendar-stem">己亥 Ji Hai · age 42</div>
-      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Last and strongest money year of the decade</div>
-      <p>The decade's wealth-channel closing peak. Stem 己 fires <strong>Lu→Wu Qu→P7</strong> stacking with the running D4 decade Ke→Wu Qu→P7 = <strong>Lu+Ke compound on Wu Qu</strong> (peak smooth-flow + peak recognition on the direct money star simultaneously, in the outer-world palace). Ke→Tian Liang→P8 = third Tian Liang activation in network (network's elder-wisdom credibility peak). Quan→Tan Lang→P11 (ambition with full executive force). <strong>Branch 亥 → P5 Wealth (Horse 200%) direct hit</strong> — the only branch hit on P5 across all of D4. <strong>Net: the decade's closing wealth peak — international financial channel ran at maximum stack + direct wealth-palace activation. If income consolidated or major financial closure happened at decade end, this is why.</strong></p>
-    </div>
-
-  </div>
-
-  <div class="decade-takeaways" style="margin-top: 40px;">
-    <p><strong>D4 in one line.</strong> The international money decade — Ke on Wu Qu in P7 for ten years made the outer-world financial channel structurally amplified, with intellectual authority (P4) and partnership restructuring authority (P3 Po Jun) running underneath as the secondary engines.</p>
-    <p><strong>Structural peaks within D4.</strong> 2014 (decade-stem doubling — peak earnings year). 2016 (natal-stem doubling — peak career visibility). 2019 (Wu Qu Lu+Ke + P5 branch — closing financial peak). If specific financial or career milestones map to these years, the chart structurally accounts for them.</p>
-    <p><strong>What D4 left behind.</strong> The decade Lu on Lian Zhen P11 ended at decade close — meaning the inner-life smooth-flow buffer that ran for ten years switched off when D5 began in 2020. This is part of why D5 feels more pressurised inwardly than D4 did. Conversely, the decade Ke on Wu Qu P7 also ended — the international-financial-recognition channel that ran continuously through D4 is no longer running in D5. To activate it now, you need annual hits (2017 fired branch 酉 → P7, 2019 fired stem 己 Lu→Wu Qu — analogous years in D5 are 2026 month 11 stem 庚 firing Quan→Wu Qu and 2029 firing both Lu→Wu Qu AND branch 酉 → P7).</p>
-    <p><strong>D5 vs D4 income mechanics.</strong> D4 monetised via the outer-world money channel directly (Wu Qu Ke). D5 monetises via the intellectual-authority channel (Lu+Quan on Tian Ji P4) — a different mechanism. D4 made money through high-stakes external execution; D5 makes money through analytical/advisory authority positioned within institutional networks. Both are valid, but the channel changed at decade boundary. If income volume in D5 is lower than D4 to date, this is the structural reason, not a personal failure — and it tracks back up in D6 (2030 onward) when natal flights start running doubled at decade level.</p>
   </div>
 </section>
 
