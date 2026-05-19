@@ -423,3 +423,115 @@ function __tzCorrect(i) {
     }
   });
 })();
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Solar BaZi year pillar — LiChun calendar fix
+//
+// The obfuscated engine renders the Solar BaZi pillars using LiChun-based
+// methods for month/day/hour but lunar.getYearGan()/getYearZhi() (CNY-based)
+// for the year — producing an inconsistent Solar pillar when the birth date
+// falls between LiChun (Feb 4) and CNY (varies).
+//
+// Example: Maxim 1977-02-15 — LiChun was Feb 4, CNY was Feb 18.
+//   Lunar (ZWDS) year = 丙辰 (CNY) — correct, drives ZWDS natal enhancers
+//   Solar (BaZi) year = 丁巳 (LiChun) — correct per BaZi convention
+// The engine showed Solar year as 丙辰 (wrong).
+//
+// This patch finds the Solar section's year pillar after each chart render
+// and replaces the stem/branch with the LiChun-based values. It does NOT
+// touch the Lunar section or the ZWDS engine internals.
+// ─────────────────────────────────────────────────────────────────────────────
+(function() {
+  var _timer = null;
+
+  function __findPillar(section, kindRe) {
+    var pillars = section.querySelectorAll('.bazi-pillar');
+    for (var i = 0; i < pillars.length; i++) {
+      var lbl = pillars[i].querySelector('.bazi-pillar-label');
+      if (lbl && kindRe.test(lbl.textContent)) return pillars[i];
+    }
+    return null;
+  }
+
+  function __fixSolarBaziYear() {
+    if (typeof Solar === 'undefined') return;
+    var co = document.getElementById('chart-output');
+    if (!co) return;
+    var dual = co.querySelector('.bazi-dual');
+    if (!dual) return;
+    var sections = dual.querySelectorAll('.bazi-section');
+    if (sections.length < 2) return;
+
+    var dateEl = document.getElementById('birth-date');
+    var timeEl = document.getElementById('birth-time');
+    if (!dateEl || !dateEl.value) return;
+    var ds = dateEl.value.split('-');
+    if (ds.length < 3) return;
+    var ts = (timeEl && timeEl.value ? timeEl.value : '12:00').split(':');
+
+    var lunar;
+    try {
+      var s = Solar.fromYmdHms(+ds[0], +ds[1], +ds[2], +ts[0], +(ts[1] || 0), 0);
+      lunar = s.getLunar();
+    } catch(e) { return; }
+
+    var cnyGan = lunar.getYearGan(),         cnyZhi = lunar.getYearZhi();
+    var liGan  = lunar.getYearGanByLiChun(), liZhi  = lunar.getYearZhiByLiChun();
+    // No discrepancy → nothing to patch (chart born after both LiChun & CNY)
+    if (cnyGan === liGan && cnyZhi === liZhi) return;
+
+    var liMonthGan = lunar.getMonthGanExact();
+    var liMonthZhi = lunar.getMonthZhiExact();
+
+    var YEAR_RE  = /год|year|年/i;
+    var MONTH_RE = /месяц|month|月/i;
+    var SOLAR_RE = /solar|節氣|节气|立春|солнечн|bazi|ba\s*zi/i;
+
+    for (var i = 0; i < sections.length; i++) {
+      var sec = sections[i];
+      var lbl = sec.querySelector('.bazi-section-label');
+      var lblText = lbl ? lbl.textContent : '';
+
+      var isSolar = SOLAR_RE.test(lblText);
+      if (!isSolar) {
+        // Heuristic fallback: identify by month pillar matching LiChun-based month
+        var monthP = __findPillar(sec, MONTH_RE);
+        if (monthP) {
+          var mc = monthP.querySelectorAll('.bazi-char');
+          if (mc.length >= 2 && mc[0].textContent === liMonthGan && mc[1].textContent === liMonthZhi) {
+            isSolar = true;
+          }
+        }
+      }
+      if (!isSolar) continue;
+
+      var yearP = __findPillar(sec, YEAR_RE);
+      if (!yearP) {
+        var pillars = sec.querySelectorAll('.bazi-pillar');
+        yearP = pillars[pillars.length - 1];
+      }
+      if (!yearP) continue;
+
+      var chars = yearP.querySelectorAll('.bazi-char');
+      if (chars.length >= 2) {
+        chars[0].textContent = liGan;
+        chars[1].textContent = liZhi;
+      } else if (chars.length === 1) {
+        chars[0].textContent = liGan + liZhi;
+      }
+      break;
+    }
+  }
+
+  var obs = new MutationObserver(function() {
+    var co = document.getElementById('chart-output');
+    if (!co || !co.querySelector('.bazi-dual')) return;
+    clearTimeout(_timer);
+    _timer = setTimeout(__fixSolarBaziYear, 90);
+  });
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var co = document.getElementById('chart-output');
+    if (co) obs.observe(co, { childList: true, subtree: true });
+  });
+})();
