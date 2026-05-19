@@ -782,11 +782,23 @@
 // wrap Lunar.fromSolar (called internally by Solar.getLunar()) to patch each returned instance.
 (function() {
   if (typeof Lunar === 'undefined') return;
+  var GAN = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
   function patchLunar(obj) {
     if (!obj) return obj;
+    // Year: use 立春 boundary
     obj.getYearGan = function() { return this.getYearGanByLiChun(); };
     obj.getYearZhi = function() { return this.getYearZhiByLiChun(); };
     obj.getYearInGanZhi = function() { return this.getYearInGanZhiByLiChun(); };
+    // Month stem: recompute via Five Tigers using 立春 year
+    // Five Tigers: year GAN idx n → month 1 (寅) stem idx = (n*2+2)%10
+    // Month number from ZHI idx: (zhiIdx-2+12)%12+1  (寅=1 … 丑=12)
+    obj.getMonthGan = function() {
+      var y = this._p.yearGanIndexByLiChun;
+      var z = this._p.monthZhiIndex; // 0=子 … 11=亥
+      var m = (z - 2 + 12) % 12 + 1; // 1=寅 … 12=丑
+      return GAN[(y * 2 + m + 1) % 10];
+    };
+    obj.getMonthInGanZhi = function() { return this.getMonthGan() + this.getMonthZhi(); };
     return obj;
   }
   var _fs = Lunar.fromSolar;
