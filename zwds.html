@@ -777,14 +777,24 @@
 <!-- lunar-javascript CDN for Chinese calendar conversion -->
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
 <script>
-// ZWDS uses 立春 (Start of Spring) as year boundary, not Chinese New Year.
-// Patch Lunar prototype before obfuscated engine initialises.
+// ZWDS uses 立春 (Start of Spring, ~Feb 4) as year boundary, not Chinese New Year (~Feb 18).
+// lunar-javascript returns plain factory objects (own properties, not prototype), so we must
+// wrap Lunar.fromSolar (called internally by Solar.getLunar()) to patch each returned instance.
 (function() {
   if (typeof Lunar === 'undefined') return;
-  var p = Lunar.prototype;
-  p.getYearGan = function() { return this.getYearGanByLiChun(); };
-  p.getYearZhi = function() { return this.getYearZhiByLiChun(); };
-  p.getYearInGanZhi = function() { return this.getYearInGanZhiByLiChun(); };
+  function patchLunar(obj) {
+    if (!obj) return obj;
+    obj.getYearGan = function() { return this.getYearGanByLiChun(); };
+    obj.getYearZhi = function() { return this.getYearZhiByLiChun(); };
+    obj.getYearInGanZhi = function() { return this.getYearInGanZhiByLiChun(); };
+    return obj;
+  }
+  var _fs = Lunar.fromSolar;
+  Lunar.fromSolar = function(s) { return patchLunar(_fs.call(Lunar, s)); };
+  var _fy = Lunar.fromYmdHms;
+  if (_fy) Lunar.fromYmdHms = function() { return patchLunar(_fy.apply(Lunar, arguments)); };
+  var _fd = Lunar.fromDate;
+  if (_fd) Lunar.fromDate = function() { return patchLunar(_fd.apply(Lunar, arguments)); };
 })();
 </script>
 <script>
