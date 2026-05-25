@@ -5,364 +5,460 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex,nofollow">
   <meta name="googlebot" content="noindex,nofollow">
-  <meta name="description" content="">
   <title>SuccessCode — Карта Цзы Вэй Доу Шу</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --black:    #3a3c48;
-      --surface:  #42444e;
-      --surface2: #4a4c58;
-      --gold:     #b8903a;
-      --gold2:    #cfa44e;
-      --gold-dim: rgba(184,144,58,0.10);
-      --white:    #eceef8;
-      --dim:      #d4d6e8;
-      --muted:    #c0c2d4;
-      --border:   rgba(184,144,58,0.25);
+      --cream:    #f7f1e6;
+      --cream-2:  #ede5d3;
+      --cream-3:  #e6dcc7;
+      --ink:      #1f2129;
+      --ink-2:    #3a3d49;
+      --muted:    #6c6760;
+      --gold:     #a87e3a;
+      --gold-2:   #8c652b;
+      --gold-dim: rgba(168,126,58,0.16);
+      --border:   rgba(168,126,58,0.28);
     }
+
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     html, body { max-width: 100vw; overflow-x: hidden; }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--black);
-      color: var(--white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
+      font-size: 17px;
+      line-height: 1.75;
+      font-weight: 400;
     }
+
+    /* TYPOGRAPHY */
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      color: var(--ink);
+      font-weight: 500;
+      line-height: 1.18;
+      letter-spacing: -0.5px;
+    }
+    h1 em, h2 em, h3 em {
+      color: var(--gold);
+      font-style: italic;
+      font-weight: 400;
+    }
+    p { color: var(--ink-2); }
 
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       padding: 22px 56px;
       display: flex; justify-content: space-between; align-items: center;
-      background: rgba(52,54,64,0.98);
+      background: rgba(247,241,230,0.94);
       border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
     }
     .nav-logo {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 700;
-      letter-spacing: 5px; text-transform: uppercase;
-      color: var(--white); text-decoration: none;
+      font-size: 22px; font-weight: 600;
+      letter-spacing: 4px; text-transform: uppercase;
+      color: var(--ink); text-decoration: none;
     }
     .nav-links { display: flex; gap: 36px; align-items: center; }
     .nav-link {
-      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--white); font-weight: 600;
-      text-decoration: none; transition: color .25s;
-    }
-    .nav-link:hover { color: var(--gold2); }
-    .nav-btn {
       font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
-      font-weight: 600; color: #f5f1eb; background: var(--gold);
-      padding: 12px 26px; text-decoration: none; transition: background .25s;
+      color: var(--ink-2); font-weight: 500;
+      text-decoration: none; transition: color .2s;
     }
-    .nav-btn:hover { background: var(--gold2); }
+    .nav-link:hover { color: var(--gold); }
+    .nav-btn {
+      font-size: 12px; letter-spacing: 1.8px; text-transform: uppercase;
+      font-weight: 600; color: #fbf7ed; background: var(--gold);
+      padding: 13px 26px; text-decoration: none;
+      transition: background .2s, transform .2s;
+      border: 1px solid var(--gold);
+    }
+    .nav-btn:hover { background: var(--gold-2); border-color: var(--gold-2); }
 
     /* HERO */
     .hero {
       min-height: 100vh;
+      padding: 160px 60px 100px;
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
+      grid-template-columns: 1.05fr 1fr;
+      gap: 80px;
       align-items: center;
-      padding: 140px 72px 80px;
-      gap: 60px;
       background:
-        radial-gradient(ellipse at top right, rgba(184,144,58,0.15), transparent 60%),
-        var(--black);
+        radial-gradient(ellipse at top right, rgba(168,126,58,0.08), transparent 60%),
+        radial-gradient(ellipse at bottom left, rgba(168,126,58,0.05), transparent 50%),
+        var(--cream);
+      max-width: 1400px;
+      margin: 0 auto;
     }
     .hero-tag {
-      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 28px; font-weight: 600;
+      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 14px;
+    }
+    .hero-tag::before, .hero-tag::after {
+      content: ''; width: 40px; height: 1px; background: var(--gold);
     }
     .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(38px, 5vw, 64px);
-      font-weight: 500;
-      line-height: 1.1;
-      margin-bottom: 28px;
-      letter-spacing: -0.5px;
+      font-size: clamp(40px, 5.4vw, 72px);
+      margin-bottom: 32px;
     }
-    .hero h1 em { color: var(--gold2); font-style: italic; font-weight: 400; }
     .hero-sub {
-      font-size: 17px; color: var(--dim); margin-bottom: 36px;
-      max-width: 540px; line-height: 1.7;
+      font-size: 18px; color: var(--ink-2);
+      margin-bottom: 40px; max-width: 540px;
+      line-height: 1.7;
     }
-    .hero-cta {
-      display: inline-flex; align-items: center; gap: 16px;
-      font-size: 14px; letter-spacing: 2.5px; text-transform: uppercase;
-      font-weight: 600; color: #f5f1eb; background: var(--gold);
-      padding: 20px 42px; text-decoration: none;
-      transition: background .25s, transform .25s;
+    .hero-cta-wrap {
+      display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
     }
-    .hero-cta:hover { background: var(--gold2); transform: translateY(-2px); }
-    .hero-price-tag {
-      display: inline-block; margin-left: 24px;
+    .cta-primary {
+      display: inline-flex; align-items: center;
+      font-size: 13px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: #fbf7ed; background: var(--gold);
+      padding: 22px 48px; text-decoration: none;
+      transition: background .2s, transform .2s;
+      border: 1px solid var(--gold);
+    }
+    .cta-primary:hover {
+      background: var(--gold-2); border-color: var(--gold-2);
+      transform: translateY(-2px);
+    }
+    .hero-price {
       font-family: 'Cormorant Garamond', serif;
-      color: var(--gold2); font-size: 22px;
+      color: var(--gold);
+      font-size: 26px;
     }
-    .hero-price-tag s { color: var(--muted); margin-right: 10px; }
+    .hero-price s { color: var(--muted); margin-right: 12px; font-size: 19px; }
     .hero-right {
       position: relative;
-      display: flex; justify-content: center; align-items: center;
+      display: flex; justify-content: center;
+    }
+    .hero-image-frame {
+      position: relative;
+      padding: 0; width: 100%; max-width: 520px;
     }
     .hero-image {
-      max-width: 460px; width: 100%;
+      width: 100%;
+      box-shadow:
+        0 30px 80px rgba(31,33,41,0.18),
+        0 0 80px rgba(168,126,58,0.08);
       border: 1px solid var(--border);
-      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(184,144,58,0.1);
-      filter: brightness(0.9);
+    }
+    .hero-image-deco {
+      position: absolute;
+      top: -24px; left: -24px;
+      right: 24px; bottom: 24px;
+      border: 1px solid var(--gold);
+      pointer-events: none;
+      z-index: -1;
     }
 
     /* SECTION BASE */
-    section {
-      padding: 100px 72px;
-      max-width: 1280px;
-      margin: 0 auto;
-    }
+    .container { max-width: 1240px; margin: 0 auto; padding: 0 60px; }
+    section { padding: 120px 0; }
     .section-tag {
-      display: inline-block;
-      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; margin-bottom: 18px;
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 22px;
+      display: inline-flex; align-items: center; gap: 12px;
+    }
+    .section-tag::before {
+      content: ''; width: 36px; height: 1px; background: var(--gold);
     }
     .section-heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(30px, 4vw, 48px);
-      font-weight: 500;
-      line-height: 1.15;
-      margin-bottom: 24px;
-      max-width: 800px;
+      font-size: clamp(34px, 4.4vw, 56px);
+      max-width: 820px;
+      margin-bottom: 28px;
     }
-    .section-heading em { color: var(--gold2); font-style: italic; }
     .section-sub {
-      font-size: 16px; color: var(--dim); max-width: 700px;
-      margin-bottom: 56px; line-height: 1.7;
+      font-size: 17px; color: var(--ink-2); max-width: 680px;
+      margin-bottom: 64px; line-height: 1.75;
     }
+    .center-text { text-align: center; }
+    .center-text .section-heading,
+    .center-text .section-sub { margin-left: auto; margin-right: auto; }
 
     /* WHAT YOU GET */
     .what-grid {
       display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 80px; align-items: center;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
     }
     .feature-list { list-style: none; }
     .feature-item {
-      padding: 24px 0;
+      padding: 28px 0;
       border-bottom: 1px solid var(--border);
-      display: flex; gap: 20px; align-items: flex-start;
+      display: flex; gap: 24px; align-items: flex-start;
     }
     .feature-item:last-child { border-bottom: none; }
     .feature-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 28px; color: var(--gold);
-      min-width: 40px;
-    }
-    .feature-text {
-      flex: 1;
+      font-size: 30px; color: var(--gold); font-weight: 500;
+      min-width: 44px; line-height: 1;
+      font-style: italic;
     }
     .feature-title {
-      font-size: 17px; font-weight: 600;
-      color: var(--white); margin-bottom: 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600;
+      color: var(--ink); margin-bottom: 6px;
     }
-    .feature-desc {
-      font-size: 14px; color: var(--muted); line-height: 1.6;
-    }
+    .feature-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
     .what-image-wrap {
-      position: relative;
+      position: sticky; top: 100px;
     }
     .what-image {
       width: 100%;
+      box-shadow: 0 25px 70px rgba(31,33,41,0.16);
       border: 1px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
     .sample-link {
-      display: inline-block; margin-top: 24px;
-      color: var(--gold2); font-size: 13px;
+      display: inline-block; margin-top: 28px;
+      color: var(--gold); font-size: 13px;
       letter-spacing: 2px; text-transform: uppercase;
       text-decoration: none; border-bottom: 1px solid var(--gold);
-      padding-bottom: 4px;
+      padding-bottom: 4px; font-weight: 600;
     }
+    .sample-link:hover { color: var(--gold-2); }
 
-    /* PROCESS — 3 STEPS */
-    .process-section { background: var(--surface); }
-    .process-section-inner { padding: 100px 72px; max-width: 1280px; margin: 0 auto; }
+    /* PROCESS */
+    .process-section { background: var(--cream-2); }
     .steps-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 40px;
-      margin-top: 56px;
+      gap: 36px;
+      margin-top: 64px;
     }
     .step-card {
-      padding: 36px 32px;
-      background: var(--black);
+      padding: 48px 36px;
+      background: var(--cream);
       border: 1px solid var(--border);
-      text-align: center;
       position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(31,33,41,0.08);
     }
     .step-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 56px;
+      font-size: 64px; font-style: italic;
       color: var(--gold);
       line-height: 1;
-      margin-bottom: 18px;
+      margin-bottom: 24px;
     }
     .step-title {
-      font-size: 18px; font-weight: 600;
-      margin-bottom: 12px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600;
+      margin-bottom: 14px;
     }
     .step-desc {
-      font-size: 14px; color: var(--muted); line-height: 1.6;
+      font-size: 15px; color: var(--muted); line-height: 1.7;
     }
 
-    /* BENEFITS — "ДЛЯ ВАС, ЕСЛИ..." */
+    /* BENEFITS */
     .benefits-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-      margin-top: 40px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px;
+      margin-top: 64px;
     }
     .benefit-card {
-      padding: 32px;
-      background: var(--surface);
+      padding: 42px 34px;
+      background: var(--cream);
       border: 1px solid var(--border);
     }
     .benefit-icon {
-      font-size: 32px; color: var(--gold);
-      margin-bottom: 16px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; color: var(--gold); font-style: italic;
+      margin-bottom: 18px; line-height: 1;
     }
     .benefit-title {
-      font-size: 16px; font-weight: 600;
-      margin-bottom: 8px; color: var(--white);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 600;
+      margin-bottom: 12px;
     }
-    .benefit-desc { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .benefit-desc { font-size: 15px; color: var(--muted); line-height: 1.7; }
 
     /* OUTCOMES */
-    .outcomes-section { background: var(--surface); }
-    .outcomes-inner { padding: 100px 72px; max-width: 1280px; margin: 0 auto; }
-    .outcomes-list {
+    .outcomes-section { background: var(--cream-2); }
+    .outcomes-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 32px;
-      margin-top: 40px;
+      gap: 28px 60px;
+      margin-top: 56px;
     }
     .outcome-item {
-      display: flex; gap: 20px; align-items: flex-start;
-      padding: 20px 0;
+      display: flex; gap: 22px; align-items: flex-start;
+      padding: 18px 0;
     }
     .outcome-check {
-      width: 32px; height: 32px;
+      width: 38px; height: 38px;
       border: 1px solid var(--gold);
       display: flex; align-items: center; justify-content: center;
-      color: var(--gold); font-size: 18px;
+      color: var(--gold); font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-style: italic;
       flex-shrink: 0;
     }
-    .outcome-text { font-size: 15px; color: var(--dim); line-height: 1.6; }
+    .outcome-text {
+      font-size: 16px; color: var(--ink-2); line-height: 1.7;
+    }
+    .outcome-text strong {
+      color: var(--ink); font-weight: 600;
+    }
 
-    /* DETAILS / FEATURES */
+    /* DETAILS */
     .details-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 60px; align-items: center;
-      margin-top: 40px;
+      gap: 80px; align-items: center;
+      margin-top: 56px;
     }
     .details-text p {
-      font-size: 15px; color: var(--dim);
-      line-height: 1.8; margin-bottom: 20px;
+      font-size: 16px; color: var(--ink-2);
+      line-height: 1.85; margin-bottom: 22px;
     }
+    .details-text strong { color: var(--ink); font-weight: 600; }
+    .details-image-wrap { position: relative; }
     .details-image {
       width: 100%;
+      box-shadow: 0 25px 60px rgba(31,33,41,0.14);
       border: 1px solid var(--border);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     }
 
     /* FAQ */
-    .faq-section { background: var(--surface); }
-    .faq-inner { padding: 100px 72px; max-width: 900px; margin: 0 auto; }
+    .faq-section { background: var(--cream-2); }
+    .faq-list { max-width: 880px; margin: 56px auto 0; }
     .faq-item {
       border-bottom: 1px solid var(--border);
-      padding: 28px 0;
+      padding: 32px 0;
     }
     .faq-q {
-      font-size: 18px; font-weight: 600; color: var(--white);
-      margin-bottom: 12px;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600; color: var(--ink);
+      margin-bottom: 14px;
     }
-    .faq-a { font-size: 15px; color: var(--muted); line-height: 1.7; }
+    .faq-a { font-size: 16px; color: var(--ink-2); line-height: 1.75; }
 
     /* FINAL CTA */
     .final-cta-section {
-      padding: 120px 72px;
+      padding: 140px 60px;
       text-align: center;
       background:
-        radial-gradient(ellipse at center, rgba(184,144,58,0.18), transparent 70%),
-        var(--black);
+        radial-gradient(ellipse at center, rgba(168,126,58,0.12), transparent 70%),
+        var(--cream);
     }
     .final-cta-section h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(34px, 4.5vw, 52px);
-      font-weight: 500;
-      margin-bottom: 18px;
+      font-size: clamp(38px, 5vw, 60px);
+      margin-bottom: 22px;
+      max-width: 800px; margin-left: auto; margin-right: auto;
+    }
+    .final-cta-section p {
+      font-size: 17px; color: var(--ink-2); margin-bottom: 40px;
+      max-width: 640px; margin-left: auto; margin-right: auto;
     }
     .final-price {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 36px; color: var(--gold2);
-      margin-bottom: 32px;
+      font-size: 42px; color: var(--gold);
+      margin-bottom: 36px;
+      font-weight: 500;
     }
-    .final-price s { color: var(--muted); font-size: 22px; margin-right: 16px; }
+    .final-price s { color: var(--muted); font-size: 26px; margin-right: 18px; }
+    .final-fineprint {
+      color: var(--muted); font-size: 12px;
+      margin-top: 36px; letter-spacing: 1.5px; text-transform: uppercase;
+    }
 
     /* FOOTER */
     footer {
-      padding: 50px 72px;
-      background: #2e3038;
+      padding: 60px 60px 40px;
+      background: var(--cream-3);
       border-top: 1px solid var(--border);
       text-align: center;
       color: var(--muted);
       font-size: 13px;
     }
-    .footer-links {
-      display: flex; justify-content: center; gap: 32px;
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 600; color: var(--ink);
+      letter-spacing: 4px; text-transform: uppercase;
       margin-bottom: 18px;
     }
-    .footer-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: 12px; letter-spacing: 1px;
+    .footer-links {
+      display: flex; justify-content: center; gap: 36px;
+      margin-bottom: 24px;
     }
-    .footer-links a:hover { color: var(--gold2); }
+    .footer-links a {
+      color: var(--ink-2); text-decoration: none;
+      font-size: 12px; letter-spacing: 1.5px;
+      text-transform: uppercase; font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-fineprint {
+      max-width: 720px; margin: 18px auto 0;
+      font-size: 11px; color: var(--muted); line-height: 1.6;
+    }
 
     /* MOBILE */
     @media (max-width: 900px) {
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
+      body { font-size: 15px; }
       nav { padding: 16px 20px; }
-      .nav-links { gap: 16px; }
+      .nav-links { gap: 14px; }
       .nav-link { display: none; }
-      .nav-btn { padding: 10px 18px; font-size: 11px; }
+      .nav-btn { padding: 11px 18px; font-size: 11px; letter-spacing: 1.5px; }
+      .nav-logo { font-size: 18px; letter-spacing: 3px; }
+
       .hero {
         grid-template-columns: 1fr;
-        padding: 110px 24px 60px;
-        gap: 40px; min-height: auto;
+        padding: 120px 24px 60px;
+        gap: 50px; min-height: auto;
       }
-      .hero h1 { font-size: 34px; }
-      .hero-sub { font-size: 15px; }
-      .hero-cta { padding: 16px 28px; font-size: 12px; }
-      .hero-price-tag { display: block; margin-left: 0; margin-top: 16px; font-size: 18px; }
-      .hero-image { max-width: 320px; }
-      section { padding: 60px 24px; }
-      .section-heading { font-size: 28px; }
-      .section-sub { font-size: 14px; margin-bottom: 32px; }
-      .what-grid, .details-grid { grid-template-columns: 1fr; gap: 40px; }
-      .steps-grid { grid-template-columns: 1fr; gap: 20px; }
-      .step-card { padding: 28px 20px; }
-      .step-num { font-size: 44px; }
-      .benefits-grid, .outcomes-list { grid-template-columns: 1fr; gap: 20px; }
-      .process-section-inner, .outcomes-inner, .faq-inner { padding: 60px 24px; }
-      .final-cta-section { padding: 80px 24px; }
-      .final-cta-section h2 { font-size: 28px; }
-      .final-price { font-size: 28px; }
-      footer { padding: 36px 20px; }
-      .footer-links { flex-wrap: wrap; gap: 16px; }
+      .hero h1 { font-size: 38px; }
+      .hero-sub { font-size: 16px; }
+      .hero-cta-wrap { gap: 20px; }
+      .cta-primary { padding: 18px 32px; font-size: 12px; }
+      .hero-price { font-size: 20px; }
+      .hero-image-frame { max-width: 320px; }
+      .hero-image-deco { top: -14px; left: -14px; right: 14px; bottom: 14px; }
+
+      .container { padding: 0 24px; }
+      section { padding: 70px 0; }
+      .section-heading { font-size: 30px; }
+      .section-sub { font-size: 15px; margin-bottom: 36px; }
+
+      .what-grid, .details-grid { grid-template-columns: 1fr; gap: 50px; }
+      .what-image-wrap { position: static; }
+
+      .steps-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+      .step-card { padding: 36px 26px; }
+      .step-num { font-size: 50px; }
+      .step-title { font-size: 22px; }
+
+      .benefits-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 40px; }
+      .benefit-card { padding: 32px 26px; }
+
+      .outcomes-grid { grid-template-columns: 1fr; gap: 18px 0; margin-top: 36px; }
+
+      .faq-list { margin-top: 36px; }
+      .faq-q { font-size: 20px; }
+      .faq-a { font-size: 15px; }
+
+      .final-cta-section { padding: 90px 24px; }
+      .final-cta-section h2 { font-size: 32px; }
+      .final-cta-section p { font-size: 15px; }
+      .final-price { font-size: 32px; }
+
+      footer { padding: 40px 20px 30px; }
+      .footer-links { flex-wrap: wrap; gap: 18px; }
     }
   </style>
 </head>
@@ -371,184 +467,190 @@
 <nav>
   <a href="#" class="nav-logo">SuccessCode</a>
   <div class="nav-links">
-    <a href="#what" class="nav-link">Что входит</a>
+    <a href="#what" class="nav-link">Что внутри</a>
     <a href="#process" class="nav-link">Процесс</a>
     <a href="#faq" class="nav-link">FAQ</a>
     <a href="#checkout" class="nav-btn">Получить карту · $19</a>
   </div>
 </nav>
 
-<!-- ───────── HERO ───────── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-tag">✦ Древнекитайская астрология Цзы Вэй Доу Шу</div>
+    <div class="hero-tag">Древнекитайская астрология</div>
     <h1>Ваша персональная <em>Карта Судьбы</em> по системе Цзы Вэй Доу Шу — за 10 минут</h1>
     <p class="hero-sub">
-      Профессионально оформленный PDF-отчёт на 70+ страниц.
-      Расшифровка 12 дворцов вашей жизни: характер, карьера, отношения,
-      деньги, здоровье и периоды активации судьбы.
-      Метод Северной школы — старейшая императорская система Китая.
+      Профессионально оформленный PDF на 80 страниц. Расшифровка двенадцати дворцов
+      вашей жизни — характер, карьера, деньги, отношения, здоровье и периоды
+      активации судьбы. Метод Северной школы — старейшая императорская система Китая.
     </p>
-    <div>
-      <a href="#checkout" class="hero-cta">Получить мою карту</a>
-      <span class="hero-price-tag"><s>$49</s> $19</span>
+    <div class="hero-cta-wrap">
+      <a href="#checkout" class="cta-primary">Получить мою карту</a>
+      <span class="hero-price"><s>$49</s> $19</span>
     </div>
   </div>
   <div class="hero-right">
-    <img src="https://images.unsplash.com/photo-1635776062764-e025521e3df3?w=900&q=80"
-         alt="ZWDS chart"
-         class="hero-image"
-         loading="eager">
+    <div class="hero-image-frame">
+      <img src="https://images.unsplash.com/photo-1532978879514-6cac7e0c5e26?auto=format&fit=crop&w=900&q=80"
+           alt="Звёздная карта"
+           class="hero-image"
+           loading="eager">
+      <div class="hero-image-deco"></div>
+    </div>
   </div>
 </section>
 
-<!-- ───────── WHAT YOU GET ───────── -->
+<!-- WHAT YOU GET -->
 <section id="what">
-  <div class="section-tag">✦ Что входит в отчёт</div>
-  <h2 class="section-heading">Полная карта вашей жизни на <em>80 страницах PDF</em></h2>
-  <p class="section-sub">
-    Не общий гороскоп — а структурный анализ конкретно вашего рождения по 12 дворцам,
-    14 главным звёздам и 4 усилителям (化禄 化权 化科 化忌).
-  </p>
-  <div class="what-grid">
-    <div>
-      <ul class="feature-list">
-        <li class="feature-item">
-          <div class="feature-num">1</div>
-          <div class="feature-text">
-            <div class="feature-title">Визуальная карта 12 дворцов</div>
-            <div class="feature-desc">Дворцы Жизни, Богатства, Карьеры, Супруга, Детей, Здоровья, Путешествий, Друзей, Недвижимости, Ментального плана, Родителей, Братьев и сестёр</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">2</div>
-          <div class="feature-text">
-            <div class="feature-title">Личный портрет: характер, таланты, сильные стороны</div>
-            <div class="feature-desc">Какие главные звёзды формируют вашу личность и судьбу. Естественные таланты, способ принятия решений, паттерны жизни</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">3</div>
-          <div class="feature-text">
-            <div class="feature-title">Карьера и денежные каналы</div>
-            <div class="feature-desc">Какие сферы для вас структурно успешны, какие — нет. Где зарабатывать. Тип бизнеса, который подходит вашей карте</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">4</div>
-          <div class="feature-text">
-            <div class="feature-title">Модель отношений и брака</div>
-            <div class="feature-desc">Дворец Супруга и его зеркало. Какого партнёра вы привлекаете, как складываются отношения, окна для встречи партнёра</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">5</div>
-          <div class="feature-text">
-            <div class="feature-title">Декады и годовая активация судьбы</div>
-            <div class="feature-desc">Текущая декада (10-летний цикл), сильные и слабые годы, окна возможностей и периоды риска до 2034 года</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">6</div>
-          <div class="feature-text">
-            <div class="feature-title">Здоровье и тело</div>
-            <div class="feature-desc">Дворец Здоровья: предрасположенности, периоды повышенной нагрузки, рекомендации по балансу</div>
-          </div>
-        </li>
-        <li class="feature-item">
-          <div class="feature-num">7</div>
-          <div class="feature-text">
-            <div class="feature-title">Практические рекомендации</div>
-            <div class="feature-desc">Что делать с активациями этого года, как использовать декаду, что готовить к 2027 году</div>
-          </div>
-        </li>
-      </ul>
-      <a href="#" class="sample-link">↓ Скачать пример PDF →</a>
-    </div>
-    <div class="what-image-wrap">
-      <img src="https://images.unsplash.com/photo-1543872084-c7bd3822856f?w=800&q=80"
-           alt="Sample chart pages"
-           class="what-image">
+  <div class="container">
+    <div class="section-tag">Что входит в отчёт</div>
+    <h2 class="section-heading">Полная карта вашей жизни на <em>80 страницах</em></h2>
+    <p class="section-sub">
+      Не общий гороскоп, а структурный анализ конкретно вашего рождения через
+      12 дворцов, 14 главных звёзд и 4 усилителя (化禄 化权 化科 化忌) Северной школы.
+    </p>
+    <div class="what-grid">
+      <div>
+        <ul class="feature-list">
+          <li class="feature-item">
+            <div class="feature-num">I</div>
+            <div>
+              <div class="feature-title">Визуальная карта 12 дворцов</div>
+              <div class="feature-desc">Дворцы Жизни, Богатства, Карьеры, Супруга, Детей, Здоровья, Путешествий, Друзей, Недвижимости, Ментального плана, Родителей, Братьев и сестёр</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">II</div>
+            <div>
+              <div class="feature-title">Личный портрет: характер и таланты</div>
+              <div class="feature-desc">Главные звёзды вашей личности и способ принятия решений. Естественные сильные стороны и зоны напряжения</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">III</div>
+            <div>
+              <div class="feature-title">Карьера и денежные каналы</div>
+              <div class="feature-desc">Сферы для вас структурно успешны. Тип бизнеса и партнёрств, который подходит. Где зарабатывать и где остерегаться</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">IV</div>
+            <div>
+              <div class="feature-title">Модель отношений и брака</div>
+              <div class="feature-desc">Дворец Супруга и его зеркало. Тип партнёра, который к вам приходит. Окна для встречи и устойчивые паттерны</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">V</div>
+            <div>
+              <div class="feature-title">Декады и годовые активации</div>
+              <div class="feature-desc">Текущий 10-летний цикл, окна возможностей и периоды риска. Расклад до 2034 года</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">VI</div>
+            <div>
+              <div class="feature-title">Здоровье и тело</div>
+              <div class="feature-desc">Дворец Здоровья: предрасположенности, чувствительные периоды, рекомендации по балансу</div>
+            </div>
+          </li>
+          <li class="feature-item">
+            <div class="feature-num">VII</div>
+            <div>
+              <div class="feature-title">Практические рекомендации</div>
+              <div class="feature-desc">Что делать с активациями этого года, как использовать декаду, что готовить к 2027 и далее</div>
+            </div>
+          </li>
+        </ul>
+        <a href="#" class="sample-link">Скачать пример отчёта →</a>
+      </div>
+      <div class="what-image-wrap">
+        <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?auto=format&fit=crop&w=800&q=80"
+             alt="Пример отчёта"
+             class="what-image">
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ───────── PROCESS ───────── -->
+<!-- PROCESS -->
 <section class="process-section" id="process">
-  <div class="process-section-inner">
-    <div class="section-tag">✦ Как это работает</div>
-    <h2 class="section-heading">От ввода данных до PDF — <em>10 минут</em></h2>
+  <div class="container center-text">
+    <div class="section-tag">Как это работает</div>
+    <h2 class="section-heading">От данных до PDF — <em>десять минут</em></h2>
     <p class="section-sub">
-      Карта рассчитывается автоматически по дате, времени и месту вашего рождения.
-      Метод Цзы Вэй Доу Шу требует точного времени до получаса.
+      Карта рассчитывается автоматически по дате, времени и месту рождения.
+      Цзы Вэй Доу Шу требует точного времени до получаса.
     </p>
     <div class="steps-grid">
       <div class="step-card">
-        <div class="step-num">01</div>
-        <div class="step-title">Заполните данные рождения</div>
-        <div class="step-desc">Дата, время (важно — до получаса) и город рождения. Если не помните точное время — узнайте у мамы или в свидетельстве о рождении</div>
+        <div class="step-num">i</div>
+        <div class="step-title">Введите данные</div>
+        <div class="step-desc">Дата, время и город рождения. Если не помните точное время — уточните у мамы или в свидетельстве о рождении</div>
       </div>
       <div class="step-card">
-        <div class="step-num">02</div>
-        <div class="step-title">Оплата</div>
-        <div class="step-desc">Безопасная оплата через Stripe. Возможна оплата картой международной или российской через альтернативный шлюз</div>
+        <div class="step-num">ii</div>
+        <div class="step-title">Безопасная оплата</div>
+        <div class="step-desc">Через Stripe (международные карты) или альтернативный шлюз для российских карт. Единоразовый платёж</div>
       </div>
       <div class="step-card">
-        <div class="step-num">03</div>
-        <div class="step-title">PDF в почту за 10 минут</div>
-        <div class="step-desc">Личная карта Цзы Вэй Доу Шу на 80 страниц приходит на указанный e-mail. Доступ к файлу — навсегда</div>
+        <div class="step-num">iii</div>
+        <div class="step-title">PDF в почту</div>
+        <div class="step-desc">Личная карта на 80 страниц приходит на указанный e-mail в течение 10 минут. Доступ навсегда</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ───────── BENEFITS — "FOR YOU IF..." ───────── -->
+<!-- BENEFITS -->
 <section>
-  <div class="section-tag">✦ Для вас, если</div>
-  <h2 class="section-heading">Эта карта — для тех, кто хочет <em>конкретные ответы</em></h2>
-  <div class="benefits-grid">
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Понять структуру своей жизни</div>
-      <div class="benefit-desc">Почему одни сферы получаются, а другие — никак. Не общими словами, а через конкретные дворцы и звёзды вашей карты</div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Узнать свои настоящие таланты</div>
-      <div class="benefit-desc">Не "вы такой потому что Овен" — а через ваши главные звёзды в Дворце Жизни и его зеркале</div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Найти лучшие годы для важных решений</div>
-      <div class="benefit-desc">Свадьба, переезд, смена работы, инвестиции — в годы активации судьбы, не вслепую</div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Понять свою карьеру через структуру карты</div>
-      <div class="benefit-desc">Какие сферы для вас работают, какие — нет. Тип партнёрства, который подходит. Где деньги, где репутация</div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Сделать необычный подарок</div>
-      <div class="benefit-desc">Близкому человеку — не очередную открытку, а персональную книгу про его жизнь. Эстетично оформленную</div>
-    </div>
-    <div class="benefit-card">
-      <div class="benefit-icon">✦</div>
-      <div class="benefit-title">Начать изучать восточную метафизику</div>
-      <div class="benefit-desc">Цзы Вэй Доу Шу — самая структурная система китайской астрологии. Ваша карта — лучший учебник по системе</div>
+  <div class="container center-text">
+    <div class="section-tag">Для вас, если</div>
+    <h2 class="section-heading">Эта карта — для тех, кто ищет <em>конкретные ответы</em></h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Понять структуру своей жизни</div>
+        <div class="benefit-desc">Почему одни сферы получаются легко, а другие — никак. Не общими словами, а через конкретные дворцы и звёзды вашей карты</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Узнать свои настоящие таланты</div>
+        <div class="benefit-desc">Не «вы такой потому что Овен» — а через главные звёзды Дворца Жизни и его зеркала. Структурный, а не поверхностный анализ</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Найти лучшие годы для решений</div>
+        <div class="benefit-desc">Свадьба, переезд, смена работы, инвестиции — в годы активации судьбы, а не вслепую</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Увидеть свою карьеру по карте</div>
+        <div class="benefit-desc">Какие сферы для вас работают, какие — нет. Тип партнёрства, который подходит. Где деньги и где репутация</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Сделать необычный подарок</div>
+        <div class="benefit-desc">Близкому человеку — не очередную открытку, а персональную книгу про его жизнь. Эстетично оформленную</div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon">✦</div>
+        <div class="benefit-title">Начать изучать восточную метафизику</div>
+        <div class="benefit-desc">Цзы Вэй Доу Шу — самая структурная система китайской астрологии. Ваша карта — лучший учебник</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ───────── OUTCOMES ───────── -->
+<!-- OUTCOMES -->
 <section class="outcomes-section">
-  <div class="outcomes-inner">
-    <div class="section-tag">✦ Что изменится после прочтения</div>
+  <div class="container">
+    <div class="section-tag">Что изменится после прочтения</div>
     <h2 class="section-heading">Карта меняет то, <em>как вы видите себя</em></h2>
-    <div class="outcomes-list">
+    <div class="outcomes-grid">
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Ясность о жизненном пути.</strong> Перестанете гадать "что мне делать" — структура карты покажет где вы сильны и где требуется усилие</div>
+        <div class="outcome-text"><strong>Ясность о жизненном пути.</strong> Перестанете гадать «что делать» — структура карты покажет, где вы сильны и где требуется усилие</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
@@ -574,115 +676,112 @@
   </div>
 </section>
 
-<!-- ───────── DETAILS / FEATURES ───────── -->
+<!-- DETAILS -->
 <section>
-  <div class="section-tag">✦ Особенности и преимущества</div>
-  <h2 class="section-heading">Метод Северной школы. <em>Без эзотерики</em>, только структура</h2>
-  <div class="details-grid">
-    <div class="details-text">
-      <p>
-        Цзы Вэй Доу Шу — древнекитайская императорская система анализа судьбы.
-        Создана при династии Сун (~960 г. н.э.), использовалась только для императорской семьи.
-        Сегодня — самая структурная система китайской астрологии, признанная в Китае,
-        Гонконге, Тайване и Сингапуре.
-      </p>
-      <p>
-        Наш отчёт основан на <strong>Северной школе</strong> — методе 4 усилителей
-        (化禄 化权 化科 化忌), который даёт самые точные временные прогнозы.
-        14 главных звёзд распределены по 12 дворцам вашей жизни,
-        дополняются вспомогательными и злыми звёздами.
-      </p>
-      <p>
-        Дизайн отчёта — в премиум-стиле тёмно-золотой эстетики.
-        Удобная навигация по разделам, понятный язык, без жаргона.
-        Подходит как для первого знакомства с системой,
-        так и для опытных читателей карт.
-      </p>
-      <p>
-        Расчёт ведётся через наш собственный калькулятор, основанный на алгоритме iztro
-        (с открытым исходным кодом). Тот же движок используется на профессиональных
-        ZWDS-калькуляторах. Результат можно проверить на mingli.ru или iztro.com.
-      </p>
-    </div>
-    <div>
-      <img src="https://images.unsplash.com/photo-1605379399642-870262d3d051?w=800&q=80"
-           alt="Premium PDF mockup"
-           class="details-image">
+  <div class="container">
+    <div class="section-tag">Особенности и преимущества</div>
+    <h2 class="section-heading">Метод <em>Северной школы</em>. Структура, не эзотерика</h2>
+    <div class="details-grid">
+      <div class="details-text">
+        <p>
+          Цзы Вэй Доу Шу — древнекитайская императорская система анализа судьбы.
+          Создана при династии Сун (~960 г. н.э.), использовалась только для
+          императорской семьи. Сегодня — самая структурная система китайской
+          астрологии, признанная в Китае, Гонконге, Тайване и Сингапуре.
+        </p>
+        <p>
+          Наш отчёт основан на <strong>Северной школе</strong> — методе 4 усилителей
+          (化禄 化权 化科 化忌), который даёт самые точные временные прогнозы.
+          14 главных звёзд распределены по 12 дворцам вашей жизни,
+          дополняются вспомогательными и евильными звёздами.
+        </p>
+        <p>
+          Дизайн отчёта — в премиум-стиле тёплой золотой эстетики.
+          Удобная навигация по разделам, понятный язык, без жаргона.
+          Подходит и для первого знакомства с системой,
+          и для опытных читателей карт.
+        </p>
+        <p>
+          Расчёт ведётся через наш собственный калькулятор,
+          основанный на алгоритме <strong>iztro</strong> (открытый код).
+          Тот же движок используется на профессиональных ZWDS-калькуляторах.
+          Результат можно проверить на mingli.ru или iztro.com.
+        </p>
+      </div>
+      <div class="details-image-wrap">
+        <img src="https://images.unsplash.com/photo-1518365050014-70fe7232897f?auto=format&fit=crop&w=800&q=80"
+             alt="Премиум PDF"
+             class="details-image">
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ───────── FAQ ───────── -->
+<!-- FAQ -->
 <section class="faq-section" id="faq">
-  <div class="faq-inner">
-    <div class="section-tag">✦ Часто задаваемые вопросы</div>
+  <div class="container center-text">
+    <div class="section-tag">Часто задаваемые вопросы</div>
     <h2 class="section-heading">FAQ</h2>
-
-    <div class="faq-item">
-      <div class="faq-q">Насколько точна карта?</div>
-      <div class="faq-a">Точность зависит от корректности данных рождения. Дата и место — обычно известны точно. Время рождения — критично: погрешность в час может изменить Дворец Жизни и всю структуру карты. Если не уверены во времени до получаса — лучше уточнить в свидетельстве о рождении или у родителей перед заказом.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Когда придёт отчёт?</div>
-      <div class="faq-a">PDF приходит на ваш e-mail в течение 10 минут после успешной оплаты. Если по какой-то причине задержался — проверьте папку "Спам". При проблемах напишите на support@successcode.net — отправим вручную в течение нескольких часов.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Можно ли вернуть деньги?</div>
-      <div class="faq-a">Возврат возможен в двух случаях: 1) если PDF не пришёл в течение 24 часов после оплаты и проблема не решилась, 2) если в отчёте обнаружена существенная ошибка по нашей вине (например, неправильный расчёт). Возврат за "не понравилось" не предусмотрен — продукт информационный.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Защищены ли мои данные?</div>
-      <div class="faq-a">Данные рождения используются только для расчёта вашей карты и хранятся в зашифрованной базе. Мы не передаём их третьим лицам и не используем для маркетинга. Оплата проходит через Stripe — мы не видим данные вашей карты.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Это эзотерика или реальная астрология?</div>
-      <div class="faq-a">Цзы Вэй Доу Шу — структурная система с чёткими математическими правилами. Не "карты Таро на удачу", а конкретный анализ через 12 дворцов, 14 главных звёзд и 4 усилителя. Отчёт оформлен в развлекательно-познавательных целях — не является медицинской, финансовой или психологической консультацией.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Сколько стоит?</div>
-      <div class="faq-a">Стандартная цена — $49. Сейчас действует промо-цена $19 (примерно ₽1800). Оплата единоразовая, никаких подписок и доплат.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Могу ли я заказать карту для другого человека (подарок)?</div>
-      <div class="faq-a">Да. Введите данные рождения того, кому делаете подарок, укажите свой e-mail для доставки PDF. Перешлёте файл по любому удобному каналу.</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Что делать если я не помню время рождения?</div>
-      <div class="faq-a">Без точного времени отчёт не имеет смысла — Дворец Жизни и большая часть структуры карты зависят от часа рождения. Уточните у родителей или закажите выписку из свидетельства о рождении. Если время определить невозможно — лучше не заказывать карту, чтобы не получить нерелевантный результат.</div>
+  </div>
+  <div class="container">
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Насколько точна карта?</div>
+        <div class="faq-a">Точность зависит от корректности данных рождения. Дата и место — обычно известны точно. Время рождения критично: погрешность в час может изменить Дворец Жизни и всю структуру карты. Если не уверены во времени до получаса — лучше уточнить в свидетельстве о рождении или у родителей перед заказом.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Когда придёт отчёт?</div>
+        <div class="faq-a">PDF приходит на e-mail в течение 10 минут после успешной оплаты. Если задержался — проверьте папку «Спам». При проблемах напишите на support@successcode.net, отправим вручную в течение нескольких часов.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Можно ли вернуть деньги?</div>
+        <div class="faq-a">Возврат возможен в двух случаях: 1) если PDF не пришёл в течение 24 часов после оплаты и проблема не решилась; 2) если в отчёте обнаружена существенная ошибка по нашей вине. Возврат за «не понравилось» не предусмотрен — продукт информационный.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Защищены ли мои данные?</div>
+        <div class="faq-a">Данные рождения используются только для расчёта карты и хранятся в зашифрованной базе. Мы не передаём их третьим лицам и не используем для маркетинга. Оплата проходит через Stripe — данные карты мы не видим.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Это эзотерика или реальная астрология?</div>
+        <div class="faq-a">Цзы Вэй Доу Шу — структурная система с чёткими математическими правилами. Не «карты Таро на удачу», а конкретный анализ через 12 дворцов, 14 главных звёзд и 4 усилителя. Отчёт оформлен в развлекательно-познавательных целях — не является медицинской, финансовой или психологической консультацией.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Сколько стоит?</div>
+        <div class="faq-a">Стандартная цена — $49. Сейчас действует промо-цена $19 (около ₽1800). Оплата единоразовая, никаких подписок и доплат.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Можно ли заказать карту для другого человека?</div>
+        <div class="faq-a">Да. Введите данные рождения того, кому делаете подарок, и укажите свой e-mail для доставки PDF. Перешлёте файл по любому удобному каналу.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Что если я не помню точное время рождения?</div>
+        <div class="faq-a">Без точного времени отчёт не имеет смысла — Дворец Жизни и значительная часть структуры зависят от часа рождения. Уточните у родителей или закажите выписку из свидетельства о рождении. Если время определить невозможно — лучше не заказывать, чтобы не получить нерелевантный результат.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ───────── FINAL CTA ───────── -->
+<!-- FINAL CTA -->
 <section class="final-cta-section" id="checkout">
-  <h2>Готовы увидеть свою карту?</h2>
-  <p style="color:var(--dim);font-size:16px;margin-bottom:32px;max-width:600px;margin-left:auto;margin-right:auto;">
-    80 страниц структурного анализа вашей жизни. PDF в почту за 10 минут.
-  </p>
+  <div class="section-tag" style="justify-content:center;">Готовы начать?</div>
+  <h2>Увидьте свою карту судьбы</h2>
+  <p>80 страниц структурного анализа вашей жизни. PDF в почту за десять минут.</p>
   <div class="final-price"><s>$49</s> $19</div>
-  <a href="#" class="hero-cta">Получить мою карту судьбы</a>
-  <p style="color:var(--muted);font-size:12px;margin-top:32px;letter-spacing:1px;">
-    Оплата через Stripe · PDF приходит за 10 минут · Доступ навсегда
-  </p>
+  <a href="#" class="cta-primary">Получить мою карту</a>
+  <div class="final-fineprint">Оплата через Stripe · PDF за 10 минут · Доступ навсегда</div>
 </section>
 
-<!-- ───────── FOOTER ───────── -->
+<!-- FOOTER -->
 <footer>
+  <div class="footer-logo">SuccessCode</div>
   <div class="footer-links">
     <a href="#">Политика конфиденциальности</a>
     <a href="#">Условия использования</a>
     <a href="#">О нас</a>
-    <a href="mailto:support@successcode.net">support@successcode.net</a>
+    <a href="mailto:support@successcode.net">Связаться</a>
   </div>
   <div>© 2026 SuccessCode · Карта Цзы Вэй Доу Шу</div>
-  <div style="margin-top:14px;font-size:11px;color:#888;">
+  <div class="footer-fineprint">
     Отчёт оформлен в познавательных и развлекательных целях.
     Не является медицинской, юридической, финансовой или психологической консультацией.
   </div>
