@@ -158,53 +158,46 @@ Does NOT touch the Lunar (ZWDS) section, does NOT touch the engine, does NOT
 change the year stem used for ZWDS natal enhancers. See `zwds-ui.js` → IIFE
 labelled "Solar BaZi year pillar — LiChun calendar fix".
 
-### Patch: Maxim bureau override — `zwds-maxim.html`
+### Structural bureau fix — applied 2026-05-25
 
-The engine derives the Five-Elements Bureau (五行局, 2/3/4/5/6) from the
-**year ganzhi's NaYin element**. The canonical ZWDS rule is to use the
-**Life-palace (P1) ganzhi's NaYin**. For most charts the two agree (Alena:
-both give Fire 6); for some they diverge.
+**Earlier behavior (bug):** the engine derived the Five-Elements Bureau (五行局, 2/3/4/5/6) from the **year ganzhi's NaYin element**. The canonical Northern-school ZWDS rule uses the **Life-palace (P1) ganzhi's NaYin**. For some charts the two agree (Alena: both give Fire 6); for others they diverge. Charts that diverged got wrong bureau → wrong Zi Wei placement → wrong star layout → wrong decade ages.
 
-Maxim diverges:
+| Chart | Year ganzhi → bureau (engine, wrong) | P1 ganzhi → bureau (canonical) |
+|---|---|---|
+| Maxim 1977-02-15 | 丙辰 → 沙中土 → Earth 5 | 辛卯 → 松柏木 → **Wood 3** |
+| Julia 1974-08-06 | 甲寅 → 大溪水 → Water 2 | 己巳 → 大林木 → **Wood 3** |
+| Alena 1979-04-19 | 己未 → 天上火 → Fire 6 | 甲戌 → 山頭火 → Fire 6 ✓ |
 
-| Source              | GanZhi | NaYin       | Element | Bureau |
-|---------------------|--------|-------------|---------|--------|
-| Year (engine — wrong) | 丙辰  | 沙中土      | Earth   | 5      |
-| P1   (canonical)    | 辛卯   | 松柏木      | Wood    | **3**  |
+**The structural fix (calculator.html, 2026-05-25):**
 
-Wrong bureau → wrong Zi Wei placement → wrong star layout → wrong decade ages
-(bureau N → first decade starts at age N). Mingli.ru and other reference
-implementations all use the P1-based bureau and show Wood 3 for Maxim.
+The bureau is now derived AFTER P1 stem is computed via Five Tigers (五虎遁元) rather than directly from the year stem/branch. New order:
 
-A general fix would require re-deriving the bureau from P1 inside the engine,
-which is impractical without de-obfuscation. Maxim's calculator page therefore
-contains a **single-symbol surgical edit** to the engine:
+1. Lunar date + year stem/branch
+2. Hour branch
+3. **Life palace (soulBI) + body palace** — computed first
+4. **P1 stem** — derived from year stem + soulBI via Five Tigers
+5. **Bureau** — `getFiveBureau(p1StemIdx, soulBI)` (was `(ySI, yBI)`)
+6. Zi Wei placement (uses bureau)
+7. All 14 main stars
 
-```javascript
-function getFiveBureau(i,m){return 3;}   // was: NAYIN-of-year-ganzhi algorithm
+See `ZWDS Calculator/calculator.html` lines 882-905.
+
+**Maxim per-page override REMOVED** (no longer needed). The structural fix in the engine now handles all charts correctly. Any future pre-filled chart (Julia, Andrey, anyone) deploys with NO per-page bureau override.
+
+**Build process to redeploy after engine changes:**
+
+```bash
+cd "ZWDS Calculator/" && node build.js
+# Then run the engine-swap node script (extracts new <script> block from
+# calculator.obfuscated.html and replaces in all 5 deployed pages):
+#   SuccessCode/zwds.html
+#   SuccessCode/zwds-alena.html
+#   SuccessCode/zwds-julia.html
+#   SuccessCode/zwds-maxim.html
+#   SuccessCode/zwds-demo.html
 ```
 
-The override is documented with a comment block above the `<script>` tag in
-`zwds-maxim.html`. This works because:
-
-1. The page is hardcoded to Maxim's birth data — no other input combinations
-   are reachable on this URL.
-2. The Five-Tigers Pursuing-the-Yuan table maps 丙 and 辛 to the same palace-
-   stem row, so palace stems are identical whether the engine internally
-   computes from 丙 or 辛 — only the bureau number, Zi Wei position, and
-   decade ages change.
-3. Natal enhancers still fire off the year stem 丙 as required by
-   Northern-school rules.
-
-### Adding a new pre-filled chart that needs a different bureau
-
-The cleanest path is to clone `zwds-maxim.html`, change the pre-fill block,
-and update the `return 3;` literal to the correct bureau for that chart
-(2 Water / 3 Wood / 4 Metal / 5 Earth / 6 Fire — derive from the P1 ganzhi's
-NaYin). Update the comment block accordingly.
-
-For charts where year-NaYin and P1-NaYin happen to agree (Alena, Andrey),
-no override is needed.
+**Why this wasn't fixed earlier:** a prior session note claimed the fix would require de-obfuscating the engine. That was incorrect — the un-obfuscated source `calculator.html` was always present in the repo. The fix is 3 reordered lines + 1 new computation, then rebuild + redeploy.
 
 ---
 
