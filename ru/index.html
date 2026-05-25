@@ -21,10 +21,8 @@
       --muted:    #a1a1a1;
       --gold:     #705830;
       --gold-2:   #7b643f;
-      --gold-3:   #8a7240;
       --border:   #d8cdb4;
     }
-
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     html, body { max-width: 100vw; overflow-x: hidden; }
@@ -50,12 +48,6 @@
       color: var(--gold);
       font-style: italic;
       font-weight: 400;
-    }
-
-    .serif-sub {
-      font-family: 'Forum', 'Playfair Display', Georgia, serif;
-      font-weight: 400;
-      color: var(--gold);
     }
 
     /* NAV */
@@ -117,7 +109,6 @@
       font-size: 17px; color: var(--ink-2);
       margin-bottom: 44px; max-width: 540px;
       line-height: 1.75;
-      font-weight: 400;
     }
     .hero-cta-row { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
     .cta-primary {
@@ -136,9 +127,7 @@
     }
     .hero-price s { color: var(--muted); margin-right: 14px; font-size: 20px; font-weight: 400; }
     .hero-right { display: flex; justify-content: center; }
-    .hero-image-frame {
-      position: relative; width: 100%; max-width: 540px;
-    }
+    .hero-image-frame { position: relative; width: 100%; max-width: 540px; }
     .hero-image {
       width: 100%;
       box-shadow: 0 30px 80px rgba(35,35,35,0.16), 0 0 80px rgba(112,88,48,0.06);
@@ -146,11 +135,9 @@
     }
     .hero-image-deco {
       position: absolute;
-      top: -22px; left: -22px;
-      right: 22px; bottom: 22px;
+      top: -22px; left: -22px; right: 22px; bottom: 22px;
       border: 1px solid var(--gold);
-      pointer-events: none;
-      z-index: -1;
+      pointer-events: none; z-index: -1;
     }
 
     /* SECTION BASE */
@@ -197,8 +184,7 @@
     .feature-num {
       font-family: 'Playfair Display', serif;
       font-size: 30px; color: var(--gold); font-weight: 400;
-      min-width: 44px; line-height: 1;
-      font-style: italic;
+      min-width: 44px; line-height: 1; font-style: italic;
     }
     .feature-title {
       font-family: 'Playfair Display', serif;
@@ -247,8 +233,7 @@
     .step-num {
       font-family: 'Playfair Display', serif;
       font-size: 64px; font-style: italic;
-      color: var(--gold);
-      line-height: 1; margin-bottom: 24px;
+      color: var(--gold); line-height: 1; margin-bottom: 24px;
     }
     .step-title {
       font-family: 'Playfair Display', serif;
@@ -374,8 +359,7 @@
     .final-price {
       font-family: 'Playfair Display', serif;
       font-size: 44px; color: var(--gold);
-      margin-bottom: 36px;
-      font-weight: 500;
+      margin-bottom: 36px; font-weight: 500;
     }
     .final-price s { color: var(--muted); font-size: 28px; margin-right: 18px; font-weight: 400; }
     .final-fineprint {
@@ -477,30 +461,30 @@
   <div class="nav-links">
     <a href="#what" class="nav-link">Что внутри</a>
     <a href="#process" class="nav-link">Процесс</a>
-    <a href="#faq" class="nav-link">FAQ</a>
-    <a href="#checkout" class="nav-btn">Получить · $19</a>
+    <a href="#faq" class="nav-link">Вопросы</a>
+    <a href="#checkout" class="nav-btn">Заказать · $19</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div>
-    <div class="hero-tag">Древнекитайская астрология</div>
-    <h1>Ваша персональная <em>Карта Судьбы</em> по Цзы Вэй Доу Шу — за 10 минут</h1>
+    <div class="hero-tag">Цзы Вэй Доу Шу · Северная школа</div>
+    <h1>Ваша <em>карта судьбы</em> по древнекитайской системе — за 10 минут</h1>
     <p class="hero-sub">
-      Профессионально оформленный PDF на 80 страниц. Расшифровка двенадцати дворцов
-      вашей жизни — характер, карьера, деньги, отношения, здоровье и периоды
-      активации судьбы. Метод Северной школы — старейшая императорская система Китая.
+      Подробный PDF-разбор вашей жизни на 80 страниц. Двенадцать дворцов судьбы:
+      характер, карьера, деньги, отношения, здоровье, годы возможностей и годы защиты.
+      Метод императорской астрологии Китая.
     </p>
     <div class="hero-cta-row">
-      <a href="#checkout" class="cta-primary">Получить мою карту</a>
+      <a href="#checkout" class="cta-primary">Заказать мою карту</a>
       <span class="hero-price"><s>$49</s> $19</span>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-image-frame">
       <img src="https://images.unsplash.com/photo-1532978879514-6cac7e0c5e26?auto=format&fit=crop&w=900&q=80"
-           alt="Звёздная карта"
+           alt="Звёздное небо"
            class="hero-image"
            loading="eager">
       <div class="hero-image-deco"></div>
@@ -512,10 +496,11 @@
 <section id="what">
   <div class="container">
     <div class="section-tag">Что входит в отчёт</div>
-    <h2 class="section-heading">Полная карта вашей жизни на <em>80 страницах</em></h2>
+    <h2 class="section-heading">Подробный разбор вашей жизни на <em>80 страницах</em></h2>
     <p class="section-sub">
-      Не общий гороскоп, а структурный анализ конкретно вашего рождения через
-      12 дворцов, 14 главных звёзд и 4 усилителя (化禄 化权 化科 化忌) Северной школы.
+      Это не общий гороскоп, а структурный анализ именно вашей карты:
+      12 дворцов, 14 главных звёзд и 4 усилителя (化禄 化权 化科 化忌)
+      по методу Северной школы.
     </p>
     <div class="what-grid">
       <div>
@@ -523,58 +508,58 @@
           <li class="feature-item">
             <div class="feature-num">I</div>
             <div>
-              <div class="feature-title">Визуальная карта 12 дворцов</div>
-              <div class="feature-desc">Дворцы Жизни, Богатства, Карьеры, Супруга, Детей, Здоровья, Путешествий, Друзей, Недвижимости, Ментального плана, Родителей, Братьев и сестёр</div>
+              <div class="feature-title">Карта 12 дворцов</div>
+              <div class="feature-desc">Двенадцать сфер вашей жизни на одной схеме: Жизнь, Богатство, Карьера, Супруг, Дети, Здоровье, Путешествия, Друзья, Недвижимость, Душа, Родители, Родственники</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">II</div>
             <div>
-              <div class="feature-title">Личный портрет: характер и таланты</div>
-              <div class="feature-desc">Главные звёзды вашей личности и способ принятия решений. Естественные сильные стороны и зоны напряжения</div>
+              <div class="feature-title">Личный портрет</div>
+              <div class="feature-desc">Главные звёзды вашей личности и способ принятия решений. Естественные сильные стороны, природные таланты, что движет вами на глубинном уровне</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">III</div>
             <div>
-              <div class="feature-title">Карьера и денежные каналы</div>
-              <div class="feature-desc">Сферы, которые для вас структурно успешны. Тип бизнеса и партнёрств, который подходит. Где зарабатывать и где остерегаться</div>
+              <div class="feature-title">Карьера и деньги</div>
+              <div class="feature-desc">Как вы зарабатываете лучше всего. В каких сферах вы структурно сильны, а в каких теряете энергию. Тип бизнеса и партнёрств, который подходит вашей карте</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">IV</div>
             <div>
-              <div class="feature-title">Модель отношений и брака</div>
-              <div class="feature-desc">Дворец Супруга и его зеркало. Тип партнёра, который к вам приходит. Окна для встречи и устойчивые паттерны</div>
+              <div class="feature-title">Отношения и брак</div>
+              <div class="feature-desc">Что говорит Дворец Супруга. Какого партнёра вы притягиваете, как складываются отношения. Окна благоприятных встреч и устойчивые паттерны</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">V</div>
             <div>
-              <div class="feature-title">Декады и годовые активации</div>
-              <div class="feature-desc">Текущий 10-летний цикл, окна возможностей и периоды риска. Расклад до 2034 года</div>
+              <div class="feature-title">Декада и активации года</div>
+              <div class="feature-desc">Ваш текущий десятилетний цикл. Сильные и сложные годы, окна возможностей и периоды защиты — с разбором до 2034 года</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">VI</div>
             <div>
               <div class="feature-title">Здоровье и тело</div>
-              <div class="feature-desc">Дворец Здоровья: предрасположенности, чувствительные периоды, рекомендации по балансу</div>
+              <div class="feature-desc">Дворец Здоровья: природные слабые места, чувствительные периоды, на что обращать внимание для поддержания баланса</div>
             </div>
           </li>
           <li class="feature-item">
             <div class="feature-num">VII</div>
             <div>
-              <div class="feature-title">Практические рекомендации</div>
-              <div class="feature-desc">Что делать с активациями этого года, как использовать декаду, что готовить к 2027 и далее</div>
+              <div class="feature-title">Что делать сейчас</div>
+              <div class="feature-desc">Практические рекомендации для текущей декады и года. Что использовать, что отложить, к чему готовиться</div>
             </div>
           </li>
         </ul>
-        <a href="#" class="sample-link">Скачать пример отчёта →</a>
+        <a href="#" class="sample-link">Посмотреть пример отчёта →</a>
       </div>
       <div class="what-image-wrap">
         <img src="https://images.unsplash.com/photo-1462332420958-a05d1e002413?auto=format&fit=crop&w=800&q=80"
-             alt="Пример отчёта"
+             alt="Космос"
              class="what-image">
       </div>
     </div>
@@ -585,26 +570,26 @@
 <section class="process-section" id="process">
   <div class="container center-text">
     <div class="section-tag">Как это работает</div>
-    <h2 class="section-heading">От данных до PDF — <em>десять минут</em></h2>
+    <h2 class="section-heading">От ваших данных до готового PDF — <em>десять минут</em></h2>
     <p class="section-sub">
       Карта рассчитывается автоматически по дате, времени и месту рождения.
-      Цзы Вэй Доу Шу требует точного времени до получаса.
+      Для точности нужно знать время с разницей не больше получаса.
     </p>
     <div class="steps-grid">
       <div class="step-card">
         <div class="step-num">i</div>
         <div class="step-title">Введите данные</div>
-        <div class="step-desc">Дата, время и город рождения. Если не помните точное время — уточните у мамы или в свидетельстве о рождении</div>
+        <div class="step-desc">Дата, точное время и город рождения. Если не уверены во времени — посмотрите в свидетельстве о рождении или уточните у мамы</div>
       </div>
       <div class="step-card">
         <div class="step-num">ii</div>
-        <div class="step-title">Безопасная оплата</div>
-        <div class="step-desc">Через Stripe (международные карты) или альтернативный шлюз для российских карт. Единоразовый платёж</div>
+        <div class="step-title">Оплатите</div>
+        <div class="step-desc">Безопасно через Stripe для международных карт или через альтернативный шлюз для российских. Без подписок и доплат</div>
       </div>
       <div class="step-card">
         <div class="step-num">iii</div>
-        <div class="step-title">PDF в почту</div>
-        <div class="step-desc">Личная карта на 80 страниц приходит на указанный e-mail в течение 10 минут. Доступ навсегда</div>
+        <div class="step-title">Получите PDF</div>
+        <div class="step-desc">Готовая карта приходит на ваш e-mail в течение 10 минут. Скачиваете, читаете, возвращаетесь когда захотите</div>
       </div>
     </div>
   </div>
@@ -613,38 +598,38 @@
 <!-- BENEFITS -->
 <section>
   <div class="container center-text">
-    <div class="section-tag">Для вас, если</div>
-    <h2 class="section-heading">Эта карта — для тех, кто ищет <em>конкретные ответы</em></h2>
+    <div class="section-tag">Для кого этот отчёт</div>
+    <h2 class="section-heading">Эта карта — для тех, кто хочет <em>конкретики</em></h2>
     <div class="benefits-grid">
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
-        <div class="benefit-title">Понять структуру своей жизни</div>
-        <div class="benefit-desc">Почему одни сферы получаются легко, а другие — никак. Не общими словами, а через конкретные дворцы и звёзды вашей карты</div>
+        <div class="benefit-title">Понять, как устроена ваша жизнь</div>
+        <div class="benefit-desc">Почему одно даётся легко, а другое — никак. Не общими словами, а через звёзды и дворцы именно вашей карты</div>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
-        <div class="benefit-title">Узнать свои настоящие таланты</div>
-        <div class="benefit-desc">Не «вы такой потому что Овен» — а через главные звёзды Дворца Жизни и его зеркала. Структурный, а не поверхностный анализ</div>
+        <div class="benefit-title">Увидеть свои настоящие таланты</div>
+        <div class="benefit-desc">Не «вы Овен — значит лидер», а конкретный разбор главных звёзд Дворца Жизни и его зеркала. Структурно, а не поверхностно</div>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
-        <div class="benefit-title">Найти лучшие годы для решений</div>
-        <div class="benefit-desc">Свадьба, переезд, смена работы, инвестиции — в годы активации судьбы, а не вслепую</div>
+        <div class="benefit-title">Поймать удачные годы для решений</div>
+        <div class="benefit-desc">Свадьба, переезд, новая работа, инвестиции — в годы активации судьбы, а не вслепую</div>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
-        <div class="benefit-title">Увидеть свою карьеру по карте</div>
-        <div class="benefit-desc">Какие сферы для вас работают, какие — нет. Тип партнёрства, который подходит. Где деньги и где репутация</div>
+        <div class="benefit-title">Разобраться в своей карьере</div>
+        <div class="benefit-desc">Какие сферы для вас открыты, а какие закрыты. Где деньги, где признание, где партнёры</div>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
-        <div class="benefit-title">Сделать необычный подарок</div>
-        <div class="benefit-desc">Близкому человеку — не очередную открытку, а персональную книгу про его жизнь. Эстетично оформленную</div>
+        <div class="benefit-title">Подарить близкому человеку</div>
+        <div class="benefit-desc">Не очередная открытка, а персональная книга о его жизни. Эстетично оформленная, остаётся навсегда</div>
       </div>
       <div class="benefit-card">
         <div class="benefit-icon">✦</div>
         <div class="benefit-title">Начать изучать восточную метафизику</div>
-        <div class="benefit-desc">Цзы Вэй Доу Шу — самая структурная система китайской астрологии. Ваша карта — лучший учебник</div>
+        <div class="benefit-desc">Цзы Вэй Доу Шу — самая системная из китайских школ. Ваша карта — лучший практический учебник</div>
       </div>
     </div>
   </div>
@@ -658,27 +643,27 @@
     <div class="outcomes-grid">
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Ясность о жизненном пути.</strong> Перестанете гадать «что делать» — структура карты покажет, где вы сильны и где требуется усилие</div>
+        <div class="outcome-text"><strong>Ясность о своём пути.</strong> Вы перестаёте гадать, что делать — карта показывает, в чём вы сильны и где нужно усилие</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Понимание своих циклов.</strong> Знание текущей декады и активаций года — основа для планирования больших решений</div>
+        <div class="outcome-text"><strong>Понимание своих циклов.</strong> Знание текущей декады и активаций года — основа для крупных жизненных решений</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Перестанете биться о стену.</strong> Когда видите структурные ограничения — перестаёте тратить силы на то, что не работает по карте</div>
+        <div class="outcome-text"><strong>Меньше бессмысленных усилий.</strong> Когда видны структурные ограничения — легче не тратить силы на то, что по карте не работает</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Чёткие окна возможностей.</strong> Какие годы — для скачка, какие — для защиты. Карта показывает оба типа лет до 2034</div>
+        <div class="outcome-text"><strong>Чёткие окна возможностей.</strong> Какие годы — для рывка, какие — для защиты. Расклад до 2034 года</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Снижение тревоги.</strong> Большая часть страха — от непонимания структуры. Когда видите свою карту — страх замещается планированием</div>
+        <div class="outcome-text"><strong>Меньше тревоги.</strong> Большая часть страха — от непонимания. Когда видна структура — страх замещается стратегией</div>
       </div>
       <div class="outcome-item">
         <div class="outcome-check">✓</div>
-        <div class="outcome-text"><strong>Материал для перечитывания.</strong> PDF остаётся с вами навсегда. Возвращайтесь к нему в ключевые моменты жизни</div>
+        <div class="outcome-text"><strong>Материал на годы.</strong> PDF остаётся у вас навсегда. Возвращайтесь к нему в ключевые моменты жизни</div>
       </div>
     </div>
   </div>
@@ -688,32 +673,32 @@
 <section>
   <div class="container">
     <div class="section-tag">Особенности и преимущества</div>
-    <h2 class="section-heading">Метод <em>Северной школы</em>. Структура, не эзотерика</h2>
+    <h2 class="section-heading">Метод <em>Северной школы</em>. Структура, а не эзотерика</h2>
     <div class="details-grid">
       <div class="details-text">
         <p>
           Цзы Вэй Доу Шу — древнекитайская императорская система анализа судьбы.
-          Создана при династии Сун (~960 г. н.э.), использовалась только для
-          императорской семьи. Сегодня — самая структурная система китайской
-          астрологии, признанная в Китае, Гонконге, Тайване и Сингапуре.
+          Создана при династии Сун (около 960 года), долгое время использовалась
+          только при императорском дворе. Сегодня — одна из самых системных
+          школ китайской астрологии, признанная в Китае, Гонконге, Тайване и
+          Сингапуре.
         </p>
         <p>
-          Наш отчёт основан на <strong>Северной школе</strong> — методе 4 усилителей
-          (化禄 化权 化科 化忌), который даёт самые точные временные прогнозы.
-          14 главных звёзд распределены по 12 дворцам вашей жизни,
-          дополняются вспомогательными и евильными звёздами.
+          Наш отчёт построен на <strong>Северной школе</strong> — методе четырёх
+          усилителей (化禄 化权 化科 化忌), который даёт самые точные временные
+          прогнозы. 14 главных звёзд распределяются по 12 дворцам вашей карты
+          и дополняются вспомогательными и евильными звёздами.
         </p>
         <p>
-          Дизайн отчёта — в премиум-стиле тёплой золотой эстетики.
-          Удобная навигация по разделам, понятный язык, без жаргона.
-          Подходит и для первого знакомства с системой,
-          и для опытных читателей карт.
+          Дизайн отчёта — в премиальной тёплой эстетике. Удобная навигация по
+          разделам, понятный язык, без жаргона. Подходит и для первого знакомства
+          с системой, и для тех, кто уже изучал свою карту.
         </p>
         <p>
-          Расчёт ведётся через наш собственный калькулятор,
-          основанный на алгоритме <strong>iztro</strong> (открытый код).
-          Тот же движок используется на профессиональных ZWDS-калькуляторах.
-          Результат можно проверить на mingli.ru или iztro.com.
+          Расчёт идёт через наш собственный калькулятор на базе алгоритма
+          <strong>iztro</strong> (открытый исходный код). Тот же движок
+          используется на профессиональных ZWDS-калькуляторах. Результат
+          можно перепроверить на mingli.ru или iztro.com.
         </p>
       </div>
       <div>
@@ -728,42 +713,42 @@
 <!-- FAQ -->
 <section class="faq-section" id="faq">
   <div class="container center-text">
-    <div class="section-tag">Часто задаваемые вопросы</div>
-    <h2 class="section-heading">FAQ</h2>
+    <div class="section-tag">Частые вопросы</div>
+    <h2 class="section-heading">Вопросы и ответы</h2>
   </div>
   <div class="container">
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q">Насколько точна карта?</div>
-        <div class="faq-a">Точность зависит от корректности данных рождения. Дата и место — обычно известны точно. Время рождения критично: погрешность в час может изменить Дворец Жизни и всю структуру карты. Если не уверены во времени до получаса — уточните в свидетельстве о рождении или у родителей перед заказом.</div>
+        <div class="faq-q">Насколько точна моя карта?</div>
+        <div class="faq-a">Точность зависит от данных рождения. Дата и место обычно известны точно. Время рождения — критично: ошибка в час может сдвинуть Дворец Жизни и изменить всю карту. Если не помните точное время — посмотрите свидетельство о рождении или спросите у мамы до заказа.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Когда придёт отчёт?</div>
-        <div class="faq-a">PDF приходит на e-mail в течение 10 минут после успешной оплаты. Если задержался — проверьте папку «Спам». При проблемах напишите на support@successcode.net, отправим вручную в течение нескольких часов.</div>
+        <div class="faq-q">Когда я получу отчёт?</div>
+        <div class="faq-a">PDF приходит на ваш e-mail в течение 10 минут после оплаты. Если задерживается — проверьте папку «Спам». Если так и не нашли — напишите на support@successcode.net, отправим вручную в течение нескольких часов.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Можно ли вернуть деньги?</div>
-        <div class="faq-a">Возврат возможен в двух случаях: 1) если PDF не пришёл в течение 24 часов после оплаты и проблема не решилась; 2) если в отчёте обнаружена существенная ошибка по нашей вине. Возврат за «не понравилось» не предусмотрен — продукт информационный.</div>
+        <div class="faq-a">Возврат возможен в двух случаях: 1) PDF не пришёл в течение суток и проблему не удалось решить; 2) в отчёте обнаружена существенная ошибка по нашей вине. Возврат «не понравилось» не предусмотрен — это информационный продукт.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Защищены ли мои данные?</div>
-        <div class="faq-a">Данные рождения используются только для расчёта карты и хранятся в зашифрованной базе. Мы не передаём их третьим лицам и не используем для маркетинга. Оплата проходит через Stripe — данные карты мы не видим.</div>
+        <div class="faq-a">Данные рождения используются только для расчёта вашей карты и хранятся в зашифрованной базе. Мы не передаём их третьим лицам и не используем для маркетинга. Оплата проходит через Stripe — данные вашей карты мы не видим.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Это эзотерика или реальная астрология?</div>
-        <div class="faq-a">Цзы Вэй Доу Шу — структурная система с чёткими математическими правилами. Не «карты Таро на удачу», а конкретный анализ через 12 дворцов, 14 главных звёзд и 4 усилителя. Отчёт оформлен в развлекательно-познавательных целях — не является медицинской, финансовой или психологической консультацией.</div>
+        <div class="faq-a">Цзы Вэй Доу Шу — структурная система с математическими правилами. Не гадание на удачу, а конкретный анализ через дворцы, звёзды и усилители. Отчёт оформлен как познавательный и развлекательный продукт — он не заменяет медицинскую, психологическую или финансовую консультацию.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Сколько стоит?</div>
-        <div class="faq-a">Стандартная цена — $49. Сейчас действует промо-цена $19 (около ₽1800). Оплата единоразовая, никаких подписок и доплат.</div>
+        <div class="faq-a">Обычная цена — $49. Сейчас действует промо-цена $19 (примерно ₽1800). Оплата разовая, без подписок и доплат.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Можно ли заказать карту для другого человека?</div>
-        <div class="faq-a">Да. Введите данные рождения того, кому делаете подарок, и укажите свой e-mail для доставки PDF. Перешлёте файл по любому удобному каналу.</div>
+        <div class="faq-q">Можно ли заказать карту в подарок?</div>
+        <div class="faq-a">Да. Введите данные рождения того, кому делаете подарок, а в поле e-mail укажите свой адрес. Затем перешлёте PDF любым удобным способом.</div>
       </div>
       <div class="faq-item">
         <div class="faq-q">Что если я не помню точное время рождения?</div>
-        <div class="faq-a">Без точного времени отчёт не имеет смысла — Дворец Жизни и значительная часть структуры зависят от часа рождения. Уточните у родителей или закажите выписку из свидетельства о рождении. Если время определить невозможно — лучше не заказывать, чтобы не получить нерелевантный результат.</div>
+        <div class="faq-a">Без точного времени отчёт не имеет смысла — Дворец Жизни и большая часть карты зависят от часа рождения. Уточните у родителей или закажите выписку из свидетельства о рождении. Если время определить невозможно — лучше не заказывать, чтобы не получить нерелевантный результат.</div>
       </div>
     </div>
   </div>
@@ -772,10 +757,10 @@
 <!-- FINAL CTA -->
 <section class="final-cta-section" id="checkout">
   <div class="section-tag" style="justify-content:center;">Готовы начать?</div>
-  <h2>Увидьте свою карту судьбы</h2>
-  <p>80 страниц структурного анализа вашей жизни. PDF в почту за десять минут.</p>
+  <h2>Откройте свою карту судьбы</h2>
+  <p>80 страниц подробного разбора вашей жизни. PDF в почту за 10 минут.</p>
   <div class="final-price"><s>$49</s> $19</div>
-  <a href="#" class="cta-primary">Получить мою карту</a>
+  <a href="#" class="cta-primary">Заказать мою карту</a>
   <div class="final-fineprint">Оплата через Stripe · PDF за 10 минут · Доступ навсегда</div>
 </section>
 
