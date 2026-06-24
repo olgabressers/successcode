@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your 2026 Strategy — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --gold-dim: rgba(184,144,58,0.10);
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+      --error:    #e87070;
+    }
+
+    /* MOBILE BOILERPLATE */
+    html, body {
+      max-width: 100vw;
+      width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+
+    /* PAGE */
+    .page-wrap { padding-top: 72px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+    .page-header {
+      width: 100%; text-align: center;
+      padding: 56px 24px 40px;
+      background: linear-gradient(180deg, var(--surface) 0%, var(--black) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
+    .page-tag::before { content: '—'; margin-right: 10px; }
+    .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; }
+    .page-h1 em { font-style: italic; color: var(--gold2); }
+    .page-sub { font-size: 15px; line-height: 1.7; color: var(--dim); max-width: 560px; margin: 0 auto; }
+
+    /* PROGRESS */
+    .progress-wrap { width: 100%; max-width: 720px; padding: 32px 24px 0; }
+    .progress-bar { display: flex; gap: 6px; margin-bottom: 8px; }
+    .progress-seg { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background .4s; }
+    .progress-seg.done { background: var(--gold); }
+    .progress-seg.active { background: var(--gold2); }
+    .progress-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* FORM WRAP */
+    .form-wrap { width: 100%; max-width: 720px; padding: 32px 24px 72px; }
+
+    /* STEPS */
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; margin-bottom: 8px; }
+    .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+
+    /* QUESTION CARDS */
+    .q-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .q-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px 24px; background: var(--surface);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .q-card:hover { border-color: var(--gold2); background: var(--surface2); }
+    .q-card.selected { border-color: var(--gold); background: rgba(184,144,58,0.10); }
+    .q-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .q-dot {
+      width: 20px; height: 20px; min-width: 20px; margin-top: 3px;
+      border: 1.5px solid var(--muted); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .q-card.selected .q-dot { border-color: var(--gold); background: var(--gold); }
+    .q-card.selected .q-dot::after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+    .q-num { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 5px; }
+    .q-label { font-size: 17px; font-weight: 500; color: var(--white); line-height: 1.4; margin-bottom: 5px; }
+    .q-hint { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* FIELDS */
+    .field { margin-bottom: 26px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    label.field-label {
+      display: block; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 7px;
+    }
+    .field-hint { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: -3px; margin-bottom: 8px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); padding: 13px 15px;
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      outline: none; transition: border-color .2s; -webkit-appearance: none; border-radius: 0;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold2); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    select { cursor: pointer; }
+    select option { background: var(--surface2); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    input[type="date"]::-webkit-calendar-picker-indicator,
+    input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.65); cursor: pointer; }
+
+    /* OPTIONS */
+    .opts { display: flex; flex-direction: column; gap: 9px; }
+    .opts.two { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .opt {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 15px; background: var(--surface);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .opt:hover { border-color: var(--gold2); background: var(--surface2); }
+    .opt.selected { border-color: var(--gold); background: rgba(184,144,58,0.08); }
+    .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .opt-box {
+      width: 18px; height: 18px; min-width: 18px;
+      border: 1.5px solid var(--muted); display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .opt.radio .opt-box { border-radius: 50%; }
+    .opt.selected .opt-box { border-color: var(--gold); background: var(--gold); }
+    .opt.radio.selected .opt-box::after { content: ''; width: 7px; height: 7px; background: #fff; border-radius: 50%; }
+    .opt.check.selected .opt-box::after { content: '✓'; font-size: 11px; color: #fff; line-height: 1; }
+    .opt-text { font-size: 14px; color: var(--white); flex: 1; line-height: 1.45; }
+
+    /* SECTION HEADER */
+    .sec-h { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--gold2); margin-bottom: 4px; }
+    .sec-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+    .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+    /* CONDITIONAL */
+    .q-sec { display: none; }
+    .q-sec.on { display: block; }
+
+    /* NOTE BOX */
+    .note {
+      border-left: 3px solid var(--gold); background: var(--gold-dim);
+      padding: 12px 15px; font-size: 13px; color: var(--dim);
+      line-height: 1.6; margin-bottom: 26px;
+    }
+
+    /* BUTTONS */
+    .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; gap: 14px; }
+    .btn {
+      font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 2.5px;
+      text-transform: uppercase; font-weight: 600; cursor: pointer;
+      border: none; padding: 15px 34px; transition: all .25s;
+    }
+    .btn-primary { background: var(--gold); color: #f5f1eb; }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); padding: 15px 0; transition: color .2s;
+    }
+    .btn-back:hover { color: var(--white); }
+
+    /* CONFIRM */
+    #confirm-screen { display: none; text-align: center; padding: 64px 24px; }
+    .confirm-icon {
+      width: 72px; height: 72px; border: 2px solid var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px; font-size: 28px; color: var(--gold2);
+    }
+    .confirm-h { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 16px; }
+    .confirm-sub { font-size: 15px; color: var(--dim); line-height: 1.75; max-width: 480px; margin: 0 auto 24px; }
+    .confirm-note { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      * { max-width: 100vw; }
+      nav { padding: 15px 20px; }
+      .nav-logo { font-size: 15px; letter-spacing: 3px; }
+      .page-header { padding: 40px 20px 32px; }
+      .page-h1 { font-size: 32px; }
+      .page-sub { font-size: 14px; }
+      .progress-wrap { padding: 24px 20px 0; }
+      .form-wrap { padding: 24px 20px 56px; }
+      .step-title { font-size: 26px; }
+      .field-row { grid-template-columns: 1fr; }
+      .field-row.three { grid-template-columns: 1fr; }
+      .opts.two { grid-template-columns: 1fr; }
+      .q-card { padding: 16px 18px; }
+      .q-label { font-size: 15px; }
+      .btn { padding: 14px 24px; font-size: 11px; }
+      .btn-row { flex-direction: column-reverse; align-items: stretch; }
+      .btn-back { text-align: center; }
+      .confirm-h { font-size: 30px; }
+      .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://successcode.net" class="nav-logo" target="_blank">SuccessCode</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-tag">Beta Test Group — 2026</div>
+    <h1 class="page-h1">Your <em>Blueprint</em> for 2026</h1>
+    <p class="page-sub">3 minutes of questions. A personalised strategy for your goal — best method, best timing, month by month.</p>
+  </div>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-seg" id="seg-1"></div>
+      <div class="progress-seg" id="seg-2"></div>
+      <div class="progress-seg" id="seg-3"></div>
+      <div class="progress-seg" id="seg-4"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Step 1 of 4</div>
+  </div>
+
+  <div class="form-wrap">
+    <form id="qform">
+
+      <!-- ══ STEP 1 — CHOOSE QUESTION ══ -->
+      <div class="step active" id="step-1">
+        <h2 class="step-title">What do you want to optimise?</h2>
+        <p class="step-desc">Pick one question. Your full strategy — timing, channel, monthly peaks — is built around it.</p>
+
+        <div class="q-cards">
+          <label class="q-card" id="card-1" onclick="pickQ('q1','card-1')">
+            <input type="radio" name="chosen_question" value="Q1 — Find a job in 2026">
+            <div class="q-dot"></div>
+            <div>
+              <div class="q-num">Question 01</div>
+              <div class="q-label">What is the best way to find a job in 2026?</div>
+              <div class="q-hint">Cold applications, recruiter, network, LinkedIn — we tell you which channel works for you and when.</div>
+            </div>
+          </label>
+
+          <label class="q-card" id="card-2" onclick="pickQ('q2','card-2')">
+            <input type="radio" name="chosen_question" value="Q2 — Attract customers in 2026">
+            <div class="q-dot"></div>
+            <div>
+              <div class="q-num">Question 02</div>
+              <div class="q-label">What is the best way to attract customers in 2026?</div>
+              <div class="q-hint">Which acquisition channel, which content style, and when to push hardest.</div>
+            </div>
+          </label>
+
+          <label class="q-card" id="card-3" onclick="pickQ('q3','card-3')">
+            <input type="radio" name="chosen_question" value="Q3 — Find investors in 2026">
+            <div class="q-dot"></div>
+            <div>
+              <div class="q-num">Question 03</div>
+              <div class="q-label">What is the best way to find investors in 2026?</div>
+              <div class="q-hint">Warm vs cold path, pitch approach, and the strongest months to approach capital.</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <span></span>
+          <button type="button" class="btn btn-primary" id="btn-s1" onclick="go(2)" disabled>Continue →</button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 2 — BIRTH DATA ══ -->
+      <div class="step" id="step-2">
+        <h2 class="step-title">Your birth data</h2>
+        <p class="step-desc">The foundation of your personalised reading. Birth time and place are essential — even an approximate time gives a much more accurate result.</p>
+
+        <div class="note">All data is private. Used only to generate your strategy. Never shared with third parties.</div>
+
+        <div class="field">
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="first_name">First name</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Your first name" required>
+            </div>
+            <div>
+              <label class="field-label" for="last_name">Last name</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Your last name">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Email address</label>
+          <p class="field-hint">Your personalised 2026 strategy will be sent here.</p>
+          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Gender</label>
+          <p class="field-hint">Determines the direction of your life cycles — this significantly affects the reading.</p>
+          <div class="opts two">
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Female">
+              <div class="opt-box"></div>
+              <span class="opt-text">Female</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Male">
+              <div class="opt-box"></div>
+              <span class="opt-text">Male</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_date">Date of birth</label>
+          <input type="date" id="birth_date" name="birth_date" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_time">Time of birth</label>
+          <p class="field-hint">Exact hour preferred. Unknown? Enter your best guess or use 12:00.</p>
+          <div class="field-row">
+            <input type="time" id="birth_time" name="birth_time">
+            <select name="time_confidence">
+              <option value="exact">Exact (from birth certificate)</option>
+              <option value="approx">Approximate (± 1 hour)</option>
+              <option value="unknown">Don't know — used noon</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Place of birth</label>
+          <div class="field-row">
+            <div>
+              <input type="text" id="birth_city" name="birth_city" placeholder="City" required>
+            </div>
+            <div>
+              <input type="text" id="birth_country" name="birth_country" placeholder="Country" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(1)">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="go(3)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 3 — CALIBRATION ══ -->
+      <div class="step" id="step-3">
+        <h2 class="step-title">Your career story</h2>
+        <p class="step-desc">These questions calibrate your chart pattern and validate which mechanisms apply to you — this is what makes the 2026 advice specific to you, not generic.</p>
+
+        <div class="field">
+          <label class="field-label">Your current situation</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Employed, actively job searching">
+              <div class="opt-box"></div>
+              <span class="opt-text">Employed full-time, actively looking for a new role</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Employed, open to opportunities">
+              <div class="opt-box"></div>
+              <span class="opt-text">Employed, passively open to new opportunities</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Not employed, between roles">
+              <div class="opt-box"></div>
+              <span class="opt-text">Not currently employed / between roles</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Self-employed / running a business">
+              <div class="opt-box"></div>
+              <span class="opt-text">Running my own business or freelancing</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Other">
+              <div class="opt-box"></div>
+              <span class="opt-text">Other</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="best_years">Your 2–3 absolute BEST career or income years</label>
+          <p class="field-hint">Biggest wins, best roles, or highest earnings — the years when things actually worked. e.g. "2014, 2019, 2021"</p>
+          <input type="text" id="best_years" name="best_years" placeholder="e.g. 2014, 2019, 2021" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="hard_years">Your most blocked or frustrating professional year(s)</label>
+          <p class="field-hint">When nothing moved no matter how hard you tried. e.g. "2017, 2020"</p>
+          <input type="text" id="hard_years" name="hard_years" placeholder="e.g. 2017, 2020">
+        </div>
+
+        <div class="field">
+          <label class="field-label">How did your MOST IMPORTANT career break or business win come?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Cold application / unsolicited pitch — I approached them directly">
+              <div class="opt-box"></div>
+              <span class="opt-text">Cold application or unsolicited pitch — I approached them directly</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Warm introduction — someone I knew connected us">
+              <div class="opt-box"></div>
+              <span class="opt-text">Warm introduction — someone I knew connected us</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Recruiter or headhunter reached out to me">
+              <div class="opt-box"></div>
+              <span class="opt-text">Recruiter or headhunter reached out to me</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Conference, event, or public speaking">
+              <div class="opt-box"></div>
+              <span class="opt-text">Conference, event, or public speaking</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Online visibility — LinkedIn, articles, social media">
+              <div class="opt-box"></div>
+              <span class="opt-text">Online visibility — LinkedIn post, article, social media</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
+              <input type="radio" name="best_channel" value="Built it from scratch, founder-driven">
+              <div class="opt-box"></div>
+              <span class="opt-text">Built it from scratch — no single channel, founder-driven</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Which approach has consistently NOT worked for you?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+              <input type="radio" name="failed_channel" value="Cold applications / unsolicited pitches">
+              <div class="opt-box"></div>
+              <span class="opt-text">Cold applications / unsolicited pitches</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+              <input type="radio" name="failed_channel" value="Warm introductions / networking events">
+              <div class="opt-box"></div>
+              <span class="opt-text">Warm introductions / networking events</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+              <input type="radio" name="failed_channel" value="Waiting for recruiters to find me">
+              <div class="opt-box"></div>
+              <span class="opt-text">Waiting for recruiters to find me</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+              <input type="radio" name="failed_channel" value="Online posting / social media">
+              <div class="opt-box"></div>
+              <span class="opt-text">Online posting / social media visibility</span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+              <input type="radio" name="failed_channel" value="Nothing specific has consistently failed">
+              <div class="opt-box"></div>
+              <span class="opt-text">Nothing specific has consistently failed</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(2)">← Back</button>
+          <button type="button" class="btn btn-primary" onclick="go(4)">Continue →</button>
+        </div>
+      </div>
+
+      <!-- ══ STEP 4 — QUESTION-SPECIFIC ══ -->
+      <div class="step" id="step-4">
+        <h2 class="step-title">Last few details</h2>
+        <p class="step-desc">These make your 2026 recommendation specific — not generic advice.</p>
+
+        <!-- Q1 — JOB SEARCH -->
+        <div class="q-sec" id="qs-q1">
+          <div class="sec-h">Job search</div>
+          <div class="sec-sub">Tell us about the role you are targeting in 2026.</div>
+
+          <div class="field">
+            <label class="field-label" for="q1_industry">Your industry / field</label>
+            <input type="text" id="q1_industry" name="q1_industry" placeholder="e.g. E-commerce, Finance, Technology, Marketing">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Seniority level you are targeting</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Junior / Graduate"><div class="opt-box"></div><span class="opt-text">Junior / Graduate</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Mid-level"><div class="opt-box"></div><span class="opt-text">Mid-level</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Senior individual contributor"><div class="opt-box"></div><span class="opt-text">Senior individual contributor</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Manager"><div class="opt-box"></div><span class="opt-text">Manager</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Director"><div class="opt-box"></div><span class="opt-text">Director</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="VP / Executive / C-suite"><div class="opt-box"></div><span class="opt-text">VP / Executive / C-suite</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Location preference</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Open to relocation abroad"><div class="opt-box"></div><span class="opt-text">Open to relocation abroad</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Remote / international remote only"><div class="opt-box"></div><span class="opt-text">Remote / international remote</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Local / same country only"><div class="opt-box"></div><span class="opt-text">Local / same country only</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Flexible / open to all"><div class="opt-box"></div><span class="opt-text">Flexible / open to all</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q1_notes">Anything else about your search? (optional)</label>
+            <textarea id="q1_notes" name="q1_notes" placeholder="e.g. targeting specific companies, pivoting industries, returning after a career break..."></textarea>
+          </div>
+        </div>
+
+        <!-- Q2 — CUSTOMERS -->
+        <div class="q-sec" id="qs-q2">
+          <div class="sec-h">Customer attraction</div>
+          <div class="sec-sub">Tell us about your business and who you serve.</div>
+
+          <div class="field">
+            <label class="field-label" for="q2_biz_type">What type of business do you run?</label>
+            <input type="text" id="q2_biz_type" name="q2_biz_type" placeholder="e.g. B2B SaaS, coaching, e-commerce, agency, consulting">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Main customer type</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2B (other businesses)"><div class="opt-box"></div><span class="opt-text">B2B — other businesses</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2C (consumers)"><div class="opt-box"></div><span class="opt-text">B2C — consumers</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="Both B2B and B2C"><div class="opt-box"></div><span class="opt-text">Both</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Business stage</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="Just started (under 1 year)"><div class="opt-box"></div><span class="opt-text">Just started — under 1 year</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="1–3 years, growing"><div class="opt-box"></div><span class="opt-text">1–3 years, growing</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="3+ years, established"><div class="opt-box"></div><span class="opt-text">3+ years, established</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Which customer acquisition has worked BEST so far?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Word of mouth / referrals"><div class="opt-box"></div><span class="opt-text">Word of mouth / referrals</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Social media content / organic"><div class="opt-box"></div><span class="opt-text">Social media content / organic</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Cold outreach — email, LinkedIn DM"><div class="opt-box"></div><span class="opt-text">Cold outreach — email, LinkedIn DM</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Events / speaking / conferences"><div class="opt-box"></div><span class="opt-text">Events / speaking / conferences</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Paid advertising"><div class="opt-box"></div><span class="opt-text">Paid advertising</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="SEO / content marketing"><div class="opt-box"></div><span class="opt-text">SEO / content marketing</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Still figuring this out"><div class="opt-box"></div><span class="opt-text">Still figuring this out</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q2_notes">Anything else about your business? (optional)</label>
+            <textarea id="q2_notes" name="q2_notes" placeholder="e.g. launching a new product, entering a new market, stuck on a specific challenge..."></textarea>
+          </div>
+        </div>
+
+        <!-- Q3 — INVESTORS -->
+        <div class="q-sec" id="qs-q3">
+          <div class="sec-h">Finding investors</div>
+          <div class="sec-sub">Tell us about your business and what you are raising for.</div>
+
+          <div class="field">
+            <label class="field-label" for="q3_sector">Business sector / industry</label>
+            <input type="text" id="q3_sector" name="q3_sector" placeholder="e.g. AI, Fintech, Fashion, Healthcare, SaaS">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Business stage</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Idea stage — no product yet"><div class="opt-box"></div><span class="opt-text">Idea stage — no product yet</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="MVP / prototype built"><div class="opt-box"></div><span class="opt-text">MVP / prototype built</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="First revenue (under 1 year)"><div class="opt-box"></div><span class="opt-text">First revenue — under 1 year</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Growing revenue (1+ years)"><div class="opt-box"></div><span class="opt-text">Growing revenue — 1+ years</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Scaling / Series A+"><div class="opt-box"></div><span class="opt-text">Scaling / Series A+</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Target investor type</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Angel investor"><div class="opt-box"></div><span class="opt-text">Angel investor</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Seed / VC fund"><div class="opt-box"></div><span class="opt-text">Seed / VC fund</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Strategic / corporate investor"><div class="opt-box"></div><span class="opt-text">Strategic / corporate</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Grant / government funding"><div class="opt-box"></div><span class="opt-text">Grant / government</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Not sure yet"><div class="opt-box"></div><span class="opt-text">Not sure yet</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Have you raised external funding before?</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(true)"><input type="radio" name="q3_raised" value="Yes — raised before"><div class="opt-box"></div><span class="opt-text">Yes</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(false)"><input type="radio" name="q3_raised" value="No — first time"><div class="opt-box"></div><span class="opt-text">No, first time</span></label>
+            </div>
+          </div>
+
+          <div class="field" id="prev-method-field" style="display:none">
+            <label class="field-label">How did you connect with your previous investor(s)?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Cold pitch — email, pitch competition, demo day"><div class="opt-box"></div><span class="opt-text">Cold pitch — email, pitch competition, demo day</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Warm introduction from a mutual contact"><div class="opt-box"></div><span class="opt-text">Warm introduction from a mutual contact</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Accelerator or incubator"><div class="opt-box"></div><span class="opt-text">Accelerator or incubator</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="They found me — inbound"><div class="opt-box"></div><span class="opt-text">They found me — inbound</span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q3_notes">Anything else about your fundraising? (optional)</label>
+            <textarea id="q3_notes" name="q3_notes" placeholder="e.g. round size, geography, co-founder situation, specific investor relationships..."></textarea>
+          </div>
+        </div>
+
+        <!-- CONSENT -->
+        <div class="divider"></div>
+        <div class="field">
+          <label class="opt check" id="consent-opt" onclick="toggleConsent()">
+            <input type="checkbox" name="consent" id="consent-cb">
+            <div class="opt-box" id="consent-box"></div>
+            <span class="opt-text" style="font-size:13px; color:var(--muted); line-height:1.5">
+              I agree to my birth data and answers being used to generate a personalised strategy report. Data is held privately and never shared with third parties.
+            </span>
+          </label>
+        </div>
+
+        <!-- Hidden Formspree helpers -->
+        <input type="hidden" name="_subject" id="form_subject" value="SuccessCode — 2026 Strategy Questionnaire">
+        <input type="hidden" name="_replyto" id="form_replyto" value="">
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(3)">← Back</button>
+          <button type="button" class="btn btn-primary" id="btn-submit" onclick="submitForm()">Submit →</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- CONFIRMATION -->
+    <div id="confirm-screen">
+      <div class="confirm-icon">✦</div>
+      <h2 class="confirm-h">You're in.</h2>
+      <p class="confirm-sub">Your chart is being mapped. Your personalised 2026 strategy — best method, best timing, monthly breakdown — will arrive in your inbox within 48 hours.</p>
+      <p class="confirm-note">Watch for an email from hello@successcode.net</p>
+    </div>
+
+  </div><!-- form-wrap -->
+</div><!-- page-wrap -->
+
+<script>
+  var curStep = 1;
+  var selQ = null;
+
+  /* ─ INIT ─ */
+  updateProgress(1);
+
+  /* ─ QUESTION PICK ─ */
+  function pickQ(qId, cardId) {
+    selQ = qId;
+    document.querySelectorAll('.q-card').forEach(function(c){ c.classList.remove('selected'); });
+    document.getElementById(cardId).classList.add('selected');
+    document.getElementById('btn-s1').disabled = false;
+    // update form subject
+    var labels = {q1:'Q1 Job Search', q2:'Q2 Customers', q3:'Q3 Investors'};
+    document.getElementById('form_subject').value = 'SuccessCode 2026 — ' + (labels[qId] || qId);
+  }
+
+  /* ─ OPTION PICK (radio) ─ */
+  function pickOpt(el, group) {
+    document.querySelectorAll('input[name="' + group + '"]').forEach(function(inp){
+      var parent = inp.closest('.opt');
+      if (parent) parent.classList.remove('selected');
+    });
+    el.classList.add('selected');
+    var inp = el.querySelector('input');
+    if (inp) inp.checked = true;
+    // sync email hidden field
+    if (group === 'email') return;
+  }
+
+  /* ─ CONSENT TOGGLE ─ */
+  function toggleConsent() {
+    var cb = document.getElementById('consent-cb');
+    var opt = document.getElementById('consent-opt');
+    cb.checked = !cb.checked;
+    opt.classList.toggle('selected', cb.checked);
+  }
+
+  /* ─ SHOW PREV INVESTOR METHOD ─ */
+  function showPrevMethod(show) {
+    document.getElementById('prev-method-field').style.display = show ? 'block' : 'none';
+  }
+
+  /* ─ PROGRESS ─ */
+  function updateProgress(n) {
+    for (var i = 1; i <= 4; i++) {
+      var seg = document.getElementById('seg-' + i);
+      seg.classList.remove('done','active');
+      if (i < n) seg.classList.add('done');
+      else if (i === n) seg.classList.add('active');
+    }
+    document.getElementById('progress-label').textContent = 'Step ' + n + ' of 4';
+  }
+
+  /* ─ STEP NAV ─ */
+  function go(n) {
+    if (n > curStep && !validate(curStep)) return;
+    document.getElementById('step-' + curStep).classList.remove('active');
+    curStep = n;
+    document.getElementById('step-' + curStep).classList.add('active');
+    updateProgress(n);
+    if (n === 4) showQSec();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  /* ─ SHOW Q-SPECIFIC SECTION ─ */
+  function showQSec() {
+    document.querySelectorAll('.q-sec').forEach(function(s){ s.classList.remove('on'); });
+    if (selQ) {
+      var sec = document.getElementById('qs-' + selQ);
+      if (sec) sec.classList.add('on');
+    }
+  }
+
+  /* ─ VALIDATE ─ */
+  function validate(step) {
+    if (step === 1) {
+      if (!selQ) { alert('Please choose a question to continue.'); return false; }
+    }
+    if (step === 2) {
+      if (!document.getElementById('first_name').value.trim()) { alert('Please enter your first name.'); return false; }
+      var em = document.getElementById('email').value.trim();
+      if (!em || !em.includes('@')) { alert('Please enter a valid email address.'); return false; }
+      if (!document.querySelector('input[name="gender"]:checked')) { alert('Please select your gender.'); return false; }
+      if (!document.getElementById('birth_date').value) { alert('Please enter your date of birth.'); return false; }
+      if (!document.getElementById('birth_city').value.trim()) { alert('Please enter your city of birth.'); return false; }
+      if (!document.getElementById('birth_country').value.trim()) { alert('Please enter your country of birth.'); return false; }
+      // sync hidden replyto
+      document.getElementById('form_replyto').value = em;
+    }
+    if (step === 3) {
+      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Please select your current situation.'); return false; }
+      if (!document.getElementById('best_years').value.trim()) { alert('Please enter your best career years.'); return false; }
+      if (!document.querySelector('input[name="best_channel"]:checked')) { alert('Please select how your most important opportunity came to you.'); return false; }
+    }
+    return true;
+  }
+
+  /* ─ SUBMIT ─ */
+  async function submitForm() {
+    if (!validate(4)) return;
+    if (!document.getElementById('consent-cb').checked) {
+      alert('Please confirm your consent to continue.');
+      return;
+    }
+    var btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    var formData = new FormData(document.getElementById('qform'));
+    try {
+      var res = await fetch('https://formspree.io/f/xrejwqlq', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('qform').style.display = 'none';
+        document.getElementById('progress-wrap').style.display = 'none';
+        document.getElementById('confirm-screen').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        btn.disabled = false;
+        btn.textContent = 'Submit →';
+        alert('Something went wrong. Please try again.');
+      }
+    } catch(e) {
+      btn.disabled = false;
+      btn.textContent = 'Submit →';
+      alert('Network error — please check your connection and try again.');
+    }
+  }
+</script>
+
+</body>
+</html>
