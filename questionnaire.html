@@ -1,33 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your 2026 Strategy — SuccessCode</title>
+  <title>Ваш план на 2026 — SuccessCode</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --black:    #3a3c48;
-      --surface:  #42444e;
-      --surface2: #4a4c58;
-      --gold:     #b8903a;
-      --gold2:    #cfa44e;
-      --gold-dim: rgba(184,144,58,0.10);
-      --white:    #eceef8;
-      --dim:      #d4d6e8;
-      --muted:    #c0c2d4;
-      --border:   rgba(184,144,58,0.25);
-      --error:    #e87070;
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.22);
+      --error:    #c0392b;
     }
 
-    /* MOBILE BOILERPLATE */
-    html, body {
-      max-width: 100vw;
-      width: 100%;
-      overflow-x: hidden;
-      position: relative;
-    }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body {
@@ -43,7 +37,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       padding: 18px 56px;
       display: flex; justify-content: space-between; align-items: center;
-      background: rgba(52,54,64,0.98);
+      background: rgba(248,246,241,0.97);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(8px);
     }
@@ -59,18 +53,18 @@
 
     .page-header {
       width: 100%; text-align: center;
-      padding: 56px 24px 40px;
+      padding: 56px 24px 44px;
       background: linear-gradient(180deg, var(--surface) 0%, var(--black) 100%);
       border-bottom: 1px solid var(--border);
     }
     .page-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
     .page-tag::before { content: '—'; margin-right: 10px; }
-    .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; }
+    .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; color: var(--white); }
     .page-h1 em { font-style: italic; color: var(--gold2); }
     .page-sub { font-size: 15px; line-height: 1.7; color: var(--dim); max-width: 560px; margin: 0 auto; }
 
     /* PROGRESS */
-    .progress-wrap { width: 100%; max-width: 720px; padding: 32px 24px 0; }
+    .progress-wrap { width: 100%; max-width: 960px; padding: 32px 40px 0; }
     .progress-bar { display: flex; gap: 6px; margin-bottom: 8px; }
     .progress-seg { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background .4s; }
     .progress-seg.done { background: var(--gold); }
@@ -78,13 +72,12 @@
     .progress-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
 
     /* FORM WRAP */
-    .form-wrap { width: 100%; max-width: 720px; padding: 32px 24px 72px; }
+    .form-wrap { width: 100%; max-width: 960px; padding: 32px 40px 72px; }
 
     /* STEPS */
     .step { display: none; }
     .step.active { display: block; }
-
-    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 500; margin-bottom: 8px; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin-bottom: 8px; color: var(--white); }
     .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
 
     /* QUESTION CARDS */
@@ -95,7 +88,7 @@
       border: 1px solid var(--border); cursor: pointer; transition: all .2s;
     }
     .q-card:hover { border-color: var(--gold2); background: var(--surface2); }
-    .q-card.selected { border-color: var(--gold); background: rgba(184,144,58,0.10); }
+    .q-card.selected { border-color: var(--gold); background: rgba(154,110,32,0.08); }
     .q-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
     .q-dot {
       width: 20px; height: 20px; min-width: 20px; margin-top: 3px;
@@ -131,56 +124,93 @@
     input:focus, select:focus, textarea:focus { border-color: var(--gold2); }
     input::placeholder, textarea::placeholder { color: var(--muted); }
     select { cursor: pointer; }
-    select option { background: var(--surface2); }
+    select option { background: var(--surface); color: var(--white); }
     textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
-    input[type="date"]::-webkit-calendar-picker-indicator,
-    input[type="time"]::-webkit-calendar-picker-indicator { filter: invert(0.65); cursor: pointer; }
 
     /* OPTIONS */
     .opts { display: flex; flex-direction: column; gap: 9px; }
     .opts.two { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
     .opt {
-      display: flex; align-items: center; gap: 12px;
-      padding: 11px 15px; background: var(--surface);
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 15px; background: var(--surface);
       border: 1px solid var(--border); cursor: pointer; transition: all .2s;
     }
     .opt:hover { border-color: var(--gold2); background: var(--surface2); }
-    .opt.selected { border-color: var(--gold); background: rgba(184,144,58,0.08); }
+    .opt.selected { border-color: var(--gold); background: rgba(154,110,32,0.08); }
     .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
     .opt-box {
-      width: 18px; height: 18px; min-width: 18px;
+      width: 18px; height: 18px; min-width: 18px; margin-top: 2px;
       border: 1.5px solid var(--muted); display: flex; align-items: center; justify-content: center; transition: all .2s;
     }
     .opt.radio .opt-box { border-radius: 50%; }
     .opt.selected .opt-box { border-color: var(--gold); background: var(--gold); }
     .opt.radio.selected .opt-box::after { content: ''; width: 7px; height: 7px; background: #fff; border-radius: 50%; }
     .opt.check.selected .opt-box::after { content: '✓'; font-size: 11px; color: #fff; line-height: 1; }
-    .opt-text { font-size: 14px; color: var(--white); flex: 1; line-height: 1.45; }
+    .opt-text { display: flex; flex-direction: column; flex: 1; }
+    .opt-main { font-size: 14px; color: var(--white); line-height: 1.4; }
+    .opt-sub { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+
+    /* DYNAMIC ROWS */
+    .dyn-row {
+      display: grid;
+      grid-template-columns: 120px 150px 1fr 36px;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+    .jobs-entry {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 22px 16px;
+      margin-bottom: 12px;
+    }
+    .jobs-entry .row-top {
+      display: grid;
+      grid-template-columns: 1fr 120px 150px 36px;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+    .btn-remove {
+      width: 36px; height: 42px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center; transition: all .2s; padding: 0;
+    }
+    .btn-remove:hover { border-color: var(--error); color: var(--error); }
+    .btn-add {
+      background: none; border: 1px dashed var(--border);
+      color: var(--gold); font-family: 'Inter', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; cursor: pointer; padding: 11px 20px;
+      width: 100%; transition: all .2s; margin-top: 6px;
+    }
+    .btn-add:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .job-ch-label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 8px; display: block;
+    }
 
     /* SECTION HEADER */
     .sec-h { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--gold2); margin-bottom: 4px; }
     .sec-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
-    .divider { height: 1px; background: var(--border); margin: 28px 0; }
+    .divider { height: 1px; background: var(--border); margin: 30px 0; }
 
     /* CONDITIONAL */
     .q-sec { display: none; }
     .q-sec.on { display: block; }
 
-    /* NOTE BOX */
-    .note {
-      border-left: 3px solid var(--gold); background: var(--gold-dim);
-      padding: 12px 15px; font-size: 13px; color: var(--dim);
-      line-height: 1.6; margin-bottom: 26px;
-    }
+    /* NOTE */
+    .note { border-left: 3px solid var(--gold); background: var(--gold-dim); padding: 12px 15px; font-size: 13px; color: var(--dim); line-height: 1.6; margin-bottom: 26px; }
 
     /* BUTTONS */
     .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; gap: 14px; }
     .btn {
       font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 2.5px;
       text-transform: uppercase; font-weight: 600; cursor: pointer;
-      border: none; padding: 15px 34px; transition: all .25s;
+      border: none; padding: 15px 36px; transition: all .25s;
     }
-    .btn-primary { background: var(--gold); color: #f5f1eb; }
+    .btn-primary { background: var(--gold); color: #fff; }
     .btn-primary:hover { background: var(--gold2); }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
     .btn-back {
@@ -193,11 +223,7 @@
 
     /* CONFIRM */
     #confirm-screen { display: none; text-align: center; padding: 64px 24px; }
-    .confirm-icon {
-      width: 72px; height: 72px; border: 2px solid var(--gold); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 28px; font-size: 28px; color: var(--gold2);
-    }
+    .confirm-icon { width: 72px; height: 72px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-size: 28px; color: var(--gold2); }
     .confirm-h { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 16px; }
     .confirm-sub { font-size: 15px; color: var(--dim); line-height: 1.75; max-width: 480px; margin: 0 auto 24px; }
     .confirm-note { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
@@ -209,18 +235,19 @@
       .nav-logo { font-size: 15px; letter-spacing: 3px; }
       .page-header { padding: 40px 20px 32px; }
       .page-h1 { font-size: 32px; }
-      .page-sub { font-size: 14px; }
-      .progress-wrap { padding: 24px 20px 0; }
-      .form-wrap { padding: 24px 20px 56px; }
+      .progress-wrap, .form-wrap { padding-left: 20px; padding-right: 20px; }
       .step-title { font-size: 26px; }
-      .field-row { grid-template-columns: 1fr; }
-      .field-row.three { grid-template-columns: 1fr; }
+      .field-row, .field-row.three { grid-template-columns: 1fr; }
       .opts.two { grid-template-columns: 1fr; }
       .q-card { padding: 16px 18px; }
       .q-label { font-size: 15px; }
       .btn { padding: 14px 24px; font-size: 11px; }
       .btn-row { flex-direction: column-reverse; align-items: stretch; }
       .btn-back { text-align: center; }
+      .dyn-row { grid-template-columns: 1fr 1fr 36px; }
+      .dyn-row > input[type="text"] { grid-column: 1 / 3; }
+      .jobs-entry .row-top { grid-template-columns: 1fr 36px; }
+      .jobs-entry .row-top select { display: none; }
       .confirm-h { font-size: 30px; }
       .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
@@ -229,15 +256,15 @@
 <body>
 
 <nav>
-  <a href="https://successcode.net" class="nav-logo" target="_blank">SuccessCode</a>
+  <a href="https://successcode.net" class="nav-logo" target="_blank" rel="noopener">SuccessCode</a>
 </nav>
 
 <div class="page-wrap">
 
   <div class="page-header">
-    <div class="page-tag">Beta Test Group — 2026</div>
-    <h1 class="page-h1">Your <em>Blueprint</em> for 2026</h1>
-    <p class="page-sub">3 minutes of questions. A personalised strategy for your goal — best method, best timing, month by month.</p>
+    <div class="page-tag">Бета-группа — 2026</div>
+    <h1 class="page-h1">Ваш <em>план</em> на 2026</h1>
+    <p class="page-sub">3 минуты ответов. Персональная стратегия — лучший метод и тайминг — для вашей цели в 2026 году, с разбивкой по месяцам.</p>
   </div>
 
   <div class="progress-wrap" id="progress-wrap">
@@ -247,481 +274,595 @@
       <div class="progress-seg" id="seg-3"></div>
       <div class="progress-seg" id="seg-4"></div>
     </div>
-    <div class="progress-label" id="progress-label">Step 1 of 4</div>
+    <div class="progress-label" id="progress-label">Шаг 1 из 4</div>
   </div>
 
   <div class="form-wrap">
     <form id="qform">
 
-      <!-- ══ STEP 1 — CHOOSE QUESTION ══ -->
+      <!-- ══ ШАГ 1 — ВЫБОР ВОПРОСА ══ -->
       <div class="step active" id="step-1">
-        <h2 class="step-title">What do you want to optimise?</h2>
-        <p class="step-desc">Pick one question. Your full strategy — timing, channel, monthly peaks — is built around it.</p>
+        <h2 class="step-title">Что вы хотите улучшить?</h2>
+        <p class="step-desc">Выберите один вопрос. Стратегия — метод, тайминг, пиковые месяцы — строится под него.</p>
 
         <div class="q-cards">
           <label class="q-card" id="card-1" onclick="pickQ('q1','card-1')">
-            <input type="radio" name="chosen_question" value="Q1 — Find a job in 2026">
+            <input type="radio" name="chosen_question" value="Q1 — Найти работу в 2026">
             <div class="q-dot"></div>
             <div>
-              <div class="q-num">Question 01</div>
-              <div class="q-label">What is the best way to find a job in 2026?</div>
-              <div class="q-hint">Cold applications, recruiter, network, LinkedIn — we tell you which channel works for you and when.</div>
+              <div class="q-num">Вопрос 01</div>
+              <div class="q-label">Как лучше всего найти работу в 2026 году?</div>
+              <div class="q-hint">Холодные отклики, рекрутер, нетворкинг, LinkedIn — скажем, какой канал работает именно для вас и в какие месяцы.</div>
             </div>
           </label>
 
           <label class="q-card" id="card-2" onclick="pickQ('q2','card-2')">
-            <input type="radio" name="chosen_question" value="Q2 — Attract customers in 2026">
+            <input type="radio" name="chosen_question" value="Q2 — Привлечь клиентов в 2026">
             <div class="q-dot"></div>
             <div>
-              <div class="q-num">Question 02</div>
-              <div class="q-label">What is the best way to attract customers in 2026?</div>
-              <div class="q-hint">Which acquisition channel, which content style, and when to push hardest.</div>
+              <div class="q-num">Вопрос 02</div>
+              <div class="q-label">Как лучше всего привлечь клиентов в 2026 году?</div>
+              <div class="q-hint">Какой канал привлечения, стиль коммуникации и когда давить сильнее всего.</div>
             </div>
           </label>
 
           <label class="q-card" id="card-3" onclick="pickQ('q3','card-3')">
-            <input type="radio" name="chosen_question" value="Q3 — Find investors in 2026">
+            <input type="radio" name="chosen_question" value="Q3 — Найти инвесторов в 2026">
             <div class="q-dot"></div>
             <div>
-              <div class="q-num">Question 03</div>
-              <div class="q-label">What is the best way to find investors in 2026?</div>
-              <div class="q-hint">Warm vs cold path, pitch approach, and the strongest months to approach capital.</div>
+              <div class="q-num">Вопрос 03</div>
+              <div class="q-label">Как лучше всего найти инвесторов в 2026 году?</div>
+              <div class="q-hint">Холодный или тёплый путь, подход к питчу и самые сильные месяцы для привлечения капитала.</div>
             </div>
           </label>
         </div>
 
         <div class="btn-row">
           <span></span>
-          <button type="button" class="btn btn-primary" id="btn-s1" onclick="go(2)" disabled>Continue →</button>
+          <button type="button" class="btn btn-primary" id="btn-s1" onclick="go(2)" disabled>Продолжить →</button>
         </div>
       </div>
 
-      <!-- ══ STEP 2 — BIRTH DATA ══ -->
+      <!-- ══ ШАГ 2 — ДАННЫЕ РОЖДЕНИЯ ══ -->
       <div class="step" id="step-2">
-        <h2 class="step-title">Your birth data</h2>
-        <p class="step-desc">The foundation of your personalised reading. Birth time and place are essential — even an approximate time gives a much more accurate result.</p>
+        <h2 class="step-title">Данные рождения</h2>
+        <p class="step-desc">Основа персонального анализа. Точное время и место рождения критически важны — даже приблизительное время значительно улучшает точность результата.</p>
 
-        <div class="note">All data is private. Used only to generate your strategy. Never shared with third parties.</div>
+        <div class="note">Все данные конфиденциальны. Используются только для составления стратегии. Никогда не передаются третьим лицам.</div>
 
         <div class="field">
           <div class="field-row">
             <div>
-              <label class="field-label" for="first_name">First name</label>
-              <input type="text" id="first_name" name="first_name" placeholder="Your first name" required>
+              <label class="field-label" for="first_name">Имя</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Ваше имя" required>
             </div>
             <div>
-              <label class="field-label" for="last_name">Last name</label>
-              <input type="text" id="last_name" name="last_name" placeholder="Your last name">
+              <label class="field-label" for="last_name">Фамилия</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Ваша фамилия">
             </div>
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label" for="email">Email address</label>
-          <p class="field-hint">Your personalised 2026 strategy will be sent here.</p>
-          <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          <label class="field-label" for="email">Email-адрес</label>
+          <p class="field-hint">Ваша персональная стратегия на 2026 год будет отправлена сюда.</p>
+          <input type="email" id="email" name="email" placeholder="ваш@email.com" required>
         </div>
 
         <div class="field">
-          <label class="field-label">Gender</label>
-          <p class="field-hint">Determines the direction of your life cycles — this significantly affects the reading.</p>
+          <label class="field-label">Пол</label>
+          <p class="field-hint">Определяет направление жизненных циклов — это существенно влияет на чтение карты.</p>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'gender')">
-              <input type="radio" name="gender" value="Female">
+              <input type="radio" name="gender" value="Женский">
               <div class="opt-box"></div>
-              <span class="opt-text">Female</span>
+              <span class="opt-text"><span class="opt-main">Женский</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'gender')">
-              <input type="radio" name="gender" value="Male">
+              <input type="radio" name="gender" value="Мужской">
               <div class="opt-box"></div>
-              <span class="opt-text">Male</span>
+              <span class="opt-text"><span class="opt-main">Мужской</span></span>
             </label>
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label" for="birth_date">Date of birth</label>
+          <label class="field-label" for="birth_date">Дата рождения</label>
           <input type="date" id="birth_date" name="birth_date" required>
         </div>
 
         <div class="field">
-          <label class="field-label" for="birth_time">Time of birth</label>
-          <p class="field-hint">Exact hour preferred. Unknown? Enter your best guess or use 12:00.</p>
+          <label class="field-label" for="birth_time">Время рождения</label>
+          <p class="field-hint">Предпочтительно точный час. Не знаете? Укажите приблизительное время или 12:00.</p>
           <div class="field-row">
             <input type="time" id="birth_time" name="birth_time">
             <select name="time_confidence">
-              <option value="exact">Exact (from birth certificate)</option>
-              <option value="approx">Approximate (± 1 hour)</option>
-              <option value="unknown">Don't know — used noon</option>
+              <option value="exact">Точное (из свидетельства о рождении)</option>
+              <option value="approx">Приблизительное (± 1 час)</option>
+              <option value="unknown">Не знаю — указал(а) 12:00</option>
             </select>
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label">Place of birth</label>
+          <label class="field-label">Место рождения</label>
           <div class="field-row">
-            <div>
-              <input type="text" id="birth_city" name="birth_city" placeholder="City" required>
-            </div>
-            <div>
-              <input type="text" id="birth_country" name="birth_country" placeholder="Country" required>
-            </div>
+            <input type="text" id="birth_city" name="birth_city" placeholder="Город рождения" required>
+            <input type="text" id="birth_country" name="birth_country" placeholder="Страна рождения" required>
           </div>
         </div>
 
+        <div class="field">
+          <label class="field-label" for="residence_country">Страна проживания</label>
+          <p class="field-hint">Где вы сейчас живёте и работаете — влияет на доступные каналы и рынок.</p>
+          <input type="text" id="residence_country" name="residence_country" placeholder="Например: Нидерланды, Германия, ОАЭ">
+        </div>
+
         <div class="btn-row">
-          <button type="button" class="btn-back" onclick="go(1)">← Back</button>
-          <button type="button" class="btn btn-primary" onclick="go(3)">Continue →</button>
+          <button type="button" class="btn-back" onclick="go(1)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(3)">Продолжить →</button>
         </div>
       </div>
 
-      <!-- ══ STEP 3 — CALIBRATION ══ -->
+      <!-- ══ ШАГ 3 — КАРЬЕРНАЯ ИСТОРИЯ ══ -->
       <div class="step" id="step-3">
-        <h2 class="step-title">Your career story</h2>
-        <p class="step-desc">These questions calibrate your chart pattern and validate which mechanisms apply to you — this is what makes the 2026 advice specific to you, not generic.</p>
+        <h2 class="step-title">Ваша карьерная история</h2>
+        <p class="step-desc">Эти вопросы калибруют тип вашей карты и подтверждают, какие паттерны работают именно для вас — это и делает рекомендации на 2026 год персональными, а не общими.</p>
 
+        <!-- ТЕКУЩАЯ СИТУАЦИЯ -->
         <div class="field">
-          <label class="field-label">Your current situation</label>
+          <label class="field-label">Ваша текущая ситуация</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Employed, actively job searching">
+              <input type="radio" name="current_status" value="Работаю, активно ищу новую роль">
               <div class="opt-box"></div>
-              <span class="opt-text">Employed full-time, actively looking for a new role</span>
+              <span class="opt-text"><span class="opt-main">Работаю, активно ищу новую роль</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Employed, open to opportunities">
+              <input type="radio" name="current_status" value="Работаю, открыт(а) к интересным предложениям">
               <div class="opt-box"></div>
-              <span class="opt-text">Employed, passively open to new opportunities</span>
+              <span class="opt-text"><span class="opt-main">Работаю, открыт(а) к интересным предложениям</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Not employed, between roles">
+              <input type="radio" name="current_status" value="Не работаю, между ролями">
               <div class="opt-box"></div>
-              <span class="opt-text">Not currently employed / between roles</span>
+              <span class="opt-text"><span class="opt-main">Не работаю / между ролями</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Self-employed / running a business">
+              <input type="radio" name="current_status" value="Веду собственный бизнес или фриланс">
               <div class="opt-box"></div>
-              <span class="opt-text">Running my own business or freelancing</span>
+              <span class="opt-text"><span class="opt-main">Веду собственный бизнес или работаю фрилансером</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Other">
+              <input type="radio" name="current_status" value="Другое">
               <div class="opt-box"></div>
-              <span class="opt-text">Other</span>
+              <span class="opt-text"><span class="opt-main">Другое</span></span>
             </label>
           </div>
         </div>
 
         <div class="field">
-          <label class="field-label" for="best_years">Your 2–3 absolute BEST career or income years</label>
-          <p class="field-hint">Biggest wins, best roles, or highest earnings — the years when things actually worked. e.g. "2014, 2019, 2021"</p>
-          <input type="text" id="best_years" name="best_years" placeholder="e.g. 2014, 2019, 2021" required>
+          <label class="field-label" for="profession">Ваша профессиональная сфера / отрасль</label>
+          <p class="field-hint">Чем вы занимаетесь или в какой области работаете. Нужно для точного отображения карьерных звёзд на конкретную сферу.</p>
+          <input type="text" id="profession" name="profession" placeholder="Например: e-commerce, финансы, маркетинг, IT, консалтинг, здравоохранение">
         </div>
 
+        <div class="divider"></div>
+
+        <!-- ЛУЧШИЕ ГОДЫ — ДИНАМИЧЕСКИЕ СТРОКИ -->
         <div class="field">
-          <label class="field-label" for="hard_years">Your most blocked or frustrating professional year(s)</label>
-          <p class="field-hint">When nothing moved no matter how hard you tried. e.g. "2017, 2020"</p>
-          <input type="text" id="hard_years" name="hard_years" placeholder="e.g. 2017, 2020">
+          <label class="field-label">Ваши лучшие карьерные или финансовые моменты</label>
+          <p class="field-hint">Добавьте каждое значимое достижение отдельно — повышение, смена компании, крупный клиент, запуск бизнеса, пиковый доход. Год и месяц позволяют определить точный механизм в карте.</p>
+          <div id="best-years-rows"></div>
+          <button type="button" class="btn-add" onclick="addBestYear()">+ Добавить карьерный пик</button>
+          <input type="hidden" name="best_years_summary" id="best_years_summary">
         </div>
 
-        <div class="field">
-          <label class="field-label">How did your MOST IMPORTANT career break or business win come?</label>
-          <div class="opts">
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Cold application / unsolicited pitch — I approached them directly">
-              <div class="opt-box"></div>
-              <span class="opt-text">Cold application or unsolicited pitch — I approached them directly</span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Warm introduction — someone I knew connected us">
-              <div class="opt-box"></div>
-              <span class="opt-text">Warm introduction — someone I knew connected us</span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Recruiter or headhunter reached out to me">
-              <div class="opt-box"></div>
-              <span class="opt-text">Recruiter or headhunter reached out to me</span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Conference, event, or public speaking">
-              <div class="opt-box"></div>
-              <span class="opt-text">Conference, event, or public speaking</span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Online visibility — LinkedIn, articles, social media">
-              <div class="opt-box"></div>
-              <span class="opt-text">Online visibility — LinkedIn post, article, social media</span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'best_channel')">
-              <input type="radio" name="best_channel" value="Built it from scratch, founder-driven">
-              <div class="opt-box"></div>
-              <span class="opt-text">Built it from scratch — no single channel, founder-driven</span>
-            </label>
-          </div>
+        <!-- СЛОЖНЫЕ ГОДЫ -->
+        <div class="field" style="margin-top:28px">
+          <label class="field-label">Самые сложные или заблокированные периоды</label>
+          <p class="field-hint">Годы или периоды, когда ничего не двигалось несмотря на все усилия — сотни откликов без ответа, бизнес стоит, сделки срываются.</p>
+          <div id="hard-years-rows"></div>
+          <button type="button" class="btn-add" onclick="addHardYear()">+ Добавить сложный период</button>
+          <input type="hidden" name="hard_years_summary" id="hard_years_summary">
         </div>
 
+        <div class="divider"></div>
+
+        <!-- КАК ПРИШЛА КАЖДАЯ ВАЖНАЯ РОЛЬ — ДИНАМИЧЕСКИЕ ЗАПИСИ -->
         <div class="field">
-          <label class="field-label">Which approach has consistently NOT worked for you?</label>
+          <label class="field-label">Как к вам пришла каждая важная роль или победа?</label>
+          <p class="field-hint">Добавьте 2–4 самые значимые работы, клиентов или бизнес-победы. Для каждой — когда и как вы её получили. Это самый важный калибровочный вопрос.</p>
+          <div id="jobs-rows"></div>
+          <button type="button" class="btn-add" onclick="addJob()">+ Добавить роль или победу</button>
+          <input type="hidden" name="job_channels_summary" id="job_channels_summary">
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- ЧТО НЕ РАБОТАЛО -->
+        <div class="field">
+          <label class="field-label">Что стабильно НЕ работало для вас?</label>
           <div class="opts">
             <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
-              <input type="radio" name="failed_channel" value="Cold applications / unsolicited pitches">
+              <input type="radio" name="failed_channel" value="Холодные отклики / прямое обращение">
               <div class="opt-box"></div>
-              <span class="opt-text">Cold applications / unsolicited pitches</span>
+              <span class="opt-text">
+                <span class="opt-main">Холодные отклики / прямое обращение</span>
+                <span class="opt-sub">Самостоятельный поиск вакансий онлайн, отклики или письма в компании, с которыми не было предварительного знакомства. Вы инициировали контакт с незнакомыми людьми.</span>
+              </span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
-              <input type="radio" name="failed_channel" value="Warm introductions / networking events">
+              <input type="radio" name="failed_channel" value="Тёплые знакомства / нетворкинг">
               <div class="opt-box"></div>
-              <span class="opt-text">Warm introductions / networking events</span>
+              <span class="opt-text">
+                <span class="opt-main">Тёплые знакомства / нетворкинг</span>
+                <span class="opt-sub">Просьбы к контактам вас познакомить, посещение отраслевых мероприятий, ставка на связи и рекомендации.</span>
+              </span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
-              <input type="radio" name="failed_channel" value="Waiting for recruiters to find me">
+              <input type="radio" name="failed_channel" value="Ожидание звонков от рекрутеров">
               <div class="opt-box"></div>
-              <span class="opt-text">Waiting for recruiters to find me</span>
+              <span class="opt-text">
+                <span class="opt-main">Ожидание звонков от рекрутеров</span>
+                <span class="opt-sub">Поддержание актуального профиля в расчёте на то, что хедхантеры или возможности найдут вас сами, без активного поиска.</span>
+              </span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
-              <input type="radio" name="failed_channel" value="Online posting / social media">
+              <input type="radio" name="failed_channel" value="Онлайн-видимость / публикации">
               <div class="opt-box"></div>
-              <span class="opt-text">Online posting / social media visibility</span>
+              <span class="opt-text">
+                <span class="opt-main">Онлайн-видимость / публикации</span>
+                <span class="opt-sub">Посты в LinkedIn, статьи или контент в соцсетях в надежде, что клиенты, работодатели или инвесторы найдут вас сами.</span>
+              </span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
-              <input type="radio" name="failed_channel" value="Nothing specific has consistently failed">
+              <input type="radio" name="failed_channel" value="Ничего не проваливалось стабильно">
               <div class="opt-box"></div>
-              <span class="opt-text">Nothing specific has consistently failed</span>
+              <span class="opt-text">
+                <span class="opt-main">Ничего не проваливалось стабильно</span>
+                <span class="opt-sub">Разные подходы работали в разное время — нет одного явно тупикового метода.</span>
+              </span>
             </label>
           </div>
         </div>
 
         <div class="btn-row">
-          <button type="button" class="btn-back" onclick="go(2)">← Back</button>
-          <button type="button" class="btn btn-primary" onclick="go(4)">Continue →</button>
+          <button type="button" class="btn-back" onclick="go(2)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(4)">Продолжить →</button>
         </div>
       </div>
 
-      <!-- ══ STEP 4 — QUESTION-SPECIFIC ══ -->
+      <!-- ══ ШАГ 4 — СПЕЦИФИКА ══ -->
       <div class="step" id="step-4">
-        <h2 class="step-title">Last few details</h2>
-        <p class="step-desc">These make your 2026 recommendation specific — not generic advice.</p>
+        <h2 class="step-title">Последние детали</h2>
+        <p class="step-desc">Это делает рекомендацию на 2026 год конкретной, а не общей.</p>
 
-        <!-- Q1 — JOB SEARCH -->
+        <!-- Q1 — ПОИСК РАБОТЫ -->
         <div class="q-sec" id="qs-q1">
-          <div class="sec-h">Job search</div>
-          <div class="sec-sub">Tell us about the role you are targeting in 2026.</div>
+          <div class="sec-h">Поиск работы</div>
+          <div class="sec-sub">Расскажите о роли, которую вы ищете в 2026 году.</div>
 
           <div class="field">
-            <label class="field-label" for="q1_industry">Your industry / field</label>
-            <input type="text" id="q1_industry" name="q1_industry" placeholder="e.g. E-commerce, Finance, Technology, Marketing">
+            <label class="field-label" for="q1_industry">Ваша отрасль / сфера</label>
+            <input type="text" id="q1_industry" name="q1_industry" placeholder="Например: e-commerce, финансы, технологии, маркетинг, supply chain">
           </div>
 
           <div class="field">
-            <label class="field-label">Seniority level you are targeting</label>
+            <label class="field-label">Целевой уровень позиции</label>
             <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Junior / Graduate"><div class="opt-box"></div><span class="opt-text">Junior / Graduate</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Mid-level"><div class="opt-box"></div><span class="opt-text">Mid-level</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Senior individual contributor"><div class="opt-box"></div><span class="opt-text">Senior individual contributor</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Manager"><div class="opt-box"></div><span class="opt-text">Manager</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Director"><div class="opt-box"></div><span class="opt-text">Director</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="VP / Executive / C-suite"><div class="opt-box"></div><span class="opt-text">VP / Executive / C-suite</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Джуниор / начинающий специалист"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Джуниор / начинающий</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Специалист среднего уровня"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Специалист среднего уровня</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Старший специалист"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Старший специалист</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Менеджер / руководитель команды"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Менеджер / руководитель команды</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Директор"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Директор</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="VP / топ-менеджер / C-level"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">VP / Топ-менеджер / C-level</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label">Location preference</label>
+            <label class="field-label">Предпочтения по локации</label>
             <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Open to relocation abroad"><div class="opt-box"></div><span class="opt-text">Open to relocation abroad</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Remote / international remote only"><div class="opt-box"></div><span class="opt-text">Remote / international remote</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Local / same country only"><div class="opt-box"></div><span class="opt-text">Local / same country only</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Flexible / open to all"><div class="opt-box"></div><span class="opt-text">Flexible / open to all</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Готов(а) к переезду за рубеж"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Готов(а) к переезду за рубеж</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Только удалённая работа / international remote"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только удалёнка / international remote</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Только в своей стране"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только в своей стране</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Гибко, открыт(а) ко всему"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Гибко / открыт(а) ко всему</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label" for="q1_notes">Anything else about your search? (optional)</label>
-            <textarea id="q1_notes" name="q1_notes" placeholder="e.g. targeting specific companies, pivoting industries, returning after a career break..."></textarea>
+            <label class="field-label" for="q1_notes">Дополнительный контекст (необязательно)</label>
+            <textarea id="q1_notes" name="q1_notes" placeholder="Например: целюсь в конкретные компании, меняю отрасль, возвращаюсь после перерыва, ищу только с релокацией..."></textarea>
           </div>
         </div>
 
-        <!-- Q2 — CUSTOMERS -->
+        <!-- Q2 — ПРИВЛЕЧЕНИЕ КЛИЕНТОВ -->
         <div class="q-sec" id="qs-q2">
-          <div class="sec-h">Customer attraction</div>
-          <div class="sec-sub">Tell us about your business and who you serve.</div>
+          <div class="sec-h">Привлечение клиентов</div>
+          <div class="sec-sub">Расскажите о вашем бизнесе и тех, кому вы служите.</div>
 
           <div class="field">
-            <label class="field-label" for="q2_biz_type">What type of business do you run?</label>
-            <input type="text" id="q2_biz_type" name="q2_biz_type" placeholder="e.g. B2B SaaS, coaching, e-commerce, agency, consulting">
+            <label class="field-label" for="q2_biz_type">Тип вашего бизнеса</label>
+            <input type="text" id="q2_biz_type" name="q2_biz_type" placeholder="Например: B2B SaaS, коучинг, e-commerce, агентство, консалтинг, производство">
           </div>
 
           <div class="field">
-            <label class="field-label">Main customer type</label>
+            <label class="field-label">Основной тип клиентов</label>
             <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2B (other businesses)"><div class="opt-box"></div><span class="opt-text">B2B — other businesses</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2C (consumers)"><div class="opt-box"></div><span class="opt-text">B2C — consumers</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="Both B2B and B2C"><div class="opt-box"></div><span class="opt-text">Both</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2B (другие компании)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2B — другие компании</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2C (потребители)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2C — потребители</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="Оба типа — B2B и B2C"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Оба типа</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label">Business stage</label>
+            <label class="field-label">Стадия бизнеса</label>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="Just started (under 1 year)"><div class="opt-box"></div><span class="opt-text">Just started — under 1 year</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="1–3 years, growing"><div class="opt-box"></div><span class="opt-text">1–3 years, growing</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="3+ years, established"><div class="opt-box"></div><span class="opt-text">3+ years, established</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="Только запустился — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запустился — менее года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="1–3 года, растём"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года, растём</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="3+ лет, устоявшийся бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет, устоявшийся бизнес</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label">Which customer acquisition has worked BEST so far?</label>
+            <label class="field-label">Средний чек / размер сделки</label>
+            <p class="field-hint">Влияет на то, какие каналы привлечения дают отдачу именно в вашем ценовом сегменте.</p>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Word of mouth / referrals"><div class="opt-box"></div><span class="opt-text">Word of mouth / referrals</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Social media content / organic"><div class="opt-box"></div><span class="opt-text">Social media content / organic</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Cold outreach — email, LinkedIn DM"><div class="opt-box"></div><span class="opt-text">Cold outreach — email, LinkedIn DM</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Events / speaking / conferences"><div class="opt-box"></div><span class="opt-text">Events / speaking / conferences</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Paid advertising"><div class="opt-box"></div><span class="opt-text">Paid advertising</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="SEO / content marketing"><div class="opt-box"></div><span class="opt-text">SEO / content marketing</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Still figuring this out"><div class="opt-box"></div><span class="opt-text">Still figuring this out</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="До 500 € (розница, подписки, масс-маркет)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До 500 €</span><span class="opt-sub">Розница, подписки, масс-маркет</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="500–5 000 € (малые B2B или premium B2C)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500 – 5 000 €</span><span class="opt-sub">Малые B2B или premium B2C</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="5 000–50 000 € (средние B2B-сделки)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">5 000 – 50 000 €</span><span class="opt-sub">Средние B2B-сделки</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="Более 50 000 € (крупные корпоративные контракты)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 50 000 €</span><span class="opt-sub">Крупные корпоративные контракты</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label" for="q2_notes">Anything else about your business? (optional)</label>
-            <textarea id="q2_notes" name="q2_notes" placeholder="e.g. launching a new product, entering a new market, stuck on a specific challenge..."></textarea>
+            <label class="field-label">Какой канал привлечения работал лучше всего?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Сарафанное радио / рекомендации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сарафанное радио / рекомендации</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Контент в соцсетях / органика"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Контент в соцсетях / органика</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Холодные обращения — email, LinkedIn"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения — email, LinkedIn</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Мероприятия / выступления / конференции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Мероприятия / выступления / конференции</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Платная реклама"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="SEO / контент-маркетинг"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">SEO / контент-маркетинг</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Всё ещё разбираюсь"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Всё ещё разбираюсь</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q2_notes">Дополнительный контекст (необязательно)</label>
+            <textarea id="q2_notes" name="q2_notes" placeholder="Например: запускаю новый продукт, выхожу на новый рынок, застрял(а) на конкретной проблеме..."></textarea>
           </div>
         </div>
 
-        <!-- Q3 — INVESTORS -->
+        <!-- Q3 — ИНВЕСТОРЫ -->
         <div class="q-sec" id="qs-q3">
-          <div class="sec-h">Finding investors</div>
-          <div class="sec-sub">Tell us about your business and what you are raising for.</div>
+          <div class="sec-h">Поиск инвесторов</div>
+          <div class="sec-sub">Расскажите о вашем бизнесе и цели привлечения.</div>
 
           <div class="field">
-            <label class="field-label" for="q3_sector">Business sector / industry</label>
-            <input type="text" id="q3_sector" name="q3_sector" placeholder="e.g. AI, Fintech, Fashion, Healthcare, SaaS">
+            <label class="field-label" for="q3_sector">Отрасль / сектор</label>
+            <input type="text" id="q3_sector" name="q3_sector" placeholder="Например: AI, Fintech, Fashion, Healthcare, SaaS, Retail">
           </div>
 
           <div class="field">
-            <label class="field-label">Business stage</label>
+            <label class="field-label">Стадия бизнеса</label>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Idea stage — no product yet"><div class="opt-box"></div><span class="opt-text">Idea stage — no product yet</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="MVP / prototype built"><div class="opt-box"></div><span class="opt-text">MVP / prototype built</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="First revenue (under 1 year)"><div class="opt-box"></div><span class="opt-text">First revenue — under 1 year</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Growing revenue (1+ years)"><div class="opt-box"></div><span class="opt-text">Growing revenue — 1+ years</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Scaling / Series A+"><div class="opt-box"></div><span class="opt-text">Scaling / Series A+</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Идея — продукта пока нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Идея — продукта пока нет</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="MVP / прототип готов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">MVP / прототип готов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Первая выручка — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Первая выручка — менее года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Растущая выручка — 1+ год"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Растущая выручка — 1+ год</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_stage')"><input type="radio" name="q3_stage" value="Масштабирование / Series A+"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Масштабирование / Series A+</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label">Target investor type</label>
-            <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Angel investor"><div class="opt-box"></div><span class="opt-text">Angel investor</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Seed / VC fund"><div class="opt-box"></div><span class="opt-text">Seed / VC fund</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Strategic / corporate investor"><div class="opt-box"></div><span class="opt-text">Strategic / corporate</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Grant / government funding"><div class="opt-box"></div><span class="opt-text">Grant / government</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Not sure yet"><div class="opt-box"></div><span class="opt-text">Not sure yet</span></label>
+            <label class="field-label">Целевой объём привлечения</label>
+            <p class="field-hint">Определяет, с каким типом инвесторов имеет смысл работать и через какие каналы.</p>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q3_raise_amount')"><input type="radio" name="q3_raise_amount" value="До 100 000 € (pre-seed / ангельский раунд)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До 100 000 €</span><span class="opt-sub">Pre-seed / ангельский раунд</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_raise_amount')"><input type="radio" name="q3_raise_amount" value="100 000 – 500 000 € (seed)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">100 000 – 500 000 €</span><span class="opt-sub">Seed-раунд</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_raise_amount')"><input type="radio" name="q3_raise_amount" value="500 000 – 2 000 000 € (ранний институциональный раунд)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500 000 – 2 000 000 €</span><span class="opt-sub">Ранний институциональный раунд</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_raise_amount')"><input type="radio" name="q3_raise_amount" value="Более 2 000 000 € (Series A и выше)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 2 000 000 €</span><span class="opt-sub">Series A и выше</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label">Have you raised external funding before?</label>
+            <label class="field-label">Тип целевого инвестора</label>
             <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(true)"><input type="radio" name="q3_raised" value="Yes — raised before"><div class="opt-box"></div><span class="opt-text">Yes</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(false)"><input type="radio" name="q3_raised" value="No — first time"><div class="opt-box"></div><span class="opt-text">No, first time</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Бизнес-ангел"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Бизнес-ангел</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Seed / венчурный фонд"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Seed / венчурный фонд</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Стратегический / корпоративный инвестор"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стратегический / корпоративный</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Грант / государственное финансирование"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Грант / государственное финансирование</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_inv_type')"><input type="radio" name="q3_inv_type" value="Пока не определился(лась)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Пока не определился(лась)</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Вы уже привлекали внешнее финансирование?</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(true)"><input type="radio" name="q3_raised" value="Да, привлекал(а) ранее"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_raised'); showPrevMethod(false)"><input type="radio" name="q3_raised" value="Нет, первый раз"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет, первый раз</span></span></label>
             </div>
           </div>
 
           <div class="field" id="prev-method-field" style="display:none">
-            <label class="field-label">How did you connect with your previous investor(s)?</label>
+            <label class="field-label">Как вы нашли предыдущего инвестора?</label>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Cold pitch — email, pitch competition, demo day"><div class="opt-box"></div><span class="opt-text">Cold pitch — email, pitch competition, demo day</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Warm introduction from a mutual contact"><div class="opt-box"></div><span class="opt-text">Warm introduction from a mutual contact</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Accelerator or incubator"><div class="opt-box"></div><span class="opt-text">Accelerator or incubator</span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="They found me — inbound"><div class="opt-box"></div><span class="opt-text">They found me — inbound</span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Холодный питч — email, конкурс стартапов, demo day"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодный питч — email, конкурс стартапов, demo day</span><span class="opt-sub">Вы написали или выступили перед инвесторами, с которыми не были знакомы лично.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Тёплое знакомство через общий контакт"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Тёплое знакомство через общий контакт</span><span class="opt-sub">Кто-то, кто знал вас и инвестора, сделал введение.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Акселератор или инкубатор"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Акселератор или инкубатор</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q3_prev_method')"><input type="radio" name="q3_prev_method" value="Инвестор нашёл меня сам"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Инвестор нашёл меня сам — входящий контакт</span><span class="opt-sub">Они написали первыми после того, как увидели вас онлайн, на конференции или через знакомых.</span></span></label>
             </div>
           </div>
 
           <div class="field">
-            <label class="field-label" for="q3_notes">Anything else about your fundraising? (optional)</label>
-            <textarea id="q3_notes" name="q3_notes" placeholder="e.g. round size, geography, co-founder situation, specific investor relationships..."></textarea>
+            <label class="field-label" for="q3_notes">Дополнительный контекст (необязательно)</label>
+            <textarea id="q3_notes" name="q3_notes" placeholder="Например: размер раунда, география, ситуация с командой, уже есть лиды от инвесторов..."></textarea>
           </div>
         </div>
 
-        <!-- CONSENT -->
+        <!-- СОГЛАСИЕ -->
         <div class="divider"></div>
         <div class="field">
           <label class="opt check" id="consent-opt" onclick="toggleConsent()">
             <input type="checkbox" name="consent" id="consent-cb">
-            <div class="opt-box" id="consent-box"></div>
-            <span class="opt-text" style="font-size:13px; color:var(--muted); line-height:1.5">
-              I agree to my birth data and answers being used to generate a personalised strategy report. Data is held privately and never shared with third parties.
+            <div class="opt-box" style="margin-top:3px"></div>
+            <span class="opt-text" style="font-size:13px; color:var(--muted); line-height:1.55">
+              Я даю согласие на использование моих данных рождения и ответов для формирования персональной стратегии. Данные хранятся конфиденциально и никогда не передаются третьим лицам.
             </span>
           </label>
         </div>
 
-        <!-- Hidden Formspree helpers -->
-        <input type="hidden" name="_subject" id="form_subject" value="SuccessCode — 2026 Strategy Questionnaire">
+        <input type="hidden" name="_subject" id="form_subject" value="SuccessCode 2026 — Анкета">
         <input type="hidden" name="_replyto" id="form_replyto" value="">
 
         <div class="btn-row">
-          <button type="button" class="btn-back" onclick="go(3)">← Back</button>
-          <button type="button" class="btn btn-primary" id="btn-submit" onclick="submitForm()">Submit →</button>
+          <button type="button" class="btn-back" onclick="go(3)">← Назад</button>
+          <button type="button" class="btn btn-primary" id="btn-submit" onclick="submitForm()">Отправить →</button>
         </div>
       </div>
 
     </form>
 
-    <!-- CONFIRMATION -->
+    <!-- ПОДТВЕРЖДЕНИЕ -->
     <div id="confirm-screen">
       <div class="confirm-icon">✦</div>
-      <h2 class="confirm-h">You're in.</h2>
-      <p class="confirm-sub">Your chart is being mapped. Your personalised 2026 strategy — best method, best timing, monthly breakdown — will arrive in your inbox within 48 hours.</p>
-      <p class="confirm-note">Watch for an email from hello@successcode.net</p>
+      <h2 class="confirm-h">Готово.</h2>
+      <p class="confirm-sub">Ваша карта строится. Персональная стратегия на 2026 год — лучший метод, тайминг и разбивка по месяцам — появится в вашем почтовом ящике в течение 48 часов.</p>
+      <p class="confirm-note">Ждите письмо от hello@successcode.net</p>
     </div>
 
-  </div><!-- form-wrap -->
-</div><!-- page-wrap -->
+  </div>
+</div>
 
 <script>
   var curStep = 1;
   var selQ = null;
 
-  /* ─ INIT ─ */
-  updateProgress(1);
+  /* МЕСЯЦЫ */
+  var MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  var curYear = new Date().getFullYear();
 
-  /* ─ QUESTION PICK ─ */
+  function yearSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Год</option>';
+    for (var y = curYear; y >= 1975; y--) s += '<option>' + y + '</option>';
+    return s + '</select>';
+  }
+  function monthSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Месяц</option><option value="0">Не помню</option>';
+    MONTHS.forEach(function(m,i){ s += '<option value="' + (i+1) + '">' + m + '</option>'; });
+    return s + '</select>';
+  }
+
+  /* ЛУЧШИЕ ГОДЫ */
+  var byCount = 0;
+  function addBestYear() {
+    byCount++;
+    var n = byCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'by-' + n;
+    div.innerHTML =
+      yearSelect('by_year_' + n) +
+      monthSelect('by_month_' + n) +
+      '<input type="text" name="by_what_' + n + '" placeholder="Что произошло? Например: стал директором, основал компанию, привлёк крупнейшего клиента">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'by-' + n + '\')">×</button>';
+    document.getElementById('best-years-rows').appendChild(div);
+  }
+
+  /* СЛОЖНЫЕ ГОДЫ */
+  var hyCount = 0;
+  function addHardYear() {
+    hyCount++;
+    var n = hyCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'hy-' + n;
+    div.innerHTML =
+      yearSelect('hy_year_' + n) +
+      monthSelect('hy_month_' + n) +
+      '<input type="text" name="hy_what_' + n + '" placeholder="Что было заблокировано? Например: 200+ откликов без ответа, бизнес стоял, сделки срывались">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'hy-' + n + '\')">×</button>';
+    document.getElementById('hard-years-rows').appendChild(div);
+  }
+
+  /* РОЛИ / ПОБЕДЫ */
+  var jobCount = 0;
+  var chOpts = [
+    ['cold','Холодный отклик / прямое обращение','Я нашёл(а) вакансию сам(а) и написал(а) в компанию без предварительного знакомства. Меня никто не представлял.'],
+    ['warm','Тёплое знакомство','Коллега, друг или ментор, знавший обе стороны, познакомил нас. Я не нашёл(а) эту возможность самостоятельно.'],
+    ['recruiter','Рекрутер или хедхантер написал(а) мне','Меня нашли первым(ой). Я не искал(а) именно эту позицию активно.'],
+    ['event','Познакомились на конференции или мероприятии','Мы встретились лично на профессиональном событии, или меня заметили после выступления.'],
+    ['online','Нашли меня онлайн','Они пришли ко мне через пост в LinkedIn, статью, подкаст или другой контент.'],
+    ['internal','Внутренний перевод / повышение','Я уже был(а) в компании и перешёл(а) на новую роль внутри.'],
+    ['built','Создал(а) сам(а) с нуля','Я создал(а) эту возможность — запустил(а) продукт, основал(а) компанию, выстроил(а) отношения с клиентом с нуля.']
+  ];
+
+  function addJob() {
+    jobCount++;
+    var n = jobCount;
+    var radios = chOpts.map(function(o) {
+      return '<label class="opt radio" onclick="pickOpt(this,\'jch_' + n + '\')">' +
+        '<input type="radio" name="jch_' + n + '" value="' + o[0] + '">' +
+        '<div class="opt-box"></div>' +
+        '<span class="opt-text"><span class="opt-main">' + o[1] + '</span><span class="opt-sub">' + o[2] + '</span></span>' +
+        '</label>';
+    }).join('');
+
+    var div = document.createElement('div');
+    div.className = 'jobs-entry';
+    div.id = 'job-' + n;
+    div.innerHTML =
+      '<div class="row-top">' +
+        '<input type="text" name="job_title_' + n + '" placeholder="Название роли / описание победы, например: Директор по e-commerce в Nike, первый контракт на €200k">' +
+        yearSelect('job_year_' + n) +
+        monthSelect('job_month_' + n) +
+        '<button type="button" class="btn-remove" onclick="removeRow(\'job-' + n + '\')">×</button>' +
+      '</div>' +
+      '<span class="job-ch-label">Как вы получили эту роль / победу?</span>' +
+      '<div class="opts">' + radios + '</div>';
+    document.getElementById('jobs-rows').appendChild(div);
+  }
+
+  function removeRow(id) {
+    var el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  /* ВЫБОР ВОПРОСА */
   function pickQ(qId, cardId) {
     selQ = qId;
     document.querySelectorAll('.q-card').forEach(function(c){ c.classList.remove('selected'); });
     document.getElementById(cardId).classList.add('selected');
     document.getElementById('btn-s1').disabled = false;
-    // update form subject
-    var labels = {q1:'Q1 Job Search', q2:'Q2 Customers', q3:'Q3 Investors'};
+    var labels = {q1:'Q1 Поиск работы', q2:'Q2 Клиенты', q3:'Q3 Инвесторы'};
     document.getElementById('form_subject').value = 'SuccessCode 2026 — ' + (labels[qId] || qId);
   }
 
-  /* ─ OPTION PICK (radio) ─ */
+  /* ВЫБОР ОПЦИИ */
   function pickOpt(el, group) {
     document.querySelectorAll('input[name="' + group + '"]').forEach(function(inp){
-      var parent = inp.closest('.opt');
-      if (parent) parent.classList.remove('selected');
+      var p = inp.closest('.opt');
+      if (p) p.classList.remove('selected');
     });
     el.classList.add('selected');
     var inp = el.querySelector('input');
     if (inp) inp.checked = true;
-    // sync email hidden field
-    if (group === 'email') return;
   }
 
-  /* ─ CONSENT TOGGLE ─ */
+  /* СОГЛАСИЕ */
   function toggleConsent() {
     var cb = document.getElementById('consent-cb');
-    var opt = document.getElementById('consent-opt');
     cb.checked = !cb.checked;
-    opt.classList.toggle('selected', cb.checked);
+    document.getElementById('consent-opt').classList.toggle('selected', cb.checked);
   }
 
-  /* ─ SHOW PREV INVESTOR METHOD ─ */
+  /* ПОКАЗАТЬ ПРЕДЫДУЩИЙ МЕТОД */
   function showPrevMethod(show) {
     document.getElementById('prev-method-field').style.display = show ? 'block' : 'none';
   }
 
-  /* ─ PROGRESS ─ */
+  /* ПРОГРЕСС */
   function updateProgress(n) {
     for (var i = 1; i <= 4; i++) {
       var seg = document.getElementById('seg-' + i);
@@ -729,10 +870,10 @@
       if (i < n) seg.classList.add('done');
       else if (i === n) seg.classList.add('active');
     }
-    document.getElementById('progress-label').textContent = 'Step ' + n + ' of 4';
+    document.getElementById('progress-label').textContent = 'Шаг ' + n + ' из 4';
   }
 
-  /* ─ STEP NAV ─ */
+  /* НАВИГАЦИЯ */
   function go(n) {
     if (n > curStep && !validate(curStep)) return;
     document.getElementById('step-' + curStep).classList.remove('active');
@@ -743,7 +884,6 @@
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
-  /* ─ SHOW Q-SPECIFIC SECTION ─ */
   function showQSec() {
     document.querySelectorAll('.q-sec').forEach(function(s){ s.classList.remove('on'); });
     if (selQ) {
@@ -752,47 +892,35 @@
     }
   }
 
-  /* ─ VALIDATE ─ */
+  /* ВАЛИДАЦИЯ */
   function validate(step) {
-    if (step === 1) {
-      if (!selQ) { alert('Please choose a question to continue.'); return false; }
-    }
+    if (step === 1 && !selQ) { alert('Пожалуйста, выберите вопрос.'); return false; }
     if (step === 2) {
-      if (!document.getElementById('first_name').value.trim()) { alert('Please enter your first name.'); return false; }
+      if (!document.getElementById('first_name').value.trim()) { alert('Пожалуйста, введите имя.'); return false; }
       var em = document.getElementById('email').value.trim();
-      if (!em || !em.includes('@')) { alert('Please enter a valid email address.'); return false; }
-      if (!document.querySelector('input[name="gender"]:checked')) { alert('Please select your gender.'); return false; }
-      if (!document.getElementById('birth_date').value) { alert('Please enter your date of birth.'); return false; }
-      if (!document.getElementById('birth_city').value.trim()) { alert('Please enter your city of birth.'); return false; }
-      if (!document.getElementById('birth_country').value.trim()) { alert('Please enter your country of birth.'); return false; }
-      // sync hidden replyto
+      if (!em || !em.includes('@')) { alert('Пожалуйста, введите корректный email.'); return false; }
+      if (!document.querySelector('input[name="gender"]:checked')) { alert('Пожалуйста, укажите пол.'); return false; }
+      if (!document.getElementById('birth_date').value) { alert('Пожалуйста, введите дату рождения.'); return false; }
+      if (!document.getElementById('birth_city').value.trim()) { alert('Пожалуйста, введите город рождения.'); return false; }
+      if (!document.getElementById('birth_country').value.trim()) { alert('Пожалуйста, введите страну рождения.'); return false; }
       document.getElementById('form_replyto').value = em;
     }
     if (step === 3) {
-      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Please select your current situation.'); return false; }
-      if (!document.getElementById('best_years').value.trim()) { alert('Please enter your best career years.'); return false; }
-      if (!document.querySelector('input[name="best_channel"]:checked')) { alert('Please select how your most important opportunity came to you.'); return false; }
+      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
     }
     return true;
   }
 
-  /* ─ SUBMIT ─ */
+  /* ОТПРАВКА */
   async function submitForm() {
     if (!validate(4)) return;
-    if (!document.getElementById('consent-cb').checked) {
-      alert('Please confirm your consent to continue.');
-      return;
-    }
+    if (!document.getElementById('consent-cb').checked) { alert('Пожалуйста, подтвердите согласие.'); return; }
     var btn = document.getElementById('btn-submit');
-    btn.disabled = true;
-    btn.textContent = 'Sending…';
-
-    var formData = new FormData(document.getElementById('qform'));
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    var fd = new FormData(document.getElementById('qform'));
     try {
       var res = await fetch('https://formspree.io/f/xrejwqlq', {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
+        method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
         document.getElementById('qform').style.display = 'none';
@@ -800,17 +928,20 @@
         document.getElementById('confirm-screen').style.display = 'block';
         window.scrollTo({top: 0, behavior: 'smooth'});
       } else {
-        btn.disabled = false;
-        btn.textContent = 'Submit →';
-        alert('Something went wrong. Please try again.');
+        btn.disabled = false; btn.textContent = 'Отправить →';
+        alert('Что-то пошло не так. Попробуйте ещё раз.');
       }
     } catch(e) {
-      btn.disabled = false;
-      btn.textContent = 'Submit →';
-      alert('Network error — please check your connection and try again.');
+      btn.disabled = false; btn.textContent = 'Отправить →';
+      alert('Ошибка сети. Проверьте соединение и попробуйте снова.');
     }
   }
-</script>
 
+  /* ИНИЦИАЛИЗАЦИЯ */
+  updateProgress(1);
+  addBestYear(); addBestYear();
+  addHardYear();
+  addJob(); addJob();
+</script>
 </body>
 </html>
