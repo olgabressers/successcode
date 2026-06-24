@@ -61,7 +61,7 @@
     .page-tag::before { content: '—'; margin-right: 10px; }
     .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; color: var(--white); }
     .page-h1 em { font-style: italic; color: var(--gold2); }
-    .page-sub { font-size: 15px; line-height: 1.7; color: var(--dim); max-width: 560px; margin: 0 auto; }
+    .page-sub { font-size: 15px; line-height: 1.7; color: var(--dim); }
 
     /* PROGRESS */
     .progress-wrap { width: 100%; max-width: 960px; padding: 32px 40px 0; }
@@ -78,7 +78,7 @@
     .step { display: none; }
     .step.active { display: block; }
     .step-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin-bottom: 8px; color: var(--white); }
-    .step-desc { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 32px; }
+    .step-desc { font-size: 14px; color: var(--white); line-height: 1.65; margin-bottom: 32px; }
 
     /* QUESTION CARDS */
     .q-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
@@ -109,7 +109,7 @@
       display: block; font-size: 11px; letter-spacing: 2px;
       text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 7px;
     }
-    .field-hint { font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: -3px; margin-bottom: 8px; }
+    .field-hint { font-size: 12px; color: var(--white); line-height: 1.5; margin-top: -3px; margin-bottom: 8px; }
     input[type="text"],
     input[type="email"],
     input[type="date"],
@@ -264,7 +264,7 @@
   <div class="page-header">
     <div class="page-tag">Бета-группа — 2026</div>
     <h1 class="page-h1">Ваш <em>план</em> на 2026</h1>
-    <p class="page-sub">3 минуты ответов. Персональная стратегия — лучший метод и тайминг — для вашей цели в 2026 году, с разбивкой по месяцам.</p>
+    <p class="page-sub">Персональная стратегия — лучший метод и тайминг — для вашей цели в 2026 году.</p>
   </div>
 
   <div class="progress-wrap" id="progress-wrap">
@@ -345,13 +345,11 @@
 
         <div class="field">
           <label class="field-label" for="email">Email-адрес</label>
-          <p class="field-hint">Ваша персональная стратегия на 2026 год будет отправлена сюда.</p>
           <input type="email" id="email" name="email" placeholder="ваш@email.com" required>
         </div>
 
         <div class="field">
           <label class="field-label">Пол</label>
-          <p class="field-hint">Определяет направление жизненных циклов — это существенно влияет на чтение карты.</p>
           <div class="opts two">
             <label class="opt radio" onclick="pickOpt(this,'gender')">
               <input type="radio" name="gender" value="Женский">
@@ -373,7 +371,6 @@
 
         <div class="field">
           <label class="field-label" for="birth_time">Время рождения</label>
-          <p class="field-hint">Предпочтительно точный час. Не знаете? Укажите приблизительное время или 12:00.</p>
           <div class="field-row">
             <input type="time" id="birth_time" name="birth_time">
             <select name="time_confidence">
@@ -394,7 +391,6 @@
 
         <div class="field">
           <label class="field-label" for="residence_country">Страна проживания</label>
-          <p class="field-hint">Где вы сейчас живёте и работаете — влияет на доступные каналы и рынок.</p>
           <input type="text" id="residence_country" name="residence_country" placeholder="Например: Нидерланды, Германия, ОАЭ">
         </div>
 
