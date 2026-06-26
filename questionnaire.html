@@ -323,85 +323,8 @@
         </div>
       </div>
 
-      <!-- ══ ШАГ 2 — ДАННЫЕ РОЖДЕНИЯ ══ -->
+      <!-- ══ ШАГ 2 — КАРЬЕРНАЯ ИСТОРИЯ ══ -->
       <div class="step" id="step-2">
-        <h2 class="step-title">Данные рождения</h2>
-        <p class="step-desc">Основа персонального анализа. Точное время и место рождения критически важны — даже приблизительное время значительно улучшает точность результата.</p>
-
-        <div class="note">Все данные конфиденциальны. Используются только для составления стратегии. Никогда не передаются третьим лицам.</div>
-
-        <div class="field">
-          <div class="field-row">
-            <div>
-              <label class="field-label" for="first_name">Имя</label>
-              <input type="text" id="first_name" name="first_name" placeholder="Ваше имя" required>
-            </div>
-            <div>
-              <label class="field-label" for="last_name">Фамилия</label>
-              <input type="text" id="last_name" name="last_name" placeholder="Ваша фамилия">
-            </div>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="email">Email-адрес</label>
-          <input type="email" id="email" name="email" placeholder="ваш@email.com" required>
-        </div>
-
-        <div class="field">
-          <label class="field-label">Пол</label>
-          <div class="opts two">
-            <label class="opt radio" onclick="pickOpt(this,'gender')">
-              <input type="radio" name="gender" value="Женский">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Женский</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'gender')">
-              <input type="radio" name="gender" value="Мужской">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Мужской</span></span>
-            </label>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="birth_date">Дата рождения</label>
-          <input type="date" id="birth_date" name="birth_date" required>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="birth_time">Время рождения</label>
-          <div class="field-row">
-            <input type="time" id="birth_time" name="birth_time">
-            <select name="time_confidence">
-              <option value="exact">Точное (из свидетельства о рождении)</option>
-              <option value="approx">Приблизительное (± 1 час)</option>
-              <option value="unknown">Не знаю — указал(а) 12:00</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label">Место рождения</label>
-          <div class="field-row">
-            <input type="text" id="birth_city" name="birth_city" placeholder="Город рождения" required>
-            <input type="text" id="birth_country" name="birth_country" placeholder="Страна рождения" required>
-          </div>
-        </div>
-
-        <div class="field">
-          <label class="field-label" for="residence_country">Страна проживания</label>
-          <input type="text" id="residence_country" name="residence_country" placeholder="Например: Нидерланды, Германия, ОАЭ">
-        </div>
-
-        <div class="btn-row">
-          <button type="button" class="btn-back" onclick="go(1)">← Назад</button>
-          <button type="button" class="btn btn-primary" onclick="go(3)">Продолжить →</button>
-        </div>
-      </div>
-
-      <!-- ══ ШАГ 3 — КАРЬЕРНАЯ ИСТОРИЯ ══ -->
-      <div class="step" id="step-3">
         <h2 class="step-title">Ваша карьерная история</h2>
         <p class="step-desc">Эти вопросы калибруют тип вашей карты и подтверждают, какие паттерны работают именно для вас — это и делает рекомендации на 2026 год персональными, а не общими.</p>
 
@@ -524,13 +447,13 @@
         </div>
 
         <div class="btn-row">
-          <button type="button" class="btn-back" onclick="go(2)">← Назад</button>
-          <button type="button" class="btn btn-primary" onclick="go(4)">Продолжить →</button>
+          <button type="button" class="btn-back" onclick="go(1)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(3)">Продолжить →</button>
         </div>
       </div>
 
-      <!-- ══ ШАГ 4 — СПЕЦИФИКА ══ -->
-      <div class="step" id="step-4">
+      <!-- ══ ШАГ 3 — СПЕЦИФИКА ══ -->
+      <div class="step" id="step-3">
         <h2 class="step-title">Последние детали</h2>
         <p class="step-desc">Это делает рекомендацию на 2026 год конкретной, а не общей.</p>
 
@@ -695,6 +618,83 @@
             <label class="field-label" for="q3_notes">Дополнительный контекст (необязательно)</label>
             <textarea id="q3_notes" name="q3_notes" placeholder="Например: размер раунда, география, ситуация с командой, уже есть лиды от инвесторов..."></textarea>
           </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(2)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(4)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 4 — ДАННЫЕ РОЖДЕНИЯ ══ -->
+      <div class="step" id="step-4">
+        <h2 class="step-title">Данные рождения</h2>
+        <p class="step-desc">Основа персонального анализа. Точное время и место рождения критически важны — даже приблизительное время значительно улучшает точность результата.</p>
+
+        <div class="note">Все данные конфиденциальны. Используются только для составления стратегии. Никогда не передаются третьим лицам.</div>
+
+        <div class="field">
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="first_name">Имя</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Ваше имя" required>
+            </div>
+            <div>
+              <label class="field-label" for="last_name">Фамилия</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Ваша фамилия">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Email-адрес</label>
+          <input type="email" id="email" name="email" placeholder="ваш@email.com" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Пол</label>
+          <div class="opts two">
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Женский">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Женский</span></span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Мужской">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Мужской</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_date">Дата рождения</label>
+          <input type="date" id="birth_date" name="birth_date" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_time">Время рождения</label>
+          <div class="field-row">
+            <input type="time" id="birth_time" name="birth_time">
+            <select name="time_confidence">
+              <option value="exact">Точное (из свидетельства о рождении)</option>
+              <option value="approx">Приблизительное (± 1 час)</option>
+              <option value="unknown">Не знаю — указал(а) 12:00</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Место рождения</label>
+          <div class="field-row">
+            <input type="text" id="birth_city" name="birth_city" placeholder="Город рождения" required>
+            <input type="text" id="birth_country" name="birth_country" placeholder="Страна рождения" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="residence_country">Страна проживания</label>
+          <input type="text" id="residence_country" name="residence_country" placeholder="Например: Нидерланды, Германия, ОАЭ">
         </div>
 
         <!-- СОГЛАСИЕ -->
@@ -876,7 +876,7 @@
     curStep = n;
     document.getElementById('step-' + curStep).classList.add('active');
     updateProgress(n);
-    if (n === 4) showQSec();
+    if (n === 3) showQSec();
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
@@ -892,6 +892,9 @@
   function validate(step) {
     if (step === 1 && !selQ) { alert('Пожалуйста, выберите вопрос.'); return false; }
     if (step === 2) {
+      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
+    }
+    if (step === 4) {
       if (!document.getElementById('first_name').value.trim()) { alert('Пожалуйста, введите имя.'); return false; }
       var em = document.getElementById('email').value.trim();
       if (!em || !em.includes('@')) { alert('Пожалуйста, введите корректный email.'); return false; }
@@ -900,9 +903,6 @@
       if (!document.getElementById('birth_city').value.trim()) { alert('Пожалуйста, введите город рождения.'); return false; }
       if (!document.getElementById('birth_country').value.trim()) { alert('Пожалуйста, введите страну рождения.'); return false; }
       document.getElementById('form_replyto').value = em;
-    }
-    if (step === 3) {
-      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
     }
     return true;
   }
@@ -915,7 +915,7 @@
     btn.disabled = true; btn.textContent = 'Отправляем…';
     var fd = new FormData(document.getElementById('qform'));
     try {
-      var res = await fetch('https://formspree.io/f/xrejwqlq', {
+      var res = await fetch('https://formspree.io/f/xaqgoyyy', {
         method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
       });
       if (res.ok) {
