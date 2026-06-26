@@ -351,14 +351,14 @@
               <span class="opt-text"><span class="opt-main">Не работаю / между ролями</span></span>
             </label>
             <label class="opt radio" onclick="pickOpt(this,'current_status')">
+              <input type="radio" name="current_status" value="Безработный(ая), не могу найти работу">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Безработный(ая), не могу найти работу</span></span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'current_status')">
               <input type="radio" name="current_status" value="Веду собственный бизнес или фриланс">
               <div class="opt-box"></div>
               <span class="opt-text"><span class="opt-main">Веду собственный бизнес или работаю фрилансером</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Другое">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Другое</span></span>
             </label>
           </div>
         </div>
@@ -373,7 +373,7 @@
         <!-- ЛУЧШИЕ ГОДЫ -->
         <div class="field">
           <label class="field-label">Лучшие карьерные или финансовые моменты</label>
-          <p class="field-hint">Добавьте каждый значимый момент отдельно — повышение, новая роль, первый крупный клиент, запуск бизнеса. Если помните месяц — укажите.</p>
+          <p class="field-hint">Добавьте каждый значимый момент отдельно — повышение, новая роль, первый крупный клиент, запуск бизнеса. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
           <div id="best-years-rows"></div>
           <button type="button" class="btn-add" onclick="addBestYear()">+ Добавить</button>
           <input type="hidden" name="best_years_summary" id="best_years_summary">
@@ -393,7 +393,7 @@
         <!-- КАК ПРИШЛА КАЖДАЯ ВАЖНАЯ РОЛЬ -->
         <div class="field">
           <label class="field-label">Как к вам пришла каждая важная роль или победа?</label>
-          <p class="field-hint">Добавьте 2–4 самые значимые роли, клиентов или проекты. Для каждого — когда и как вы его получили.</p>
+          <p class="field-hint">Добавьте ВСЕ значимые роли, клиентов или проекты. Для каждого — когда и как вы его получили.</p>
           <div id="jobs-rows"></div>
           <button type="button" class="btn-add" onclick="addJob()">+ Добавить роль или победу</button>
           <input type="hidden" name="job_channels_summary" id="job_channels_summary">
@@ -403,9 +403,9 @@
 
         <!-- ЧТО НЕ РАБОТАЛО -->
         <div class="field">
-          <label class="field-label">Что стабильно НЕ работало для вас?</label>
+          <label class="field-label">Что стабильно НЕ работало для вас — на протяжении всей жизни?</label>
           <div class="opts">
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
               <input type="radio" name="failed_channel" value="Холодные отклики / прямое обращение">
               <div class="opt-box"></div>
               <span class="opt-text">
@@ -413,7 +413,7 @@
                 <span class="opt-sub">Самостоятельный поиск вакансий онлайн, отклики или письма в компании, с которыми не было предварительного знакомства.</span>
               </span>
             </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
               <input type="radio" name="failed_channel" value="Тёплые знакомства / нетворкинг">
               <div class="opt-box"></div>
               <span class="opt-text">
@@ -421,7 +421,7 @@
                 <span class="opt-sub">Просьбы к контактам вас познакомить, посещение отраслевых мероприятий, ставка на связи и рекомендации.</span>
               </span>
             </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
               <input type="radio" name="failed_channel" value="Ожидание звонков от рекрутеров">
               <div class="opt-box"></div>
               <span class="opt-text">
@@ -429,7 +429,7 @@
                 <span class="opt-sub">Поддержание актуального профиля в расчёте на то, что хедхантеры найдут вас сами.</span>
               </span>
             </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
               <input type="radio" name="failed_channel" value="Онлайн-видимость / публикации">
               <div class="opt-box"></div>
               <span class="opt-text">
@@ -437,7 +437,7 @@
                 <span class="opt-sub">Посты в LinkedIn, статьи или контент в соцсетях в надежде, что клиенты или работодатели найдут вас сами.</span>
               </span>
             </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel')">
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
               <input type="radio" name="failed_channel" value="Ничего не проваливалось стабильно">
               <div class="opt-box"></div>
               <span class="opt-text">
@@ -445,6 +445,17 @@
                 <span class="opt-sub">Разные подходы работали в разное время.</span>
               </span>
             </label>
+            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(true)">
+              <input type="radio" name="failed_channel" value="Другое">
+              <div class="opt-box"></div>
+              <span class="opt-text">
+                <span class="opt-main">Другое</span>
+                <span class="opt-sub">Опишите конкретно — что именно не давало результата.</span>
+              </span>
+            </label>
+          </div>
+          <div id="failed-other-wrap" style="display:none; margin-top:10px">
+            <textarea id="failed_channel_other" name="failed_channel_other" placeholder="Опишите конкретно: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
           </div>
         </div>
 
@@ -489,7 +500,7 @@
           </div>
 
           <div class="field">
-            <label class="field-label" for="q1_notes">Дополнительный контекст (необязательно)</label>
+            <label class="field-label" for="q1_notes">Дополнительный контекст</label>
             <textarea id="q1_notes" name="q1_notes" placeholder="Например: целюсь в конкретные компании, меняю отрасль, возвращаюсь после перерыва, ищу только с релокацией..."></textarea>
           </div>
         </div>
@@ -543,7 +554,7 @@
           </div>
 
           <div class="field">
-            <label class="field-label" for="q2_notes">Дополнительный контекст (необязательно)</label>
+            <label class="field-label" for="q2_notes">Дополнительный контекст</label>
             <textarea id="q2_notes" name="q2_notes" placeholder="Например: запускаю новый продукт, выхожу на новый рынок, есть конкретная проблема..."></textarea>
           </div>
         </div>
@@ -651,8 +662,7 @@
     <div id="confirm-screen">
       <div class="confirm-icon">✦</div>
       <h2 class="confirm-h">Готово.</h2>
-      <p class="confirm-sub">Ваша карта строится. Персональная стратегия на 2026 год — лучший метод, тайминг и разбивка по месяцам — появится в вашем почтовом ящике в течение 48 часов.</p>
-      <p class="confirm-note">Ждите письмо от hello@successcode.net</p>
+      <p class="confirm-sub">Спасибо. Ваша анкета получена.</p>
     </div>
 
   </div>
@@ -771,6 +781,14 @@
     el.classList.add('selected');
     var inp = el.querySelector('input');
     if (inp) inp.checked = true;
+  }
+
+  /* ДРУГОЕ — НЕ РАБОТАЛО */
+  function showFailedOther(show) {
+    var wrap = document.getElementById('failed-other-wrap');
+    var ta = document.getElementById('failed_channel_other');
+    wrap.style.display = show ? 'block' : 'none';
+    if (!show) ta.value = '';
   }
 
   /* СОГЛАСИЕ */
