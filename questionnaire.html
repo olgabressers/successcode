@@ -326,136 +326,151 @@
         </div>
       </div>
 
-      <!-- ══ ШАГ 2 — КАРЬЕРНАЯ ИСТОРИЯ ══ -->
+      <!-- ══ ШАГ 2 — КАРЬЕРА / БИЗНЕС ══ -->
       <div class="step" id="step-2">
-        <h2 class="step-title">Ваша карьерная история</h2>
-        <p class="step-desc">Расскажите немного о своём профессиональном пути. Ответы помогают точнее построить рекомендацию.</p>
 
-        <!-- ТЕКУЩАЯ СИТУАЦИЯ -->
-        <div class="field">
-          <label class="field-label">Ваша текущая ситуация</label>
-          <div class="opts">
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Работаю, активно ищу новую роль">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Работаю, активно ищу новую роль</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Работаю, открыт(а) к интересным предложениям">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Работаю, открыт(а) к интересным предложениям</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Не работаю, между ролями">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Не работаю / между ролями</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Безработный(ая), не могу найти работу">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Безработный(ая), не могу найти работу</span></span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'current_status')">
-              <input type="radio" name="current_status" value="Веду собственный бизнес или фриланс">
-              <div class="opt-box"></div>
-              <span class="opt-text"><span class="opt-main">Веду собственный бизнес или работаю фрилансером</span></span>
-            </label>
+        <!-- ── Q1: КАРЬЕРНАЯ ИСТОРИЯ ── -->
+        <div class="q-sec" id="s2-q1">
+          <h2 class="step-title">Ваша карьерная история</h2>
+          <p class="step-desc">Расскажите немного о своём профессиональном пути. Ответы помогают точнее построить рекомендацию.</p>
+
+          <div class="field">
+            <label class="field-label">Ваша текущая ситуация</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Работаю, активно ищу новую роль"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Работаю, активно ищу новую роль</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Работаю, открыт(а) к интересным предложениям"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Работаю, открыт(а) к интересным предложениям</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Не работаю, между ролями"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Не работаю / между ролями</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Безработный(ая), не могу найти работу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Безработный(ая), не могу найти работу</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Веду собственный бизнес или фриланс"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Веду собственный бизнес или работаю фрилансером</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="profession">Профессиональная сфера / отрасль</label>
+            <input type="text" id="profession" name="profession" placeholder="Например: e-commerce, финансы, маркетинг, IT, консалтинг, здравоохранение">
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Лучшие карьерные или финансовые моменты</label>
+            <p class="field-hint">Добавьте каждый значимый момент отдельно — повышение, новая роль, первый крупный клиент, запуск бизнеса. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
+            <div id="best-years-rows"></div>
+            <button type="button" class="btn-add" onclick="addBestYear()">+ Добавить</button>
+          </div>
+
+          <div class="field" style="margin-top:28px">
+            <label class="field-label">Самые сложные периоды</label>
+            <p class="field-hint">Когда всё шло против вас — сотни откликов без ответа, клиенты не шли, сделки срывались.</p>
+            <div id="hard-years-rows"></div>
+            <button type="button" class="btn-add" onclick="addHardYear()">+ Добавить</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Как к вам пришла каждая важная роль или победа?</label>
+            <p class="field-hint">Добавьте ВСЕ значимые роли, клиентов или проекты. Для каждого — когда и как вы его получили.</p>
+            <div id="jobs-rows"></div>
+            <button type="button" class="btn-add" onclick="addJob()">+ Добавить роль или победу</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Что стабильно НЕ работало для вас — на протяжении всей жизни?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Холодные отклики / прямое обращение"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные отклики / прямое обращение</span><span class="opt-sub">Самостоятельный поиск вакансий, письма в компании без предварительного знакомства.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Тёплые знакомства / нетворкинг"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Тёплые знакомства / нетворкинг</span><span class="opt-sub">Просьбы к контактам вас познакомить, отраслевые мероприятия, ставка на рекомендации.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Ожидание звонков от рекрутеров"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ожидание звонков от рекрутеров</span><span class="opt-sub">Актуальный профиль в расчёте, что хедхантеры найдут сами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Онлайн-видимость / публикации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн-видимость / публикации</span><span class="opt-sub">Посты в LinkedIn, статьи в надежде, что работодатели найдут вас сами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные подходы работали в разное время.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(true)"><input type="radio" name="failed_channel" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно — что именно не давало результата.</span></span></label>
+            </div>
+            <div id="failed-other-wrap" style="display:none; margin-top:10px">
+              <textarea id="failed_channel_other" name="failed_channel_other" placeholder="Опишите конкретно: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
+            </div>
           </div>
         </div>
 
-        <div class="field">
-          <label class="field-label" for="profession">Профессиональная сфера / отрасль</label>
-          <input type="text" id="profession" name="profession" placeholder="Например: e-commerce, финансы, маркетинг, IT, консалтинг, здравоохранение">
-        </div>
+        <!-- ── Q2: ПРОФИЛЬ БИЗНЕСА ── -->
+        <div class="q-sec" id="s2-q2">
+          <h2 class="step-title">Ваш бизнес</h2>
+          <p class="step-desc">Расскажите о своём бизнесе — чем занимаетесь, кто ваши клиенты, как устроена команда.</p>
 
-        <div class="divider"></div>
-
-        <!-- ЛУЧШИЕ ГОДЫ -->
-        <div class="field">
-          <label class="field-label">Лучшие карьерные или финансовые моменты</label>
-          <p class="field-hint">Добавьте каждый значимый момент отдельно — повышение, новая роль, первый крупный клиент, запуск бизнеса. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
-          <div id="best-years-rows"></div>
-          <button type="button" class="btn-add" onclick="addBestYear()">+ Добавить</button>
-          <input type="hidden" name="best_years_summary" id="best_years_summary">
-        </div>
-
-        <!-- СЛОЖНЫЕ ГОДЫ -->
-        <div class="field" style="margin-top:28px">
-          <label class="field-label">Самые сложные периоды</label>
-          <p class="field-hint">Когда всё шло против вас — сотни откликов без ответа, клиенты не шли, сделки срывались.</p>
-          <div id="hard-years-rows"></div>
-          <button type="button" class="btn-add" onclick="addHardYear()">+ Добавить</button>
-          <input type="hidden" name="hard_years_summary" id="hard_years_summary">
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- КАК ПРИШЛА КАЖДАЯ ВАЖНАЯ РОЛЬ -->
-        <div class="field">
-          <label class="field-label">Как к вам пришла каждая важная роль или победа?</label>
-          <p class="field-hint">Добавьте ВСЕ значимые роли, клиентов или проекты. Для каждого — когда и как вы его получили.</p>
-          <div id="jobs-rows"></div>
-          <button type="button" class="btn-add" onclick="addJob()">+ Добавить роль или победу</button>
-          <input type="hidden" name="job_channels_summary" id="job_channels_summary">
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- ЧТО НЕ РАБОТАЛО -->
-        <div class="field">
-          <label class="field-label">Что стабильно НЕ работало для вас — на протяжении всей жизни?</label>
-          <div class="opts">
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
-              <input type="radio" name="failed_channel" value="Холодные отклики / прямое обращение">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Холодные отклики / прямое обращение</span>
-                <span class="opt-sub">Самостоятельный поиск вакансий онлайн, отклики или письма в компании, с которыми не было предварительного знакомства.</span>
-              </span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
-              <input type="radio" name="failed_channel" value="Тёплые знакомства / нетворкинг">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Тёплые знакомства / нетворкинг</span>
-                <span class="opt-sub">Просьбы к контактам вас познакомить, посещение отраслевых мероприятий, ставка на связи и рекомендации.</span>
-              </span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
-              <input type="radio" name="failed_channel" value="Ожидание звонков от рекрутеров">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Ожидание звонков от рекрутеров</span>
-                <span class="opt-sub">Поддержание актуального профиля в расчёте на то, что хедхантеры найдут вас сами.</span>
-              </span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
-              <input type="radio" name="failed_channel" value="Онлайн-видимость / публикации">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Онлайн-видимость / публикации</span>
-                <span class="opt-sub">Посты в LinkedIn, статьи или контент в соцсетях в надежде, что клиенты или работодатели найдут вас сами.</span>
-              </span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)">
-              <input type="radio" name="failed_channel" value="Ничего не проваливалось стабильно">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Ничего не проваливалось стабильно</span>
-                <span class="opt-sub">Разные подходы работали в разное время.</span>
-              </span>
-            </label>
-            <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(true)">
-              <input type="radio" name="failed_channel" value="Другое">
-              <div class="opt-box"></div>
-              <span class="opt-text">
-                <span class="opt-main">Другое</span>
-                <span class="opt-sub">Опишите конкретно — что именно не давало результата.</span>
-              </span>
-            </label>
+          <div class="field">
+            <label class="field-label" for="biz_description">Что вы продаёте и кому?</label>
+            <textarea id="biz_description" name="biz_description" style="min-height:90px" placeholder="Например: B2B SaaS для HR-команд, коучинг для руководителей, производство мебели на заказ, digital-агентство для e-commerce брендов..."></textarea>
           </div>
-          <div id="failed-other-wrap" style="display:none; margin-top:10px">
-            <textarea id="failed_channel_other" name="failed_channel_other" placeholder="Опишите конкретно: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
+
+          <div class="field">
+            <label class="field-label" for="biz_sector">Отрасль / сфера</label>
+            <input type="text" id="biz_sector" name="biz_sector" placeholder="Например: IT, здравоохранение, образование, ретейл, финансы, строительство">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Тип клиентов</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2B — другие компании"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2B — другие компании</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2C — потребители"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2C — потребители</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2B и B2C — оба типа"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Оба типа</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Размер команды</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="Только я — соло"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только я — соло</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="2–5 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">2–5 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="6–20 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">6–20 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="21–100 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">21–100 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="Более 100 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 100 человек</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Есть ли в команде кто-то, кто занимается продажами или маркетингом?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Нет — я занимаюсь этим сам(а)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет — я занимаюсь этим сам(а)</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Да — один человек или небольшая команда"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да — один человек или небольшая команда</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Да — выделенный отдел продаж / маркетинга"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да — выделенный отдел продаж / маркетинга</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Отдано на аутсорс — агентство или фрилансер"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Отдано на аутсорс — агентство или фрилансер</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Средний чек / размер сделки</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="До 500 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До 500 €</span><span class="opt-sub">Розница, подписки, масс-маркет</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="500–5 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500 – 5 000 €</span><span class="opt-sub">Малые B2B-контракты или premium B2C</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="5 000–50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">5 000 – 50 000 €</span><span class="opt-sub">Средние B2B-сделки</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="Более 50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 50 000 €</span><span class="opt-sub">Крупные корпоративные контракты</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Стадия бизнеса</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="Только запустился — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запустился — менее года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="1–3 года, растём"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года, растём</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="3+ лет, устоявшийся бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет, устоявшийся бизнес</span></span></label>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Лучшие периоды по клиентам</label>
+            <p class="field-hint">Когда клиенты шли хорошо — крупный контракт, поток заявок, рост выручки. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
+            <div id="biz-wins-rows"></div>
+            <button type="button" class="btn-add" onclick="addBizWin()">+ Добавить</button>
+          </div>
+
+          <div class="field" style="margin-top:28px">
+            <label class="field-label">Самые слабые периоды</label>
+            <p class="field-hint">Когда клиентов не было — несмотря на все усилия. Конкретный год и период, что пробовали.</p>
+            <div id="biz-lows-rows"></div>
+            <button type="button" class="btn-add" onclick="addBizLow()">+ Добавить</button>
           </div>
         </div>
 
@@ -508,54 +523,37 @@
         <!-- Q2 — ПРИВЛЕЧЕНИЕ КЛИЕНТОВ -->
         <div class="q-sec" id="qs-q2">
           <div class="field">
-            <label class="field-label" for="q2_biz_type">Тип вашего бизнеса</label>
-            <input type="text" id="q2_biz_type" name="q2_biz_type" placeholder="Например: B2B SaaS, коучинг, e-commerce, агентство, консалтинг, производство">
-          </div>
-
-          <div class="field">
-            <label class="field-label">Основной тип клиентов</label>
-            <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2B (другие компании)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2B — другие компании</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="B2C (потребители)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2C — потребители</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_cust_type')"><input type="radio" name="q2_cust_type" value="Оба типа — B2B и B2C"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Оба типа</span></span></label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="field-label">Стадия бизнеса</label>
+            <label class="field-label">Какой канал привлечения клиентов работал лучше всего?</label>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="Только запустился — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запустился — менее года</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="1–3 года, растём"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года, растём</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_stage')"><input type="radio" name="q2_stage" value="3+ лет, устоявшийся бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет, устоявшийся бизнес</span></span></label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="field-label">Средний чек / размер сделки</label>
-            <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="До 500 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До 500 €</span><span class="opt-sub">Розница, подписки, масс-маркет</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="500–5 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500 – 5 000 €</span><span class="opt-sub">Малые B2B или premium B2C</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="5 000–50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">5 000 – 50 000 €</span><span class="opt-sub">Средние B2B-сделки</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_deal_size')"><input type="radio" name="q2_deal_size" value="Более 50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 50 000 €</span><span class="opt-sub">Крупные корпоративные контракты</span></span></label>
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="field-label">Какой канал привлечения работал лучше всего?</label>
-            <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Сарафанное радио / рекомендации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сарафанное радио / рекомендации</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Сарафанное радио / рекомендации клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сарафанное радио / рекомендации клиентов</span></span></label>
               <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Контент в соцсетях / органика"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Контент в соцсетях / органика</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Холодные обращения — email, LinkedIn"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения — email, LinkedIn</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Холодные обращения — email, LinkedIn, звонки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения — email, LinkedIn, звонки</span></span></label>
               <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Мероприятия / выступления / конференции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Мероприятия / выступления / конференции</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Платная реклама"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Платная реклама — Google, Meta, Яндекс"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама — Google, Meta, Яндекс</span></span></label>
               <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="SEO / контент-маркетинг"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">SEO / контент-маркетинг</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Всё ещё разбираюсь"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Всё ещё разбираюсь</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Партнёрства / дистрибьюторы / агенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёрства / дистрибьюторы / агенты</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Всё ещё разбираюсь — стабильного канала нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Всё ещё разбираюсь — стабильного канала нет</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Что стабильно НЕ работало — на протяжении всего существования бизнеса?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Email, LinkedIn, холодные звонки — без ответа или с отказами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Контент и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Контент и соцсети</span><span class="opt-sub">Публикации, статьи, посты — просмотры есть, клиентов нет.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Платная реклама"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама</span><span class="opt-sub">Потратили бюджет, результат не окупился.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Мероприятия и конференции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Мероприятия и конференции</span><span class="opt-sub">Много разговоров — мало сделок.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные каналы работали по-разному в разное время.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(true)"><input type="radio" name="biz_failed_acq" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно.</span></span></label>
+            </div>
+            <div id="biz-failed-other-wrap" style="display:none; margin-top:10px">
+              <textarea id="biz_failed_acq_other" name="biz_failed_acq_other" placeholder="Опишите: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
             </div>
           </div>
 
           <div class="field">
             <label class="field-label" for="q2_notes">Дополнительный контекст</label>
-            <textarea id="q2_notes" name="q2_notes" placeholder="Например: запускаю новый продукт, выхожу на новый рынок, есть конкретная проблема..."></textarea>
+            <textarea id="q2_notes" name="q2_notes" placeholder="Например: запускаю новый продукт, выхожу на новый рынок, конкретная проблема с воронкой, сезонность..."></textarea>
           </div>
         </div>
 
@@ -783,12 +781,52 @@
     if (inp) inp.checked = true;
   }
 
-  /* ДРУГОЕ — НЕ РАБОТАЛО */
+  /* ДРУГОЕ — НЕ РАБОТАЛО (Q1) */
   function showFailedOther(show) {
     var wrap = document.getElementById('failed-other-wrap');
     var ta = document.getElementById('failed_channel_other');
     wrap.style.display = show ? 'block' : 'none';
     if (!show) ta.value = '';
+  }
+
+  /* ДРУГОЕ — НЕ РАБОТАЛО (Q2) */
+  function showBizFailedOther(show) {
+    var wrap = document.getElementById('biz-failed-other-wrap');
+    var ta = document.getElementById('biz_failed_acq_other');
+    wrap.style.display = show ? 'block' : 'none';
+    if (!show) ta.value = '';
+  }
+
+  /* БИЗ ПОБЕДЫ — динамические строки */
+  var bizWinCount = 0;
+  function addBizWin() {
+    bizWinCount++;
+    var n = bizWinCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'bw-' + n;
+    div.innerHTML =
+      yearSelect('bw_year_' + n) +
+      monthSelect('bw_month_' + n) +
+      '<input type="text" name="bw_what_' + n + '" placeholder="Что произошло? Например: подписан контракт на €50k, 30 новых клиентов за месяц, запуск с рекордной выручкой">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'bw-' + n + '\')">×</button>';
+    document.getElementById('biz-wins-rows').appendChild(div);
+  }
+
+  /* БИЗ ПРОВАЛЫ — динамические строки */
+  var bizLowCount = 0;
+  function addBizLow() {
+    bizLowCount++;
+    var n = bizLowCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'bl-' + n;
+    div.innerHTML =
+      yearSelect('bl_year_' + n) +
+      monthSelect('bl_month_' + n) +
+      '<input type="text" name="bl_what_' + n + '" placeholder="Что происходило? Например: заявок нет 3 месяца, реклама не окупается, потеряли ключевого клиента">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'bl-' + n + '\')">×</button>';
+    document.getElementById('biz-lows-rows').appendChild(div);
   }
 
   /* СОГЛАСИЕ */
@@ -816,12 +854,21 @@
     curStep = n;
     document.getElementById('step-' + curStep).classList.add('active');
     updateProgress(n);
+    if (n === 2) showStep2Sec();
     if (n === 3) showQSec();
     window.scrollTo({top: 0, behavior: 'smooth'});
   }
 
+  function showStep2Sec() {
+    document.querySelectorAll('#step-2 .q-sec').forEach(function(s){ s.classList.remove('on'); });
+    if (selQ) {
+      var sec = document.getElementById('s2-' + selQ);
+      if (sec) sec.classList.add('on');
+    }
+  }
+
   function showQSec() {
-    document.querySelectorAll('.q-sec').forEach(function(s){ s.classList.remove('on'); });
+    document.querySelectorAll('#step-3 .q-sec').forEach(function(s){ s.classList.remove('on'); });
     if (selQ) {
       var sec = document.getElementById('qs-' + selQ);
       if (sec) sec.classList.add('on');
@@ -832,7 +879,14 @@
   function validate(step) {
     if (step === 1 && !selQ) { alert('Пожалуйста, выберите вопрос.'); return false; }
     if (step === 2) {
-      if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
+      if (selQ === 'q1') {
+        if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
+      }
+      if (selQ === 'q2') {
+        if (!document.getElementById('biz_description').value.trim()) { alert('Пожалуйста, опишите ваш бизнес.'); return false; }
+        if (!document.querySelector('input[name="biz_cust_type"]:checked')) { alert('Пожалуйста, укажите тип клиентов.'); return false; }
+        if (!document.querySelector('input[name="biz_team_size"]:checked')) { alert('Пожалуйста, укажите размер команды.'); return false; }
+      }
     }
     if (step === 4) {
       if (!document.getElementById('first_name').value.trim()) { alert('Пожалуйста, введите имя.'); return false; }
@@ -937,6 +991,8 @@
   addBestYear(); addBestYear();
   addHardYear();
   addJob(); addJob();
+  addBizWin(); addBizWin();
+  addBizLow();
 </script>
 </body>
 </html>
