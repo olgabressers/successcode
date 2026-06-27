@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Трансформация и бракоразводный процесс 2026 · SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #F7F5F0;
+      --surface:  #EDEBE4;
+      --surface2: #E5E2D8;
+      --gold:     #9A6E20;
+      --gold2:    #B8882A;
+      --goldfade: rgba(154,110,32,0.09);
+      --text:     #1A1820;
+      --dim:      #383644;
+      --muted:    #72707E;
+      --border:   rgba(154,110,32,0.22);
+      --border2:  rgba(30,28,40,0.10);
+      --red:      #7A1E1E;
+      --green:    #1A5026;
+      --blue:     #1A3060;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
+
+    .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
+
+    /* HEADER */
+    .report-header { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+    .header-left { flex: 1; }
+    .brand { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+    .report-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
+    .report-title em { font-style: italic; color: var(--gold2); }
+    .report-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .header-right { text-align: right; flex-shrink: 0; padding-bottom: 4px; }
+    .client-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .client-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .report-date { font-size: 11px; color: var(--muted); margin-top: 12px; letter-spacing: 1px; }
+
+    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
+
+    .sec-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* INTRO BLOCK */
+    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
+    .intro-block p + p { margin-top: 14px; }
+    .intro-block strong { color: var(--text); }
+    .chart-tag { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); background: var(--goldfade); border: 1px solid var(--border); padding: 3px 10px; margin-right: 8px; vertical-align: middle; }
+
+    /* VERDICT CARDS */
+    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .verdict-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
+    .verdict-icon { font-size: 22px; margin-bottom: 12px; }
+    .verdict-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+    .verdict-body { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .verdict-card.affirm { border-top: 3px solid var(--green); }
+    .verdict-card.caution { border-top: 3px solid #8a6000; }
+    .verdict-card.strong { border-top: 3px solid var(--blue); }
+    .verdict-mech { font-size: 11px; color: var(--muted); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border2); font-style: italic; }
+
+    /* PROBABILITY BARS */
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
+    .prob-item { }
+    .prob-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .prob-label { font-size: 13px; color: var(--dim); font-weight: 500; }
+    .prob-pct { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--gold2); }
+    .prob-bar-bg { height: 4px; background: var(--surface2); border-radius: 2px; }
+    .prob-bar-fill { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%); }
+    .prob-note { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+
+    /* DECISION BOX */
+    .decision-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--blue); padding: 28px 32px; margin-bottom: 20px; }
+    .decision-verdict { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; padding: 4px 10px; border: 1px solid; margin-bottom: 10px; display: inline-block; }
+    .decision-verdict.inform { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .decision-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 12px; line-height: 1.3; }
+    .decision-body { font-size: 13.5px; color: var(--dim); line-height: 1.7; }
+    .decision-body p + p { margin-top: 10px; }
+    .decision-body strong { color: var(--text); }
+
+    /* DATE BOX */
+    .date-box { background: linear-gradient(135deg, #0f1f50 0%, #1A3060 100%); padding: 32px 36px; color: white; margin-bottom: 20px; }
+    .date-box-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+    .date-box-date { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 400; color: white; margin-bottom: 10px; line-height: 1.15; }
+    .date-box-date span { color: rgba(184,136,42,1); }
+    .date-box-body { font-size: 13.5px; color: rgba(255,255,255,0.82); line-height: 1.7; }
+    .date-box-body p + p { margin-top: 8px; }
+    .date-mechs { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .date-mech-tag { font-size: 11px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85); padding: 4px 10px; letter-spacing: 1px; }
+
+    /* DO / DON'T TABLE */
+    .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .do-col, .dont-col { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .do-col { border-top: 3px solid var(--green); }
+    .dont-col { border-top: 3px solid var(--red); }
+    .col-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+    .do-col .col-title { color: var(--green); }
+    .dont-col .col-title { color: var(--red); }
+    .action-list { list-style: none; }
+    .action-list li { font-size: 13px; color: var(--dim); padding: 7px 0; border-bottom: 1px solid var(--border2); line-height: 1.55; display: flex; gap: 10px; }
+    .action-list li:last-child { border-bottom: none; }
+    .action-list .marker { flex-shrink: 0; font-weight: 600; }
+    .do-col .marker { color: var(--green); }
+    .dont-col .marker { color: var(--red); }
+
+    /* MONTH TABLE */
+    .month-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .month-table thead tr { background: var(--surface); }
+    .month-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 600; }
+    .month-table td { padding: 14px 16px; border-bottom: 1px solid var(--border2); font-size: 13px; vertical-align: top; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table tr.peak-row td { background: rgba(26,48,96,0.04); }
+    .month-table tr.caution-row td { background: rgba(122,30,30,0.03); }
+    .month-name { font-weight: 500; color: var(--text); }
+    .month-period { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .month-stem { font-size: 11px; color: var(--gold); font-style: italic; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+    .badge-peak { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .badge-strong { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .badge-caution { color: #8a6000; border-color: rgba(138,96,0,0.35); background: rgba(138,96,0,0.06); }
+    .badge-mixed { color: var(--muted); border-color: var(--border2); background: var(--surface); }
+    .month-action { font-size: 12.5px; color: var(--dim); margin-top: 5px; }
+
+    /* PALACE ALERTS */
+    .palace-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .palace-card { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .palace-num { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .palace-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+    .palace-stars { font-size: 12px; color: var(--gold); margin-bottom: 10px; font-style: italic; }
+    .palace-reading { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .palace-card.critical { border-left: 3px solid var(--red); }
+    .palace-card.strong { border-left: 3px solid var(--green); }
+    .palace-card.active { border-left: 3px solid var(--blue); }
+    .palace-card.neutral { border-left: 3px solid #8a6000; }
+
+    /* CHART EMBED */
+    .chart-wrap { background: var(--surface2); padding: 24px; border: 1px solid var(--border); }
+    .chart-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .chart-wrap iframe { width: 100%; height: 780px; border: none; display: block; }
+
+    /* BOTTOM NOTE */
+    .bottom-note { background: var(--surface); border: 1px solid var(--border2); padding: 20px 28px; }
+    .bottom-note p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .bottom-note p + p { margin-top: 8px; }
+
+    /* FOOTER */
+    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    .footer-meta { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.6; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      .page { padding: 0 20px 60px; }
+      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
+      .header-right { text-align: left; }
+      .report-title { font-size: 34px; }
+      .verdict-row { grid-template-columns: 1fr; }
+      .prob-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .palace-grid { grid-template-columns: 1fr; }
+      .chart-wrap iframe { height: 680px; }
+      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .footer-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="header-left">
+      <span class="brand">SuccessCode · Анализ Цзы Вэй</span>
+      <h1 class="report-title">Трансформация &amp;<br><em>Бракоразводный процесс 2026</em></h1>
+      <p class="report-subtitle">Структурный анализ · Бракоразводный процесс · Финансовая устойчивость · Ось детей · Слушание 16 июля</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Клиент</div>
+      <div class="client-name">Клиент М.</div>
+      <div class="client-meta">
+        19 августа 1980 · 03:40<br>
+        Маастрихт · Мужчина
+      </div>
+      <div class="report-date">
+        <span class="chart-tag">ШПЛ</span><span class="chart-tag">Норм. полярность</span>
+        Стебель года 庚 · Судьба Дерево 3
+      </div>
+    </div>
+  </header>
+
+  <div class="gold-rule"></div>
+
+  <!-- CORE STRUCTURAL FINDING -->
+  <div class="sec-label">Ключевое структурное чтение</div>
+
+  <div class="intro-block">
+    <p>
+      Карта относится к типу <strong>ШПЛ</strong> (Ша-По-Лан): три наиболее трансформирующие звезды — Тань Лан, По Цзюнь, Ци Ша — расположены на оси жизни 1-5-9 (Жизнь–Богатство–Карьера). ШПЛ-карты не движутся плавно: когда ось активируется, происходят решительные структурные изменения. <strong>Полярность нормальная</strong>: Лу активирует ось 1-5-9, Цзи её блокирует. Текущая декада Д5 (2023–2032, стебель 戊, дворец жизни — П5 Богатство) посылает Лу → Тань Лан → П5 — для нормальной ШПЛ-карты это самый сильный декадный сигнал: годы 43–52 структурно являются десятилетием финансовой консолидации.
+    </p>
+    <p>
+      2026 — ключевой год трансформации оси Жизни. Годовая ветвь 午 совпадает с ветвью П1 Жизнь (午), активируя <strong>Механизм Б на П1</strong> — главный жизненный перелом года. Одновременно годовая擎羊 Цин Ян (звезда-меч) приземляется на тот же П1 Жизнь, а Тоу Ло (хроническая задержка) — на П3 Супруг. Три одновременных сигнала на двух ключевых дворцах дают однозначную картину: год масштабного жизненного переустройства с болезненным острым разрезом и затяжным, медленным разводным процессом.
+    </p>
+    <p>
+      В 2026 году все три дворца оси ШПЛ получают активацию <strong>ветвью</strong>: П1 (午) — на годовом уровне, П5 (寅) — в 1-м лунном месяце (февраль), П9 (戌) — в 9-м лунном месяце (октябрь). Полная активация всех трёх дворцов ШПЛ в одном году — редкость. Это говорит о том, что 2026 — год, когда трансформирующий механизм карты работает на полную мощность. Итог этого года станет фундаментом для всей последующей декады.
+    </p>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- THREE VERDICTS -->
+  <div class="sec-label">Три структурных вердикта</div>
+
+  <div class="verdict-row">
+
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">💰</div>
+      <div class="verdict-title">Финансовое десятилетие — структура держит</div>
+      <div class="verdict-body">
+        Д5 (2023–2032) — наиболее сильная финансовая декада карты. Декадный Лу → Тань Лан → П5 Богатство (寅 = дворец-конь, 200% активности) активирует ось ШПЛ на всём протяжении декады. Для нормальной ШПЛ-карты это означает: денежный двигатель работает, даже если другие сферы жизни переживают перестройку. Дворец П7 Путешествия несёт У Цюй Цюань натально — сила в зарубежных проектах, инвестициях и международной деятельности.
+      </div>
+      <div class="verdict-mech">Д5 Лу→Тань Лан→П5 (весь 2023–2032, дворец-конь 200%) · Натальный Цюань→У Цюй→П7 · Нормальная ШПЛ: Лу на 1-5-9 = ЛУЧШИЙ сигнал</div>
+    </div>
+
+    <div class="verdict-card caution">
+      <div class="verdict-icon">⚖</div>
+      <div class="verdict-title">Развод — трансформация, не катастрофа</div>
+      <div class="verdict-body">
+        П3 Супруг содержит Цзы Вэй (Emperor) + Тянь Сян — это значит, что расставание с этим партнёром — событие масштабное, не бытовое. Хо Син (Огненная звезда) в П3 указывает, что в отношениях были внезапные, импульсивные вспышки. Мех Б на П1 Жизнь в 2026 = структурный перезапуск жизни: то, что происходит, предусмотрено картой. По Цзюнь (звезда разрушения и восстановления) в П9 Карьера — звезда-душа карты: ломать старое и строить новое является не потерей, а рабочим режимом этой карты.
+      </div>
+      <div class="verdict-mech">П3 Супруг: Цзы Вэй + Тянь Сян + Хо Син · Мех Б П1 (ветвь 午=П1, 2026) · По Цзюнь П9 = душа карты · Д5 Кэ→Ю Би→П3 = признание в оси Супруга</div>
+    </div>
+
+    <div class="verdict-card strong">
+      <div class="verdict-icon">👶</div>
+      <div class="verdict-title">Дети — уязвимая ось, требует осторожности</div>
+      <div class="verdict-body">
+        П4 Дети (卯) несёт Тянь Цзи + Цзюй Мэнь: умный, стратегический канал с детьми, но склонный к выяснению отношений и словесным конфликтам. В Д5 декадный стебель 戊 посылает Цзи → Тянь Цзи → П4 на всё десятилетие (2023–2032): хроническое трение на оси Детей. В 2026 году годовой Цюань → Тянь Цзи → П4 добавляет авторитетный-конфронтационный импульс (Цюань+Цзи на одну звезду = «решительное действие под трением»). Тянь Си (Радость) в П4 от годовой ветви = моменты радости с детьми возможны, несмотря на напряжение.
+      </div>
+      <div class="verdict-mech">П4 Дети: Тянь Цзи + Цзюй Мэнь · Д5 Цзи→Тянь Цзи→П4 (всё десятилетие) · 2026 годовой Цюань→П4 (Цюань+Цзи = конфронтация) · Тянь Си→П4 = радостные моменты</div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- PROBABILITY BARS -->
+  <div class="sec-label">Структурная оценка вероятностей</div>
+
+  <div class="prob-grid">
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Финансовая устойчивость 2026–2027</span>
+        <span class="prob-pct">80%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:80%"></div></div>
+      <div class="prob-note">Д5 Лу на П5 Богатство (дворец-конь) структурно защищает финансовую базу. Нормальная ШПЛ в сильной финансовой декаде = устойчивость даже при личных потрясениях.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Завершение бракоразводного процесса в 2026–2027</span>
+        <span class="prob-pct">65%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:65%"></div></div>
+      <div class="prob-note">Тоу Ло на П3 Супруг в 2026 = хроническая задержка и затягивание. Мех Б на П1 = жизненная трансформация неизбежна, но Тоу Ло предупреждает: не ожидать быстрого завершения. Вероятно, процесс переходит в 2027.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Поддержание связи с детьми</span>
+        <span class="prob-pct">70%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:70%"></div></div>
+      <div class="prob-note">Тянь Цзи в П4 = стратегический интеллект в отношениях с детьми. Тянь Си = радостные моменты возможны. Д5 Цзи + годовой Цюань = напряжение реально, но не разрыв. Тактический, а не эмоциональный подход улучшает шансы.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Карьерная стабильность через переход</span>
+        <span class="prob-pct">75%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:75%"></div></div>
+      <div class="prob-note">П9 Карьера: По Цзюнь = непрерывное обновление (не стабильный корпоративный рост, а регулярный перезапуск). М9 (октябрь) = Мех Б на П9 = карьерное событие. Д5 в целом поддерживает профессиональную активность.</div>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- HEARING CONTEXT -->
+  <div class="sec-label">Слушание 16 июля — структурный контекст</div>
+
+  <div class="decision-box">
+    <div class="decision-verdict inform">Структурный контекст</div>
+    <div class="decision-title">16 июля: месяц формального признания в оси Супруга</div>
+    <div class="decision-body">
+      <p>
+        16 июля 2026 года приходится на <strong>6-й лунный месяц (乙未, 14 июля – 11 августа)</strong>. Стебель 乙 посылает Кэ → Цзы Вэй → П3 Супруг — Кэ (признание, официальное признание) ложится на Цзы Вэй (Императора) в дворце Супруга. Это сигнал формальной фиксации: то, что происходит на этом слушании, получает официальный статус в рамках процесса расторжения. Это не схватка, а формальная точка фиксации.
+      </p>
+      <p>
+        Ветвь 未 активирует П12 Родителей (Власть/Суды). В П12 находится Тянь Юэ (благородный покровитель) — нужный человек из правовой среды появляется, когда это необходимо. Также в П12 присутствует Тоу Ло = процессы во власти/судах идут медленно и с задержками. Слушание войдёт в протокол, но не завершит процесс окончательно — ждать разрешения в ближайшей перспективе не стоит.
+      </p>
+      <p>
+        <strong>Рекомендация:</strong> Подойти к слушанию как к этапу фиксации позиций, а не как к финальному решению. Обеспечить юридическое представительство — Тянь Юэ в П12 означает, что нужный защитник появится.
+      </p>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- JULY 16 DATE BOX -->
+  <div class="sec-label">Ключевая дата</div>
+
+  <div class="date-box">
+    <div class="date-box-label">Дата заседания</div>
+    <div class="date-box-date">16 июля 2026 <span>· 16:15</span></div>
+    <div class="date-box-body">
+      <p>Месяц 6 (乙未): стебель 乙 посылает Кэ → Цзы Вэй → П3 Супруг. Кэ на Цзы Вэй = официальное признание оси партнёрства. Суд фиксирует позиции.</p>
+      <p>Ветвь 未 = П12 Родители/Власть. Тянь Юэ в П12 активируется — юридический помощник/защитник структурно присутствует. Тоу Ло в П12 предупреждает: ждать затяжного, а не молниеносного исхода.</p>
+      <p>Месячный Цзи → Тай Инь → П6 Здоровье = напряжение на оси здоровья в этот месяц. Важно сохранять физические ресурсы, не игнорировать сигналы тела.</p>
+    </div>
+    <div class="date-mechs">
+      <span class="date-mech-tag">М6 乙未: Кэ→Цзы Вэй→П3 Супруг</span>
+      <span class="date-mech-tag">Ветвь 未→П12 · Тянь Юэ активируется</span>
+      <span class="date-mech-tag">Тоу Ло в П12 = затяжной процесс</span>
+      <span class="date-mech-tag">Цзи→П6 Здоровье — беречь силы</span>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- DO / DON'T -->
+  <div class="sec-label">Стратегические рекомендации</div>
+
+  <div class="do-dont-grid">
+    <div class="do-col">
+      <div class="col-title">Делать</div>
+      <ul class="action-list">
+        <li><span class="marker">→</span> Опираться на юридическую поддержку. Тянь Юэ в П12 Власть = нужный защитник появится. Не пытаться навигировать правовое пространство в одиночку.</li>
+        <li><span class="marker">→</span> Защищать финансовую базу как первый приоритет. Д5 Лу на П5 Богатство = структурная сила этой декады. Принятые сейчас финансовые решения формируют фундамент до 2032 года.</li>
+        <li><span class="marker">→</span> К детям — через стратегию, не эмоции. Тянь Цзи в П4 = умный, аналитический подход к воспитанию работает. Искать точки соглашения, а не схватки.</li>
+        <li><span class="marker">→</span> Использовать М1 (февраль) и М9 (октябрь) как окна для ключевых финансовых и карьерных решений. М1 = Мех Б на П5 Богатство. М9 = Мех Б на П9 Карьера + совпадение декадного стебля.</li>
+        <li><span class="marker">→</span> Готовиться к затяжному процессу, не к быстрому. Тоу Ло на П3 Супруг в 2026 означает: борьба за скорость истощает — принятие временны́х рамок процесса экономит ресурсы.</li>
+        <li><span class="marker">→</span> Следить за здоровьем в течение всей Д5. Д5 Цюань → Тай Инь → П6 = структурный сигнал возможной операции или медицинской процедуры в 2023–2032. Профилактика снижает риск.</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="col-title">Не делать</div>
+      <ul class="action-list">
+        <li><span class="marker">✗</span> Не обострять конфликт вокруг детей в 2026. Годовой Цюань+Д5 Цзи на П4 = напряжение уже структурно заложено. Добавление агрессии в ось детей в этом году даёт обратный эффект.</li>
+        <li><span class="marker">✗</span> Не ожидать завершения всего к 16 июля. Слушание — этап фиксации, не финал. Тоу Ло на П3 предупреждает о затягивании. Планировать на 2027 год как возможное закрытие.</li>
+        <li><span class="marker">✗</span> Не принимать крупных финансовых решений под эмоциональным давлением. Д5 — сильная финансовая декада, но Мех Б на П1 говорит: 2026 — год перестройки, а не расширения. Сначала стабилизировать, потом наращивать.</li>
+        <li><span class="marker">✗</span> Не игнорировать М6–М7 (июль–август) с точки зрения здоровья. Месячный Цзи → П6 в июле + декадный Цюань на П6 = здоровье под двойной нагрузкой в этот период. Берегите физические ресурсы.</li>
+        <li><span class="marker">✗</span> Не полагаться на социальные связи как главный ресурс в первой половине 2026. Натальный Цзи → Тянь Тун → П8 Друзья — постоянное трение в сети контактов. В 2026 годовой Лу частично смягчает это, но П8 остаётся уязвимым.</li>
+        <li><span class="marker">✗</span> Не игнорировать структурный сигнал М11 (декабрь): натальный стебель совпадает, что удваивает Цзи → Тянь Тун → П8 (Друзья/Сеть на пике трения). Не затевать новых важных партнёрств в декабре.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- MONTH TABLE -->
+  <div class="sec-label">Помесячный прогноз — 2026</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th>Месяц</th>
+        <th>Лунный период</th>
+        <th>Сигнал</th>
+        <th>Прочтение</th>
+        <th>Приоритетное действие</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="peak-row">
+        <td>
+          <div class="month-name">Месяц 1 ★</div>
+          <div class="month-stem">庚寅</div>
+        </td>
+        <td><div class="month-period">3 февраля – 3 марта</div></td>
+        <td><span class="badge badge-peak">ШПЛ — Богатство</span></td>
+        <td>Стебель 庚 = натальный стебель года: все натальные полёты удваиваются. Ветвь 寅 = П5 Богатство = Мех Б на П5. В этом месяце: двойной натальный Лу на П6 Здоровье + двойной Цюань на П7 Путешествия + двойной Кэ на П6 + двойной Цзи на П8 Друзья. Одновременно — активация ШПЛ П5 (ось Богатства). Самый сильный финансовый месяц первой половины 2026.</td>
+        <td class="month-action">Ключевые финансовые решения — сейчас. Фиксировать активы, документировать позиции по имуществу.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 2</div>
+          <div class="month-stem">辛卯</div>
+        </td>
+        <td><div class="month-period">3 марта – 1 апреля</div></td>
+        <td><span class="badge badge-mixed">Правовой — умеренно</span></td>
+        <td>Стебель 辛: Лу→Цзюй Мэнь→П4 Дети, Цюань→Тай Ян→П6 Здоровье, Кэ→Вэнь Цюй→П1 Жизнь (статус на ось Жизни), Цзи→Вэнь Чан→П11 Ментальный. Ветвь 卯 = П4 Дети — детский вопрос выходит на первый план. Кэ на П1 Жизнь = признание/авторитет в личной сфере.</td>
+        <td class="month-action">Не обострять детские вопросы. Использовать Кэ на П1 для укрепления личной позиции.</td>
+      </tr>
+      <tr class="caution-row">
+        <td>
+          <div class="month-name">Месяц 3</div>
+          <div class="month-stem">壬辰</div>
+        </td>
+        <td><div class="month-period">1 апреля – 30 апреля</div></td>
+        <td><span class="badge badge-caution">П7 Путешествия / финансы</span></td>
+        <td>Стебель 壬: Лу→Тянь Лян→П2 Братья, Цюань→Цзы Вэй→П3 Супруг (Цюань на Императора в оси Супруга = жёсткий авторитетный ход в разводном процессе), Кэ→Цзо Фу→П9 Карьера, Цзи→У Цюй→П7 Путешествия. Цзи на У Цюй в П7 = трение на финансово-международном канале.</td>
+        <td class="month-action">Избегать крупных финансовых сделок. Разводные переговоры могут обостриться из-за позиции другой стороны.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 4</div>
+          <div class="month-stem">癸巳</div>
+        </td>
+        <td><div class="month-period">30 апреля – 30 мая</div></td>
+        <td><span class="badge badge-mixed">Реструктуризация П9</span></td>
+        <td>Стебель 癸: Лу→По Цзюнь→П9 Карьера (Лу на По Цзюнь в карьере = плавное разрушение-восстановление в профессиональной сфере), Цюань→Цзюй Мэнь→П4 Дети, Кэ→Тай Инь→П6 Здоровье. Ветвь 巳 = П2 Братья. Карьерная реструктуризация идёт плавно в этом месяце.</td>
+        <td class="month-action">Хорошо для карьерных переговоров и профессиональных перестановок.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 5</div>
+          <div class="month-stem">甲午</div>
+        </td>
+        <td><div class="month-period">30 мая – 28 июня</div></td>
+        <td><span class="badge badge-strong">ШПЛ — Жизнь + Карьера</span></td>
+        <td>Стебель 甲: Лу→Лянь Чжэнь→П11 Ментальный, Цюань→По Цзюнь→П9 Карьера (Цюань на SPL Карьеру для нормальной карты = ХОРОШИЙ сигнал — авторитет и сила в карьере), Кэ→У Цюй→П7, Цзи→Тай Ян→П6 Здоровье. Ветвь 午 = П1 Жизнь = Мех Б! Двойная активация: годовая ветвь 午 + месячная ветвь 午 = двойной Мех Б на П1 Жизнь. Карьерная сила и жизненная активация одновременно.</td>
+        <td class="month-action">Пик карьерной активности первого полугодия. Профессиональные инициативы, переговоры, демонстрация силы.</td>
+      </tr>
+      <tr class="caution-row">
+        <td>
+          <div class="month-name">Месяц 6</div>
+          <div class="month-stem">乙未</div>
+        </td>
+        <td><div class="month-period">28 июня – 27 июля</div></td>
+        <td><span class="badge badge-mixed">Суд — фиксация</span></td>
+        <td>Стебель 乙: Кэ→Цзы Вэй→П3 Супруг (официальное признание в оси Супруга), Цзи→Тай Инь→П6 Здоровье (Цзи на П6 с декадным Цюань = повышенная нагрузка на здоровье). Ветвь 未 = П12 Власть/Суды (Тянь Юэ активируется, Тоу Ло предупреждает о задержках). <strong>Слушание 16 июля в этом окне.</strong></td>
+        <td class="month-action">Слушание 16 июля — этап фиксации позиций. Беречь силы. Не ждать финального решения.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 7</div>
+          <div class="month-stem">丙申</div>
+        </td>
+        <td><div class="month-period">27 июля – 26 августа</div></td>
+        <td><span class="badge badge-strong">Сеть — снятие трения</span></td>
+        <td>Стебель 丙 совпадает с годовым: все годовые полёты удваиваются. Годовой Лу→Тянь Тун→П8 Друзья удваивается = самый благоприятный месяц для социальных контактов и профессиональной сети в 2026. Натальный Цзи на П8 буферизуется двойным Лу. Годовой Цюань→П4 Дети тоже удваивается = авторитетный импульс на детскую ось.</td>
+        <td class="month-action">Восстанавливать профессиональные контакты. Лучший сетевой месяц года.</td>
+      </tr>
+      <tr class="caution-row">
+        <td>
+          <div class="month-name">Месяц 8</div>
+          <div class="month-stem">丁酉</div>
+        </td>
+        <td><div class="month-period">26 августа – 25 сентября</div></td>
+        <td><span class="badge badge-caution">Имущество — пустой дворец</span></td>
+        <td>Стебель 丁: Лу→Тай Инь→П6 Здоровье (двойной Лу на П6 = двойное накопление в оси здоровья — UR2 предупреждение), Цюань→Тянь Тун→П8 Друзья, Кэ→Тянь Цзи→П4 Дети. Ветвь 酉 = П10 Имущество (пустой дворец с Ди Кун и Цин Ян) — активация пустой оси может означать неожиданные имущественные вопросы.</td>
+        <td class="month-action">Беречь здоровье. Возможны внезапные имущественные ситуации, требующие внимания.</td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <div class="month-name">Месяц 9 ★</div>
+          <div class="month-stem">戊戌</div>
+        </td>
+        <td><div class="month-period">25 сентября – 25 октября</div></td>
+        <td><span class="badge badge-peak">ШПЛ — Карьера + Богатство</span></td>
+        <td>Стебель 戊 = декадный стебель Д5: все декадные полёты удваиваются. Декадный Лу→Тань Лан→П5 удваивается = пик финансовой оси в 2026. Декадный Цюань→Тай Инь→П6 удваивается = наиболее интенсивный сигнал здоровья всего года (UR2: Цюань в П6 = операция/процедура). Ветвь 戌 = П9 Карьера = Мех Б на П9 ШПЛ. Три одновременных активации: двойная декада + Мех Б на карьере.</td>
+        <td class="month-action">Ключевые карьерные решения — в этом месяце. Не игнорировать сигналы здоровья — плановая проверка именно сейчас.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 10</div>
+          <div class="month-stem">己亥</div>
+        </td>
+        <td><div class="month-period">25 октября – 23 ноября</div></td>
+        <td><span class="badge badge-mixed">Ось детей</span></td>
+        <td>Стебель 己: Лу→У Цюй→П7 Путешествия, Цюань→Тань Лан→П5 Богатство (Цюань на SPL Богатстве = власть на финансовой оси), Кэ→Тянь Лян→П2 Братья, Цзи→Вэнь Цюй→П1 Жизнь (Цзи на П1 Жизнь = трение на ось жизни, для нормальной карты — давление, не катастрофа). Ветвь 亥 = П8 Друзья.</td>
+        <td class="month-action">Финансовые переговоры. Осторожно в личной сфере — Цзи на П1 Жизнь давит.</td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <div class="month-name">Месяц 11 ★</div>
+          <div class="month-stem">庚子</div>
+        </td>
+        <td><div class="month-period">23 ноября – 22 декабря</div></td>
+        <td><span class="badge badge-peak">Натальный стебель — удвоение</span></td>
+        <td>Стебель 庚 = натальный год: все натальные полёты удваиваются (как М1, но с другой ветвью). Ветвь 子 = П7 Путешествия/Финансы = активация П7 с натальным У Цюй Цюань. Двойной Цюань на У Цюй П7 = пик финансово-международного авторитета. Двойной Цзи на Тянь Тун П8 = пик трения в сети — не начинать новых партнёрств.</td>
+        <td class="month-action">Финансовые и международные решения. Профессиональный авторитет максимален. Избегать новых социальных ставок.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 12</div>
+          <div class="month-stem">辛丑</div>
+        </td>
+        <td><div class="month-period">22 декабря – 20 января 2027</div></td>
+        <td><span class="badge badge-mixed">Правовое — закрытие</span></td>
+        <td>Стебель 辛: Лу→Цзюй Мэнь→П4 Дети (плавный вербально-правовой канал к детям), Цюань→Тай Ян→П6 Здоровье. Ветвь 丑 = П6 Здоровье. Декадный Кэ→Ю Би→П3 Супруг продолжает = поддержка в оси Супруга под конец года. Хорошо для закрытия юридических тем и фиксации достигнутых договорённостей.</td>
+        <td class="month-action">Закрывать юридические договорённости. Разговаривать с детьми спокойно — Лу на Цзюй Мэнь П4 открывает диалоговый канал.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- PALACE STRUCTURAL ALERTS -->
+  <div class="sec-label">Структурный анализ ключевых дворцов</div>
+
+  <div class="palace-grid">
+
+    <div class="palace-card active">
+      <div class="palace-num">П1 · Дворец Жизни · 壬午</div>
+      <div class="palace-name">Ци Ша — Генерал, разрушающий преграды</div>
+      <div class="palace-stars">Ци Ша 七杀 (SPL-ось, ветвь 午 Кардинальный дворец 100%) · Вэнь Цюй 文曲 · Звезда-душа: По Цзюнь</div>
+      <div class="palace-reading">
+        Ци Ша в П1 Жизнь — знак человека, живущего через решительные прорывы. Это не спокойный накопитель: карта Ци Ша строится на принципе «разрушить барьер → двигаться дальше». В 2026 году Мех Б активирует П1 (ветвь 午 = П1) — главная жизненная трансформация года. Цин Ян (звезда-меч) от годовой ветви также приземляется на П1: трансформация идёт с острым разрезом. Стебель П1 = 壬 (Вода Ян) посылает Цзи → Лянь Чжэнь → П11 Ментальный: жизненная ось постоянно дренирует ментальную/духовную сферу. Внутреннее давление — структурная реальность этой карты. Вэнь Цюй в П1 добавляет музыкально-экспрессивное качество личности; это также канал эмоционального выражения, требующий выхода в период стресса.
+      </div>
+    </div>
+
+    <div class="palace-card critical">
+      <div class="palace-num">П3 · Дворец Супруга · 庚辰</div>
+      <div class="palace-name">Цзы Вэй + Тянь Сян — Распад значимого союза</div>
+      <div class="palace-stars">Цзы Вэй 紫微 + Тянь Сян 天相 (Хранитель) + Ю Би 右弼 + Хо Син 火星 · Ветвь 辰 Хранилище (50%)</div>
+      <div class="palace-reading">
+        Цзы Вэй (Звезда Императора) в П3 Супруг означает, что партнёр обладает сильной командной энергией или партнёрство само по себе было статусным и значимым. Тянь Сян (Министр, Хранитель) добавляет элемент долга и порядка в отношения. Хо Син (Огонь) — сигнал внезапности и импульсивности: в паре были острые вспышки. В 2026 году годовая Тоу Ло → П3 Супруг = хроническая задержка, вязкость, тягучесть всего бракоразводного процесса. Ни одна сторона не получит быстрого завершения. Д5 Кэ → Ю Би → П3 = тем не менее, на протяжении всей декады (2023–2032) в ось Супруга приходит Кэ — официальное признание. Расставание проходит с определённой долей профессиональной фиксации, а не в атмосфере полного разрыва. Ветвь 辰 = Хранилище = все события в этом дворце разворачиваются медленно и с задержкой, но дурably (устойчиво) когда разрешаются.
+      </div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-num">П4 · Дворец Детей · 己卯</div>
+      <div class="palace-name">Тянь Цзи + Цзюй Мэнь — Конфликт и стратегия</div>
+      <div class="palace-stars">Тянь Цзи 天机 (Стратег) + Цзюй Мэнь 巨门 (Громкие ворота) · Ветвь 卯 Кардинальный (100%) · Д5 Цзи ВСЮ ДЕКАДУ</div>
+      <div class="palace-reading">
+        Тянь Цзи — звезда стратегического интеллекта, непрерывно анализирующая и адаптирующаяся. Цзюй Мэнь — звезда тяжб, речи, вербального противостояния. В П4 Дети эта пара означает: отношения с детьми идут через слова и аналитику, но также через споры и разногласия. Д5 декадный Цзи → Тянь Цзи → П4 активен все 2023–2032 годы: хроническое трение на детской оси — структурная реальность этого десятилетия, а не знак катастрофы. 2026: годовой Цюань → Тянь Цзи → П4 = авторитетный, конфронтационный импульс в детских вопросах (Цюань+Цзи на одну звезду = «напряжённая решительность»). Тянь Си (Радость, от годовой ветви) также в П4 = несмотря на напряжение, моменты настоящей радости с детьми структурно присутствуют. Ключевая тактика: разделять административные разногласия и живое общение с детьми.
+      </div>
+    </div>
+
+    <div class="palace-card strong">
+      <div class="palace-num">П5 · Дворец Богатства · 戊寅</div>
+      <div class="palace-name">Тань Лан + Тянь Ма — Двигатель финансовой декады</div>
+      <div class="palace-stars">Тань Лан 贪狼 (ШПЛ-ось, дворец-конь 寅 200%) + Тянь Ма 天马 (Конь Небесный) · Д5 Лу→Тань Лан ВСЮ ДЕКАДУ</div>
+      <div class="palace-reading">
+        П5 Богатство — самый активный дворец текущей декады. Тань Лан (Жадный волк) — многогранная звезда с широким диапазоном интересов и сильной мотивацией. Тянь Ма (Небесный конь) — звезда движения и мобильности — уже присутствует натально в П5: деньги приходят через движение, мобильность, смену контекста. Дворец-конь (寅) означает, что сигналы в этом дворце активируются быстро и с двойной силой. Д5 декадный Лу → Тань Лан → П5 = для нормальной ШПЛ-карты Лу на оси 1-5-9 (П5) — ЛУЧШИЙ тип сигнала. Финансовый мотор включён на всё десятилетие. В 2026 году М1 (февраль) добавляет Мех Б на П5 (двойная активация). М9 (октябрь) добавляет второй Цюань на П5 через декадное удвоение. Выводы: 2026–2032 — период накопления и финансовой консолидации вне зависимости от личных потрясений.
+      </div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-num">П6 · Дворец Здоровья · 己丑</div>
+      <div class="palace-name">Тай Ян Лу + Тай Инь Кэ — Двойственный сигнал здоровья</div>
+      <div class="palace-stars">Тай Ян 太阳 禄 + Тай Инь 太阴 科 натально · Тянь Куй 天魁 · Ди Цзе 地劫 · Д5 Цюань→Тай Инь (UR2 предупреждение)</div>
+      <div class="palace-reading">
+        П6 Здоровье несёт уникальную конфигурацию: натальный Лу → Тай Ян (от стебля 庚) → П6 и натальный Кэ → Тай Инь (от стебля 庚) → П6. По правилу UR2: Лу в П6 = рост накопления/патологии, Кэ от внешней стороны = исцеляющий сигнал. Тянь Куй (Благородный покровитель) в П6 = медицинская помощь появляется, когда нужна. Ди Цзе (Земля-Резчик) = риск внезапных потерь в оси здоровья. В декаде Д5: Цюань → Тай Инь → П6 работает весь 2023–2032 год. По UR2: Цюань в П6 = риск хирургической операции или медицинской процедуры в этот период. Предупреждение: не Откладывать плановую медицинскую диагностику; декада Д5 — структурно наиболее критичная для здоровья. М9 (октябрь 2026) удваивает этот Цюань → пик сигнала в октябре.
+      </div>
+    </div>
+
+    <div class="palace-card strong">
+      <div class="palace-num">П9 · Дворец Карьеры · 丙戌</div>
+      <div class="palace-name">По Цзюнь + Цзо Фу — Перезапуск как профессиональный режим</div>
+      <div class="palace-stars">По Цзюнь 破军 (ШПЛ-ось, хранилище 戌 50%) + Цзо Фу 左辅 · Тело (身宫) в П9 · Дворец тела совпадает с карьерой</div>
+      <div class="palace-reading">
+        По Цзюнь в П9 Карьера — знак того, что профессиональный путь этого человека построен на разрушении старого и создании нового. Стабильной многолетней карьерной траектории По Цзюнь не даёт: взамен — регулярные структурные сдвиги, каждый раз перестраивающие профессиональную идентичность. Цзо Фу (Левый помощник) = поддержка от коллег и команды в карьере. Тело-дворец (身宫) находится в П9: внешний образ этого человека воспринимается другими через карьерную линзу. Профессиональный статус = то, как его видит мир. Потеря или смена карьеры бьёт не только по доходу, но и по идентичности. В 2026 году М9 (октябрь) = Мех Б на П9 + декадное удвоение = наиболее вероятный месяц для карьерного события (переход, оффер, реструктуризация). М5 (июнь) = Цюань → По Цзюнь → П9 = второй активный карьерный месяц.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- CHART EMBED -->
+  <div class="sec-label">Натальная карта</div>
+
+  <div class="chart-wrap">
+    <div class="chart-label">Калькулятор ЦВДШ · Клиент М. · 19 августа 1980 · 03:40 · Маастрихт</div>
+    <iframe src="https://successcode.net/zwds-nelly-m" loading="lazy" title="ЦВДШ Клиент М." allowfullscreen></iframe>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode · ЦВДШ</div>
+  </footer>
+
+</div>
+</body>
+</html>
