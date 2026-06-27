@@ -79,10 +79,21 @@
     .notes-block { background: var(--surface); border: 1px solid var(--border2); padding: 18px 24px; }
     .notes-block p { font-size: 12.5px; color: var(--dim); line-height: 1.7; }
     .notes-block p + p { margin-top: 8px; }
+
+    /* BACK TO ADMIN */
+    .back-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
+    .back-btn:hover { color: var(--gold); }
+    .back-btn span { font-size: 14px; }
+
+    /* SCROLL TO TOP */
+    #back-to-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--text); color: var(--gold); border: 1px solid var(--border); border-radius: 50%; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 900; }
+    #back-to-top:hover { background: var(--dim); }
   </style>
 </head>
 <body>
 <div class="page">
+
+  <a class="back-btn" href="https://successcode.net/admin/delisted.html"><span>←</span> Back to Admin</a>
 
   <div class="admin-badge">Internal · Admin</div>
   <h1 class="page-title">ZWDS Test Group</h1>
@@ -151,6 +162,40 @@
 
   <div class="gold-rule"></div>
 
+  <!-- CLIENT CONSULTS -->
+  <div class="sec-label">Client Consults</div>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Question</th>
+        <th>Pages</th>
+        <th>Added</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="client-name">Nelly</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">Consult</div>
+        </td>
+        <td><span class="client-type">Consult</span></td>
+        <td>
+          <div class="link-cell">
+            <span style="font-size:12px;color:var(--muted);">— in progress —</span>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge pending">Pending</span></td>
+      </tr>
+      <!-- ADD NEW CONSULT CLIENTS BELOW -->
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
   <!-- ADMIN LINK -->
   <div class="sec-label">Admin</div>
 
@@ -172,5 +217,13 @@
   </div>
 
 </div>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<script>
+  window.addEventListener('scroll', function() {
+    var b = document.getElementById('back-to-top');
+    b.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+</script>
 </body>
 </html>
