@@ -16,10 +16,10 @@
       var s = document.getElementById('birth-sex');    if (s) s.value = 'female';
       var n = document.getElementById('birth-name');   if (n) n.value = 'Nelly';
       var c = document.getElementById('birth-city');   if (c) c.value = 'Zelenograd, Russia';
-      var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '37.2000';
+      var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '37.2022';
 
-      var offset = __computeUtcOffset(55.9833, 37.2000, '1980-04-16', '08:40');
-      if (offset === null) offset = 4;
+      var offset = __computeUtcOffset(55.9872, 37.2022, '1980-04-16', '08:40');
+      if (offset === null) offset = 3;
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
       var cr = document.getElementById('city-result');
