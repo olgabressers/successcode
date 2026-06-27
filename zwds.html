@@ -269,7 +269,7 @@
     .el-metal { color: #3a6888; }
     .el-water { color: #1a6ab8; }
 
-    .p-name-block { text-align: right; }
+    .p-name-block { text-align: right; display: flex; flex-direction: column; align-items: flex-end; }
 
     .p-num {
       font-size: 9px;
@@ -658,6 +658,8 @@
     .pal-layer { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; display: block; margin-top: 2px; line-height: 1.4; }
     .pal-decade { color: var(--decade-col); }
     .pal-annual { color: var(--annual-col); }
+    .p-name-block .pal-annual { order: -2; }
+    .p-name-block .pal-decade { order: -1; }
 
     /* ── CLICKABLE DECADES ── */
     .decade-cell { cursor: pointer; transition: background 0.12s; }
