@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  <title>Legal Protection &amp; Divorce 2026 — Nelly · SuccessCode</title>
+  <title>Правовая защита и развод 2026 — Нелли · SuccessCode</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -27,7 +27,7 @@
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
-    html { scroll-behavior: smooth; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    html { scroll-behavior: smooth; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
 
     .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
@@ -47,150 +47,134 @@
 
     /* DIVIDERS */
     .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
-    .gold-rule-full { height: 1px; background: linear-gradient(90deg, transparent 0%, var(--gold) 30%, var(--gold) 70%, transparent 100%); margin: 48px 0; }
 
-    /* SECTION */
-    .section-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 22px; display: flex; align-items: center; gap: 14px; }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .section-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 400; color: var(--text); margin-bottom: 28px; line-height: 1.2; }
+    /* SECTION LABELS */
+    .sec-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-    /* INTRO */
-    .intro-block { background: white; border: 1px solid var(--border2); border-left: 3px solid var(--gold2); padding: 36px 44px; margin-bottom: 36px; }
-    .intro-lead { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; line-height: 1.5; color: var(--text); margin-bottom: 20px; }
-    .intro-lead em { font-style: italic; color: var(--gold2); }
-    .intro-body { font-size: 13.5px; color: var(--dim); line-height: 1.8; }
-    .intro-body + .intro-body { margin-top: 12px; }
-
-    /* ALERT BOX */
-    .alert-box { background: rgba(26,48,96,0.05); border: 1px solid rgba(26,48,96,0.18); border-left: 3px solid var(--blue); padding: 24px 28px; margin-bottom: 28px; }
-    .alert-box-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; color: var(--blue); margin-bottom: 10px; }
-    .alert-box p { font-size: 13px; color: var(--dim); line-height: 1.7; }
+    /* INTRO BLOCK */
+    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
+    .intro-block p + p { margin-top: 14px; }
+    .intro-block strong { color: var(--text); }
+    .chart-tag { display: inline-block; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); background: var(--goldfade); border: 1px solid var(--border); padding: 3px 10px; margin-right: 8px; vertical-align: middle; }
 
     /* VERDICT CARDS */
-    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 32px; }
-    .verdict-card { background: white; border: 1px solid var(--border2); padding: 26px 24px; }
-    .verdict-card.highlight { background: var(--goldfade); border-color: var(--border); }
-    .vc-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-    .vc-value { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 8px; line-height: 1.2; }
-    .vc-sub { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .verdict-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
+    .verdict-icon { font-size: 22px; margin-bottom: 12px; }
+    .verdict-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 10px; line-height: 1.3; }
+    .verdict-body { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .verdict-card.affirm { border-top: 3px solid var(--green); }
+    .verdict-card.caution { border-top: 3px solid #8a6000; }
+    .verdict-card.strong { border-top: 3px solid var(--blue); }
+    .verdict-mech { font-size: 11px; color: var(--muted); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border2); font-style: italic; }
 
-    /* PROBABILITY */
-    .prob-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-bottom: 32px; }
-    .prob-card { background: white; border: 1px solid var(--border2); padding: 22px 24px; }
-    .prob-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .prob-value { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; color: var(--text); margin-bottom: 4px; line-height: 1; }
-    .prob-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
-    .prob-bar-wrap { margin-top: 12px; height: 4px; background: var(--border2); border-radius: 2px; }
-    .prob-bar { height: 4px; border-radius: 2px; background: var(--gold2); }
+    /* PROBABILITY BARS */
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
+    .prob-item { }
+    .prob-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .prob-label { font-size: 13px; color: var(--dim); font-weight: 500; }
+    .prob-pct { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--gold2); }
+    .prob-bar-bg { height: 4px; background: var(--surface2); border-radius: 2px; }
+    .prob-bar-fill { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%); }
+    .prob-note { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
 
-    /* DO / DON'T */
-    .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 0; }
-    .dd-card { background: white; border: 1px solid var(--border2); padding: 28px 28px; }
-    .dd-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-bottom: 18px; }
-    .dd-title.green { color: var(--green); }
-    .dd-title.red   { color: var(--red); }
-    .dd-list { list-style: none; }
-    .dd-list li { padding: 8px 0; border-bottom: 1px solid var(--border2); font-size: 13px; color: var(--dim); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
-    .dd-list li:last-child { border-bottom: none; }
-    .dd-list li span { flex-shrink: 0; margin-top: 1px; }
+    /* DECISION BOX */
+    .decision-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--green); padding: 28px 32px; margin-bottom: 20px; }
+    .decision-box.warning { border-left-color: #8a6000; }
+    .decision-verdict { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; padding: 4px 10px; border: 1px solid; margin-bottom: 10px; display: inline-block; }
+    .decision-verdict.yes { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .decision-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--text); margin-bottom: 12px; line-height: 1.3; }
+    .decision-body { font-size: 13.5px; color: var(--dim); line-height: 1.7; }
+    .decision-body p + p { margin-top: 10px; }
+    .decision-body strong { color: var(--text); }
 
-    /* CLARIFY */
-    .clarify-box { background: var(--surface); border: 1px solid var(--border); padding: 18px 24px; margin-top: 18px; display: flex; gap: 14px; align-items: flex-start; }
-    .clarify-box .icon { color: var(--gold); font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-    .clarify-box p { font-size: 12.5px; color: var(--dim); line-height: 1.65; }
-    .clarify-box strong { color: var(--text); }
+    /* DATE BOX */
+    .date-box { background: linear-gradient(135deg, #0f1f50 0%, #1A3060 100%); padding: 32px 36px; color: white; margin-bottom: 20px; }
+    .date-box-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+    .date-box-date { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 400; color: white; margin-bottom: 10px; line-height: 1.15; }
+    .date-box-date span { color: rgba(184,136,42,1); }
+    .date-box-body { font-size: 13.5px; color: rgba(255,255,255,0.82); line-height: 1.7; }
+    .date-box-body p + p { margin-top: 8px; }
+    .date-mechs { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .date-mech-tag { font-size: 11px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85); padding: 4px 10px; letter-spacing: 1px; }
 
-    /* TABLE LEGEND */
-    .table-legend { display: flex; gap: 22px; align-items: center; margin-bottom: 16px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
-    .legend-item { display: flex; gap: 7px; align-items: center; }
-    .legend-dots { display: flex; gap: 3px; }
-    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border2); }
-    .dot.peak { background: var(--gold2); box-shadow: 0 0 3px rgba(184,136,42,0.5); }
-    .dot.on   { background: var(--gold); }
-    .dot.warn { background: #8B4513; }
+    /* DO / DON'T TABLE */
+    .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .do-col, .dont-col { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .do-col { border-top: 3px solid var(--green); }
+    .dont-col { border-top: 3px solid var(--red); }
+    .col-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+    .do-col .col-title { color: var(--green); }
+    .dont-col .col-title { color: var(--red); }
+    .action-list { list-style: none; }
+    .action-list li { font-size: 13px; color: var(--dim); padding: 7px 0; border-bottom: 1px solid var(--border2); line-height: 1.55; display: flex; gap: 10px; }
+    .action-list li:last-child { border-bottom: none; }
+    .action-list .marker { flex-shrink: 0; font-weight: 600; }
+    .do-col .marker { color: var(--green); }
+    .dont-col .marker { color: var(--red); }
 
-    /* TABLE */
-    .month-table { width: 100%; border-collapse: collapse; margin-bottom: 12px; }
-    .month-table th { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 10px 18px; text-align: left; border-bottom: 2px solid var(--border2); background: var(--surface2); }
-    .month-table tr { border-bottom: 1px solid var(--border2); }
-    .month-table tr:last-child { border-bottom: none; }
-    .month-table td { padding: 20px 18px; vertical-align: top; background: white; }
-    .month-table tr.peak-row td { background: var(--goldfade) !important; }
-    .month-table tr.caution-row td { background: rgba(122,30,30,0.04) !important; }
+    /* MONTH TABLE */
+    .month-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .month-table thead tr { background: var(--surface); }
+    .month-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 600; }
+    .month-table td { padding: 14px 16px; border-bottom: 1px solid var(--border2); font-size: 13px; vertical-align: top; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table tr.peak-row td { background: rgba(26,48,96,0.04); }
+    .month-table tr.caution-row td { background: rgba(122,30,30,0.03); }
+    .month-name { font-weight: 500; color: var(--text); }
+    .month-period { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .month-stem { font-size: 11px; color: var(--gold); font-style: italic; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+    .badge-peak { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .badge-strong { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .badge-caution { color: #8a6000; border-color: rgba(138,96,0,0.35); background: rgba(138,96,0,0.06); }
+    .badge-mixed { color: var(--muted); border-color: var(--border2); background: var(--surface); }
+    .month-action { font-size: 12.5px; color: var(--dim); margin-top: 5px; }
 
-    .m-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--text); display: block; line-height: 1.2; }
-    .m-dates { font-size: 11px; color: var(--muted); display: block; margin-top: 4px; }
-    .m-badge { display: inline-block; margin-top: 8px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding: 3px 7px; }
-    .m-badge.peak { color: var(--gold); border: 1px solid var(--border); background: rgba(154,110,32,0.08); }
-    .m-badge.mod  { color: var(--muted); border: 1px solid var(--border2); }
-    .m-badge.warn { color: var(--red); border: 1px solid rgba(122,30,30,0.3); background: rgba(122,30,30,0.04); }
-    .m-badge.strong { color: var(--green); border: 1px solid rgba(26,80,38,0.3); background: rgba(26,80,38,0.05); }
+    /* PALACE ALERTS */
+    .palace-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .palace-card { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .palace-num { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+    .palace-name { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 12px; }
+    .palace-stars { font-size: 12px; color: var(--gold); margin-bottom: 10px; font-style: italic; }
+    .palace-reading { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .palace-card.critical { border-left: 3px solid var(--red); }
+    .palace-card.strong { border-left: 3px solid var(--green); }
+    .palace-card.active { border-left: 3px solid var(--blue); }
+    .palace-card.neutral { border-left: 3px solid #8a6000; }
 
-    .intensity-row { display: flex; gap: 5px; justify-content: center; margin-bottom: 6px; }
-    .intensity-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; text-align: center; }
-
-    .m-focus { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 6px; }
-    .m-desc { font-size: 13px; color: var(--dim); line-height: 1.7; }
-
-    .action-row { font-size: 12.5px; color: var(--dim); padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
-    .action-row::before { content: '→'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
-    .action-row.warn::before { content: '⚠'; color: var(--red); }
-
-    /* HOUSE QUESTION */
-    .house-box { background: white; border: 2px solid var(--gold2); padding: 36px 40px; margin-bottom: 32px; }
-    .house-box-title { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 400; color: var(--text); margin-bottom: 20px; }
-    .house-verdict { display: inline-block; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; color: var(--green); background: rgba(26,80,38,0.07); border: 1px solid rgba(26,80,38,0.25); padding: 6px 14px; margin-bottom: 20px; }
-    .house-reason { font-size: 13.5px; color: var(--dim); line-height: 1.75; }
-    .house-reason + .house-reason { margin-top: 12px; }
-    .house-risk { background: var(--surface); border: 1px solid var(--border2); padding: 16px 20px; margin-top: 18px; }
-    .house-risk-title { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
-    .house-risk p { font-size: 12.5px; color: var(--dim); line-height: 1.65; }
-
-    /* HEARING BOX */
-    .hearing-box { background: var(--goldfade); border: 1px solid var(--border); padding: 32px 36px; margin-bottom: 32px; }
-    .hearing-date { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; color: var(--gold2); margin-bottom: 6px; }
-    .hearing-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; display: block; }
-    .hearing-body { font-size: 13.5px; color: var(--dim); line-height: 1.8; }
-    .hearing-signal-row { display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; font-size: 13px; color: var(--dim); line-height: 1.5; }
-    .hearing-signal-row::before { content: '◆'; color: var(--gold2); flex-shrink: 0; font-size: 10px; margin-top: 4px; }
-
-    /* CHART */
-    .chart-wrap { border: 1px solid var(--border2); overflow: hidden; background: white; }
-    .chart-wrap iframe { width: 100%; height: 960px; border: none; display: block; }
-    .chart-note { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+    /* CHART EMBED */
+    .chart-wrap { background: var(--surface2); padding: 24px; border: 1px solid var(--border); }
+    .chart-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .chart-wrap iframe { width: 100%; height: 780px; border: none; display: block; }
 
     /* BOTTOM NOTE */
-    .bottom-note { background: white; border: 1px solid var(--border2); padding: 28px 32px; margin-top: 40px; display: flex; gap: 18px; align-items: flex-start; }
-    .bn-icon { font-family: 'Cormorant Garamond', serif; font-size: 30px; color: var(--gold); flex-shrink: 0; margin-top: 2px; }
-    .bn-text { font-size: 13px; color: var(--dim); line-height: 1.75; }
-    .bn-text strong { color: var(--text); }
+    .bottom-note { background: var(--surface); border: 1px solid var(--border2); padding: 20px 28px; }
+    .bottom-note p { font-size: 12px; color: var(--muted); line-height: 1.7; }
+    .bottom-note p + p { margin-top: 8px; }
 
     /* FOOTER */
-    .report-footer { margin-top: 52px; padding-top: 22px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
-    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted); }
-    .footer-note { font-size: 11px; color: var(--muted); }
+    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    .footer-meta { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.6; }
 
-    @media print {
-      body { background: white; }
-      .page { padding: 0 32px 60px; }
-      .month-table tr.peak-row td { background: #FAF5E8 !important; }
-      .month-table tr.caution-row td { background: #FBF0F0 !important; }
-      .chart-wrap { page-break-before: always; }
-    }
+    /* MOBILE */
     @media (max-width: 900px) {
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
       .page { padding: 0 20px 60px; }
-      .report-header { flex-direction: column; align-items: flex-start; gap: 24px; }
+      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
       .header-right { text-align: left; }
-      .report-title { font-size: 32px; }
+      .report-title { font-size: 34px; }
       .verdict-row { grid-template-columns: 1fr; }
       .prob-grid { grid-template-columns: 1fr; }
       .do-dont-grid { grid-template-columns: 1fr; }
-      .house-box { padding: 24px 22px; }
-      .intro-block { padding: 24px 22px; }
-      .hearing-box { padding: 24px 22px; }
+      .palace-grid { grid-template-columns: 1fr; }
       .chart-wrap iframe { height: 680px; }
+      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+      .footer-meta { text-align: left; }
     }
   </style>
 </head>
@@ -200,130 +184,137 @@
   <!-- HEADER -->
   <header class="report-header">
     <div class="header-left">
-      <span class="brand">SuccessCode</span>
-      <h1 class="report-title">Legal Protection<br><em>&amp; Divorce · 2026</em></h1>
-      <p class="report-subtitle">Zi Wei Dou Shu Chart Analysis · July – December 2026</p>
+      <span class="brand">SuccessCode · Анализ Цзы Вэй</span>
+      <h1 class="report-title">Правовая защита<br>&amp; <em>Развод 2026</em></h1>
+      <p class="report-subtitle">Структурный анализ · Бракоразводный процесс · Единоличное проживание · Слушание 16 июля</p>
     </div>
     <div class="header-right">
-      <div class="client-label">Prepared for</div>
-      <div class="client-name">Nelly</div>
-      <div class="client-meta">16.04.1980 · 08:40 · Zelenograd</div>
-      <div class="client-meta">Element: Fire 6 · Chart type: SPL</div>
-      <div class="report-date">June 2026</div>
+      <div class="client-label">Клиент</div>
+      <div class="client-name">Нелли</div>
+      <div class="client-meta">
+        16 апреля 1980 · 08:40<br>
+        Зеленоград · Женщина
+      </div>
+      <div class="report-date">
+        <span class="chart-tag">ШПЛ</span><span class="chart-tag">Норм. полярность</span>
+        Стебель года 庚 (Гэн)
+      </div>
     </div>
   </header>
 
   <div class="gold-rule"></div>
 
-  <!-- MAIN FINDING -->
-  <div class="section-label">Core structural finding</div>
+  <!-- CORE STRUCTURAL FINDING -->
+  <div class="sec-label">Ключевое структурное чтение</div>
 
   <div class="intro-block">
-    <p class="intro-lead">
-      This is an SPL chart with reversed polarity. That means:
-      <em>legal pressure activates her — it does not break her.</em>
+    <p>
+      Карта Нелли относится к типу <strong>ШПЛ</strong> (Ша-По-Лан): три наиболее трансформирующие звезды — Тань Лан, По Цзюнь, Ци Ша — расположены на оси 1-5-9 Жизнь–Богатство–Карьера. Карты ШПЛ не движутся маленькими шагами: когда ось активируется, события носят решительный и структурный характер. <strong>Полярность нормальная</strong> (стандартные правила: Лу активирует ось, Цзи блокирует её).
     </p>
-    <p class="intro-body">
-      The three Sha-Po-Lang stars (七杀 Qi Sha, 破军 Po Jun, 贪狼 Tan Lang) occupy the 1-5-9 axis —
-      the signature of a reversed-polarity chart. For this chart type, a crisis on the 1-5-9 axis is
-      a trigger for growth, not a blow. The harder the pressure, the more powerfully her life-force activates.
+    <p>
+      Наиболее важный структурный факт в этой карте находится во <strong>дворце П3 Супруг</strong>: собственный стебель дворца (丙 Бин) посылает Цзи на звезду Лянь Чжэнь, которая также находится в этом же дворце. Это называется <strong>自化忌 (цзыхуацзи)</strong> — самотрансформирующийся Цзи — постоянный сигнал внутреннего самоуничтожения. Структурный распад брака не вызван действиями мужа. Это было записано в карте с рождения. То, что происходит в суде в 2026 году, есть официальное завершение того, что карта всегда показывала.
     </p>
-    <p class="intro-body">
-      Palace 3 (Spouse) carries the star 廉贞 Lian Zhen and a permanent self-annihilating Ji
-      (自化忌) from its own palace stem — the Spouse palace destroys itself continuously.
-      The exit from this marriage was structurally encoded in her chart from birth.
-      Divorce is not a defeat. It is the completion of a built-in cycle.
-    </p>
-    <p class="intro-body">
-      Palace 12 (Authority / Courts) carries 天魁 Tian Kui — the Heavenly Noble Protector.
-      In legal and institutional matters, the right person (lawyer, judge, expert) arrives at the right moment.
-      This is how her chart works. It has already happened before, and it will happen again.
+    <p>
+      В 2026 году (годовой стебель 丙 Бин) годовой стебель <em>также</em> посылает Цзи → Лянь Чжэнь → П3 Супруг, накладываясь непосредственно на цзыхуацзи. Это удваивает энергию распада во дворце Супруга именно в этом году. Развод был неизбежен структурно; 2026 — год максимального формального расторжения.
     </p>
   </div>
 
-  <!-- 3 CARDS -->
+  <div class="gold-rule"></div>
+
+  <!-- THREE VERDICTS -->
+  <div class="sec-label">Три структурных вердикта</div>
+
   <div class="verdict-row">
-    <div class="verdict-card highlight">
-      <div class="vc-label">Chart type</div>
-      <div class="vc-value">SPL · Reversed polarity</div>
-      <div class="vc-sub">Legal stress is an activator, not a destroyer. The harder the opponent pushes on the 1-5-9 axis, the stronger her protective mechanism fires.</div>
+
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">⚖</div>
+      <div class="verdict-title">Развод завершается — структурно неизбежно</div>
+      <div class="verdict-body">
+        Цзыхуацзи в П3 постоянен. Никакое годовое или декадное наложение не может его отменить. Дворец Супруга самоуничтожается изнутри, независимо от намерений мужа. В 2026 году этот сигнал удваивается. Нет ни одного структурного прочтения карты, которое поддерживало бы сохранение брака в какой-либо форме.
+      </div>
+      <div class="verdict-mech">Механизм: стебель П3 丙 → Цзи → Лянь Чжэнь (в П3) натально · Годовой 丙 удваивает Цзи на П3</div>
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Courts · Authority</div>
-      <div class="vc-value">Tian Kui guards P12</div>
-      <div class="vc-sub">天魁 in the Palace of Courts = a built-in Heavenly Protector. The right lawyer or ruling appears at the critical moment — not by luck, but by chart structure.</div>
+
+    <div class="verdict-card strong">
+      <div class="verdict-icon">🏠</div>
+      <div class="verdict-title">Дом — самый сильный дворец в этом году</div>
+      <div class="verdict-body">
+        П10 Имущество содержит Тай Ян (звезда видимости) с натальным Лу от годового стебля 庚 — имущество видимо, доступно и структурно благоприятно. В том же дворце натально расположен Тянь Лян (звезда спасения и защиты). В текущей декаде Д5 (2026–2035) декадный стебель 辛 посылает Цюань → Тай Ян → П10 непрерывно — авторитет над имуществом остаётся в её руках на протяжении всей декады. Слушание 16 июля приходится на 6-й лунный месяц (乙未), когда месячный стебель 乙 посылает <em>ещё один</em> Цюань → Тянь Лян → П10. Это двойной Цюань на двух разных звёздах имущества в одном и том же месяце — структурно самый сильный момент для дела о доме в 2026 году.
+      </div>
+      <div class="verdict-mech">Натально: Лу→Тай Ян→П10 + Тянь Лян в П10 · Д5: Цюань→Тай Ян→П10 (весь 2026–2035) · М6 (乙未): Цюань→Тянь Лян→П10</div>
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Timing · Decade</div>
-      <div class="vc-value">Exit from marriage aligned with her cycle</div>
-      <div class="vc-sub">The current 甲 decade (to 2035) sends Lu into P3 Spouse — the full 10-year period is oriented toward completing these relationships. The process is happening at the right time.</div>
+
+    <div class="verdict-card caution">
+      <div class="verdict-icon">🏛</div>
+      <div class="verdict-title">Суды: трение и защита существуют одновременно</div>
+      <div class="verdict-body">
+        В П12 (Власть/Суды) находятся Тянь Тун Цзи — натальное трение с институтами (постоянное, неустранимое), Тянь Куй (Благородный защитник — нужный человек всегда появляется), и Цзюй Мэнь (звезда тяжб и словесной силы). В 2026 году декада Д5 посылает Лу → Цзюй Мэнь → П12 (судебные процессы идут гладко на протяжении всей декады), а годовой стебель 丙 посылает Лу → Тянь Тун → П12, напрямую смягчая натальный Цзи. Двойной Лу на П12 в течение всего 2026 года. Трение будет ощущаться — оно натально — но структурный баланс в 2026 году благоприятствует навигации, а не блокировке.
+      </div>
+      <div class="verdict-mech">Натально: Тянь Тун Цзи + Тянь Куй + Цзюй Мэнь в П12 · Д5: Лу→Цзюй Мэнь→П12 · Годовой 丙: Лу→Тянь Тун→П12 (смягчает Цзи)</div>
     </div>
+
   </div>
 
-  <!-- PROBABILITY -->
-  <div class="section-label">Outcome probabilities</div>
+  <div class="gold-rule"></div>
+
+  <!-- PROBABILITY BARS -->
+  <div class="sec-label">Структурная оценка вероятностей</div>
 
   <div class="prob-grid">
-    <div class="prob-card">
-      <div class="prob-label">Overall outcome in her favour</div>
-      <div class="prob-value">70%</div>
-      <div class="prob-desc">Tian Kui (protector) in P12 + Wu Qu Quan in P11 (financial resolve) + Tian Liang in P10 (house protection). Main risk: Di Jie in P10 (sudden property event) + natal Ji on P12 (friction in the court sphere).</div>
-      <div class="prob-bar-wrap"><div class="prob-bar" style="width:70%"></div></div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Общий исход дела в её пользу</span>
+        <span class="prob-pct">70%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:70%"></div></div>
+      <div class="prob-note">Тянь Куй + Д5 Лу→Цзюй Мэнь + годовой Лу смягчает Цзи судов. Трение реально; победы вероятны при подготовленности.</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-label">Protecting Grisha — refuting false allegations</div>
-      <div class="prob-value">78%</div>
-      <div class="prob-desc">The depression / unfit-parent allegation has no structural backing in her chart. P6 Health carries 天钺 Tian Yue — a hidden protector: any independent specialist who assesses her will come out on her side. P11 Mental = Wu Qu Quan: authoritative, decisive mind.</div>
-      <div class="prob-bar-wrap"><div class="prob-bar" style="width:78%"></div></div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Опровержение обвинения в депрессии</span>
+        <span class="prob-pct">78%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:78%"></div></div>
+      <div class="prob-note">П11 Дух: У Цюй (решительная звезда Металла) с натальным Цюань от стебля 庚. Никакого структурного основания для депрессии в этой карте нет. Тянь Юэ в П6 Здоровье — защитник в медицинской сфере появится.</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-label">Keeping the house</div>
-      <div class="prob-value">65%</div>
-      <div class="prob-desc">Tian Liang in P10 = the rescue star in the Property palace. Natal Lu on Tai Yang in P10 adds base strength. BUT Di Jie in P10 = risk of a sudden property disruption, and the decade-long Ji→Tai Yang→P10 keeps pressure on the house until 2035. Active legal positioning is essential — passive waiting removes Tian Liang's protective effect.</div>
-      <div class="prob-bar-wrap"><div class="prob-bar" style="width:65%"></div></div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Сохранение дома</span>
+        <span class="prob-pct">80%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:80%"></div></div>
+      <div class="prob-note">Четыре независимых положительных слоя на П10: натальный Лу+Тянь Лян, декадный Д5 Цюань, годовой Тянь Си (радость в имуществе), месяц 6 Цюань→Тянь Лян. Структурно самый сильный исход в деле.</div>
     </div>
-    <div class="prob-card">
-      <div class="prob-label">Financial endurance — she will not run out first</div>
-      <div class="prob-value">82%</div>
-      <div class="prob-desc">禄存 Lu Cun sits natally in P5 Wealth — a built-in financial floor that does not disappear under pressure. Decade Quan→Po Jun→P5 = financial authority for the full decade. Wu Qu Quan in P11 = iron mental endurance around money. He will not outlast her financially.</div>
-      <div class="prob-bar-wrap"><div class="prob-bar" style="width:82%"></div></div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Финансовая устойчивость (переживёт его)</span>
+        <span class="prob-pct">75%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:75%"></div></div>
+      <div class="prob-note">Лу Цунь натально в П5 Богатство (постоянное финансовое дно). Д5 Кэ→Вэнь Цюй→П5 (признанное финансовое положение). У Цюй Цюань в П11 Дух — железная воля в финансах в течение всей декады.</div>
     </div>
   </div>
 
   <div class="gold-rule"></div>
 
-  <!-- HOUSE QUESTION -->
-  <div class="section-label">Specific question · Decision needed next week</div>
+  <!-- HOUSE OCCUPANCY DECISION -->
+  <div class="sec-label">Решение — подача на единоличное проживание</div>
 
-  <div class="house-box">
-    <h2 class="house-box-title">Should she request exclusive occupancy of the house with Grisha?</h2>
-    <div class="house-verdict">Yes — file it, and file next week</div>
-
-    <p class="house-reason">
-      <strong>Why now?</strong> The 2026 annual signal sends Lu→天同 Tian Tong→P12 (Authority/Courts) —
-      the entire year the court channel runs smoothly. This window must be used. Filing for exclusive
-      occupancy is an action through P12, and in 2026 P12 is structurally supporting her.
-    </p>
-    <p class="house-reason">
-      <strong>Legal timing.</strong> The July 16 spousal support hearing is already scheduled. If she
-      locks in her position on the house at the same time — or slightly before — it gives her a stronger
-      negotiating foundation going into that hearing. Annual Quan→Tian Ji→P8 means her legal team
-      operates at peak capacity in 2026. Use that capacity now.
-    </p>
-    <p class="house-reason">
-      <strong>If she does NOT file.</strong> 地劫 Di Jie in P10 (Property) = risk of a sudden property
-      move from his side. Initiative beats reaction. 天梁 Tian Liang (the rescue star) works for those
-      who act — not for those who wait.
-    </p>
-
-    <div class="house-risk">
-      <div class="house-risk-title">Risk of escalation — bird-nesting demand or petition to sell the house</div>
+  <div class="decision-box">
+    <div class="decision-verdict yes">Вердикт: Да — подавать, но с правильным выбором момента</div>
+    <div class="decision-title">Подать заявление о единоличном проживании 14 июля или позже</div>
+    <div class="decision-body">
       <p>
-        This risk is real: Di Jie in P10 plus the decade-long Ji→P10 means property tension exists
-        regardless of who moves first. His potential escalations (bird-nesting, house-sale petition)
-        would go through court — and in court she has Tian Kui. The key rule: do not agree to
-        bird-nesting verbally or informally. Any such arrangement must be a court order, because
-        the court is where her structural advantage is.
+        Структурная поддержка дома очень сильна. Подача заявления на единоличное проживание структурно правильна. <strong>Но важен выбор момента.</strong>
+      </p>
+      <p>
+        Неделя 1–7 июля приходится на 5-й лунный месяц (甲午). В этом месяце стебель 甲 посылает Цзи → Тай Ян → П10 — Цзи ложится прямо на натальную звезду видимости в дворце Имущества. Имущество находится под структурным трением на этой неделе. Это не лучшее окно для инициирования имущественных требований.
+      </p>
+      <p>
+        <strong>6-й лунный месяц (乙未) начинается 14 июля.</strong> С этого момента месячный стебель 乙 посылает Цюань → Тянь Лян → П10. Это второй Цюань на имущественной оси в дополнение к непрерывному декадному Цюань → Тай Ян → П10. Двойной авторитет на двух разных звёздах имущества. Слушание 16 июля происходит через 2 дня после начала этого окна.
+      </p>
+      <p>
+        Подать заявление на единоличное проживание <strong>на неделе 14 июля</strong>, одновременно со слушанием об алиментах или непосредственно перед ним. Дата суда и подача заявления приходятся на самое сильное имущественное окно 2026 года.
       </p>
     </div>
   </div>
@@ -331,340 +322,223 @@
   <div class="gold-rule"></div>
 
   <!-- JULY 16 HEARING -->
-  <div class="section-label">July 16 Hearing · Preliminary injunction — spousal support</div>
+  <div class="sec-label">Ключевая дата — слушание об алиментах</div>
 
-  <div class="hearing-box">
-    <div class="hearing-date">July 16, 2026 · 16:15</div>
-    <span class="hearing-label">Spousal Support Hearing · Lunar Month 6 (乙未)</span>
-
-    <p class="hearing-body">
-      The July 16 hearing falls inside Lunar Month 6 (乙未) — one of the two strongest property-axis
-      months of 2026. Month stem 乙 sends four key signals onto her chart:
-    </p>
-
-    <div class="hearing-signal-row">
-      <strong>Quan→天梁 Tian Liang→P10</strong> &nbsp;— authority activates the rescue star directly
-      in the Property palace. The strongest property-protection signal of the entire year.
+  <div class="date-box">
+    <div class="date-box-label">Дата заседания</div>
+    <div class="date-box-date">16 июля 2026 <span>· 16:15</span></div>
+    <div class="date-box-body">
+      <p>Это слушание приходится на 6-й лунный месяц (乙未, 14 июля – 11 августа) — структурно самый сильный месяц 2026 года для дворца Имущества.</p>
+      <p>Месячный стебель 乙 посылает Цюань → Тянь Лян → П10. В сочетании с непрерывным декадным Цюань → Тай Ян → П10 это создаёт двойной авторитет по двум разным звёздам имущества в один и тот же месяц. Тянь Лян — звезда спасения и защиты старейшин. Цюань на ней означает, что структурная сила месяца решительно на стороне того, чьё жильё оспаривается.</p>
+      <p>Дополнительно: ветвь месяца 未 активирует П6 Здоровье — Тянь Юэ (благородный защитник здоровья) в этом дворце выходит на первый план. В судебных спорах, касающихся состояния здоровья (обвинение в депрессии), Тянь Юэ означает, что достоверная фигура из медицинской сферы встаёт на её сторону.</p>
     </div>
-    <div class="hearing-signal-row">
-      <strong>Lu→天机 Tian Ji→P8</strong> &nbsp;— smooth flow through strategic advisors and lawyers.
-      Her legal team works cleanly and effectively in this exact window.
+    <div class="date-mechs">
+      <span class="date-mech-tag">М6 乙未: Цюань→Тянь Лян→П10</span>
+      <span class="date-mech-tag">Д5 辛: Цюань→Тай Ян→П10</span>
+      <span class="date-mech-tag">Ветвь 未→П6 · Тянь Юэ активируется</span>
+      <span class="date-mech-tag">Двойной Цюань на имущественной оси</span>
     </div>
-    <div class="hearing-signal-row">
-      <strong>Monthly LuCun→P10</strong> &nbsp;— additional financial floor placed directly in the
-      Property palace. Double protection on the house in July.
-    </div>
-    <div class="hearing-signal-row">
-      <strong>Ke→紫微 Zi Wei→P7</strong> &nbsp;— authoritative recognition in the public sphere.
-      She is seen as a figure of standing in court.
-    </div>
-
-    <p class="hearing-body" style="margin-top:16px;">
-      <strong>Conclusion:</strong> go into the July 16 hearing with maximum demands, no pre-emptive
-      softening. On the house — hold position. On spousal support — name the real number with
-      negotiating room built in. Tian Liang does not protect those who capitulate. It protects
-      those who hold.
-    </p>
   </div>
+
+  <div class="gold-rule"></div>
 
   <!-- DO / DON'T -->
-  <div class="section-label">Tactics · What to do and what to avoid</div>
+  <div class="sec-label">Стратегические рекомендации</div>
 
   <div class="do-dont-grid">
-    <div class="dd-card">
-      <div class="dd-title green">✓ &nbsp; Do now</div>
-      <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span>File for exclusive occupancy with Grisha — next week, while P12 is running smoothly in 2026</li>
-        <li><span style="color:var(--green)">●</span>Document EVERYTHING in writing: messages, theft of items from the house, his behaviour with Grisha. 巨门 Ju Men in P12 = what is written down decides in court</li>
-        <li><span style="color:var(--green)">●</span>Commission an independent medical / psychological evaluation now: 天钺 Tian Yue in P6 means the specialist will be on her side</li>
-        <li><span style="color:var(--green)">●</span>Go into the July 16 hearing with maximum demands — this is the strongest property protection month of the year</li>
-        <li><span style="color:var(--green)">●</span>Keep a strategic lawyer active: 2026 gives peak signals on P8 (Quan + Lu pointing toward her legal team)</li>
-        <li><span style="color:var(--green)">●</span>Know the financial endurance is there. 禄存 Lu Cun in P5 = a financial floor that does not disappear</li>
+    <div class="do-col">
+      <div class="col-title">Делать</div>
+      <ul class="action-list">
+        <li><span class="marker">→</span> Подать заявление на единоличное проживание 14 июля или позже. Не подавать до начала 6-го месяца.</li>
+        <li><span class="marker">→</span> Строить дело о доме на стабильности для Гриши. Тянь Лян = спасение и защита — структурный аргумент центрируется на защите домашней среды ребёнка.</li>
+        <li><span class="marker">→</span> Дать адвокату говорить с авторитетом. Годовой Цюань → Тянь Цзи → П8 (Друзья/Советники) действует весь год — авторитет советника структурно усилен в 2026. То, что говорит адвокат, воспринимается с весом.</li>
+        <li><span class="marker">→</span> Подготовить документацию по обвинению в депрессии для независимой медицинской экспертизы. Тянь Юэ в П6 Здоровье означает, что нужный человек в медицинской сфере появится. Не спорить эмоционально — пусть оценка говорит сама за себя.</li>
+        <li><span class="marker">→</span> Отвечать письменно, а не устно. Цзюй Мэнь в П12 — это звезда речи и тяжб, споры в её сфере, но в этой конфигурации карты письменная документация сильнее устных аргументов.</li>
+        <li><span class="marker">→</span> Относиться к сентябрю–октябрю как к времени подготовки по вопросу опеки (месяц 8, ветвь 酉 активирует дворец Детей). Иметь расписание Гриши, школьные документы и историю ухода готовыми до этого окна.</li>
       </ul>
     </div>
-    <div class="dd-card">
-      <div class="dd-title red">✗ &nbsp; Do not</div>
-      <ul class="dd-list">
-        <li><span style="color:var(--red)">●</span>Do not agree to bird-nesting verbally or in writing — 地劫 Di Jie in P4 (Children) = rotating arrangements can destabilise Grisha suddenly and unpredictably</li>
-        <li><span style="color:var(--red)">●</span>Do not give up the house without a court ruling — Tian Liang protects P10, but only for those who hold their position</li>
-        <li><span style="color:var(--red)">●</span>Do not fear the depression / medication allegation — P6 carries Tian Yue (protector); any independent evaluation comes out in her favour. P11 = Wu Qu Quan: authoritative, decisive mind</li>
-        <li><span style="color:var(--red)">●</span>Do not accept the first financial settlement offer — Wu Qu Quan in P11 means she has the authority for harder negotiations</li>
-        <li><span style="color:var(--red)">●</span>Do not have key conversations verbally without a record — intimidation and theft tactics rely on no witnesses. Written only; lawyer present</li>
-        <li><span style="color:var(--red)">●</span>Do not read his mental pressure as a signal to give in — wearing down is his tactic. The chart says: her endurance is correct</li>
+    <div class="dont-col">
+      <div class="col-title">Не делать</div>
+      <ul class="action-list">
+        <li><span class="marker">✗</span> Не подавать никаких имущественных заявлений на неделе 1–7 июля. В 5-м месяце (甲午) Цзи ложится на дворец Имущества — не то окно.</li>
+        <li><span class="marker">✗</span> Не принимать фрейминг депрессии. П11 Дух содержит У Цюй с натальным Цюань (стебель 庚). Решительный, ясный, целеустремлённый — никакого структурного основания для клинического диагноза в этой карте нет.</li>
+        <li><span class="marker">✗</span> Не делать уступок по дому в ожидании взаимности. Структурное прочтение имущества — её самый сильный актив. Раннее отступление ослабляет позицию без каких-либо гарантий с другой стороны.</li>
+        <li><span class="marker">✗</span> Не опираться на эмоциональные аргументы в суде. Натальный Цзи → Тянь Тун → П12 означает, что институциональные каналы несут трение. Факты и документы работают лучше эмоций в этой конфигурации.</li>
+        <li><span class="marker">✗</span> Не снижать требования ради "сохранения мира". В 7-м месяце (丙申, 11 августа – 10 сентября) все годовые полёты удваиваются — самый гладкий месяц для судебных процессов. Не время уступать; время закреплять достигнутое.</li>
+        <li><span class="marker">✗</span> Не игнорировать 11-й месяц (庚子, декабрь): совпадение с натальным стеблем удваивает и Цюань П11 (финансовый пик), и Цзи П12 (трение в судах достигает пика). Не инициировать новые споры в этом месяце — закреплять ранее достигнутые результаты.</li>
       </ul>
     </div>
   </div>
 
-  <div class="clarify-box">
-    <div class="icon">◆</div>
-    <p>
-      <strong>On financial endurance and the "he will outlast her" fear.</strong>
-      禄存 Lu Cun sits natally in P5 Wealth — a built-in financial floor that remains even in crisis.
-      Decade-long Quan→Po Jun→P5 means financial authority for the full period to 2035. Wu Qu (Metal,
-      financial will) with Quan in P11 is not just a resource — it is iron-willed endurance around
-      money. The chart does not show her running out before him.
-    </p>
-  </div>
-
-  <div class="gold-rule-full"></div>
+  <div class="gold-rule"></div>
 
   <!-- MONTH TABLE -->
-  <div class="section-label">Month-by-month forecast</div>
-  <h2 class="section-title">July – December 2026</h2>
-
-  <div class="table-legend">
-    <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-right:4px;">Month potential:</span>
-    <div class="legend-item">
-      <div class="legend-dots"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
-      <span>Peak — act aggressively</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
-      <span>Strong — act</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-      <span>Moderate</span>
-    </div>
-    <div class="legend-item">
-      <div class="legend-dots"><div class="dot warn"></div><div class="dot warn"></div><div class="dot warn"></div><div class="dot"></div><div class="dot"></div></div>
-      <span>Caution — hold, don't force</span>
-    </div>
-  </div>
+  <div class="sec-label">Помесячный прогноз — июль–январь 2027</div>
 
   <table class="month-table">
     <thead>
       <tr>
-        <th style="min-width:130px">Period</th>
-        <th style="width:110px;text-align:center">Potential</th>
-        <th>What is happening · Why</th>
-        <th style="min-width:200px">Actions</th>
+        <th>Месяц</th>
+        <th>Лунный период</th>
+        <th>Сигнал</th>
+        <th>Прочтение</th>
+        <th>Приоритетное действие</th>
       </tr>
     </thead>
     <tbody>
-
-      <tr>
-        <td>
-          <span class="m-name">Late June<br>— early July</span>
-          <span class="m-dates">Lunar Month 5 · 甲午<br>to ~July 13</span>
-          <span class="m-badge mod">Filing window</span>
-        </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-          <div class="intensity-label">Moderate</div>
-        </td>
-        <td>
-          <div class="m-focus">Moment to file</div>
-          <p class="m-desc">Month stem 甲 matches the current decade stem (甲), doubling the decade signals: Lu→P3 (movement toward exiting the marriage) and Quan→P5 (financial authority). Good timing for procedural actions — the court channel (P12) is already open from the annual Lu signal running all year.</p>
-        </td>
-        <td>
-          <div class="action-row">File the exclusive-occupancy application</div>
-          <div class="action-row">Align legal position with lawyer before July 16</div>
-          <div class="action-row">Begin documenting the theft of household items</div>
-        </td>
-      </tr>
-
-      <tr class="peak-row">
-        <td>
-          <span class="m-name">July</span>
-          <span class="m-dates">Lunar Month 6 · 乙未<br>~July 14 – Aug 11</span>
-          <span class="m-badge peak">Peak · Court</span>
-        </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
-          <div class="intensity-label">Peak</div>
-        </td>
-        <td>
-          <div class="m-focus">Maximum house protection · July 16 hearing</div>
-          <p class="m-desc">Strongest property month of 2026. Monthly Quan→Tian Liang→P10 — the rescue star receives authority now. Monthly LuCun also lands in P10 = double protection on the house. The July 16 hearing falls at this exact peak — exceptional structural timing for the alimony and house position.</p>
-        </td>
-        <td>
-          <div class="action-row">July 16: go in with maximum demands, no pre-softening</div>
-          <div class="action-row">On the house: hold without lowering demands</div>
-          <div class="action-row">On spousal support: name the real number plus negotiating room</div>
-          <div class="action-row">Accept no verbal agreements outside court</div>
-        </td>
-      </tr>
-
       <tr class="caution-row">
         <td>
-          <span class="m-name">August</span>
-          <span class="m-dates">Lunar Month 7 · 丙申<br>~Aug 12 – Sep 9</span>
-          <span class="m-badge warn">Peak conflict</span>
+          <div class="month-name">Месяц 5</div>
+          <div class="month-stem">甲午</div>
         </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-          <div class="intensity-label">Conflict</div>
-        </td>
-        <td>
-          <div class="m-focus">Maximum conflict on P3 · Maximum legal power simultaneously</div>
-          <p class="m-desc">Month stem 丙 matches the annual year stem 丙 — everything doubles. The annual Ji→Lian Zhen→P3 doubles, on top of the permanent self-Ji in P3 = triple Ji on the Spouse palace. Maximum conflict level with her husband this period. At the same time: doubled Lu→P12 (courts run smoothly) and Quan→P8 (lawyers have authority) = her legal power is also at peak simultaneously.</p>
-        </td>
-        <td>
-          <div class="action-row">No personal confrontations — through the lawyer only</div>
-          <div class="action-row">Document every incident of pressure or property interference immediately</div>
-          <div class="action-row">If critical hearings fall here — legal position is at maximum strength</div>
-          <div class="action-row warn">Avoid one-on-one meetings without witnesses</div>
-        </td>
+        <td><div class="month-period">14 июня – 14 июля</div></td>
+        <td><span class="badge badge-caution">Осторожно</span></td>
+        <td>Стебель 甲 посылает Цзи → Тай Ян → П10 — трение на звезде видимости дворца Имущества. Не время для имущественных инициатив. Цюань → По Цзюнь → П5 (активация ШПЛ Богатства) положителен для финансов.</td>
+        <td class="month-action">Только подготовка документов для заявления. Никаких имущественных ходатайств.</td>
       </tr>
-
-      <tr>
-        <td>
-          <span class="m-name">September</span>
-          <span class="m-dates">Lunar Month 8 · 丁酉<br>~Sep 10 – Oct 8</span>
-          <span class="m-badge mod">Child axis</span>
-        </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-          <div class="intensity-label">Moderate</div>
-        </td>
-        <td>
-          <div class="m-focus">Palace 4 (Children) activates</div>
-          <p class="m-desc">Month branch 酉 activates P4 (Children). The question of Grisha comes to the foreground — either a custody-related hearing or his manipulation tactics through the child. Monthly Quan→Tian Tong→P12 = authority moves toward the comfortable outcome for the child. Results from the independent evaluation should be deployed here if proceedings reach that point.</p>
-        </td>
-        <td>
-          <div class="action-row">Monitor Grisha's wellbeing closely during this period</div>
-          <div class="action-row">If custody hearings are scheduled, prepare ahead of time</div>
-          <div class="action-row">Deploy independent expert evaluation results</div>
-        </td>
-      </tr>
-
-      <tr class="caution-row">
-        <td>
-          <span class="m-name">October</span>
-          <span class="m-dates">Lunar Month 9 · 戊戌<br>~Oct 9 – Nov 5</span>
-          <span class="m-badge warn">Caution</span>
-        </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot warn"></div><div class="dot warn"></div><div class="dot warn"></div><div class="dot"></div><div class="dot"></div></div>
-          <div class="intensity-label">Caution</div>
-        </td>
-        <td>
-          <div class="m-focus">SPL suppression · Do not force decisions</div>
-          <p class="m-desc">Month branch 戌 activates P3 (Spouse palace). Month stem 戊 sends Lu→贪狼 Tan Lang→P1 (Life palace). For an SPL chart: Lu landing on P1 (axis 1-5-9) = a suppressing signal. Attempts to force key settlement decisions in October are likely to stall. Hold position, do not retreat — but do not push hard to close things this month.</p>
-        </td>
-        <td>
-          <div class="action-row warn">Do not force critical decisions or sign anything under pressure</div>
-          <div class="action-row">Hold the position — do not concede, but do not escalate</div>
-          <div class="action-row">Use this time to prepare for the November financial window</div>
-        </td>
-      </tr>
-
       <tr class="peak-row">
         <td>
-          <span class="m-name">November</span>
-          <span class="m-dates">Lunar Month 10 · 己亥<br>~Nov 6 – Dec 4</span>
-          <span class="m-badge strong">Financial window</span>
+          <div class="month-name">Месяц 6 ★</div>
+          <div class="month-stem">乙未</div>
         </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot"></div></div>
-          <div class="intensity-label">Strong</div>
-        </td>
-        <td>
-          <div class="m-focus">SPL activation · Financial settlement opportunity</div>
-          <p class="m-desc">Month stem 己 sends Ji→Wen Qu→P5 (Wealth palace). For an SPL chart: Ji on P5 (axis 1-5-9) = the best possible signal — an activator. Simultaneously: Ke→Tian Liang→P10 (house protection formally recognised) and Quan→Tan Lang→P1 (SPL: Quan on 1-5-9 = power). This is the prime window to push for financial settlement.</p>
-        </td>
-        <td>
-          <div class="action-row">Propose or negotiate final financial settlement terms</div>
-          <div class="action-row">On the house: November protects P10 (Ke→Tian Liang active)</div>
-          <div class="action-row">Do not lower demands — SPL activation says: position is strong</div>
-        </td>
+        <td><div class="month-period">14 июля – 11 августа</div></td>
+        <td><span class="badge badge-peak">Пик — Имущество</span></td>
+        <td>Стебель 乙: Цюань → Тянь Лян → П10. В сочетании с декадным Цюань → Тай Ян → П10 = двойной авторитет на имущественной оси. Ветвь 未 активирует П6 Здоровье (Тянь Юэ — появляется защитник здоровья). <strong>Слушание 16 июля приходится на это окно.</strong></td>
+        <td class="month-action">Подать заявление на единоличное проживание. Слушание 16 июля. Пик структурного времени для дела о доме.</td>
       </tr>
-
+      <tr>
+        <td>
+          <div class="month-name">Месяц 7</div>
+          <div class="month-stem">丙申</div>
+        </td>
+        <td><div class="month-period">11 августа – 10 сентября</div></td>
+        <td><span class="badge badge-strong">Суды — гладко</span></td>
+        <td>Месячный стебель 丙 совпадает с годовым. Все годовые полёты удваиваются: Лу→Тянь Тун→П12 удваивается (самый гладкий судебный месяц года). Цзи→Лянь Чжэнь→П3 тоже удваивается — пик энергии распада брака, юридическое оформление разделения продвигается.</td>
+        <td class="month-action">Закрепить любые судебные достижения с 16 июля. Не уступать и не вести переговоры об уступках в этом месяце.</td>
+      </tr>
+      <tr class="caution-row">
+        <td>
+          <div class="month-name">Месяц 8</div>
+          <div class="month-stem">丁酉</div>
+        </td>
+        <td><div class="month-period">10 сентября – 8 октября</div></td>
+        <td><span class="badge badge-mixed">Ось детей</span></td>
+        <td>Ветвь 酉 = П4 Дети — дворец Детей активируется. Вопросы опеки и воспитания выходят на первый план структурно в этом месяце. Стебель 丁: Цзи → Цзюй Мэнь → П12 (трение на звезде тяжб в Судах). Возможен острый правовой спор. Одновременно Цюань → Тянь Тун → П12 (авторитет в судах).</td>
+        <td class="month-action">Иметь всю документацию по Грише наготове. Вопросы опеки возникнут — быть готовой, а не реагировать.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 9</div>
+          <div class="month-stem">戊戌</div>
+        </td>
+        <td><div class="month-period">8 октября – 7 ноября</div></td>
+        <td><span class="badge badge-strong">ШПЛ — ось жизни</span></td>
+        <td>Стебель 戊 посылает Лу → Тань Лан → П1 Жизнь. Для карты ШПЛ с нормальной полярностью Лу на оси 1-5-9 (П1 = Жизнь) активирующий — личная устойчивость и решимость достигают пика. Ветвь 戌 = П3 Супруг (ось развода активна).</td>
+        <td class="month-action">Сильный месяц личной энергии. Хорошо для переговоров или слушаний, которые могут возникнуть.</td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <div class="month-name">Месяц 10</div>
+          <div class="month-stem">己亥</div>
+        </td>
+        <td><div class="month-period">7 ноября – 6 декабря</div></td>
+        <td><span class="badge badge-peak">Финансовый пик</span></td>
+        <td>Стебель 己: Лу → У Цюй → П11 (месячный Лу соединяется с натальным Цюань на У Цюй = компаунд Лу+Цюань = пик финансовой манифестации). Цюань → Тань Лан → П1 (ШПЛ ось жизни с авторитетом). Кэ → Тянь Лян → П10 (звезда спасения имущества признана). Три положительных сигнала одновременно.</td>
+        <td class="month-action">Лучший месяц года для достижения и подписания финансовых соглашений или договорённостей.</td>
+      </tr>
+      <tr class="caution-row">
+        <td>
+          <div class="month-name">Месяц 11</div>
+          <div class="month-stem">庚子</div>
+        </td>
+        <td><div class="month-period">6 декабря – 5 января</div></td>
+        <td><span class="badge badge-mixed">Совпадение стебля — неоднозначно</span></td>
+        <td>Месячный стебель 庚 совпадает с натальным годовым стеблем: все натальные полёты удваиваются. Видимость имущества удваивается (Лу→Тай Ян→П10 ×2) — хорошо. Финансовый авторитет удваивается (Цюань→У Цюй→П11 ×2). Но натальный Цзи→Тянь Тун→П12 тоже удваивается — трение в судах на пике. Ветвь 子 = П1 Жизнь активируется.</td>
+        <td class="month-action">Не инициировать новых судебных споров. Закреплять. Видимость имущества на пике, но трение в судах тоже — пусть текущие ходатайства работают сами.</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="month-name">Месяц 12</div>
+          <div class="month-stem">辛丑</div>
+        </td>
+        <td><div class="month-period">5 января – 4 февраля 2027</div></td>
+        <td><span class="badge badge-strong">Правовое + имущественное закрытие</span></td>
+        <td>Месячный стебель 辛 совпадает с декадным стеблем Д5: все декадные полёты удваиваются. Декадный Лу→Цзюй Мэнь→П12 удваивается (самый гладкий юридический месяц). Декадный Цюань→Тай Ян→П10 удваивается (авторитет имущества на пике). Отлично для окончательных закрытий, решений и мировых соглашений.</td>
+        <td class="month-action">Нацелиться на закрытие или получение решений по открытым делам. Структурный пик для окончательных правовых исходов.</td>
+      </tr>
     </tbody>
   </table>
 
-  <div class="gold-rule-full"></div>
+  <div class="gold-rule"></div>
 
-  <!-- STRUCTURAL DETAILS -->
-  <div class="section-label">Chart structure · Key palaces explained</div>
-  <h2 class="section-title">What sits behind these findings</h2>
+  <!-- PALACE STRUCTURAL ALERTS -->
+  <div class="sec-label">Структурный анализ дворцов</div>
 
-  <div class="alert-box">
-    <div class="alert-box-title">P3 Spouse (戌 / stem 丙) · 廉贞 Lian Zhen + 天府 Tian Fu · Self-annihilating Ji (自化忌)</div>
-    <p>
-      The stem of Palace 3 is 丙 (Yang Fire). That same stem sends Ji→廉贞 Lian Zhen — and Lian Zhen
-      sits in P3. This is 自化忌 (a self-transforming Ji): the Spouse palace chronically self-destructs
-      from within. This is not caused by this specific husband — it is a natal structure. The exit from
-      this marriage is the completion of a built-in cycle, not a failure. The current decade reinforces
-      the exit: the 甲 decade sends Lu into P3 for the full period to 2035, smoothing the departure
-      and confirming this is the right moment.
-    </p>
-  </div>
+  <div class="palace-grid">
 
-  <div class="alert-box" style="border-left-color:var(--green);">
-    <div class="alert-box-title" style="color:var(--green);">P12 Authority / Courts (丑 / stem 己) · 天同Ji + 巨门 Ju Men + 天魁 Tian Kui + 天喜 Tian Xi</div>
-    <p>
-      天同忌 (Ji on Tian Tong) in P12 creates friction in the court and institutional sphere — a real
-      challenge. BUT 天魁 Tian Kui sits in the same palace: the Heavenly Noble Protector in the exact
-      zone of courts and authority. In ZWDS tradition, Tian Kui means: in the darkest moment, the right
-      person appears. 天喜 Tian Xi (joy event) also sits in P12 = the outcome of the legal process
-      carries an unexpected positive result. 巨门 Ju Men in P12 = everything documented in writing
-      works in court. Document obsessively.
-    </p>
-  </div>
+    <div class="palace-card critical">
+      <div class="palace-num">П3 · Дворец Супруга · 丙戌</div>
+      <div class="palace-name">Лянь Чжэнь + Тянь Фу — самоцзи (自化忌)</div>
+      <div class="palace-stars">Стебель 丙 → Цзи → Лянь Чжэнь (в П3) · Годовой 丙 удваивает</div>
+      <div class="palace-reading">
+        Это наиболее структурно определяющий сигнал карты. Дворец Супруга содержит постоянный 自化忌: его собственный стебель (丙) посылает Цзи на Лянь Чжэнь, которая находится в том же дворце. Это не зависит ни от годовых, ни от декадных наложений — это натальный фундамент. Институт брака самоуничтожается изнутри этой карты. В 2026 году годовой стебель 丙 запускает тот же полёт снова, усугубляя 自化忌. Тянь Фу (накопительная звезда изобилия) в том же дворце означает, что есть существенное имущество и структура для раздела — распад не пустой. То, что заканчивается, реально; то, что делится, реально.
+      </div>
+    </div>
 
-  <div class="alert-box">
-    <div class="alert-box-title">P10 Property (卯 / stem 己) · 太阳禄 Tai Yang + 天梁 Tian Liang + 地劫 Di Jie</div>
-    <p>
-      Natal Lu→太阳 Tai Yang→P10 = the Property palace carries a favourable base signal.
-      天梁 Tian Liang = the rescue star — the most protective star in property matters. In acute
-      situations, Tian Liang creates unexpected salvation. BUT 地劫 Di Jie = risk of a sudden property
-      disruption event. The decade-long Ji→P10 (to 2035) means the house remains under pressure
-      throughout this period. Tian Liang softens it but does not eliminate it. An active legal
-      position — filing, asserting rights, keeping representation — is essential. Passive waiting
-      removes Tian Liang's protective effect.
-    </p>
-  </div>
+    <div class="palace-card strong">
+      <div class="palace-num">П10 · Дворец Имущества · 己卯</div>
+      <div class="palace-name">Тай Ян Лу + Тянь Лян — четырёхуровневая защита</div>
+      <div class="palace-stars">Натально: Лу→Тай Ян, Тянь Лян спасение · Д5: Цюань→Тай Ян · М6: Цюань→Тянь Лян · Годовой: Тянь Си (радость) здесь</div>
+      <div class="palace-reading">
+        П10 — самый сильный дворец карты Нелли в 2026 году. Тай Ян (звезда Солнца — видимость, публичное признание) получает натальный Лу от годового стебля 庚, делая имущество постоянно видимым и доступным. Тянь Лян (звезда спасения, защиты и долголетия) натально находится в том же дворце — структурная защита, которая сохраняется вне зависимости от того, кто её атакует. В Д5 (2026–2035) Цюань → Тай Ян → П10 действует непрерывно: авторитет над этим имуществом в её руках в течение всей декады. В 6-м месяце добавляется Цюань → Тянь Лян — два сигнала авторитета на двух разных звёздах имущества одновременно. Ди Цзе (риск внезапной потери) присутствует как вспомогательная звезда — быстрые или неожиданные ходы с другой стороны возможны, но четыре защитных сигнала структурно перевешивают.
+      </div>
+    </div>
 
-  <div class="alert-box" style="border-left-color:var(--green);">
-    <div class="alert-box-title" style="color:var(--green);">P6 Health (未 / stem 癸) · 天钺 Tian Yue + Di Kong + Tuo Luo — The depression allegation</div>
-    <p>
-      Palace 6 (Health) carries no main star and no natal enhancer on a main star. The allegation of
-      an "unsafe mental state" has zero structural backing in this chart. Palace 11 (Mental) carries
-      武曲权 Wu Qu Quan — an authoritative and decisive mind. 天钺 Tian Yue in P6 is a hidden protector
-      in the health domain: any independent specialist (doctor, psychologist) who formally assesses her
-      will come out on her side. Di Kong in P6 can manifest as fatigue or scattered energy — self-care
-      matters — but no formal evaluation will characterise this as instability or unfitness.
-    </p>
+    <div class="palace-card active">
+      <div class="palace-num">П12 · Родители / Власть / Суды · 己丑</div>
+      <div class="palace-name">Тянь Тун Цзи + Цзюй Мэнь + Тянь Куй</div>
+      <div class="palace-stars">Натальный Цзи (трение) + звезда-защитник + звезда тяжб · Д5 + Годовой Лу оба смягчают этот дворец в 2026</div>
+      <div class="palace-reading">
+        В П12 сосуществуют три силы. Тянь Тун Цзи: натальное трение с институтами — суды, власти, формальные системы никогда не будут полностью гладкими. Это пожизненно, не временно. Цзюй Мэнь: звезда речи и тяжб — споры и судебные процессы структурно в её сфере, а не чужеродная территория. Тянь Куй: Благородный защитник — нужный человек (адвокат, судья, защитник) последовательно появляется в решающий момент. В 2026 году и декада Д5 (Лу → Цзюй Мэнь → П12), и годовой стебель (Лу → Тянь Тун → П12) посылают гладкий Лу в этот дворец. Натальный Цзи буферизуется с двух сторон одновременно весь год. Судебное трение будет ощущаться — оно натально — но структурный баланс в 2026 году благоприятствует навигации.
+      </div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-num">П11 · Дух / Судьба · 戊寅</div>
+      <div class="palace-name">У Цюй Цюань + Тянь Сян — никакого структурного основания для депрессии</div>
+      <div class="palace-stars">Натальный Цюань на У Цюй от стебля 庚 · Решительная звезда Металла · Тянь Сян (министр, элегантность)</div>
+      <div class="palace-reading">
+        У Цюй — решительная звезда Металла: прямая, непреклонная, финансово острая, эмоционально самодостаточная. Она расположена в П11 Дух (дворец духа и судьбы) с натальным Цюань от годового стебля 庚. Цюань усиливает всё, чего касается: У Цюй + Цюань в дворце Духа создают человека с решительной, авторитетной, самостоятельной ментальной энергией. В этом дворце нет ни одной звезды, связанной с депрессией, пассивностью или эмоциональным разрушением. Лин Син (злая огненная звезда) присутствует как вспомогательная — она добавляет острую внутреннюю грань и напряжённость, что может проявляться как стресс или эмоциональная интенсивность. Стресс — это не клиническая депрессия. При любой независимой психологической экспертизе эта карта не подтверждает диагноз, который пытается выстроить муж.
+      </div>
+    </div>
+
   </div>
 
   <div class="gold-rule"></div>
 
-  <!-- CHART IFRAME -->
-  <div class="section-label">Zi Wei Dou Shu Chart · Nelly</div>
-  <h2 class="section-title">Natal chart</h2>
+  <!-- CHART EMBED -->
+  <div class="sec-label">Натальная карта</div>
 
   <div class="chart-wrap">
-    <iframe src="https://successcode.net/zwds-nelly"
-            title="ZWDS Chart — Nelly"
-            loading="lazy">
-    </iframe>
+    <div class="chart-label">Калькулятор ЦВДШ — Нелли · 16 апреля 1980 · 08:40 · Зеленоград</div>
+    <iframe src="https://successcode.net/zwds-nelly" loading="lazy" title="ЦВДШ Нелли" allowfullscreen></iframe>
   </div>
-  <p class="chart-note">
-    Interactive chart. Switch to "Annual" and select 2026 to see the active enhancers and annual movable stars.
-    &nbsp;·&nbsp; For PDF output: screenshot the chart view and insert in place of the iframe.
-  </p>
+
+  <div class="gold-rule"></div>
 
   <!-- BOTTOM NOTE -->
   <div class="bottom-note">
-    <div class="bn-icon">ℹ</div>
-    <div class="bn-text">
-      <strong>What "SPL with reversed polarity" means in practice.</strong>
-      For an SPL chart, crisis is not a threat — it is the activation mechanism. The pressure, mental
-      exhaustion, the feeling of "I cannot survive this" — these are the sensations an SPL chart passes
-      through before the rise, not before the fall. People with this chart type consistently report that
-      their worst moments became the turning point. 天魁 Tian Kui does not appear before the crisis —
-      it appears at the sharpest point of it. This does not mean she should not act. It means she should
-      act with the confidence that protection will arrive — because structurally, it will.
-    </div>
+    <p>Этот анализ основан на методологии Северной школы Цзы Вэй Доу Шу (紫微斗数). Структурные прочтения описывают энергетические предрасположенности и временны́е окна — они не являются юридической консультацией. Вероятности отражают структурный баланс, видимый в карте на каждом уровне (натальный, декадный, годовой, месячный), и являются независимыми оценками, а не гарантиями. Все юридические решения должны приниматься с квалифицированным юридическим советником.</p>
+    <p>Тип карты: формация ШПЛ (Ша-По-Лан: Тань Лан П1 · По Цзюнь П5 · Ци Ша П9) · Нормальная полярность · Годовой стебель 庚 (Гэн) · Судьба Огонь 6 · Текущая декада Д5 (стебель 辛, дворец жизни П8 Друзья, 2026–2035).</p>
   </div>
 
-  <div class="gold-rule"></div>
-
+  <!-- FOOTER -->
   <footer class="report-footer">
-    <div class="footer-brand">SuccessCode</div>
-    <div class="footer-note">Personal Analysis &nbsp;·&nbsp; Confidential &nbsp;·&nbsp; June 2026</div>
+    <div class="footer-brand">SuccessCode · ЦВДШ</div>
+    <div class="footer-meta">
+      Конфиденциальный клиентский анализ · Июнь 2026<br>
+      Не для распространения
+    </div>
   </footer>
 
 </div>
