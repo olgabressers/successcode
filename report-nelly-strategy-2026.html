@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  <title>Стратегия — Нелли 2026 · SuccessCode</title>
+  <title>Стратегия победы — Нелли 2026 · SuccessCode</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -16,86 +16,127 @@
     }
     *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
     html,body { max-width:100vw; width:100%; overflow-x:hidden; position:relative; }
+    html { scroll-behavior:smooth; }
     body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; font-size:14px; line-height:1.65; }
-    .page { width:100%; max-width:980px; margin:0 auto; padding:0 56px 80px; }
+    .page { width:100%; max-width:1060px; margin:0 auto; padding:0 56px 80px; }
 
-    .report-header { padding:52px 0 40px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-end; gap:40px; }
+    .report-header { padding:52px 0 44px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-end; gap:40px; }
+    .header-left { flex:1; }
     .brand { font-family:'Cormorant Garamond',serif; font-size:12px; font-weight:600; letter-spacing:6px; text-transform:uppercase; color:var(--gold); margin-bottom:24px; display:block; }
-    .report-title { font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:400; line-height:1.1; color:var(--text); margin-bottom:10px; }
+    .report-title { font-family:'Cormorant Garamond',serif; font-size:50px; font-weight:400; line-height:1.1; color:var(--text); margin-bottom:10px; }
     .report-title em { font-style:italic; color:var(--gold2); }
     .report-subtitle { font-size:13px; color:var(--muted); margin-top:8px; }
-    .header-right { text-align:right; flex-shrink:0; }
+    .header-right { text-align:right; flex-shrink:0; padding-bottom:4px; }
     .client-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
-    .client-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:500; color:var(--text); }
+    .client-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:500; color:var(--text); margin-bottom:4px; }
+    .client-meta { font-size:12px; color:var(--muted); line-height:1.6; }
 
-    .gold-rule { height:1px; background:linear-gradient(90deg,var(--gold) 0%,transparent 70%); margin:40px 0; }
+    .gold-rule { height:1px; background:linear-gradient(90deg,var(--gold) 0%,transparent 70%); margin:44px 0; }
     .sec-label { font-size:15px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:20px; display:flex; align-items:center; gap:14px; }
     .sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
-    .answer-card { background:white; border:1px solid var(--border2); padding:26px 30px; margin-bottom:18px; }
+    /* QUESTION BLOCKS */
+    .q-card { background:white; border:1px solid var(--border2); padding:28px 32px; margin-bottom:18px; }
+    .q-card.house { border-top:4px solid var(--green); }
+    .q-card.strat { border-top:4px solid var(--blue); }
+    .q-tag { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:12px; }
+    .quote-q { font-style:italic; color:var(--muted); font-size:14px; line-height:1.7; border-left:2px solid var(--border); padding-left:16px; margin-bottom:20px; }
+    .q-verdict { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; line-height:1.2; margin-bottom:16px; }
+    .q-card.house .q-verdict { color:var(--green); }
+    .q-card.strat .q-verdict { color:var(--blue); }
+    .q-body { font-size:14.5px; color:var(--dim); line-height:1.8; }
+    .q-body p + p { margin-top:14px; }
+    .q-body strong { color:var(--text); }
+
+    /* RECONCILE CALLOUT */
+    .reconcile { background:#FBF4E6; border:1px solid var(--gold); border-left:4px solid var(--gold2); padding:24px 30px; margin-bottom:18px; }
+    .reconcile-title { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--gold2); margin-bottom:14px; line-height:1.3; }
+    .reconcile p { font-size:14.5px; color:var(--dim); line-height:1.8; }
+    .reconcile p + p { margin-top:12px; }
+    .reconcile strong { color:var(--text); }
+
+    /* ANSWER CARDS (4) */
+    .answer-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .answer-card { background:white; border:1px solid var(--border2); padding:24px 26px; }
     .answer-card.win { border-top:4px solid var(--green); }
+    .answer-card.caution { border-top:4px solid #8a6000; }
     .answer-card.info { border-top:4px solid var(--blue); }
-    .answer-q { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:12px; }
-    .quote-q { font-style:italic; color:var(--muted); font-size:13.5px; line-height:1.7; border-left:2px solid var(--border); padding-left:14px; margin-bottom:18px; }
-    .answer-verdict { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; line-height:1.15; margin-bottom:14px; }
+    .answer-q { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:10px; }
+    .answer-verdict { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:600; line-height:1.1; margin-bottom:12px; }
     .answer-card.win .answer-verdict { color:var(--green); }
+    .answer-card.caution .answer-verdict { color:#8a6000; }
     .answer-card.info .answer-verdict { color:var(--blue); }
-    .ans-block { font-size:14px; color:var(--dim); line-height:1.7; }
-    .ans-block li { margin:0 0 9px 20px; }
-    .ans-block strong { color:var(--text); }
+    .answer-body { font-size:14px; color:var(--dim); line-height:1.7; }
+    .answer-body strong { color:var(--text); }
 
-    .finish-box { background:linear-gradient(135deg,#0f1f50 0%,#1A3060 100%); padding:30px 36px; color:white; }
-    .finish-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:14px; }
-    .finish-date { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:400; margin-bottom:12px; line-height:1.15; }
-    .finish-date span { color:rgba(184,136,42,1); }
-    .finish-body { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.7; }
-    .finish-body strong { color:white; }
+    /* PROBABILITY BARS */
+    .prob-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px 36px; }
+    .prob-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px; }
+    .prob-label { font-size:14px; color:var(--dim); font-weight:500; }
+    .prob-pct { font-family:'Cormorant Garamond',serif; font-size:28px; font-weight:400; color:var(--gold2); }
+    .prob-bar-bg { height:6px; background:var(--surface2); border-radius:3px; }
+    .prob-bar-fill { height:6px; border-radius:3px; background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 100%); }
+    .prob-note { font-size:13px; color:var(--muted); margin-top:8px; line-height:1.6; }
 
+    /* DATE BOX */
+    .date-box { background:linear-gradient(135deg,#0f1f50 0%,#1A3060 100%); padding:32px 36px; color:white; }
+    .date-box-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:16px; }
+    .date-box-date { font-family:'Cormorant Garamond',serif; font-size:38px; font-weight:400; color:white; margin-bottom:14px; line-height:1.15; }
+    .date-box-date span { color:rgba(184,136,42,1); }
+    .date-box-body { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.75; }
+    .date-box-body p + p { margin-top:10px; }
+    .date-box-body strong { color:white; }
+
+    /* TIMELINE */
     .timeline { display:flex; flex-direction:column; }
-    .tl-item { display:flex; gap:22px; align-items:flex-start; }
-    .tl-left { flex-shrink:0; width:160px; }
-    .tl-period { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600; color:var(--gold2); line-height:1.2; }
+    .tl-item { display:flex; gap:24px; align-items:flex-start; }
+    .tl-left { flex-shrink:0; width:175px; }
+    .tl-period { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:600; color:var(--gold2); line-height:1.2; }
     .tl-dates { font-size:12.5px; color:var(--muted); margin-top:3px; }
-    .tl-body { background:white; border:1px solid var(--border2); padding:16px 22px; flex:1; margin-bottom:12px; }
+    .tl-body { background:white; border:1px solid var(--border2); padding:18px 22px; flex:1; margin-bottom:12px; }
     .tl-body.peak { border-left:4px solid var(--green); }
     .tl-body.danger { border-left:4px solid var(--red); }
     .tl-body.neutral { border-left:4px solid #8a6000; }
-    .tl-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:600; margin-bottom:7px; }
+    .tl-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:600; margin-bottom:8px; }
     .tl-body.peak .tl-label { color:var(--green); }
     .tl-body.danger .tl-label { color:var(--red); }
     .tl-body.neutral .tl-label { color:#8a6000; }
-    .tl-text { font-size:13.5px; color:var(--dim); line-height:1.6; }
+    .tl-text { font-size:14px; color:var(--dim); line-height:1.65; }
     .tl-text strong { color:var(--text); }
 
-    .pillar-intro { font-size:13.5px; color:var(--dim); line-height:1.7; margin-bottom:20px; }
+    /* PILLARS */
+    .pillar-intro { font-size:14px; color:var(--dim); line-height:1.7; margin-bottom:22px; }
     .pillar-intro strong { color:var(--text); }
     .pillar-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .pillar { background:white; border:1px solid var(--border2); padding:22px 24px; }
+    .pillar { background:white; border:1px solid var(--border2); padding:24px 26px; }
     .pillar.legal { border-top:4px solid var(--blue); }
     .pillar.money { border-top:4px solid var(--green); }
     .pillar.child { border-top:4px solid #8a6000; }
-    .pillar-title { font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; margin-bottom:14px; line-height:1.2; }
+    .pillar-title { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; margin-bottom:16px; line-height:1.2; }
     .pillar.legal .pillar-title { color:var(--blue); }
     .pillar.money .pillar-title { color:var(--green); }
     .pillar.child .pillar-title { color:#8a6000; }
     .action-list { list-style:none; }
-    .action-list li { font-size:13px; color:var(--dim); padding:9px 0; border-bottom:1px solid var(--border2); line-height:1.5; }
+    .action-list li { font-size:13.5px; color:var(--dim); padding:10px 0; border-bottom:1px solid var(--border2); line-height:1.55; }
     .action-list li:last-child { border-bottom:none; }
-    .tag-act, .tag-obs { font-size:9px; letter-spacing:1px; text-transform:uppercase; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:6px; white-space:nowrap; }
+    .tag-act, .tag-obs { font-size:9px; letter-spacing:1px; text-transform:uppercase; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:7px; white-space:nowrap; }
     .tag-act { color:var(--green); background:rgba(26,80,38,0.10); }
     .tag-obs { color:var(--blue); background:rgba(26,48,96,0.09); }
 
-    .report-footer { padding:30px 0 24px; border-top:1px solid var(--border); margin-top:52px; }
+    .report-footer { padding:32px 0 24px; border-top:1px solid var(--border); margin-top:56px; }
     .footer-brand { font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
 
     @media (max-width:900px) {
       * { max-width:100vw; }
+      img,iframe,video,table { max-width:100% !important; }
       .page { padding:0 20px 60px; }
       .report-header { flex-direction:column; align-items:flex-start; gap:20px; padding:32px 0 28px; }
       .header-right { text-align:left; }
-      .report-title { font-size:32px; }
+      .report-title { font-size:34px; }
+      .answer-grid { grid-template-columns:1fr; }
+      .prob-grid { grid-template-columns:1fr; }
       .pillar-grid { grid-template-columns:1fr; }
-      .tl-item { flex-direction:column; gap:6px; }
+      .tl-item { flex-direction:column; gap:8px; }
       .tl-left { width:100%; }
     }
   </style>
@@ -104,64 +145,139 @@
 <div class="page">
 
   <header class="report-header">
-    <div>
-      <span class="brand">SuccessCode · Стратегия</span>
-      <h1 class="report-title">Развод 2026 —<br><em>что делать</em></h1>
-      <p class="report-subtitle">Её два вопроса · прямые ответы · план по месяцам</p>
+    <div class="header-left">
+      <span class="brand">SuccessCode · Совместный анализ</span>
+      <h1 class="report-title">Стратегия<br><em>победы</em></h1>
+      <p class="report-subtitle">Обе карты · Прямые ответы · Что делать дальше</p>
     </div>
     <div class="header-right">
       <div class="client-label">Клиент</div>
       <div class="client-name">Нелли</div>
+      <div class="client-meta">Совместный анализ двух карт<br>Фокус: 2026 · Слушание 16 июля</div>
     </div>
   </header>
 
   <div class="gold-rule"></div>
 
   <!-- HER TWO QUESTIONS -->
-  <div class="sec-label">Её вопросы — прямые ответы</div>
+  <div class="sec-label">Её два вопроса — прямые ответы</div>
 
-  <div class="answer-card win">
-    <div class="answer-q">Вопрос 1 · Дом</div>
-    <div class="quote-q">«Подавать ли в суд на единоличное проживание в доме с Гришей? Боюсь создать себе проблемы: если суд попросит его выехать — он начнёт настаивать на bird nesting, подаст на продажу дома или станет ещё жёстче с Гришей.»</div>
-    <div class="answer-verdict">Да — подавать. Если срок завтра — подавать завтра.</div>
-    <div class="ans-block">
-      <ul>
-        <li><strong>Дом — её самый сильный актив в 2026</strong> (≈80%). Подавать.</li>
-        <li><strong>Срок важнее идеального момента.</strong> Идеально подавать 14 июля, но если процессуальный срок истекает сейчас — подавать, не упуская. Упущенный срок не вернуть; его контр-ходы — обратимы.</li>
-        <li><strong>Решающий день — слушание 16 июля</strong>, и оно само попадает в её сильнейшее окно по дому. Дата подачи слабее этого не делает.</li>
-        <li><strong>Его угрозы по дому бьют по нему.</strong> Bird nesting и «продам дом» в его карте — слабая, рискованная для него самого зона. Давление через сына у него медленное, не мгновенное.</li>
-        <li><strong>Что сделать:</strong> подать как процессуальный шаг; основную линию держать на слушании 16 июля; ответ на его контр-ход (bird nesting / продажа) заготовить заранее, письменно.</li>
-      </ul>
+  <div class="q-card house">
+    <div class="q-tag">Вопрос 1 · Дом</div>
+    <div class="quote-q">«Сейчас надо решить (до 13 июля) — запрашивать ли суд, чтобы я одна жила в доме с Гришей. Не хочу создать себе больше проблем: если суд попросит его выехать, он будет настаивать на поочерёдном проживании, или подаст петицию на продажу дома, или станет ещё более неразумным с сыном.»</div>
+    <div class="q-verdict">Да, подавать. И если срок истекает завтра — подавать завтра.</div>
+    <div class="q-body">
+      <p>Дом — её самый сильный актив в этом году, и его нужно защищать. Подавать на единоличное проживание структурно правильно.</p>
+      <p>Здесь важно понимать одну вещь: <strong>упущенный процессуальный срок вернуть нельзя, а его ответные ходы — поочерёдное проживание или петиция о продаже дома — обратимы и оспоримы.</strong> Поэтому, если выбор стоит «подать завтра или потерять возможность», нужно подавать завтра. Потерянное право не восстановишь, а на его контр-ходы есть чем ответить.</p>
+      <p>При этом <strong>решающий момент — не дата подачи, а само слушание 16 июля</strong>, и оно приходится на её сильнейшее окно по дому. Поэтому подача в более раннюю дату ничего не портит: главный бой всё равно состоится 16 июля, когда её позиция максимально сильна.</p>
+      <p>Его угрозы продать дом структурно бьют прежде всего по нему самому — в его карте дом является слабым, уязвимым местом. А давление через сына у него медленное и затяжное, а не мгновенный удар, поэтому резкого ухудшения именно из-за подачи ждать не стоит.</p>
+      <p><strong>Что делать практически:</strong> подать заявление как процессуальный шаг, основную линию держать на слушании 16 июля, и заранее, в письменном виде, подготовить ответ на его вероятный контр-ход (поочерёдное проживание или продажа дома), чтобы не реагировать врасплох.</p>
     </div>
   </div>
 
-  <div class="answer-card info">
-    <div class="answer-q">Вопрос 2 · Сроки, измор, деньги, сын</div>
-    <div class="quote-q">«Хочу скорее закончить, но боюсь, что он меня "обчистит". Тянуть — не выдерживает здоровье и деньги уходят на юриста. Боюсь, не хватит сил, он возьмёт измором. Отношения с сыном очень усложнились.»</div>
-    <div class="answer-verdict">Пережить до октября — закрыть к январю.</div>
-    <div class="ans-block">
-      <ul>
-        <li><strong>Его измор НЕ бесконечен.</strong> Пик его давления — август–октябрь 2026. После этого его позиция слабеет. Ей не нужно держаться годами — только пережить эти 2–3 месяца без уступок.</li>
-        <li><strong>Деньги:</strong> финальное соглашение подписывать в ноябре или январе 2027 — не под его давлением в августе–октябре.</li>
-        <li><strong>Не дать уйти в 2027:</strong> 2027 — его сильнейший год по деньгам. Цель — закрыть к январю 2027.</li>
-        <li><strong>Сын:</strong> сдвиг к отцу — временный сигнал 2026 года, в 2027 он меняется сам. Не судиться за сына юридически в 2026 (затягивание выгодно ему) — зафиксировать конкретный график общения в мировом соглашении.</li>
-        <li><strong>Здоровье/ресурс:</strong> нужная поддержка, включая медицинскую, приходит в июле — это и опора для неё, и ответ на обвинение про лекарства.</li>
-      </ul>
+  <div class="reconcile">
+    <div class="reconcile-title">Важно: почему здесь сказано «подавать», а в двух других отчётах — «ждать до 14 июля»</div>
+    <p>Это не противоречие, а две разные ситуации — и важно их различать.</p>
+    <p><strong>Если есть свобода выбрать дату</strong> — идеально подать заявление 14 июля или сразу после. Тогда и подача, и слушание попадают в её сильнейшее окно по дому, и она не даёт ему лишнего повода. Именно об этом говорят два других отчёта, и в обычной ситуации это верно.</p>
+    <p><strong>Но если есть жёсткий процессуальный срок и подать нужно сейчас, иначе возможность теряется</strong> — тогда правило меняется, и подавать нужно сейчас. Причина простая: потерянное право вернуть нельзя, а его ответные ходы — поочерёдное проживание или продажа дома — можно оспорить и пережить. Да, ранняя подача может дать ему повод для давления (об этом и предупреждает его отчёт), но это давление обратимо, а упущенный срок — нет.</p>
+    <p><strong>И самое главное:</strong> решающий бой — это не дата подачи, а слушание 16 июля, и оно в любом случае остаётся в её сильнейшем окне по дому. Поэтому более ранняя подача не ослабляет её позицию на самом суде.</p>
+    <p><strong>Короче: идеальная дата подачи — 14 июля, но срок важнее идеальной даты.</strong> Если выбор стоит «подать сейчас или потерять возможность» — подавать сейчас.</p>
+  </div>
+
+  <div class="q-card strat">
+    <div class="q-tag">Вопрос 2 · Что дальше, сроки, измор, деньги, сын</div>
+    <div class="quote-q">«Хочу скорее расставить точки и разойтись, но ставки большие — не хочется, чтобы он меня "обчистил". С другой стороны, тянуть процесс — здоровье не выдерживает, и деньги уходят на юриста. Боюсь, не хватит денег и сил, и он возьмёт измором. И отношения с сыном очень усложнились.»</div>
+    <div class="q-verdict">Пережить его пик до октября — и закрыть к январю.</div>
+    <div class="q-body">
+      <p><strong>Главное про измор: он не бесконечен.</strong> Его максимальное давление приходится на август–октябрь 2026 года — это всего два-три месяца. После этого его позиция слабеет. Поэтому держаться годами не нужно — нужно пережить именно это окно, не уступив. Это меняет всё: задача не «выдержать бесконечно», а «продержаться до конца октября».</p>
+      <p><strong>Когда всё закончится:</strong> развод реалистично закрыть к январю 2027 года. Важно не дать ему растянуть процесс глубже в 2027-й — это его самый сильный финансовый год, и затягивание играет на него.</p>
+      <p><strong>Деньги:</strong> финальное соглашение подписывать в ноябре или в январе, а не под его давлением осенью. Под нажимом в августе–октябре не подписывать ничего.</p>
+      <p><strong>Сын:</strong> его отдаление — временное явление этого года, в 2027-м оно меняется само. Судиться за сына юридически сейчас не нужно: затягивание здесь выгодно именно ему. Правильнее закрепить конкретный график общения в мировом соглашении.</p>
+      <p><strong>Про её силы и здоровье:</strong> нужная поддержка, в том числе медицинская, приходит уже в июле. Это и опора для неё лично, и прямой ответ на обвинение про лекарства.</p>
     </div>
   </div>
 
   <div class="gold-rule"></div>
 
-  <!-- WHEN IT ENDS -->
-  <div class="sec-label">Когда закончится развод</div>
+  <!-- KEY OUTCOMES -->
+  <div class="sec-label">Ключевые исходы — оценка по обеим картам</div>
 
-  <div class="finish-box">
-    <div class="finish-label">Реалистичное окно завершения</div>
-    <div class="finish-date">Декабрь 2026 – <span>январь 2027</span></div>
-    <div class="finish-body">
-      <p><strong>Раньше — маловероятно:</strong> август–октябрь 2026 — пик его давления, в эти месяцы он не закрывает на её условиях.</p>
-      <p><strong>Оптимальное окно подписания — январь 2027:</strong> в этот месяц обе карты сходятся на закрытии — он сам мотивирован подписать.</p>
-      <p><strong>Позже — опасно:</strong> если процесс уходит вглубь 2027, это его сильнейший финансовый год. Главная задача по срокам — закрыть к январю 2027, не дать растянуть дальше.</p>
+  <div class="answer-grid">
+
+    <div class="answer-card win">
+      <div class="answer-q">Дом — выиграет ли она его</div>
+      <div class="answer-verdict">Да — 80%</div>
+      <div class="answer-body">
+        Дом — самый защищённый актив её карты в 2026 году, и эта поддержка держится всю декаду вперёд. Главное окно — неделя с 14 июля, и слушание 16 июля попадает ровно в его центр. У него же дом — структурно слабое место, поэтому его угрозы «продам дом» рискованны прежде всего для него самого.
+      </div>
+    </div>
+
+    <div class="answer-card win">
+      <div class="answer-q">Обвинение про лекарства / депрессию</div>
+      <div class="answer-verdict">Опровержимо — 78%</div>
+      <div class="answer-body">
+        В её карте нет основы для клинической депрессии — наоборот, склад характера решительный, собранный, финансово трезвый. Стресс есть, но стресс — это не депрессия. В июле появляется нужный человек в медицине, который поможет получить независимое заключение. Это и есть прямой ответ на обвинение.
+      </div>
+    </div>
+
+    <div class="answer-card info">
+      <div class="answer-q">Когда всё завершится</div>
+      <div class="answer-verdict">Янв. 2027</div>
+      <div class="answer-body">
+        Лучшее окно для финального соглашения — январь 2027 года: в этот момент он сам максимально мотивирован закрыть вопрос на приемлемых условиях. Главный риск — не дать процессу уйти глубже в 2027 год, потому что это его самый сильный финансовый период.
+      </div>
+    </div>
+
+    <div class="answer-card caution">
+      <div class="answer-q">Его пик давления</div>
+      <div class="answer-verdict">Авг – окт</div>
+      <div class="answer-body">
+        Его максимальное давление приходится на август–октябрь 2026 года, когда он давит сильнее всего по деньгам. Но это пик, а не постоянная сила: уже к концу октября его позиция слабеет. Задача — пережить август–октябрь, не уступив по дому. После этого его рычаг ослабевает.
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- JULY 16 -->
+  <div class="sec-label">Слушание 16 июля — обе стороны</div>
+
+  <div class="date-box">
+    <div class="date-box-label">Слушание об алиментах на период развода</div>
+    <div class="date-box-date">16 июля 2026 · <span>16:15</span></div>
+    <div class="date-box-body">
+      <p><strong>Для неё это структурно самый сильный момент 2026 года по дому.</strong> Поддержка по дому в этот период максимальна, и одновременно появляется нужная медицинская поддержка — прямой ответ на обвинение про лекарства.</p>
+      <p><strong>Для него этот месяц силён по деньгам, но не по дому.</strong> Он будет давить именно на финансовую часть. Поэтому ей нельзя уступать дом ради «мира по деньгам».</p>
+      <p><strong>Оба входят в июль с силой, но в разных направлениях.</strong> Её сила — дом. Его сила — деньги. Эти две темы нельзя смешивать: уступка по одной не должна обмениваться на другую.</p>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- PROBABILITIES -->
+  <div class="sec-label">Оценка шансов</div>
+
+  <div class="prob-grid">
+    <div class="prob-item">
+      <div class="prob-header"><span class="prob-label">Общий исход развода в её пользу</span><span class="prob-pct">70–75%</span></div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:72%"></div></div>
+      <div class="prob-note">Её карта структурно выигрывает в правовых столкновениях — в прошлом три из трёх. Юридическое трение в этом году смягчается в её пользу.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header"><span class="prob-label">Сохранение дома</span><span class="prob-pct">80%</span></div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:80%"></div></div>
+      <div class="prob-note">Сразу несколько независимых факторов поддерживают дом. У него дом — слабое место, поэтому его угрозы по дому бьют по нему самому.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header"><span class="prob-label">Опровержение обвинения про лекарства</span><span class="prob-pct">78%</span></div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:78%"></div></div>
+      <div class="prob-note">Её склад характера — решительный, не депрессивный. Нужный медицинский специалист появляется в июле.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header"><span class="prob-label">Финансовое закрытие к началу 2027</span><span class="prob-pct">55%</span></div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:55%"></div></div>
+      <div class="prob-note">Январь 2027 — окно, когда он сам готов закрыть вопрос. Если пережить его пик августа–октября без капитуляции, он готов договориться на приемлемых условиях.</div>
     </div>
   </div>
 
@@ -173,42 +289,58 @@
   <div class="timeline">
 
     <div class="tl-item">
-      <div class="tl-left"><div class="tl-period">Сейчас – 14 июля</div><div class="tl-dates">до слушания</div></div>
+      <div class="tl-left"><div class="tl-period">Сейчас – 14 июля</div><div class="tl-dates">подготовка и подача</div></div>
       <div class="tl-body neutral">
-        <div class="tl-label">Подача</div>
-        <div class="tl-text"><strong>Подать на единоличное проживание.</strong> Если срок поджимает — подавать сейчас, не дожидаясь 14 июля. Никаких уступок по дому.</div>
+        <div class="tl-label">Подача заявления</div>
+        <div class="tl-text">Это неделя подготовки документов. <strong>Если процессуальный срок на подачу истекает сейчас — подавать, не дожидаясь 14 июля:</strong> упущенный срок вернуть нельзя. Если же срок позволяет, идеально подать 14 июля или сразу после. По дому в эти дни не уступать.</div>
       </div>
     </div>
 
     <div class="tl-item">
       <div class="tl-left"><div class="tl-period">14 июля – 11 авг</div><div class="tl-dates">слушание 16 июля</div></div>
       <div class="tl-body peak">
-        <div class="tl-label">Её пик по дому</div>
-        <div class="tl-text"><strong>Держать дом твёрдо на слушании 16 июля</strong> — сильнейшее окно года. Не уступать дом ради «мира по деньгам».</div>
+        <div class="tl-label">Её сильнейшее окно по дому</div>
+        <div class="tl-text"><strong>Подать заявление о единоличном проживании 14 июля или позже</strong> (если оно ещё не подано по сроку), и твёрдо держать линию по дому на слушании. Это её самое сильное окно года. Не уступать дом ни под каким предлогом.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left"><div class="tl-period">11 авг – 8 окт</div><div class="tl-dates">его пик давления</div></div>
+      <div class="tl-left"><div class="tl-period">11 авг – 10 сен</div><div class="tl-dates">начало его пика</div></div>
       <div class="tl-body danger">
-        <div class="tl-label">Его пик давления — держать позицию</div>
-        <div class="tl-text"><strong>Ничего не подписывать.</strong> Это его сильнейшее окно по деньгам. На давление отвечать документами, не эмоциями. Опека по Грише всплывёт здесь — документы готовы заранее.</div>
+        <div class="tl-label">Его давление по деньгам растёт</div>
+        <div class="tl-text">Начинается его пик по деньгам, при этом сам процесс для неё идёт гладко. <strong>Не уступать, закреплять достигнутое, на денежное давление отвечать документами, а не эмоциями.</strong></div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left"><div class="tl-period">8 окт – 7 ноя</div><div class="tl-dates">его спад</div></div>
-      <div class="tl-body peak">
-        <div class="tl-label">Его слабое окно — её ход</div>
-        <div class="tl-text"><strong>Его денежная стратегия спотыкается.</strong> Хорошее время для её финансовых инициатив — после того как пик августа–октября пережит.</div>
+      <div class="tl-left"><div class="tl-period">10 сен – 8 окт</div><div class="tl-dates">пик по деньгам и опеке</div></div>
+      <div class="tl-body danger">
+        <div class="tl-label">Его максимум давления; всплывает тема сына</div>
+        <div class="tl-text">Это пик его давления по деньгам, и одновременно на первый план выходят вопросы по сыну. <strong>Все документы — расписание, школа, медицина — должны быть готовы заранее, до начала сентября.</strong> Ничего не подписывать под нажимом.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left"><div class="tl-period">Ноя 2026 – янв 2027</div><div class="tl-dates">окно закрытия</div></div>
+      <div class="tl-left"><div class="tl-period">8 окт – 7 ноя</div><div class="tl-dates">его слабое окно</div></div>
       <div class="tl-body peak">
-        <div class="tl-label">Окно закрытия</div>
-        <div class="tl-text"><strong>Подписывать финансовое соглашение здесь.</strong> Ноябрь и январь 2027 — лучшие окна для финального соглашения. Цель — закрыть к январю.</div>
+        <div class="tl-label">Его стратегия даёт сбой</div>
+        <div class="tl-text">Его денежная стратегия в этот период спотыкается — это окно его относительной слабости после двух пиковых месяцев. <strong>Хорошее время для её финансовых инициатив</strong>, если август–октябрь пережиты без уступок.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-period">7 ноя – 6 дек</div><div class="tl-dates">её сильный финансовый месяц</div></div>
+      <div class="tl-body peak">
+        <div class="tl-label">Окно для денежных договорённостей</div>
+        <div class="tl-text">Её сильный месяц для финансовых соглашений. <strong>Хорошее время выходить на подписание денежной части</strong>, если условия приемлемы.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-left"><div class="tl-period">5 янв – 4 фев 2027</div><div class="tl-dates">финальное закрытие</div></div>
+      <div class="tl-body peak">
+        <div class="tl-label">Лучшее общее окно для соглашения</div>
+        <div class="tl-text"><strong>Обе стороны структурно готовы к закрытию.</strong> Это лучший общий момент для мирового соглашения за весь период. Цель — закрыть развод к этому времени, не растягивая дальше в 2027 год.</div>
       </div>
     </div>
 
@@ -220,7 +352,7 @@
   <div class="sec-label">Три фронта — что делать</div>
 
   <div class="pillar-intro">
-    Борьба идёт по трём направлениям одновременно. По каждому — своя тактика. Метки: <span class="tag-act">действие</span> — что конкретно сделать; <span class="tag-obs">факт</span> — что иметь в виду (наблюдение из карты, не требует действия).
+    Борьба идёт по трём направлениям одновременно, и по каждому нужна своя тактика. Метки помогают не путать: <span class="tag-act">действие</span> — это то, что нужно конкретно сделать; <span class="tag-obs">факт</span> — это то, что просто важно иметь в виду (наблюдение, не требующее действия).
   </div>
 
   <div class="pillar-grid">
@@ -228,31 +360,32 @@
     <div class="pillar legal">
       <div class="pillar-title">Суд</div>
       <ul class="action-list">
-        <li><span class="tag-act">действие</span> Подать на единоличное проживание; если срок завтра — подавать завтра.</li>
-        <li><span class="tag-act">действие</span> На слушании 16 июля держать дом твёрдо.</li>
-        <li><span class="tag-act">действие</span> Всё вести письменно и с документами; устные споры с ним не вести.</li>
-        <li><span class="tag-act">действие</span> Принести независимое медицинское заключение (ответ на обвинение про лекарства и вождение).</li>
-        <li><span class="tag-obs">факт</span> Его провокации усилятся в августе–октябре — рассчитаны на её эмоции.</li>
+        <li><span class="tag-act">действие</span> Подать заявление о единоличном проживании 14 июля или позже. Но если процессуальный срок истекает раньше — подавать сразу, не упуская срок.</li>
+        <li><span class="tag-act">действие</span> Строить дело на том, что с ней ребёнку спокойнее и стабильнее, а не на нападках на отца. Спокойная позиция «о ребёнке» сильнее обвинений.</li>
+        <li><span class="tag-act">действие</span> Всё вести письменно и с документами. В устные споры с ним не вступать — на бумаге её позиция сильнее.</li>
+        <li><span class="tag-act">действие</span> Принести независимое медицинское заключение — это прямой ответ на обвинение про лекарства и вождение.</li>
+        <li><span class="tag-obs">факт</span> Его атаки в августе–октябре рассчитаны на её эмоциональную реакцию. Зная это заранее, легче не поддаться на провокацию.</li>
       </ul>
     </div>
 
     <div class="pillar money">
       <div class="pillar-title">Деньги</div>
       <ul class="action-list">
-        <li><span class="tag-act">действие</span> Финансовое соглашение подписывать в ноябре или январе 2027 — не раньше.</li>
-        <li><span class="tag-act">действие</span> В августе–октябре под его давлением не подписывать ничего.</li>
-        <li><span class="tag-act">действие</span> Любой финансовый документ — независимая юр.проверка до подписи.</li>
-        <li><span class="tag-obs">факт</span> 2027 — его сильнейший год по деньгам. Не дать процессу уйти туда.</li>
+        <li><span class="tag-act">действие</span> Финансовое соглашение подписывать в ноябре 2026 или январе 2027 — не раньше.</li>
+        <li><span class="tag-act">действие</span> В августе–октябре, на его пике давления, не подписывать ничего.</li>
+        <li><span class="tag-act">действие</span> Любой финансовый документ перед подписью проверять у независимого юриста.</li>
+        <li><span class="tag-act">действие</span> Требования по алиментам зафиксировать на слушании 16 июля — в самое сильное для неё окно.</li>
+        <li><span class="tag-obs">факт</span> 2027 год — его самый сильный по деньгам. Поэтому важно закрыть всё до него и не дать процессу туда уйти.</li>
       </ul>
     </div>
 
     <div class="pillar child">
       <div class="pillar-title">Сын</div>
       <ul class="action-list">
-        <li><span class="tag-obs">факт</span> Сдвиг сына к отцу в 2026 — временный (сигнал этого года), в 2027 меняется. Не паниковать.</li>
-        <li><span class="tag-act">действие</span> Не судиться за сына юридически в 2026 — зафиксировать график общения в мировом соглашении.</li>
-        <li><span class="tag-act">действие</span> Собрать документы (расписание, школа, медицина) до сентября.</li>
-        <li><span class="tag-act">действие</span> Не втягивать сына в спор; держать спокойный, стабильный контакт.</li>
+        <li><span class="tag-obs">факт</span> Сдвиг сына в сторону отца в 2026 году — временный: это влияние именно этого года, и в 2027-м динамика меняется сама. Это не постоянная потеря отношений, и паниковать не нужно.</li>
+        <li><span class="tag-act">действие</span> Не судиться за сына юридически в 2026 году — затягивание здесь выгодно ему. Вместо этого зафиксировать конкретный график общения в мировом соглашении.</li>
+        <li><span class="tag-act">действие</span> Собрать и держать наготове документы — расписание, участие в школе и медицине — к началу сентября.</li>
+        <li><span class="tag-act">действие</span> Не втягивать сына в правовой спор и сохранять с ним спокойный, стабильный контакт.</li>
       </ul>
     </div>
 
