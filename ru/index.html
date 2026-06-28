@@ -410,6 +410,20 @@
     }
     .cta-input::placeholder { color: var(--muted); }
     .cta-input:focus { border-bottom-color: var(--gold); }
+    .cta-input:invalid:not(:placeholder-shown) { border-bottom-color: #d96b5a; }
+    .cta-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(226,228,236,.20);
+      font-size: 14px; color: var(--white);
+      padding: 20px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+      resize: vertical;
+      min-height: 70px;
+      line-height: 1.6;
+    }
+    .cta-textarea::placeholder { color: var(--muted); }
+    .cta-textarea:focus { border-bottom-color: var(--gold); }
     .cta-submit {
       margin-top: 36px; align-self: flex-start;
       background: var(--gold); color: #f5f1eb; border: none; cursor: pointer;
@@ -695,9 +709,9 @@
   <div class="side-label">Код успеха · Главное</div>
   <div class="manifesto-body">
     <h2 class="manifesto-h2">
-      Решения принимаются ежедневно.<br>
-      <strong>Понимания собственной</strong><br>
-      <strong>структуры — нет.</strong>
+      Главные решения жизни — каждый день.<br>
+      <strong>Без карты,</strong><br>
+      <strong>по которой их принимать.</strong>
     </h2>
     <div class="manifesto-cols">
       <p>Карьера, деньги, переезд, партнёр, здоровье, время важных шагов. Каждый человек принимает ключевые решения, опираясь на общие советы, интуицию или мнение тех, кто не знает его персональной карты. Цена этих решений — годы жизни. <strong>Со знанием своей карты те же самые решения принимаются точнее, успешнее и приводят к гораздо более счастливой жизни.</strong></p>
@@ -749,8 +763,8 @@
       </div>
     </div>
     <div class="emperor-portrait">
-      <img src="images/emperor-yongle.jpg" alt="Император Юнлэ династии Мин" loading="lazy">
-      <div class="emperor-portrait-caption">Император Юнлэ · Династия Мин<br>1360 — 1424</div>
+      <img src="images/temple-of-heaven.jpg" alt="Храм Неба, Пекин" loading="lazy">
+      <div class="emperor-portrait-caption">Храм Неба · Пекин<br>Императорский ритуальный комплекс</div>
     </div>
   </div>
 </section>
@@ -942,7 +956,14 @@
     <form class="cta-fields" action="https://formspree.io/f/xaqkqweb" method="POST">
       <input class="cta-input" type="text"  name="name"  placeholder="ВАШЕ ИМЯ" required>
       <input class="cta-input" type="email" name="email" placeholder="EMAIL" required>
-      <input class="cta-input" type="tel"   name="phone" placeholder="ТЕЛЕФОН / WHATSAPP" required>
+      <input class="cta-input" type="tel"   name="phone"
+             placeholder="ТЕЛЕФОН С КОДОМ СТРАНЫ · +7 999 123 45 67"
+             pattern="^\+[0-9][0-9 \-()]{6,}$"
+             title="Укажите номер с кодом страны, начинающимся с +. Например: +31 6 12345678"
+             required>
+      <textarea class="cta-textarea" name="message"
+                placeholder="ВАШ ВОПРОС ИЛИ ТЕМА (НЕОБЯЗАТЕЛЬНО)"
+                maxlength="1000"></textarea>
       <input type="hidden" name="source" value="booking">
 
       <div class="consent-row">
