@@ -2,13 +2,6 @@
 // Included by zwds.html and zwds-alena.html
 // Edit here once; both pages update automatically.
 
-// ── Palace name label ordering: show English name first, then P-number + Chinese below ──
-(function() {
-  var s = document.createElement('style');
-  s.textContent = '.p-num { order: 2; } .p-name-cn { order: 3; }';
-  (document.head || document.documentElement).appendChild(s);
-})();
-
 // IANA-based UTC offset for a given birth location + date
 function __computeUtcOffset(lat, lon, dateStr, timeStr) {
   if (typeof tzlookup !== 'function') return null;
