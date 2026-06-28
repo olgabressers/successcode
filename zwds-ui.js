@@ -569,11 +569,31 @@ function __tzCorrect(i) {
     '癸': { Lu: 'Po Jun',      Quan: 'Ju Men',     Ke: 'Tai Yin',    Ji: 'Tan Lang'  }
   };
 
-  var STEMS  = '甲乙丙丁戊己庚辛壬癸';
+  var STEMS    = '甲乙丙丁戊己庚辛壬癸';
+  var BRANCHES = '子丑寅卯辰巳午未申酉戌亥';
   var COLORS = { Lu: '#166020', Quan: '#1020b8', Ke: '#a08000', Ji: '#aa1010' };
   var NS     = 'http://www.w3.org/2000/svg';
   var _lastOutDraw = 0;
   var _timer2 = null;
+
+  // Branch index (子=0 … 亥=11) read from a palace cell's .p-branch span
+  function __branchIdxOf(cell) {
+    var be = cell.querySelector('.p-branch');
+    if (!be) return -1;
+    var t = be.textContent.trim();
+    for (var i = 0; i < t.length; i++) {
+      var k = BRANCHES.indexOf(t.charAt(i));
+      if (k !== -1) return k;
+    }
+    return -1;
+  }
+
+  // Two palaces are opposite (對宮 / axis partners) when their branches are 6 apart
+  function __isOpposite(a, b) {
+    var ia = __branchIdxOf(a), ib = __branchIdxOf(b);
+    if (ia < 0 || ib < 0) return false;
+    return (ia + 6) % 12 === ib;
+  }
 
   function __palCell(el) {
     var e = el;
@@ -764,10 +784,12 @@ function __tzCorrect(i) {
     return map;
   }
 
-  // Draw the FULL natal palace-stem flying-out map automatically (North-school 飛化).
-  // Every palace's heavenly stem flies its 4 enhancers (Lu/Quan/Ke/Ji) onto the
-  // palaces holding the target stars. Self-transformations (target star in the same
-  // palace) are already shown by the engine as a ↺ loop, so they are skipped here.
+  // Draw the natal OPPOSITE-PALACE flying-out arrows (對宮飛化) automatically.
+  // For each palace, if its heavenly stem flies an enhancer (Lu/Quan/Ke/Ji) onto a
+  // star sitting in the OPPOSITE (axis-partner) palace, draw that arrow. These are
+  // the structurally significant axis flights; the count varies per chart.
+  // Self-transformations (↺) and natal year-stem badges are already shown by the
+  // engine and are left untouched here.
   function __drawAll() {
     var co = document.getElementById('chart-output');
     if (!co) return;
@@ -808,6 +830,7 @@ function __tzCorrect(i) {
         if (!starName) return;
         var tCell = starMap[starName];
         if (!tCell || tCell === src) return;   // self → engine ↺ badge, skip
+        if (!__isOpposite(src, tCell)) return; // only 對宮 (opposite-palace) flights
 
         var tRect = tCell.getBoundingClientRect();
         var tx = tRect.left + scrollX + tRect.width  / 2;
@@ -854,16 +877,26 @@ function __tzCorrect(i) {
     _lastOutDraw = Date.now();
   }
 
-  // Auto-draw of the natal flying-out map is DISABLED. The previous build drew
-  // every palace's 4 flights (~43 arrows) which is not the intended display.
-  // The correct natal subset (self-transformations + the specific 飞化 arrows the
-  // North-school chart shows) is being re-derived before re-enabling. Keep the
-  // chart clean on plot in the meantime.
+  function __scheduleAll() {
+    clearTimeout(_timer2);
+    _timer2 = setTimeout(__drawAll, 60);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     var co = document.getElementById('chart-output');
+
+    // Auto-draw the opposite-palace flying-out arrows whenever the chart (re)renders.
     if (co) {
-      new MutationObserver(function() { __clearOut(); })
-        .observe(co, { childList: true, subtree: true });
+      new MutationObserver(function() {
+        if (Date.now() - _lastOutDraw < 300) return;   // ignore our own svg append/clear
+        __scheduleAll();
+      }).observe(co, { childList: true, subtree: true });
     }
+
+    // Coordinates change on resize → redraw.
+    window.addEventListener('resize', __scheduleAll);
+
+    // Draw immediately if a chart is already present on load.
+    if (co && co.querySelectorAll('.palace-cell').length >= 12) __scheduleAll();
   });
 })();
