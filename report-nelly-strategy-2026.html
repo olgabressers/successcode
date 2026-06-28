@@ -5,359 +5,210 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  <title>Стратегия победы — Нелли 2026 · SuccessCode</title>
+  <title>Стратегия — Нелли 2026 · SuccessCode</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:       #F7F5F0;
-      --surface:  #EDEBE4;
-      --surface2: #E5E2D8;
-      --gold:     #9A6E20;
-      --gold2:    #B8882A;
-      --goldfade: rgba(154,110,32,0.09);
-      --text:     #1A1820;
-      --dim:      #383644;
-      --muted:    #72707E;
-      --border:   rgba(154,110,32,0.22);
-      --border2:  rgba(30,28,40,0.10);
-      --red:      #7A1E1E;
-      --green:    #1A5026;
-      --blue:     #1A3060;
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
+      --text:#1A1820; --dim:#383644; --muted:#72707E; --border:rgba(154,110,32,0.22);
+      --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026; --blue:#1A3060;
     }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
-    .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html,body { max-width:100vw; width:100%; overflow-x:hidden; position:relative; }
+    body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased; font-size:14px; line-height:1.65; }
+    .page { width:100%; max-width:980px; margin:0 auto; padding:0 56px 80px; }
 
-    /* HEADER */
-    .report-header { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
-    .header-left { flex: 1; }
-    .brand { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
-    .report-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
-    .report-title em { font-style: italic; color: var(--gold2); }
-    .report-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
-    .header-right { text-align: right; flex-shrink: 0; padding-bottom: 4px; }
-    .client-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
-    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
-    .client-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .report-header { padding:52px 0 40px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:flex-end; gap:40px; }
+    .brand { font-family:'Cormorant Garamond',serif; font-size:12px; font-weight:600; letter-spacing:6px; text-transform:uppercase; color:var(--gold); margin-bottom:24px; display:block; }
+    .report-title { font-family:'Cormorant Garamond',serif; font-size:48px; font-weight:400; line-height:1.1; color:var(--text); margin-bottom:10px; }
+    .report-title em { font-style:italic; color:var(--gold2); }
+    .report-subtitle { font-size:13px; color:var(--muted); margin-top:8px; }
+    .header-right { text-align:right; flex-shrink:0; }
+    .client-label { font-size:10px; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+    .client-name { font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:500; color:var(--text); }
 
-    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
+    .gold-rule { height:1px; background:linear-gradient(90deg,var(--gold) 0%,transparent 70%); margin:40px 0; }
+    .sec-label { font-size:15px; letter-spacing:3px; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:20px; display:flex; align-items:center; gap:14px; }
+    .sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
 
-    .sec-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
-    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .answer-card { background:white; border:1px solid var(--border2); padding:26px 30px; margin-bottom:18px; }
+    .answer-card.win { border-top:4px solid var(--green); }
+    .answer-card.info { border-top:4px solid var(--blue); }
+    .answer-q { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); font-weight:600; margin-bottom:12px; }
+    .quote-q { font-style:italic; color:var(--muted); font-size:13.5px; line-height:1.7; border-left:2px solid var(--border); padding-left:14px; margin-bottom:18px; }
+    .answer-verdict { font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; line-height:1.15; margin-bottom:14px; }
+    .answer-card.win .answer-verdict { color:var(--green); }
+    .answer-card.info .answer-verdict { color:var(--blue); }
+    .ans-block { font-size:14px; color:var(--dim); line-height:1.7; }
+    .ans-block li { margin:0 0 9px 20px; }
+    .ans-block strong { color:var(--text); }
 
-    /* ANSWER CARDS */
-    .answer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .answer-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
-    .answer-card.win { border-top: 4px solid var(--green); }
-    .answer-card.caution { border-top: 4px solid #8a6000; }
-    .answer-card.critical { border-top: 4px solid var(--red); }
-    .answer-card.info { border-top: 4px solid var(--blue); }
-    .answer-q { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 10px; }
-    .answer-verdict { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1.1; margin-bottom: 12px; }
-    .answer-card.win .answer-verdict { color: var(--green); }
-    .answer-card.caution .answer-verdict { color: #8a6000; }
-    .answer-card.critical .answer-verdict { color: var(--red); }
-    .answer-card.info .answer-verdict { color: var(--blue); }
-    .answer-body { font-size: 14px; color: var(--dim); line-height: 1.7; }
-    .answer-body strong { color: var(--text); }
+    .finish-box { background:linear-gradient(135deg,#0f1f50 0%,#1A3060 100%); padding:30px 36px; color:white; }
+    .finish-label { font-size:10px; letter-spacing:4px; text-transform:uppercase; color:rgba(255,255,255,0.55); margin-bottom:14px; }
+    .finish-date { font-family:'Cormorant Garamond',serif; font-size:34px; font-weight:400; margin-bottom:12px; line-height:1.15; }
+    .finish-date span { color:rgba(184,136,42,1); }
+    .finish-body { font-size:14px; color:rgba(255,255,255,0.85); line-height:1.7; }
+    .finish-body strong { color:white; }
 
-    /* TECH NOTE */
-    .tech-note { background: rgba(30,28,40,0.035); border: 1px dashed var(--border2); border-left: 2px solid var(--gold); padding: 12px 16px; margin-top: 16px; }
-    .tn-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
-    .tn-body { font-size: 13px; line-height: 1.6; color: var(--muted); }
-    .tn-body em { color: var(--red); font-style: normal; font-weight: 600; }
+    .timeline { display:flex; flex-direction:column; }
+    .tl-item { display:flex; gap:22px; align-items:flex-start; }
+    .tl-left { flex-shrink:0; width:160px; }
+    .tl-period { font-family:'Cormorant Garamond',serif; font-size:17px; font-weight:600; color:var(--gold2); line-height:1.2; }
+    .tl-dates { font-size:12.5px; color:var(--muted); margin-top:3px; }
+    .tl-body { background:white; border:1px solid var(--border2); padding:16px 22px; flex:1; margin-bottom:12px; }
+    .tl-body.peak { border-left:4px solid var(--green); }
+    .tl-body.danger { border-left:4px solid var(--red); }
+    .tl-body.neutral { border-left:4px solid #8a6000; }
+    .tl-label { font-size:10px; letter-spacing:2px; text-transform:uppercase; font-weight:600; margin-bottom:7px; }
+    .tl-body.peak .tl-label { color:var(--green); }
+    .tl-body.danger .tl-label { color:var(--red); }
+    .tl-body.neutral .tl-label { color:#8a6000; }
+    .tl-text { font-size:13.5px; color:var(--dim); line-height:1.6; }
+    .tl-text strong { color:var(--text); }
 
-    /* PROBABILITY BARS */
-    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
-    .prob-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
-    .prob-label { font-size: 14px; color: var(--dim); font-weight: 500; }
-    .prob-pct { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400; color: var(--gold2); }
-    .prob-bar-bg { height: 6px; background: var(--surface2); border-radius: 3px; }
-    .prob-bar-fill { height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%); }
-    .prob-note { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.6; }
+    .pillar-intro { font-size:13.5px; color:var(--dim); line-height:1.7; margin-bottom:20px; }
+    .pillar-intro strong { color:var(--text); }
+    .pillar-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .pillar { background:white; border:1px solid var(--border2); padding:22px 24px; }
+    .pillar.legal { border-top:4px solid var(--blue); }
+    .pillar.money { border-top:4px solid var(--green); }
+    .pillar.child { border-top:4px solid #8a6000; }
+    .pillar-title { font-family:'Cormorant Garamond',serif; font-size:21px; font-weight:600; margin-bottom:14px; line-height:1.2; }
+    .pillar.legal .pillar-title { color:var(--blue); }
+    .pillar.money .pillar-title { color:var(--green); }
+    .pillar.child .pillar-title { color:#8a6000; }
+    .action-list { list-style:none; }
+    .action-list li { font-size:13px; color:var(--dim); padding:9px 0; border-bottom:1px solid var(--border2); line-height:1.5; }
+    .action-list li:last-child { border-bottom:none; }
+    .tag-act, .tag-obs { font-size:9px; letter-spacing:1px; text-transform:uppercase; font-weight:700; padding:1px 6px; border-radius:3px; margin-right:6px; white-space:nowrap; }
+    .tag-act { color:var(--green); background:rgba(26,80,38,0.10); }
+    .tag-obs { color:var(--blue); background:rgba(26,48,96,0.09); }
 
-    /* TIMELINE */
-    .timeline { display: flex; flex-direction: column; gap: 0; }
-    .tl-item { display: flex; gap: 24px; align-items: flex-start; }
-    .tl-left { flex-shrink: 0; width: 180px; }
-    .tl-period { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 600; color: var(--gold2); line-height: 1.2; }
-    .tl-dates { font-size: 13px; color: var(--muted); margin-top: 3px; }
-    .tl-line { width: 2px; background: var(--border); flex-shrink: 0; margin: 4px 0; }
-    .tl-body { background: white; border: 1px solid var(--border2); padding: 18px 22px; flex: 1; margin-bottom: 12px; }
-    .tl-body.peak { border-left: 4px solid var(--green); }
-    .tl-body.danger { border-left: 4px solid var(--red); }
-    .tl-body.neutral { border-left: 4px solid #8a6000; }
-    .tl-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
-    .tl-body.peak .tl-label { color: var(--green); }
-    .tl-body.danger .tl-label { color: var(--red); }
-    .tl-body.neutral .tl-label { color: #8a6000; }
-    .tl-text { font-size: 14px; color: var(--dim); line-height: 1.65; }
-    .tl-text strong { color: var(--text); }
+    .report-footer { padding:30px 0 24px; border-top:1px solid var(--border); margin-top:52px; }
+    .footer-brand { font-family:'Cormorant Garamond',serif; font-size:13px; color:var(--muted); letter-spacing:2px; text-transform:uppercase; }
 
-    /* STRATEGY PILLARS */
-    .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .pillar { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
-    .pillar.legal { border-top: 4px solid var(--blue); }
-    .pillar.money { border-top: 4px solid var(--green); }
-    .pillar.child { border-top: 4px solid #8a6000; }
-    .pillar-icon { font-size: 24px; margin-bottom: 12px; }
-    .pillar-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; margin-bottom: 14px; line-height: 1.2; }
-    .pillar.legal .pillar-title { color: var(--blue); }
-    .pillar.money .pillar-title { color: var(--green); }
-    .pillar.child .pillar-title { color: #8a6000; }
-    .action-list { list-style: none; }
-    .action-list li { font-size: 13px; color: var(--dim); padding: 7px 0; border-bottom: 1px solid var(--border2); line-height: 1.55; display: flex; gap: 10px; }
-    .action-list li:last-child { border-bottom: none; }
-    .action-list .marker { flex-shrink: 0; font-weight: 600; color: var(--gold); }
-
-    /* DATE BOX */
-    .date-box { background: linear-gradient(135deg, #0f1f50 0%, #1A3060 100%); padding: 32px 36px; color: white; margin-bottom: 20px; }
-    .date-box-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
-    .date-box-date { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 400; color: white; margin-bottom: 10px; line-height: 1.15; }
-    .date-box-date span { color: rgba(184,136,42,1); }
-    .date-box-body { font-size: 14px; color: rgba(255,255,255,0.82); line-height: 1.7; }
-    .date-box-body p + p { margin-top: 8px; }
-    .date-mechs { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .date-mech-tag { font-size: 12px; background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); color: rgba(255,255,255,0.85); padding: 4px 10px; letter-spacing: 1px; }
-
-    /* INTRO BLOCK */
-    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
-    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
-    .intro-block p + p { margin-top: 14px; }
-    .intro-block strong { color: var(--text); }
-
-    /* FOOTER */
-    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
-    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
-
-    /* MOBILE */
-    @media (max-width: 900px) {
-      * { max-width: 100vw; }
-      img, iframe, video, table { max-width: 100% !important; }
-      .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
-      .page { padding: 0 20px 60px; }
-      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
-      .header-right { text-align: left; }
-      .report-title { font-size: 34px; }
-      .answer-grid { grid-template-columns: 1fr; }
-      .prob-grid { grid-template-columns: 1fr; }
-      .pillar-grid { grid-template-columns: 1fr; }
-      .tl-item { flex-direction: column; gap: 8px; }
-      .tl-left { width: 100%; }
-      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    @media (max-width:900px) {
+      * { max-width:100vw; }
+      .page { padding:0 20px 60px; }
+      .report-header { flex-direction:column; align-items:flex-start; gap:20px; padding:32px 0 28px; }
+      .header-right { text-align:left; }
+      .report-title { font-size:32px; }
+      .pillar-grid { grid-template-columns:1fr; }
+      .tl-item { flex-direction:column; gap:6px; }
+      .tl-left { width:100%; }
     }
   </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- HEADER -->
   <header class="report-header">
-    <div class="header-left">
-      <span class="brand">SuccessCode · Совместный анализ</span>
-      <h1 class="report-title">Стратегия<br><em>победы</em></h1>
-      <p class="report-subtitle">Обе карты · Прямые ответы · Что делать дальше</p>
+    <div>
+      <span class="brand">SuccessCode · Стратегия</span>
+      <h1 class="report-title">Развод 2026 —<br><em>что делать</em></h1>
+      <p class="report-subtitle">Её два вопроса · прямые ответы · план по месяцам</p>
     </div>
     <div class="header-right">
       <div class="client-label">Клиент</div>
       <div class="client-name">Нелли</div>
-      <div class="client-meta">
-        Совместный анализ двух карт<br>
-        Фокус: 2026 · Слушание 16 июля
-      </div>
     </div>
   </header>
 
   <div class="gold-rule"></div>
 
-  <!-- DIRECT ANSWERS -->
-  <div class="sec-label">Прямые ответы на её вопросы</div>
+  <!-- HER TWO QUESTIONS -->
+  <div class="sec-label">Её вопросы — прямые ответы</div>
 
-  <div class="answer-grid">
-
-    <div class="answer-card win">
-      <div class="answer-q">Вопрос 1 · Выиграю ли я дом?</div>
-      <div class="answer-verdict">Да — 80%</div>
-      <div class="answer-body">
-        П10 Имущество — <strong>самый защищённый дворец её карты в 2026 году.</strong> Четыре независимых слоя усиливают его одновременно: натальный Лу (постоянно) + натальный Тянь Лян (защита) + Д5 Цюань на протяжении всей декады 2026–2035 + Тянь Си (торжество) в этом дворце весь 2026. В М6 (乙未, <strong>14 июля – 11 августа</strong>) добавляется пятый — Цюань → Тянь Лян. Слушание 16 июля попадает ровно в центр этого окна.
-      </div>
-      <div class="tech-note"><span class="tn-label">Из её карты</span><div class="tn-body">Нат. 庚→Лу→Тай Ян→П10 + Тянь Лян нат. в П10 + Д5 辛→Цюань→Тай Ян→П10 + Тянь Си→П10 весь 2026 + М6 乙→Цюань→Тянь Лян→П10. Ди Цзе в П10, но пара Тай Ян+Тянь Лян «устойчива к злым звёздам» (алг. 13). По его карте: П10 = По Цзюнь + Ди Цзе = уязвимо. Угрозы «продам дом» от него структурно рискованны для него самого.</div></div>
+  <div class="answer-card win">
+    <div class="answer-q">Вопрос 1 · Дом</div>
+    <div class="quote-q">«Подавать ли в суд на единоличное проживание в доме с Гришей? Боюсь создать себе проблемы: если суд попросит его выехать — он начнёт настаивать на bird nesting, подаст на продажу дома или станет ещё жёстче с Гришей.»</div>
+    <div class="answer-verdict">Да — подавать. Если срок завтра — подавать завтра.</div>
+    <div class="ans-block">
+      <ul>
+        <li><strong>Дом — её самый сильный актив в 2026</strong> (≈80%). Подавать.</li>
+        <li><strong>Срок важнее идеального момента.</strong> Идеально подавать 14 июля, но если процессуальный срок истекает сейчас — подавать, не упуская. Упущенный срок не вернуть; его контр-ходы — обратимы.</li>
+        <li><strong>Решающий день — слушание 16 июля</strong>, и оно само попадает в её сильнейшее окно по дому. Дата подачи слабее этого не делает.</li>
+        <li><strong>Его угрозы по дому бьют по нему.</strong> Bird nesting и «продам дом» в его карте — слабая, рискованная для него самого зона. Давление через сына у него медленное, не мгновенное.</li>
+        <li><strong>Что сделать:</strong> подать как процессуальный шаг; основную линию держать на слушании 16 июля; ответ на его контр-ход (bird nesting / продажа) заготовить заранее, письменно.</li>
+      </ul>
     </div>
-
-    <div class="answer-card win">
-      <div class="answer-q">Вопрос 2 · Опровергнут ли обвинение в депрессии?</div>
-      <div class="answer-verdict">Да — 78%</div>
-      <div class="answer-body">
-        П11 Дух в её карте содержит <strong>У Цюй с натальным Цюань</strong> — решительная, авторитетная, финансово острая ментальная энергия. Никакой структурной основы для клинической депрессии нет. Лин Син добавляет интенсивность и стресс, но стресс ≠ депрессия. Тянь Юэ в П6 Здоровье = нужный медицинский защитник появится в М6 (14 июля – 11 августа, ветвь 未 активирует П6).
-      </div>
-      <div class="tech-note"><span class="tn-label">Из её карты</span><div class="tn-body">庚→Цюань→У Цюй→П11. У Цюй+Тянь Сян (алг. 13 §D) = «скрупулёзный, последовательный, финансово точный, постепенно улучшающийся» — антидепрессивный профиль. Тянь Юэ в П6 = Небесный Покровитель здоровья активируется в М6 (ветвь 未→П6).</div></div>
-    </div>
-
-    <div class="answer-card info">
-      <div class="answer-q">Вопрос 3 · Когда всё завершится?</div>
-      <div class="answer-verdict">М12 2026 / Янв. 2027</div>
-      <div class="answer-body">
-        <strong>Оптимальное окно: М12 (辛丑, 5 января – 4 февраля 2027).</strong> В его карте М12 = Лу → Цзюй Мэнь → П5: его звезда денежного спора получает гладкий Лу → он мотивирован закрыть соглашение на своих условиях. Для неё: Д5 стебель 辛 в М12 удваивается → Лу→Цзюй Мэнь→П12 ×2 = юридически самый гладкий месяц. Оба выигрывают от закрытия именно тогда. <strong>Риск: не дать затянуть в 2027</strong> — его финансово-правовой пик.
-      </div>
-      <div class="tech-note"><span class="tn-label">Из обеих карт</span><div class="tn-body">Его карта М12 辛丑: 辛→Лу→Цзюй Мэнь→П5 = он готов закрыть. Её карта М12 辛丑: Д5 стебель 辛 = декада-матч → всё Д5 удваивается включая Лу→Цзюй Мэнь→П12. 2027 (丁未) = его год-матч декадного стебля Д5 丁 → весь его Д5 удваивается = сильнее, чем в 2026. Не затягивать.</div></div>
-    </div>
-
-    <div class="answer-card caution">
-      <div class="answer-q">Вопрос 4 · Насколько силён его пик и как его пережить?</div>
-      <div class="answer-verdict">М7–М8 (Авг–Окт)</div>
-      <div class="answer-body">
-        Его максимальное давление: <strong>М7 (丙申, 11 авг. – 10 сент.)</strong> = год-матч → все его годовые полёты ×2; <strong>М8 (丁酉, 10 сент. – 8 окт.)</strong> = декада-матч → весь его Д5 ×2. Это пик, <strong>а не вечная сила.</strong> В М9 (戊戌, 8 окт. – 7 ноября) его финансовая стратегия (Тянь Цзи) получает Цзи — спотыкается. Цель: пережить М7–М8 <em>без уступок по дому</em>. После этого его рычаг слабеет.
-      </div>
-      <div class="tech-note"><span class="tn-label">Из его карты</span><div class="tn-body">М7 丙申: годовой стебель 丙 = год-матч → Цюань→Тянь Цзи→П5 ×2. М8 丁酉: декадный стебель 丁 = декада-матч → Цзи→Цзюй Мэнь→П5 ×2 + Кэ→Тянь Цзи→П5 ×2. М9 戊戌: стебель 戊 → Цзи→Тянь Цзи→П5 = его денежная стратегия под трением. Ветвь 戌→П10 Имущество. <em>М7–М8 — его пик, не её. Она сильнее по дому весь год.</em></div></div>
-    </div>
-
   </div>
 
-  <div class="gold-rule"></div>
-
-  <!-- JULY 16 HEARING — COMBINED -->
-  <div class="sec-label">Слушание 16 июля — обе карты одновременно</div>
-
-  <div class="date-box">
-    <div class="date-box-label">Слушание об алиментах на период развода</div>
-    <div class="date-box-date">16 июля 2026 · <span>16:15</span></div>
-    <div class="date-box-body">
-      <p><strong>Для неё: структурно самый сильный момент 2026 года по дому.</strong> М6 (乙未, 14 июля – 11 августа) = двойной Цюань на П10 (Д5 Цюань на Тай Ян + месячный Цюань на Тянь Лян). Ветвь 未→П6 = Тянь Юэ (медицинский защитник) активируется — нужный человек в медицине появляется именно сейчас. Это отвечает на атаку по депрессии.</p>
-      <p><strong>Для него: его благоприятный месяц по деньгам, НО не по дому.</strong> М6 乙未 = Лу→Тянь Цзи→П5 (его денежная стратегия гладко) + Кэ→Цзы Вэй→П4 (позиция по сыну легитимирована). Сильный по деньгам — слабый по дому (П10 у него = По Цзюнь + Ди Цзе, без поддержки в этом месяце). Он будет давить по деньгам. Ей не надо уступать по дому ради «мира по деньгам».</p>
-      <p><strong>Оба входят в этот месяц с силой, но в разных направлениях.</strong> Её сила — дом. Его сила — деньги. Не смешивать.</p>
-    </div>
-    <div class="date-mechs">
-      <span class="date-mech-tag">Её П10: двойной Цюань в М6</span>
-      <span class="date-mech-tag">Тянь Юэ П6 → медицинский защитник</span>
-      <span class="date-mech-tag">Его П5: Лу→Тянь Цзи (деньги)</span>
-      <span class="date-mech-tag">Его П10: без поддержки в М6</span>
+  <div class="answer-card info">
+    <div class="answer-q">Вопрос 2 · Сроки, измор, деньги, сын</div>
+    <div class="quote-q">«Хочу скорее закончить, но боюсь, что он меня "обчистит". Тянуть — не выдерживает здоровье и деньги уходят на юриста. Боюсь, не хватит сил, он возьмёт измором. Отношения с сыном очень усложнились.»</div>
+    <div class="answer-verdict">Пережить до октября — закрыть к январю.</div>
+    <div class="ans-block">
+      <ul>
+        <li><strong>Его измор НЕ бесконечен.</strong> Пик его давления — август–октябрь 2026. После этого его позиция слабеет. Ей не нужно держаться годами — только пережить эти 2–3 месяца без уступок.</li>
+        <li><strong>Деньги:</strong> финальное соглашение подписывать в ноябре или январе 2027 — не под его давлением в августе–октябре.</li>
+        <li><strong>Не дать уйти в 2027:</strong> 2027 — его сильнейший год по деньгам. Цель — закрыть к январю 2027.</li>
+        <li><strong>Сын:</strong> сдвиг к отцу — временный сигнал 2026 года, в 2027 он меняется сам. Не судиться за сына юридически в 2026 (затягивание выгодно ему) — зафиксировать конкретный график общения в мировом соглашении.</li>
+        <li><strong>Здоровье/ресурс:</strong> нужная поддержка, включая медицинскую, приходит в июле — это и опора для неё, и ответ на обвинение про лекарства.</li>
+      </ul>
     </div>
   </div>
 
   <div class="gold-rule"></div>
 
-  <!-- PROBABILITY COMBINED -->
-  <div class="sec-label">Структурная оценка — оба чарта</div>
+  <!-- WHEN IT ENDS -->
+  <div class="sec-label">Когда закончится развод</div>
 
-  <div class="prob-grid">
-    <div class="prob-item">
-      <div class="prob-header">
-        <span class="prob-label">Её итоговый исход в пользу Нелли</span>
-        <span class="prob-pct">70–75%</span>
-      </div>
-      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:72%"></div></div>
-      <div class="prob-note">Тянь Куй + Д5 Лу→Цзюй Мэнь + годовой Лу смягчает трение судов. Её карта структурно выигрывает в легальных схватках (3 из 3 в прошлом).</div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-header">
-        <span class="prob-label">Сохранение дома</span>
-        <span class="prob-pct">80%</span>
-      </div>
-      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:80%"></div></div>
-      <div class="prob-note">5 независимых положительных сигналов на П10. У него П10 = По Цзюнь + Ди Цзе (угрозы по дому рикошетят).</div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-header">
-        <span class="prob-label">Опровержение депрессии</span>
-        <span class="prob-pct">78%</span>
-      </div>
-      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:78%"></div></div>
-      <div class="prob-note">У Цюй Цюань в П11 = решительный профиль. Тянь Юэ в П6 = нужный медицинский защитник появится в М6.</div>
-    </div>
-    <div class="prob-item">
-      <div class="prob-header">
-        <span class="prob-label">Финансовое закрытие в 2026</span>
-        <span class="prob-pct">55%</span>
-      </div>
-      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:55%"></div></div>
-      <div class="prob-note">М12 (辛丑, 5 янв. – 4 фев. 2027) — его наиболее мотивированное окно. Если пережить его пик авг–окт без капитуляции — он готов закрыть в М12 на обоюдно приемлемых условиях.</div>
+  <div class="finish-box">
+    <div class="finish-label">Реалистичное окно завершения</div>
+    <div class="finish-date">Декабрь 2026 – <span>январь 2027</span></div>
+    <div class="finish-body">
+      <p><strong>Раньше — маловероятно:</strong> август–октябрь 2026 — пик его давления, в эти месяцы он не закрывает на её условиях.</p>
+      <p><strong>Оптимальное окно подписания — январь 2027:</strong> в этот месяц обе карты сходятся на закрытии — он сам мотивирован подписать.</p>
+      <p><strong>Позже — опасно:</strong> если процесс уходит вглубь 2027, это его сильнейший финансовый год. Главная задача по срокам — закрыть к январю 2027, не дать растянуть дальше.</p>
     </div>
   </div>
 
   <div class="gold-rule"></div>
 
-  <!-- TIMELINE -->
-  <div class="sec-label">Тактическая дорожная карта — месяц за месяцем</div>
+  <!-- ROADMAP -->
+  <div class="sec-label">План по месяцам</div>
 
   <div class="timeline">
 
     <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М5 甲午</div>
-        <div class="tl-dates">14 июня – 14 июля</div>
-      </div>
+      <div class="tl-left"><div class="tl-period">Сейчас – 14 июля</div><div class="tl-dates">до слушания</div></div>
       <div class="tl-body neutral">
-        <div class="tl-label">Подготовка</div>
-        <div class="tl-text">Только сбор документов. Его стебель 甲 → Лу→Лянь Чжэнь→П12 = его судебная база готовится. <strong>Никаких имущественных ходатайств от неё в эту неделю</strong> — Цзи ложится на П10 имущества. Ждать 14 июля.</div>
+        <div class="tl-label">Подача</div>
+        <div class="tl-text"><strong>Подать на единоличное проживание.</strong> Если срок поджимает — подавать сейчас, не дожидаясь 14 июля. Никаких уступок по дому.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М6 乙未 ★</div>
-        <div class="tl-dates">14 июля – 11 августа</div>
-      </div>
+      <div class="tl-left"><div class="tl-period">14 июля – 11 авг</div><div class="tl-dates">слушание 16 июля</div></div>
       <div class="tl-body peak">
-        <div class="tl-label">Пик действий — СЛУШАНИЕ 16 ИЮЛЯ</div>
-        <div class="tl-text"><strong>Подать заявление на единоличное проживание 14 июля или позже.</strong> Слушание 16 июля — двойной Цюань на П10, Тянь Юэ→П6 для медицинской защиты. Её сильнейшее окно. <strong>Не уступать по дому ни под каким предлогом.</strong></div>
+        <div class="tl-label">Её пик по дому</div>
+        <div class="tl-text"><strong>Держать дом твёрдо на слушании 16 июля</strong> — сильнейшее окно года. Не уступать дом ради «мира по деньгам».</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М7 丙申</div>
-        <div class="tl-dates">11 августа – 10 сентября</div>
-      </div>
-      <div class="tl-body neutral">
-        <div class="tl-label">Его пик — держать позицию</div>
-        <div class="tl-text">Его год-матч — максимальное давление по деньгам. Судебный процесс для неё идёт гладко (Лу→Тянь Тун→П12 ×2). <strong>Не уступать; закреплять решения М6.</strong> На его денежное давление отвечать документами, не эмоциями.</div>
+      <div class="tl-left"><div class="tl-period">11 авг – 8 окт</div><div class="tl-dates">его пик давления</div></div>
+      <div class="tl-body danger">
+        <div class="tl-label">Его пик давления — держать позицию</div>
+        <div class="tl-text"><strong>Ничего не подписывать.</strong> Это его сильнейшее окно по деньгам. На давление отвечать документами, не эмоциями. Опека по Грише всплывёт здесь — документы готовы заранее.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М8 丁酉</div>
-        <div class="tl-dates">10 сентября – 8 октября</div>
-      </div>
-      <div class="tl-body neutral">
-        <div class="tl-label">Его пик по деньгам / её пик по опеке</div>
-        <div class="tl-text">Его декада-матч — максимум денежного спора. Для неё: ветвь 酉→П4 = <strong>вопросы опеки по Грише выйдут на первый план.</strong> Иметь расписание, медицинские, школьные документы готовыми до 10 сентября.</div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М9 戊戌</div>
-        <div class="tl-dates">8 октября – 7 ноября</div>
-      </div>
+      <div class="tl-left"><div class="tl-period">8 окт – 7 ноя</div><div class="tl-dates">его спад</div></div>
       <div class="tl-body peak">
-        <div class="tl-label">Его стратегия спотыкается</div>
-        <div class="tl-text">Его стебель 戊 → Цзи→Тянь Цзи→П5 — его денежная машина под трением. <strong>Это окно его относительной слабости после двух пиковых месяцев.</strong> Хорошо для переговорных инициатив по финансам, если М7–М8 пережиты.</div>
+        <div class="tl-label">Его слабое окно — её ход</div>
+        <div class="tl-text"><strong>Его денежная стратегия спотыкается.</strong> Хорошее время для её финансовых инициатив — после того как пик августа–октября пережит.</div>
       </div>
     </div>
 
     <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М10 己亥</div>
-        <div class="tl-dates">7 ноября – 6 декабря</div>
-      </div>
+      <div class="tl-left"><div class="tl-period">Ноя 2026 – янв 2027</div><div class="tl-dates">окно закрытия</div></div>
       <div class="tl-body peak">
-        <div class="tl-label">Пик финансов для неё</div>
-        <div class="tl-text"><strong>Лучший её месяц для финансовых соглашений.</strong> Стебель 己: Лу+Цюань на У Цюй П11 (пик финансовой воли), Цюань→Тань Лан→П1 (ШПЛ). Нацелиться на подписание финансового соглашения или договорённости в этом месяце.</div>
-      </div>
-    </div>
-
-    <div class="tl-item">
-      <div class="tl-left">
-        <div class="tl-period">М12 辛丑</div>
-        <div class="tl-dates">5 января – 4 февраля 2027</div>
-      </div>
-      <div class="tl-body peak">
-        <div class="tl-label">Окно финального закрытия</div>
-        <div class="tl-text"><strong>Обе карты поддерживают финальное закрытие.</strong> Её Д5 辛 = декада-матч → Цюань→П10 ×2 + Лу→Цзюй Мэнь→П12 ×2. Его: Лу→Цзюй Мэнь→П5 = он мотивирован закрыть. Структурно лучшее совместное окно для мирового соглашения во всём 2026/начале 2027.</div>
+        <div class="tl-label">Окно закрытия</div>
+        <div class="tl-text"><strong>Подписывать финансовое соглашение здесь.</strong> Ноябрь и январь 2027 — лучшие окна для финального соглашения. Цель — закрыть к январю.</div>
       </div>
     </div>
 
@@ -365,44 +216,43 @@
 
   <div class="gold-rule"></div>
 
-  <!-- STRATEGY PILLARS -->
-  <div class="sec-label">Три ключевых направления стратегии</div>
+  <!-- THREE FRONTS -->
+  <div class="sec-label">Три фронта — что делать</div>
+
+  <div class="pillar-intro">
+    Борьба идёт по трём направлениям одновременно. По каждому — своя тактика. Метки: <span class="tag-act">действие</span> — что конкретно сделать; <span class="tag-obs">факт</span> — что иметь в виду (наблюдение из карты, не требует действия).
+  </div>
 
   <div class="pillar-grid">
 
     <div class="pillar legal">
-      <div class="pillar-icon">⚖</div>
-      <div class="pillar-title">Судебная / правовая</div>
+      <div class="pillar-title">Суд</div>
       <ul class="action-list">
-        <li><span class="marker">→</span> Подать заявление о единоличном проживании 14 июля или позже. Не раньше — Цзи на П10 до 14 июля.</li>
-        <li><span class="marker">→</span> Строить дело на стабильности среды для Гриши (Тянь Лян = защита). Не на атаке отца.</li>
-        <li><span class="marker">→</span> Отвечать письменно. Цзюй Мэнь в П12 = письменная документация сильнее устных аргументов.</li>
-        <li><span class="marker">→</span> Предоставить независимую медицинскую экспертизу. Тянь Юэ в М6 — нужный человек появится сам.</li>
-        <li><span class="marker">→</span> Не давать ему провоцировать: его атака в М7–М8 рассчитана на её эмоциональную реакцию.</li>
+        <li><span class="tag-act">действие</span> Подать на единоличное проживание; если срок завтра — подавать завтра.</li>
+        <li><span class="tag-act">действие</span> На слушании 16 июля держать дом твёрдо.</li>
+        <li><span class="tag-act">действие</span> Всё вести письменно и с документами; устные споры с ним не вести.</li>
+        <li><span class="tag-act">действие</span> Принести независимое медицинское заключение (ответ на обвинение про лекарства и вождение).</li>
+        <li><span class="tag-obs">факт</span> Его провокации усилятся в августе–октябре — рассчитаны на её эмоции.</li>
       </ul>
     </div>
 
     <div class="pillar money">
-      <div class="pillar-icon">&#9654;</div>
-      <div class="pillar-title">Финансовая</div>
+      <div class="pillar-title">Деньги</div>
       <ul class="action-list">
-        <li><span class="marker">→</span> Финансовое соглашение — приоритет М10 (7 ноя – 6 дек) или М12 (5 янв – 4 фев 2027).</li>
-        <li><span class="marker">→</span> Не подписывать ничего под давлением в М7–М8 — это его пик, не её.</li>
-        <li><span class="marker">→</span> Всё финансовое — независимая юридическая проверка перед подписью. Вэнь Цюй + Цзи в П5 = структурный риск документальных ошибок под давлением.</li>
-        <li><span class="marker">→</span> Не дать процессу уйти в 2027 — его финансово-правовой год значительно мощнее.</li>
-        <li><span class="marker">→</span> Алиментные требования фиксировать на слушании 16 июля в самое сильное имущественное окно.</li>
+        <li><span class="tag-act">действие</span> Финансовое соглашение подписывать в ноябре или январе 2027 — не раньше.</li>
+        <li><span class="tag-act">действие</span> В августе–октябре под его давлением не подписывать ничего.</li>
+        <li><span class="tag-act">действие</span> Любой финансовый документ — независимая юр.проверка до подписи.</li>
+        <li><span class="tag-obs">факт</span> 2027 — его сильнейший год по деньгам. Не дать процессу уйти туда.</li>
       </ul>
     </div>
 
     <div class="pillar child">
-      <div class="pillar-icon">&#9733;</div>
-      <div class="pillar-title">Гриша / опека</div>
+      <div class="pillar-title">Сын</div>
       <ul class="action-list">
-        <li><span class="marker">→</span> Смещение Гриши в сторону отца в 2026 — Хун Лань в П4: годовая звезда, не постоянная. В 2027 динамика меняется.</li>
-        <li><span class="marker">→</span> Документировать расписание, медицинское, школьное участие до 10 сентября (начала М8).</li>
-        <li><span class="marker">→</span> В М8 (10 сент – 8 окт) вопросы опеки структурно выйдут на первый план — быть готовой.</li>
-        <li><span class="marker">→</span> Не судиться за Гришу в 2026 юридически — Тоу Ло в П4 у него: его тянуть детскую тему выгодно именно ему. Правильный ход: зафиксировать конкретный график в мировом соглашении.</li>
-        <li><span class="marker">→</span> Сохранять последовательный родительский контекст, не вовлекать сына в правовой спор.</li>
+        <li><span class="tag-obs">факт</span> Сдвиг сына к отцу в 2026 — временный (сигнал этого года), в 2027 меняется. Не паниковать.</li>
+        <li><span class="tag-act">действие</span> Не судиться за сына юридически в 2026 — зафиксировать график общения в мировом соглашении.</li>
+        <li><span class="tag-act">действие</span> Собрать документы (расписание, школа, медицина) до сентября.</li>
+        <li><span class="tag-act">действие</span> Не втягивать сына в спор; держать спокойный, стабильный контакт.</li>
       </ul>
     </div>
 
@@ -410,9 +260,8 @@
 
   <div class="gold-rule"></div>
 
-  <!-- FOOTER -->
   <footer class="report-footer">
-    <div class="footer-brand">SuccessCode · ЦВДШ</div>
+    <div class="footer-brand">SuccessCode</div>
   </footer>
 
 </div>
