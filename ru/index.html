@@ -421,6 +421,51 @@
       font-size: 12px; color: var(--muted); margin-top: 22px;
       letter-spacing: 1px;
     }
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin: 26px 0 0; padding: 16px 0 0;
+      border-top: 1px solid rgba(226,228,236,.18);
+    }
+    .consent-row input[type="checkbox"] {
+      width: 16px; height: 16px; margin-top: 3px;
+      accent-color: var(--gold); flex-shrink: 0;
+      cursor: pointer;
+    }
+    .consent-row label {
+      font-size: 12px; line-height: 1.65; color: var(--dim);
+      cursor: pointer; letter-spacing: 0.2px;
+    }
+    .consent-row label a {
+      color: var(--gold2); text-decoration: underline;
+    }
+    .consent-row label a:hover { color: #fff; }
+    .liability-box {
+      margin: 32px 0 0;
+      padding: 22px 26px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+    }
+    .liability-box p {
+      font-size: 13px; line-height: 1.7; color: var(--dim);
+      margin: 0;
+    }
+    .liability-box strong { color: var(--gold2); }
+    .hero-consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-top: 18px; max-width: 560px;
+    }
+    .hero-consent input[type="checkbox"] {
+      width: 14px; height: 14px; margin-top: 3px;
+      accent-color: var(--gold); flex-shrink: 0;
+      cursor: pointer;
+    }
+    .hero-consent label {
+      font-size: 11px; line-height: 1.55; color: var(--dim);
+      cursor: pointer;
+    }
+    .hero-consent label a {
+      color: var(--gold2); text-decoration: underline;
+    }
 
     /* FOOTER */
     footer {
@@ -616,6 +661,15 @@
       <input type="tel"   name="phone" placeholder="Телефон" required>
       <input type="hidden" name="source" value="hero">
       <button type="submit">Записаться на консультацию &rarr;</button>
+      <div class="hero-consent">
+        <input type="checkbox" id="hero-consent-cb" name="consent" value="accepted" required>
+        <label for="hero-consent-cb">
+          Я принимаю <a href="terms.html" target="_blank" rel="noopener">Условия консультаций</a>
+          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.
+          Понимаю, что все решения после консультации принимаю самостоятельно
+          и под свою ответственность.
+        </label>
+      </div>
     </form>
   </div>
   <div class="hero-right">
@@ -896,6 +950,28 @@
       <input class="cta-input" type="email" name="email" placeholder="EMAIL" required>
       <input class="cta-input" type="tel"   name="phone" placeholder="ТЕЛЕФОН / WHATSAPP" required>
       <input type="hidden" name="source" value="booking">
+
+      <div class="liability-box">
+        <p>
+          Консультация — это структурный анализ карты Цзы Вэй Доу Шу. Все решения и действия
+          после консультации клиент принимает <strong>самостоятельно и под свою
+          ответственность</strong>. Код успеха не несёт ответственности за результаты,
+          которых клиент достигает (или не достигает) после консультации. Консультация
+          не заменяет медицинскую, юридическую, финансовую или психологическую помощь.
+        </p>
+      </div>
+
+      <div class="consent-row">
+        <input type="checkbox" id="booking-consent-cb" name="consent" value="accepted" required>
+        <label for="booking-consent-cb">
+          Я ознакомился(-ась) и принимаю
+          <a href="terms.html" target="_blank" rel="noopener">Условия консультаций</a>
+          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>,
+          а также понимаю, что Код успеха не несёт ответственности за решения, которые я приму
+          после консультации, и за их результаты.
+        </label>
+      </div>
+
       <button class="cta-submit" type="submit">Записаться на консультацию</button>
       <p class="cta-note">Свяжусь с вами в ближайшее время.</p>
     </form>
