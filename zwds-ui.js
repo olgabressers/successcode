@@ -854,26 +854,16 @@ function __tzCorrect(i) {
     _lastOutDraw = Date.now();
   }
 
-  function __scheduleAll() {
-    clearTimeout(_timer2);
-    _timer2 = setTimeout(__drawAll, 60);
-  }
-
+  // Auto-draw of the natal flying-out map is DISABLED. The previous build drew
+  // every palace's 4 flights (~43 arrows) which is not the intended display.
+  // The correct natal subset (self-transformations + the specific 飞化 arrows the
+  // North-school chart shows) is being re-derived before re-enabling. Keep the
+  // chart clean on plot in the meantime.
   document.addEventListener('DOMContentLoaded', function() {
     var co = document.getElementById('chart-output');
-
-    // Auto-draw the full natal flying-out map whenever the chart (re)renders.
     if (co) {
-      new MutationObserver(function() {
-        if (Date.now() - _lastOutDraw < 300) return;   // ignore our own svg append/clear
-        __scheduleAll();
-      }).observe(co, { childList: true, subtree: true });
+      new MutationObserver(function() { __clearOut(); })
+        .observe(co, { childList: true, subtree: true });
     }
-
-    // Coordinates change on resize → redraw.
-    window.addEventListener('resize', __scheduleAll);
-
-    // Draw immediately if a chart is already present on load.
-    if (co && co.querySelectorAll('.palace-cell').length >= 12) __scheduleAll();
   });
 })();
