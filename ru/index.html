@@ -424,14 +424,33 @@
 
     /* FOOTER */
     footer {
-      padding: 36px 72px;
-      display: flex; justify-content: space-between; align-items: center;
+      padding: 48px 72px 36px;
       border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 32px;
+      gap: 32px; flex-wrap: wrap;
     }
     .footer-logo {
       font-family: 'Cormorant Garamond', serif;
       font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
       color: var(--dim);
+    }
+    .footer-links {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s; font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--gold2); }
+    .footer-disclaimer {
+      max-width: 980px;
+      font-size: 11px; line-height: 1.75; color: var(--muted);
+      padding-top: 24px; border-top: 1px solid var(--border);
+      margin-bottom: 18px;
     }
     footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
 
@@ -557,7 +576,11 @@
       }
       .cta-left h2 { font-size: 32px; }
 
-      footer { padding: 28px 22px; flex-direction: column; gap: 18px; text-align: center; }
+      footer { padding: 36px 22px 28px; }
+      .footer-top { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { justify-content: center; gap: 16px; }
+      .footer-links a { font-size: 10px; letter-spacing: 1.5px; }
+      .footer-disclaimer { font-size: 10px; line-height: 1.7; }
     }
   </style>
 </head>
@@ -678,7 +701,7 @@
       </div>
     </div>
     <div class="emperor-portrait">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Anonymous-Ming_Chengzu.jpg" alt="Император династии Мин">
+      <img src="images/emperor-yongle.jpg" alt="Император Юнлэ династии Мин" loading="lazy">
       <div class="emperor-portrait-caption">Император Юнлэ · Династия Мин<br>1360 — 1424</div>
     </div>
   </div>
@@ -828,7 +851,9 @@
     <h2>Постройте свою карту <em>прямо сейчас.</em></h2>
     <p>
       Перед консультацией вы можете самостоятельно построить свою карту судьбы
-      на нашем главном калькуляторе. Это <strong>бесплатно</strong> и займёт меньше минуты.
+      на нашем главном калькуляторе. Это даст представление о
+      <strong>глубине и сложности метода</strong> и поможет вам разобраться
+      в своей карте, если вы профессионально занимаетесь Цзы Вэй Доу Шу.
     </p>
     <a href="https://successcode.net/zwds" target="_blank" rel="noopener" class="calc-cta">Открыть калькулятор →</a>
   </div>
@@ -852,7 +877,7 @@
       <div class="calc-cell"><div class="calc-cell-pal">子 · Богатство</div><div class="calc-cell-stars">太陽</div></div>
       <div class="calc-cell"><div class="calc-cell-pal">亥 · Путешествия</div><div class="calc-cell-stars">天機</div></div>
     </div>
-    <div class="calc-caption">successcode.net/zwds · Бесплатно</div>
+    <div class="calc-caption">successcode.net/zwds</div>
   </div>
 </section>
 
@@ -879,8 +904,25 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo">SuccessCode</div>
-  <small>© SuccessCode · Цзы Вэй Доу Шу · Карта судьбы</small>
+  <div class="footer-top">
+    <div class="footer-logo">SuccessCode</div>
+    <div class="footer-links">
+      <a href="#booking">Записаться</a>
+      <a href="https://successcode.net/zwds" target="_blank" rel="noopener">Калькулятор</a>
+      <a href="privacy.html">Обработка данных</a>
+      <a href="terms.html">Условия консультаций</a>
+    </div>
+  </div>
+  <p class="footer-disclaimer">
+    Консультации Код успеха — это структурный анализ карты Цзы Вэй Доу Шу.
+    Информация, полученная на консультации, предназначена для самостоятельной интерпретации
+    и принятия решений клиентом. <strong>Код успеха не несёт ответственности
+    за то, как клиент использует полученную информацию, и за результаты любых решений,
+    принятых на её основе.</strong> Все решения клиент принимает самостоятельно и под свою
+    собственную ответственность. Консультация не заменяет медицинскую, юридическую,
+    финансовую или психологическую помощь.
+  </p>
+  <small>© Код успеха · Цзы Вэй Доу Шу · Карта судьбы</small>
 </footer>
 
 <!-- BACK TO TOP -->
