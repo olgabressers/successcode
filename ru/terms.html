@@ -22,7 +22,7 @@
     body {
       font-family: 'Inter', sans-serif;
       background: var(--black); color: var(--white);
-      font-size: 16px; line-height: 1.75;
+      font-size: 16px; line-height: 1.8;
       -webkit-font-smoothing: antialiased;
     }
     nav {
@@ -44,49 +44,63 @@
       color: var(--gold2); text-decoration: none; font-weight: 600;
     }
     .nav-back:hover { color: #fff; }
-    .doc {
-      max-width: 860px; margin: 0 auto;
-      padding: 160px 60px 100px;
+
+    /* HEADER */
+    .doc-header {
+      padding: 160px 72px 56px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
     }
-    .doc-eyebrow {
-      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; margin-bottom: 24px;
-      display: flex; align-items: center; gap: 18px;
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
     }
-    .doc-eyebrow::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
     h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(36px, 5vw, 60px);
-      font-weight: 300; line-height: 1.1; letter-spacing: -1px;
-      color: var(--white); margin-bottom: 22px;
+      font-size: clamp(44px, 6vw, 86px);
+      font-weight: 300; line-height: 1.05; letter-spacing: -1.5px;
+      color: var(--white); margin-bottom: 28px;
     }
     h1 em { font-style: italic; color: var(--gold2); }
     .doc-meta {
       font-size: 13px; letter-spacing: 1px; color: var(--muted);
-      padding-bottom: 32px; margin-bottom: 44px;
-      border-bottom: 1px solid var(--border);
     }
+
+    /* DOC BODY */
+    .doc-body {
+      padding: 72px 72px 100px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .doc-content { max-width: 880px; }
     h2 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(22px, 2.8vw, 32px);
+      font-size: clamp(26px, 3.2vw, 38px);
       font-weight: 500; line-height: 1.2;
-      color: var(--white); margin-top: 48px; margin-bottom: 18px;
+      color: var(--white); margin-top: 56px; margin-bottom: 22px;
       letter-spacing: -0.3px;
     }
-    p { margin-bottom: 18px; color: var(--white); }
+    h2:first-child { margin-top: 0; }
+    p { margin-bottom: 20px; color: var(--white); }
     p strong { color: var(--gold2); font-weight: 600; }
-    ul { margin: 0 0 22px 22px; }
-    ul li { margin-bottom: 10px; }
+    ul { margin: 0 0 24px 22px; }
+    ul li { margin-bottom: 10px; color: var(--white); }
     a { color: var(--gold2); text-decoration: underline; }
+    a:hover { color: #fff; }
     .important-box {
       border: 1px solid var(--gold);
-      padding: 26px 32px;
-      margin: 28px 0;
+      padding: 28px 34px;
+      margin: 32px 0;
       background: rgba(184,144,58,0.06);
     }
     .important-box strong { color: var(--gold2); }
+    .important-box p { margin-bottom: 0; }
+
+    /* FOOTER */
     footer {
-      padding: 36px 60px;
+      padding: 40px 72px;
       border-top: 1px solid var(--border);
       display: flex; justify-content: space-between; align-items: center;
       gap: 20px; flex-wrap: wrap;
@@ -110,10 +124,27 @@
       nav { padding: 16px 22px; }
       .nav-logo { font-size: 16px; letter-spacing: 3px; }
       .nav-back { font-size: 11px; letter-spacing: 1.5px; }
-      .doc { padding: 110px 22px 60px; }
       body { font-size: 15px; }
-      .important-box { padding: 20px 22px; }
-      footer { padding: 28px 22px; flex-direction: column; text-align: center; }
+
+      .doc-header {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 110px 22px 40px;
+      }
+      .side-label {
+        writing-mode: horizontal-tb;
+        font-size: 11px; letter-spacing: 3px;
+      }
+      h1 { font-size: 36px; }
+      .doc-body {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 50px 22px 60px;
+      }
+      h2 { font-size: 22px; margin-top: 40px; }
+      .important-box { padding: 22px 24px; }
+      footer {
+        padding: 28px 22px;
+        flex-direction: column; text-align: center;
+      }
       .footer-links { justify-content: center; gap: 14px; }
     }
   </style>
@@ -125,16 +156,24 @@
   <a href="index.html" class="nav-back">← На главную</a>
 </nav>
 
-<div class="doc">
-  <div class="doc-eyebrow">Юридическое</div>
-  <h1>Условия предоставления <em>консультаций</em></h1>
-  <div class="doc-meta">Последнее обновление: 24 июня 2026</div>
+<header class="doc-header">
+  <div class="side-label">Документы</div>
+  <div>
+    <h1>Условия предоставления <em>консультаций</em></h1>
+    <div class="doc-meta">Последнее обновление: 24 июня 2026 · Юрисдикция: Нидерланды</div>
+  </div>
+</header>
+
+<section class="doc-body">
+  <div class="side-label">Консультации</div>
+  <div class="doc-content">
 
   <h2>1. Общие положения</h2>
-  <p>Настоящие Условия предоставления консультаций (далее — «Условия») регулируют порядок
-  оказания консультационных услуг по интерпретации карт Цзы Вэй Доу Шу проектом
-  Код успеха (далее — «Сервис», «Мы»), доступным по адресу
+  <p>Настоящие Условия регулируют порядок оказания консультационных услуг по интерпретации
+  карт Цзы Вэй Доу Шу проектом Код успеха (далее — «Сервис»), доступным по адресу
   <a href="https://successcode.net/ru/">successcode.net/ru</a>.</p>
+  <p>Сервис зарегистрирован и действует на территории Королевства Нидерландов. К отношениям
+  между Сервисом и клиентом применяется законодательство Нидерландов.</p>
   <p>Оставляя заявку на консультацию, вы подтверждаете, что ознакомились с настоящими
   Условиями и согласны с ними в полном объёме.</p>
 
@@ -147,17 +186,16 @@
   Результаты консультации носят информационный характер.</p>
 
   <div class="important-box">
-    <p style="margin-bottom:0;"><strong>Консультация Цзы Вэй Доу Шу — это не медицинская,
-    не юридическая, не финансовая и не психологическая помощь.</strong> Если вам требуется
-    помощь в этих областях, обратитесь к лицензированному специалисту соответствующей
-    профессии.</p>
+    <p><strong>Консультация Цзы Вэй Доу Шу не является медицинской, юридической,
+    финансовой или психологической помощью.</strong> Если вам требуется помощь
+    в этих областях, обратитесь к лицензированному специалисту соответствующей профессии.</p>
   </div>
 
   <h2>3. Ответственность за решения и результаты</h2>
   <p><strong>Все решения, принимаемые клиентом на основании информации, полученной
   во время консультации, клиент принимает самостоятельно и под свою собственную
   ответственность.</strong></p>
-  <p>Сервис Код успеха <strong>не несёт ответственности</strong> за:</p>
+  <p>Сервис Код успеха не несёт ответственности за:</p>
   <ul>
     <li>Решения, принятые клиентом на основе материалов консультации</li>
     <li>Результаты любых действий, предпринятых клиентом после консультации</li>
@@ -174,7 +212,7 @@
   <h2>4. Порядок проведения консультации</h2>
   <p>Стандартный порядок:</p>
   <ul>
-    <li>Клиент оставляет заявку через форму на сайте, указывая контактные данные</li>
+    <li>Клиент оставляет заявку через форму на Сайте, указывая контактные данные</li>
     <li>Сервис связывается с клиентом в ближайшее время для согласования времени
     и условий консультации</li>
     <li>Перед консультацией клиент предоставляет точные данные рождения (дата,
@@ -196,8 +234,7 @@
 
   <h2>6. Конфиденциальность</h2>
   <p>Содержание ваших консультаций (вопросы, обсуждения, материалы карты, текстовые
-  резюме, записи встреч) <strong>строго конфиденциально</strong> и не разглашается
-  третьим лицам.</p>
+  резюме, записи встреч) строго конфиденциально и не разглашается третьим лицам.</p>
   <p>Подробнее о работе с персональными данными см.
   <a href="privacy.html">Политику обработки персональных данных</a>.</p>
 
@@ -212,7 +249,17 @@
     возврат не производится</li>
   </ul>
 
-  <h2>8. Гарантии и их отсутствие</h2>
+  <h2>8. Право потребителя на отзыв (нидерландское законодательство)</h2>
+  <p>В соответствии с законодательством Нидерландов и Директивой ЕС 2011/83/EU
+  о правах потребителей потребитель имеет право отказаться от дистанционного договора
+  в течение <strong>14 дней</strong> с момента его заключения без объяснения причин.</p>
+  <p>Однако, поскольку консультация является услугой, оказываемой в согласованное
+  с клиентом время, при оформлении заявки и оплате до истечения 14-дневного периода
+  клиент даёт явное согласие на начало оказания услуги и подтверждает, что после полного
+  оказания услуги право на отзыв утрачивается (ст. 16(a) Директивы ЕС 2011/83/EU,
+  Burgerlijk Wetboek 6:230p).</p>
+
+  <h2>9. Гарантии и их отсутствие</h2>
   <p>Сервис прилагает все разумные усилия для того, чтобы консультация была качественной,
   структурированной и максимально полезной для клиента. Однако:</p>
   <ul>
@@ -224,33 +271,38 @@
     мнением других специалистов по Цзы Вэй Доу Шу или другим астрологическим системам</li>
   </ul>
 
-  <h2>9. Авторские права</h2>
+  <h2>10. Авторские права</h2>
   <p>Все материалы, предоставленные клиенту в результате консультации (текстовое резюме,
   записи, аналитические материалы), являются интеллектуальной собственностью Сервиса
   и предназначены для личного использования клиентом. Распространение, публикация,
   перепродажа или коммерческое использование этих материалов без предварительного
   письменного согласия Сервиса не допускается.</p>
 
-  <h2>10. Ограничение по аудитории</h2>
+  <h2>11. Ограничение по аудитории</h2>
   <p>Консультации предоставляются совершеннолетним лицам. Если вы не достигли совершеннолетия
-  по законодательству вашей страны, использование Сервиса возможно только с согласия
-  родителей или законных представителей.</p>
+  по законодательству вашей страны, использование Сервиса возможно только с письменного
+  согласия родителей или законных представителей.</p>
 
-  <h2>11. Изменение условий</h2>
+  <h2>12. Изменение условий</h2>
   <p>Мы оставляем за собой право обновлять настоящие Условия. Актуальная версия всегда
-  размещена по адресу <a href="https://successcode.net/ru/terms.html">successcode.net/ru/terms.html</a>.
+  размещена по адресу
+  <a href="https://successcode.net/ru/terms.html">successcode.net/ru/terms.html</a>.
   Условия, действующие на момент оплаты конкретной консультации, применяются к этой
   консультации.</p>
 
-  <h2>12. Применимое право и споры</h2>
-  <p>К отношениям между Сервисом и клиентом применяется законодательство Нидерландов
-  (страны регистрации Сервиса). Все споры, которые не удалось урегулировать в порядке
-  переговоров, подлежат рассмотрению в компетентном суде Нидерландов.</p>
+  <h2>13. Применимое право и споры</h2>
+  <p>К отношениям между Сервисом и клиентом применяется <strong>законодательство
+  Королевства Нидерландов</strong>. Все споры, которые не удалось урегулировать
+  в порядке переговоров, подлежат рассмотрению в компетентном суде Нидерландов.
+  Потребители, проживающие в ЕС, дополнительно сохраняют права, предоставленные
+  им законодательством страны их обычного проживания.</p>
 
-  <h2>13. Контакты</h2>
+  <h2>14. Контакты</h2>
   <p>По всем вопросам, связанным с консультациями и условиями их предоставления,
   обращайтесь: <a href="mailto:contact@successcode.net">contact@successcode.net</a></p>
-</div>
+
+  </div>
+</section>
 
 <footer>
   <div class="footer-logo">SuccessCode</div>

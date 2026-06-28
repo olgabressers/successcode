@@ -466,6 +466,15 @@
     .hero-consent label a {
       color: var(--gold2); text-decoration: underline;
     }
+    .hero-cta {
+      display: inline-flex; align-items: center;
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 20px 40px; text-decoration: none;
+      transition: background .25s, transform .25s;
+      align-self: flex-start;
+    }
+    .hero-cta:hover { background: var(--gold2); transform: translateY(-2px); }
 
     /* FOOTER */
     footer {
@@ -655,22 +664,7 @@
       тысячу лет читали жизнь императоров — теперь доступна вам.
       Ответы на главные вопросы карьеры, денег, отношений, здоровья и времени решений.
     </p>
-    <form class="inline-form" action="https://formspree.io/f/xaqkqweb" method="POST">
-      <input type="text"  name="name"  placeholder="Ваше имя" required>
-      <input type="email" name="email" placeholder="Email" required>
-      <input type="tel"   name="phone" placeholder="Телефон" required>
-      <input type="hidden" name="source" value="hero">
-      <button type="submit">Записаться на консультацию &rarr;</button>
-      <div class="hero-consent">
-        <input type="checkbox" id="hero-consent-cb" name="consent" value="accepted" required>
-        <label for="hero-consent-cb">
-          Я принимаю <a href="terms.html" target="_blank" rel="noopener">Условия консультаций</a>
-          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.
-          Понимаю, что все решения после консультации принимаю самостоятельно
-          и под свою ответственность.
-        </label>
-      </div>
-    </form>
+    <a href="#booking" class="hero-cta">Записаться на консультацию &rarr;</a>
   </div>
   <div class="hero-right">
     <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=80" alt="">
@@ -951,24 +945,11 @@
       <input class="cta-input" type="tel"   name="phone" placeholder="ТЕЛЕФОН / WHATSAPP" required>
       <input type="hidden" name="source" value="booking">
 
-      <div class="liability-box">
-        <p>
-          Консультация — это структурный анализ карты Цзы Вэй Доу Шу. Все решения и действия
-          после консультации клиент принимает <strong>самостоятельно и под свою
-          ответственность</strong>. Код успеха не несёт ответственности за результаты,
-          которых клиент достигает (или не достигает) после консультации. Консультация
-          не заменяет медицинскую, юридическую, финансовую или психологическую помощь.
-        </p>
-      </div>
-
       <div class="consent-row">
         <input type="checkbox" id="booking-consent-cb" name="consent" value="accepted" required>
         <label for="booking-consent-cb">
-          Я ознакомился(-ась) и принимаю
-          <a href="terms.html" target="_blank" rel="noopener">Условия консультаций</a>
-          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>,
-          а также понимаю, что Код успеха не несёт ответственности за решения, которые я приму
-          после консультации, и за их результаты.
+          Принимаю <a href="terms.html" target="_blank" rel="noopener">Условия</a>
+          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.
         </label>
       </div>
 
@@ -989,15 +970,6 @@
       <a href="terms.html">Условия консультаций</a>
     </div>
   </div>
-  <p class="footer-disclaimer">
-    Консультации Код успеха — это структурный анализ карты Цзы Вэй Доу Шу.
-    Информация, полученная на консультации, предназначена для самостоятельной интерпретации
-    и принятия решений клиентом. <strong>Код успеха не несёт ответственности
-    за то, как клиент использует полученную информацию, и за результаты любых решений,
-    принятых на её основе.</strong> Все решения клиент принимает самостоятельно и под свою
-    собственную ответственность. Консультация не заменяет медицинскую, юридическую,
-    финансовую или психологическую помощь.
-  </p>
   <small>© Код успеха · Цзы Вэй Доу Шу · Карта судьбы</small>
 </footer>
 
