@@ -586,6 +586,12 @@ function __tzCorrect(i) {
 
   // Find the heavenly stem of a palace cell by scanning text nodes for single stem chars
   function __palaceStem(cell) {
+    // Preferred: the dedicated .p-stem span holds exactly one stem char
+    var pe = cell.querySelector('.p-stem');
+    if (pe) {
+      var pt = pe.textContent.trim().charAt(0);
+      if (STEMS.indexOf(pt) !== -1) return pt;
+    }
     var walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
     var node;
     while ((node = walker.nextNode())) {
@@ -747,39 +753,127 @@ function __tzCorrect(i) {
     sourceCell.classList.add('flight-source');
   }
 
+  // Build map: star English name → palace cell that holds it
+  function __starMap(co) {
+    var map = {};
+    var stars = co.querySelectorAll('.star-en');
+    for (var i = 0; i < stars.length; i++) {
+      var nm = stars[i].textContent.trim();
+      if (nm && !map[nm]) map[nm] = __palCell(stars[i]);
+    }
+    return map;
+  }
+
+  // Draw the FULL natal palace-stem flying-out map automatically (North-school 飛化).
+  // Every palace's heavenly stem flies its 4 enhancers (Lu/Quan/Ke/Ji) onto the
+  // palaces holding the target stars. Self-transformations (target star in the same
+  // palace) are already shown by the engine as a ↺ loop, so they are skipped here.
+  function __drawAll() {
+    var co = document.getElementById('chart-output');
+    if (!co) return;
+    _lastOutDraw = Date.now();          // suppress our own mutation-triggered redraw
+    __clearOut();
+
+    var cells = [];
+    co.querySelectorAll('.palace-cell').forEach(function(c) {
+      if (!c.classList.contains('center-cell')) cells.push(c);
+    });
+    if (cells.length < 12) return;
+
+    var starMap = __starMap(co);
+    var scrollX = window.scrollX || window.pageXOffset || 0;
+    var scrollY = window.scrollY || window.pageYOffset || 0;
+    var dW = Math.max(document.documentElement.scrollWidth,  window.innerWidth);
+    var dH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.id = 'sihua-out';
+    svg.setAttribute('xmlns', NS);
+    svg.style.cssText = 'position:absolute;top:0;left:0;width:'+dW+'px;height:'+dH+'px;' +
+                        'pointer-events:none;z-index:8499;overflow:visible';
+
+    var ORDER = ['Lu','Quan','Ke','Ji'];
+    cells.forEach(function(src) {
+      var stem = __palaceStem(src);
+      if (!stem) return;
+      var targets = FWD[stem];
+      if (!targets) return;
+
+      var sRect = src.getBoundingClientRect();
+      var sx = sRect.left + scrollX + sRect.width  / 2;
+      var sy = sRect.top  + scrollY + sRect.height / 2;
+
+      ORDER.forEach(function(type, idx) {
+        var starName = targets[type];
+        if (!starName) return;
+        var tCell = starMap[starName];
+        if (!tCell || tCell === src) return;   // self → engine ↺ badge, skip
+
+        var tRect = tCell.getBoundingClientRect();
+        var tx = tRect.left + scrollX + tRect.width  / 2;
+        var ty = tRect.top  + scrollY + tRect.height / 2;
+        var col = COLORS[type];
+
+        var dx = tx - sx, dy = ty - sy;
+        var len = Math.sqrt(dx*dx + dy*dy) || 1;
+        var ux = dx/len, uy = dy/len;
+        var off = (idx - 1.5) * 7;            // fan the up-to-4 lines from one palace
+        var ox = -uy * off, oy = ux * off;
+
+        var x1 = sx + ux*26 + ox, y1 = sy + uy*26 + oy;   // start near source edge
+        var x2 = tx - ux*22 + ox, y2 = ty - uy*22 + oy;   // end near target edge
+
+        var line = document.createElementNS(NS, 'line');
+        line.setAttribute('x1', x1.toFixed(2));
+        line.setAttribute('y1', y1.toFixed(2));
+        line.setAttribute('x2', x2.toFixed(2));
+        line.setAttribute('y2', y2.toFixed(2));
+        line.setAttribute('stroke', col);
+        line.setAttribute('stroke-width', '1.6');
+        line.setAttribute('opacity', '0.72');
+        if (type === 'Ji') line.setAttribute('stroke-dasharray', '5 3');
+        svg.appendChild(line);
+
+        __arrowHead(svg, x2, y2, x2 - x1, y2 - y1, col);
+
+        var lx = sx + ux*38 + ox, ly = sy + uy*38 + oy;   // enhancer letter at source end
+        var txt = document.createElementNS(NS, 'text');
+        txt.setAttribute('x', lx.toFixed(2));
+        txt.setAttribute('y', ly.toFixed(2));
+        txt.setAttribute('fill', col);
+        txt.setAttribute('font-size', '9');
+        txt.setAttribute('font-weight', 'bold');
+        txt.setAttribute('text-anchor', 'middle');
+        txt.setAttribute('dominant-baseline', 'middle');
+        txt.textContent = type;
+        svg.appendChild(txt);
+      });
+    });
+
+    document.body.appendChild(svg);
+    _lastOutDraw = Date.now();
+  }
+
+  function __scheduleAll() {
+    clearTimeout(_timer2);
+    _timer2 = setTimeout(__drawAll, 60);
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     var co = document.getElementById('chart-output');
 
-    // Palace click handler (bubbling phase — fires after capture REV handler)
-    // The capture-phase star handler calls stopImmediatePropagation only when a
-    // star is hit, so palace clicks on non-star areas reach here.
-    document.addEventListener('click', function(e) {
-      var chart = document.getElementById('chart-output');
-      if (!chart) return;
-
-      // Already handled by capture-phase star handler → skip
-      // (star handler calls stopImmediatePropagation so we never reach here for star clicks)
-
-      // Find the palace cell that was clicked
-      var cell = __palCell(e.target);
-      if (!cell || cell.classList.contains('center-cell')) {
-        __clearOut();
-        return;
-      }
-
-      var stem = __palaceStem(cell);
-      if (!stem) { __clearOut(); return; }
-
-      __drawOutgoing(cell, stem, chart);
-    }, false);
-
-    // Clear outgoing overlay whenever the chart re-renders
+    // Auto-draw the full natal flying-out map whenever the chart (re)renders.
     if (co) {
       new MutationObserver(function() {
-        if (Date.now() - _lastOutDraw < 600) return;
-        clearTimeout(_timer2);
-        _timer2 = setTimeout(__clearOut, 80);
+        if (Date.now() - _lastOutDraw < 300) return;   // ignore our own svg append/clear
+        __scheduleAll();
       }).observe(co, { childList: true, subtree: true });
     }
+
+    // Coordinates change on resize → redraw.
+    window.addEventListener('resize', __scheduleAll);
+
+    // Draw immediately if a chart is already present on load.
+    if (co && co.querySelectorAll('.palace-cell').length >= 12) __scheduleAll();
   });
 })();
