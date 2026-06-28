@@ -2,6 +2,13 @@
 // Included by zwds.html and zwds-alena.html
 // Edit here once; both pages update automatically.
 
+// ── Palace name label ordering: show English name first, then P-number + Chinese below ──
+(function() {
+  var s = document.createElement('style');
+  s.textContent = '.p-num { order: 2; } .p-name-cn { order: 3; }';
+  (document.head || document.documentElement).appendChild(s);
+})();
+
 // IANA-based UTC offset for a given birth location + date
 function __computeUtcOffset(lat, lon, dateStr, timeStr) {
   if (typeof tzlookup !== 'function') return null;
@@ -204,6 +211,13 @@ function __tzCorrect(i) {
   function __clearArrows() {
     var el = document.getElementById('sihua-in');
     if (el) el.remove();
+    // Also clear outgoing overlay and its decorations
+    var out = document.getElementById('sihua-out');
+    if (out) out.remove();
+    document.querySelectorAll('.sihua-self-badge').forEach(function(b) { b.remove(); });
+    document.querySelectorAll('.palace-cell').forEach(function(c) {
+      c.classList.remove('flight-source','flight-target-lu','flight-target-quan','flight-target-ke','flight-target-ji');
+    });
   }
 
   // Draw a filled arrowhead polygon at the tip of each arrow.
@@ -533,5 +547,246 @@ function __tzCorrect(i) {
   document.addEventListener('DOMContentLoaded', function() {
     var co = document.getElementById('chart-output');
     if (co) obs.observe(co, { childList: true, subtree: true });
+  });
+})();
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Palace stem outgoing flights (Liu Chu / palace-stem inter-palace enhancers)
+//
+// Click any palace cell (non-star area) → draws colored arrows from that
+// palace outward to whichever palaces hold the 4 target stars of that
+// palace's heavenly stem.  Self-enhancers (target star in same palace) are
+// shown as a small ↺ badge inside the palace header instead of an arrow.
+//
+// Mutagen table source: SuccessCode/zwds-engine.bundle.js heavenlyStems data
+// ─────────────────────────────────────────────────────────────────────────────
+(function() {
+  // Forward mutagen lookup: heavenly stem → target star (English name) per enhancer
+  // Source: engine bundle exports.heavenlyStems mutagen arrays (Lu/Quan/Ke/Ji order)
+  var FWD = {
+    '甲': { Lu: 'Lian Zhen',   Quan: 'Po Jun',     Ke: 'Wu Qu',      Ji: 'Tai Yang'  },
+    '乙': { Lu: 'Tian Ji',     Quan: 'Tian Liang', Ke: 'Zi Wei',     Ji: 'Tai Yin'   },
+    '丙': { Lu: 'Tian Tong',   Quan: 'Tian Ji',    Ke: 'Wen Chang',  Ji: 'Lian Zhen' },
+    '丁': { Lu: 'Tai Yin',     Quan: 'Tian Tong',  Ke: 'Tian Ji',    Ji: 'Ju Men'    },
+    '戊': { Lu: 'Tan Lang',    Quan: 'Tai Yin',    Ke: 'You Bi',     Ji: 'Tian Ji'   },
+    '己': { Lu: 'Wu Qu',       Quan: 'Tan Lang',   Ke: 'Tian Liang', Ji: 'Wen Qu'    },
+    '庚': { Lu: 'Tai Yang',    Quan: 'Wu Qu',      Ke: 'Tai Yin',    Ji: 'Tian Tong' },
+    '辛': { Lu: 'Ju Men',      Quan: 'Tai Yang',   Ke: 'Wen Qu',     Ji: 'Wen Chang' },
+    '壬': { Lu: 'Tian Liang',  Quan: 'Zi Wei',     Ke: 'Zuo Fu',     Ji: 'Wu Qu'     },
+    '癸': { Lu: 'Po Jun',      Quan: 'Ju Men',     Ke: 'Tai Yin',    Ji: 'Tan Lang'  }
+  };
+
+  var STEMS  = '甲乙丙丁戊己庚辛壬癸';
+  var COLORS = { Lu: '#166020', Quan: '#1020b8', Ke: '#a08000', Ji: '#aa1010' };
+  var NS     = 'http://www.w3.org/2000/svg';
+  var _lastOutDraw = 0;
+  var _timer2 = null;
+
+  function __palCell(el) {
+    var e = el;
+    while (e && e !== document.body) {
+      if (e.classList && e.classList.contains('palace-cell')) return e;
+      e = e.parentElement;
+    }
+    return null;
+  }
+
+  // Find the heavenly stem of a palace cell by scanning text nodes for single stem chars
+  function __palaceStem(cell) {
+    var walker = document.createTreeWalker(cell, NodeFilter.SHOW_TEXT);
+    var node;
+    while ((node = walker.nextNode())) {
+      var t = node.textContent.trim();
+      if (t.length === 1 && STEMS.indexOf(t) !== -1) {
+        // Skip if inside a star element (enhancer badge text could contain single chars)
+        var p = node.parentElement;
+        var inside = false;
+        while (p && p !== cell) {
+          if (p.classList && (p.classList.contains('star-en') ||
+                               p.classList.contains('star-item') ||
+                               p.classList.contains('ebadge') ||
+                               p.classList.contains('stars-list'))) {
+            inside = true; break;
+          }
+          p = p.parentElement;
+        }
+        if (!inside) return t;
+      }
+    }
+    return null;
+  }
+
+  // Find palace cell that holds the given star (by English name in .star-en)
+  function __palaceForStar(starName, co) {
+    var stars = co.querySelectorAll('.star-en');
+    for (var i = 0; i < stars.length; i++) {
+      if (stars[i].textContent.trim() === starName) {
+        return __palCell(stars[i]);
+      }
+    }
+    return null;
+  }
+
+  function __clearOut() {
+    var el = document.getElementById('sihua-out');
+    if (el) el.remove();
+    document.querySelectorAll('.sihua-self-badge').forEach(function(b) { b.remove(); });
+    document.querySelectorAll('.palace-cell').forEach(function(c) {
+      c.classList.remove('flight-source','flight-target-lu','flight-target-quan',
+                         'flight-target-ke','flight-target-ji');
+    });
+  }
+
+  function __arrowHead(svg, tx, ty, dx, dy, col) {
+    var len = Math.sqrt(dx*dx + dy*dy) || 1;
+    var ux = dx/len, uy = dy/len;
+    var px = -uy, py = ux;
+    var size = 10, half = 3.5;
+    var poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('points',
+      tx.toFixed(2)+','+ty.toFixed(2)+' '+
+      (tx - ux*size + px*half).toFixed(2)+','+(ty - uy*size + py*half).toFixed(2)+' '+
+      (tx - ux*size - px*half).toFixed(2)+','+(ty - uy*size - py*half).toFixed(2));
+    poly.setAttribute('fill', col);
+    poly.setAttribute('opacity', '0.92');
+    svg.appendChild(poly);
+  }
+
+  function __drawOutgoing(sourceCell, stem, co) {
+    __clearOut();
+    var targets = FWD[stem];
+    if (!targets) return;
+    _lastOutDraw = Date.now();
+
+    var scrollX = window.scrollX || window.pageXOffset || 0;
+    var scrollY = window.scrollY || window.pageYOffset || 0;
+    var dW = Math.max(document.documentElement.scrollWidth,  window.innerWidth);
+    var dH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+
+    var svg = document.createElementNS(NS, 'svg');
+    svg.id = 'sihua-out';
+    svg.setAttribute('xmlns', NS);
+    svg.style.cssText = 'position:absolute;top:0;left:0;width:'+dW+'px;height:'+dH+'px;' +
+                        'pointer-events:none;z-index:8499;overflow:visible';
+
+    var sRect = sourceCell.getBoundingClientRect();
+    var sx = sRect.left + scrollX + sRect.width  / 2;
+    var sy = sRect.top  + scrollY + sRect.height / 2;
+
+    // Collect non-self flights first so we can spread them
+    var flights = [];
+    ['Lu','Quan','Ke','Ji'].forEach(function(type) {
+      var starName = targets[type];
+      if (!starName) return;
+      var tCell = __palaceForStar(starName, co);
+      if (!tCell) return;
+      if (tCell === sourceCell) {
+        // Self-enhancer: add ↺ badge near the stem label in the palace header
+        var header = sourceCell.querySelector('.p-header') || sourceCell;
+        var badge = document.createElement('span');
+        badge.className = 'sihua-self-badge';
+        badge.title = type + ' → ' + starName + ' (self)';
+        badge.style.cssText =
+          'display:inline-block;font-size:10px;font-weight:700;color:' + COLORS[type] +
+          ';margin-left:4px;vertical-align:middle;cursor:default;';
+        badge.textContent = '↺' + type;
+        header.appendChild(badge);
+      } else {
+        flights.push({ tCell: tCell, type: type, star: starName });
+      }
+    });
+
+    var n = flights.length;
+    flights.forEach(function(f, i) {
+      var tRect = f.tCell.getBoundingClientRect();
+      var tx = tRect.left + scrollX + tRect.width  / 2;
+      var ty = tRect.top  + scrollY + tRect.height / 2;
+      var col = COLORS[f.type];
+
+      var dx = tx - sx, dy = ty - sy;
+      var len = Math.sqrt(dx*dx + dy*dy) || 1;
+      var spread  = (i - (n - 1) / 2) * 12;
+      var ox = (-dy / len) * spread;
+      var oy = ( dx / len) * spread;
+
+      var mx = (sx + tx) / 2 + ox * 3;
+      var my = (sy + ty) / 2 + oy * 3;
+
+      var bEndX = tx + ox, bEndY = ty + oy;
+      var tangX = bEndX - mx, tangY = bEndY - my;
+      var tangLen = Math.sqrt(tangX*tangX + tangY*tangY) || 1;
+      var pathEndX = bEndX - (tangX/tangLen) * 9;
+      var pathEndY = bEndY - (tangY/tangLen) * 9;
+
+      var path = document.createElementNS(NS, 'path');
+      path.setAttribute('d',
+        'M'+(sx+ox).toFixed(2)+' '+(sy+oy).toFixed(2)+
+        ' Q'+mx.toFixed(2)+' '+my.toFixed(2)+
+        ' '+pathEndX.toFixed(2)+' '+pathEndY.toFixed(2));
+      path.setAttribute('stroke', col);
+      path.setAttribute('stroke-width', '2');
+      path.setAttribute('stroke-dasharray', '6 3');
+      path.setAttribute('fill', 'none');
+      path.setAttribute('opacity', '0.85');
+      svg.appendChild(path);
+
+      __arrowHead(svg, bEndX, bEndY, tangX, tangY, col);
+
+      // Label near the source end showing enhancer type + target star
+      var lx = sx + ox + (dx/len) * 28;
+      var ly = sy + oy + (dy/len) * 28;
+      var txt = document.createElementNS(NS, 'text');
+      txt.setAttribute('x', lx.toFixed(2));
+      txt.setAttribute('y', ly.toFixed(2));
+      txt.setAttribute('fill', col);
+      txt.setAttribute('font-size', '11');
+      txt.setAttribute('font-weight', 'bold');
+      txt.setAttribute('text-anchor', 'middle');
+      txt.setAttribute('dominant-baseline', 'middle');
+      txt.textContent = f.type + '→' + f.star;
+      svg.appendChild(txt);
+
+      // Highlight target palace with dashed border matching enhancer color
+      f.tCell.classList.add('flight-target-' + f.type.toLowerCase());
+    });
+
+    document.body.appendChild(svg);
+    sourceCell.classList.add('flight-source');
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var co = document.getElementById('chart-output');
+
+    // Palace click handler (bubbling phase — fires after capture REV handler)
+    // The capture-phase star handler calls stopImmediatePropagation only when a
+    // star is hit, so palace clicks on non-star areas reach here.
+    document.addEventListener('click', function(e) {
+      var chart = document.getElementById('chart-output');
+      if (!chart) return;
+
+      // Already handled by capture-phase star handler → skip
+      // (star handler calls stopImmediatePropagation so we never reach here for star clicks)
+
+      // Find the palace cell that was clicked
+      var cell = __palCell(e.target);
+      if (!cell || cell.classList.contains('center-cell')) {
+        __clearOut();
+        return;
+      }
+
+      var stem = __palaceStem(cell);
+      if (!stem) { __clearOut(); return; }
+
+      __drawOutgoing(cell, stem, chart);
+    }, false);
+
+    // Clear outgoing overlay whenever the chart re-renders
+    if (co) {
+      new MutationObserver(function() {
+        if (Date.now() - _lastOutDraw < 600) return;
+        clearTimeout(_timer2);
+        _timer2 = setTimeout(__clearOut, 80);
+      }).observe(co, { childList: true, subtree: true });
+    }
   });
 })();
