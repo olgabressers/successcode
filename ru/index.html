@@ -168,23 +168,30 @@
 
     /* EMPEROR / SECRECY */
     .emperor-section {
+      position: relative;
+      min-height: 80vh;
+      display: flex; align-items: center;
       padding: 110px 72px;
-      background: var(--black);
+      overflow: hidden;
+    }
+    .emperor-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .emperor-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      filter: brightness(.42) saturate(.9) blur(6px);
+      transform: scale(1.06);
+    }
+    .emperor-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(58,60,72,0.88) 0%, rgba(58,60,72,0.55) 65%, rgba(58,60,72,0.35) 100%);
     }
     .emperor-content {
-      display: grid; grid-template-columns: 1.1fr 1fr;
-      gap: 80px; align-items: center;
-      max-width: 1320px; margin: 0 auto;
+      position: relative; z-index: 2;
+      max-width: 820px;
     }
     .emperor-text {}
-    .emperor-image {
-      position: relative;
-    }
-    .emperor-image img {
-      width: 100%; height: auto; display: block;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.55);
-      border: 1px solid var(--gold);
-    }
     .emperor-tag {
       font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
       color: var(--gold); margin-bottom: 30px; font-weight: 600;
@@ -575,9 +582,7 @@
       .manifesto-cols { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; }
       .manifesto-cols p { font-size: 14px; }
 
-      .emperor-section { padding: 70px 22px; }
-      .emperor-content { grid-template-columns: 1fr; gap: 40px; }
-      .emperor-image { order: -1; max-width: 360px; margin: 0 auto; }
+      .emperor-section { padding: 70px 22px; min-height: auto; }
       .emperor-h2 { font-size: 30px; }
       .emperor-p { font-size: 15px; }
       .emperor-stats {
@@ -698,6 +703,9 @@
 
 <!-- EMPEROR / SECRECY -->
 <section class="emperor-section">
+  <div class="emperor-bg">
+    <img src="images/temple-of-heaven-beijing.webp" alt="">
+  </div>
   <div class="emperor-content">
     <div class="emperor-text">
       <div class="emperor-tag">Тысяча лет точности</div>
@@ -734,9 +742,6 @@
           <div class="emperor-stat-label">Закрытость до<br>наших дней</div>
         </div>
       </div>
-    </div>
-    <div class="emperor-image">
-      <img src="images/temple-of-heaven-beijing.webp" alt="Храм Неба, Пекин" loading="lazy">
     </div>
   </div>
 </section>
