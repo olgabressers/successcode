@@ -5,63 +5,126 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <meta name="googlebot" content="noindex, nofollow">
-  <title>Ирина — Карта личности · Цзы Вэй Доу Шу</title>
+  <title>Карта личности — Ирина · Цзы Вэй Доу Шу</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#F7F5F0; --surface:#FFFFFF; --surface2:#EDEBE4;
-      --gold:#9A6E20; --gold2:#B8882A;
-      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10);
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8;
+      --gold:#9A6E20; --gold2:#B8882A; --goldfade:rgba(154,110,32,0.09);
       --text:#1A1820; --dim:#383644; --muted:#72707E;
-      --green:#1A5026; --red:#7A1E1E; --tag:rgba(154,110,32,0.09);
+      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10);
+      --red:#7A1E1E; --green:#1A5026; --redfade:rgba(122,30,30,0.06); --greenfade:rgba(26,80,38,0.06);
     }
-    /* iOS viewport lock — both html and body */
     html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.72;-webkit-font-smoothing:antialiased;}
-    .page{max-width:760px;margin:0 auto;padding:40px 30px 70px;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.7;}
+    .page{width:100%;max-width:1080px;margin:0 auto;padding:0 52px 80px;}
 
-    .topnav{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:26px;font-size:13px;}
+    .topnav{display:flex;flex-wrap:wrap;gap:18px;padding-top:24px;font-size:12px;}
     .topnav a{color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;font-weight:500;}
     .topnav a:hover{color:var(--gold);}
 
-    .badge{display:inline-block;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;background:var(--tag);border:1px solid var(--border);padding:5px 12px;margin-bottom:18px;}
-    h1{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:500;line-height:1.1;margin-bottom:8px;}
-    .sub{font-size:15px;color:var(--muted);margin-bottom:6px;}
-    .chinese{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:20px;letter-spacing:4px;margin-bottom:20px;}
-    .rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 65%);margin:30px 0;}
+    .report-header{padding:34px 0 40px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .header-left{flex:1;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.08;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .cn{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:22px;letter-spacing:4px;margin-top:10px;}
 
-    h2{font-family:'Cormorant Garamond',serif;font-size:29px;font-weight:500;color:var(--text);margin:40px 0 6px;line-height:1.18;}
-    h2 .num{color:var(--gold);font-size:18px;font-weight:600;font-family:'Inter',sans-serif;letter-spacing:2px;margin-right:8px;vertical-align:middle;}
-    .stars-line{font-size:13px;color:var(--gold);letter-spacing:1px;margin-bottom:14px;font-weight:500;}
-    p{margin-bottom:14px;color:var(--dim);}
-    .lead{font-size:17px;color:var(--text);}
-    strong{color:var(--text);font-weight:600;}
-    .pull{background:var(--surface);border-left:3px solid var(--gold2);padding:18px 22px;margin:18px 0;font-size:15px;color:var(--dim);}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);margin:50px 0;}
+
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin:46px 0 20px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .section-title{font-family:'Cormorant Garamond',serif;font-size:33px;font-weight:400;color:var(--text);margin-bottom:14px;line-height:1.2;}
+    .section-intro{font-size:14.5px;color:var(--dim);margin-bottom:26px;max-width:760px;}
+
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:34px 42px;margin-bottom:32px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:18px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:14.5px;color:var(--dim);line-height:1.85;}
+    .intro-body+.intro-body{margin-top:12px;}
+
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.hl{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.25;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+
+    /* STAR TABLE */
+    .star-table{width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:8px;}
+    .star-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:11px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .star-table th:first-child{width:30%;}
+    .star-table tr{border-bottom:1px solid var(--border2);}
+    .star-table td{padding:20px 18px;vertical-align:top;background:white;word-break:break-word;}
+    .star-table tr:nth-child(even) td{background:#FCFBF8;}
+    .palace{display:block;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:5px;}
+    .star{display:block;font-size:13px;color:var(--gold);font-weight:500;line-height:1.5;}
+    .star .cnx{color:var(--muted);font-weight:400;}
+    .star-cell .tag{display:inline-block;margin-top:7px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border:1px solid;}
+    .tag.s{color:var(--green);border-color:rgba(26,80,38,0.3);background:var(--greenfade);}
+    .tag.w{color:var(--red);border-color:rgba(122,30,30,0.3);background:var(--redfade);}
+    .reading{font-size:14px;color:var(--dim);line-height:1.72;}
+    .reading strong{color:var(--text);font-weight:600;}
+
+    /* STRONG / WEAK */
+    .sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .sw-card{background:white;border:1px solid var(--border2);padding:28px 30px;}
+    .sw-card.green{border-top:3px solid var(--green);}
+    .sw-card.red{border-top:3px solid var(--red);}
+    .sw-title{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .sw-title.green{color:var(--green);}
+    .sw-title.red{color:var(--red);}
+    .sw-list{list-style:none;}
+    .sw-list li{padding:12px 0;border-bottom:1px solid var(--border2);font-size:13.5px;color:var(--dim);line-height:1.55;}
+    .sw-list li:last-child{border-bottom:none;}
+    .sw-list li b{color:var(--text);display:block;margin-bottom:2px;font-size:14px;}
+
+    /* Q&A */
+    .qa{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:26px 32px;margin-bottom:18px;}
+    .qa-q{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:6px;}
+    .qa-q::before{content:'?';color:var(--gold);font-weight:600;margin-right:10px;}
+    .qa-a{font-size:14px;color:var(--dim);line-height:1.78;}
+    .qa-a strong{color:var(--text);font-weight:600;}
+    .qa-a+.qa-a{margin-top:10px;}
+    .qa-tag{display:inline-block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
+
+    .pull{background:var(--surface);border:1px solid var(--border);padding:20px 26px;margin:20px 0;font-size:14.5px;color:var(--dim);line-height:1.7;}
     .pull strong{color:var(--gold);}
-    ul{margin:6px 0 16px 0;padding-left:0;list-style:none;}
-    li{position:relative;padding-left:22px;margin-bottom:9px;color:var(--dim);}
-    li::before{content:'';position:absolute;left:2px;top:11px;width:6px;height:6px;background:var(--gold2);border-radius:50%;}
 
-    .grid12{width:100%;border-collapse:collapse;margin:14px 0 8px;table-layout:fixed;}
-    .grid12 td{border:1px solid var(--border2);padding:9px 7px;text-align:center;font-size:12.5px;color:var(--dim);word-break:break-word;vertical-align:top;}
-    .grid12 .pn{display:block;font-weight:600;color:var(--gold);font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
-    .grid12 .st{display:block;color:var(--text);font-weight:500;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:1000px;border:none;display:block;}
+    .chart-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.6;}
 
-    .marriage{background:linear-gradient(180deg,rgba(154,110,32,0.06),rgba(154,110,32,0.02));border:1px solid var(--border);padding:4px 24px 14px;margin:24px 0;}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
 
-    .footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--border2);font-size:12px;color:var(--muted);text-align:center;letter-spacing:2px;text-transform:uppercase;}
-
-    @media (max-width:768px){
+    @media (max-width:900px){
       *{max-width:100vw;}
       img,iframe,video,table{max-width:100%!important;}
-      .page{padding:30px 20px 56px;}
-      h1{font-size:33px;}
-      h2{font-size:24px;}
-      body{font-size:15.5px;}
-      .lead{font-size:16px;}
-      .grid12 td{font-size:11px;padding:6px 4px;}
+      .page{padding:0 20px 56px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:22px;}
+      .header-right{text-align:left;}
+      .report-title{font-size:35px;}
+      .section-title{font-size:27px;}
+      .verdict-row{grid-template-columns:1fr;}
+      .sw-grid{grid-template-columns:1fr;}
+      .intro-block{padding:26px 22px;}
+      .intro-lead{font-size:21px;}
+      .star-table th:first-child{width:38%;}
+      .star-table td{padding:14px 12px;}
+      .palace{font-size:16px;}
+      .reading{font-size:13.5px;}
+      .chart-wrap iframe{height:760px;}
     }
   </style>
 </head>
@@ -70,114 +133,230 @@
 
   <nav class="topnav">
     <a href="https://successcode.net/admin/zwds-test-group.html">← Тест-группа</a>
-    <a href="https://successcode.net/zwds-irina" target="_blank">Карта (расчёт)</a>
+    <a href="#chart">Карта (расчёт)</a>
+    <a href="#questions">Ответы на вопросы</a>
     <a href="https://successcode.net/admin/delisted.html">Админ-хаб</a>
   </nav>
 
-  <div class="badge">Цзы Вэй Доу Шу · Карта личности</div>
-  <h1>Ирина</h1>
-  <div class="sub">30 ноября 1985 · Рыбинск · карта судьбы по дате и времени рождения</div>
-  <div class="chinese">紫微斗数</div>
+  <header class="report-header">
+    <div class="header-left">
+      <span class="brand">SuccessCode</span>
+      <h1 class="report-title">Карта личности<br><em>и сильных сторон</em></h1>
+      <p class="report-subtitle">Индивидуальный анализ карты судьбы · Цзы Вэй Доу Шу</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Ирина</div>
+      <div class="client-meta">30 ноября 1985 · Рыбинск</div>
+      <div class="client-meta">Юрист · корпоративное и контрактное право, комплаенс</div>
+      <div class="cn">紫微斗数</div>
+    </div>
+  </header>
 
-  <p class="lead">Это портрет вашего характера и того, как устроена ваша жизнь — каким он заложен в карте рождения. Здесь описано, кто вы по своей природе, в чём ваша сила, как у вас складываются деньги, дело, отношения и семья, и что меняется, когда вы выходите замуж.</p>
-
-  <div class="rule"></div>
-
-  <!-- ============ 1. ЯДРО ЛИЧНОСТИ ============ -->
-  <h2><span class="num">01</span>Кто вы по своей природе</h2>
-  <div class="stars-line">Звезда характера — Тань Лан · ядро судьбы — Лян Чжэнь</div>
-  <p>В основе вашей личности — <strong>сильная, энергичная и напористая натура</strong>. Вы человек желания и движения: у вас всегда есть цель, и вы идёте к ней с большим внутренним напором. Упрямство — ваша рабочая черта: если вы что-то решили, переубедить вас трудно.</p>
-  <p>При этом вы <strong>харизматичны и умеете себя подать</strong>. Вам легко производить впечатление, привлекать внимание, «продавать» себя и свои идеи. В вас есть артистизм и творческий подход — даже к самым практическим делам. Вы любите всё лучшее и не стесняетесь этого: качество, статус, красивые вещи — это часть вашего мира.</p>
-  <p>Вторым слоем идёт <strong>системность и целеустремлённость</strong>: вы не просто хотите — вы умеете выстраивать порядок, подстраиваться под ситуацию и доводить до результата. Вы дипломатичны, умеете вести конструктивный диалог и держаться с достоинством. Это сочетание — «волевой характер плюс умение нравиться» — и есть ваш стержень.</p>
-  <div class="pull"><strong>Короткой формулой:</strong> вы — человек, который сам делает свою судьбу. Не плывёте по течению, а создаёте обстоятельства вокруг себя.</div>
-
-  <!-- ============ 2. СИЛЬНЫЕ СТОРОНЫ ============ -->
-  <h2><span class="num">02</span>В чём ваша сила</h2>
-  <ul>
-    <li><strong>Энергия и пробивная способность.</strong> Вы не сдаётесь под давлением и умеете действовать в кризис, когда другие теряются.</li>
-    <li><strong>Харизма и личный бренд.</strong> Люди вас замечают и идут за вами. Там, где успех зависит от того, как вы себя подаёте, — вы в своей стихии.</li>
-    <li><strong>Способность к трансформации.</strong> Вы умеете разрушать отжившее и строить заново — и выходить из перемен сильнее.</li>
-    <li><strong>Системное мышление.</strong> За внешней яркостью у вас работает порядок: вы планируете, структурируете, доводите до конца.</li>
-    <li><strong>Достоинство и высокая планка.</strong> Вы держите внутреннюю «императорскую» меру — не размениваетесь на мелкое и стремитесь к высокому статусу.</li>
-  </ul>
-
-  <!-- ============ 3. ВНУТРЕННИЙ МИР ============ -->
-  <h2><span class="num">03</span>Ваш внутренний мир и самооценка</h2>
-  <div class="stars-line">Дворец внутреннего мира — Цзы Вэй + Тянь Сян (признание)</div>
-  <p>Внутри вы носите <strong>«императорскую» самооценку</strong>: чувство собственного достоинства, право быть первой, потребность в высоком статусе и признании. Вы ставите себе высокую планку — иногда выше, чем реалистично, — и именно это вас и двигает вперёд.</p>
-  <p>Рядом с этой властной нотой живёт вторая — <strong>надёжность и желание быть полезной</strong>, способность поддержать, организовать, дать опору другим. Эта пара делает вас лидером-совестью: вы можете и вести за собой, и быть тем, на кого опираются. Ваше признание в карте подчёркнуто отдельно — миру свойственно <strong>видеть и отмечать ваш статус</strong>, ваше имя работает на вас.</p>
-
-  <!-- ============ 4. РИСУНОК ЖИЗНИ ============ -->
-  <h2><span class="num">04</span>Как устроена ваша жизнь</h2>
-  <div class="stars-line">Рисунок судьбы — резкие перемены, кризис ведёт к взлёту</div>
-  <p>Ваша жизнь идёт <strong>не плавной прямой, а через крупные повороты</strong>. В карте заложен рисунок «резких изменений»: периоды слома и перестройки, после которых следует подъём на новый уровень. Это не про невезение — это <strong>про природу сильного характера, который растёт через преодоление</strong>.</p>
-  <p>Практически это значит: спокойный «ровный» сценарий — не ваш. Там, где другому комфортно сидеть на одном месте, вам становится тесно, и вы сами запускаете перемены — смену дела, среды, формата жизни. Самый большой риск для вас — не кризис, а <strong>застой и комфорт</strong>: именно в нём гаснет ваша энергия. А самые сильные ваши прорывы происходят <strong>сразу после трудных периодов</strong>.</p>
-  <div class="pull">Вы из тех, кто «сначала теряет, потом приобретает» — и приобретает больше, чем потерял. Перемены — ваш двигатель, а не ваша беда.</div>
-
-  <!-- ============ 5. ДЕНЬГИ ============ -->
-  <h2><span class="num">05</span>Деньги</h2>
-  <div class="stars-line">Дворец богатства — По Цзюнь</div>
-  <p>Деньги к вам приходят <strong>через перестройку и преобразование</strong>, а не через тихое накопление на одном месте. Ваш денежный сценарий — это циклы: вложить, переделать, поднять — и выйти на новый уровень. Финансовый поток у вас может быть неровным (то густо, то пусто), но <strong>каждая «перестройка» поднимает планку</strong>.</p>
-  <p>Вам органичны сферы, связанные с реконструкцией и обновлением: всё, что нужно «переделать и поднять» — проекты, структуры, недвижимость под ремонт и перепродажу, перезапуски. Ключ к деньгам для вас — <strong>не бояться сломать старую схему</strong> ради новой, более крупной.</p>
-
-  <!-- ============ 6. ДЕЛО И КАРЬЕРА ============ -->
-  <h2><span class="num">06</span>Дело и карьера</h2>
-  <div class="stars-line">Дворец карьеры — Ци Ша · карьерная природа — личный бренд</div>
-  <p>В деле вы <strong>решительны, независимы и быстры</strong>. Вы ставите высокие цели и умеете быстро их брать. Вам тесно в жёстких рамках и под чужим управлением — вам нужно <strong>пространство, чтобы действовать по-своему</strong> и принимать решения самой. В переломные моменты вы умеете включать «режим боя» и идти напролом, и именно тогда добиваетесь лучших результатов.</p>
-  <p>Ваша карьера строится <strong>через личный бренд</strong> — через то, как вы себя заявляете и позиционируете. Вам идут роли, где видна личность: где можно вести, презентовать, влиять. Лучшая стратегия для вас — <strong>заявлять о себе высоко и смело</strong>, а не скромничать.</p>
-
-  <!-- ============ 7. ОТНОШЕНИЯ И БРАК ============ -->
-  <div class="marriage">
-  <h2><span class="num">07</span>Отношения и брак — что происходит, когда вы выходите замуж</h2>
-  <div class="stars-line">Дворец супруга — У Цюй + Тянь Фу · в треугольнике брака сияет Цзы Вэй</div>
-  <p>Ваш брачный сценарий — <strong>стабильный, прочный и основательный</strong>, а не бурно-страстный. В дворце супруга стоят две «строящие» звезды: одна отвечает за порядок, финансовую дисциплину и контроль, вторая — за традиционность, надёжность и постепенность. Поэтому ваши отношения складываются <strong>не вспышкой, а основательно</strong>: без громких страстей и без громких разводов — по-настоящему, на годы.</p>
-  <p>Важная деталь, о которой стоит сказать прямо: <strong>ваш брак освещён звездой Цзы Вэй — Императором</strong>. Сама эта звезда стоит в вашем внутреннем дворце, но через «треугольник» карты она напрямую светит в дворец супруга. Что это значит на практике:</p>
-  <ul>
-    <li><strong>Партнёр со статусом.</strong> Вас тянет к человеку «весомому» — с положением, характером, авторитетом. Вы держите высокую планку к спутнику и не готовы на «меньшее».</li>
-    <li><strong>Сильный, самостоятельный супруг.</strong> Рядом с вами оказывается человек решительный, независимый, со своим стержнем — мягкого ведомого вы рядом не удержите.</li>
-    <li><strong>Брак как опора, а не как драма.</strong> Главные ноты — верность, доверие, надёжность. К вам «не прилетает» лишнего: союз закрытый и прочный.</li>
-    <li><strong>Финансовая основа.</strong> Деньги и партнёрство у вас связаны: супруг часто становится финансовым/деловым союзником, и вопрос денег в браке — структурный, требующий ясных договорённостей.</li>
-  </ul>
-  <p>Что меняется, <strong>когда вы выходите замуж</strong>: брак становится для вас <strong>стабилизирующей структурой</strong> — тем прочным основанием, с которого запускается ваша яркая, переменчивая, «трансформационная» жизнь. Ваша природа — это движение и перемены; брак даёт точку опоры, чтобы эти перемени не разрушали, а строили.</p>
-  <p>Зона роста — <strong>контроль</strong>. Ваша сильная, организующая натура в близких отношениях склонна всё «брать в руки» и управлять. Там, где вы <strong>отпускаете контроль и доверяете партнёру</strong>, брак расцветает; где пытаетесь всё держать — возникает напряжение и споры (часто вокруг денег и решений). По времени брак вам органичнее <strong>не самый ранний, а зрелый, осознанный</strong> — выбранный головой, а не порывом.</p>
+  <!-- ГЛАВНЫЙ ВЫВОД -->
+  <div class="section-label">Главный вывод</div>
+  <div class="intro-block">
+    <p class="intro-lead">
+      Вы — <em>человек, который строит свою судьбу сам</em>: сильный, харизматичный характер, который
+      растёт через крупные повороты, а не через ровное движение по прямой.
+    </p>
+    <p class="intro-body">
+      В основе вашей карты — редкое сочетание: <strong>пробивная воля и личный магнетизм</strong> (вы умеете
+      и вести за собой, и нравиться), помноженные на <strong>системный, юридически-финансовый ум</strong>.
+      Вы не плывёте по течению — вы создаёте обстоятельства вокруг себя. Спокойный «ровный» сценарий вам тесен;
+      ваши самые сильные прорывы случаются сразу после трудных, переломных периодов.
+    </p>
+    <p class="intro-body">
+      Деньги и дело идут к вам через <strong>экспертизу, репутацию и смелые перестройки</strong>, а не через
+      тихое сидение на одном месте. А партнёрство (брак) в вашей карте — это <strong>ось богатства</strong>:
+      финансы у вас структурно прирастают именно в союзе. Ниже — разбор по сферам, затем сильные и слабые зоны,
+      и ответы на ваши вопросы.
+    </p>
   </div>
 
-  <!-- ============ 8. ДЕТИ ============ -->
-  <h2><span class="num">08</span>Дети и семья</h2>
-  <div class="stars-line">Дворец детей — Тянь Тун</div>
-  <p>В теме детей у вас <strong>тёплая, лёгкая, эмоциональная энергия</strong>. Отношения с детьми строятся на близости и дружелюбии, без жёсткости. Карта склоняет к <strong>мягкой, «детской» атмосфере в семье</strong>, к душевному контакту; возможна девочка. С детьми вам важна не строгая иерархия, а эмоциональная связь и свобода.</p>
+  <div class="verdict-row">
+    <div class="verdict-card hl">
+      <div class="vc-label">Ядро личности</div>
+      <div class="vc-value">Воля + харизма + система</div>
+      <div class="vc-sub">Сильный характер, который сам делает результат и умеет себя подать.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Деньги</div>
+      <div class="vc-value">Через трансформацию</div>
+      <div class="vc-sub">Доход растёт через перестройки и переход на новый, более высокий уровень — не через рутину.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Брак</div>
+      <div class="vc-value">Ось богатства</div>
+      <div class="vc-sub">Звезда финансов стоит в дворце супруга: в партнёрстве деньги структурно прирастают.</div>
+    </div>
+  </div>
 
-  <!-- ============ 9. ОКРУЖЕНИЕ ============ -->
-  <h2><span class="num">09</span>Окружение, друзья, близкий круг</h2>
-  <div class="stars-line">Дворец братьев — Солнце + Луна · дворец друзей — звёзды-помощники</div>
-  <p>В вашем близком кругу сочетаются <strong>яркость и мягкость</strong>: рядом с вами есть и «солнечные», открытые люди, и тонкие, заботливые. Вы умеете окружать себя теми, кто поддерживает. В делах вам особенно помогают <strong>помощники, ассистенты, команда</strong> — структура поддержки вокруг вас работает на вас.</p>
-  <p>Одна честная нота: в женском кругу (подруги, сёстры, партнёрши) у вас возможны <strong>трения и напряжение</strong> — особенно там, где замешаны деньги или скрытые интересы. С такими связями вам полезны ясные границы и письменные договорённости.</p>
+  <!-- ЗВЁЗДЫ КАРТЫ -->
+  <div class="section-label">Звёзды вашей карты</div>
+  <h2 class="section-title">Характер по сферам жизни</h2>
+  <p class="section-intro">Слева — сфера жизни и звёзды, которые ею управляют. Справа — что это означает для вас.
+     Звёзды отмечены как <b style="color:var(--green)">сильная</b> или <b style="color:var(--red)">проблемная</b> зона.</p>
 
-  <!-- ============ 10. РОДИТЕЛИ ============ -->
-  <h2><span class="num">10</span>Родители и старшие</h2>
-  <div class="stars-line">Дворец родителей — Тянь Цзи + Цзюй Мэнь</div>
-  <p>Со старшими и «вышестоящими» (родители, начальство, наставники, официальные структуры) у вас <strong>умный, стратегический контакт</strong> — вы умеете выстраивать с ними отношения и находить общий язык. При этом тепло в этих отношениях <strong>не всегда выражается открыто</strong>: связь скорее сдержанная, без бурных проявлений чувств. Вам легко даётся «дипломатия» с авторитетами — это ваш ресурс.</p>
+  <table class="star-table">
+    <thead><tr><th>Сфера и звёзды</th><th>Что это значит для вас</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="star-cell"><span class="palace">Личность</span><span class="star">Тань Лан <span class="cnx">貪狼</span> · Лян Чжэнь <span class="cnx">廉貞</span></span><span class="tag s">Сильная</span></td>
+        <td class="reading">Сильная, энергичная, напористая натура — человек желания и движения. <strong>Харизматичны, умеете себя подать</strong>, привлекаете внимание, «продаёте» себя и свои идеи; есть артистизм даже в практических делах. Любите всё лучшее и не скрываете этого. Второй слой — <strong>целеустремлённость и системность</strong>: умеете выстраивать порядок, дипломатичны, держитесь с достоинством. Формула: «воля плюс умение нравиться».</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Внутренний мир</span><span class="star">Цзы Вэй <span class="cnx">紫微</span> · Тянь Сян <span class="cnx">天相</span></span><span class="tag s">Сильная</span></td>
+        <td class="reading">Внутри вы носите <strong>«императорскую» самооценку</strong>: достоинство, право быть первой, потребность в высоком статусе и признании. Планку себе ставите высокую — это вас и двигает. Рядом — нота надёжности и желания быть полезной, способность дать опору. Ваш статус <strong>мир склонен замечать и отмечать</strong>: ваше имя работает на вас (вас рекомендуют, просят вернуться, ищут «такого же, как вы»).</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Карьера и дело</span><span class="star">Ци Ша <span class="cnx">七殺</span></span><span class="tag s">Сильная</span></td>
+        <td class="reading"><strong>Решительность, независимость, скорость.</strong> Ставите высокие цели и умеете быстро их брать. Вам тесно в жёстких рамках и под чужим управлением — нужно пространство решать самой. В переломные моменты включаете «режим боя» и идёте напролом — и именно тогда добиваетесь лучшего. Карьера строится <strong>через личный бренд и репутацию</strong>; лучшая стратегия — заявлять о себе высоко, а не скромничать.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Деньги</span><span class="star">По Цзюнь <span class="cnx">破軍</span></span><span class="tag s">Сильная · нестабильная</span></td>
+        <td class="reading">Деньги приходят <strong>через перестройку и преобразование</strong>, а не через тихое накопление. Сценарий — циклы: вложить, переделать, поднять — и выйти на новый уровень. Поток может быть неровным (то густо, то пусто), но каждая «перестройка» поднимает планку. Органичны сферы обновления: переделать и поднять — проекты, структуры, недвижимость под ремонт, перезапуски. Ключ — <strong>не бояться сломать старую схему ради более крупной новой</strong>.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Брак и партнёр</span><span class="star">У Цюй <span class="cnx">武曲</span> · Тянь Фу <span class="cnx">天府</span></span><span class="tag s">Ось богатства</span></td>
+        <td class="reading">Главное: в дворце супруга стоит <strong>звезда финансов (У Цюй) вместе со звездой «небесной казны» (Тянь Фу)</strong> — то есть партнёрство у вас напрямую связано с деньгами и накоплением. Брак складывается <strong>основательно и прочно</strong>, без бурных страстей и без громких разводов: верность, надёжность, стабильность. <strong>Деньги в союзе прирастают</strong> — это структурная черта вашей карты (и ваш опыт это подтвердил). Теневая сторона тех же звёзд — <strong>деньги становятся главной точкой трения</strong>: контроль, ограничения, споры о тратах. Подробно — в ответах ниже.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Дети и семья</span><span class="star">Тянь Тун <span class="cnx">天同</span></span></td>
+        <td class="reading"><strong>Тёплая, лёгкая, эмоциональная энергия.</strong> Отношения с детьми — на близости и дружелюбии, без жёсткости; склонность к «детской», душевной атмосфере в доме, возможна девочка. Вам важна не строгая иерархия, а эмоциональная связь и свобода. Сама эта сфера в карте благоприятная и тёплая.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Старшие, авторитеты</span><span class="star">Тянь Цзи <span class="cnx">天機</span> · Цзюй Мэнь <span class="cnx">巨門</span></span><span class="tag s">Сильная</span></td>
+        <td class="reading"><strong>Умный, стратегический контакт со старшими и вышестоящими</strong> (наставники, начальство, институции). Вы умеете выстраивать с ними отношения, находить общий язык, перенимать опыт — у вас бывают сильные фигуры-наставники. Здесь же — <strong>дар речи, аналитики и убеждения</strong> (стратегия + красноречие): вы умеете объяснять, презентовать, выступать публично. Тепло в этих связях не всегда показное — стиль скорее сдержанный.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Недвижимость</span><span class="star">Тянь Лян <span class="cnx">天梁</span> (в силе)</span><span class="tag s">Сильная</span></td>
+        <td class="reading"><strong>Авторитет и зрелый, профессиональный подход</strong> к собственности. Близки основательные объекты «с историей», вторичное жильё, постепенное улучшение условий. Способны управлять и распоряжаться в этой сфере как старший, опытный человек — это ваша сильная территория (и потенциальный источник дохода — см. ответы).</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Окружение, круг</span><span class="star">Солнце + Луна <span class="cnx">太陽太陰</span> · звёзды-помощники</span></td>
+        <td class="reading">В близком кругу сочетаются <strong>яркость и мягкость</strong>; вы умеете окружать себя поддерживающими людьми. В делах вам особенно помогают <strong>помощники, команда, рекомендатели</strong> — и действительно, ваши позиции часто приходили через личные рекомендации. Нюанс: в женском кругу возможны трения, особенно где замешаны деньги.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Среда, заграница, публичность</span><span class="star">Лян Чжэнь <span class="cnx">廉貞</span> + Туо Луо + Ди Цзе</span><span class="tag w">Зона трения</span></td>
+        <td class="reading"><strong>Самая «нагруженная» сфера вашей карты.</strong> Здесь — внешняя среда, заграница, чужие системы, бюрократия, переезды. Стоят звёзды напряжения: <strong>хроническое «застревание» и риск внезапных потерь</strong>. На практике это даёт трение во внешней/иностранной среде, в долгих поисках работы за рубежом, в столкновении с чужими «правилами игры». Здесь нужна <strong>повышенная осторожность в дороге и в официально-бюрократических делах</strong> — не торопиться, всё фиксировать письменно.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Близкая «денежно-женская» ось</span><span class="star">Луна <span class="cnx">太陰</span> (под напряжением)</span><span class="tag w">Зона трения</span></td>
+        <td class="reading">Ваша врождённая «точка трения» — <strong>скрытые деньги и женский круг</strong>. Здесь возможны напряжение и недосказанность вокруг финансов с близкими/партнёршами/роднёй. Рекомендация — ясные границы и письменные договорённости там, где деньги пересекаются с близкими отношениями.</td>
+      </tr>
+      <tr>
+        <td class="star-cell"><span class="palace">Здоровье</span><span class="star">зоны внимания (не диагноз)</span><span class="tag w">Беречь</span></td>
+        <td class="reading">Карта даёт <strong>сильный ресурс и выносливость</strong>, но есть профилактические акценты: <strong>иммунная система и кровь</strong>, <strong>гормональная сфера и женские органы</strong>, <strong>пищеварение</strong>. В периоды резких перемен — аккуратность от внезапных травм (особенно в дороге). Главная рекомендация под ваш характер: не доводить себя «режимом боя» до истощения и вовремя восстанавливаться.</td>
+      </tr>
+    </tbody>
+  </table>
 
-  <!-- ============ 11. СРЕДА / ПУБЛИЧНОСТЬ ============ -->
-  <h2><span class="num">11</span>Среда, движение, публичная жизнь</h2>
-  <div class="stars-line">Дворец перемещений — Лян Чжэнь</div>
-  <p>Вы <strong>человек движения и среды</strong>: вам свойственно стремиться к лучшим, более комфортным и престижным условиям, к перемещениям и обновлению пространства вокруг. В публичном поле вы умеете держаться системно и дипломатично. Единственное — в поездках и официально-бюрократических делах вам полезна <strong>повышенная внимательность и осторожность</strong>: это та зона, где не стоит торопиться и где аккуратность экономит силы.</p>
+  <!-- СИЛЬНЫЕ / СЛАБЫЕ -->
+  <div class="section-label">Карта прочности</div>
+  <h2 class="section-title">Где вы процветаете — и где зона риска</h2>
+  <p class="section-intro">Какие сферы жизни у вас работают «в плюс» и дают рост, а какие требуют осторожности и забирают силы.</p>
 
-  <!-- ============ 12. НЕДВИЖИМОСТЬ ============ -->
-  <h2><span class="num">12</span>Недвижимость и «территория»</h2>
-  <div class="stars-line">Дворец недвижимости — Тянь Лян (в сильной позиции)</div>
-  <p>В теме дома и собственности у вас <strong>авторитет и зрелый, профессиональный подход</strong>. Вам близки основательные, «с историей» объекты, вторичное жильё, постепенное улучшение условий. Вы способны <strong>управлять и распоряжаться</strong> в этой сфере как старший, опытный человек — это ваша сильная территория.</p>
+  <div class="sw-grid">
+    <div class="sw-card green">
+      <div class="sw-title green">● Сильные, процветающие сферы</div>
+      <ul class="sw-list">
+        <li><b>Личность и внутренний стержень</b>Харизма, воля, «императорская» самооценка и признание — ваш капитал, который работает во всех делах.</li>
+        <li><b>Карьера и репутация</b>Решительность + личный бренд + сильные наставники. Вас рекомендуют и зовут обратно — это ваша валюта.</li>
+        <li><b>Брак как ось богатства</b>Финансы структурно прирастают в партнёрстве (звезда денег в дворце супруга).</li>
+        <li><b>Деньги через трансформацию</b>Сильный, но «волновой» денежный сектор: рост — через смелые перестройки и переход на новый уровень.</li>
+        <li><b>Недвижимость и распоряжение</b>Зрелый, авторитетный подход; потенциальный источник дохода (управление, переделка, «вторичка с историей»).</li>
+        <li><b>Связь со старшими и стратегией</b>Лёгкий, умный контакт с авторитетами; дар речи, аналитики, публичного выступления.</li>
+      </ul>
+    </div>
+    <div class="sw-card red">
+      <div class="sw-title red">● Зоны трения и риска</div>
+      <ul class="sw-list">
+        <li><b>Заграница и чужие системы</b>Самая трудная сфера: иностранная среда, бюрократия, долгие поиски работы «не на своей земле», переезды. Здесь — осторожность и терпение.</li>
+        <li><b>Деньги в близких отношениях</b>Финансы с партнёром/роднёй/подругами — повторяющаяся точка напряжения (контроль, ограничения, споры). Нужны ясные договорённости.</li>
+        <li><b>Здоровье под нагрузкой</b>Иммунитет/кровь, гормональная и женская сфера, пищеварение — реагируют на перегруз и стресс. Режим «на износ» противопоказан.</li>
+        <li><b>Риск застоя и «режима боя»</b>Парадокс: ваш враг не кризис, а застой и комфорт (гасят энергию) — и одновременно перегруз «на износ» (бьёт по здоровью). Баланс — ваша ключевая задача.</li>
+      </ul>
+    </div>
+  </div>
 
-  <!-- ============ 13. ЗДОРОВЬЕ ============ -->
-  <h2><span class="num">13</span>Здоровье — на что обратить внимание</h2>
-  <p>Карта в целом даёт вам <strong>сильный ресурс и хорошую выносливость</strong>. Как профилактические акценты (не диагноз, а зоны внимания): <strong>гормональная система и печень</strong>, <strong>система кровообращения и пищеварение</strong>. В периоды резких перемен полезна <strong>аккуратность от внезапных травм</strong> (особенно в дороге). Общая рекомендация под ваш характер — не доводить себя «режимом боя» до истощения и вовремя восстанавливаться.</p>
+  <!-- ОТВЕТЫ НА ВОПРОСЫ -->
+  <div class="gold-rule-full"></div>
+  <div class="section-label" id="questions">Ваши вопросы</div>
+  <h2 class="section-title">Ответы по карте</h2>
+  <p class="section-intro">По каждому вашему вопросу — ответ, опирающийся на звёзды вашей карты и подтверждённый вашей же историей.</p>
 
-  <!-- ============ ПОРТРЕТ ============ -->
-  <div class="rule"></div>
-  <h2>Краткий портрет</h2>
-  <p>Вы — <strong>сильная, харизматичная, самодостаточная натура</strong>, которая строит свою судьбу сама и растёт через перемены. У вас «императорская» планка к себе и к жизни, пробивная энергия и умение нравиться. Деньги и дело идут к вам через смелые перестройки и личный бренд, а не через тихое сидение на месте. В браке вам дан <strong>прочный, статусный, надёжный союз</strong> с сильным партнёром — он становится опорой для вашей яркой, переменчивой жизни; ваша задача там — доверять и не зажимать всё в контроль. Ваша формула удачи: <strong>не бояться слома, заявлять о себе высоко и опираться на близких в моменты больших поворотов.</strong></p>
+  <div class="qa">
+    <div class="qa-tag">Сила · экспертиза · ценность</div>
+    <div class="qa-q">В чём я сильна, какие у меня уникальные способности и за что мне охотнее платят?</div>
+    <p class="qa-a">Ваша редкая комбинация — <strong>строгая юридическо-финансовая системность плюс умение коммуницировать, убеждать и выступать публично</strong>. Большинство сильных юристов не умеют «звучать» и подавать себя — вы умеете (в карте это дар речи + личный бренд + авторитетная подача; в жизни это подтвердилось вплоть до работы диктором в прямом эфире). Добавьте к этому <strong>профессиональную глубину и статус</strong> — и получается человек, которому доверяют сложное и кого рекомендуют дальше.</p>
+    <p class="qa-a">За что платят охотнее всего: за <strong>экспертизу + надёжность + ваше имя</strong>. Ваша история это буквально показывает — вас просили найти «такого же, как вы», звали обратно на лучших условиях, рекомендовали в другие компании. Это и есть рыночный сигнал вашей ценности.</p>
+  </div>
 
-  <div class="footer">Success Code · 紫微斗数</div>
+  <div class="qa">
+    <div class="qa-tag">Где зарабатывать легко</div>
+    <div class="qa-q">В каких сферах мне легко и естественно зарабатывать и где я наиболее эффективна?</div>
+    <p class="qa-a">Легче всего деньги приходят <strong>через уже наработанную экспертизу, репутацию и сеть рекомендаций</strong> — там, где вас знают и где работает ваше имя. Ваши естественные сферы: <strong>корпоративное / контрактное право, комплаенс, финансово-правовая системность, консалтинг, экспертно-наставнические роли</strong> (продажа личного опыта). Вы наиболее эффективны, когда есть <strong>чёткая задача, требующая порядка и системы, и при этом свобода действовать по-своему</strong>, а не в роли мелкого исполнителя в жёсткой структуре.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Где денег больше</div>
+    <div class="qa-q">В какой сфере я могу заработать больше денег?</div>
+    <p class="qa-a">Больше денег ваша карта даёт <strong>через трансформацию — переход в новую, более высокую по стоимости специализацию</strong>, а не через повторение прежнего по горизонтали. Денежный сектор у вас «строится через перестройку», а карьерный — через смелые решительные ходы. Поэтому ваш <strong>замысел перейти в IT / IP / право интеллектуальной собственности и ИИ — структурно «ваш» ход</strong>: это одновременно «слом-и-постройка нового» (ваш денежный паттерн) и смелый карьерный рывок (ваш карьерный паттерн). Вектор верный: <strong>вверх по стоимости экспертизы и в более новую, дефицитную нишу</strong>, с senior/советнической позиционированием.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Удалёнка · частичная занятость</div>
+    <div class="qa-q">Подходит ли мне удалённая работа? И работа с хорошим доходом, но не на 100% занятость — чтобы совмещать с детьми?</div>
+    <p class="qa-a"><strong>Да — и удалённый, и гибкий формат вам подходят.</strong> В карте вы мобильны, самостоятельны, плохо переносите жёсткие рамки (вы и сами почувствовали: 10–11-часовой ритм фирмы изматывал, а 4-дневная неделя в Голландии «легла» идеально). Это не каприз, а ваша природа.</p>
+    <p class="qa-a">Для «высокий доход без 100% занятости» ваша лучшая модель — <strong>не штатная нагрузка, а экспертно-советническая работа</strong>: фракционный / интерим юрист-эксперт, комплаенс-советник, консультант senior-уровня, наставничество. Здесь платят <strong>за ценность и опыт, а не за часы</strong> — это органично вашим звёздам (профессионализм + статус + продажа личного опыта) и совместимо с семьёй и детьми.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Содержать себя или опираться на супруга</div>
+    <div class="qa-q">Естественно ли мне полностью содержать себя — или вкладывать в семью и рассчитывать, что супруг обеспечит потребности семьи?</div>
+    <p class="qa-a">Ваша карта — это карта <strong>сильного самостоятельного добытчика</strong>: воля, независимость, финансовая хватка и карьерная пробивная сила сосредоточены в вас самой. Исторически ваша сила всегда приходила <strong>через собственную работу</strong>. Делать себя полностью финансово зависимой от партнёра — против вашей природы и, как вы сами заметили, лишает вас опоры.</p>
+    <p class="qa-a">Но это <strong>не «или-или»</strong>. Поскольку партнёрство у вас — ещё и денежная ось, верная стратегия: <strong>сохранять собственный источник дохода как фундамент</strong>, а партнёрский достаток воспринимать как добавку, а не замену. Идеальный для вас баланс — собственная экспертная работа (пусть гибкая, не на износ) <strong>плюс</strong> совместное накопление в семье.</p>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Деньги в браке · главный вопрос</div>
+    <div class="qa-q">Улучшается ли моё финансовое положение в браке? И как использовать этот потенциал?</div>
+    <p class="qa-a"><strong>Да — структурно да.</strong> В вашем дворце супруга стоит <strong>звезда финансов (У Цюй) вместе со звездой накопления / «небесной казны» (Тянь Фу)</strong>. Это прямо означает: <strong>партнёрство для вас — ось богатства</strong>, деньги в союзе склонны консолидироваться и прирастать. Ваш опыт это подтвердил — в браке финансовое положение (и ваше, и общее) улучшилось. Ваша интуиция здесь верна.</p>
+    <p class="qa-a">Как использовать потенциал: партнёрство — это место, где у вас <strong>накапливается и структурируется капитал</strong> (общие активы, недвижимость, совместная финансовая стратегия). <strong>Но те же звёзды несут теневую сторону:</strong> деньги становятся главной точкой трения — контроль, бережливость до скупости, отказы и ограничения в тратах. То, что вы описываете (когда партнёр «зажимает» деньги, отказывает в покупках), — это <strong>не случайность, а предсказуемая обратная сторона</strong> вашей денежно-партнёрской конфигурации.</p>
+    <p class="qa-a">Поэтому потенциал раскрывается при одном условии — <strong>деньги в паре должны быть структурой, а не полем боя</strong>: ясные договорённости «кто-что-сколько», ваша собственная финансовая автономия внутри союза, общие правила трат и накоплений. Там, где это выстроено, ось богатства работает в плюс; там, где идёт борьба за контроль над тратами, — она бьёт по самим отношениям.</p>
+    <div class="pull"><strong>Важно:</strong> эта конфигурация («партнёрство = деньги + накопление, с трением вокруг контроля денег») заложена в вашей карте как таковой. Она описывает вашу природу в союзе — независимо от конкретного человека и текущего момента. В период перемен в личной жизни это знание помогает строить финансовые договорённости с холодной головой.</div>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Источники дохода · инвестиции</div>
+    <div class="qa-q">Какие источники активного и пассивного дохода использовать? Куда инвестировать для роста и сохранения капитала?</div>
+    <p class="qa-a"><strong>Источники дохода под вашу карту:</strong> (1) экспертно-советническая юридическая работа (масштабируется в полу-пассив через продукты, шаблоны, обучение, наставничество); (2) <strong>недвижимость</strong> — особенно «купить → переделать/привести в порядок → сдавать или перепродать» и управление объектами: это прямо ложится и на ваш денежный паттерн (перестройка), и на сильный сектор недвижимости в карте.</p>
+    <p class="qa-a"><strong>Инвестиции:</strong> ваш денежный сектор «волновой» — поэтому <strong>избегайте спекулятивного и высокорискового</strong> (резкие ставки вам противопоказаны). Вам подходит <strong>структурное, обеспеченное активами</strong>: недвижимость, консервативное накопление (эту сторону поддерживает «казначейская» звезда в браке), вложение в собственную экспертизу и нишу. Принцип — рост через материальные, управляемые активы, а не через «быстрые деньги».</p>
+  </div>
+
+  <div class="qa">
+    <div class="qa-tag">Баланс работа / семья</div>
+    <div class="qa-q">Как найти баланс между силами и временем, вложенными в работу и в семью?</div>
+    <p class="qa-a">Это ваш центральный жизненный сюжет, и карта его прямо показывает: ваша рабочая энергия (решительность, амбиция, «режим боя») настолько сильна, что <strong>при перекосе в работу личная сфера проседает</strong> — вы это уже проживали. При этом и обратный перекос (полная зависимость, отказ от своего дела) вам не подходит.</p>
+    <p class="qa-a">Решение в вашей карте — <strong>не выбор «или работа, или семья», а смена формата</strong>: гибкая, экспертная, ценностная (а не часовая) занятость, которая даёт и доход, и статус, и место для семьи. Ваш собственный опыт 4-дневной недели — это и есть подсказка карты: <strong>вам подходит «высокая ценность за меньшее время», а не «больше часов»</strong>.</p>
+  </div>
+
+  <!-- КАРТА -->
+  <div class="gold-rule-full"></div>
+  <div class="section-label" id="chart">Карта Цзы Вэй Доу Шу</div>
+  <h2 class="section-title">Натальная карта · Ирина</h2>
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-irina" title="Карта Цзы Вэй Доу Шу — Ирина" loading="lazy"></iframe>
+  </div>
+  <p class="chart-note">Интерактивная карта рождения. Переключайте слои «Декада» и «Годовой», чтобы видеть активные периоды.
+     &nbsp;·&nbsp; Все выводы выше выведены из расположения звёзд на этой карте.</p>
+
+  <div class="gold-rule"></div>
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">紫微斗数 · Персональный анализ</div>
+  </footer>
 
 </div>
 </body>
