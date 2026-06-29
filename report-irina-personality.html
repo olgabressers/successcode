@@ -18,7 +18,7 @@
     }
     html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.7;}
     .page{width:100%;max-width:1080px;margin:0 auto;padding:0 52px 80px;}
 
@@ -108,6 +108,25 @@
     .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
     .footer-note{font-size:11px;color:var(--muted);}
 
+    .print-btn{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#fff;background:var(--gold);border:none;padding:9px 18px;cursor:pointer;border-radius:2px;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-only{display:none;}
+
+    @media print{
+      html,body{background:#fff;}
+      .page{max-width:100%;padding:0 14px 20px;}
+      .topnav,.print-btn{display:none!important;}
+      .gold-rule,.gold-rule-full{margin:26px 0;}
+      .section-label{margin:26px 0 14px;}
+      .report-header{padding-top:6px;}
+      .intro-block,.verdict-card,.qa,.sw-card,.star-table tr,.pull,.report-header{break-inside:avoid;page-break-inside:avoid;}
+      .section-title,.qa-q{break-after:avoid;}
+      .chart-wrap{display:none!important;}
+      .print-only{display:block;background:var(--surface);border:1px solid var(--border);padding:18px 22px;font-size:13px;color:var(--dim);line-height:1.6;}
+      .print-only b{color:var(--gold);}
+      .verdict-row{break-inside:avoid;}
+    }
+
     @media (max-width:900px){
       *{max-width:100vw;}
       img,iframe,video,table{max-width:100%!important;}
@@ -136,6 +155,7 @@
     <a href="#chart">Карта (расчёт)</a>
     <a href="#questions">Ответы на вопросы</a>
     <a href="https://successcode.net/admin/delisted.html">Админ-хаб</a>
+    <button class="print-btn" onclick="window.print()">🖨 Печать / PDF</button>
   </nav>
 
   <header class="report-header">
@@ -349,6 +369,7 @@
   <div class="chart-wrap">
     <iframe src="https://successcode.net/zwds-irina" title="Карта Цзы Вэй Доу Шу — Ирина" loading="lazy"></iframe>
   </div>
+  <div class="print-only">Интерактивная карта не печатается. Откройте её онлайн: <b>successcode.net/zwds-irina</b> — и при необходимости вставьте скриншот карты в этот PDF.</div>
   <p class="chart-note">Интерактивная карта рождения. Переключайте слои «Декада» и «Годовой», чтобы видеть активные периоды.
      &nbsp;·&nbsp; Все выводы выше выведены из расположения звёзд на этой карте.</p>
 
