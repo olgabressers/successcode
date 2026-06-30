@@ -162,7 +162,7 @@ const T={
     lCity:"Город (для пересчёта в солнечное время)", cityPh:"например, Амстердам",
     baziLabel:"Ба Цзы · солнечный календарь",
     season:"Сезон",ju:"Цзюй",yin:"Иньский цикл",yang:"Янский цикл",juW:"цзюй",yuanW:"юань",
-    upper:"верхний",mid:"средний",lower:"нижний",decade:"Глава декады",voidL:"Пустота",
+    upper:"верхний",mid:"средний",lower:"нижний",decade:"Глава декады",voidDay:"Пустота по дню",voidHour:"Пустота по часу",
     palace:"Дворец",heaven:"Небесная тарелка",earth:"Земная тарелка",gate:"Ворота",star:"Звезда",deity:"Божество",
     toPalace:"Фаза Ци к дворцу",toSeason:"Фаза Ци к сезону",
     vfu:"Главная звезда (направляющая матрица)",vsh:"Главные ворота (направляющий посланец)" },
@@ -171,7 +171,7 @@ const T={
     lCity:"City (for true solar time)", cityPh:"e.g. Amsterdam",
     baziLabel:"Ba Zi · solar calendar",
     season:"Season",ju:"Ju",yin:"Yin Dun",yang:"Yang Dun",juW:"ju",yuanW:"yuan",
-    upper:"upper",mid:"middle",lower:"lower",decade:"Decade head",voidL:"Void",
+    upper:"upper",mid:"middle",lower:"lower",decade:"Decade head",voidDay:"Void (day)",voidHour:"Void (hour)",
     palace:"Palace",heaven:"Heaven plate",earth:"Earth plate",gate:"Gate",star:"Star",deity:"Deity",
     toPalace:"Qi phase to palace",toSeason:"Qi phase to season",
     vfu:"Chief Star (directing matrix)",vsh:"Chief Gate (directing envoy)" }
@@ -355,11 +355,13 @@ function renderMeta(pan){
   // day-based 旬首 / 空亡
   const dayXun=QMDJ.QimenUtil.旬首(pan.八字[2]);
   const dayVoid=QMDJ.QimenUtil.空亡(dayXun);
+  const hourVoid=pan.空亡||[];
   const vfs=starD(pan.值符星), vfg=gateD(pan.值使門);
   document.getElementById("meta").innerHTML=`
-    <div><b>${t.season}:</b> ${season} &nbsp;·&nbsp; <b>${t.ju}:</b> ${ju}</div>
-    <div><b>${t.decade}:</b> ${dayXun} &nbsp;·&nbsp; <b>${t.voidL}:</b> ${dayVoid.join(", ")}</div>
-    <div><b>${t.vfu}:</b> ${vfs[0]}星 ${nm(vfs)} · ${DIRI[LANG][VFU_PAL]||""} &nbsp;·&nbsp; <b>${t.vsh}:</b> ${vfg[0]}門 ${nm(vfg)} · ${DIRI[LANG][VSH_PAL]||""}</div>`;
+    <div><b>${t.season}:</b> ${season} &nbsp;·&nbsp; <b>${t.ju}:</b> ${ju} &nbsp;·&nbsp; <b>${t.decade}:</b> ${dayXun}</div>
+    <div><b>${t.voidDay}:</b> ${dayVoid.join(", ")} &nbsp;·&nbsp; <b>${t.voidHour}:</b> ${hourVoid.join(", ")}</div>
+    <div><b>${t.vfu}:</b> ${vfs[0]}星 ${nm(vfs)}</div>
+    <div><b>${t.vsh}:</b> ${vfg[0]}門 ${nm(vfg)}</div>`;
 }
 
 function gateD(k){return GATE[k]||[k,"","",k];}
