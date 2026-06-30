@@ -59,13 +59,25 @@
   .deity { position: absolute; top: 22px; left: 11px; }
   .star  { position: absolute; top: 48px; left: 11px; }
   .gate  { position: absolute; bottom: 11px; left: 11px; }
-  /* heaven stem stacked on top of earth stem, on the right */
-  .stems { position: absolute; right: 12px; bottom: 11px; text-align: right; line-height: 1.35; }
-  .stems span { font-size: 15px; font-weight: 700; display: block; }
-  .stems .h { color: #b06a00; }
-  .stems .e { color: #2a2a2a; }
+  /* heaven stem stacked on top of earth stem, on the right; each stem coloured by its element */
+  .stems { position: absolute; right: 12px; bottom: 11px; text-align: right; line-height: 1.3; }
+  .stems .row { display: block; }
+  .stems .row span { font-size: 15px; font-weight: 700; }
+  .cell.center .stems { position: static; text-align: center; margin-top: 38%; }
+  .cell.center .stems .row span { font-size: 22px; }
   .void { position: absolute; top: 7px; right: 9px; font-size: 10px; color: #b22; letter-spacing: 1px; }
 
+  /* Ba Zi four pillars (solar calendar) — same look as /zwds */
+  .bazi-wrap { max-width: 760px; margin: 0 auto 22px; }
+  .bazi-section-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+                        color: var(--text-muted); margin-bottom: 6px; display: block; }
+  .bazi-table { display: flex; border: 1px solid var(--border); background: var(--surface); }
+  .bazi-pillar { flex: 1; text-align: center; padding: 12px 2px; border-right: 1px solid var(--border); }
+  .bazi-pillar:last-child { border-right: none; }
+  .bazi-pillar-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+                       color: var(--text-muted); margin-bottom: 7px; display: block; }
+  .bazi-char { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
+               display: block; line-height: 1.25; }
   .legend { max-width: 760px; margin: 18px auto 0; font-size: 11px; color: var(--text-muted);
             line-height: 1.8; text-align: center; }
   @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr 1fr; } }
@@ -94,12 +106,12 @@
 </div>
 
 <div class="result" id="result" style="display:none">
+  <div class="bazi-wrap">
+    <span class="bazi-section-label">Ба Цзы · солнечный календарь</span>
+    <div class="bazi-table" id="bazi"></div>
+  </div>
   <div class="meta" id="meta"></div>
   <div class="grid" id="grid"></div>
-  <div class="legend">
-    Расположение Ло Шу, юг сверху. В ячейке: божество (神), звезда (星), врата (門),
-    небесный/земной стволы (справа). Цвета и названия — по методичке ЦМДЦ.
-  </div>
 </div>
 
 <script src="/qmdj-engine.bundle.js"></script>
@@ -129,6 +141,16 @@ const DEITY = { // 八神 (PDF: 白虎→勾陳, 玄武→朱雀)
   "白虎":["虎","Гоучэнь","#7f7f7f"], "玄武":["玄","Чжуцюэ","#0000ff"],
   "九地":["地","Цзюди","#984806"], "九天":["天","Цзютянь","#7f7f7f"]
 };
+// Wu Xing element colours — stems from methodichka PDF (甲乙 дерево, 丙丁 огонь, 戊己 земля,
+// 庚辛 металл, 壬癸 вода); branches coloured by the same element scheme.
+const ELEM={
+  甲:"#00b050",乙:"#00b050", 丙:"#ff0000",丁:"#ff0000", 戊:"#984806",己:"#984806",
+  庚:"#7f7f7f",辛:"#7f7f7f", 壬:"#0070c0",癸:"#0070c0",
+  寅:"#00b050",卯:"#00b050", 巳:"#ff0000",午:"#ff0000", 申:"#7f7f7f",酉:"#7f7f7f",
+  亥:"#0070c0",子:"#0070c0", 辰:"#984806",戌:"#984806",丑:"#984806",未:"#984806"
+};
+const elem = ch => `<span style="color:${ELEM[ch]||'#2a2a2a'}">${ch}</span>`;
+const stemRow = arr => `<div class="row">${(arr||[]).map(elem).join("")}</div>`;
 // info-line transliteration
 const STEM={甲:"Цзя",乙:"И",丙:"Бин",丁:"Дин",戊:"У",己:"Цзи",庚:"Гэн",辛:"Синь",壬:"Жэнь",癸:"Гуй"};
 const BR={子:"Цзы",丑:"Чоу",寅:"Инь",卯:"Мао",辰:"Чэнь",巳:"Сы",午:"У",未:"Вэй",申:"Шэнь",酉:"Ю",戌:"Сюй",亥:"Хай"};
@@ -153,11 +175,21 @@ function compute(){
     if(!y||!mo||!d){showError("Введите дату.");return;}
     const lunar = QMDJ.Solar.fromYmdHms(y,mo,d,h||0,mi||0,0).getLunar();
     const pan = QMDJ.QimenUtil.create(lunar);
-    renderMeta(pan); renderGrid(pan);
+    renderBazi(pan); renderMeta(pan); renderGrid(pan);
     document.getElementById("result").style.display="block";
   }catch(err){ showError("Ошибка расчёта: "+err.message); }
 }
 const v = id => document.getElementById(id).value;
+
+function renderBazi(pan){
+  const labels=["Год","Месяц","День","Час"];
+  document.getElementById("bazi").innerHTML = pan.八字.map((gz,i)=>`
+    <div class="bazi-pillar">
+      <span class="bazi-pillar-label">${labels[i]}</span>
+      <span class="bazi-char" style="color:${ELEM[gz[0]]||'#2a2a2a'}">${gz[0]}</span>
+      <span class="bazi-char" style="color:${ELEM[gz[1]]||'#2a2a2a'}">${gz[1]}</span>
+    </div>`).join("");
+}
 
 function renderMeta(pan){
   const [Y,M,D,H]=pan.八字;
@@ -173,22 +205,21 @@ function renderMeta(pan){
 function cellHTML(pan,pal){
   if(pal==="中"){
     const c=pan.九宮[4];
-    const st=(c.天盤干||[]).join("");
+    // center has the earth-plate centre stem (heaven centre lodges in 坤)
+    const st=(c.地盤干&&c.地盤干.length?c.地盤干:c.天盤干)||[];
     return `<div class="cell center"><span class="dir">${DIR[pal]}</span>
-      <div class="stems"><span class="h">${st}</span></div></div>`;
+      <div class="stems">${stemRow(st)}</div></div>`;
   }
   const c = pan.九宮[PIDX[pal]];
   const g = GATE[c.八門]||[c.八門||"","",""];
   const s = STAR[c.九星]||[(c.九星||"").replace("天",""),"",""];
   const d = DEITY[c.八神]||[c.八神||"","",""];
-  const hv = (c.天盤干||[]).join("");
-  const er = (c.地盤干||[]).join("");
   const vd = c.是否空亡 ? `<span class="void">空</span>` : "";
   return `<div class="cell"><span class="dir">${DIR[pal]}</span>${vd}
     <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${d[1]}</span></div>
     <div class="star" style="color:${s[2]}">${s[0]}星 <span class="ru">${s[1]}</span></div>
     <div class="gate" style="color:${g[2]}">${g[0]}門 <span class="ru">${g[1]}</span></div>
-    <div class="stems"><span class="h">${hv}</span><span class="e">${er}</span></div></div>`;
+    <div class="stems">${stemRow(c.天盤干)}${stemRow(c.地盤干)}</div></div>`;
 }
 
 function renderGrid(pan){
