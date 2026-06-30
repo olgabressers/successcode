@@ -380,6 +380,13 @@
     }
     .cta-right {}
     .cta-fields { display: flex; flex-direction: column; gap: 0; }
+    .cta-field-group { display: flex; flex-direction: column; }
+    .cta-label {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--muted); margin-top: 18px;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+    }
+    .cta-field-group .cta-input { padding-top: 8px; }
     .cta-input {
       background: transparent; border: none; outline: none;
       border-bottom: 1px solid rgba(226,228,236,.20);
@@ -934,11 +941,13 @@
     <form class="cta-fields" action="https://formspree.io/f/xaqkqweb" method="POST">
       <input class="cta-input" type="text"  name="name"  placeholder="ВАШЕ ИМЯ" required>
       <input class="cta-input" type="email" name="email" placeholder="EMAIL" required>
-      <input class="cta-input" type="tel"   name="phone"
-             placeholder="ТЕЛЕФОН"
-             value="+31 "
-             pattern="^\+[0-9][0-9 \-()]{6,}$"
-             required>
+      <div class="cta-field-group">
+        <label class="cta-label" for="cta-phone">Телефон</label>
+        <input class="cta-input" type="tel" id="cta-phone" name="phone"
+               value="+31 "
+               pattern="^\+[0-9][0-9 \-()]{6,}$"
+               required>
+      </div>
       <textarea class="cta-textarea" name="message"
                 placeholder="ВАШ ЗАПРОС"
                 maxlength="1000"></textarea>
