@@ -311,9 +311,16 @@ function selectCity(i){
 function compute(){
   hideError();
   try{
-    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour"),mi=+v("f-min");
+    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
     if(!y||!mo||!d){showError(LANG==="ru"?"Введите дату.":"Enter a date.");return;}
-    const clock=new Date(y,mo-1,d,h||0,mi||0,0);
+    if(mo<1||mo>12||d<1||d>31||h<0||h>23||mi<0||mi>59){
+      document.getElementById("result").style.display="none";
+      showError(LANG==="ru"?"Проверьте дату и время.":"Check the date and time.");return;}
+    const clock=new Date(y,mo-1,d,h,mi,0);
+    // JS Date silently rolls invalid dates (e.g. 31 June -> 1 July); reject them.
+    if(clock.getFullYear()!==y||clock.getMonth()!==mo-1||clock.getDate()!==d){
+      document.getElementById("result").style.display="none";
+      showError(LANG==="ru"?"Такой даты не существует.":"This date does not exist.");return;}
     const cm=corrMin(clock);
     const solar=new Date(clock.getTime()+cm*60000);
     const lunar=QMDJ.Solar.fromYmdHms(solar.getFullYear(),solar.getMonth()+1,solar.getDate(),solar.getHours(),solar.getMinutes(),0).getLunar();
