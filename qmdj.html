@@ -26,7 +26,8 @@
   .section-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
                    color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
   .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; position: relative; }
+  .form-group.full { grid-column: 1 / -1; }
   label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
   input, select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
                   padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
@@ -37,10 +38,39 @@
            padding: 12px 14px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
            font-family: 'Inter', sans-serif; cursor: pointer; transition: background .2s; }
   button:hover { background: var(--gold-dim); }
+  /* city autocomplete */
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto;
+             display: none; }
+  .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
+  .city-opt:hover { background: #faf7ef; }
+  .solar-info { font-size: 11px; color: var(--gold-dim); margin-top: 4px; min-height: 14px; }
   .error-msg { max-width: 760px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
   .result { max-width: 760px; margin: 0 auto; }
+  /* Ba Zi four pillars (solar calendar) — same look as /zwds */
+  .bazi-wrap { margin: 0 auto 14px; }
+  .bazi-section-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+                        color: var(--text-muted); margin-bottom: 6px; display: block; }
+  .bazi-table { display: flex; border: 1px solid var(--border); background: var(--surface); }
+  .bazi-pillar { flex: 1; text-align: center; padding: 12px 2px; border-right: 1px solid var(--border); }
+  .bazi-pillar:last-child { border-right: none; }
+  .bazi-pillar-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+                       color: var(--text-muted); margin-bottom: 7px; display: block; }
+  .bazi-char { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
+               display: block; line-height: 1.25; }
+  /* 12 double-hours (時辰) selector, like feng-shui.ua */
+  .hour-row { display: flex; border: 1px solid var(--border); margin-bottom: 22px; overflow: hidden; }
+  .hour-cell { flex: 1; text-align: center; padding: 7px 1px; font-size: 9.5px; cursor: pointer;
+               border-right: 1px solid var(--border); background: var(--surface); color: var(--text-dim);
+               line-height: 1.35; transition: background .15s; }
+  .hour-cell:last-child { border-right: none; }
+  .hour-cell:hover { background: #faf7ef; }
+  .hour-cell.active { background: var(--gold); color: #fff; }
+  .hour-cell .br { font-size: 13px; font-weight: 600; display: block;
+                   font-family: 'Cormorant Garamond', serif; }
+
   .meta { background: var(--surface); border: 1px solid var(--border); padding: 18px 22px;
           margin-bottom: 22px; font-size: 14px; line-height: 1.9; color: var(--text-dim); }
   .meta b { color: var(--gold-dim); font-weight: 500; }
@@ -53,46 +83,31 @@
   .cell.center { background: #faf7ef; }
   .cell .dir { position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
                font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
-  /* all chart characters the same size */
   .deity, .star, .gate { font-size: 15px; font-weight: 600; line-height: 1.15; }
   .ru { font-size: 11px; font-weight: 400; }
   .deity { position: absolute; top: 22px; left: 11px; }
   .star  { position: absolute; top: 48px; left: 11px; }
   .gate  { position: absolute; bottom: 11px; left: 11px; }
-  /* heaven stem stacked on top of earth stem, on the right; each stem coloured by its element */
-  .stems { position: absolute; right: 12px; bottom: 11px; text-align: right; line-height: 1.3; }
-  .stems .row { display: block; }
-  .stems .row span { font-size: 15px; font-weight: 700; }
-  .cell.center .stems { position: static; text-align: center; margin-top: 38%; }
-  .cell.center .stems .row span { font-size: 22px; }
+  /* heaven stem -> top-right corner; earth stem -> bottom-right corner */
+  .stem-h { position: absolute; top: 22px; right: 11px; text-align: right; }
+  .stem-e { position: absolute; bottom: 11px; right: 11px; text-align: right; }
+  .stem-h span, .stem-e span { font-size: 15px; font-weight: 700; }
+  .cell.center .stem-h { top: 50%; left: 50%; right: auto; transform: translate(-50%,-50%); }
+  .cell.center .stem-h span { font-size: 22px; }
   .void { position: absolute; top: 7px; right: 9px; font-size: 10px; color: #b22; letter-spacing: 1px; }
-
-  /* Ba Zi four pillars (solar calendar) — same look as /zwds */
-  .bazi-wrap { max-width: 760px; margin: 0 auto 22px; }
-  .bazi-section-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
-                        color: var(--text-muted); margin-bottom: 6px; display: block; }
-  .bazi-table { display: flex; border: 1px solid var(--border); background: var(--surface); }
-  .bazi-pillar { flex: 1; text-align: center; padding: 12px 2px; border-right: 1px solid var(--border); }
-  .bazi-pillar:last-child { border-right: none; }
-  .bazi-pillar-label { font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
-                       color: var(--text-muted); margin-bottom: 7px; display: block; }
-  .bazi-char { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
-               display: block; line-height: 1.25; }
-  .legend { max-width: 760px; margin: 18px auto 0; font-size: 11px; color: var(--text-muted);
-            line-height: 1.8; text-align: center; }
-  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr 1fr; } .hour-cell { font-size: 8px; } }
 </style>
 </head>
 <body>
 <header>
   <h1>奇門遁甲 · QMDJ Calculator</h1>
-  <p>Qi Men Dun Jia · Чай Бу · часовой план</p>
+  <p>Qi Men Dun Jia · Чай Бу · солнечное время</p>
 </header>
 
 <div id="error-display" class="error-msg"></div>
 
 <div class="form-panel">
-  <div class="section-label">Дата и время</div>
+  <div class="section-label">Дата, время и город</div>
   <div class="form-grid">
     <div class="form-group"><label>Год</label><input type="number" id="f-year" min="1900" max="2100"></div>
     <div class="form-group"><label>Месяц</label><input type="number" id="f-month" min="1" max="12"></div>
@@ -102,6 +117,12 @@
     <div class="form-group" style="justify-content:flex-end">
       <div class="form-actions" style="margin-top:0"><button onclick="compute()">Рассчитать</button></div>
     </div>
+    <div class="form-group full">
+      <label>Город (для пересчёта в солнечное время)</label>
+      <input type="text" id="f-city" placeholder="например, Киев" autocomplete="off" oninput="onCityInput()">
+      <div class="city-dd" id="city-dd"></div>
+      <div class="solar-info" id="solar-info"></div>
+    </div>
   </div>
 </div>
 
@@ -110,10 +131,12 @@
     <span class="bazi-section-label">Ба Цзы · солнечный календарь</span>
     <div class="bazi-table" id="bazi"></div>
   </div>
+  <div class="hour-row" id="hour-row"></div>
   <div class="meta" id="meta"></div>
   <div class="grid" id="grid"></div>
 </div>
 
+<script src="/tz.js"></script>
 <script src="/qmdj-engine.bundle.js"></script>
 <script>
 // 九宮 index: 0坎 1坤 2震 3巽 4中 5乾 6兌 7艮 8離
@@ -122,27 +145,26 @@ const PIDX = {坎:0,坤:1,震:2,巽:3,中:4,乾:5,兌:6,艮:7,離:8};
 const DIR = {巽:"ЮВ",離:"Юг",坤:"ЮЗ",震:"В",中:"Центр",兌:"З",艮:"СВ",坎:"С",乾:"СЗ"};
 
 // Names + colours from «ЦМДЦ Оракул для Начинающих_Методичка.pdf» (pp. 23–47)
-const GATE = { // 八門
+const GATE = {
   "休門":["休","Ворота удачи","#0070c0"], "生門":["生","Ворота жизни","#993300"],
   "傷門":["傷","Ворота ранения","#00b050"], "杜門":["杜","Ворота препятствий","#00b050"],
   "景門":["景","Ворота сцены","#ff0000"], "死門":["死","Ворота смерти","#984806"],
   "驚門":["驚","Ворота тревоги","#7f7f7f"], "開門":["開","Ворота открытия","#7f7f7f"]
 };
-const STAR = { // 九星
+const STAR = {
   "天蓬":["蓬","Тяньпэн","#0000ff"], "天芮":["芮","Тяньжуй","#984806"],
   "天冲":["冲","Тяньчун","#00b050"], "天沖":["沖","Тяньчун","#00b050"],
   "天輔":["輔","Тяньфу","#00b050"], "天禽":["禽","Тяньцинь","#984806"],
   "天心":["心","Тяньсинь","#7f7f7f"], "天柱":["柱","Тяньчжу","#7f7f7f"],
   "天任":["任","Тяньжэнь","#984806"], "天英":["英","Тяньин","#ff0000"]
 };
-const DEITY = { // 八神 (PDF: 白虎→勾陳, 玄武→朱雀)
+const DEITY = { // PDF: 白虎→勾陳, 玄武→朱雀
   "值符":["符","Чжифу","#ff0000"], "螣蛇":["蛇","Тэнше","#ff0000"], "騰蛇":["蛇","Тэнше","#ff0000"],
   "太陰":["陰","Тайинь","#7f7f7f"], "六合":["合","Люхэ","#00b050"],
   "白虎":["虎","Гоучэнь","#7f7f7f"], "玄武":["玄","Чжуцюэ","#0000ff"],
   "九地":["地","Цзюди","#984806"], "九天":["天","Цзютянь","#7f7f7f"]
 };
-// Wu Xing element colours — stems from methodichka PDF (甲乙 дерево, 丙丁 огонь, 戊己 земля,
-// 庚辛 металл, 壬癸 вода); branches coloured by the same element scheme.
+// Wu Xing element colours — stems from methodichka PDF; branches by same element scheme.
 const ELEM={
   甲:"#00b050",乙:"#00b050", 丙:"#ff0000",丁:"#ff0000", 戊:"#984806",己:"#984806",
   庚:"#7f7f7f",辛:"#7f7f7f", 壬:"#0070c0",癸:"#0070c0",
@@ -150,8 +172,7 @@ const ELEM={
   亥:"#0070c0",子:"#0070c0", 辰:"#984806",戌:"#984806",丑:"#984806",未:"#984806"
 };
 const elem = ch => `<span style="color:${ELEM[ch]||'#2a2a2a'}">${ch}</span>`;
-const stemRow = arr => `<div class="row">${(arr||[]).map(elem).join("")}</div>`;
-// info-line transliteration
+const stemSpans = arr => (arr||[]).map(elem).join("");
 const STEM={甲:"Цзя",乙:"И",丙:"Бин",丁:"Дин",戊:"У",己:"Цзи",庚:"Гэн",辛:"Синь",壬:"Жэнь",癸:"Гуй"};
 const BR={子:"Цзы",丑:"Чоу",寅:"Инь",卯:"Мао",辰:"Чэнь",巳:"Сы",午:"У",未:"Вэй",申:"Шэнь",酉:"Ю",戌:"Сюй",亥:"Хай"};
 const JIE={立春:"Начало весны",雨水:"Дождевая вода",惊蛰:"Пробуждение насекомых",驚蟄:"Пробуждение насекомых",
@@ -162,64 +183,147 @@ const JIE={立春:"Начало весны",雨水:"Дождевая вода",�
   大雪:"Большие снега",冬至:"Зимнее солнцестояние",小寒:"Малые холода",大寒:"Большие холода"};
 const NUM=["","один","два","три","четыре","пять","шесть","семь","восемь","девять"];
 const YUAN={上元:"верхний",中元:"средний",下元:"нижний"};
+const ZHI=["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const SOLAR_START=[23,1,3,5,7,9,11,13,15,17,19,21]; // 時辰 starts in solar hours
+
+// ── city / true-solar-time state (default: Киев) ─────────────────────────────
+let LON=30.5234, TZNAME="Europe/Kiev", CITYNAME="Киев", _cityTimer=null;
 
 const gz = s => (s||"").split("").map(c=>STEM[c]||BR[c]||c).join("-");
 const branches = arr => (arr||[]).map(c=>BR[c]||c).join(", ");
+const v = id => document.getElementById(id).value;
 function showError(m){const e=document.getElementById("error-display");e.textContent=m;e.style.display="block";}
 function hideError(){document.getElementById("error-display").style.display="none";}
+const pad=n=>String(n).padStart(2,"0");
+const fmtMin=m=>{m=((m%1440)+1440)%1440;return pad(Math.floor(m/60))+":"+pad(m%60);};
+
+function tzOffsetMin(date,tz){
+  try{
+    const f=new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",
+      day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p={}; f.formatToParts(date).forEach(x=>p[x.type]=x.value);
+    const hh=p.hour==="24"?"00":p.hour;
+    const asUTC=Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second);
+    return Math.round((asUTC-date.getTime())/60000);
+  }catch(e){ return Math.round(LON/15)*60; }
+}
+// true-solar correction in minutes (clock -> solar): (longitude − zone meridian) × 4
+function corrMin(clockDate){
+  const offMin=tzOffsetMin(clockDate,TZNAME);
+  return Math.round((LON - 15*(offMin/60))*4);
+}
+
+// ── city autocomplete (OpenStreetMap Nominatim, same approach as /zwds) ──────
+function onCityInput(){
+  clearTimeout(_cityTimer);
+  const q=v("f-city").trim();
+  if(q.length<2){document.getElementById("city-dd").style.display="none";return;}
+  _cityTimer=setTimeout(()=>fetchCities(q),350);
+}
+async function fetchCities(q){
+  const dd=document.getElementById("city-dd");
+  try{
+    const r=await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=ru&limit=6&q="+encodeURIComponent(q));
+    const arr=await r.json();
+    if(!arr||!arr.length){dd.style.display="none";return;}
+    dd._data=arr;
+    dd.innerHTML=arr.map((c,i)=>`<div class="city-opt" onclick="selectCity(${i})">${c.display_name}</div>`).join("");
+    dd.style.display="block";
+  }catch(e){ dd.style.display="none"; }
+}
+function selectCity(i){
+  const dd=document.getElementById("city-dd"), c=dd._data[i];
+  LON=parseFloat(c.lon); CITYNAME=c.display_name.split(",")[0];
+  try{ TZNAME=tzlookup(parseFloat(c.lat),LON); }catch(e){ /* keep previous */ }
+  v("f-city"); document.getElementById("f-city").value=CITYNAME;
+  dd.style.display="none";
+  compute();
+}
 
 function compute(){
   hideError();
   try{
     const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour"),mi=+v("f-min");
     if(!y||!mo||!d){showError("Введите дату.");return;}
-    const lunar = QMDJ.Solar.fromYmdHms(y,mo,d,h||0,mi||0,0).getLunar();
-    const pan = QMDJ.QimenUtil.create(lunar);
+    const clock=new Date(y,mo-1,d,h||0,mi||0,0);
+    const cm=corrMin(clock);
+    const solar=new Date(clock.getTime()+cm*60000);
+    const lunar=QMDJ.Solar.fromYmdHms(solar.getFullYear(),solar.getMonth()+1,solar.getDate(),
+                                      solar.getHours(),solar.getMinutes(),0).getLunar();
+    const pan=QMDJ.QimenUtil.create(lunar);
     renderBazi(pan); renderMeta(pan); renderGrid(pan);
+    renderSolar(clock,solar,cm); renderHourRow(clock,cm);
     document.getElementById("result").style.display="block";
   }catch(err){ showError("Ошибка расчёта: "+err.message); }
 }
-const v = id => document.getElementById(id).value;
+
+function renderSolar(clock,solar,cm){
+  const sign=cm>=0?"+":"−";
+  document.getElementById("solar-info").innerHTML =
+    `${CITYNAME} · долгота ${LON.toFixed(2)}° · поправка ${sign}${Math.abs(cm)} мин · `+
+    `солнечное время ${pad(solar.getHours())}:${pad(solar.getMinutes())}`;
+}
+
+function renderHourRow(clock,cm){
+  const curSolar=((clock.getHours()*60+clock.getMinutes()+cm)%1440+1440)%1440;
+  let html="";
+  for(let i=0;i<12;i++){
+    const a=SOLAR_START[i]*60, b=a+120;
+    const cs=curSolar<a?curSolar+1440:curSolar;
+    const active=cs>=a&&cs<b;
+    const clockStart=a-cm;
+    html+=`<div class="hour-cell ${active?"active":""}" onclick="pickHour(${i})">`+
+          `<span class="br">${ZHI[i]}</span>${fmtMin(clockStart)}<br>${fmtMin(clockStart+120)}</div>`;
+  }
+  document.getElementById("hour-row").innerHTML=html;
+}
+function pickHour(i){
+  const clock=new Date(+v("f-year"),+v("f-month")-1,+v("f-day"),0,0,0);
+  const cm=corrMin(clock);
+  const clockMid=((SOLAR_START[i]*60+60-cm)%1440+1440)%1440; // solar midpoint -> clock
+  document.getElementById("f-hour").value=Math.floor(clockMid/60);
+  document.getElementById("f-min").value=clockMid%60;
+  compute();
+}
 
 function renderBazi(pan){
   const labels=["Год","Месяц","День","Час"];
-  document.getElementById("bazi").innerHTML = pan.八字.map((gz,i)=>`
+  document.getElementById("bazi").innerHTML = pan.八字.map((g,i)=>`
     <div class="bazi-pillar">
       <span class="bazi-pillar-label">${labels[i]}</span>
-      <span class="bazi-char" style="color:${ELEM[gz[0]]||'#2a2a2a'}">${gz[0]}</span>
-      <span class="bazi-char" style="color:${ELEM[gz[1]]||'#2a2a2a'}">${gz[1]}</span>
+      <span class="bazi-char" style="color:${ELEM[g[0]]||'#2a2a2a'}">${g[0]}</span>
+      <span class="bazi-char" style="color:${ELEM[g[1]]||'#2a2a2a'}">${g[1]}</span>
     </div>`).join("");
 }
 
 function renderMeta(pan){
   const [Y,M,D,H]=pan.八字;
-  const ju = `${pan.遁==="陰遁"?"Иньский цикл":"Янский цикл"} · ${NUM[pan.局數]} цзюй · ${YUAN[pan.上中下元]||pan.上中下元} юань`;
-  const season = JIE[pan.節氣?.getName?.()] || (pan.節氣?.getName?.()||"");
-  const html = `
+  const ju=`${pan.遁==="陰遁"?"Иньский цикл":"Янский цикл"} · ${NUM[pan.局數]} цзюй · ${YUAN[pan.上中下元]||pan.上中下元} юань`;
+  const season=JIE[pan.節氣?.getName?.()]||(pan.節氣?.getName?.()||"");
+  document.getElementById("meta").innerHTML=`
     <div class="big">${gz(Y)} год · ${gz(M)} месяц · ${gz(D)} день · ${gz(H)} час</div>
     <div style="margin-top:8px"><b>Сезон:</b> ${season} &nbsp;·&nbsp; <b>Цзюй:</b> ${ju}</div>
     <div><b>Глава декады:</b> ${gz(pan.旬首)} &nbsp;·&nbsp; <b>Пустота:</b> ${branches(pan.空亡)}</div>`;
-  document.getElementById("meta").innerHTML = html;
 }
 
 function cellHTML(pan,pal){
   if(pal==="中"){
     const c=pan.九宮[4];
-    // center has the earth-plate centre stem (heaven centre lodges in 坤)
     const st=(c.地盤干&&c.地盤干.length?c.地盤干:c.天盤干)||[];
     return `<div class="cell center"><span class="dir">${DIR[pal]}</span>
-      <div class="stems">${stemRow(st)}</div></div>`;
+      <div class="stem-h">${stemSpans(st)}</div></div>`;
   }
-  const c = pan.九宮[PIDX[pal]];
-  const g = GATE[c.八門]||[c.八門||"","",""];
-  const s = STAR[c.九星]||[(c.九星||"").replace("天",""),"",""];
-  const d = DEITY[c.八神]||[c.八神||"","",""];
-  const vd = c.是否空亡 ? `<span class="void">空</span>` : "";
+  const c=pan.九宮[PIDX[pal]];
+  const g=GATE[c.八門]||[c.八門||"","",""];
+  const s=STAR[c.九星]||[(c.九星||"").replace("天",""),"",""];
+  const d=DEITY[c.八神]||[c.八神||"","",""];
+  const vd=c.是否空亡?`<span class="void">空</span>`:"";
   return `<div class="cell"><span class="dir">${DIR[pal]}</span>${vd}
     <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${d[1]}</span></div>
     <div class="star" style="color:${s[2]}">${s[0]}星 <span class="ru">${s[1]}</span></div>
     <div class="gate" style="color:${g[2]}">${g[0]}門 <span class="ru">${g[1]}</span></div>
-    <div class="stems">${stemRow(c.天盤干)}${stemRow(c.地盤干)}</div></div>`;
+    <div class="stem-h">${stemSpans(c.天盤干)}</div>
+    <div class="stem-e">${stemSpans(c.地盤干)}</div></div>`;
 }
 
 function renderGrid(pan){
@@ -227,7 +331,7 @@ function renderGrid(pan){
     GRID.map(row=>row.map(pal=>cellHTML(pan,pal)).join("")).join("");
 }
 
-// default to now
+// default to now, Киев
 (function(){
   const n=new Date();
   document.getElementById("f-year").value=n.getFullYear();
@@ -235,6 +339,7 @@ function renderGrid(pan){
   document.getElementById("f-day").value=n.getDate();
   document.getElementById("f-hour").value=n.getHours();
   document.getElementById("f-min").value=n.getMinutes();
+  document.getElementById("f-city").value=CITYNAME;
   if(window.QMDJ) compute();
 })();
 </script>
