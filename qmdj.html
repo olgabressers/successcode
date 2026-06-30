@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>奇門遁甲 · QMDJ Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+  header { text-align: center; margin-bottom: 36px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+             color: var(--text-muted); margin-top: 6px; }
+
+  .form-panel { max-width: 760px; margin: 0 auto 32px; background: var(--surface);
+                border: 1px solid var(--border); padding: 24px 28px; }
+  .section-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                   color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
+  .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  input, select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+                  padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+                  outline: none; width: 100%; transition: border-color .2s; }
+  input:focus, select:focus { border-color: var(--gold); }
+  .form-actions { margin-top: 18px; }
+  button { width: 100%; background: var(--gold); border: 1px solid var(--gold); color: #fff;
+           padding: 12px 14px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+           font-family: 'Inter', sans-serif; cursor: pointer; transition: background .2s; }
+  button:hover { background: var(--gold-dim); }
+  .error-msg { max-width: 760px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
+               color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
+
+  .result { max-width: 760px; margin: 0 auto; }
+  .meta { background: var(--surface); border: 1px solid var(--border); padding: 18px 22px;
+          margin-bottom: 22px; font-size: 14px; line-height: 1.9; color: var(--text-dim); }
+  .meta b { color: var(--gold-dim); font-weight: 500; }
+  .meta .big { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text);
+               letter-spacing: 1px; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cell { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 1/1;
+          position: relative; padding: 12px; }
+  .cell.center { background: #faf7ef; }
+  .cell .dir { position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+               font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  /* all chart characters the same size */
+  .deity, .star, .gate { font-size: 15px; font-weight: 600; line-height: 1.15; }
+  .ru { font-size: 11px; font-weight: 400; }
+  .deity { position: absolute; top: 22px; left: 11px; }
+  .star  { position: absolute; top: 48px; left: 11px; }
+  .gate  { position: absolute; bottom: 11px; left: 11px; }
+  /* heaven stem stacked on top of earth stem, on the right */
+  .stems { position: absolute; right: 12px; bottom: 11px; text-align: right; line-height: 1.35; }
+  .stems span { font-size: 15px; font-weight: 700; display: block; }
+  .stems .h { color: #b06a00; }
+  .stems .e { color: #2a2a2a; }
+  .void { position: absolute; top: 7px; right: 9px; font-size: 10px; color: #b22; letter-spacing: 1px; }
+
+  .legend { max-width: 760px; margin: 18px auto 0; font-size: 11px; color: var(--text-muted);
+            line-height: 1.8; text-align: center; }
+  @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>奇門遁甲 · QMDJ Calculator</h1>
+  <p>Qi Men Dun Jia · Чай Бу · часовой план</p>
+</header>
+
+<div id="error-display" class="error-msg"></div>
+
+<div class="form-panel">
+  <div class="section-label">Дата и время</div>
+  <div class="form-grid">
+    <div class="form-group"><label>Год</label><input type="number" id="f-year" min="1900" max="2100"></div>
+    <div class="form-group"><label>Месяц</label><input type="number" id="f-month" min="1" max="12"></div>
+    <div class="form-group"><label>День</label><input type="number" id="f-day" min="1" max="31"></div>
+    <div class="form-group"><label>Час</label><input type="number" id="f-hour" min="0" max="23"></div>
+    <div class="form-group"><label>Минута</label><input type="number" id="f-min" min="0" max="59"></div>
+    <div class="form-group" style="justify-content:flex-end">
+      <div class="form-actions" style="margin-top:0"><button onclick="compute()">Рассчитать</button></div>
+    </div>
+  </div>
+</div>
+
+<div class="result" id="result" style="display:none">
+  <div class="meta" id="meta"></div>
+  <div class="grid" id="grid"></div>
+  <div class="legend">
+    Расположение Ло Шу, юг сверху. В ячейке: божество (神), звезда (星), врата (門),
+    небесный/земной стволы (справа). Цвета и названия — по методичке ЦМДЦ.
+  </div>
+</div>
+
+<script src="/qmdj-engine.bundle.js"></script>
+<script>
+// 九宮 index: 0坎 1坤 2震 3巽 4中 5乾 6兌 7艮 8離
+const GRID = [["巽","離","坤"],["震","中","兌"],["艮","坎","乾"]];
+const PIDX = {坎:0,坤:1,震:2,巽:3,中:4,乾:5,兌:6,艮:7,離:8};
+const DIR = {巽:"ЮВ",離:"Юг",坤:"ЮЗ",震:"В",中:"Центр",兌:"З",艮:"СВ",坎:"С",乾:"СЗ"};
+
+// Names + colours from «ЦМДЦ Оракул для Начинающих_Методичка.pdf» (pp. 23–47)
+const GATE = { // 八門
+  "休門":["休","Ворота удачи","#0070c0"], "生門":["生","Ворота жизни","#993300"],
+  "傷門":["傷","Ворота ранения","#00b050"], "杜門":["杜","Ворота препятствий","#00b050"],
+  "景門":["景","Ворота сцены","#ff0000"], "死門":["死","Ворота смерти","#984806"],
+  "驚門":["驚","Ворота тревоги","#7f7f7f"], "開門":["開","Ворота открытия","#7f7f7f"]
+};
+const STAR = { // 九星
+  "天蓬":["蓬","Тяньпэн","#0000ff"], "天芮":["芮","Тяньжуй","#984806"],
+  "天冲":["冲","Тяньчун","#00b050"], "天沖":["沖","Тяньчун","#00b050"],
+  "天輔":["輔","Тяньфу","#00b050"], "天禽":["禽","Тяньцинь","#984806"],
+  "天心":["心","Тяньсинь","#7f7f7f"], "天柱":["柱","Тяньчжу","#7f7f7f"],
+  "天任":["任","Тяньжэнь","#984806"], "天英":["英","Тяньин","#ff0000"]
+};
+const DEITY = { // 八神 (PDF: 白虎→勾陳, 玄武→朱雀)
+  "值符":["符","Чжифу","#ff0000"], "螣蛇":["蛇","Тэнше","#ff0000"], "騰蛇":["蛇","Тэнше","#ff0000"],
+  "太陰":["陰","Тайинь","#7f7f7f"], "六合":["合","Люхэ","#00b050"],
+  "白虎":["虎","Гоучэнь","#7f7f7f"], "玄武":["玄","Чжуцюэ","#0000ff"],
+  "九地":["地","Цзюди","#984806"], "九天":["天","Цзютянь","#7f7f7f"]
+};
+// info-line transliteration
+const STEM={甲:"Цзя",乙:"И",丙:"Бин",丁:"Дин",戊:"У",己:"Цзи",庚:"Гэн",辛:"Синь",壬:"Жэнь",癸:"Гуй"};
+const BR={子:"Цзы",丑:"Чоу",寅:"Инь",卯:"Мао",辰:"Чэнь",巳:"Сы",午:"У",未:"Вэй",申:"Шэнь",酉:"Ю",戌:"Сюй",亥:"Хай"};
+const JIE={立春:"Начало весны",雨水:"Дождевая вода",惊蛰:"Пробуждение насекомых",驚蟄:"Пробуждение насекомых",
+  春分:"Весеннее равноденствие",清明:"Ясные дни",谷雨:"Хлебные дожди",穀雨:"Хлебные дожди",立夏:"Начало лета",
+  小满:"Малое изобилие",小滿:"Малое изобилие",芒种:"Колошение",芒種:"Колошение",夏至:"Летнее солнцестояние",
+  小暑:"Малая жара",大暑:"Большая жара",立秋:"Начало осени",处暑:"Конец жары",處暑:"Конец жары",白露:"Белые росы",
+  秋分:"Осеннее равноденствие",寒露:"Холодные росы",霜降:"Выпадение инея",立冬:"Начало зимы",小雪:"Малые снега",
+  大雪:"Большие снега",冬至:"Зимнее солнцестояние",小寒:"Малые холода",大寒:"Большие холода"};
+const NUM=["","один","два","три","четыре","пять","шесть","семь","восемь","девять"];
+const YUAN={上元:"верхний",中元:"средний",下元:"нижний"};
+
+const gz = s => (s||"").split("").map(c=>STEM[c]||BR[c]||c).join("-");
+const branches = arr => (arr||[]).map(c=>BR[c]||c).join(", ");
+function showError(m){const e=document.getElementById("error-display");e.textContent=m;e.style.display="block";}
+function hideError(){document.getElementById("error-display").style.display="none";}
+
+function compute(){
+  hideError();
+  try{
+    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour"),mi=+v("f-min");
+    if(!y||!mo||!d){showError("Введите дату.");return;}
+    const lunar = QMDJ.Solar.fromYmdHms(y,mo,d,h||0,mi||0,0).getLunar();
+    const pan = QMDJ.QimenUtil.create(lunar);
+    renderMeta(pan); renderGrid(pan);
+    document.getElementById("result").style.display="block";
+  }catch(err){ showError("Ошибка расчёта: "+err.message); }
+}
+const v = id => document.getElementById(id).value;
+
+function renderMeta(pan){
+  const [Y,M,D,H]=pan.八字;
+  const ju = `${pan.遁==="陰遁"?"Иньский цикл":"Янский цикл"} · ${NUM[pan.局數]} цзюй · ${YUAN[pan.上中下元]||pan.上中下元} юань`;
+  const season = JIE[pan.節氣?.getName?.()] || (pan.節氣?.getName?.()||"");
+  const html = `
+    <div class="big">${gz(Y)} год · ${gz(M)} месяц · ${gz(D)} день · ${gz(H)} час</div>
+    <div style="margin-top:8px"><b>Сезон:</b> ${season} &nbsp;·&nbsp; <b>Цзюй:</b> ${ju}</div>
+    <div><b>Глава декады:</b> ${gz(pan.旬首)} &nbsp;·&nbsp; <b>Пустота:</b> ${branches(pan.空亡)}</div>`;
+  document.getElementById("meta").innerHTML = html;
+}
+
+function cellHTML(pan,pal){
+  if(pal==="中"){
+    const c=pan.九宮[4];
+    const st=(c.天盤干||[]).join("");
+    return `<div class="cell center"><span class="dir">${DIR[pal]}</span>
+      <div class="stems"><span class="h">${st}</span></div></div>`;
+  }
+  const c = pan.九宮[PIDX[pal]];
+  const g = GATE[c.八門]||[c.八門||"","",""];
+  const s = STAR[c.九星]||[(c.九星||"").replace("天",""),"",""];
+  const d = DEITY[c.八神]||[c.八神||"","",""];
+  const hv = (c.天盤干||[]).join("");
+  const er = (c.地盤干||[]).join("");
+  const vd = c.是否空亡 ? `<span class="void">空</span>` : "";
+  return `<div class="cell"><span class="dir">${DIR[pal]}</span>${vd}
+    <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${d[1]}</span></div>
+    <div class="star" style="color:${s[2]}">${s[0]}星 <span class="ru">${s[1]}</span></div>
+    <div class="gate" style="color:${g[2]}">${g[0]}門 <span class="ru">${g[1]}</span></div>
+    <div class="stems"><span class="h">${hv}</span><span class="e">${er}</span></div></div>`;
+}
+
+function renderGrid(pan){
+  document.getElementById("grid").innerHTML =
+    GRID.map(row=>row.map(pal=>cellHTML(pan,pal)).join("")).join("");
+}
+
+// default to now
+(function(){
+  const n=new Date();
+  document.getElementById("f-year").value=n.getFullYear();
+  document.getElementById("f-month").value=n.getMonth()+1;
+  document.getElementById("f-day").value=n.getDate();
+  document.getElementById("f-hour").value=n.getHours();
+  document.getElementById("f-min").value=n.getMinutes();
+  if(window.QMDJ) compute();
+})();
+</script>
+</body>
+</html>
