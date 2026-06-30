@@ -98,6 +98,8 @@
   .dunjia-ref { text-align: center; font-size: 15px; color: var(--text-dim); letter-spacing: 1px;
                 margin-top: 16px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); }
   .dunjia-ref b { color: var(--gold-dim); font-weight: 600; margin-right: 10px; font-size: 16px; }
+  .dunjia-ref .jia-head { color: var(--gold); font-weight: 700; border: 1px solid var(--gold);
+                          border-radius: 3px; padding: 0 4px; }
   .cell-detail { display: none; background: var(--surface); border: 1px solid var(--border);
                  margin-top: 16px; padding: 18px 22px; }
   .d-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text);
@@ -152,7 +154,7 @@
   <div class="hour-row" id="hour-row"></div>
   <div class="meta" id="meta"></div>
   <div class="grid" id="grid"></div>
-  <div class="dunjia-ref"><b>遁甲</b> 甲子→戊　甲戌→己　甲申→庚　甲午→辛　甲辰→壬　甲寅→癸</div>
+  <div class="dunjia-ref" id="dunjia-ref"></div>
   <div class="cell-detail" id="cell-detail"></div>
 </div>
 
@@ -324,7 +326,24 @@ function compute(){
 }
 function render(pan){
   VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0];
-  renderBazi(pan); renderMeta(pan); renderGrid(pan);
+  renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan);
+}
+
+// 遁甲: each 甲 hides under its 儀; locate it by where that 儀 sits on the heaven plate (天盤).
+const IDX2GUA=["坎","坤","震","巽","中","乾","兌","艮","離"];
+const JIA_YI=[["甲子","戊"],["甲戌","己"],["甲申","庚"],["甲午","辛"],["甲辰","壬"],["甲寅","癸"]];
+function heavenPalaceOfStem(pan,stem){
+  for(let i=0;i<9;i++){ if((pan.九宮[i].天盤干||[]).includes(stem)) return IDX2GUA[i]; }
+  return "";
+}
+function renderDunjia(pan){
+  const head=pan.旬首;
+  const html=JIA_YI.map(([jia,yi])=>{
+    const pal=heavenPalaceOfStem(pan,yi);
+    const cls=(jia===head)?' class="jia-head"':'';
+    return `<span${cls}>${jia}→${yi}${pal?"→"+pal:""}</span>`;
+  }).join("　");
+  document.getElementById("dunjia-ref").innerHTML=`<b>遁甲</b> ${html}`;
 }
 
 function renderSolar(cm){
