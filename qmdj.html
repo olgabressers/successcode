@@ -234,6 +234,15 @@ const WX_STATE=["旺","相","休","囚","死"];
 const PHASE_NAME={ru:{旺:"Расцвет",相:"Содействие",休:"Покой",囚:"Заключение",死:"Смерть"},
   en:{旺:"Prosperous",相:"Supported",休:"Resting",囚:"Trapped",死:"Dead"}};
 function seasonPhase(elem,wxList){ const i=(wxList||[]).indexOf(elem); return i>=0?WX_STATE[i]:""; }
+// five-element strength of an element relative to the palace element (五行 生克),
+// giving 旺相休囚死. 伏吟 (gate/star in its native palace) = same element = 旺.
+const PAL_ELEM={坎:"水",坤:"土",震:"木",巽:"木",中:"土",乾:"金",兌:"金",艮:"土",離:"火"};
+const _GEN={木:"火",火:"土",土:"金",金:"水",水:"木"};
+const _GENP={火:"木",土:"火",金:"土",水:"金",木:"水"};
+const _KE={木:"土",火:"金",土:"水",金:"木",水:"火"};
+const _KEBY={土:"木",金:"火",水:"土",木:"金",火:"水"};
+const wxForElem=R=>[R,_GEN[R],_GENP[R],_KEBY[R],_KE[R]]; // [旺,相,休,囚,死]
+const palacePhase=(elem,pal)=>seasonPhase(elem,wxForElem(PAL_ELEM[pal]));
 
 const STEM_RU={甲:"Цзя",乙:"И",丙:"Бин",丁:"Дин",戊:"У",己:"Цзи",庚:"Гэн",辛:"Синь",壬:"Жэнь",癸:"Гуй"};
 const NUM_EN={1:"one",2:"two",3:"three",4:"four",5:"five",6:"six",7:"seven",8:"eight",9:"nine"};
@@ -408,12 +417,14 @@ function showDetail(pal){
       <div class="d-line"><span>${t.toSeason}</span><span>${toS}</span></div></div>`;
   }).join("");
   h+=stemBlock(t.heaven,c.天盤干)+stemBlock(t.earth,c.地盤干);
-  if(c.八門){ const ph=seasonPhase(GATE_ELEM[c.八門],wx);
+  if(c.八門){ const e=GATE_ELEM[c.八門], pP=palacePhase(e,pal), pS=seasonPhase(e,wx);
     h+=`<div class="d-row"><div class="d-h">${t.gate} <b>${gateD(c.八門)[0]}</b> ${nm(gateD(c.八門))}</div>
-      <div class="d-line"><span>${t.toSeason}</span><span>${ph} ${PHASE_NAME[LANG][ph]||""}</span></div></div>`; }
-  if(c.九星){ const ph=seasonPhase(STAR_ELEM[c.九星],wx);
+      <div class="d-line"><span>${t.toPalace}</span><span>${pP} ${PHASE_NAME[LANG][pP]||""}</span></div>
+      <div class="d-line"><span>${t.toSeason}</span><span>${pS} ${PHASE_NAME[LANG][pS]||""}</span></div></div>`; }
+  if(c.九星){ const e=STAR_ELEM[c.九星], pP=palacePhase(e,pal), pS=seasonPhase(e,wx);
     h+=`<div class="d-row"><div class="d-h">${t.star} <b>${starD(c.九星)[0]}</b> ${nm(starD(c.九星))}</div>
-      <div class="d-line"><span>${t.toSeason}</span><span>${ph} ${PHASE_NAME[LANG][ph]||""}</span></div></div>`; }
+      <div class="d-line"><span>${t.toPalace}</span><span>${pP} ${PHASE_NAME[LANG][pP]||""}</span></div>
+      <div class="d-line"><span>${t.toSeason}</span><span>${pS} ${PHASE_NAME[LANG][pS]||""}</span></div></div>`; }
   if(c.八神){ h+=`<div class="d-row"><div class="d-h">${t.deity} <b>${deityD(c.八神)[0]}</b> ${nm(deityD(c.八神))}</div></div>`; }
   const box=document.getElementById("cell-detail");
   box.innerHTML=h; box.style.display="block";
