@@ -98,11 +98,12 @@
     .page-h1 em { font-style: italic; color: var(--gold2); }
 
     .cards {
-      display: flex; flex-direction: column;
-      gap: 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
     }
     .card {
-      display: block;
+      display: flex; flex-direction: column;
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
@@ -117,40 +118,42 @@
       transform: translateY(-3px);
     }
     .card-header {
-      padding: 56px 48px 44px 48px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 32px;
+      padding: 44px 40px 30px 40px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 24px;
       border-bottom: 1px solid var(--border);
     }
     .card-names {
       display: flex; flex-direction: column; gap: 10px;
+      min-width: 0;
     }
     .card-name-en {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(42px, 5.5vw, 76px);
-      font-weight: 400; line-height: 1;
+      font-size: clamp(30px, 3.2vw, 44px);
+      font-weight: 400; line-height: 1.05;
       color: var(--white);
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
     }
     .card-name-en em { font-style: italic; color: var(--gold2); }
     .card-name-ru {
-      font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
       color: var(--gold); font-weight: 600;
     }
     .card-cta {
-      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
       color: var(--gold2); font-weight: 600;
-      display: inline-flex; align-items: center; gap: 12px;
-      white-space: nowrap;
+      display: inline-flex; align-items: center; gap: 10px;
+      white-space: nowrap; padding-top: 8px;
       transition: color .25s;
     }
     .card:hover .card-cta { color: var(--white); }
-    .card-cta::after { content: '→'; font-size: 16px; }
+    .card-cta::after { content: '→'; font-size: 14px; }
 
     .card-screenshot {
       display: block;
       width: 100%;
       background: #f5f1eb;
+      flex: 1;
     }
     .card-screenshot img {
       display: block;
@@ -186,13 +189,13 @@
         font-size: 11px; letter-spacing: 3px;
       }
       .page-h1 { font-size: 32px; margin-bottom: 36px; }
-      .cards { gap: 28px; }
+      .cards { grid-template-columns: 1fr; gap: 24px; }
       .card-header {
-        flex-direction: column; align-items: flex-start; gap: 22px;
-        padding: 36px 26px 30px 26px;
+        flex-direction: column; align-items: flex-start; gap: 18px;
+        padding: 32px 26px 26px 26px;
       }
-      .card-name-en { font-size: 40px; }
-      .card-name-ru { font-size: 12px; letter-spacing: 3px; }
+      .card-name-en { font-size: 34px; }
+      .card-name-ru { font-size: 11px; letter-spacing: 2.5px; }
       footer {
         flex-direction: column; gap: 12px;
         padding: 24px 22px; text-align: center;
