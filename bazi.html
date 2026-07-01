@@ -529,12 +529,12 @@ function renderSummary(ec, lunar){
 }
 
 function renderDayun(ec, sex){
-  // sex: 1=male, 0=female. Yun.newInstance(gender, sect). Gender: 1=male, 0=female per lunar-js.
+  // sex: 1=male, 0=female. Yun.getYun(gender, sect). Gender: 1=male, 0=female per lunar-js.
   const yun = ec.getYun(sex, 2); // sect=2 for modern-common calculation
-  const startYear = yun.getStartYear();
-  const startAge = yun.getStartAge();
-
   const arr = yun.getDaYun(11); // [childhood(index 0), luck1..luck10]
+  const firstLuck = arr[1];
+  const startYear = firstLuck ? firstLuck.getStartYear() : "";
+  const startAge = firstLuck ? firstLuck.getStartAge() : "";
   const currentYear = (new Date()).getFullYear();
 
   const cells = [];
