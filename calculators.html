@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculators — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-link {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; transition: color .25s;
+    }
+    .nav-link:hover { color: var(--gold2); }
+
+    .page {
+      flex: 1;
+      padding: 96px 72px 120px 72px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 80px;
+      align-items: start;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px; font-weight: 600;
+    }
+
+    .page-body { max-width: 1000px; }
+    .page-tag {
+      display: flex; align-items: center; gap: 18px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 30px; font-weight: 600;
+    }
+    .page-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .page-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5vw, 76px);
+      font-weight: 300; line-height: 1.08;
+      letter-spacing: -1.5px; color: var(--white);
+      margin-bottom: 28px;
+    }
+    .page-h1 em { font-style: italic; color: var(--gold2); }
+    .page-lead {
+      font-size: 17px; line-height: 1.75; color: var(--dim);
+      max-width: 680px; margin-bottom: 64px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+    .card {
+      display: flex; flex-direction: column;
+      padding: 44px 40px 40px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: background .25s, border-color .25s, transform .25s;
+      position: relative;
+      min-height: 340px;
+    }
+    .card:hover {
+      background: var(--surface2);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .card-glyph {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px; line-height: 1;
+      color: var(--gold2); margin-bottom: 30px;
+      font-weight: 300;
+    }
+    .card-eyebrow {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .card-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px; font-weight: 400; line-height: 1.15;
+      color: var(--white); margin-bottom: 18px;
+    }
+    .card-p {
+      font-size: 15px; line-height: 1.7; color: var(--dim);
+      margin-bottom: 32px; flex: 1;
+    }
+    .card-cta {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold2); font-weight: 600;
+      display: inline-flex; align-items: center; gap: 12px;
+      transition: color .25s;
+    }
+    .card:hover .card-cta { color: var(--white); }
+    .card-cta::after { content: '→'; font-size: 16px; }
+
+    footer {
+      padding: 32px 72px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; transition: color .25s; }
+    footer a:hover { color: var(--gold2); }
+
+    @media (max-width: 900px) {
+      nav { padding: 18px 22px; }
+      .nav-links { gap: 20px; }
+      .nav-link { font-size: 10px; letter-spacing: 1.5px; }
+      .page {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 60px 22px 80px 22px;
+      }
+      .side-label {
+        writing-mode: horizontal-tb;
+        font-size: 11px; letter-spacing: 3px;
+      }
+      .page-h1 { font-size: 34px; }
+      .page-lead { font-size: 14px; margin-bottom: 40px; }
+      .cards { grid-template-columns: 1fr; gap: 20px; }
+      .card { padding: 32px 26px; min-height: auto; }
+      .card-glyph { font-size: 48px; margin-bottom: 22px; }
+      .card-h2 { font-size: 26px; }
+      .card-p { font-size: 14px; margin-bottom: 24px; }
+      footer {
+        flex-direction: column; gap: 12px;
+        padding: 24px 22px; text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">SuccessCode</a>
+  <div class="nav-links">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/calculators" class="nav-link">Calculators</a>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="side-label">Instruments</div>
+
+  <div class="page-body">
+    <div class="page-tag">Calculators</div>
+    <h1 class="page-h1">Ancient systems, <em>modern instruments.</em></h1>
+    <p class="page-lead">
+      Two engines from classical Chinese metaphysics — reconstructed as precise,
+      deterministic calculators. Enter birth data (or a moment) and read the structural
+      map behind it.
+    </p>
+
+    <div class="cards">
+      <a href="/zwds" class="card">
+        <div class="card-glyph">紫微</div>
+        <div class="card-eyebrow">Zi Wei Dou Shu</div>
+        <h2 class="card-h2">Life-map calculator</h2>
+        <p class="card-p">
+          The imperial life-map system. Enter date, time, and place of birth —
+          receive the twelve-palace chart with all main stars, decade layers,
+          and annual overlay.
+        </p>
+        <span class="card-cta">Open calculator</span>
+      </a>
+
+      <a href="/qmdj" class="card">
+        <div class="card-glyph">奇門</div>
+        <div class="card-eyebrow">Qi Men Dun Jia</div>
+        <h2 class="card-h2">Timing &amp; strategy calculator</h2>
+        <p class="card-p">
+          The classical strategic-timing system. Enter a moment (or use “now”) —
+          receive the nine-palace board with stems, doors, stars, and deities
+          for that instant.
+        </p>
+        <span class="card-cta">Open calculator</span>
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>© SuccessCode</div>
+  <div><a href="/">Home</a></div>
+</footer>
+
+</body>
+</html>
