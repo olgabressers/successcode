@@ -99,8 +99,8 @@
 
     .cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
     }
     .card {
       display: flex; flex-direction: column;
@@ -176,6 +176,10 @@
     body[data-current-lang="ru"] [data-lang="ru"] { display: initial; }
     body[data-current-lang="en"] [data-lang="en"] { display: initial; }
 
+    @media (max-width: 1180px) {
+      .cards { grid-template-columns: 1fr 1fr; }
+      .card-name-en { font-size: clamp(28px, 3vw, 40px); }
+    }
     @media (max-width: 900px) {
       nav { padding: 18px 22px; }
       .nav-right { gap: 16px; }
@@ -189,7 +193,7 @@
         font-size: 11px; letter-spacing: 3px;
       }
       .page-h1 { font-size: 32px; margin-bottom: 36px; }
-      .cards { grid-template-columns: 1fr; gap: 24px; }
+      .cards { grid-template-columns: 1fr; gap: 22px; }
       .card-header {
         flex-direction: column; align-items: flex-start; gap: 18px;
         padding: 32px 26px 26px 26px;
@@ -272,6 +276,25 @@
         </div>
         <div class="card-screenshot">
           <img src="images/calculators/qmdj.png" alt="QMDJ Calculator preview" loading="lazy">
+        </div>
+      </a>
+
+      <a href="/bazi" class="card">
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Ba Zi</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Ба Цзы · Четыре столпа судьбы</span>
+              <span data-lang="en">Ba Zi · Four Pillars of Destiny</span>
+            </div>
+          </div>
+          <span class="card-cta">
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
+          </span>
+        </div>
+        <div class="card-screenshot">
+          <img src="images/calculators/bazi.png" alt="BaZi Calculator preview" loading="lazy">
         </div>
       </a>
     </div>
