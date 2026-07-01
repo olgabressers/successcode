@@ -66,7 +66,7 @@
 
     .page {
       flex: 1;
-      padding: 96px 72px 120px 72px;
+      padding: 80px 72px 120px 72px;
       display: grid;
       grid-template-columns: 180px 1fr;
       gap: 80px;
@@ -81,7 +81,7 @@
       color: var(--gold); padding-top: 6px; font-weight: 600;
     }
 
-    .page-body { max-width: 1000px; }
+    .page-body { max-width: 100%; }
     .page-tag {
       display: flex; align-items: center; gap: 18px;
       font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
@@ -90,24 +90,19 @@
     .page-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
     .page-h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(44px, 5vw, 76px);
+      font-size: clamp(42px, 4.6vw, 68px);
       font-weight: 300; line-height: 1.08;
       letter-spacing: -1.5px; color: var(--white);
-      margin-bottom: 28px;
+      margin-bottom: 56px;
     }
     .page-h1 em { font-style: italic; color: var(--gold2); }
-    .page-lead {
-      font-size: 17px; line-height: 1.75; color: var(--dim);
-      max-width: 680px; margin-bottom: 64px;
-    }
 
     .cards {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
+      display: flex; flex-direction: column;
+      gap: 48px;
     }
     .card {
-      display: flex; flex-direction: column;
+      display: block;
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
@@ -121,33 +116,32 @@
       border-color: var(--gold);
       transform: translateY(-3px);
     }
-    .card-inner {
-      padding: 44px 40px 30px 40px;
+    .card-header {
+      padding: 56px 48px 44px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px;
+      border-bottom: 1px solid var(--border);
     }
-    .card-glyph {
+    .card-names {
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .card-name-en {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 64px; line-height: 1;
-      color: var(--gold2); margin-bottom: 26px;
-      font-weight: 300;
+      font-size: clamp(42px, 5.5vw, 76px);
+      font-weight: 400; line-height: 1;
+      color: var(--white);
+      letter-spacing: -1px;
     }
-    .card-eyebrow {
-      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    .card-name-en em { font-style: italic; color: var(--gold2); }
+    .card-name-ru {
+      font-size: 15px; letter-spacing: 4px; text-transform: uppercase;
       color: var(--gold); font-weight: 600;
-      margin-bottom: 12px;
-    }
-    .card-h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 34px; font-weight: 400; line-height: 1.15;
-      color: var(--white); margin-bottom: 18px;
-    }
-    .card-p {
-      font-size: 15px; line-height: 1.7; color: var(--dim);
-      margin-bottom: 24px;
     }
     .card-cta {
       font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--gold2); font-weight: 600;
       display: inline-flex; align-items: center; gap: 12px;
+      white-space: nowrap;
       transition: color .25s;
     }
     .card:hover .card-cta { color: var(--white); }
@@ -156,7 +150,6 @@
     .card-screenshot {
       display: block;
       width: 100%;
-      border-top: 1px solid var(--border);
       background: #f5f1eb;
     }
     .card-screenshot img {
@@ -179,8 +172,6 @@
     [data-lang] { display: none; }
     body[data-current-lang="ru"] [data-lang="ru"] { display: initial; }
     body[data-current-lang="en"] [data-lang="en"] { display: initial; }
-    body[data-current-lang="ru"] .page-h1 [data-lang="ru"],
-    body[data-current-lang="en"] .page-h1 [data-lang="en"] { display: inline; }
 
     @media (max-width: 900px) {
       nav { padding: 18px 22px; }
@@ -194,13 +185,14 @@
         writing-mode: horizontal-tb;
         font-size: 11px; letter-spacing: 3px;
       }
-      .page-h1 { font-size: 34px; }
-      .page-lead { font-size: 14px; margin-bottom: 40px; }
-      .cards { grid-template-columns: 1fr; gap: 20px; }
-      .card-inner { padding: 32px 26px 22px 26px; }
-      .card-glyph { font-size: 48px; margin-bottom: 22px; }
-      .card-h2 { font-size: 26px; }
-      .card-p { font-size: 14px; }
+      .page-h1 { font-size: 32px; margin-bottom: 36px; }
+      .cards { gap: 28px; }
+      .card-header {
+        flex-direction: column; align-items: flex-start; gap: 22px;
+        padding: 36px 26px 30px 26px;
+      }
+      .card-name-en { font-size: 40px; }
+      .card-name-ru { font-size: 12px; letter-spacing: 3px; }
       footer {
         flex-direction: column; gap: 12px;
         padding: 24px 22px; text-align: center;
@@ -213,7 +205,7 @@
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
   <div class="nav-right">
-    <a href="/" class="nav-link">
+    <a href="/ru" class="nav-link home-link">
       <span data-lang="ru">Главная</span>
       <span data-lang="en">Home</span>
     </a>
@@ -241,43 +233,19 @@
       <span data-lang="en">Ancient systems, <em>modern instruments.</em></span>
     </h1>
 
-    <p class="page-lead">
-      <span data-lang="ru">
-        Два движка классической китайской метафизики — восстановленные как точные,
-        детерминированные калькуляторы. Введите данные рождения (или момент времени)
-        и прочтите структурную карту, стоящую за ними.
-      </span>
-      <span data-lang="en">
-        Two engines from classical Chinese metaphysics — reconstructed as precise,
-        deterministic calculators. Enter birth data (or a moment) and read the
-        structural map behind it.
-      </span>
-    </p>
-
     <div class="cards">
       <a href="/zwds" class="card">
-        <div class="card-inner">
-          <div class="card-glyph">紫微</div>
-          <div class="card-eyebrow">Zi Wei Dou Shu</div>
-          <h2 class="card-h2">
-            <span data-lang="ru">Карта жизни</span>
-            <span data-lang="en">Life-map calculator</span>
-          </h2>
-          <p class="card-p">
-            <span data-lang="ru">
-              Императорская система карты жизни. Введите дату, время и место рождения —
-              получите чарт из двенадцати дворцов со всеми звёздами, слоями декад
-              и годовым наложением.
-            </span>
-            <span data-lang="en">
-              The imperial life-map system. Enter date, time, and place of birth —
-              receive the twelve-palace chart with all main stars, decade layers,
-              and annual overlay.
-            </span>
-          </p>
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Zi Wei Dou Shu</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Цзы Вэй Доу Шу · Карта жизни</span>
+              <span data-lang="en">Zi Wei Dou Shu · Life-map</span>
+            </div>
+          </div>
           <span class="card-cta">
-            <span data-lang="ru">Открыть калькулятор</span>
-            <span data-lang="en">Open calculator</span>
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
           </span>
         </div>
         <div class="card-screenshot">
@@ -286,28 +254,17 @@
       </a>
 
       <a href="/qmdj" class="card">
-        <div class="card-inner">
-          <div class="card-glyph">奇門</div>
-          <div class="card-eyebrow">Qi Men Dun Jia</div>
-          <h2 class="card-h2">
-            <span data-lang="ru">Тайминг и стратегия</span>
-            <span data-lang="en">Timing &amp; strategy calculator</span>
-          </h2>
-          <p class="card-p">
-            <span data-lang="ru">
-              Классическая система стратегического тайминга. Введите момент (или «сейчас») —
-              получите доску из девяти дворцов со стволами, вратами, звёздами
-              и божествами на этот миг.
-            </span>
-            <span data-lang="en">
-              The classical strategic-timing system. Enter a moment (or use “now”) —
-              receive the nine-palace board with stems, doors, stars, and deities
-              for that instant.
-            </span>
-          </p>
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Qi Men Dun Jia</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Ци Мэнь Дунь Цзя · Тайминг и стратегия</span>
+              <span data-lang="en">Qi Men Dun Jia · Timing &amp; strategy</span>
+            </div>
+          </div>
           <span class="card-cta">
-            <span data-lang="ru">Открыть калькулятор</span>
-            <span data-lang="en">Open calculator</span>
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
           </span>
         </div>
         <div class="card-screenshot">
@@ -320,7 +277,7 @@
 
 <footer>
   <div>© SuccessCode</div>
-  <div><a href="/">
+  <div><a href="/ru">
     <span data-lang="ru">Главная</span>
     <span data-lang="en">Home</span>
   </a></div>
@@ -331,6 +288,7 @@
     var STORAGE_KEY = 'sc-lang';
     var body = document.body;
     var buttons = document.querySelectorAll('[data-set-lang]');
+    var homeLinks = document.querySelectorAll('.home-link, footer a');
 
     function setLang(lang) {
       if (lang !== 'ru' && lang !== 'en') lang = 'ru';
@@ -338,6 +296,9 @@
       document.documentElement.setAttribute('lang', lang);
       buttons.forEach(function(b) {
         b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+      });
+      homeLinks.forEach(function(a) {
+        a.setAttribute('href', lang === 'en' ? '/' : '/ru');
       });
       try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
     }
