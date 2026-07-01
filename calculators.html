@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculators — SuccessCode</title>
+  <title>Калькуляторы — SuccessCode</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
@@ -43,13 +43,26 @@
       letter-spacing: 5px; text-transform: uppercase;
       color: var(--white); text-decoration: none;
     }
-    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-right { display: flex; gap: 30px; align-items: center; }
     .nav-link {
       font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--white); font-weight: 600;
       text-decoration: none; transition: color .25s;
     }
     .nav-link:hover { color: var(--gold2); }
+
+    .lang-switch {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      background: transparent; border: none; cursor: pointer;
+      font-size: 11px; letter-spacing: 2px; font-weight: 600;
+      color: var(--muted); padding: 8px 14px;
+      font-family: 'Inter', sans-serif; transition: background .2s, color .2s;
+    }
+    .lang-btn.active { background: var(--gold); color: #f5f1eb; }
+    .lang-btn:not(.active):hover { color: var(--gold2); }
 
     .page {
       flex: 1;
@@ -95,24 +108,26 @@
     }
     .card {
       display: flex; flex-direction: column;
-      padding: 44px 40px 40px 40px;
       background: var(--surface);
       border: 1px solid var(--border);
       text-decoration: none;
       color: inherit;
       transition: background .25s, border-color .25s, transform .25s;
       position: relative;
-      min-height: 340px;
+      overflow: hidden;
     }
     .card:hover {
       background: var(--surface2);
       border-color: var(--gold);
       transform: translateY(-3px);
     }
+    .card-inner {
+      padding: 44px 40px 30px 40px;
+    }
     .card-glyph {
       font-family: 'Cormorant Garamond', serif;
       font-size: 64px; line-height: 1;
-      color: var(--gold2); margin-bottom: 30px;
+      color: var(--gold2); margin-bottom: 26px;
       font-weight: 300;
     }
     .card-eyebrow {
@@ -127,7 +142,7 @@
     }
     .card-p {
       font-size: 15px; line-height: 1.7; color: var(--dim);
-      margin-bottom: 32px; flex: 1;
+      margin-bottom: 24px;
     }
     .card-cta {
       font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
@@ -137,6 +152,18 @@
     }
     .card:hover .card-cta { color: var(--white); }
     .card-cta::after { content: '→'; font-size: 16px; }
+
+    .card-screenshot {
+      display: block;
+      width: 100%;
+      border-top: 1px solid var(--border);
+      background: #f5f1eb;
+    }
+    .card-screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
 
     footer {
       padding: 32px 72px;
@@ -148,10 +175,16 @@
     footer a { color: var(--muted); text-decoration: none; transition: color .25s; }
     footer a:hover { color: var(--gold2); }
 
+    /* Language visibility */
+    [data-lang] { display: none; }
+    body[data-current-lang="ru"] [data-lang="ru"] { display: initial; }
+    body[data-current-lang="en"] [data-lang="en"] { display: initial; }
+    body[data-current-lang="ru"] .page-h1 [data-lang="ru"],
+    body[data-current-lang="en"] .page-h1 [data-lang="en"] { display: inline; }
+
     @media (max-width: 900px) {
       nav { padding: 18px 22px; }
-      .nav-links { gap: 20px; }
-      .nav-link { font-size: 10px; letter-spacing: 1.5px; }
+      .nav-right { gap: 16px; }
       .page {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -164,10 +197,10 @@
       .page-h1 { font-size: 34px; }
       .page-lead { font-size: 14px; margin-bottom: 40px; }
       .cards { grid-template-columns: 1fr; gap: 20px; }
-      .card { padding: 32px 26px; min-height: auto; }
+      .card-inner { padding: 32px 26px 22px 26px; }
       .card-glyph { font-size: 48px; margin-bottom: 22px; }
       .card-h2 { font-size: 26px; }
-      .card-p { font-size: 14px; margin-bottom: 24px; }
+      .card-p { font-size: 14px; }
       footer {
         flex-direction: column; gap: 12px;
         padding: 24px 22px; text-align: center;
@@ -175,51 +208,111 @@
     }
   </style>
 </head>
-<body>
+<body data-current-lang="ru">
 
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
-  <div class="nav-links">
-    <a href="/" class="nav-link">Home</a>
-    <a href="/calculators" class="nav-link">Calculators</a>
+  <div class="nav-right">
+    <a href="/" class="nav-link">
+      <span data-lang="ru">Главная</span>
+      <span data-lang="en">Home</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn active" data-set-lang="ru" type="button">RU</button>
+      <button class="lang-btn"        data-set-lang="en" type="button">EN</button>
+    </div>
   </div>
 </nav>
 
 <main class="page">
-  <div class="side-label">Instruments</div>
+  <div class="side-label">
+    <span data-lang="ru">Инструменты</span>
+    <span data-lang="en">Instruments</span>
+  </div>
 
   <div class="page-body">
-    <div class="page-tag">Calculators</div>
-    <h1 class="page-h1">Ancient systems, <em>modern instruments.</em></h1>
+    <div class="page-tag">
+      <span data-lang="ru">Калькуляторы</span>
+      <span data-lang="en">Calculators</span>
+    </div>
+
+    <h1 class="page-h1">
+      <span data-lang="ru">Древние системы, <em>современные инструменты.</em></span>
+      <span data-lang="en">Ancient systems, <em>modern instruments.</em></span>
+    </h1>
+
     <p class="page-lead">
-      Two engines from classical Chinese metaphysics — reconstructed as precise,
-      deterministic calculators. Enter birth data (or a moment) and read the structural
-      map behind it.
+      <span data-lang="ru">
+        Два движка классической китайской метафизики — восстановленные как точные,
+        детерминированные калькуляторы. Введите данные рождения (или момент времени)
+        и прочтите структурную карту, стоящую за ними.
+      </span>
+      <span data-lang="en">
+        Two engines from classical Chinese metaphysics — reconstructed as precise,
+        deterministic calculators. Enter birth data (or a moment) and read the
+        structural map behind it.
+      </span>
     </p>
 
     <div class="cards">
       <a href="/zwds" class="card">
-        <div class="card-glyph">紫微</div>
-        <div class="card-eyebrow">Zi Wei Dou Shu</div>
-        <h2 class="card-h2">Life-map calculator</h2>
-        <p class="card-p">
-          The imperial life-map system. Enter date, time, and place of birth —
-          receive the twelve-palace chart with all main stars, decade layers,
-          and annual overlay.
-        </p>
-        <span class="card-cta">Open calculator</span>
+        <div class="card-inner">
+          <div class="card-glyph">紫微</div>
+          <div class="card-eyebrow">Zi Wei Dou Shu</div>
+          <h2 class="card-h2">
+            <span data-lang="ru">Карта жизни</span>
+            <span data-lang="en">Life-map calculator</span>
+          </h2>
+          <p class="card-p">
+            <span data-lang="ru">
+              Императорская система карты жизни. Введите дату, время и место рождения —
+              получите чарт из двенадцати дворцов со всеми звёздами, слоями декад
+              и годовым наложением.
+            </span>
+            <span data-lang="en">
+              The imperial life-map system. Enter date, time, and place of birth —
+              receive the twelve-palace chart with all main stars, decade layers,
+              and annual overlay.
+            </span>
+          </p>
+          <span class="card-cta">
+            <span data-lang="ru">Открыть калькулятор</span>
+            <span data-lang="en">Open calculator</span>
+          </span>
+        </div>
+        <div class="card-screenshot">
+          <img src="images/calculators/zwds.png" alt="ZWDS Calculator preview" loading="lazy">
+        </div>
       </a>
 
       <a href="/qmdj" class="card">
-        <div class="card-glyph">奇門</div>
-        <div class="card-eyebrow">Qi Men Dun Jia</div>
-        <h2 class="card-h2">Timing &amp; strategy calculator</h2>
-        <p class="card-p">
-          The classical strategic-timing system. Enter a moment (or use “now”) —
-          receive the nine-palace board with stems, doors, stars, and deities
-          for that instant.
-        </p>
-        <span class="card-cta">Open calculator</span>
+        <div class="card-inner">
+          <div class="card-glyph">奇門</div>
+          <div class="card-eyebrow">Qi Men Dun Jia</div>
+          <h2 class="card-h2">
+            <span data-lang="ru">Тайминг и стратегия</span>
+            <span data-lang="en">Timing &amp; strategy calculator</span>
+          </h2>
+          <p class="card-p">
+            <span data-lang="ru">
+              Классическая система стратегического тайминга. Введите момент (или «сейчас») —
+              получите доску из девяти дворцов со стволами, вратами, звёздами
+              и божествами на этот миг.
+            </span>
+            <span data-lang="en">
+              The classical strategic-timing system. Enter a moment (or use “now”) —
+              receive the nine-palace board with stems, doors, stars, and deities
+              for that instant.
+            </span>
+          </p>
+          <span class="card-cta">
+            <span data-lang="ru">Открыть калькулятор</span>
+            <span data-lang="en">Open calculator</span>
+          </span>
+        </div>
+        <div class="card-screenshot">
+          <img src="images/calculators/qmdj.png" alt="QMDJ Calculator preview" loading="lazy">
+        </div>
       </a>
     </div>
   </div>
@@ -227,8 +320,39 @@
 
 <footer>
   <div>© SuccessCode</div>
-  <div><a href="/">Home</a></div>
+  <div><a href="/">
+    <span data-lang="ru">Главная</span>
+    <span data-lang="en">Home</span>
+  </a></div>
 </footer>
+
+<script>
+  (function() {
+    var STORAGE_KEY = 'sc-lang';
+    var body = document.body;
+    var buttons = document.querySelectorAll('[data-set-lang]');
+
+    function setLang(lang) {
+      if (lang !== 'ru' && lang !== 'en') lang = 'ru';
+      body.setAttribute('data-current-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      buttons.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+      });
+      try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    setLang(saved || 'ru');
+
+    buttons.forEach(function(b) {
+      b.addEventListener('click', function() {
+        setLang(b.getAttribute('data-set-lang'));
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>
