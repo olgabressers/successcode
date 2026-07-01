@@ -653,6 +653,8 @@ document.addEventListener("click", e=>{
 
 applyLang();
 updateSolarInfo();
+// Auto-compute on load with defaults
+try { compute(); } catch(e) {}
 </script>
 </body>
 </html>
