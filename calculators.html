@@ -66,22 +66,12 @@
 
     .page {
       flex: 1;
-      padding: 80px 72px 120px 72px;
-      display: grid;
-      grid-template-columns: 180px 1fr;
-      gap: 80px;
-      align-items: start;
-      max-width: 1400px;
+      padding: 80px 56px 120px 56px;
+      max-width: 1600px;
       width: 100%;
       margin: 0 auto;
     }
-    .side-label {
-      writing-mode: vertical-rl; text-orientation: mixed;
-      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--gold); padding-top: 6px; font-weight: 600;
-    }
-
-    .page-body { max-width: 100%; }
+    .page-body { width: 100%; }
     .page-tag {
       display: flex; align-items: center; gap: 18px;
       font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
@@ -106,8 +96,6 @@
       display: flex; flex-direction: column;
       background: var(--surface);
       border: 1px solid var(--border);
-      text-decoration: none;
-      color: inherit;
       transition: background .25s, border-color .25s, transform .25s;
       position: relative;
       overflow: hidden;
@@ -118,14 +106,20 @@
       transform: translateY(-3px);
     }
     .card-header {
-      padding: 44px 40px 30px 40px;
-      display: flex; align-items: flex-start; justify-content: space-between;
+      padding: 38px 36px 30px 36px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
       gap: 24px;
+      min-height: 200px;
       border-bottom: 1px solid var(--border);
     }
     .card-names {
-      display: flex; flex-direction: column; gap: 10px;
-      min-width: 0;
+      display: flex; flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      width: 100%;
     }
     .card-name-en {
       font-family: 'Cormorant Garamond', serif;
@@ -141,12 +135,16 @@
     }
     .card-cta {
       font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold2); font-weight: 600;
+      color: #f5f1eb; background: var(--gold);
+      font-weight: 700;
+      padding: 12px 24px;
+      align-self: center;
       display: inline-flex; align-items: center; gap: 10px;
-      white-space: nowrap; padding-top: 8px;
-      transition: color .25s;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background .25s;
     }
-    .card:hover .card-cta { color: var(--white); }
+    .card-cta:hover { background: var(--gold2); }
     .card-cta::after { content: '→'; font-size: 14px; }
 
     .card-screenshot {
@@ -154,6 +152,7 @@
       width: 100%;
       background: #f5f1eb;
       flex: 1;
+      text-decoration: none;
     }
     .card-screenshot img {
       display: block;
@@ -179,30 +178,24 @@
     @media (max-width: 1180px) {
       .cards { grid-template-columns: 1fr 1fr; }
       .card-name-en { font-size: clamp(28px, 3vw, 40px); }
+      .card-header { min-height: 180px; }
     }
     @media (max-width: 900px) {
-      nav { padding: 18px 22px; }
-      .nav-right { gap: 16px; }
-      .page {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        padding: 60px 22px 80px 22px;
-      }
-      .side-label {
-        writing-mode: horizontal-tb;
-        font-size: 11px; letter-spacing: 3px;
-      }
-      .page-h1 { font-size: 32px; margin-bottom: 36px; }
-      .cards { grid-template-columns: 1fr; gap: 22px; }
+      nav { padding: 14px 16px; }
+      .nav-right { gap: 12px; }
+      .page { padding: 50px 18px 60px 18px; }
+      .page-h1 { font-size: 28px; margin-bottom: 30px; }
+      .cards { grid-template-columns: 1fr; gap: 20px; }
       .card-header {
-        flex-direction: column; align-items: flex-start; gap: 18px;
-        padding: 32px 26px 26px 26px;
+        min-height: 150px;
+        padding: 26px 22px 22px;
+        gap: 16px;
       }
-      .card-name-en { font-size: 34px; }
+      .card-name-en { font-size: 30px; }
       .card-name-ru { font-size: 11px; letter-spacing: 2.5px; }
       footer {
         flex-direction: column; gap: 12px;
-        padding: 24px 22px; text-align: center;
+        padding: 24px 18px; text-align: center;
       }
     }
   </style>
@@ -224,11 +217,6 @@
 </nav>
 
 <main class="page">
-  <div class="side-label">
-    <span data-lang="ru">Инструменты</span>
-    <span data-lang="en">Instruments</span>
-  </div>
-
   <div class="page-body">
     <div class="page-tag">
       <span data-lang="ru">Калькуляторы</span>
@@ -241,7 +229,7 @@
     </h1>
 
     <div class="cards">
-      <a href="/zwds" class="card">
+      <div class="card" data-href="/zwds">
         <div class="card-header">
           <div class="card-names">
             <div class="card-name-en">Zi Wei Dou Shu</div>
@@ -250,17 +238,17 @@
               <span data-lang="en">Zi Wei Dou Shu · Life-map</span>
             </div>
           </div>
-          <span class="card-cta">
+          <a href="/zwds" class="card-cta card-open">
             <span data-lang="ru">Открыть</span>
             <span data-lang="en">Open</span>
-          </span>
+          </a>
         </div>
-        <div class="card-screenshot">
+        <a href="/zwds" class="card-screenshot card-open">
           <img src="images/calculators/zwds.png" alt="ZWDS Calculator preview" loading="lazy">
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="/qmdj" class="card">
+      <div class="card" data-href="/qmdj">
         <div class="card-header">
           <div class="card-names">
             <div class="card-name-en">Qi Men Dun Jia</div>
@@ -269,17 +257,17 @@
               <span data-lang="en">Qi Men Dun Jia · Timing &amp; strategy</span>
             </div>
           </div>
-          <span class="card-cta">
+          <a href="/qmdj" class="card-cta card-open">
             <span data-lang="ru">Открыть</span>
             <span data-lang="en">Open</span>
-          </span>
+          </a>
         </div>
-        <div class="card-screenshot">
+        <a href="/qmdj" class="card-screenshot card-open">
           <img src="images/calculators/qmdj.png" alt="QMDJ Calculator preview" loading="lazy">
-        </div>
-      </a>
+        </a>
+      </div>
 
-      <a href="/bazi" class="card">
+      <div class="card" data-href="/bazi">
         <div class="card-header">
           <div class="card-names">
             <div class="card-name-en">Ba Zi</div>
@@ -288,15 +276,15 @@
               <span data-lang="en">Ba Zi · Four Pillars of Destiny</span>
             </div>
           </div>
-          <span class="card-cta">
+          <a href="/bazi" class="card-cta card-open">
             <span data-lang="ru">Открыть</span>
             <span data-lang="en">Open</span>
-          </span>
+          </a>
         </div>
-        <div class="card-screenshot">
+        <a href="/bazi" class="card-screenshot card-open">
           <img src="images/calculators/bazi.png" alt="BaZi Calculator preview" loading="lazy">
-        </div>
-      </a>
+        </a>
+      </div>
     </div>
   </div>
 </main>
@@ -315,7 +303,7 @@
     var body = document.body;
     var buttons = document.querySelectorAll('[data-set-lang]');
     var homeLinks = document.querySelectorAll('.home-link, footer a');
-    var cardLinks = document.querySelectorAll('.card');
+    var cardLinks = document.querySelectorAll('.card-open');
 
     function setLang(lang) {
       if (lang !== 'ru' && lang !== 'en') lang = 'ru';
