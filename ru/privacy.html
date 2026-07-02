@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Код успеха · Политика обработки персональных данных</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black); color: var(--white);
+      font-size: 16px; line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-back {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold2); text-decoration: none; font-weight: 600;
+    }
+    .nav-back:hover { color: #fff; }
+
+    /* HEADER */
+    .doc-header {
+      padding: 160px 72px 56px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 6vw, 86px);
+      font-weight: 300; line-height: 1.05; letter-spacing: -1.5px;
+      color: var(--white); margin-bottom: 28px;
+    }
+    h1 em { font-style: italic; color: var(--gold2); }
+    .doc-meta {
+      font-size: 13px; letter-spacing: 1px; color: var(--muted);
+    }
+
+    /* DOC BODY */
+    .doc-body {
+      padding: 72px 72px 100px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .doc-content { max-width: 880px; }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 3.2vw, 38px);
+      font-weight: 500; line-height: 1.2;
+      color: var(--white); margin-top: 56px; margin-bottom: 22px;
+      letter-spacing: -0.3px;
+    }
+    h2:first-child { margin-top: 0; }
+    p { margin-bottom: 20px; color: var(--white); }
+    p strong { color: var(--gold2); font-weight: 600; }
+    ul { margin: 0 0 24px 22px; }
+    ul li { margin-bottom: 10px; color: var(--white); }
+    a { color: var(--gold2); text-decoration: underline; }
+    a:hover { color: #fff; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 72px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-links {
+      display: flex; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--gold2); }
+
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      nav { padding: 16px 22px; }
+      .nav-logo { font-size: 16px; letter-spacing: 3px; }
+      .nav-back { font-size: 11px; letter-spacing: 1.5px; }
+      body { font-size: 15px; }
+
+      .doc-header {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 110px 22px 40px;
+      }
+      .side-label {
+        writing-mode: horizontal-tb;
+        font-size: 11px; letter-spacing: 3px;
+      }
+      h1 { font-size: 36px; }
+      .doc-body {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 50px 22px 60px;
+      }
+      h2 { font-size: 22px; margin-top: 40px; }
+      footer {
+        padding: 28px 22px;
+        flex-direction: column; text-align: center;
+      }
+      .footer-links { justify-content: center; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SuccessCode</a>
+  <a href="index.html" class="nav-back">← На главную</a>
+</nav>
+
+<header class="doc-header">
+  <div class="side-label">Документы</div>
+  <div>
+    <h1>Политика <em>обработки</em><br>персональных данных</h1>
+    <div class="doc-meta">Последнее обновление: 24 июня 2026 · Юрисдикция: Нидерланды (GDPR / AVG)</div>
+  </div>
+</header>
+
+<section class="doc-body">
+  <div class="side-label">Защита данных</div>
+  <div class="doc-content">
+
+  <h2>1. Общие положения</h2>
+  <p>Настоящая Политика регулирует обработку персональных данных пользователей сайта
+  <a href="https://successcode.net/ru/">successcode.net/ru</a> (далее — «Сайт») в рамках
+  проекта Код успеха (далее — «Сервис», «Мы»).</p>
+  <p>Сервис зарегистрирован и действует на территории Королевства Нидерландов, поэтому
+  обработка персональных данных осуществляется в соответствии с
+  <strong>Общим регламентом ЕС о защите персональных данных (GDPR / AVG)</strong>
+  и применимым законодательством Нидерландов.</p>
+  <p>Используя Сайт и оставляя заявку, вы подтверждаете согласие с настоящей Политикой
+  и даёте явное согласие на обработку ваших персональных данных в порядке и на условиях,
+  указанных ниже.</p>
+
+  <h2>2. Контролёр данных</h2>
+  <p>Контролёром данных (data controller) по смыслу GDPR ст. 4(7) является владелец
+  проекта Код успеха. Связь по вопросам обработки персональных данных:
+  <a href="mailto:contact@successcode.net">contact@successcode.net</a>.</p>
+
+  <h2>3. Какие данные мы собираем</h2>
+  <p>При оставлении заявки на консультацию через форму на Сайте мы собираем следующие
+  персональные данные:</p>
+  <ul>
+    <li>Имя</li>
+    <li>Адрес электронной почты</li>
+    <li>Номер телефона или контакт в мессенджере</li>
+    <li>Данные рождения (дата, время, место) — только если вы сами их указали для целей консультации</li>
+    <li>Содержание вашего вопроса и сообщений в дальнейшей переписке</li>
+  </ul>
+  <p>Мы НЕ собираем платёжные реквизиты через Сайт. Все расчёты производятся
+  отдельно по согласованным каналам.</p>
+
+  <h2>4. Цели обработки данных</h2>
+  <p>Ваши данные обрабатываются исключительно в следующих целях:</p>
+  <ul>
+    <li>Связь с вами для согласования времени и условий консультации</li>
+    <li>Расчёт и подготовка вашей карты Цзы Вэй Доу Шу к консультации</li>
+    <li>Предоставление консультационных услуг</li>
+    <li>Исполнение договорных обязательств в рамках оказанной услуги</li>
+    <li>Ответ на ваши вопросы и поддержка после консультации</li>
+  </ul>
+
+  <h2>5. Правовая основа обработки</h2>
+  <p>Обработка ваших персональных данных осуществляется на следующих правовых основаниях
+  GDPR / AVG:</p>
+  <ul>
+    <li>Ваше явное согласие, выраженное при отправке формы (ст. 6(1)(a) GDPR)</li>
+    <li>Исполнение договора об оказании консультационной услуги (ст. 6(1)(b) GDPR)</li>
+    <li>Законные интересы Сервиса в обеспечении безопасности и качества услуг (ст. 6(1)(f) GDPR)</li>
+  </ul>
+
+  <h2>6. Передача данных третьим лицам</h2>
+  <p>Мы НЕ продаём, НЕ обмениваем и НЕ передаём ваши персональные данные третьим лицам,
+  за исключением следующих случаев:</p>
+  <ul>
+    <li>Технические провайдеры, обеспечивающие работу форм (Formspree, расположенный
+    за пределами ЕС) — данные передаются исключительно для технической обработки заявки.
+    Передача данных за пределы ЕЭП осуществляется на основании стандартных договорных
+    положений ЕС (SCC) или аналогичных гарантий согласно главе V GDPR</li>
+    <li>По законному требованию государственных органов и надзорных инстанций
+    в случаях, предусмотренных применимым законодательством</li>
+  </ul>
+
+  <h2>7. Срок хранения данных</h2>
+  <p>Ваши данные хранятся в течение срока, необходимого для исполнения цели обработки:</p>
+  <ul>
+    <li>Контактные данные и заявки — до 12 месяцев с момента последнего взаимодействия</li>
+    <li>Данные, связанные с проведённой консультацией (карты, резюме, переписка) —
+    до 24 месяцев с даты консультации</li>
+  </ul>
+  <p>По вашему запросу данные могут быть удалены раньше указанного срока,
+  за исключением информации, которую мы обязаны хранить по требованиям закона.</p>
+
+  <h2>8. Ваши права</h2>
+  <p>В соответствии с GDPR / AVG вы имеете право:</p>
+  <ul>
+    <li>Запросить доступ к своим персональным данным, которые мы храним (ст. 15)</li>
+    <li>Запросить исправление неточных или неполных данных (ст. 16)</li>
+    <li>Запросить удаление ваших данных — «право на забвение» (ст. 17)</li>
+    <li>Ограничить обработку ваших данных (ст. 18)</li>
+    <li>Возразить против обработки (ст. 21)</li>
+    <li>Получить копию своих данных в структурированном формате — «право на переносимость» (ст. 20)</li>
+    <li>Отозвать ранее данное согласие в любой момент</li>
+    <li>Подать жалобу в нидерландский орган по защите данных
+    Autoriteit Persoonsgegevens (<a href="https://autoriteitpersoonsgegevens.nl/" target="_blank" rel="noopener">autoriteitpersoonsgegevens.nl</a>)</li>
+  </ul>
+  <p>Для реализации любого из этих прав свяжитесь с нами по адресу
+  <a href="mailto:contact@successcode.net">contact@successcode.net</a>.
+  Мы обязаны ответить в течение 30 дней с момента получения вашего запроса.</p>
+
+  <h2>9. Защита данных</h2>
+  <p>Мы применяем разумные технические и организационные меры для защиты ваших данных
+  от несанкционированного доступа, изменения, раскрытия или уничтожения. Доступ
+  к данным имеет ограниченный круг лиц, непосредственно связанных с оказанием
+  консультационных услуг.</p>
+  <p>Однако ни один способ передачи данных через интернет и ни один способ хранения
+  не является абсолютно безопасным. Поэтому мы не можем гарантировать абсолютную
+  защиту ваших данных.</p>
+
+  <h2>10. Конфиденциальность содержания консультаций</h2>
+  <p>Содержание ваших консультаций (вопросы, обсуждения, материалы карты, текстовые
+  резюме, записи встреч) <strong>строго конфиденциально</strong> и не разглашается
+  третьим лицам. Мы не используем содержание ваших консультаций в маркетинговых,
+  рекламных или иных целях без вашего явного письменного согласия.</p>
+
+  <h2>11. Cookies и аналитика</h2>
+  <p>На момент актуальной редакции настоящей Политики Сайт <strong>не использует
+  cookie-файлы и не применяет аналитические трекеры, идентифицирующие посетителей</strong>.
+  Никакие данные о вашем поведении на Сайте не собираются и не хранятся, за исключением
+  сведений, которые вы добровольно отправляете через форму заявки.</p>
+  <p>Если в будущем мы введём cookie-файлы или аналитические инструменты, настоящая
+  Политика будет обновлена, а пользователи будут проинформированы об этом до начала
+  использования таких инструментов.</p>
+
+  <h2>12. Изменения политики</h2>
+  <p>Мы оставляем за собой право обновлять настоящую Политику. Актуальная версия всегда
+  размещена по адресу
+  <a href="https://successcode.net/ru/privacy.html">successcode.net/ru/privacy.html</a>.
+  Дата последнего обновления указана в начале документа.</p>
+
+  <h2>13. Контакты</h2>
+  <p>По всем вопросам, связанным с обработкой персональных данных, обращайтесь:
+  <a href="mailto:contact@successcode.net">contact@successcode.net</a></p>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <div class="footer-links">
+    <a href="index.html">На главную</a>
+    <a href="terms.html">Условия консультаций</a>
+    <a href="mailto:contact@successcode.net">Связаться</a>
+  </div>
+</footer>
+
+</body>
+</html>

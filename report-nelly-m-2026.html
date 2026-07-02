@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Развод 2026 · Его сторона · SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #F7F5F0;
+      --surface:  #EDEBE4;
+      --surface2: #E5E2D8;
+      --gold:     #9A6E20;
+      --gold2:    #B8882A;
+      --goldfade: rgba(154,110,32,0.09);
+      --text:     #1A1820;
+      --dim:      #383644;
+      --muted:    #72707E;
+      --border:   rgba(154,110,32,0.22);
+      --border2:  rgba(30,28,40,0.10);
+      --red:      #7A1E1E;
+      --green:    #1A5026;
+      --blue:     #1A3060;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
+
+    .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
+
+    /* HEADER */
+    .report-header { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+    .header-left { flex: 1; }
+    .brand { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+    .report-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
+    .report-title em { font-style: italic; color: var(--gold2); }
+    .report-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .header-right { text-align: right; flex-shrink: 0; padding-bottom: 4px; }
+    .client-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .client-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
+
+    .sec-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* TECHNICAL BASIS (verification layer — can be hidden for final client version) */
+    .tech-note { background: rgba(30,28,40,0.035); border: 1px dashed var(--border2); border-left: 2px solid var(--gold); padding: 12px 16px; margin-top: 16px; }
+    .tn-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
+    .tn-body { font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .tn-body em { color: var(--red); font-style: normal; font-weight: 600; }
+
+    /* INTRO BLOCK */
+    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
+    .intro-block p + p { margin-top: 14px; }
+    .intro-block strong { color: var(--text); }
+
+    /* VERDICT CARDS */
+    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .verdict-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
+    .verdict-icon { font-size: 22px; margin-bottom: 12px; }
+    .verdict-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.25; }
+    .verdict-body { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .verdict-card.affirm { border-top: 3px solid var(--green); }
+    .verdict-card.caution { border-top: 3px solid #8a6000; }
+    .verdict-card.strong { border-top: 3px solid var(--blue); }
+
+    /* PROBABILITY BARS */
+    .prob-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 36px; }
+    .prob-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+    .prob-label { font-size: 13px; color: var(--dim); font-weight: 500; }
+    .prob-pct { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: var(--gold2); }
+    .prob-bar-bg { height: 4px; background: var(--surface2); border-radius: 2px; }
+    .prob-bar-fill { height: 4px; border-radius: 2px; background: linear-gradient(90deg, var(--gold) 0%, var(--gold2) 100%); }
+    .prob-note { font-size: 11.5px; color: var(--muted); margin-top: 6px; }
+
+    /* DECISION BOX */
+    .decision-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--blue); padding: 28px 32px; margin-bottom: 20px; }
+    .decision-verdict { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; padding: 4px 10px; border: 1px solid; margin-bottom: 10px; display: inline-block; }
+    .decision-verdict.inform { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .decision-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.3; }
+    .decision-body { font-size: 13.5px; color: var(--dim); line-height: 1.7; }
+    .decision-body p + p { margin-top: 10px; }
+    .decision-body strong { color: var(--text); }
+
+    /* DATE BOX */
+    .date-box { background: linear-gradient(135deg, #0f1f50 0%, #1A3060 100%); padding: 32px 36px; color: white; margin-bottom: 20px; }
+    .date-box-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+    .date-box-date { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 400; color: white; margin-bottom: 10px; line-height: 1.15; }
+    .date-box-date span { color: rgba(184,136,42,1); }
+    .date-box-body { font-size: 13.5px; color: rgba(255,255,255,0.82); line-height: 1.7; }
+    .date-box-body p + p { margin-top: 8px; }
+
+    /* DO / DON'T TABLE */
+    .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .do-col, .dont-col { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .do-col { border-top: 3px solid var(--green); }
+    .dont-col { border-top: 3px solid var(--red); }
+    .col-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+    .do-col .col-title { color: var(--green); }
+    .dont-col .col-title { color: var(--red); }
+    .action-list { list-style: none; }
+    .action-list li { font-size: 13px; color: var(--dim); padding: 7px 0; border-bottom: 1px solid var(--border2); line-height: 1.55; display: flex; gap: 10px; }
+    .action-list li:last-child { border-bottom: none; }
+    .action-list .marker { flex-shrink: 0; font-weight: 600; }
+    .do-col .marker { color: var(--green); }
+    .dont-col .marker { color: var(--red); }
+
+    /* MONTH TABLE */
+    .table-legend { display: flex; gap: 20px; align-items: center; margin-bottom: 16px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
+    .legend-item { display: flex; gap: 7px; align-items: center; }
+    .legend-dots { display: flex; gap: 3px; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--border2); }
+    .dot.peak { background: var(--gold2); box-shadow: 0 0 3px rgba(184,136,42,0.45); }
+    .dot.on   { background: var(--gold); }
+    .dot.risk { background: var(--red); opacity: 0.7; }
+    .intensity-row { display: flex; gap: 5px; justify-content: center; margin-bottom: 5px; }
+    .intensity-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; text-align: center; }
+    .month-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .month-table thead tr { background: var(--surface); }
+    .month-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 600; }
+    .month-table td { padding: 14px 16px; border-bottom: 1px solid var(--border2); font-size: 13px; vertical-align: top; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table tr.peak-row td { background: rgba(26,48,96,0.04); }
+    .month-table tr.caution-row td { background: rgba(122,30,30,0.03); }
+    .month-name { font-weight: 500; color: var(--text); }
+    .month-period { font-size: 14px; color: var(--muted); margin-top: 3px; font-weight: 500; }
+    .month-stem { font-size: 12px; color: var(--gold); font-style: italic; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+    .badge-peak { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .badge-strong { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .badge-caution { color: #8a6000; border-color: rgba(138,96,0,0.35); background: rgba(138,96,0,0.06); }
+    .badge-mixed { color: var(--muted); border-color: var(--border2); background: var(--surface); }
+    .month-action { font-size: 12.5px; color: var(--dim); }
+
+    /* TRAIT / PALACE CARDS */
+    .palace-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .palace-card { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .palace-name { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.25; }
+    .palace-reading { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .palace-card.critical { border-left: 3px solid var(--red); }
+    .palace-card.strong { border-left: 3px solid var(--green); }
+    .palace-card.active { border-left: 3px solid var(--blue); }
+    .palace-card.neutral { border-left: 3px solid #8a6000; }
+
+    /* CHART EMBED */
+    .chart-wrap { background: var(--surface2); padding: 24px; border: 1px solid var(--border); }
+    .chart-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .chart-wrap iframe { width: 100%; height: 780px; border: none; display: block; }
+
+    /* FOOTER */
+    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      .page { padding: 0 20px 60px; }
+      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
+      .header-right { text-align: left; }
+      .report-title { font-size: 34px; }
+      .verdict-row { grid-template-columns: 1fr; }
+      .prob-grid { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .palace-grid { grid-template-columns: 1fr; }
+      .table-legend { gap: 12px; }
+      .chart-wrap iframe { height: 680px; }
+      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="header-left">
+      <span class="brand">SuccessCode · Портрет и стратегия</span>
+      <h1 class="report-title">Развод 2026 —<br><em>его сторона</em></h1>
+      <p class="report-subtitle">Что им движет · где он силён · где уязвим · как он будет действовать</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Анализ по</div>
+      <div class="client-name">Клиент М.</div>
+      <div class="client-meta">
+        19 августа 1980 · 02:03<br>
+        Маастрихт · Мужчина
+      </div>
+    </div>
+  </header>
+
+  <div class="gold-rule"></div>
+
+  <!-- 1. WHO HE IS -->
+  <div class="sec-label">Кто он и что им движет</div>
+
+  <div class="intro-block">
+    <p>
+      Это взгляд на ситуацию <strong>его глазами</strong>: как он сам видит развод, что для него на кону и как он будет действовать, чтобы выйти из процесса с максимальной выгодой для себя. Цель отчёта — чтобы вы понимали его логику и заранее видели его ходы.
+    </p>
+    <p>
+      <strong>Деньги и близкие отношения у него слиты в одно.</strong> Он склонен строить партнёрство там, где другой человек приносит финансовую опору, — этот мотив проходит через всю его личную историю. Поэтому имущественный и денежный вопрос для него не «один из» — он центральный и эмоционально заряженный. Отдать то, что он считает «своим капиталом», для него почти невозможно без борьбы.
+    </p>
+    <p>
+      <strong>По натуре он стратег и переговорщик-боец.</strong> Деньги к нему приходят не через компромисс, а через противостояние: он считает, выстраивает аргументацию, перехватывает инициативу и ведёт дело как переговорную войну. Подать первым, задать повестку, переложить вину на другую сторону — его естественный стиль (он и подал первым, и устроил «сюрприз-бомбу» на первой встрече).
+    </p>
+    <p>
+      <strong>Новые отношения для него — часть натуры, и он их не скрывает.</strong> Романтическая открытость встроена в его характер, а не является случайностью. Его партнёрша — активный участник его «лагеря» и союзник в противостоянии.
+    </p>
+    <p>
+      <strong>Сына он воспринимает как зону влияния, которую нужно контролировать,</strong> а не как пространство договорённости. Он строит с ним альянс через разрешения и подарки и сознательно подрывает родительский авторитет другой стороны — медленно и методично.
+    </p>
+    <p>
+      <strong>Важно:</strong> в 2026 его профессиональная и финансовая жизнь стабильна. У него есть ресурс, время и силы вести долгий процесс. Давления, которое заставило бы его быстро уступить, у него нет — и он это чувствует.
+    </p>
+    <div class="tech-note"><span class="tn-label">Техн. основа · база карты</span><div class="tn-body">Карта <strong>нормальной</strong> полярности (НЕ реверсивная: единственное натальное Цзи→Тянь Тун→П9 поглощено само-Цюань от 丁, поэтому 2-го Цзи в оси 1-5-9 нет). Натальный стебель 庚: Лу→Тай Ян→П7, Цюань→У Цюй→П8, Кэ→Тай Инь→П7, Цзи→Тянь Тун→П9. Декада Д5 (2023–2032, жизнь в П9, стебель 丁): Цюань→Тянь Тун→П9, Кэ→Тянь Цзи→П5, Цзи→Цзюй Мэнь→П5. Год 2026 (丙): Лу→Тянь Тун→П9, Цюань→Тянь Цзи→П5, Цзи→Лянь Чжэнь→П12.</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 2. ANNUAL MOVING STARS -->
+  <div class="sec-label">Движущиеся звёзды 2026 — слой, который всё объясняет</div>
+
+  <div class="intro-block" style="margin-bottom:20px;">
+    <p>
+      Шесть звёзд ежегодно меняют дворец. Они <strong>добавляются</strong> к натальной карте и объясняют конкретные события года, невидимые через усилители: где деньги, где затягивание, где эмоции. Для 2026 (丙午) расчёт строго по формулам движка (calculator.html, строки 1175–1189), дворцы верифицированы из его карты.
+    </p>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th>Звезда</th>
+        <th>Дворец 2026</th>
+        <th>Тип</th>
+        <th>Что это объясняет в его поведении</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="peak-row">
+        <td><div class="month-name">天喜 Тянь Си ★</div></td>
+        <td>П5 Богатство (卯)</td>
+        <td><span class="badge badge-peak">Радость</span></td>
+        <td class="month-action"><strong>Звезда торжества на дворце Богатства.</strong> Объясняет его установку «я получу своё»: он структурно ожидает финансового удовлетворения от исхода года. Это подпитывает его упорство в денежном споре — он заранее настроен на выигрыш по деньгам.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">禄存 Лу Цунь</div></td>
+        <td>П3 Супруга (巳)</td>
+        <td><span class="badge badge-strong">Финанс. пол</span></td>
+        <td class="month-action">Годовой финансовый «пол» прямо на оси брака/развода. Его финансовая база в этом году завязана на разводный узел — деньги и развод для него физически одно и то же событие. Отсюда — нежелание разводить их в голове.</td>
+      </tr>
+      <tr class="caution-row">
+        <td><div class="month-name">陀罗 Тоу Ло</div></td>
+        <td>П4 Дети (辰)</td>
+        <td><span class="badge badge-caution">Хрон. задержка</span></td>
+        <td class="month-action"><strong>Объясняет тактику по сыну структурно.</strong> Хроническое «прилипание» и затягивание на детской оси весь 2026 год. Его медленное методичное давление через сына — не только характер, но и годовой сигнал. <strong>Это годовая звезда — в 2027 она уходит.</strong> Затягивание по сыну — фактор именно этого года.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">天马 Тянь Ма</div></td>
+        <td>П12 Суды/Власть (申)</td>
+        <td><span class="badge badge-strong">Импульс</span></td>
+        <td class="month-action">Звезда движения в формальной/судебной сфере. Процесс идёт, не стоит — он держит дело в активном ходу. Объясняет, почему он не даёт ситуации «замереть»: формальная машина для него в движении весь год.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">红鸾 Хун Лань</div></td>
+        <td>П11 Ментальное (酉)</td>
+        <td><span class="badge badge-mixed">Эмоц. притяжение</span></td>
+        <td class="month-action">Звезда эмоционального притяжения в ментальной сфере — год эмоционально окрашенных решений и привязанностей. Согласуется с его открытой романтической линией: эмоциональная составляющая в этом году у него усилена.</td>
+      </tr>
+      <tr class="caution-row">
+        <td><div class="month-name">擎羊 Цин Ян ⚠</div></td>
+        <td>П2 Окружение (午)</td>
+        <td><span class="badge badge-caution">Лезвие</span></td>
+        <td class="month-action">«Лезвие» в дворце окружения/периферии: резкие разрывы и трения в его ближнем круге. Косвенно подтверждает уязвимость его опоры на союзников — связи в окружении в этом году рвутся остро.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- 3. THREE STRONGEST CARDS -->
+  <div class="sec-label">Три его главных козыря</div>
+
+  <div class="verdict-row">
+
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">&#9878;</div>
+      <div class="verdict-title">Сила в переговорах и стратегии</div>
+      <div class="verdict-body">
+        Его сильнейшая сторона — расчёт, аргументация и умение вести спор за деньги. Он убедителен, когда оперирует цифрами и фактами; его воспринимают как «умную» финансовую голову. В 2026 его переговорная позиция по деньгам — на пике. Но есть оборотная сторона: деньги к нему всегда приходят через конфликт, а не через мир — он не умеет «договариваться по-хорошему», ему нужно противостояние.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">П5 Богатство = Тянь Цзи (стратег-интеллект) + Цзюй Мэнь (речь, переговоры, спор). Декадный Кэ→Тянь Цзи (признан стратегом, 2023–2032) + годовой Цюань→Тянь Цзи (2026 = пик фин. авторитета) + декадный Цзи→Цзюй Мэнь (деньги через спор). Пики 2026: М6 乙未 (14 июля – 11 авг.) · М7 丙申 (11 авг. – 10 сент., год-матч) · М8 丁酉 (10 сент. – 8 окт., декада-матч 丁 → спор удваивается).</div></div>
+    </div>
+
+    <div class="verdict-card strong">
+      <div class="verdict-icon">&#9673;</div>
+      <div class="verdict-title">Крепкий тыл — ресурс, чтобы ждать</div>
+      <div class="verdict-body">
+        В 2026 его карьера и доход стабильны и спокойны. Это значит: у него есть деньги, время и силы тянуть процесс сколько угодно. Его главное оружие — измор: медленно, методично, на истощение другой стороны. Структурной причины торопиться у него нет — и он будет тянуть, рассчитывая, что у противоположной стороны раньше закончатся силы и деньги.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">П9 Карьера = Тянь Тун с само-Цюань (丁→Цюань на ту же звезду) + декадный Цюань→Тянь Тун (авторитет весь Д5) + годовой Лу→Тянь Тун (2026). Карта нормальная → Лу на П9 = устойчиво/хорошо. Натальное Цзи→Тянь Тун поглощено само-Цюань. Итог: карьера ресурсна → есть чем и сколько ждать.</div></div>
+    </div>
+
+    <div class="verdict-card caution">
+      <div class="verdict-icon">&#9856;</div>
+      <div class="verdict-title">Контроль повестки и сына</div>
+      <div class="verdict-body">
+        Он держит нарратив: перехватывает инициативу, переписывает причины происходящего, перекладывает вину. Сын — на его стороне, потому что он покупает лояльность разрешениями и подарками. Новые отношения он использует открыто. Вся вина за «как идёт развод» вешается на другую сторону — это сознательная тактика, чтобы выглядеть «разумной» стороной.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Контроль нарратива = Цзюй Мэнь (слово/спор) в П5, усиленный декадой + Ци Ша в П2 (перехват инициативы, «бьёт первым»). Сын = Цзы Вэй (Император → контроль) в П4. Открытые отношения = Хун Луань + Тянь Яо (персиковые звёзды) в П1 Судьба. <em>Конкретику «вина на ней / подарки сыну» вы сообщили — карта даёт механику (контроль, нарратив), а не сами факты.</em></div></div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 4. PROBABILITY BARS -->
+  <div class="sec-label">Структурная оценка его шансов</div>
+
+  <div class="prob-grid">
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Его финансовое преимущество в расчёте 2026</span>
+        <span class="prob-pct">65%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:65%"></div></div>
+      <div class="prob-note">Сильная переговорная позиция по деньгам. Но результат всегда даётся ему через борьбу, а не легко.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Его преимущество на слушании 16 июля</span>
+        <span class="prob-pct">60%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:60%"></div></div>
+      <div class="prob-note">Месяц М6 (乙未, 14 июля – 11 августа): Лу→Тянь Цзи→П5 + Кэ→Цзы Вэй→П4 = гладкий финансовый ход + легитимация позиции по сыну. Но формальная система в 2026 с трением — сильный, но не гарантированный.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Быстрое решение по сыну в 2026</span>
+        <span class="prob-pct">15%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:15%"></div></div>
+      <div class="prob-note">Он намеренно тянет детскую тему (годовой Тоу Ло в П4). Реальное урегулирование смещается в 2027.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">Его готовность ускорить развод в 2026</span>
+        <span class="prob-pct">20%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:20%"></div></div>
+      <div class="prob-note">Ресурса достаточно, торопиться незачем. Его план — измор. Окно его максимального давления — август–октябрь (М7–М8).</div>
+    </div>
+  </div>
+
+  <div class="tech-note"><span class="tn-label">Техн. основа · оценки</span><div class="tn-body">65% фин.преимущество = Цюань+Кэ на П5 (сила), но Цзи→Цзюй Мэнь (через спор). 60% слушание = М6 乙未 благоприятен ему, минус трение Цзи→Лянь Чжэнь→П12. 15% по сыну = Тоу Ло + хранилище 辰 + Цзы Вэй (затягивание встроено). 20% ускорение = Лу на П9 (карьера стабильна) + декадный режим спора до 2032. <em>Проценты — экспертная калибровка по силе сигналов, не точная вероятность.</em></div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 5. HIS MOVES AT TWO KEY POINTS -->
+  <div class="sec-label">Как он будет действовать в двух ключевых точках</div>
+
+  <div class="decision-box">
+    <div class="decision-verdict inform">Точка 1 · До слушания 16 июля</div>
+    <div class="decision-title">Если другая сторона потребует единоличного проживания в доме</div>
+    <div class="decision-body">
+      <p><strong>Месяц 6 (乙未, 14 июля – 11 августа) — благоприятный для него месяц.</strong> Любой жёсткий шаг другой стороны прямо перед слушанием 16 июля попадает в его сильное окно: он получает готовый аргумент («смотрите, она нагнетает») и дополнительную мотивацию контратаковать именно тогда, когда его финансовая логика и позиция по сыну структурно подкреплены.</p>
+      <p><strong>Имущество — его болевая точка и его оружие одновременно.</strong> На требование о единоличном проживании он, вероятнее всего, ответит зеркально: предложит «жить по очереди» (поочерёдное проживание) или подаст встречно на продажу дома. Дом для него — рычаг давления, и он с удовольствием переведёт спор в имущественную плоскость.</p>
+      <p><strong>Вывод о его расчёте:</strong> инициатива по дому до 16 июля — это игра на его поле и в его сильный месяц. С высокой вероятностью он конвертирует её в эскалацию (поочерёдное проживание / продажа дома / ещё большее давление через сына). Юридическую целесообразность оценивают адвокаты — здесь показан лишь его вероятный ответ и его тайминг.</p>
+    </div>
+    <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Июль = лунный М6 (乙未): Лу→Тянь Цзи→П5 (гладкая денежная стратегия) + Кэ→Цзы Вэй→П4 (легитимация контроля над ребёнком); ветвь 未 = П1 (личностно значим). Имущественный контр-ход = П10 Недвижимость с По Цзюнь + Ди Цзе (разрушение/угроза имущественной оси). Детская ось = Цзы Вэй в П4 (контроль) + хранилище 辰 + Тоу Ло (медленно).</div></div>
+  </div>
+
+  <div class="decision-box">
+    <div class="decision-verdict inform">Точка 2 · Стратегия и сроки</div>
+    <div class="decision-title">Его расчёт по длине процесса</div>
+    <div class="decision-body">
+      <p><strong>Ему выгоден долгий процесс.</strong> Спор за деньги встроен в его «режим» вплоть до 2032 года, а 2027-й — его самый «денежно-спорный» год. То есть со временем его позиция по деньгам не смягчается, а ужесточается. Затягивание играет на него — и он это будет делать сознательно, рассчитывая взять измором.</p>
+      <p><strong>Его пик давления — август–октябрь 2026</strong> (М7 丙申, 11 авг. – 10 сент. = совпадение с годовым стеблем + М8 丁酉, 10 сент. – 8 окт. = совпадение с декадным стеблем → его денежно-силовые полёты удваиваются). Это наиболее вероятное окно либо вынужденного разрешения, либо острого кризиса переговоров.</p>
+      <p><strong>Его слабое место по срокам — 2028 год:</strong> структурно именно в разводном вопросе у него появляются трения (стебель 戊 → Цзи→Тянь Лян→П3 = трение на оси развода), плюс сигналы по здоровью. Но рассчитывать «дотянуть до 2028» рискованно — путь туда лежит через его пиковый 2027-й.</p>
+      <p><strong>Где у его измора предел:</strong> его оружие работает, пока другая сторона не пережила пик М7–М8 (11 авг. – 8 окт. 2026), не уступив. Если этот пик пройден без капитуляции — его главный рычаг слабеет, и мотив тянуть дальше у него падает (тем более что весной 2026 у него улучшилась ликвидность — отпускные и возврат налога).</p>
+    </div>
+    <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Спор за деньги = декадный Цзи→Цзюй Мэнь→П5, активен 2023–2032. Пик 2026 = М7 丙申 (годовой стебель удваивается: Цюань→Тянь Цзи→П5 ×2) + М8 丁酉 (декадный стебель 丁 удваивается: Цзи→Цзюй Мэнь→П5 ×2 + Кэ→Тянь Цзи→П5 ×2). 2027 (丁未) = годовой стебель совпадает с декадным → весь Д5 удваивается на уровне ГОДА = его максимальный денежно-спорный год. 2028 (戊): Цзи→Тянь Лян→П3 (трение в разводной оси) + Лу→Тань Лан→П6 (сигнал здоровья).</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 6. KEY DATE -->
+  <div class="sec-label">Ключевая дата — слушание об алиментах</div>
+
+  <div class="date-box">
+    <div class="date-box-label">Слушание об алиментах на период развода</div>
+    <div class="date-box-date">16 июля 2026 · <span>16:15</span></div>
+    <div class="date-box-body">
+      <p>Это попадает в лунный месяц 6 (乙未, 14 июля – 11 августа) — <strong>благоприятный для него месяц по деньгам и по позиции о сыне.</strong> Его денежная стратегия в этот месяц течёт гладко, а его родительская позиция получает структурную легитимацию. Ожидайте от него уверенного, напористого выступления и попытки задать тон с первых минут — с опорой на «разумную финансовую логику».</p>
+      <p><strong>Но есть встречный фактор:</strong> сама формальная, судебная машина в 2026 работает для него с трением. Его напор силён, но он не конвертируется автоматически в формальную победу — система в этом году идёт не идеально в его пользу. Сильная позиция ≠ гарантированный результат.</p>
+    </div>
+  </div>
+
+  <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">М6 (乙未, 14 июля – 11 августа): месячный 乙 → Лу→Тянь Цзи→П5 (гладкая денежная стратегия) + Кэ→Цзы Вэй→П4 (легитимация контроля над ребёнком); ветвь 未 = П1 (личностно значим). Встречное трение: годовой Цзи→Лянь Чжэнь→П12 (формальные/судебные системы под трением весь 2026) + Тянь Ма→П12 (процесс в движении). Натальный Лу Цунь в П12 = финансовый «пол» в институциональной сфере, но годовое Цзи его осложняет.</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 7. STRENGTHS / WEAKNESSES -->
+  <div class="sec-label">Его сильные стороны и его уязвимости</div>
+
+  <div class="do-dont-grid">
+    <div class="do-col">
+      <div class="col-title">Где он силён</div>
+      <ul class="action-list">
+        <li><span class="marker">&#8594;</span> Пиковые окна давления — июль (слушание) и август–октябрь 2026 (его полёты удваиваются).</li>
+        <li><span class="marker">&#8594;</span> Время на его стороне по сыну в 2026 — медленное, методичное давление.</li>
+        <li><span class="marker">&#8594;</span> Убедителен, когда оперирует расчётами, цифрами и «фактами».</li>
+        <li><span class="marker">&#8594;</span> Крепкий деловой и публичный образ, ресурс, чтобы ждать сколько нужно.</li>
+        <li><span class="marker">&#8594;</span> Перехват инициативы и контроль повестки — он любит бить первым.</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="col-title">Где он уязвим</div>
+      <ul class="action-list">
+        <li><span class="marker">&#10005;</span> Его союзники (включая новую партнёршу) — ненадёжная опора: могут дать пустой результат или отойти в сторону.</li>
+        <li><span class="marker">&#10005;</span> Угрозы «продам дом» способны обернуться против него — имущественная ось у него самого уязвима.</li>
+        <li><span class="marker">&#10005;</span> Формальная судебная машина в 2026 идёт с трением — его агрессия не конвертируется автоматически в формальную победу.</li>
+        <li><span class="marker">&#10005;</span> 2028 год — структурно слабее для него именно в разводном вопросе (плюс сигналы по здоровью).</li>
+        <li><span class="marker">&#10005;</span> Ставка на измор имеет предел: переживите пик августа–октября 2026 без уступок — и его главный рычаг слабеет.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Сильные = пики М6/М7/М8 (полёты удваиваются), Цзы Вэй+Тоу Ло в П4 (медленное давление по сыну), Тянь Цзи (расчёт), П7+П8 усилены (образ/сеть/ресурс), Ци Ша (перехват инициативы). Уязвимые = Ди Кун в П8 (союзники ненадёжны), Ди Цзе+По Цзюнь в П10 (имущество хрупко), Цзи→Лянь Чжэнь→П12 (суд с трением), 2028 戊 Цзи→Тянь Лян→П3 (слабее по разводу), предел измора = авг–окт 2026.</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 8. MONTHLY FORECAST -->
+  <div class="sec-label">Помесячный прогноз — июль–январь 2027</div>
+
+  <div class="table-legend">
+    <span style="color:var(--muted);margin-right:4px">Потенциал месяца:</span>
+    <span class="legend-item"><span class="legend-dots"><span class="dot peak"></span><span class="dot peak"></span><span class="dot peak"></span></span> Пиковый — максимально активно</span>
+    <span class="legend-item"><span class="legend-dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></span> Сильный — активно</span>
+    <span class="legend-item"><span class="legend-dots"><span class="dot on"></span><span class="dot"></span><span class="dot"></span></span> Умеренный — поддерживайте темп</span>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th>Месяц</th>
+        <th>Лунный период</th>
+        <th>Потенциал</th>
+        <th>Прочтение (его сторона)</th>
+        <th>Его ход</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="month-name">Месяц 5</div><div class="month-stem">甲午</div></td>
+        <td><div class="month-period">14 июня – 14 июля</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div><div class="intensity-label">Сильный</div></td>
+        <td>Стебель 甲: Лу→Лянь Чжэнь→П12 (формальная/судебная сфера течёт для него гладко) + Цюань→По Цзюнь→П10 (авторитет/реструктуризация на имущественной оси). Подготовительный месяц, благоприятный для его захода.</td>
+        <td class="month-action">Готовит имущественный напор и судебную почву. Формальности идут в его пользу.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">Месяц 6 ★</div><div class="month-stem">乙未</div></td>
+        <td><div class="month-period">14 июля – 11 августа</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div><div class="intensity-label">Пиковый</div></td>
+        <td>Стебель 乙: Лу→Тянь Цзи→П5 (его денежная стратегия течёт гладко) + Кэ→Цзы Вэй→П4 (легитимация его позиции по сыну). Ветвь 未 = П1 Жизнь (личностно пиковый). <strong>Слушание 16 июля — в этом окне.</strong></td>
+        <td class="month-action">Выступает с позиции «разумной финансовой логики» и легитимной родительской роли. Его сильнейший месяц на слушании.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">Месяц 7</div><div class="month-stem">丙申</div></td>
+        <td><div class="month-period">11 августа – 10 сентября</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div><div class="intensity-label">Пиковый</div></td>
+        <td>Месячный стебель 丙 совпадает с годовым → все годовые полёты удваиваются: Цюань→Тянь Цзи→П5 ×2 (пик его финансового авторитета) + Лу→Тянь Тун→П9 ×2 (карьера гладко). Но Цзи→Лянь Чжэнь→П12 ×2 + ветвь 申=П12 → судебное трение тоже на пике.</td>
+        <td class="month-action">Давит финансовым авторитетом по максимуму. Но формальный процесс в этот месяц особенно вязкий.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">Месяц 8</div><div class="month-stem">丁酉</div></td>
+        <td><div class="month-period">10 сентября – 8 октября</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div><div class="intensity-label">Пиковый</div></td>
+        <td>Месячный стебель 丁 совпадает с декадным → весь Д5 удваивается: Цзи→Цзюй Мэнь→П5 ×2 (денежный спор на максимуме) + Кэ→Тянь Цзи→П5 ×2 (стратег признан) + Цюань→Тянь Тун→П9 ×2. <strong>Его максимальный месяц денежно-силового давления.</strong></td>
+        <td class="month-action">Пик его атаки по деньгам. Самый жёсткий месяц спора за финансы — наиболее вероятное окно кризиса переговоров.</td>
+      </tr>
+      <tr class="caution-row">
+        <td><div class="month-name">Месяц 9</div><div class="month-stem">戊戌</div></td>
+        <td><div class="month-period">8 октября – 7 ноября</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div><div class="intensity-label">Умеренный</div></td>
+        <td>Стебель 戊: Цзи→Тянь Цзи→П5 — трение прямо на его звезде денежной стратегии. Его финансовый «конёк» в этот месяц спотыкается. Ветвь 戌=П10 Имущество в фокусе.</td>
+        <td class="month-action">Его наступление по деньгам слабеет. Имущество выходит на первый план, но его стратегический козырь под трением — окно его относительной слабости.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">Месяц 10</div><div class="month-stem">己亥</div></td>
+        <td><div class="month-period">7 ноября – 6 декабря</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div><div class="intensity-label">Сильный</div></td>
+        <td>Стебель 己: Цзи→Вэнь Цюй→П3 — трение на разводной оси для него; Лу→У Цюй→П8 (деньги через сеть). Ветвь 亥=П9 Карьера активна — он опирается на профессиональную устойчивость.</td>
+        <td class="month-action">Карьерно устойчив, но разводная ось у него под трением. Менее агрессивный по деньгам месяц.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">Месяц 11</div><div class="month-stem">庚子</div></td>
+        <td><div class="month-period">6 декабря – 5 января</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div><div class="intensity-label">Сильный</div></td>
+        <td>Месячный стебель 庚 совпадает с натальным → натальные полёты удваиваются: Цюань→У Цюй→П8 ×2 (сетевой авторитет) + Лу→Тай Ян→П7 ×2 (публичный образ). Его личный/сетевой ресурс на пике. Ветвь 子=П8.</td>
+        <td class="month-action">Опирается на сеть, союзников и публичный образ. Сильный месяц по «весу» и имиджу, но не по денежному спору.</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">Месяц 12</div><div class="month-stem">辛丑</div></td>
+        <td><div class="month-period">5 января – 4 февраля 2027</div></td>
+        <td style="text-align:center;width:110px"><div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div><div class="intensity-label">Сильный</div></td>
+        <td>Стебель 辛: Лу→Цзюй Мэнь→П5 — на его «звезде спора» в дворце Богатства появляется гладкий Лу: денежный спор может закрыться на выгодных ему условиях. Хорошее окно для финального соглашения с его стороны.</td>
+        <td class="month-action">Благоприятное окно, чтобы закрыть денежный вопрос на своих условиях. Готов к финальной договорённости — но только если она ему выгодна.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tech-note"><span class="tn-label">Техн. основа · стебли месяцев (исправлено)</span><div class="tn-body">Месяцы 2026 (丙 год, Пять Тигров → М1 = 庚寅): М5 甲午, М6 乙未, М7 丙申, М8 丁酉, М9 戊戌, М10 己亥, М11 庚子, М12 辛丑 — идентично отчёту Нелли. Совпадения, удваивающие полёты: М7 丙申 = годовой стебель (丙), М8 丁酉 = декадный стебель (丁), М11 庚子 = натальный стебель (庚). <em>Прежняя версия отчёта использовала ошибочный старт Пяти Тигров (М1 戊寅) → стебли М6 癸未 / М9 丙戌 / М10 丁亥 были неверны; исправлено по календарю движка.</em></div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 8b. WHEN WILL DIVORCE MOST LIKELY END -->
+  <div class="sec-label">Когда развод завершится с наибольшей вероятностью</div>
+
+  <div class="prob-grid">
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">М6 乙未 · 14 июля – 11 августа 2026 (слушание)</span>
+        <span class="prob-pct">30%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:30%"></div></div>
+      <div class="prob-note">Слушание 16 июля — вынужденное формальное решение по алиментам или дому. Для него это благоприятный месяц, он будет давить. Быстрое полное закрытие маловероятно — слишком ранняя стадия.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">М12 辛丑 · 5 января – 4 февраля 2027</span>
+        <span class="prob-pct">55%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:55%"></div></div>
+      <div class="prob-note"><strong>Наиболее вероятное окно закрытия.</strong> М12 (辛丑): Лу→Цзюй Мэнь→П5 — его денежная звезда спора получает гладкий Лу → он мотивирован закрыть на выгодных ему условиях. Пик давления (авг–окт) позади; измор сыграл. Для него это «выйти победителем» — психологически приемлемо.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">2027 全年 (丁未) — его финансово-правовой пик</span>
+        <span class="prob-pct">高风险</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:80%; background: linear-gradient(90deg, #7A1E1E 0%, #9A2E2E 100%);"></div></div>
+      <div class="prob-note"><strong>Если не закрыть в 2026 — опасный год для другой стороны.</strong> 2027 = годовой стебель 丁 совпадает с декадным стеблем Д5 → весь его Д5 удваивается на уровне ГОДА. Его финансово-правовая машина в 2027 мощнее, чем в 2026. Затягивание в его пользу.</div>
+    </div>
+    <div class="prob-item">
+      <div class="prob-header">
+        <span class="prob-label">2028 (戊申) — структурно слабее для него по разводу</span>
+        <span class="prob-pct">15%</span>
+      </div>
+      <div class="prob-bar-bg"><div class="prob-bar-fill" style="width:15%"></div></div>
+      <div class="prob-note">Стебель 戊 → Цзи→Тянь Лян→П3 = трение на его оси развода. Лу→Тань Лан→П6 = сигналы по здоровью. 2028 — единственный год Д5, где его разводный рычаг структурно слабее. Но это поздно и рискованно ждать — 2027 сначала.</div>
+    </div>
+  </div>
+
+  <div class="tech-note" style="margin-top:20px"><span class="tn-label">Техн. основа · тайминг завершения</span><div class="tn-body">М12 2026 (辛丑, 5 янв. – 4 фев. 2027): стебель 辛 → Лу→Цзюй Мэнь→П5. Цзюй Мэнь = его звезда денежного спора. Лу = гладкое течение. Для него — выход с деньгами без потери лица. 2027 (丁未): год-матч декадного стебля 丁 → весь Д5 удваивается (Цзи→Цзюй Мэнь→П5 ×2 + Кэ→Тянь Цзи→П5 ×2 + Цюань→Тянь Тун→П9 ×2). Год его максимальной денежно-правовой силы. 2028 (戊申): стебель 戊 → Цзи→Тянь Лян→П3 (П3 = дворец развода) + Лу→Тань Лан→П6 (здоровье). <em>Проценты — вероятность того, что именно этот период даст финальное соглашение или решение.</em></div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 9. PSYCHOLOGICAL PORTRAIT -->
+  <div class="sec-label">Его психологический портрет — ключевые черты</div>
+
+  <div class="palace-grid">
+
+    <div class="palace-card active">
+      <div class="palace-name">Деньги и брак для него — одно целое</div>
+      <div class="palace-reading">
+        Дворец Супруги в его карте описывает партнёра как фигуру-опору, приносящую поддержку, а сама карта — выраженно финансо-центрична: деньги стоят в центре его мышления. Поэтому имущество для него — не «справедливый раздел», а вопрос самооценки и контроля. То, что он считает «своим капиталом», он будет защищать максимально жёстко: уступка денег ощущается им как личное поражение.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Супруги (П3) = Тянь Лян (партнёр как старший/опекающий, приносящий опору) + Вэнь Цюй. Финансо-центричность = У Цюй (звезда финансов) с натальным Цюань в П8 + Дворец Богатства Тянь Цзи (стратегия) + Цзюй Мэнь (торг). <em>«Женится ради денег / оба брака связаны с деньгами» — это ваши данные. Карта даёт только: партнёр-опора + деньги в центре личности; ваши факты ей не противоречат, но из карты прямо не выводятся.</em></div></div>
+    </div>
+
+    <div class="palace-card critical">
+      <div class="palace-name">Стиль борьбы: бьёт первым, держит расчёт</div>
+      <div class="palace-reading">
+        Он структурно настроен на длительную борьбу за деньги — и через юридический процесс, и через слово. Его естественные ходы: ударить первым, задать повестку, держать инициативу, оперировать «фактами» и переложить ответственность за конфликт на другую сторону. Он будет вести развод как переговорную войну, а не как разрыв по обоюдному согласию.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Богатства (П5) = Тянь Цзи (стратег-интеллект) + Цзюй Мэнь (речь, спор, тяжба) + Хо Син (огонь/агрессия) + Тянь Син (звезда наказания/юридическая). Декадный Цзи→Цзюй Мэнь→П5 = деньги через словесно-юридическое противостояние весь 2023–2032. Ци Ша в П2 + трио Ша-По-Лан на оси 2-6-10 = боевой темперамент, перехват инициативы. <em>«Сюрприз-бомба» — ваше наблюдение, совпадает с механикой Ци Ша + Цзюй Мэнь.</em></div></div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-name">Сын как зона контроля</div>
+      <div class="palace-reading">
+        Карта говорит две вещи о его отношении к ребёнку. Первое: он относится к сыну с позиции «главного, чьи решения исполняются» — то есть управляет, а не договаривается. Второе: процесс по детской теме идёт медленно и накопительно — он тянет, без быстрых решений, весь 2026 год. Конкретные приёмы, которые <strong>вы</strong> наблюдаете (разрешения, подарки, «новые правила», подрыв вашего авторитета) — это бытовая форма этого же контроля; карта объясняет, почему контроль и затягивание, но сами приёмы — ваши данные, не вывод из карты.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Детей (П4) = Цзы Вэй (Император: требует, чтобы следовали его решениям → контроль, не диалог) + Тянь Сян + Ю Би. Стебель П4 = 庚 (= натальный стебель) → дети как зона личного влияния. Дворец-хранилище 辰 = медленные, накопительные процессы. Годовой подвижный Тоу Ло→П4 в 2026 = хроническая задержка/трение по детской оси весь год → намеренное затягивание. <em>«Подарки / новые правила / подрыв авторитета» — ваши наблюдения, НЕ выведены из карты.</em></div></div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-name">Романтика встроена в личность</div>
+      <div class="palace-reading">
+        Карта показывает, что романтика/притяжение вшиты у него на уровне идентичности, а не лежат в «отдельной» зоне отношений. Практический вывод из этого: новые связи он проявляет открыто, как часть себя, а не прячет. <strong>Конкретно</strong> роман с секретаршей и то, что партнёрша на его стороне в конфликте — это ваши данные; карта объясняет именно «открытость» и «вшитость» темы в характер, но не называет конкретного человека.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Судьбы (П1, личность) = Хун Луань + Тянь Яо — две «персиковые»/романтические звезды, причём в дворце ЛИЧНОСТИ, а не в дворце отношений (П3). Персиковые в П1 = романтика как часть идентичности → проявляется открыто. Тянь Яо = звезда флирта/обольщения. <em>Сам факт романа — ваш; из карты выведена только открытость/«вшитость».</em></div></div>
+    </div>
+
+    <div class="palace-card strong">
+      <div class="palace-name">Крепкий деловой и публичный образ</div>
+      <div class="palace-reading">
+        У него сильная деловая сеть и устойчивый внешний образ; он умеет выглядеть благополучно и убедительно для окружающих. Это поддерживает его позицию «у меня всё в порядке, проблема в ней». На длинном горизонте этот внешний ресурс структурно поддержан — он не «сломается» внешне в ходе процесса.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Путешествий (П7) = Тай Ян с натальным Лу (публичная видимость течёт легко) + Тай Инь с натальным Кэ (внешнее признание) + декадный Лу→Тай Инь (2023–2032) — это его самый «усиленный» дворец. Дворец Друзей (П8) = У Цюй с натальным Цюань (сетевой авторитет) + Тянь Фу (институциональная опора).</div></div>
+    </div>
+
+    <div class="palace-card critical">
+      <div class="palace-name">Где он переоценивает себя</div>
+      <div class="palace-reading">
+        Он слишком полагается на три вещи: измор, союзников и угрозы по имуществу. Все три имеют скрытую слабость. Союзники (включая новую партнёршу) для него — ненадёжная опора. Угрозы «продам дом» способны обернуться против него. А ставка на измор работает только до тех пор, пока другая сторона не пережила его пик давления, не уступив.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Ди Кун (Небесная Пустота) в Дворце Друзей П8 = вакуум в сети → союзники дают пустой результат / отходят. Ди Цзе в Дворце Недвижимости П10 (с По Цзюнь = разрушение) → угрозы по дому могут обернуться против него. Годовой Цзи→Лянь Чжэнь→П12 (2026) = трение с формальными/судебными системами → агрессия не = автоматическая формальная победа. Предел измора = тайминг: пик авг–окт 2026 + год 2027 (丁未); пройден без уступок → рычаг слабеет.</div></div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 10. HIS CHART (moved to end) -->
+  <div class="sec-label">Его натальная карта</div>
+  <div class="chart-wrap">
+    <div class="chart-label">Расчётная карта · Клиент М. · 19 августа 1980 · 02:03 · Маастрихт</div>
+    <iframe src="https://successcode.net/zwds-nelly-m" loading="lazy" title="Карта Клиент М." allowfullscreen></iframe>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+  </footer>
+
+</div>
+</body>
+</html>

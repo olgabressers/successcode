@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Alena — ZWDS Customer Report Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── LIGHT theme (default for body + sections) ─────── */
+    :root {
+      --bg:       #f8f6f1;
+      --surface:  #ffffff;
+      --surface2: #f0ede6;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.06);
+      --text:     #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.22);
+      --green:    #2a7a3a;
+      --red:      #b04a3a;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      max-width: 100vw; width: 100%;
+      overflow-x: hidden; position: relative;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg); color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+      font-size: 16px;
+    }
+
+    /* ── DARK ZONE (back-bar + page-header) ─────────────── */
+    .dark-zone {
+      padding-top: 53px;
+      background: #3a3c48;
+      color: #eceef8;
+      --gold:   #b8903a;
+      --gold2:  #cfa44e;
+      --text:   #eceef8;
+      --dim:    #d4d6e8;
+      --muted:  #c0c2d4;
+      --border: rgba(184,144,58,0.25);
+    }
+
+    /* ── Back link ──────────────────────────────────────── */
+    .back-bar {
+      padding: 22px 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .back-link {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; font-weight: 600;
+      transition: color .25s;
+    }
+    .back-link::before { content: '← '; color: var(--gold); }
+    .back-link:hover { color: var(--gold2); }
+
+    /* ── Top Nav (fixed) ───────────────────────────────── */
+    .top-nav {
+      position: fixed; top: 0; left: 0; right: 0; width: 100%;
+      z-index: 200;
+      background: rgba(58,60,72,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 56px;
+    }
+    .back-bar { display: none; }
+    .top-nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+    }
+    .top-nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 600; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--gold2);
+      text-decoration: none;
+    }
+    .top-nav-links {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .top-nav-links a {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; text-decoration: none;
+      transition: color .25s;
+      padding: 4px 0; border-bottom: 1px solid transparent;
+    }
+    .top-nav-links a:hover {
+      color: var(--gold2); border-bottom-color: var(--gold);
+    }
+
+    /* ── Natal sub-section block ────────────────────────── */
+    .subsection {
+      margin-top: 48px; padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+    .subsection:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    .subsection-eyebrow {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 14px;
+    }
+    .subsection-h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 3.8vw, 48px);
+      font-weight: 500; line-height: 1.12;
+      color: var(--text); margin-bottom: 20px;
+      letter-spacing: -0.5px; max-width: 820px;
+    }
+    .subsection-h3 em { font-style: italic; color: var(--gold); }
+    .subsection-intro {
+      font-size: 16px; line-height: 1.8; color: var(--dim);
+      max-width: 720px; margin-bottom: 28px;
+    }
+
+    /* ── Formations glossary ─────────────────────────────── */
+    .formations-box {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+    .formations-cell {
+      padding: 26px 30px 30px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .formations-cell:nth-child(2n) { border-right: none; }
+    .formations-cell:nth-last-child(-n+2) { border-bottom: none; }
+    .formations-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 8px;
+    }
+    .formations-term {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px; font-weight: 500; color: var(--text);
+      margin-bottom: 10px; line-height: 1.2;
+    }
+    .formations-cell p { font-size: 14px; line-height: 1.75; color: var(--dim); }
+    .formations-cell strong { color: var(--text); font-weight: 600; }
+    @media (max-width: 768px) {
+      .formations-box { grid-template-columns: 1fr; }
+      .formations-cell { border-right: none; border-bottom: 1px solid var(--border) !important; }
+      .formations-cell:last-child { border-bottom: none !important; }
+    }
+
+    /* ── Up/Down sides ──────────────────────────────────── */
+    .upside-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .upside-cell {
+      padding: 32px 36px;
+      border-right: 1px solid var(--border);
+    }
+    .upside-cell:last-child { border-right: none; }
+    .upside-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 700; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .upside-cell.up   .upside-label { color: var(--green); }
+    .upside-cell.down .upside-label { color: var(--red); }
+    .upside-cell ul { list-style: none; padding: 0; margin: 0; }
+    .upside-cell li {
+      font-size: 15.5px; line-height: 1.75; color: var(--dim);
+      padding: 9px 0 9px 22px; position: relative;
+      border-top: 1px solid rgba(154,110,32,0.10);
+    }
+    .upside-cell li:first-child { border-top: none; }
+    .upside-cell.up li::before {
+      content: '+'; position: absolute; left: 0; top: 8px;
+      color: var(--green); font-weight: 700; font-size: 16px;
+    }
+    .upside-cell.down li::before {
+      content: '−'; position: absolute; left: 0; top: 8px;
+      color: var(--red); font-weight: 700; font-size: 18px;
+    }
+
+    /* ── Industries grid ────────────────────────────────── */
+    .industries-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0; margin-top: 16px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .industry-card {
+      padding: 28px 32px 30px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .industry-source {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 10px;
+    }
+    .industry-star {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500;
+      color: var(--text); margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .industry-star em { font-style: italic; color: var(--gold); }
+    .industry-list {
+      font-size: 15px; line-height: 1.75; color: var(--dim);
+    }
+    .industry-match {
+      margin-top: 14px; padding-top: 14px;
+      border-top: 1px solid rgba(154,110,32,0.15);
+      font-size: 13.5px; color: var(--muted); font-style: italic;
+    }
+    .industry-match strong { color: var(--text); font-weight: 600; font-style: normal; }
+
+    /* ── 12 Palaces grid ────────────────────────────────── */
+    .palaces-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 16px;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .palace-empty {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--surface2);
+      min-height: 100px;
+    }
+    .palace-card {
+      padding: 20px 22px 24px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .palace-head {
+      display: flex; align-items: baseline; gap: 10px;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(154,110,32,0.15);
+    }
+    .palace-number {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500;
+      color: var(--gold); line-height: 1;
+    }
+    .palace-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 500; color: var(--text);
+      line-height: 1.2;
+    }
+    .palace-branch {
+      margin-left: auto;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .palace-stars {
+      font-size: 13px; line-height: 1.65; color: var(--gold);
+      font-weight: 600; margin-bottom: 10px;
+      letter-spacing: 0.2px;
+    }
+    .palace-meaning {
+      font-size: 13.5px; line-height: 1.7; color: var(--dim);
+    }
+    .palace-meaning strong { color: var(--text); font-weight: 600; }
+
+    /* ── Karma / Heaven two-column ──────────────────────── */
+    .heaven-two-col {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      margin: 20px 0 28px;
+    }
+    .heaven-col-left, .heaven-col-right { padding: 22px 24px; }
+    .heaven-col-left { border-right: 1px solid var(--border); background: rgba(154,110,32,0.03); }
+    .heaven-col-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+    }
+    .heaven-palace-ref {
+      font-size: 11px; color: var(--muted); background: var(--surface2);
+      display: inline-block; padding: 2px 8px; border-radius: 3px;
+      margin-bottom: 10px; letter-spacing: 0.3px;
+    }
+    .heaven-two-col p { font-size: 13.5px; line-height: 1.7; color: var(--dim); }
+    @media (max-width: 768px) {
+      .heaven-two-col { grid-template-columns: 1fr; }
+      .heaven-col-left { border-right: none; border-bottom: 1px solid var(--border); }
+    }
+
+    /* ── ZWDS Chart section ─────────────────────────────── */
+    .chart-frame-wrap {
+      margin-top: 16px;
+      border: 1px solid var(--border);
+      background: #f5f3ee;
+    }
+    .chart-frame {
+      width: 100%; height: 1750px; border: none; display: block;
+    }
+    .chart-instruction {
+      padding: 22px 28px;
+      background: var(--surface2);
+      font-size: 14px; line-height: 1.7; color: var(--dim);
+      border-bottom: 1px solid var(--border);
+    }
+    .chart-instruction strong { color: var(--text); font-weight: 600; }
+
+    /* ── Page Header ────────────────────────────────────── */
+    .page-header {
+      padding: 56px 56px 36px;
+    }
+    .eyebrow {
+      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 26px;
+    }
+    .eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(46px, 6vw, 88px);
+      font-weight: 400; line-height: 1.02;
+      letter-spacing: -2px;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    h1 em { font-style: italic; color: var(--gold2); }
+    .header-sub {
+      font-size: 18px; line-height: 1.85; color: var(--dim);
+      max-width: 720px;
+    }
+    .header-meta {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; margin-top: 56px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-meta-cell {
+      padding: 26px 28px 24px 0;
+      border-right: 1px solid var(--border);
+    }
+    .header-meta-cell:nth-child(n+2) { padding-left: 28px; }
+    .header-meta-cell:last-child { border-right: none; padding-right: 0; }
+    .header-meta-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 10px;
+    }
+    .header-meta-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 500; color: var(--text);
+      line-height: 1.2;
+    }
+    .header-meta-value small {
+      display: block; font-family: 'Inter', sans-serif;
+      font-size: 12.5px; color: var(--muted); margin-top: 5px;
+      letter-spacing: 0; font-weight: 400;
+    }
+
+    /* ── Section base ───────────────────────────────────── */
+    section {
+      padding: 56px 56px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    section:nth-child(even-of-section) { background: var(--surface2); }
+    .section-eyebrow {
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700;
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+    }
+    .section-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .section-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5.8vw, 76px);
+      font-weight: 400; line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px; max-width: 1000px;
+      color: var(--text);
+    }
+    .section-h2 em { font-style: italic; color: var(--gold); }
+    .section-h2 strong { font-weight: 500; font-style: italic; color: var(--gold); }
+    .section-intro {
+      font-size: 17px; line-height: 1.85; color: var(--dim);
+      max-width: 760px; margin-bottom: 40px;
+    }
+
+    /* ── Identity / Chart Type Box ──────────────────────── */
+    .identity-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      margin-top: 16px;
+    }
+    .identity-cell {
+      padding: 36px 40px;
+      border-right: 1px solid var(--border);
+    }
+    .identity-cell:last-child { border-right: none; }
+    .identity-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .identity-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px; font-weight: 500; line-height: 1.15;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .identity-body {
+      font-size: 16px; line-height: 1.8; color: var(--dim);
+    }
+    .identity-body strong { color: var(--text); font-weight: 600; }
+    .polarity-note {
+      margin-top: 44px;
+      padding: 32px 36px;
+      background: var(--surface);
+      border-left: 4px solid var(--gold);
+      border-top: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .polarity-note-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 14px;
+    }
+    .polarity-note p { font-size: 16.5px; line-height: 1.85; color: var(--dim); }
+    .polarity-note strong { color: var(--text); font-weight: 600; }
+
+    /* ── 4 Enhancers Grid ───────────────────────────────── */
+    .enhancers-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .enhancer {
+      padding: 36px 40px 40px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .enhancer-icon {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 64px; font-weight: 500;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 22px;
+      letter-spacing: -2px;
+    }
+    .enhancer-tag {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 12px;
+    }
+    .enhancer-h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 500; line-height: 1.2;
+      color: var(--text); margin-bottom: 16px;
+    }
+    .enhancer-h3 em { font-style: italic; color: var(--gold); }
+    .enhancer p { font-size: 16px; line-height: 1.85; color: var(--dim); }
+    .enhancer p strong { color: var(--text); font-weight: 600; }
+
+    /* ── Decade timeline ────────────────────────────────── */
+    .decade-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 44px 48px;
+      margin-top: 16px;
+    }
+    .decade-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap; padding-bottom: 28px;
+      border-bottom: 1px solid var(--border); margin-bottom: 32px;
+    }
+    .decade-card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 500; color: var(--text);
+    }
+    .decade-card-name small {
+      display: block; font-family: 'Inter', sans-serif;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px; font-weight: 700;
+    }
+    .decade-card-pill {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 700; padding: 7px 16px;
+      background: var(--gold); color: #fdf8ec;
+    }
+    .decade-flights {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .flight-cell {
+      padding: 22px 24px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .flight-symbol {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 36px; line-height: 1; color: var(--gold);
+      margin-bottom: 12px; font-weight: 500;
+    }
+    .flight-route {
+      font-size: 14px; color: var(--dim); margin-bottom: 10px;
+      line-height: 1.55;
+    }
+    .flight-route strong { color: var(--text); font-weight: 600; }
+    .flight-note {
+      font-size: 13.5px; line-height: 1.65; color: var(--muted);
+    }
+    .decade-takeaways {
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .decade-takeaways p {
+      font-size: 16.5px; line-height: 1.85; color: var(--dim);
+      margin-bottom: 14px;
+    }
+    .decade-takeaways p strong { color: var(--text); font-weight: 600; }
+
+    /* ── 2026 / Annual ──────────────────────────────────── */
+    .annual-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 0;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .annual-cell {
+      padding: 32px 36px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .annual-mech {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .annual-headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 500; color: var(--text);
+      line-height: 1.3; margin-bottom: 16px;
+    }
+    .annual-headline em { font-style: italic; color: var(--gold); }
+    .annual-cell p { font-size: 15.5px; line-height: 1.8; color: var(--dim); }
+    .annual-cell strong { color: var(--text); font-weight: 600; }
+
+    .months-block {
+      margin-top: 56px;
+      padding: 40px 44px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .months-block-h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 500;
+      color: var(--text); margin-bottom: 24px;
+    }
+    .month-row {
+      display: grid; grid-template-columns: 130px 1fr auto;
+      gap: 28px; padding: 18px 0;
+      border-top: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .month-row:last-child { border-bottom: 1px solid var(--border); }
+    .month-when {
+      font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700;
+    }
+    .month-what {
+      font-size: 16px; line-height: 1.7; color: var(--dim);
+    }
+    .month-what strong { color: var(--text); font-weight: 600; }
+    .month-quality {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 12px; font-weight: 700;
+      border: 1px solid; white-space: nowrap;
+    }
+    .quality-peak  { color: var(--green); border-color: var(--green); background: rgba(42,122,58,0.06); }
+    .quality-warn  { color: var(--red);   border-color: var(--red);   background: rgba(176,74,58,0.06); }
+    .quality-mid   { color: var(--gold);  border-color: var(--gold);  background: rgba(154,110,32,0.06); }
+
+    /* ── Q&A Decision Cards ─────────────────────────────── */
+    .qa-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .qa-card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .qa-q {
+      padding: 32px 36px 26px;
+      border-bottom: 1px solid var(--border);
+      border-top: 3px solid var(--gold);
+      background: var(--surface2);
+    }
+    .qa-q-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 12px;
+    }
+    .qa-q-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px; font-weight: 500; line-height: 1.3;
+      color: var(--text);
+    }
+    .qa-q-text em { font-style: italic; color: var(--gold); }
+    .qa-a {
+      padding: 28px 36px 36px;
+    }
+    .qa-a-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 700;
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 16px;
+    }
+    .qa-a-label::before {
+      content: ''; width: 18px; height: 1px; background: var(--gold); flex-shrink: 0;
+    }
+    .qa-a p {
+      font-size: 15.5px; line-height: 1.85; color: var(--dim);
+      margin-bottom: 14px;
+    }
+    .qa-a p:last-child { margin-bottom: 0; }
+    .qa-a strong { color: var(--text); font-weight: 600; }
+
+    /* ── Forward calendar ───────────────────────────────── */
+    .calendar-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .calendar-cell {
+      padding: 32px 32px 36px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column;
+    }
+    .calendar-year {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px; font-weight: 500; line-height: 1;
+      color: var(--text); margin-bottom: 8px;
+    }
+    .calendar-stem {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 18px;
+    }
+    .calendar-tag {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      padding: 5px 12px; font-weight: 700;
+      align-self: flex-start; border: 1px solid;
+      margin-bottom: 18px;
+    }
+    .calendar-cell p {
+      font-size: 15px; line-height: 1.8; color: var(--dim);
+    }
+    .calendar-cell p strong { color: var(--text); font-weight: 600; }
+
+    /* ── Decade ratings table ───────────────────────────── */
+    .decade-ratings-wrap {
+      margin-top: 56px;
+    }
+    .decade-ratings-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700; margin-bottom: 16px;
+    }
+    .decade-ratings-grid {
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .decade-ratings-head,
+    .dr-row {
+      display: grid;
+      grid-template-columns: 180px repeat(3, 1fr);
+    }
+    .decade-ratings-head {
+      background: var(--surface2);
+    }
+    .dr-domain-col,
+    .dr-dec-col {
+      padding: 16px 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .dr-domain-col {
+      font-size: 13.5px; color: var(--dim); font-weight: 600;
+      display: flex; align-items: center;
+    }
+    .decade-ratings-head .dr-domain-col { color: transparent; }
+    .dr-dec-col {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700;
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 4px;
+    }
+    .dr-dec-col small {
+      font-size: 11px; color: var(--muted); text-transform: none;
+      letter-spacing: 0; font-weight: 400;
+    }
+    .dr-past { opacity: 0.7; }
+    .dr-now { background: rgba(154,110,32,0.04); }
+    .dr-dec-col.dr-now { color: var(--gold2); opacity: 1; }
+    .dr-stars { color: var(--gold); font-size: 15px; letter-spacing: 1px; }
+    .dr-empty { color: var(--border); font-size: 15px; letter-spacing: 1px; }
+    @media (max-width: 768px) {
+      .decade-ratings-head,
+      .dr-row { grid-template-columns: 120px repeat(3, 1fr); }
+      .dr-domain-col,
+      .dr-dec-col { padding: 12px 10px; }
+      .dr-domain-col { font-size: 12px; }
+      .dr-stars, .dr-empty { font-size: 12px; letter-spacing: 0; }
+    }
+
+    /* ── Go-up button ───────────────────────────────────── */
+    .go-up-btn {
+      position: fixed; bottom: 28px; right: 28px;
+      z-index: 300;
+      width: 44px; height: 44px;
+      background: var(--gold); color: #fdf8ec;
+      border: none; cursor: pointer;
+      font-size: 20px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      opacity: 0.88;
+      transition: opacity .2s;
+    }
+    .go-up-btn:hover { opacity: 1; }
+    @media (max-width: 768px) {
+      .go-up-btn { bottom: 18px; right: 16px; width: 38px; height: 38px; font-size: 17px; }
+    }
+
+    /* ── Disclaimer ─────────────────────────────────────── */
+    .disclaimer {
+      padding: 48px 56px;
+      background: var(--surface2);
+      font-size: 14px; line-height: 1.85; color: var(--muted);
+      font-style: italic;
+      border-bottom: 1px solid var(--border);
+    }
+    .disclaimer strong { color: var(--text); font-style: normal; font-weight: 600; }
+
+    /* ── Stars ──────────────────────────────────────────── */
+    .stars-wrap { white-space: nowrap; display: inline-block; }
+    .s-f { color: #9a6e20; font-size: 15px; }
+    .s-e { color: rgba(154,110,32,0.22); font-size: 15px; }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    footer {
+      padding: 48px 56px;
+      background: #3a3c48;
+      text-align: center;
+      border-top: 1px solid rgba(184,144,58,0.25);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 500; letter-spacing: 4px;
+      text-transform: uppercase; color: #cfa44e;
+      margin-bottom: 10px;
+    }
+    .footer-sub {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c0c2d4; margin-bottom: 14px;
+    }
+    .footer-legal {
+      font-size: 11px; color: rgba(192,194,212,0.45); letter-spacing: 0.5px;
+    }
+    @media (max-width: 768px) {
+      footer { padding: 36px 20px; }
+      .footer-logo { font-size: 22px; }
+    }
+
+    /* ── MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { font-size: 15px; }
+
+      .back-bar  { padding: 16px 24px; }
+      .page-header { padding: 64px 24px 56px; }
+      .eyebrow { font-size: 11px; margin-bottom: 20px; }
+      h1 { font-size: clamp(38px, 10vw, 56px); letter-spacing: -1px; margin-bottom: 24px; }
+      .header-sub { font-size: 16px; }
+      .header-meta { grid-template-columns: 1fr 1fr; margin-top: 40px; }
+      .header-meta-cell { padding: 20px 16px 18px 0; }
+      .header-meta-cell:nth-child(odd) { padding-left: 0; }
+      .header-meta-cell:nth-child(even) { padding-left: 16px; border-right: none; }
+      .header-meta-cell:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
+      .header-meta-label { font-size: 10px; }
+      .header-meta-value { font-size: 19px; }
+      .header-meta-value small { font-size: 11.5px; }
+
+      section { padding: 40px 20px; }
+      .section-eyebrow { font-size: 11px; margin-bottom: 16px; }
+      .section-h2 { font-size: clamp(34px, 9vw, 52px); letter-spacing: -1px; margin-bottom: 16px; }
+      .section-intro { font-size: 15px; margin-bottom: 28px; }
+
+      .identity-grid { grid-template-columns: 1fr; }
+      .identity-cell { border-right: none; border-bottom: 1px solid var(--border); padding: 26px 24px; }
+      .identity-cell:last-child { border-bottom: none; }
+      .identity-headline { font-size: 24px; }
+      .identity-body { font-size: 15px; }
+      .polarity-note { padding: 24px 22px; }
+      .polarity-note p { font-size: 15.5px; }
+
+      .enhancers-grid { grid-template-columns: 1fr; }
+      .enhancer { padding: 30px 24px 32px; }
+      .enhancer-icon { font-size: 52px; }
+      .enhancer-h3 { font-size: 22px; }
+      .enhancer p { font-size: 15.5px; }
+
+      .decade-card { padding: 28px 22px; }
+      .decade-card-name { font-size: 22px; }
+      .decade-flights { grid-template-columns: 1fr; }
+      .flight-cell { padding: 22px 22px; }
+      .flight-symbol { font-size: 32px; }
+      .flight-route { font-size: 14px; }
+      .flight-note { font-size: 13.5px; }
+      .decade-takeaways p { font-size: 15.5px; }
+
+      .annual-grid { grid-template-columns: 1fr; }
+      .annual-cell { padding: 26px 22px; }
+      .annual-headline { font-size: 19px; }
+      .annual-cell p { font-size: 15px; }
+
+      .months-block { padding: 26px 22px; margin-top: 40px; }
+      .months-block-h3 { font-size: 22px; margin-bottom: 18px; }
+      .month-row {
+        grid-template-columns: 1fr;
+        gap: 8px; padding: 16px 0;
+      }
+      .month-quality { align-self: flex-start; font-size: 10px; }
+      .month-what { font-size: 15px; }
+
+      .qa-grid { grid-template-columns: 1fr; }
+      .qa-q { padding: 24px 22px 20px; }
+      .qa-q-text { font-size: 19px; }
+      .qa-a { padding: 22px 22px 28px; }
+      .qa-a p { font-size: 15px; }
+
+      .calendar-grid { grid-template-columns: 1fr; }
+      .calendar-cell { padding: 24px 22px; }
+      .calendar-year { font-size: 36px; }
+      .calendar-cell p { font-size: 14.5px; }
+
+      .disclaimer { padding: 32px 24px; font-size: 13px; }
+      footer { padding: 24px 24px; font-size: 10px; }
+
+      /* Top nav mobile */
+      .top-nav { padding: 14px 24px; }
+      .top-nav-inner { gap: 14px; }
+      .top-nav-logo { font-size: 15px; letter-spacing: 2px; }
+      .top-nav-links { gap: 14px 16px; }
+      .top-nav-links a { font-size: 10px; letter-spacing: 1.5px; }
+
+      /* Subsection mobile */
+      .subsection { margin-top: 36px; padding-top: 30px; }
+      .subsection-h3 { font-size: clamp(24px, 7vw, 34px); margin-bottom: 16px; }
+      .subsection-intro { font-size: 14.5px; margin-bottom: 22px; }
+
+      /* Up/Down sides mobile */
+      .upside-grid { grid-template-columns: 1fr; }
+      .upside-cell { padding: 24px 22px; border-right: none; border-bottom: 1px solid var(--border); }
+      .upside-cell:last-child { border-bottom: none; }
+      .upside-cell li { font-size: 14.5px; }
+
+      /* Industries mobile */
+      .industries-grid { grid-template-columns: 1fr; }
+      .industry-card { padding: 24px 22px 26px; }
+      .industry-star { font-size: 20px; }
+      .industry-list { font-size: 14px; }
+      .industry-match { font-size: 13px; }
+
+      /* Palaces mobile */
+      .palaces-grid { grid-template-columns: 1fr 1fr; }
+      .palace-empty { display: none; }
+      .palace-card { padding: 18px 18px 20px; }
+      .palace-number { font-size: 24px; }
+      .palace-name { font-size: 17px; }
+      .palace-meaning { font-size: 13.5px; }
+
+      /* Chart frame mobile */
+      .chart-frame { height: 1300px; }
+      .chart-instruction { padding: 18px 22px; font-size: 13px; }
+
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- DARK ZONE: back-bar + nav + page header -->
+<div class="dark-zone">
+
+  <!-- BACK BAR -->
+  <div class="back-bar">
+    <a href="delisted.html" class="back-link">Admin Index</a>
+  </div>
+
+  <!-- TOP NAVIGATION -->
+  <nav class="top-nav">
+    <div class="top-nav-inner">
+      <a href="delisted.html" class="top-nav-logo">← Admin</a>
+      <div class="top-nav-links">
+        <a href="#natal-chart">Natal Chart</a>
+        <a href="#current-decade">Current Decade</a>
+        <a href="#year-and-forward">2026</a>
+        <a href="#decision-support">Decision Support</a>
+        <a href="#forward-calendar">Forward Calendar</a>
+        <a href="#zwds-chart">ZWDS Chart</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="page-header" id="top">
+    <div class="eyebrow">SuccessCode · Customer Report Prototype</div>
+    <h1>Alena.<br><em>Your structural blueprint.</em></h1>
+
+    <div class="header-meta">
+      <div class="header-meta-cell">
+        <div class="header-meta-label">Birth</div>
+        <div class="header-meta-value">19 April 1979<small>13:30 · Saratov</small></div>
+      </div>
+      <div class="header-meta-cell">
+        <div class="header-meta-label">Element</div>
+        <div class="header-meta-value">Fire 6<small>Decade cadence</small></div>
+      </div>
+      <div class="header-meta-cell">
+        <div class="header-meta-label">Year stem</div>
+        <div class="header-meta-value">己 Ji<small>Fires natal enhancers</small></div>
+      </div>
+      <div class="header-meta-cell">
+        <div class="header-meta-label">Report period</div>
+        <div class="header-meta-value">May 2026<small>D5 · year 丙午</small></div>
+      </div>
+    </div>
+  </header>
+
+</div>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 1. NATAL CHART — Who you are, structurally              -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="natal-chart">
+  <div class="section-eyebrow">Section 01 · Natal chart</div>
+  <h2 class="section-h2">Who you are, <em>structurally.</em></h2>
+  <p class="section-intro">Your natal chart is the layer that does not change. Birth data — date, time, location — fixes 12 palaces in 12 zodiac branches, distributes 18 main stars across them, and identifies which stars receive permanent enhancers from your year stem. This is the structural baseline. Decades and annual cycles overlay timing on top of it. Below: the chart structure, your personality, the industries that match your structure, and a palace-by-palace breakdown.</p>
+
+  <!-- ─────────────────── FOUNDATIONS GLOSSARY ─────────────────── -->
+  <div class="formations-box">
+    <div class="formations-cell">
+      <div class="formations-label">Formation · 七殺破軍貪狼</div>
+      <div class="formations-term">Sha Po Lang (SPL)</div>
+      <p>Three stars — <strong>Qi Sha</strong> (Seven Killings), <strong>Po Jun</strong> (Army Destroyer) and <strong>Tan Lang</strong> (Greedy Wolf) — that occupy the Life, Wealth and Career palaces simultaneously. When this triad forms, the chart activates through adversity and high-stakes transformation, not through comfort or smooth accumulation. Every peak career and income event in an SPL chart arrives through challenge.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Chart types</div>
+      <div class="formations-term">Normal · SPL · Transformational</div>
+      <p>A <strong>Normal chart</strong> runs on standard polarity — smooth flow (Lu) in the 1-5-9 axis is good; friction (Ji) is an obstacle. An <strong>SPL chart</strong> carries the Sha-Po-Lang triad — activations are more intense. A <strong>Transformational chart</strong> has two or more Ji markers in the 1-5-9 axis, which <strong>reverses polarity entirely</strong>: Ji in the axis becomes the best signal; Lu in the axis becomes suppression. This chart is simultaneously SPL and Transformational.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Polarity · Yin–Yang reversal</div>
+      <div class="formations-term">Reversed Polarity</div>
+      <p>In a normal chart, Lu (smooth flow) in the 1-5-9 Life–Wealth–Career axis signals the best outcome. In this reversed chart, <strong>Ji (friction, karma) in the 1-5-9 axis is the activation signal for the highest career and income years.</strong> Lu in the same axis suppresses activation. This is not a flaw — it is the structural law of how this chart generates outcomes. Verified by every major career peak in the life history.</p>
+    </div>
+    <div class="formations-cell">
+      <div class="formations-label">Si Hua · Four Enhancers</div>
+      <div class="formations-term">禄 · 权 · 科 · 忌</div>
+      <p>Four qualities that fly from a stem onto specific stars. <strong>Lu 禄</strong> = smooth flow, ease, support in the receiving palace · <strong>Quan 权</strong> = authority, power, amplified influence · <strong>Ke 科</strong> = recognition, status, intellectual reputation · <strong>Ji 忌</strong> = friction, blockage, karmic weight (in reversed charts: activation on the 1-5-9 axis). The year stem fires permanently (natal); the decade stem fires for 10 years; the annual stem fires for one year.</p>
+    </div>
+  </div>
+
+  <!-- ─────────────────── A. CHART STRUCTURE ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">A · Chart structure &amp; polarity</div>
+    <h3 class="subsection-h3">A <em>dual-trigger</em> structure built for high-stakes transformation.</h3>
+    <p class="subsection-intro">Most charts run on standard polarity — stable wins, smooth flow, comfort signals what's working. Your chart runs on inverted polarity. Friction is the activation signal. Pressure is the engine. This is not a flaw. This is what your chart structurally produces wins from.</p>
+
+    <div class="identity-grid">
+      <div class="identity-cell">
+        <div class="identity-label">Chart type</div>
+        <div class="identity-headline">SPL + Transformational</div>
+        <div class="identity-body">A <strong>dual-trigger reversed polarity chart</strong> formed by two simultaneous structural features: the Sha-Po-Lang star formation across your career–life–wealth axis, and two Ji (忌) markers landing in the same 1-5-9 axis. Both formations are confirmed by calculator. This is rare — most charts have one or the other; you have both.</div>
+      </div>
+      <div class="identity-cell">
+        <div class="identity-label">Named formations</div>
+        <div class="identity-headline">SPL · RYZB · 2-Ji</div>
+        <div class="identity-body">Sha-Po-Lang (七殺破軍貪狼) — the transformation triad — anchors your career, life and wealth palaces. RYZB (Sun-Moon Property) layers a permanent dual visibility-and-property signal on top. Two Ji markers on the 1-5-9 axis (natal 己 + Liu Chu from P2) make you a Transformational chart.</div>
+      </div>
+    </div>
+
+    <div class="polarity-note">
+      <div class="polarity-note-label">Reversed polarity rule</div>
+      <p>For your chart specifically: <strong>Ji (忌) markers on your career–life–wealth axis are the BEST outcome</strong> — they activate the SPL engine and produce your biggest income years. Lu (禄) markers in the same axis are the WORST — they suppress activation. This inverts the standard reading. Three of your strongest career years (2003, 2013, 2024) all carried a Ji marker on this axis. Your 2025 had zero activators — and produced no career outcome.</p>
+    </div>
+
+    <div class="upside-grid" style="margin-top: 44px;">
+      <div class="upside-cell up">
+        <div class="upside-label">What this structure gives you</div>
+        <ul>
+          <li>Adversity converts directly into advancement. Your biggest wins arrive through pressure, not comfort.</li>
+          <li>Three permanent tailwinds: career authority (Quan→P9), inner financial flow (Lu→P11), structural protection in health and legal domains (Ke→P6, Tian Kui in P11).</li>
+          <li>You are built for high-stakes complexity — premium markets, regulated industries, senior leadership at significant scale.</li>
+          <li>Court / legal / authority challenges: structurally protected. Verified track record 3 wins from 3 challenges, 2023–2025.</li>
+          <li>Decade and annual layers that land on your 1-5-9 axis stack predictably — peak windows are forecastable years in advance.</li>
+        </ul>
+      </div>
+      <div class="upside-cell down">
+        <div class="upside-label">What this structure costs you</div>
+        <ul>
+          <li>Comfort years produce nothing. Years with zero activators do not yield career outcomes — flat by structure.</li>
+          <li>Documentation, contracts and paperwork are a permanent life theme (Wen Qu Ji on P1) — never fully resolved, always returning.</li>
+          <li>Relationships require conscious effort throughout life (Lian Zhen on P3) — partnership is not a passive domain.</li>
+          <li>Pace is exhausting — the engine runs on pressure. Rest cycles must be structured deliberately or burnout signals appear.</li>
+          <li>Small-scale or low-trust environments compress your structural advantage. Mass-market roles dilute the channels.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── B. PERMANENT ENHANCERS ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">B · Your permanent engine</div>
+    <h3 class="subsection-h3">Four channels running <em>continuously</em> across your entire life.</h3>
+    <p class="subsection-intro">Your year stem 己 (Ji) is the only stem that fires permanent natal enhancers in Northern-school ZWDS. These four channels do not weaken with age. They are present every year, every decade, every annual cycle. The rest of your chart's signals overlay on top of these — they are your structural baseline.</p>
+
+    <div class="enhancers-grid">
+      <div class="enhancer">
+        <div class="enhancer-icon">禄</div>
+        <div class="enhancer-tag">Lu · Smooth flow channel</div>
+        <h3 class="enhancer-h3">Wu Qu in <em>P11 Mental</em></h3>
+        <p>Your inner relationship with money runs smooth and structurally favourable. <strong>Wealth shows up where you put your mind.</strong> Mental discipline around capital — research, frameworks, written analysis, financial systems thinking — is permanently rewarded.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">权</div>
+        <div class="enhancer-tag">Quan · Permanent SPL activator</div>
+        <h3 class="enhancer-h3">Tan Lang in <em>P9 Career</em></h3>
+        <p>One of your two permanent SPL engines. Tan Lang in the career palace receives Quan (authority) for life. <strong>Your career structurally demands and rewards visibility, scale and high-stakes leadership.</strong> Smaller roles compress this signal.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">科</div>
+        <div class="enhancer-tag">Ke · Protection channel</div>
+        <h3 class="enhancer-h3">Tian Liang in <em>P6 Health</em></h3>
+        <p>Tian Liang is the protection star. With Ke permanently in Health, you carry a structural signal that <strong>the right doctor, advisor or protective intervention appears when needed</strong>. Combined with Tian Kui in P11, this pattern surfaced three lawyers across three legal challenges.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-icon">忌</div>
+        <div class="enhancer-tag">Ji · Permanent SPL activator</div>
+        <h3 class="enhancer-h3">Wen Qu in <em>P1 Life</em></h3>
+        <p>Your second permanent SPL engine. Wen Qu — the paperwork, document and contract star — sits in your Life palace receiving Ji for life. <strong>Contracts and documentation are a life theme</strong>, not a catastrophe. Adversity in this domain is where you transform.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── C. PERSONALITY ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">C · Personality &amp; style</div>
+    <h3 class="subsection-h3">Built from <em>three dominant stars</em> on your central axis.</h3>
+    <p class="subsection-intro">Your 1-5-9 axis (Life, Wealth, Career) holds the SPL triad: Po Jun in P1, Qi Sha in P5, Tan Lang in P9. The character of these three stars dominates how you operate. Layered on top: your mental palace (P11 Wu Qu + Tian Fu + Tian Kui) sets your inner posture, and P12 Parents (Tian Tong + Tian Xing) shapes your relationship to authority.</p>
+
+    <div class="enhancers-grid">
+      <div class="enhancer">
+        <div class="enhancer-tag">Po Jun in P1 Life</div>
+        <h3 class="enhancer-h3">The <em>reconstruction</em> archetype.</h3>
+        <p>Po Jun = "destroy before rebuild" — stubborn, dynamic, athletic build. You don't iterate gradually; you tear down and reconstruct. This shows up in career (digital transformation, restructuring roles), in property (renovation, "buy big and split"), and in life decisions. <strong>Wen Qu Ji</strong> on top makes paperwork and contracts a permanent life theme — not catastrophic, structural.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">Qi Sha in P5 Wealth</div>
+        <h3 class="enhancer-h3">The <em>warrior</em> approach to money.</h3>
+        <p>Qi Sha = aggressive, instant decisions, independent — "no concept of competition, just goes and does." You need <strong>war mode</strong> to realise wealth — passivity does not generate income for your structure. Lu Cun in the same palace gives a lifelong financial floor; Zuo Fu means a team helps you earn (direct reports outperform solo).</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">Tan Lang in P9 Career</div>
+        <h3 class="enhancer-h3">The <em>premium presentation</em> star.</h3>
+        <p>Tan Lang = charm, branding, "expensive show" — the peach blossom star applied to career. <strong>Career built through personal brand, image building and self-presentation at premium price points.</strong> Quan on top gives this star power and authority. You operate best where presentation matters: luxury, premium B2B, regulated visibility.</p>
+      </div>
+      <div class="enhancer">
+        <div class="enhancer-tag">P11 Mental + P12 Parents</div>
+        <h3 class="enhancer-h3">Inner <em>steadiness</em> + protected authority.</h3>
+        <p>Wu Qu Lu + Tian Fu + Tian Kui in P11 = "you have enough already," karma-stable inner posture with a noble protector that arrives in dark moments. P12 Tian Tong + Tian Xing = child-like sentimentality combined with discipline / law / contracts protection — explains why <strong>authority figures and lawyers structurally respond favourably to you</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── D. INDUSTRIES ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">D · Industries where you thrive</div>
+    <h3 class="subsection-h3">Mapped <em>directly</em> from the main stars in your career, life and wealth palaces.</h3>
+    <p class="subsection-intro">Each main star in ZWDS maps to specific industry domains where its energy converts cleanly into outcomes. Your structural fit is strongest where multiple stars overlap — domains that match Tan Lang (career) AND Po Jun (life) AND Qi Sha (wealth) compound. Your verified 20-year track record (Richemont luxury, Adidas / Nike sportswear, IBM supply chain) sits exactly inside these mappings.</p>
+
+    <div class="industries-grid">
+      <div class="industry-card">
+        <div class="industry-source">Career star · P9</div>
+        <div class="industry-star">Tan Lang <em>权</em></div>
+        <div class="industry-list">Premium products · luxury · PR · social marketing · branding · entertainment · art · education · easy money / image-based business · religion · premium professional services.</div>
+        <div class="industry-match"><strong>Verified match:</strong> Richemont (12 luxury brands, €150M e-commerce P&amp;L, 2019–2025).</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Life star · P1</div>
+        <div class="industry-star">Po Jun</div>
+        <div class="industry-list">Destroy-then-rebuild / restructure · repair · renovation · marketing · trucking and logistics · livestock / seafood · shipping · restoration · feng shui · event planning · digital transformation.</div>
+        <div class="industry-match"><strong>Verified match:</strong> digital transformation lead at Nike Intersport (2010–2016) — exactly "destroy old, rebuild new."</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Wealth star · P5</div>
+        <div class="industry-star">Qi Sha</div>
+        <div class="industry-list">Heavy industry · sports / military · police · surgery · mining · archaeology · special skills · competitive performance environments · roles requiring aggressive execution.</div>
+        <div class="industry-match"><strong>Verified match:</strong> Adidas (omni-channel director 2016–2018) and Nike (digital transformation 2010–2016) — sportswear is structurally Qi Sha territory.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Travel star · P7</div>
+        <div class="industry-star">Zi Wei + Wen Chang</div>
+        <div class="industry-list">Government service · luxury products · jewelry · watches · computers · enterprise technology · premium professional collaboration · international intellectual roles.</div>
+        <div class="industry-match"><strong>Verified match:</strong> IBM Senior Supply Chain Consultant (2006–2010); Zi Wei in Travel means <strong>recognised abroad more than at home</strong> — your structurally strongest channel is international.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Property star · P10</div>
+        <div class="industry-star">Tai Yang + Tai Yin</div>
+        <div class="industry-list">Real estate · rental · hostel / hospitality · luxury cars · women's products · cosmetics · fashion · cleaning industry · competitive branded products · politics / lawyer · energy / electrics.</div>
+        <div class="industry-match"><strong>Note:</strong> Sun-Moon formation in P10 means you own and manage property structurally — confirmed by current ownership of three properties.</div>
+      </div>
+      <div class="industry-card">
+        <div class="industry-source">Mental star · P11</div>
+        <div class="industry-star">Wu Qu <em>禄</em></div>
+        <div class="industry-list">Finance · banking · insurance · metal products · dentistry · breathing systems · cosmetology · production · financial systems and frameworks · capital research.</div>
+        <div class="industry-match"><strong>Direction:</strong> the Lu on Wu Qu in your mental palace means financial / strategic-intelligence platforms (TrendsOnFire, SuccessCode) are structurally aligned with your inner posture.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─────────────────── E. 12 PALACES ─────────────────── -->
+  <div class="subsection">
+    <div class="subsection-eyebrow">E · 12 palaces — key characteristics</div>
+    <h3 class="subsection-h3">Your <em>twelve domains</em>, each with its dominant stars and structural meaning.</h3>
+    <p class="subsection-intro">Each of the 12 palaces governs one life domain. The stars in each palace determine its structural character. Cards are arranged in the same 4×4 grid as the calculator — empty center, clockwise from top-right. Compare directly with Section 06 below.</p>
+
+    <div class="heaven-two-col">
+      <div class="heaven-col-left">
+        <div class="heaven-col-label">Karma · Early Heaven Palace (先天宮)</div>
+        <div class="heaven-palace-ref">P1 Life · 戌 Dog · stem 甲 · Po Jun · Wen Qu 忌</div>
+        <p>The Early Heaven palace is P1 Life — it defines the soul theme carried into this life. Stars: <strong>Po Jun</strong> (Army Destroyer) + <strong>Wen Qu 忌</strong> (Written Talent with permanent friction). Po Jun is the archetype who demolishes what no longer serves so something stronger can be built. Wen Qu is the gift of written and verbal brilliance — with Ji, this gift meets recurring institutional friction. The karmic pattern: something important was created, spoken or documented and was suppressed or resisted. The task carried forward is to bring expertise into visible, structured form and hold it through the resistance.</p>
+      </div>
+      <div class="heaven-col-right">
+        <div class="heaven-col-label">Later Heaven Palace (後天宮) · This Life</div>
+        <div class="heaven-palace-ref">P1 Life · 戌 Dog · stem 甲 · Po Jun · Wen Qu 忌 · Body palace</div>
+        <p>The Later Heaven palace also falls on P1 Life — identity and body are one arena in this chart. <strong>Po Jun</strong> defines the life mission: to fundamentally transform outdated structures, in your own life and in the institutions you move through. You do not patch or adjust — you reconstruct. Athletic, dynamic, strong. <strong>Wen Qu 忌</strong> — the recurring documentation and contract theme — is the structural material through which transformation arrives. Not a wound. A mechanism.</p>
+      </div>
+    </div>
+
+    <!-- 4×4 grid: top row P12–P9, mid rows P1/[]/[]/P8 and P2/[]/[]/P7, bottom row P3–P6 -->
+    <div class="palaces-grid">
+
+      <!-- Row 1: P12 P11 P10 P9 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">12</div>
+          <div class="palace-name">Parents · 父母</div>
+          <div class="palace-branch">亥 · 乙</div>
+        </div>
+        <div class="palace-stars">Tian Tong · Tian Xing</div>
+        <div class="palace-meaning">A warm, disarming quality in how you relate to authority. Tian Tong brings childlike openness and emotional softness — you can be genuinely earnest with people in power, which paradoxically earns their trust. Tian Xing is the law and formal structure star: you move naturally within official and institutional environments. <strong>Regulators, senior figures and formal processes respond to you with unusual openness.</strong></div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">11</div>
+          <div class="palace-name">Mental · 福德</div>
+          <div class="palace-branch">子 · 丙</div>
+        </div>
+        <div class="palace-stars">Wu Qu 禄 · Tian Fu · Tian Kui</div>
+        <div class="palace-meaning">Your inner life is stable and financially grounded. Wu Qu Lu gives you a natural, easy relationship with money — wealth flows toward where you place your mental focus. <strong>Tian Fu carries a deep inner sense of "enough" — contentment that does not depend on external validation.</strong> Tian Kui is the noble protector: a mentor or helper arrives precisely when you are at your lowest point.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">10</div>
+          <div class="palace-name">Property · 田宅</div>
+          <div class="palace-branch">丑 · 丁</div>
+        </div>
+        <div class="palace-stars">Tai Yang · Tai Yin</div>
+        <div class="palace-meaning">Sun and Moon together — the rare dual formation. <strong>You carry both a bright outward-facing public presence (Tai Yang, the Sun) and a deep, private inner world (Tai Yin, the Moon).</strong> Property is a natural domain: owning and managing real estate is structurally built into your chart's design. The home is also an expression of personal identity.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">09</div>
+          <div class="palace-name">Career · 官祿</div>
+          <div class="palace-branch">寅 · 丙</div>
+        </div>
+        <div class="palace-stars">Tan Lang 权 · Tian Xi</div>
+        <div class="palace-meaning">Career built through personal presence, magnetism and visible authority. Tan Lang is charm and the ability to make premium things desirable. With permanent Quan: <strong>you carry structural authority in your field for life</strong> — not from title but from presence and expertise. Tian Xi brings genuine satisfaction and joy in the work itself when it is aligned with your nature.</div>
+      </div>
+
+      <!-- Row 2: P1 [empty] [empty] P8 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">01</div>
+          <div class="palace-name">Life · 命</div>
+          <div class="palace-branch">戌 · 甲</div>
+        </div>
+        <div class="palace-stars">Po Jun · Wen Qu 忌</div>
+        <div class="palace-meaning">The reconstruction archetype. You don't patch or improve — you demolish and rebuild from the foundation. Athletic, dynamic, physically strong build. <strong>Wen Qu Ji: a written and verbal talent that meets persistent structural friction</strong> — documents, contracts and formal language are a permanent life theme, never catastrophic, always returning.</div>
+      </div>
+      <div class="palace-empty"></div>
+      <div class="palace-empty"></div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">08</div>
+          <div class="palace-name">Friends · 交友</div>
+          <div class="palace-branch">卯 · 丁</div>
+        </div>
+        <div class="palace-stars">Tian Ji · Ju Men · Tian Yao · Huo Xing</div>
+        <div class="palace-meaning">An intelligent, analytical inner circle (Tian Ji) with inherent complexity beneath the surface. Ju Men brings hidden agendas and indirect communication in peer relationships — what people say is rarely what they mean. Tian Yao = natural social magnetism and charm. <strong>Huo Xing = sudden explosive breaks. Trust in the network must be earned over time, not assumed from warmth.</strong></div>
+      </div>
+
+      <!-- Row 3: P2 [empty] [empty] P7 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">02</div>
+          <div class="palace-name">Siblings · 兄弟</div>
+          <div class="palace-branch">酉 · 癸</div>
+        </div>
+        <div class="palace-stars">(empty palace)</div>
+        <div class="palace-meaning">No main star. The sibling and close-peer domain activates through deliberate attention rather than automatic warmth. <strong>Read via its opposite, P8 Friends, for the fuller picture of how you relate to your inner circle.</strong> Years whose branch falls in 酉 bring this palace alive.</div>
+      </div>
+      <div class="palace-empty"></div>
+      <div class="palace-empty"></div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">07</div>
+          <div class="palace-name">Travel · 遷移</div>
+          <div class="palace-branch">辰 · 戊</div>
+        </div>
+        <div class="palace-stars">Zi Wei · Tian Xiang · Wen Chang · Ling Xing</div>
+        <div class="palace-meaning">The Emperor star in the Travel palace: <strong>you are structurally more recognised and valued abroad than in your home environment.</strong> Tian Xiang = extraordinary administrative ability, building order from complexity. Wen Chang = intellectual authority and the power of the written word. Ling Xing = an occasionally cool reception in certain foreign environments. Your strongest channel is always international.</div>
+      </div>
+
+      <!-- Row 4: P3 P4 P5 P6 -->
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">03</div>
+          <div class="palace-name">Spouse · 夫妻</div>
+          <div class="palace-branch">申 · 壬</div>
+        </div>
+        <div class="palace-stars">Lian Zhen · You Bi · Tian Yue · Hong Luan</div>
+        <div class="palace-meaning">Relationships are never casual — they carry intensity, meaning and the force of transformation. Lian Zhen = passion and complexity at the core of intimate partnership. You Bi = quiet, steady support that arrives alongside. Tian Yue = a protective, nurturing partner energy. <strong>Hong Luan = the capacity for genuine romantic joy and emotional bloom when the right conditions are present.</strong></div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">04</div>
+          <div class="palace-name">Children · 子女</div>
+          <div class="palace-branch">未 · 辛</div>
+        </div>
+        <div class="palace-stars">Qing Yang</div>
+        <div class="palace-meaning">No main star. Qing Yang — the sharp metal blade — signals sudden or unexpected events in the children domain. <strong>Health and circumstances in this area deserve proactive attention rather than a reactive response.</strong> Read alongside P10 Property (opposite palace) for the complete picture. Children bring sharp, intense energy into life.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">05</div>
+          <div class="palace-name">Wealth · 財帛</div>
+          <div class="palace-branch">午 · 庚</div>
+        </div>
+        <div class="palace-stars">Qi Sha · Zuo Fu · Lu Cun</div>
+        <div class="palace-meaning">A warrior's approach to money. Qi Sha = bold, fast and independent — income arrives through decisive action and high-stakes execution, not through passive accumulation. <strong>Zuo Fu: a helper or team structure amplifies what you earn; you outperform substantially with the right support system in place.</strong> Lu Cun = a structural financial floor — destitution is not in this chart's design.</div>
+      </div>
+      <div class="palace-card">
+        <div class="palace-head">
+          <div class="palace-number">06</div>
+          <div class="palace-name">Health · 疾厄</div>
+          <div class="palace-branch">巳 · 己</div>
+        </div>
+        <div class="palace-stars">Tian Liang 科 · Tian Ma · Di Jie · Di Kong · Tuo Luo</div>
+        <div class="palace-meaning">Longevity star (Tian Liang) with permanent Ke: the right healer or protective intervention appears when most needed. <strong>Tian Ma = movement is structural medicine — a sedentary lifestyle directly depletes your vitality; physical activity is non-negotiable.</strong> Di Kong and Di Jie together = a deep pull toward esoteric and philosophical knowledge. Tuo Luo = slow-grinding chronic issues, best managed proactively.</div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 2. CURRENT DECADE — D5                                  -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="current-decade">
+  <div class="section-eyebrow">Section 02 · Your current decade</div>
+  <h2 class="section-h2">2025–2034: the decade your <em>career palace</em> sits in the dominant position.</h2>
+  <p class="section-intro">You are now in your fifth decade. Decade-level signals run as background tailwinds and headwinds for the entire 10-year arc, layered underneath your annual cycles. Your D5 sends four structural flights into specific domains — three powerful tailwinds and one chronic pressure.</p>
+
+  <div class="decade-card">
+    <div class="decade-card-head">
+      <div class="decade-card-name">
+        <small>Decade D5 · 2025–2034 · ages 46–55</small>
+        Palace 9 Career · stem 丙 Bing
+      </div>
+      <div class="decade-card-pill">Active</div>
+    </div>
+
+    <div class="decade-flights">
+      <div class="flight-cell">
+        <div class="flight-symbol">禄</div>
+        <div class="flight-route">Lu → Tian Tong → <strong>P12 Parents</strong></div>
+        <div class="flight-note">Warm authority sphere. Lawyers, regulators, senior figures structurally favourable across the entire decade.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">权</div>
+        <div class="flight-route">Quan → Tian Ji → <strong>P8 Network</strong></div>
+        <div class="flight-note">Powerful authority channel through your network. Your profile projects expertise. Cold outreach converts structurally well — for the entire decade.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">科</div>
+        <div class="flight-route">Ke → Wen Chang → <strong>P7 Travel</strong></div>
+        <div class="flight-note">International recognition channel active for the whole arc. Outbound visibility to international audiences is structurally your strongest period.</div>
+      </div>
+      <div class="flight-cell">
+        <div class="flight-symbol">忌</div>
+        <div class="flight-route">Ji → Lian Zhen → <strong>P3 Spouse</strong></div>
+        <div class="flight-note">Relationship pressure marker active for the entire decade. Equity-partnerships and intimate partnerships both carry friction.</div>
+      </div>
+    </div>
+
+    <div class="decade-takeaways">
+      <p><strong>Strategic interpretation.</strong> Three of the four decade flights are tailwinds in critical career domains — network authority, international recognition, and protective allies. Your structural advantage in this 10-year arc is concentrated in <strong>premium, complex, high-trust environments where authority is recognised and scope is significant</strong>. Mass-market or low-trust environments dilute these channels.</p>
+      <p><strong>The one warning.</strong> The decade-long Ji on your Spouse palace is structural, not situational. Equity co-founders in this decade carry an elevated probability of dissolution. Contractual collaborators (agencies, contractors, advisors on retainer) outperform equity partners for this entire arc.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 3. 2026 ANNUAL LAYER                                    -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="year-and-forward">
+  <div class="section-eyebrow">Section 03 · 2026 annual layer</div>
+  <h2 class="section-h2">2026 is a <em>double-stack year</em> — the annual stem matches your decade stem.</h2>
+  <p class="section-intro">The 2026 annual stem 丙 (Bing) matches the stem of your current decade. When this happens, decade flights and annual flights stack on the same stars in the same palaces — producing doubled signals on already-active channels. Three of your four decade flights are doubled this year. One mechanism on your SPL axis activates additionally via annual branch. Below: the four 2026 structural events.</p>
+
+  <div class="annual-grid">
+    <div class="annual-cell">
+      <div class="annual-mech">Mechanism A · Double Quan</div>
+      <div class="annual-headline">P8 Network — <em>doubled authority signal</em></div>
+      <p>Decade Quan + 2026 annual Quan both land on Tian Ji in your network palace. Your profile transmits maximum authority this year. <strong>Cold outreach to reviewers, investors, recruiters, and decision-makers you have no prior relationship with converts at unusually high rates in 2026.</strong> Verified mechanism: every previous 丙 year in your history (2006, 2016) produced exactly this pattern.</p>
+    </div>
+    <div class="annual-cell">
+      <div class="annual-mech">Mechanism B · SPL annual activation</div>
+      <div class="annual-headline">Branch 午 → P5 Wealth — <em>SPL engine fires</em></div>
+      <p>The 2026 annual branch 午 (Horse) lands directly on your wealth palace, activating one of the five SPL mechanisms in your chart. Same activation type produced your highest-stakes career outcomes in 2006 (→P1) and 2010 (→P9). This is a <strong>structural income-generation year for your specific chart type</strong>.</p>
+    </div>
+    <div class="annual-cell">
+      <div class="annual-mech">Mechanism E · Double Ke</div>
+      <div class="annual-headline">P7 Travel — <em>international recognition peaks</em></div>
+      <p>Decade Ke + 2026 annual Ke both land on Wen Chang in your travel palace. International remote roles, cross-border collaboration, and outbound visibility carry <strong>maximum structural support this year</strong>. Companies with European or global scope respond to your profile at peak rates in 2026.</p>
+    </div>
+    <div class="annual-cell">
+      <div class="annual-mech">Pressure marker · Triple Ji</div>
+      <div class="annual-headline">P3 Spouse — <em>peak relationship strain</em></div>
+      <p>Decade Ji + 2026 annual Ji + your chart's existing Lian Zhen all stack on your Spouse palace. This is structurally <strong>your peak relationship-pressure year of the entire decade</strong>. Plan for this. Do not initiate new equity partnerships. Do not engage emotionally in contract disputes — engage only in writing, only with data.</p>
+    </div>
+  </div>
+
+  <div class="months-block">
+    <div class="months-block-h3">2026 timing windows by month</div>
+
+    <div class="month-row">
+      <div class="month-when">Month 3 · Apr 18 – May 16</div>
+      <div class="month-what">Lunar month stem 庚 sends <strong>both Lu and Ke onto your Property palace.</strong> Strongest single window of 2026 for property-related action.</div>
+      <div class="month-quality quality-peak">Peak window</div>
+    </div>
+    <div class="month-row">
+      <div class="month-when">Month 5 · Jun – Jul</div>
+      <div class="month-what">Negotiation window. Best month to put terms on the table for any pending career or commercial discussion. Sign later.</div>
+      <div class="month-quality quality-peak">Peak window</div>
+    </div>
+    <div class="month-row">
+      <div class="month-when">Months 7–8 · Aug – early Oct</div>
+      <div class="month-what">P10 Property sequential Ji windows. <strong>Do not lower price on property assets during this period.</strong> Coincides with peak counterparty pressure.</div>
+      <div class="month-quality quality-warn">Avoid</div>
+    </div>
+    <div class="month-row">
+      <div class="month-when">Month 9 · Oct – Nov</div>
+      <div class="month-what">Signing window. Best month to <strong>close offers, sign contracts, finalise career commitments</strong> initiated earlier in the year.</div>
+      <div class="month-quality quality-peak">Peak window</div>
+    </div>
+    <div class="month-row">
+      <div class="month-when">Month 10 · Nov 8 – Dec 6</div>
+      <div class="month-what">Bridge window. Lu→Tai Yin returns to P10 Property. Secondary window for property action.</div>
+      <div class="month-quality quality-mid">Open</div>
+    </div>
+    <div class="month-row">
+      <div class="month-when">Month 11 · Dec</div>
+      <div class="month-what">Second cold-outreach peak. Authority channel re-amplifies before year-end.</div>
+      <div class="month-quality quality-peak">Peak window</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 4. DECISION SUPPORT — Q&A                               -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="decision-support">
+  <div class="section-eyebrow">Section 04 · Decision support</div>
+  <h2 class="section-h2">Specific decisions, <em>derived directly</em> from your chart structure.</h2>
+  <p class="section-intro">This is the question-driven product. Real decisions, mapped to your permanent structure and active timing layers. Below: four examples derived from your chart and current period. The full product handles any decision you bring.</p>
+
+  <div class="qa-grid">
+
+    <div class="qa-card">
+      <div class="qa-q">
+        <div class="qa-q-label">Your question</div>
+        <div class="qa-q-text">What is my optimal job-search strategy for 2026?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-label">SuccessCode output</div>
+        <p><strong>Cold applications, not warm referrals.</strong> Your 2026 stem 丙 sends double Quan onto Tian Ji in P8 Network — your profile projects authority directly to people who have never met you. Reviewers, recruiters, and senior decision-makers respond to your CV structurally well this year.</p>
+        <p>Verified mechanism: 2006 (4 cold applications → 4 offers, 100% conversion) and 2016 (cold worked) ran exactly this pattern. <strong>Warm referrals will underperform.</strong> Stack the funnel toward direct outbound.</p>
+        <p>Channel reinforcement: decade + annual double Ke on Wen Chang P7 means <strong>international and remote-first roles respond best</strong>. Peak windows: Month 5 (Jun–Jul, negotiation), Month 9 (Oct–Nov, signing), Month 11 (Dec, second peak).</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">
+        <div class="qa-q-label">Your question</div>
+        <div class="qa-q-text">Should I take on an equity co-founder, or build alone?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-label">SuccessCode output</div>
+        <p><strong>Build alone — or with contractual collaborators, not equity partners.</strong> Your decade D5 sends Ji onto Lian Zhen in your Spouse palace for the entire 2025–2034 arc. Equity partnerships entered in this decade carry a structurally elevated probability of requiring dissolution. This is structural, not situational.</p>
+        <p>What works for your chart: <strong>agencies, advisors on retainer, contractors, direct reports.</strong> Your decade Quan on P8 Network actively supports leading a team of direct reports. Equity partners specifically are the constraint, not collaboration broadly.</p>
+        <p>If equity is unavoidable later in the decade: document everything in writing before commitment. Engage Tian Kui (your protector channel) — formal legal review — before signing.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">
+        <div class="qa-q-label">Your question</div>
+        <div class="qa-q-text">What are my legal and regulatory risks in 2026?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-label">SuccessCode output</div>
+        <p>Legal pressure from counterparties is likely to peak in <strong>August–October 2026</strong> — your P10 Property palace enters sequential Ji windows in lunar months 7–8, and concurrent counterparty financial-anxiety patterns peak in the same window. Documentation friction is structurally elevated.</p>
+        <p>Protection signal is strong: your chart carries the Tian Xing + Tian Kui combination — the noble-protector and authority-protection pattern. Three different lawyers surfaced at the right moments across your last three challenges. <strong>The verified track record across 2023–2025 is 3 wins from 3 adversarial situations.</strong></p>
+        <p>Probability of actual court filing by a known counterparty: <strong>10–15%</strong>. Their chart structurally avoids legal-system engagement. Probability of verbal pressure without filing: 80–85%. Do not fold to pressure that will not escalate.</p>
+      </div>
+    </div>
+
+    <div class="qa-card">
+      <div class="qa-q">
+        <div class="qa-q-label">Your question</div>
+        <div class="qa-q-text">When is the optimal sale window for my Spanish property?</div>
+      </div>
+      <div class="qa-a">
+        <div class="qa-a-label">SuccessCode output</div>
+        <p>2026 is structurally <strong>neutral on Property</strong> — annual stem 丙 sends no flights to P10. Decade flights do not reach P10 either. The whole year is not aligned for property action.</p>
+        <p>Best window inside 2026: <strong>Lunar Month 3 (April 18 – May 16)</strong>. Month stem 庚 sends both Lu→Tai Yang AND Ke→Tai Yin onto your P10 Property palace — the strongest single month of the year. Secondary: Month 10 (Nov 8 – Dec 6) when Lu returns. Avoid: Months 7–8 (sequential Ji on P10).</p>
+        <p>Main structural opening for property action: <strong>full year 2027 (丁 Ding)</strong>. The 2027 annual stem sends Lu→Tai Yin→P10 Property. This is the natural sale window for your chart. If sale is not urgent, wait nine months.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 5. FORWARD CALENDAR                                     -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="forward-calendar">
+  <div class="section-eyebrow">Section 05 · Forward calendar</div>
+  <h2 class="section-h2">The next nine years, <em>mapped</em>.</h2>
+  <p class="section-intro">Your decade continues through 2034. Below: the five high-priority years and their structural signature. Years not shown are middle-priority or stabilisation-only.</p>
+
+  <div class="calendar-grid">
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2027</div>
+      <div class="calendar-stem">丁 Ding</div>
+      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">Stabilisation</div>
+      <p>No SPL mechanism active. <strong>Stabilisation year for Property and family</strong>, not career. Lu→Tai Yin→P10 opens the structural window to resolve property situation. Career income remains decade-supported but no annual amplification.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2028</div>
+      <div class="calendar-stem">戊 Wu</div>
+      <div class="calendar-tag" style="color: var(--muted); border-color: var(--muted);">Middle priority</div>
+      <p>Branch → P3 Spouse (R3 relationship event). Lu→P9 carries a warning under your reversed polarity (Lu on the 1-5-9 axis suppresses). <strong>Year of relationship resolution, not career expansion.</strong></p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2029</div>
+      <div class="calendar-stem">己 Ji</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Peak year</div>
+      <p>Ji→P1 [mechanism A] + Quan→P9 [mechanism C]. Annual stem matches natal year stem — natal enhancers <strong>double</strong>. This is the <strong>peak structural year of your entire decade</strong>. Highest-stakes career and income window.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2033</div>
+      <div class="calendar-stem">癸 Gui</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Direct career hit</div>
+      <p>Ji→Tan Lang→P9 Career, mechanism A. <strong>Same structural type as 2003 and 2013</strong> — both produced major career outcomes in your history. Plan around this window from 2032 forward.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2034</div>
+      <div class="calendar-stem">甲 Jia</div>
+      <div class="calendar-tag" style="color: var(--green); border-color: var(--green);">Double mechanism</div>
+      <p>Branch → P9 Career [mechanism B] + Quan → P1 Life [mechanism C]. Final year of D5. Decade closes on <strong>two simultaneous SPL activators on your 1-5-9 axis</strong> — strong exit window from the decade.</p>
+    </div>
+
+    <div class="calendar-cell">
+      <div class="calendar-year">2035+</div>
+      <div class="calendar-stem">D6 begins</div>
+      <div class="calendar-tag" style="color: var(--gold); border-color: var(--gold);">New arc</div>
+      <p>Decade D6 begins on Palace 8 Friends with stem 丁. Decade flights identical to D4 (2015–2024) but with different decade-Life palace. Network domain becomes the dominant decade-position.</p>
+    </div>
+
+  </div>
+
+  <!-- Decade ratings table — P1 through P12 -->
+  <div class="decade-ratings-wrap">
+    <div class="decade-ratings-label">Past · Current · Next decade — rating per palace domain</div>
+    <div class="decade-ratings-grid">
+      <div class="decade-ratings-head">
+        <div class="dr-domain-col"></div>
+        <div class="dr-dec-col dr-past">D4 · 2015–2024<small>丁 Ding · Property decade</small></div>
+        <div class="dr-dec-col dr-now">D5 · 2025–2034<small>丙 Bing · Career decade</small></div>
+        <div class="dr-dec-col dr-next">D6 · 2035–2044<small>丁 Ding · Network decade</small></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P1 · Life</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P2 · Siblings</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P3 · Spouse</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P4 · Children</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P5 · Wealth</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P6 · Health</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P7 · Travel</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P8 · Friends</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P9 · Career</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P10 · Property</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★</span><span class="s-e">☆☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P11 · Mental</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★</span><span class="s-e">☆☆</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+      </div>
+      <div class="dr-row">
+        <div class="dr-domain-col">P12 · Parents</div>
+        <div class="dr-dec-col dr-past"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+        <div class="dr-dec-col dr-now"><span class="stars-wrap"><span class="s-f">★★★★★</span></span></div>
+        <div class="dr-dec-col dr-next"><span class="stars-wrap"><span class="s-f">★★★★</span><span class="s-e">☆</span></span></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ─────────────────────────────────────────────────────── -->
+<!-- 6. ZWDS CHART — live calculator with your chart         -->
+<!-- ─────────────────────────────────────────────────────── -->
+<section id="zwds-chart">
+  <div class="section-eyebrow">Section 06 · ZWDS chart</div>
+  <h2 class="section-h2">Your <em>chart</em>, live.</h2>
+  <p class="section-intro">The full calculator below renders your complete ZWDS chart from your birth data — palaces, branches, stems, all 18 main stars, support stars, evil stars, helpers, and the four enhancer flights from your year stem. Every conclusion in the sections above is derived from what you see here.</p>
+
+  <div class="chart-frame-wrap">
+    <div class="chart-instruction">
+      <strong>Birth data is pre-filled</strong> — 19 April 1979, 13:30, Saratov, Russia, female. Click <strong>Generate Chart</strong> inside the calculator to render. Do not click the demo button. Use the natal / decade / annual / monthly toggles inside the chart to explore each timing layer.
+    </div>
+    <iframe src="/zwds-alena" class="chart-frame" title="ZWDS Chart Calculator — Alena" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- GO UP BUTTON -->
+<a href="#top" class="go-up-btn" title="Back to top">↑</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <div class="footer-sub">Structural decision intelligence · successcode.net</div>
+  <div class="footer-legal">© 2026 SuccessCode · Confidential · Not for distribution</div>
+</footer>
+
+</body>
+</html>

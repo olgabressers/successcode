@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>ZWDS Test Group &amp; Consults — Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #F7F5F0;
+      --surface: #EDEBE4;
+      --gold:    #9A6E20;
+      --gold2:   #B8882A;
+      --border:  rgba(154,110,32,0.22);
+      --border2: rgba(30,28,40,0.10);
+      --text:    #1A1820;
+      --dim:     #383644;
+      --muted:   #72707E;
+      --green:   #1A5026;
+      --red:     #7A1E1E;
+      --tag-bg:  rgba(154,110,32,0.09);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    .page { max-width: 860px; margin: 0 auto; padding: 48px 40px 80px; }
+
+    /* HEADER */
+    .admin-badge { display: inline-block; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; background: var(--tag-bg); border: 1px solid var(--border); padding: 4px 10px; margin-bottom: 20px; }
+    .page-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 400; color: var(--text); margin-bottom: 6px; line-height: 1.2; }
+    .page-sub { font-size: 13px; color: var(--muted); margin-bottom: 36px; }
+    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 60%); margin: 32px 0; }
+
+    /* SECTION LABEL */
+    .sec-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* QUESTIONNAIRE BLOCK */
+    .q-block { background: white; border: 1px solid var(--border2); border-left: 3px solid var(--gold2); padding: 24px 28px; margin-bottom: 12px; }
+    .q-block-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 14px; }
+    .q-link { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .q-link a { font-size: 14px; color: var(--gold); font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 1px; }
+    .q-link a:hover { color: var(--gold2); }
+    .q-link .arrow { color: var(--muted); font-size: 12px; }
+
+    /* TESTING LIST */
+    .testing-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-weight: 600; }
+    .test-item { display: flex; gap: 10px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--border2); font-size: 13px; color: var(--dim); }
+    .test-item:last-child { border-bottom: none; }
+    .test-num { color: var(--gold); font-weight: 600; flex-shrink: 0; width: 20px; }
+
+    /* CLIENT TABLE */
+    .client-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .client-table thead tr { background: var(--surface); }
+    .client-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border2); }
+    .client-table td { padding: 16px 16px; border-bottom: 1px solid var(--border2); vertical-align: top; }
+    .client-table tr:last-child td { border-bottom: none; }
+    .client-table tr:hover td { background: var(--tag-bg); }
+
+    .client-name { font-weight: 500; color: var(--text); font-size: 14px; }
+    .client-type { display: inline-block; margin-top: 4px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); background: var(--tag-bg); border: 1px solid var(--border); padding: 2px 7px; }
+    .link-cell { display: flex; flex-direction: column; gap: 6px; }
+    .client-link { font-size: 12.5px; color: var(--gold); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+    .client-link:hover { color: var(--gold2); text-decoration: underline; }
+    .client-link .ltype { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); min-width: 44px; }
+    .status-badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 3px 8px; border: 1px solid; }
+    .status-badge.active { color: var(--green); border-color: rgba(26,80,38,0.3); background: rgba(26,80,38,0.06); }
+    .status-badge.pending { color: var(--muted); border-color: var(--border2); }
+    .date-col { font-size: 12px; color: var(--muted); }
+
+    /* ADMIN SECTION */
+    .admin-block { background: white; border: 1px solid var(--border2); border-left: 3px solid #5a5a7a; padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .admin-block-text .title { font-weight: 500; color: var(--text); font-size: 14px; margin-bottom: 4px; }
+    .admin-block-text .sub { font-size: 12.5px; color: var(--muted); }
+    .admin-btn { display: inline-block; font-size: 12px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: white; background: #383644; border: none; padding: 10px 20px; text-decoration: none; white-space: nowrap; }
+    .admin-btn:hover { background: #1A1820; }
+
+    /* NOTES */
+    .notes-block { background: var(--surface); border: 1px solid var(--border2); padding: 18px 24px; }
+    .notes-block p { font-size: 12.5px; color: var(--dim); line-height: 1.7; }
+    .notes-block p + p { margin-top: 8px; }
+
+    /* BACK TO ADMIN */
+    .back-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; margin-bottom: 28px; }
+    .back-btn:hover { color: var(--gold); }
+    .back-btn span { font-size: 14px; }
+
+    /* SCROLL TO TOP */
+    #back-to-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; background: var(--text); color: var(--gold); border: 1px solid var(--border); border-radius: 50%; font-size: 20px; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 900; }
+    #back-to-top:hover { background: var(--dim); }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <a class="back-btn" href="https://successcode.net/admin/delisted.html"><span>←</span> Back to Admin</a>
+
+  <div class="admin-badge">Internal · Admin</div>
+  <h1 class="page-title">ZWDS Test Group &amp; Consults</h1>
+  <p class="page-sub">June – July 2026 &nbsp;·&nbsp; Beta test round 1 &nbsp;·&nbsp; successcode.net</p>
+
+  <div class="gold-rule"></div>
+
+  <!-- QUESTIONNAIRE + WHAT WE'RE TESTING -->
+  <div class="sec-label">Questionnaire</div>
+
+  <div class="q-block">
+    <div class="q-block-title">Live questionnaire link</div>
+    <div class="q-link">
+      <span class="arrow">↗</span>
+      <a href="https://successcode.net/questionnaire.html" target="_blank">successcode.net/questionnaire.html</a>
+    </div>
+
+    <div class="testing-label">What we are testing</div>
+    <div class="test-item"><span class="test-num">Q1</span>Job search strategy 2026 — full flow: intake form → personalized month-by-month report. Testing: question clarity, do/don't guidance, month table readability, overall value of the output.</div>
+    <div class="test-item"><span class="test-num">Q2</span>Client attraction strategy 2026 — full flow: business intake form → report. Testing: B2B vs B2C branching, sector + deal-size questions, whether the output is actionable for founders.</div>
+    <div class="test-item"><span class="test-num">UX</span>Mobile experience, Russian copy naturalness, time to complete, clarity of what happens after submit.</div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- CLIENT TABLE -->
+  <div class="sec-label">Test clients — June / July 2026</div>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Question</th>
+        <th>Pages</th>
+        <th>Added</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="client-name">Алена</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">19.04.1979 · 13:30 · Саратов</div>
+        </td>
+        <td><span class="client-type">Q1 · Job search</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/report-q1-2026.html" target="_blank">
+              <span class="ltype">Report</span> report-q1-2026.html
+            </a>
+            <a class="client-link" href="https://successcode.net/zwds-alena" target="_blank">
+              <span class="ltype">Chart</span> zwds-alena
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <!-- ADD NEW CLIENTS BELOW THIS LINE -->
+    </tbody>
+  </table>
+
+  <div style="font-size:11px;color:var(--muted);margin-top:10px;padding-left:4px;">
+    To add a client: create <code>SuccessCode/clients/[name]/chart.html</code> + <code>report-2026.html</code>, push to main, add a row here.
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- CLIENT CONSULTS -->
+  <div class="sec-label">Client Consults</div>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>Question</th>
+        <th>Pages</th>
+        <th>Added</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="client-name">Nelly</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">16.04.1980 · 08:40 · Зеленоград</div>
+        </td>
+        <td><span class="client-type">Consult</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/report-nelly-divorce-2026.html" target="_blank">
+              <span class="ltype">Report</span> report-nelly-divorce-2026.html
+            </a>
+            <a class="client-link" href="https://successcode.net/zwds-nelly" target="_blank">
+              <span class="ltype">Chart</span> zwds-nelly
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="client-name">Муж Nelly</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">19.08.1980 · 03:40 · Маастрихт</div>
+        </td>
+        <td><span class="client-type">Consult</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/report-nelly-m-2026.html" target="_blank">
+              <span class="ltype">Report</span> report-nelly-m-2026.html
+            </a>
+            <a class="client-link" href="https://successcode.net/zwds-nelly-m" target="_blank">
+              <span class="ltype">Chart</span> zwds-nelly-m
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="client-name">Nelly · Стратегия</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">Обе карты · Прямые ответы</div>
+        </td>
+        <td><span class="client-type">Consult · Combined</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/report-nelly-strategy-2026.html" target="_blank">
+              <span class="ltype">Report</span> report-nelly-strategy-2026.html
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="client-name">Irina Kuzmina</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">30.11.1985 · 06:50 (clock) → ~06:36 solar · Рыбинск (Андропов)</div>
+        </td>
+        <td><span class="client-type">Consult</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/report-irina-personality.html" target="_blank">
+              <span class="ltype">Report</span> Карта личности
+            </a>
+            <a class="client-link" href="https://successcode.net/zwds-irina" target="_blank">
+              <span class="ltype">Chart</span> zwds-irina
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="client-name">Andrey Kuzmin</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">10.06.1988 · 19:00 (clock) → ~16:44 solar · Кемерово · Мужской</div>
+        </td>
+        <td><span class="client-type">Consult</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/zwds-andrey" target="_blank">
+              <span class="ltype">Chart</span> zwds-andrey
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <!-- ADD NEW CONSULT CLIENTS BELOW -->
+    </tbody>
+  </table>
+
+  <div class="gold-rule"></div>
+
+  <!-- FAMILY / PERSONAL -->
+  <div class="sec-label">Family / Personal</div>
+
+  <table class="client-table">
+    <thead>
+      <tr>
+        <th>Person</th>
+        <th>Type</th>
+        <th>Pages</th>
+        <th>Added</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="client-name">Sophia</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:2px;">14.10.2008 · 09:35 (clock) → 07:55 solar · Utrecht</div>
+        </td>
+        <td><span class="client-type">Family</span></td>
+        <td>
+          <div class="link-cell">
+            <a class="client-link" href="https://successcode.net/zwds-sophia" target="_blank">
+              <span class="ltype">Chart</span> zwds-sophia
+            </a>
+          </div>
+        </td>
+        <td class="date-col">June 2026</td>
+        <td><span class="status-badge active">Active</span></td>
+      </tr>
+      <!-- ADD NEW FAMILY CHARTS BELOW -->
+    </tbody>
+  </table>
+
+
+</div>
+
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Back to top">↑</button>
+<script>
+  window.addEventListener('scroll', function() {
+    var b = document.getElementById('back-to-top');
+    b.style.display = window.scrollY > 300 ? 'flex' : 'none';
+  });
+</script>
+</body>
+</html>

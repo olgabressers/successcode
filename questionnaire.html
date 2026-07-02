@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ваш план на 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.22);
+      --error:    #c0392b;
+    }
+
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(248,246,241,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+
+    /* PAGE */
+    .page-wrap { padding-top: 72px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+    .page-header {
+      width: 100%; text-align: center;
+      padding: 56px 24px 44px;
+      background: linear-gradient(180deg, var(--surface) 0%, var(--black) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
+    .page-tag::before { content: '—'; margin-right: 10px; }
+    .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; color: var(--white); }
+    .page-h1 em { font-style: italic; color: var(--gold2); }
+    .page-sub { font-size: 15px; line-height: 1.7; color: var(--dim); }
+
+    /* PROGRESS */
+    .progress-wrap { width: 100%; max-width: 960px; padding: 32px 40px 0; }
+    .progress-bar { display: flex; gap: 6px; margin-bottom: 8px; }
+    .progress-seg { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background .4s; }
+    .progress-seg.done { background: var(--gold); }
+    .progress-seg.active { background: var(--gold2); }
+    .progress-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* FORM WRAP */
+    .form-wrap { width: 100%; max-width: 960px; padding: 32px 40px 72px; }
+
+    /* STEPS */
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin-bottom: 8px; color: var(--white); }
+    .step-desc { font-size: 14px; color: var(--white); line-height: 1.65; margin-bottom: 32px; }
+
+    /* QUESTION CARDS */
+    .q-cards { display: flex; flex-direction: column; gap: 14px; margin-bottom: 32px; }
+    .q-card {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 22px 24px; background: var(--surface);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .q-card:hover { border-color: var(--gold2); background: var(--surface2); }
+    .q-card.selected { border-color: var(--gold); background: rgba(154,110,32,0.08); }
+    .q-card input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .q-dot {
+      width: 20px; height: 20px; min-width: 20px; margin-top: 3px;
+      border: 1.5px solid var(--muted); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .q-card.selected .q-dot { border-color: var(--gold); background: var(--gold); }
+    .q-card.selected .q-dot::after { content: ''; width: 8px; height: 8px; background: #fff; border-radius: 50%; }
+    .q-num { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 5px; }
+    .q-label { font-size: 17px; font-weight: 500; color: var(--white); line-height: 1.4; margin-bottom: 5px; }
+    .q-hint { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* FIELDS */
+    .field { margin-bottom: 26px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-row.three { grid-template-columns: 1fr 1fr 1fr; }
+    label.field-label {
+      display: block; font-size: 11px; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 7px;
+    }
+    .field-hint { font-size: 12px; color: var(--white); line-height: 1.5; margin-top: -3px; margin-bottom: 8px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); padding: 13px 15px;
+      font-family: 'Inter', sans-serif; font-size: 14px;
+      outline: none; transition: border-color .2s; -webkit-appearance: none; border-radius: 0;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold2); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    select { cursor: pointer; }
+    select option { background: var(--surface); color: var(--white); }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+
+    /* CITY AUTOCOMPLETE */
+    .city-input-wrap { position: relative; }
+    .city-dropdown {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+      background: var(--surface2); border: 1px solid var(--gold2);
+      border-top: none; max-height: 260px; overflow-y: auto; display: none;
+    }
+    .city-dd-item { padding: 10px 14px; cursor: pointer; }
+    .city-dd-item + .city-dd-item { border-top: 1px solid var(--border); }
+    .city-dd-item:hover { background: var(--gold-dim); }
+    .city-dd-name { font-size: 14px; color: var(--white); line-height: 1.3; }
+    .city-dd-detail { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    /* OPTIONS */
+    .opts { display: flex; flex-direction: column; gap: 9px; }
+    .opts.two { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 15px; background: var(--surface);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .opt:hover { border-color: var(--gold2); background: var(--surface2); }
+    .opt.selected { border-color: var(--gold); background: rgba(154,110,32,0.08); }
+    .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .opt-box {
+      width: 18px; height: 18px; min-width: 18px; margin-top: 2px;
+      border: 1.5px solid var(--muted); display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .opt.radio .opt-box { border-radius: 50%; }
+    .opt.selected .opt-box { border-color: var(--gold); background: var(--gold); }
+    .opt.radio.selected .opt-box::after { content: ''; width: 7px; height: 7px; background: #fff; border-radius: 50%; }
+    .opt.check.selected .opt-box::after { content: '✓'; font-size: 11px; color: #fff; line-height: 1; }
+    .opt-text { display: flex; flex-direction: column; flex: 1; }
+    .opt-main { font-size: 14px; color: var(--white); line-height: 1.4; }
+    .opt-sub { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+
+    /* DYNAMIC ROWS */
+    .dyn-row {
+      display: grid;
+      grid-template-columns: 120px 150px 1fr 36px;
+      gap: 10px;
+      align-items: start;
+      margin-bottom: 10px;
+    }
+    .jobs-entry {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 22px 16px;
+      margin-bottom: 12px;
+    }
+    .jobs-entry .row-top {
+      display: grid;
+      grid-template-columns: 1fr 120px 150px 36px;
+      gap: 10px;
+      align-items: end;
+      margin-bottom: 16px;
+    }
+    .btn-remove {
+      width: 36px; height: 42px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center; transition: all .2s; padding: 0;
+    }
+    .btn-remove:hover { border-color: var(--error); color: var(--error); }
+    .btn-add {
+      background: none; border: 1px dashed var(--border);
+      color: var(--gold); font-family: 'Inter', sans-serif;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; cursor: pointer; padding: 11px 20px;
+      width: 100%; transition: all .2s; margin-top: 6px;
+    }
+    .btn-add:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .job-ch-label {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 8px; display: block;
+    }
+
+    /* SECTION HEADER */
+    .sec-h { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--gold2); margin-bottom: 4px; }
+    .sec-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+    .divider { height: 1px; background: var(--border); margin: 30px 0; }
+
+    /* CONDITIONAL */
+    .q-sec { display: none; }
+    .q-sec.on { display: block; }
+
+    /* NOTE */
+    .note { border-left: 3px solid var(--gold); background: var(--gold-dim); padding: 12px 15px; font-size: 13px; color: var(--dim); line-height: 1.6; margin-bottom: 26px; }
+
+    /* BUTTONS */
+    .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; gap: 14px; }
+    .btn {
+      font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 2.5px;
+      text-transform: uppercase; font-weight: 600; cursor: pointer;
+      border: none; padding: 15px 36px; transition: all .25s;
+    }
+    .btn-primary { background: var(--gold); color: #fff; }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 12px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); padding: 15px 0; transition: color .2s;
+    }
+    .btn-back:hover { color: var(--white); }
+
+    /* CONFIRM */
+    #confirm-screen { display: none; text-align: center; padding: 64px 24px; }
+    .confirm-icon { width: 72px; height: 72px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-size: 28px; color: var(--gold2); }
+    .confirm-h { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 16px; }
+    .confirm-sub { font-size: 15px; color: var(--dim); line-height: 1.75; max-width: 480px; margin: 0 auto 24px; }
+    .confirm-note { font-size: 12px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      * { max-width: 100vw; }
+      nav { padding: 15px 20px; }
+      .nav-logo { font-size: 15px; letter-spacing: 3px; }
+      .page-header { padding: 40px 20px 32px; }
+      .page-h1 { font-size: 32px; }
+      .progress-wrap, .form-wrap { padding-left: 20px; padding-right: 20px; }
+      .step-title { font-size: 26px; }
+      .field-row, .field-row.three { grid-template-columns: 1fr; }
+      .opts.two { grid-template-columns: 1fr; }
+      .q-card { padding: 16px 18px; }
+      .q-label { font-size: 15px; }
+      .btn { padding: 14px 24px; font-size: 11px; }
+      .btn-row { flex-direction: column-reverse; align-items: stretch; }
+      .btn-back { text-align: center; }
+      .dyn-row { grid-template-columns: 1fr 1fr 36px; }
+      .dyn-row > input[type="text"] { grid-column: 1 / 3; }
+      .jobs-entry .row-top { grid-template-columns: 1fr 36px; }
+      .jobs-entry .row-top select { display: none; }
+      .confirm-h { font-size: 30px; }
+      .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://successcode.net" class="nav-logo" target="_blank" rel="noopener">SuccessCode</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-tag">Бета-группа — 2026</div>
+    <h1 class="page-h1">Ваш <em>план</em> на 2026</h1>
+    <p class="page-sub">Персональная стратегия — лучший метод и тайминг — для вашей цели в 2026 году.</p>
+  </div>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-seg" id="seg-1"></div>
+      <div class="progress-seg" id="seg-2"></div>
+      <div class="progress-seg" id="seg-3"></div>
+      <div class="progress-seg" id="seg-4"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Шаг 1 из 4</div>
+  </div>
+
+  <div class="form-wrap">
+    <form id="qform">
+
+      <!-- ══ ШАГ 1 — ВЫБОР ВОПРОСА ══ -->
+      <div class="step active" id="step-1">
+        <h2 class="step-title">Что вы хотите улучшить?</h2>
+        <p class="step-desc">Выберите один вопрос — под него будет построена стратегия.</p>
+
+        <div class="q-cards">
+          <label class="q-card" id="card-1" onclick="pickQ('q1','card-1')">
+            <input type="radio" name="chosen_question" value="Q1 — Найти работу в 2026">
+            <div class="q-dot"></div>
+            <div>
+              <div class="q-num">Вопрос 01</div>
+              <div class="q-label">Как найти работу в 2026 году?</div>
+              <div class="q-hint">Какой канал поиска даёт результат именно для вас — и в какие месяцы действовать активнее.</div>
+            </div>
+          </label>
+
+          <label class="q-card" id="card-2" onclick="pickQ('q2','card-2')">
+            <input type="radio" name="chosen_question" value="Q2 — Привлечь клиентов в 2026">
+            <div class="q-dot"></div>
+            <div>
+              <div class="q-num">Вопрос 02</div>
+              <div class="q-label">Как привлечь клиентов в 2026 году?</div>
+              <div class="q-hint">Какой канал работает для вашего типа бизнеса — и когда запускать активность.</div>
+            </div>
+          </label>
+        </div>
+
+        <div class="btn-row">
+          <span></span>
+          <button type="button" class="btn btn-primary" id="btn-s1" onclick="go(2)" disabled>Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 2 — КАРЬЕРА / БИЗНЕС ══ -->
+      <div class="step" id="step-2">
+
+        <!-- ── Q1: КАРЬЕРНАЯ ИСТОРИЯ ── -->
+        <div class="q-sec" id="s2-q1">
+          <h2 class="step-title">Ваша карьерная история</h2>
+          <p class="step-desc">Расскажите немного о своём профессиональном пути. Ответы помогают точнее построить рекомендацию.</p>
+
+          <div class="field">
+            <label class="field-label">Ваша текущая ситуация</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Работаю, активно ищу новую роль"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Работаю, активно ищу новую роль</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Работаю, открыт(а) к интересным предложениям"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Работаю, открыт(а) к интересным предложениям</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Не работаю, между ролями"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Не работаю / между ролями</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Безработный(ая), не могу найти работу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Безработный(ая), не могу найти работу</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'current_status')"><input type="radio" name="current_status" value="Веду собственный бизнес или фриланс"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Веду собственный бизнес или работаю фрилансером</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="profession">Профессиональная сфера / отрасль</label>
+            <input type="text" id="profession" name="profession" placeholder="Например: e-commerce, финансы, маркетинг, IT, консалтинг, здравоохранение">
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Лучшие карьерные или финансовые моменты</label>
+            <p class="field-hint">Добавьте каждый значимый момент отдельно — повышение, новая роль, первый крупный клиент, запуск бизнеса. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
+            <div id="best-years-rows"></div>
+            <button type="button" class="btn-add" onclick="addBestYear()">+ Добавить</button>
+          </div>
+
+          <div class="field" style="margin-top:28px">
+            <label class="field-label">Самые сложные периоды</label>
+            <p class="field-hint">Когда всё шло против вас — сотни откликов без ответа, клиенты не шли, сделки срывались.</p>
+            <div id="hard-years-rows"></div>
+            <button type="button" class="btn-add" onclick="addHardYear()">+ Добавить</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Как к вам пришла каждая важная роль или победа?</label>
+            <p class="field-hint">Добавьте ВСЕ значимые роли, клиентов или проекты. Для каждого — когда и как вы его получили.</p>
+            <div id="jobs-rows"></div>
+            <button type="button" class="btn-add" onclick="addJob()">+ Добавить роль или победу</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Что стабильно НЕ работало для вас — на протяжении всей жизни?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Холодные отклики / прямое обращение"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные отклики / прямое обращение</span><span class="opt-sub">Самостоятельный поиск вакансий, письма в компании без предварительного знакомства.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Тёплые знакомства / нетворкинг"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Тёплые знакомства / нетворкинг</span><span class="opt-sub">Просьбы к контактам вас познакомить, отраслевые мероприятия, ставка на рекомендации.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Ожидание звонков от рекрутеров"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ожидание звонков от рекрутеров</span><span class="opt-sub">Актуальный профиль в расчёте, что хедхантеры найдут сами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Онлайн-видимость / публикации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн-видимость / публикации</span><span class="opt-sub">Посты в LinkedIn, статьи в надежде, что работодатели найдут вас сами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(false)"><input type="radio" name="failed_channel" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные подходы работали в разное время.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'failed_channel'); showFailedOther(true)"><input type="radio" name="failed_channel" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно — что именно не давало результата.</span></span></label>
+            </div>
+            <div id="failed-other-wrap" style="display:none; margin-top:10px">
+              <textarea id="failed_channel_other" name="failed_channel_other" placeholder="Опишите конкретно: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── Q2: ПРОФИЛЬ БИЗНЕСА ── -->
+        <div class="q-sec" id="s2-q2">
+          <h2 class="step-title">Ваш бизнес</h2>
+          <p class="step-desc">Расскажите о своём бизнесе — чем занимаетесь, кто ваши клиенты, как устроена команда.</p>
+
+          <div class="field">
+            <label class="field-label" for="biz_description">Что вы продаёте и кому?</label>
+            <textarea id="biz_description" name="biz_description" style="min-height:90px" placeholder="Например: B2B SaaS для HR-команд, коучинг для руководителей, производство мебели на заказ, digital-агентство для e-commerce брендов..."></textarea>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="biz_sector">Отрасль / сфера</label>
+            <input type="text" id="biz_sector" name="biz_sector" placeholder="Например: IT, здравоохранение, образование, ретейл, финансы, строительство">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Тип клиентов</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2B — другие компании"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2B — другие компании</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2C — потребители"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">B2C — потребители</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_cust_type')"><input type="radio" name="biz_cust_type" value="B2B и B2C — оба типа"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Оба типа</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Размер команды</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="Только я — соло"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только я — соло</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="2–5 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">2–5 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="6–20 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">6–20 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="21–100 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">21–100 человек</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_team_size')"><input type="radio" name="biz_team_size" value="Более 100 человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 100 человек</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Есть ли в команде кто-то, кто занимается продажами или маркетингом?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Нет — я занимаюсь этим сам(а)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет — я занимаюсь этим сам(а)</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Да — один человек или небольшая команда"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да — один человек или небольшая команда</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Да — выделенный отдел продаж / маркетинга"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да — выделенный отдел продаж / маркетинга</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_sales_team')"><input type="radio" name="biz_sales_team" value="Отдано на аутсорс — агентство или фрилансер"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Отдано на аутсорс — агентство или фрилансер</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Средний чек / размер сделки</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="До 500 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До 500 €</span><span class="opt-sub">Розница, подписки, масс-маркет</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="500–5 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">500 – 5 000 €</span><span class="opt-sub">Малые B2B-контракты или premium B2C</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="5 000–50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">5 000 – 50 000 €</span><span class="opt-sub">Средние B2B-сделки</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_deal_size')"><input type="radio" name="biz_deal_size" value="Более 50 000 €"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Более 50 000 €</span><span class="opt-sub">Крупные корпоративные контракты</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Стадия бизнеса</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="Только запустился — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запустился — менее года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="1–3 года, растём"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года, растём</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="3+ лет, устоявшийся бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет, устоявшийся бизнес</span></span></label>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Лучшие периоды по клиентам</label>
+            <p class="field-hint">Когда клиенты шли хорошо — крупный контракт, поток заявок, рост выручки. Обязательно укажите месяц — это повысит точность рекомендаций.</p>
+            <div id="biz-wins-rows"></div>
+            <button type="button" class="btn-add" onclick="addBizWin()">+ Добавить</button>
+          </div>
+
+          <div class="field" style="margin-top:28px">
+            <label class="field-label">Самые слабые периоды</label>
+            <p class="field-hint">Когда клиентов не было — несмотря на все усилия. Конкретный год и период, что пробовали.</p>
+            <div id="biz-lows-rows"></div>
+            <button type="button" class="btn-add" onclick="addBizLow()">+ Добавить</button>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(1)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(3)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 3 — СПЕЦИФИКА ══ -->
+      <div class="step" id="step-3">
+        <h2 class="step-title">Уточняющие вопросы</h2>
+        <p class="step-desc">Несколько деталей о том, что именно вы ищете.</p>
+
+        <!-- Q1 — ПОИСК РАБОТЫ -->
+        <div class="q-sec" id="qs-q1">
+          <div class="field">
+            <label class="field-label" for="q1_industry">Ваша отрасль / сфера</label>
+            <input type="text" id="q1_industry" name="q1_industry" placeholder="Например: e-commerce, финансы, технологии, маркетинг, supply chain">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Целевой уровень позиции</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Джуниор / начинающий специалист"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Джуниор / начинающий</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Специалист среднего уровня"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Специалист среднего уровня</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Старший специалист"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Старший специалист</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Менеджер / руководитель команды"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Менеджер / руководитель команды</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="Директор"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Директор</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_seniority')"><input type="radio" name="q1_seniority" value="VP / топ-менеджер / C-level"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">VP / Топ-менеджер / C-level</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Предпочтения по локации</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Готов(а) к переезду за рубеж"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Готов(а) к переезду за рубеж</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Только удалённая работа / international remote"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только удалёнка / international remote</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Только в своей стране"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только в своей стране</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q1_location')"><input type="radio" name="q1_location" value="Гибко, открыт(а) ко всему"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Гибко / открыт(а) ко всему</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q1_notes">Дополнительный контекст</label>
+            <textarea id="q1_notes" name="q1_notes" placeholder="Например: целюсь в конкретные компании, меняю отрасль, возвращаюсь после перерыва, ищу только с релокацией..."></textarea>
+          </div>
+        </div>
+
+        <!-- Q2 — ПРИВЛЕЧЕНИЕ КЛИЕНТОВ -->
+        <div class="q-sec" id="qs-q2">
+          <div class="field">
+            <label class="field-label">Какой канал привлечения клиентов работал лучше всего?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Сарафанное радио / рекомендации клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сарафанное радио / рекомендации клиентов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Контент в соцсетях / органика"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Контент в соцсетях / органика</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Холодные обращения — email, LinkedIn, звонки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения — email, LinkedIn, звонки</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Мероприятия / выступления / конференции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Мероприятия / выступления / конференции</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Платная реклама — Google, Meta, Яндекс"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама — Google, Meta, Яндекс</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="SEO / контент-маркетинг"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">SEO / контент-маркетинг</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Партнёрства / дистрибьюторы / агенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёрства / дистрибьюторы / агенты</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Всё ещё разбираюсь — стабильного канала нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Всё ещё разбираюсь — стабильного канала нет</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Что стабильно НЕ работало — на протяжении всего существования бизнеса?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Email, LinkedIn, холодные звонки — без ответа или с отказами.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Контент и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Контент и соцсети</span><span class="opt-sub">Публикации, статьи, посты — просмотры есть, клиентов нет.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Платная реклама"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Платная реклама</span><span class="opt-sub">Потратили бюджет, результат не окупился.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Мероприятия и конференции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Мероприятия и конференции</span><span class="opt-sub">Много разговоров — мало сделок.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные каналы работали по-разному в разное время.</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(true)"><input type="radio" name="biz_failed_acq" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно.</span></span></label>
+            </div>
+            <div id="biz-failed-other-wrap" style="display:none; margin-top:10px">
+              <textarea id="biz_failed_acq_other" name="biz_failed_acq_other" placeholder="Опишите: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="q2_notes">Дополнительный контекст</label>
+            <textarea id="q2_notes" name="q2_notes" placeholder="Например: запускаю новый продукт, выхожу на новый рынок, конкретная проблема с воронкой, сезонность..."></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(2)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(4)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 4 — ДАННЫЕ РОЖДЕНИЯ ══ -->
+      <div class="step" id="step-4">
+        <h2 class="step-title">Данные рождения</h2>
+
+        <div class="note">Все данные конфиденциальны. Используются только для составления стратегии. Никогда не передаются третьим лицам.</div>
+
+        <div class="field">
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="first_name">Имя</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Ваше имя" required>
+            </div>
+            <div>
+              <label class="field-label" for="last_name">Фамилия</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Ваша фамилия">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Email-адрес</label>
+          <input type="email" id="email" name="email" placeholder="ваш@email.com" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Пол</label>
+          <div class="opts two">
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Женский">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Женский</span></span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Мужской">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Мужской</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_date">Дата рождения</label>
+          <input type="date" id="birth_date" name="birth_date" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_time">Время рождения</label>
+          <input type="time" id="birth_time" name="birth_time" style="max-width:220px">
+        </div>
+
+        <div class="field">
+          <label class="field-label">Место рождения</label>
+          <div class="city-input-wrap">
+            <input type="text" id="birth_location" name="birth_location"
+                   placeholder="Город и страна, например: Саратов, Россия"
+                   oninput="onBirthLocationInput()" autocomplete="off" required>
+            <div class="city-dropdown" id="birth-location-dd"></div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Страна проживания</label>
+          <div class="city-input-wrap">
+            <input type="text" id="residence_country" name="residence_country"
+                   placeholder="Например: Нидерланды, Германия, ОАЭ"
+                   oninput="onResidenceInput()" autocomplete="off">
+            <div class="city-dropdown" id="residence-dd"></div>
+          </div>
+        </div>
+
+        <!-- СОГЛАСИЕ -->
+        <div class="divider"></div>
+        <div class="field">
+          <label class="opt check" id="consent-opt" onclick="toggleConsent()">
+            <input type="checkbox" name="consent" id="consent-cb">
+            <div class="opt-box" style="margin-top:3px"></div>
+            <span class="opt-text" style="font-size:13px; color:var(--muted); line-height:1.55">
+              Я даю согласие на использование моих данных рождения и ответов для формирования персональной стратегии. Данные хранятся конфиденциально и никогда не передаются третьим лицам.
+            </span>
+          </label>
+        </div>
+
+        <input type="hidden" name="_subject" id="form_subject" value="SuccessCode 2026 — Анкета">
+        <input type="hidden" name="_replyto" id="form_replyto" value="">
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(3)">← Назад</button>
+          <button type="button" class="btn btn-primary" id="btn-submit" onclick="submitForm()">Отправить →</button>
+        </div>
+      </div>
+
+    </form>
+
+    <!-- ПОДТВЕРЖДЕНИЕ -->
+    <div id="confirm-screen">
+      <div class="confirm-icon">✦</div>
+      <h2 class="confirm-h">Готово.</h2>
+      <p class="confirm-sub">Спасибо. Ваша анкета получена.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var curStep = 1;
+  var selQ = null;
+
+  /* МЕСЯЦЫ */
+  var MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  var curYear = new Date().getFullYear();
+
+  function yearSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Год</option>';
+    for (var y = curYear; y >= 1975; y--) s += '<option>' + y + '</option>';
+    return s + '</select>';
+  }
+  function monthSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Месяц</option><option value="0">Не помню</option>';
+    MONTHS.forEach(function(m,i){ s += '<option value="' + (i+1) + '">' + m + '</option>'; });
+    return s + '</select>';
+  }
+
+  /* ЛУЧШИЕ ГОДЫ */
+  var byCount = 0;
+  function addBestYear() {
+    byCount++;
+    var n = byCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'by-' + n;
+    div.innerHTML =
+      yearSelect('by_year_' + n) +
+      monthSelect('by_month_' + n) +
+      '<input type="text" name="by_what_' + n + '" placeholder="Что произошло? Например: стал директором, основал компанию, привлёк крупнейшего клиента">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'by-' + n + '\')">×</button>';
+    document.getElementById('best-years-rows').appendChild(div);
+  }
+
+  /* СЛОЖНЫЕ ГОДЫ */
+  var hyCount = 0;
+  function addHardYear() {
+    hyCount++;
+    var n = hyCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'hy-' + n;
+    div.innerHTML =
+      yearSelect('hy_year_' + n) +
+      monthSelect('hy_month_' + n) +
+      '<input type="text" name="hy_what_' + n + '" placeholder="Что было заблокировано? Например: 200+ откликов без ответа, бизнес стоял, сделки срывались">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'hy-' + n + '\')">×</button>';
+    document.getElementById('hard-years-rows').appendChild(div);
+  }
+
+  /* РОЛИ / ПОБЕДЫ */
+  var jobCount = 0;
+  var chOpts = [
+    ['cold','Холодный отклик / прямое обращение','Я нашёл(а) вакансию сам(а) и написал(а) в компанию без предварительного знакомства. Меня никто не представлял.'],
+    ['warm','Тёплое знакомство','Коллега, друг или ментор, знавший обе стороны, познакомил нас. Я не нашёл(а) эту возможность самостоятельно.'],
+    ['recruiter','Рекрутер или хедхантер написал(а) мне','Меня нашли первым(ой). Я не искал(а) именно эту позицию активно.'],
+    ['event','Познакомились на конференции или мероприятии','Мы встретились лично на профессиональном событии, или меня заметили после выступления.'],
+    ['online','Нашли меня онлайн','Они пришли ко мне через пост в LinkedIn, статью, подкаст или другой контент.'],
+    ['internal','Внутренний перевод / повышение','Я уже был(а) в компании и перешёл(а) на новую роль внутри.'],
+    ['built','Создал(а) сам(а) с нуля','Я создал(а) эту возможность — запустил(а) продукт, основал(а) компанию, выстроил(а) отношения с клиентом с нуля.']
+  ];
+
+  function addJob() {
+    jobCount++;
+    var n = jobCount;
+    var radios = chOpts.map(function(o) {
+      return '<label class="opt radio" onclick="pickOpt(this,\'jch_' + n + '\')">' +
+        '<input type="radio" name="jch_' + n + '" value="' + o[0] + '">' +
+        '<div class="opt-box"></div>' +
+        '<span class="opt-text"><span class="opt-main">' + o[1] + '</span><span class="opt-sub">' + o[2] + '</span></span>' +
+        '</label>';
+    }).join('');
+
+    var div = document.createElement('div');
+    div.className = 'jobs-entry';
+    div.id = 'job-' + n;
+    div.innerHTML =
+      '<div class="row-top">' +
+        '<input type="text" name="job_title_' + n + '" placeholder="Название роли / описание победы, например: Директор по e-commerce в Nike, первый контракт на €200k">' +
+        yearSelect('job_year_' + n) +
+        monthSelect('job_month_' + n) +
+        '<button type="button" class="btn-remove" onclick="removeRow(\'job-' + n + '\')">×</button>' +
+      '</div>' +
+      '<span class="job-ch-label">Как вы получили эту роль / победу?</span>' +
+      '<div class="opts">' + radios + '</div>';
+    document.getElementById('jobs-rows').appendChild(div);
+  }
+
+  function removeRow(id) {
+    var el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  /* ВЫБОР ВОПРОСА */
+  function pickQ(qId, cardId) {
+    selQ = qId;
+    document.querySelectorAll('.q-card').forEach(function(c){ c.classList.remove('selected'); });
+    document.getElementById(cardId).classList.add('selected');
+    document.getElementById('btn-s1').disabled = false;
+    var labels = {q1:'Q1 Поиск работы', q2:'Q2 Клиенты'};
+    document.getElementById('form_subject').value = 'SuccessCode 2026 — ' + (labels[qId] || qId);
+  }
+
+  /* ВЫБОР ОПЦИИ */
+  function pickOpt(el, group) {
+    document.querySelectorAll('input[name="' + group + '"]').forEach(function(inp){
+      var p = inp.closest('.opt');
+      if (p) p.classList.remove('selected');
+    });
+    el.classList.add('selected');
+    var inp = el.querySelector('input');
+    if (inp) inp.checked = true;
+  }
+
+  /* ДРУГОЕ — НЕ РАБОТАЛО (Q1) */
+  function showFailedOther(show) {
+    var wrap = document.getElementById('failed-other-wrap');
+    var ta = document.getElementById('failed_channel_other');
+    wrap.style.display = show ? 'block' : 'none';
+    if (!show) ta.value = '';
+  }
+
+  /* ДРУГОЕ — НЕ РАБОТАЛО (Q2) */
+  function showBizFailedOther(show) {
+    var wrap = document.getElementById('biz-failed-other-wrap');
+    var ta = document.getElementById('biz_failed_acq_other');
+    wrap.style.display = show ? 'block' : 'none';
+    if (!show) ta.value = '';
+  }
+
+  /* БИЗ ПОБЕДЫ — динамические строки */
+  var bizWinCount = 0;
+  function addBizWin() {
+    bizWinCount++;
+    var n = bizWinCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'bw-' + n;
+    div.innerHTML =
+      yearSelect('bw_year_' + n) +
+      monthSelect('bw_month_' + n) +
+      '<input type="text" name="bw_what_' + n + '" placeholder="Что произошло? Например: подписан контракт на €50k, 30 новых клиентов за месяц, запуск с рекордной выручкой">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'bw-' + n + '\')">×</button>';
+    document.getElementById('biz-wins-rows').appendChild(div);
+  }
+
+  /* БИЗ ПРОВАЛЫ — динамические строки */
+  var bizLowCount = 0;
+  function addBizLow() {
+    bizLowCount++;
+    var n = bizLowCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'bl-' + n;
+    div.innerHTML =
+      yearSelect('bl_year_' + n) +
+      monthSelect('bl_month_' + n) +
+      '<input type="text" name="bl_what_' + n + '" placeholder="Что происходило? Например: заявок нет 3 месяца, реклама не окупается, потеряли ключевого клиента">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'bl-' + n + '\')">×</button>';
+    document.getElementById('biz-lows-rows').appendChild(div);
+  }
+
+  /* СОГЛАСИЕ */
+  function toggleConsent() {
+    var cb = document.getElementById('consent-cb');
+    cb.checked = !cb.checked;
+    document.getElementById('consent-opt').classList.toggle('selected', cb.checked);
+  }
+
+  /* ПРОГРЕСС */
+  function updateProgress(n) {
+    for (var i = 1; i <= 4; i++) {
+      var seg = document.getElementById('seg-' + i);
+      seg.classList.remove('done','active');
+      if (i < n) seg.classList.add('done');
+      else if (i === n) seg.classList.add('active');
+    }
+    document.getElementById('progress-label').textContent = 'Шаг ' + n + ' из 4';
+  }
+
+  /* НАВИГАЦИЯ */
+  function go(n) {
+    if (n > curStep && !validate(curStep)) return;
+    document.getElementById('step-' + curStep).classList.remove('active');
+    curStep = n;
+    document.getElementById('step-' + curStep).classList.add('active');
+    updateProgress(n);
+    if (n === 2) showStep2Sec();
+    if (n === 3) showQSec();
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  function showStep2Sec() {
+    document.querySelectorAll('#step-2 .q-sec').forEach(function(s){ s.classList.remove('on'); });
+    if (selQ) {
+      var sec = document.getElementById('s2-' + selQ);
+      if (sec) sec.classList.add('on');
+    }
+  }
+
+  function showQSec() {
+    document.querySelectorAll('#step-3 .q-sec').forEach(function(s){ s.classList.remove('on'); });
+    if (selQ) {
+      var sec = document.getElementById('qs-' + selQ);
+      if (sec) sec.classList.add('on');
+    }
+  }
+
+  /* ВАЛИДАЦИЯ */
+  function validate(step) {
+    if (step === 1 && !selQ) { alert('Пожалуйста, выберите вопрос.'); return false; }
+    if (step === 2) {
+      if (selQ === 'q1') {
+        if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
+      }
+      if (selQ === 'q2') {
+        if (!document.getElementById('biz_description').value.trim()) { alert('Пожалуйста, опишите ваш бизнес.'); return false; }
+        if (!document.querySelector('input[name="biz_cust_type"]:checked')) { alert('Пожалуйста, укажите тип клиентов.'); return false; }
+        if (!document.querySelector('input[name="biz_team_size"]:checked')) { alert('Пожалуйста, укажите размер команды.'); return false; }
+      }
+    }
+    if (step === 4) {
+      if (!document.getElementById('first_name').value.trim()) { alert('Пожалуйста, введите имя.'); return false; }
+      var em = document.getElementById('email').value.trim();
+      if (!em || !em.includes('@')) { alert('Пожалуйста, введите корректный email.'); return false; }
+      if (!document.querySelector('input[name="gender"]:checked')) { alert('Пожалуйста, укажите пол.'); return false; }
+      if (!document.getElementById('birth_date').value) { alert('Пожалуйста, введите дату рождения.'); return false; }
+      if (!document.getElementById('birth_location').value.trim()) { alert('Пожалуйста, введите место рождения.'); return false; }
+      document.getElementById('form_replyto').value = em;
+    }
+    return true;
+  }
+
+  /* CITY AUTOCOMPLETE — Nominatim */
+  var _birthLocTimer, _residenceTimer;
+
+  function onBirthLocationInput() {
+    clearTimeout(_birthLocTimer);
+    var val = document.getElementById('birth_location').value.trim();
+    if (val.length < 2) { hideCityDd('birth-location-dd'); return; }
+    _birthLocTimer = setTimeout(function() { fetchCityDd(val, 'birth-location-dd', 'birth_location'); }, 380);
+  }
+
+  function onResidenceInput() {
+    clearTimeout(_residenceTimer);
+    var val = document.getElementById('residence_country').value.trim();
+    if (val.length < 2) { hideCityDd('residence-dd'); return; }
+    _residenceTimer = setTimeout(function() { fetchCityDd(val, 'residence-dd', 'residence_country'); }, 380);
+  }
+
+  function fetchCityDd(query, ddId, inputId) {
+    var dd = document.getElementById(ddId);
+    fetch(
+      'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(query) + '&format=json&limit=6&addressdetails=1',
+      { headers: { 'Accept-Language': 'ru,en', 'User-Agent': 'SuccessCode-Questionnaire/1.0' } }
+    ).then(function(r) { return r.json(); }).then(function(data) {
+      if (!data || !data.length) { hideCityDd(ddId); return; }
+      dd._data = data;
+      dd._inputId = inputId;
+      dd.innerHTML = data.map(function(item, i) {
+        var parts = item.display_name.split(',');
+        var name = parts.slice(0, 2).join(',').trim();
+        var detail = parts.slice(2, 5).join(',').trim();
+        return '<div class="city-dd-item" onmousedown="selectCityItem(\'' + ddId + '\',' + i + ')">' +
+          '<div class="city-dd-name">' + name + '</div>' +
+          '<div class="city-dd-detail">' + detail + '</div>' +
+          '</div>';
+      }).join('');
+      dd.style.display = 'block';
+    }).catch(function() { hideCityDd(ddId); });
+  }
+
+  function selectCityItem(ddId, idx) {
+    var dd = document.getElementById(ddId);
+    var item = dd._data[idx];
+    var parts = item.display_name.split(',');
+    var displayName = parts.slice(0, 3).join(',').trim();
+    document.getElementById(dd._inputId).value = displayName;
+    hideCityDd(ddId);
+  }
+
+  function hideCityDd(ddId) {
+    var dd = document.getElementById(ddId);
+    if (dd) dd.style.display = 'none';
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.city-input-wrap')) {
+      hideCityDd('birth-location-dd');
+      hideCityDd('residence-dd');
+    }
+  });
+
+  /* ОТПРАВКА */
+  async function submitForm() {
+    if (!validate(4)) return;
+    if (!document.getElementById('consent-cb').checked) { alert('Пожалуйста, подтвердите согласие.'); return; }
+    var btn = document.getElementById('btn-submit');
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    var fd = new FormData(document.getElementById('qform'));
+    try {
+      var res = await fetch('https://formspree.io/f/xaqgoyyy', {
+        method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('qform').style.display = 'none';
+        document.getElementById('progress-wrap').style.display = 'none';
+        document.getElementById('confirm-screen').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        btn.disabled = false; btn.textContent = 'Отправить →';
+        alert('Что-то пошло не так. Попробуйте ещё раз.');
+      }
+    } catch(e) {
+      btn.disabled = false; btn.textContent = 'Отправить →';
+      alert('Ошибка сети. Проверьте соединение и попробуйте снова.');
+    }
+  }
+
+  /* ИНИЦИАЛИЗАЦИЯ */
+  updateProgress(1);
+  addBestYear(); addBestYear();
+  addHardYear();
+  addJob(); addJob();
+  addBizWin(); addBizWin();
+  addBizLow();
+</script>
+</body>
+</html>

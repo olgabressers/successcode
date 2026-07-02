@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuccessCode — Know Your Structural Advantage</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg">
+  <link rel="preconnect" href="https://trendsonfire.com">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --gold-dim: rgba(184,144,58,0.10);
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      max-width: 100vw;
+      width: 100%;
+      overflow-x: hidden;
+      position: relative;
+    }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-link {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; transition: color .25s;
+    }
+    .nav-link:hover { color: var(--gold2); }
+    .nav-btn {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 12px 26px; text-decoration: none; transition: background .25s;
+    }
+    .nav-btn:hover { background: var(--gold2); }
+
+    /* ─── HERO ─────────────────────────────────────────── */
+    .hero {
+      height: 100vh; min-height: 700px;
+      display: grid;
+      grid-template-columns: 58% 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 72px 88px 72px;
+      position: relative; z-index: 2;
+    }
+    .hero-tag {
+      display: flex; align-items: center; gap: 18px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px; font-weight: 600;
+    }
+    .hero-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(72px, 8vw, 118px);
+      font-weight: 300; line-height: 0.9;
+      letter-spacing: -2px;
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      font-size: 16px; line-height: 1.75; color: var(--white);
+      max-width: 380px; margin-top: 36px; margin-bottom: 52px;
+    }
+
+    .hero-right {
+      position: relative; overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(.65);
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, rgba(58,60,72,0) 50%);
+    }
+    .scroll-word {
+      position: absolute; bottom: 48px; right: 0;
+      writing-mode: vertical-rl;
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: #f3ecdf; z-index: 3;
+      display: flex; align-items: center; gap: 14px; padding-right: 32px;
+    }
+    .scroll-word::after { content: ''; width: 1px; height: 56px; background: var(--gold); }
+
+    /* ─── TICKER ────────────────────────────────────────── */
+    .ticker { background: var(--gold); overflow: hidden; padding: 15px 0; }
+    .ticker-track {
+      display: inline-flex; white-space: nowrap;
+      animation: slide 28s linear infinite;
+    }
+    .ticker-track span {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: #1c1814; font-weight: 600; padding: 0 36px;
+    }
+    .ticker-track span.dot { color: rgba(0,0,0,.35); padding: 0 8px; }
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ─── MANIFESTO ─────────────────────────────────────── */
+    .manifesto {
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 18px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px; font-weight: 600;
+    }
+    .manifesto-body {}
+    .manifesto-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.2vw, 64px);
+      font-weight: 300; line-height: 1.18;
+      max-width: 780px;
+    }
+    .manifesto-h2 strong { font-weight: 500; font-style: italic; color: var(--gold2); }
+    .manifesto-cols {
+      margin-top: 32px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      max-width: 780px;
+    }
+    .manifesto-cols p { font-size: 16px; line-height: 1.85; color: var(--white); }
+
+    /* ─── STATS ─────────────────────────────────────────── */
+    .stats-wrap {
+      padding: 0 72px 60px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .stats-rule { grid-column: 1 / 3; height: 1px; background: var(--border); margin-bottom: 48px; }
+    .stats-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+    }
+    .stat {
+      padding-right: 56px;
+      border-right: 1px solid var(--border);
+    }
+    .stat:nth-child(2) { padding-left: 56px; }
+    .stat:last-child  { padding-left: 56px; padding-right: 0; border-right: none; }
+    .stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(60px, 6.5vw, 96px);
+      font-weight: 300; line-height: 1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .stat-n sup { font-size: .52em; color: var(--gold); vertical-align: baseline; font-weight: 600; }
+    .stat-tag { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; font-weight: 600; }
+    .stat p  { font-size: 15px; line-height: 1.8; color: var(--white); }
+
+    /* ─── METHOD ─────────────────────────────────────────── */
+    .method { background: var(--surface); padding: 148px 72px; }
+    .method-top {
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      margin-bottom: 40px; padding-bottom: 40px;
+      border-bottom: 1px solid var(--border);
+    }
+    .method-top h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 560px;
+    }
+    .method-top h2 em { font-style: italic; color: var(--gold2); }
+    .steps { display: flex; flex-direction: column; }
+    .step {
+      display: grid;
+      grid-template-columns: 180px 64px 1fr 260px;
+      gap: 0 44px; align-items: start;
+      padding: 64px 0;
+      border-bottom: 1px solid var(--border);
+      opacity: 0; transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .step:last-child { border-bottom: none; }
+    .step.in { opacity: 1; transform: translateY(0); }
+    .step-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 88px; font-weight: 700; line-height: 1;
+      color: var(--gold);
+    }
+    .step-icon {
+      width: 44px; height: 44px; margin-top: 6px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .step-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 2.2; }
+    .step-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px; font-weight: 400;
+      color: var(--white); margin-bottom: 14px; line-height: 1.2;
+    }
+    .step-text p { font-size: 16px; line-height: 1.8; color: var(--white); max-width: 420px; }
+    .step-aside { font-size: 14px; line-height: 1.9; color: var(--gold); padding-top: 6px; }
+
+    /* ─── PULLQUOTE IMAGE ───────────────────────────────── */
+    .pullquote-wrap { height: 50vh; min-height: 360px; position: relative; overflow: hidden; }
+    .pullquote-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+      filter: brightness(.42);
+    }
+    .pullquote-text {
+      position: absolute; bottom: 64px; left: 72px; right: 72px; z-index: 2;
+    }
+    .pullquote-text blockquote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 3vw, 46px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.3; color: #f3ecdf; max-width: 780px;
+    }
+    .pullquote-text cite {
+      display: block; margin-top: 24px;
+      font-size: 14px; letter-spacing: 3px; text-transform: uppercase;
+      color: #cfa44e; font-style: normal;
+    }
+
+    /* ─── DEMO ──────────────────────────────────────────── */
+    .demo-section { background: var(--surface); padding: 60px 72px 56px; }
+    .demo-header {
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      margin-bottom: 56px;
+    }
+    .demo-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.18;
+    }
+    .demo-title em { font-style: italic; color: var(--gold2); }
+    .demo-sub {
+      font-size: 16px; line-height: 1.85; color: var(--white);
+      max-width: 520px; margin-top: 24px;
+    }
+    .demo-reading-intro {
+      border-top: 1px solid var(--border);
+      padding-top: 56px; margin-bottom: 48px;
+    }
+    .demo-reading-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.5vw, 64px);
+      font-weight: 300; line-height: 1.12;
+      margin-bottom: 20px;
+    }
+    .demo-reading-h2 em { font-style: italic; color: var(--gold2); }
+    .demo-reading-sub {
+      font-size: 16px; line-height: 1.82; color: var(--white);
+      max-width: 640px;
+    }
+    .calc-frame-outer {
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+    }
+    .calc-iframe { width: 100%; height: 1750px; border: none; display: block; }
+
+    /* ─── FOUNDER ───────────────────────────────────────── */
+    .founder-wrap {
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 1fr 420px; gap: 96px;
+      align-items: start;
+    }
+    .founder-left {}
+    .founder-eyebrow {
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 32px; font-weight: 600;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .founder-eyebrow::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .founder-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300; line-height: 1.12; margin-bottom: 36px;
+    }
+    .founder-left h2 em { font-style: italic; color: var(--gold2); font-size: clamp(13px, 1.4vw, 20px); letter-spacing: 0.5px; }
+    .founder-left p { font-size: 16px; line-height: 1.85; color: var(--white); margin-bottom: 20px; max-width: 520px; }
+    .creds { margin-top: 44px; }
+    .cred {
+      display: flex; gap: 22px; align-items: flex-start;
+      padding: 20px 0; border-bottom: 1px solid var(--border);
+    }
+    .cred:first-child { border-top: 1px solid var(--border); }
+    .founder-right-creds { margin-top: 8px; }
+    .founder-right-creds .cred:first-child { border-top: 1px solid var(--border); }
+    .cred-bar { width: 3px; flex-shrink: 0; height: auto; background: var(--gold); min-height: 18px; align-self: stretch; }
+    .cred-body strong { display: block; font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 3px; }
+    .cred-body span { font-size: 13px; color: var(--white); line-height: 1.6; }
+    .founder-right { }
+    .founder-photo-wrap { position: relative; display: block; }
+    .founder-photo-wrap img {
+      width: 100%; aspect-ratio: 3 / 4; object-fit: cover;
+      filter: brightness(.75) saturate(.8); display: block;
+    }
+    .founder-caption {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+      background: linear-gradient(to top, rgba(7,7,8,.88), transparent);
+    }
+    .founder-caption p { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: #cfa44e; }
+
+    /* ─── CTA ────────────────────────────────────────────── */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+      align-items: center;
+    }
+    .cta-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.5vw, 80px);
+      font-weight: 300; line-height: 1; letter-spacing: -1px;
+    }
+    .cta-left h2 em { font-style: italic; color: var(--gold2); }
+    .cta-right {}
+    .cta-right p { font-size: 16px; line-height: 1.8; color: var(--white); margin-bottom: 44px; }
+    .cta-fields { display: flex; flex-direction: column; gap: 0; }
+    .cta-input {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(226,228,236,.20);
+      font-size: 14px; color: var(--white);
+      padding: 18px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-bottom-color: var(--gold); }
+    .cta-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: #f5f1eb; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 18px 52px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .cta-submit:hover { background: var(--gold2); }
+    .cta-note { font-size: 13px; color: var(--muted); margin-top: 18px; }
+    .cta-done { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 24px; line-height: 1.6; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      padding: 36px 72px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+
+    /* ─── FOUNDER EXTRAS ────────────────────────────────── */
+    .founder-expertise {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 36px; margin-bottom: 28px;
+    }
+    .founder-expertise span {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border);
+      padding: 7px 14px;
+    }
+    .founder-linkedin-btn {
+      display: inline-block;
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+      border-bottom: 1px solid var(--gold); padding-bottom: 3px;
+      transition: color .2s;
+    }
+    .founder-linkedin-btn:hover { color: var(--gold2); }
+    .linkedin-outline-btn {
+      display: inline-flex; align-items: center;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      color: var(--dim); text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 14px 24px; transition: border-color .2s, color .2s;
+      font-family: 'Inter', sans-serif;
+    }
+    .linkedin-outline-btn:hover { border-color: var(--gold); color: var(--gold2); }
+
+    /* ─── CONTACT DIRECT ─────────────────────────────────── */
+    .contact-direct {
+      margin-top: 52px; padding-top: 36px;
+      border-top: 1px solid var(--border);
+    }
+    .contact-direct-label {
+      font-size: 13px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 24px; font-weight: 600;
+    }
+    .contact-links-col { display: flex; flex-direction: column; gap: 16px; }
+    .contact-link {
+      font-size: 15px; color: var(--dim); text-decoration: none;
+      display: flex; align-items: center; gap: 14px;
+      transition: color .2s;
+    }
+    .contact-link:hover { color: var(--white); }
+    .contact-link-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-link-icon svg { width: 13px; height: 13px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+
+    /* ─── PILLARS ────────────────────────────────────────── */
+    .pillars-section {
+      padding: 0 72px 60px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .pillars-content { display: flex; flex-direction: column; gap: 56px; }
+    .approach-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--border);
+    }
+    .approach-block { padding: 52px 48px 56px; }
+    .approach-block:first-child { border-right: 1px solid var(--border); }
+    .approach-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5vw, 76px);
+      font-weight: 300; line-height: 1;
+      color: var(--gold2); letter-spacing: 1px;
+      margin-bottom: 28px;
+    }
+    .approach-box {
+      border: 1px solid var(--border);
+      padding: 28px 32px 30px; margin-bottom: 28px;
+      background: rgba(0,0,0,0.14);
+    }
+    .approach-box h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 400; color: var(--white);
+      margin-bottom: 14px; line-height: 1.15;
+    }
+    .approach-box p { font-size: 16px; line-height: 1.82; color: var(--dim); }
+    .approach-examples { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .approach-examples li {
+      font-size: 16px; line-height: 1.75; color: var(--dim);
+      padding-left: 20px; position: relative;
+    }
+    .approach-examples li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .approach-examples strong { color: var(--gold2); font-weight: 600; }
+    .approach-note {
+      font-size: 14px; color: var(--muted); font-style: italic;
+      margin-top: 20px; line-height: 1.65;
+    }
+    .pillars-sublabel {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border-top: 1px solid var(--border);
+    }
+    .pillar {
+      padding: 64px 56px 64px 0;
+      border-right: 1px solid var(--border);
+    }
+    .pillar:nth-child(2) { padding-left: 56px; }
+    .pillar:last-child   { padding-left: 56px; padding-right: 0; border-right: none; }
+    .pillar-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: var(--gold2); margin-bottom: 24px;
+      letter-spacing: 4px; font-weight: 700; text-transform: uppercase;
+    }
+    .pillar h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 400; color: var(--white);
+      margin-bottom: 20px; line-height: 1.15;
+    }
+    .pillar p { font-size: 15px; line-height: 1.85; color: var(--white); }
+    .pillar .pillar-detail { font-size: 13px; line-height: 1.85; color: var(--gold); margin-top: 16px; }
+
+    /* ─── MARKET ──────────────────────────────────────────── */
+    .market-section {
+      background: var(--surface);
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+    .market-body {}
+    .market-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px;
+      margin-bottom: 48px;
+    }
+    .market-h2 em { font-style: italic; color: var(--gold2); }
+    .market-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 72px;
+    }
+    .market-stat { padding: 48px 56px 48px 0; border-right: 1px solid var(--border); }
+    .market-stat:nth-child(2) { padding-left: 56px; }
+    .market-stat:last-child   { padding-left: 56px; padding-right: 0; border-right: none; }
+    .market-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(52px, 5.5vw, 84px);
+      font-weight: 300; line-height: 1; color: var(--white); margin-bottom: 16px;
+    }
+    .market-n sup { font-size: .52em; color: var(--gold); vertical-align: baseline; font-weight: 600; }
+    .market-stat p { font-size: 15px; line-height: 1.8; color: var(--white); }
+    .market-thesis {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 64px;
+    }
+    .market-label {
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 20px; display: block;
+    }
+    .market-thesis p { font-size: 15px; line-height: 1.85; color: var(--white); }
+    .investor-cta-btn {
+      display: inline-block;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600;
+      color: #f5f1eb; background: var(--gold);
+      padding: 18px 44px; text-decoration: none; transition: background .25s;
+    }
+    .investor-cta-btn:hover { background: var(--gold2); }
+
+    /* ─── REVENUE PROJECTION ────────────────────────────── */
+    .revenue-projection {
+      margin-top: 64px; padding-top: 48px;
+      border-top: 1px solid var(--border);
+    }
+    .rev-eyebrow {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; display: block; margin-bottom: 12px;
+    }
+    .section-big-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 58px);
+      font-weight: 300; line-height: 1.1; color: var(--gold2);
+      margin-bottom: 40px;
+    }
+    .competitor-matrix {
+      margin-top: 80px; padding: 64px 72px 72px;
+      margin-left: -72px; margin-right: -72px;
+      background: #f8f6f1; color: #1e1c28;
+      --gold: #9a6e20; --gold2: #b8882a; --white: #1e1c28;
+      --dim: #3a3844; --muted: #6a6878; --border: rgba(154,110,32,0.20);
+    }
+    .competitor-matrix .section-big-title { color: #b8882a; }
+    .competitor-matrix .rev-eyebrow { color: #9a6e20; }
+    .comp-table {
+      width: 100%; border-collapse: collapse;
+      border: 1px solid var(--border);
+      margin-top: 24px;
+    }
+    .comp-table th {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: #9a6e20; font-weight: 600; padding: 18px 22px;
+      border: 1px solid rgba(154,110,32,0.25); text-align: left;
+      background: rgba(154,110,32,0.07); line-height: 1.4;
+    }
+    .comp-table td {
+      font-size: 14px; color: #3a3844; padding: 16px 22px;
+      border: 1px solid rgba(154,110,32,0.20); line-height: 1.6;
+      background: #fff;
+    }
+    .comp-table td:first-child { font-weight: 600; font-size: 15px; color: #1e1c28; }
+    .comp-table tbody tr:first-child td { color: #eceef8; background: #3a3c48; }
+    .comp-table tbody tr:first-child td:first-child { color: #cfa44e; font-size: 16px; }
+    .comp-table tbody tr:first-child .comp-check { color: #4caf72; }
+    .comp-check { color: #2a7a3a; font-size: 16px; font-weight: 700; }
+    .comp-cross { color: #aaa; font-size: 16px; }
+    .comp-partial { color: #9a6e20; font-size: 15px; }
+    .pricing-boxes {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid var(--border); margin-bottom: 40px;
+    }
+    .pricing-box {
+      padding: 22px 24px 24px;
+      border-right: 1px solid var(--border);
+    }
+    .pricing-box:last-child { border-right: none; }
+    .pricing-tier {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 10px;
+    }
+    .pricing-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3vw, 42px); font-weight: 300;
+      color: var(--gold2); line-height: 1; margin-bottom: 8px;
+    }
+    .pricing-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .rev-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--border);
+    }
+    .rev-col {
+      padding: 28px 32px 32px;
+      border-right: 1px solid var(--border);
+    }
+    .rev-col:last-child { border-right: none; }
+    .rev-year {
+      font-size: 10px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 12px;
+    }
+    .rev-subs { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+    .rev-amount {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px); font-weight: 300;
+      color: var(--white); line-height: 1;
+    }
+    .rev-assumption {
+      font-size: 11px; color: var(--muted); font-style: italic;
+      margin-top: 16px; line-height: 1.65;
+    }
+
+    /* ─── LIGHT SECTION OVERRIDE ───────────────────────── */
+    .s-light {
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.20);
+      background: #f8f6f1;
+      color: #1e1c28;
+    }
+
+    /* ─── METALLIC SHEEN ────────────────────────────────── */
+    /* ─── OUTPUT DEMO CARDS ─────────────────────────────── */
+    .output-section {
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+    .output-intro-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px; margin-bottom: 20px;
+    }
+    .output-intro-h2 em { font-style: italic; color: var(--gold2); }
+    .output-intro-sub { font-size: 16px; line-height: 1.82; color: var(--dim); max-width: 560px; }
+    .output-cards {
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+      margin-top: 64px;
+    }
+    .output-card {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column;
+    }
+    .output-card-q {
+      padding: 28px 32px 22px;
+      border-top: 2px solid var(--gold);
+      border-bottom: 1px solid rgba(184,144,58,0.15);
+      background: rgba(184,144,58,0.04);
+    }
+    .output-card-q-label {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 12px;
+    }
+    .output-card-q-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px; font-weight: 400; color: var(--white); line-height: 1.3;
+    }
+    .output-card-a {
+      padding: 22px 32px 32px; flex: 1;
+      background: var(--surface2);
+    }
+    .output-card-a-label {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; margin-bottom: 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .output-card-a-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .output-card-a p { font-size: 13.5px; line-height: 1.82; color: var(--dim); }
+    .output-card-a strong { color: var(--gold2); font-weight: 600; }
+
+    /* ─── TIERS SECTION ──────────────────────────────────── */
+    .tiers-section {
+      background: var(--surface);
+      padding: 60px 72px;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+    }
+    .tiers-intro-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.2; max-width: 680px; margin-bottom: 20px;
+    }
+    .tiers-intro-h2 em { font-style: italic; color: var(--gold2); }
+    .tiers-intro-sub { font-size: 16px; line-height: 1.82; color: var(--dim); max-width: 560px; margin-bottom: 0; }
+    .phases-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      margin-top: 56px; border-top: 1px solid var(--border);
+    }
+    .phase {
+      padding: 56px 48px 56px 0;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+    }
+    .phase:nth-child(n+2) { padding-left: 48px; }
+    .phase:last-child { border-right: none; padding-right: 0; }
+    .phase-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(64px, 6.5vw, 96px);
+      font-weight: 300; line-height: 1; color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .phase-status {
+      font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
+      font-weight: 600; margin-bottom: 28px;
+      border: 1px solid; padding: 5px 12px;
+      display: inline-block; align-self: flex-start;
+    }
+    .phase-status.live    { color: #1a3a22; background: #72b882; border-color: #72b882; }
+    .phase-status.inbuild { color: #2a1800; background: var(--gold); border-color: var(--gold); }
+    .phase-status.planned { color: var(--white); background: transparent; border-color: var(--muted); }
+    .phase-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px; font-weight: 400; color: var(--white);
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    .phase-items {
+      list-style: none; display: flex; flex-direction: column; gap: 12px; flex: 1;
+    }
+    .phase-items li {
+      font-size: 14px; line-height: 1.65; color: var(--dim);
+      padding-left: 18px; position: relative;
+    }
+    .phase-items li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .phase-timeline {
+      font-size: 11px; color: var(--gold); margin-top: 36px;
+      border-top: 1px solid var(--border); padding-top: 18px;
+      letter-spacing: 2px; font-weight: 600; text-transform: uppercase;
+    }
+
+    /* ─── CONTACT SECTION ───────────────────────────────── */
+    .contact-section {
+      border-top: 1px solid var(--border);
+      padding: 60px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+      align-items: start;
+    }
+    .contact-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .contact-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.8vw, 56px);
+      font-weight: 300; line-height: 1.1; margin-bottom: 36px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold2); }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail { display: flex; gap: 16px; align-items: flex-start; }
+    .contact-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-detail-body { display: flex; flex-direction: column; gap: 3px; padding-top: 6px; }
+    .contact-detail-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .contact-detail-val { font-size: 14px; color: var(--dim); text-decoration: none; transition: color .2s; }
+    .contact-detail-val:hover { color: var(--gold2); }
+    .contact-form { display: flex; flex-direction: column; gap: 0; }
+    .contact-input, .contact-select, .contact-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(212,214,232,0.2);
+      font-size: 14px; color: var(--white);
+      padding: 16px 0; width: 100%;
+      font-family: 'Inter', sans-serif; transition: border-color .25s;
+    }
+    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+    .contact-input:focus, .contact-select:focus, .contact-textarea:focus { border-bottom-color: var(--gold); }
+    .contact-select { color: var(--muted); appearance: none; cursor: pointer; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+    .contact-select option { background: var(--surface); color: var(--white); }
+    .contact-textarea { resize: none; min-height: 100px; margin-top: 8px; }
+    .contact-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: #1a1408; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 16px 44px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .contact-submit:hover { background: var(--gold2); }
+    .contact-sent { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 20px; }
+
+    .method, .demo-section, .output-section {
+      background-image: linear-gradient(160deg, rgba(200,204,220,0.035) 0%, rgba(200,204,220,0) 45%);
+    }
+    .stats-wrap, .manifesto {
+      background-image: linear-gradient(160deg, rgba(200,204,220,0.022) 0%, rgba(200,204,220,0) 40%);
+    }
+
+    /* ─── REVEAL ─────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+
+    /* ─── HAMBURGER ───────────────────────────────────────── */
+    .nav-toggle {
+      display: none; flex-direction: column; justify-content: center; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 8px; margin: -8px; z-index: 201;
+    }
+    .nav-toggle span { display: block; width: 24px; height: 2px; background: var(--white); transition: transform .25s, opacity .25s; }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ─── MOBILE ──────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* NAV */
+      nav { padding: 18px 24px; flex-wrap: wrap; align-items: center; }
+      .nav-toggle { display: flex; }
+      .nav-links {
+        display: none; flex-direction: column; gap: 0;
+        width: 100%; order: 3; padding: 8px 0;
+        border-top: 1px solid var(--border);
+        background: rgba(58,60,72,0.98);
+      }
+      .nav-links.open { display: flex; }
+      .nav-link { padding: 14px 0; font-size: 13px; letter-spacing: 2px; border-bottom: 1px solid rgba(184,144,58,0.12); }
+      .nav-btn { display: block; text-align: center; padding: 14px 0; margin-top: 8px; width: 100%; }
+
+      /* HERO */
+      .hero { grid-template-columns: 1fr; height: auto; min-height: 100vh; }
+      .hero-right { position: absolute; inset: 0; width: 100%; height: 100%; }
+      .hero-right::before { background: linear-gradient(to bottom, rgba(58,60,72,0.45) 0%, rgba(58,60,72,0.97) 75%); }
+      .hero-left { padding: 120px 24px 80px; min-height: 100vh; justify-content: flex-end; }
+      .hero-h1 { font-size: clamp(36px, 10vw, 52px); }
+      .hero-sub { max-width: 100%; font-size: 15px; }
+      .inline-form { max-width: 100%; }
+      .scroll-word { display: none; }
+
+      /* COMMON LAYOUT — collapse all two-column section grids */
+      .manifesto, .stats-wrap, .pillars-section, .market-section,
+      .output-section, .tiers-section {
+        grid-template-columns: 1fr; padding-left: 24px; padding-right: 24px;
+      }
+      .manifesto { padding-top: 64px; padding-bottom: 64px; gap: 20px; }
+      .stats-wrap { gap: 20px; padding-bottom: 64px; }
+      .pillars-section { padding-bottom: 64px; gap: 20px; }
+      .market-section { padding-top: 64px; padding-bottom: 64px; gap: 20px; }
+      .side-label { writing-mode: horizontal-tb; font-size: 13px; margin-bottom: 8px; letter-spacing: 3px; }
+      .stats-rule { grid-column: 1; margin-bottom: 40px; }
+
+      /* MANIFESTO */
+      .manifesto-h2 { font-size: clamp(24px, 7vw, 34px); max-width: 100%; }
+      .manifesto-cols { grid-template-columns: 1fr; gap: 20px; max-width: 100%; }
+
+      /* STATS */
+      .stat-n { font-size: clamp(44px, 12vw, 60px); }
+      .stats-grid { grid-template-columns: 1fr; }
+      .stat { padding: 32px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .stat:nth-child(2) { padding-left: 0; }
+      .stat:last-child   { padding-left: 0; border-bottom: none; }
+
+      /* PILLARS */
+      .approach-grid { grid-template-columns: 1fr; }
+      .approach-block:first-child { border-right: none; border-bottom: 1px solid var(--border); }
+      .approach-block { padding: 40px 24px 44px; }
+      .approach-heading { font-size: clamp(26px, 7.5vw, 38px); }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar { padding: 40px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .pillar:nth-child(2) { padding-left: 0; }
+      .pillar:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
+
+      /* METHOD */
+      .method { padding: 64px 24px; }
+      .method-top { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; padding-bottom: 32px; }
+      .method-top h2 { font-size: clamp(24px, 7vw, 34px); max-width: 100%; }
+      .step {
+        grid-template-columns: 64px 1fr;
+        grid-template-areas: "num num" "icon text";
+        gap: 12px 20px; padding: 40px 0;
+      }
+      .step-no   { grid-area: num; font-size: 56px; }
+      .step-icon { grid-area: icon; }
+      .step-text { grid-area: text; }
+      .step-text p { max-width: 100%; font-size: 15px; }
+      .step-aside { display: none; }
+
+      /* PULLQUOTE */
+      .pullquote-text { left: 24px; right: 24px; bottom: 28px; }
+      .pullquote-text blockquote { font-size: clamp(18px, 5.5vw, 26px); max-width: 100%; }
+
+      /* DEMO */
+      .demo-section { padding: 64px 24px 48px; }
+      .demo-header { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+      .demo-title { font-size: clamp(22px, 6.5vw, 32px); }
+      .demo-sub { max-width: 100%; font-size: 14px; }
+      .demo-reading-h2 { font-size: clamp(20px, 5.5vw, 28px); }
+      .demo-reading-sub { max-width: 100%; font-size: 14px; }
+      .demo-qualifiers { grid-template-columns: 1fr; }
+      .demo-q { border-right: none; border-bottom: 1px solid var(--border); padding: 20px 0; }
+      .demo-q:nth-child(2) { padding-left: 0; }
+      .demo-q:last-child   { padding-left: 0; border-bottom: none; }
+      .calc-iframe { height: 1300px; }
+
+      /* MARKET / INVESTORS */
+      .market-h2 { font-size: clamp(18px, 5vw, 26px); margin-bottom: 28px; max-width: 100%; }
+      .market-n { font-size: clamp(36px, 10vw, 48px); }
+      .market-stat p { font-size: 14px; }
+      .market-grid { grid-template-columns: 1fr; }
+      .market-stat { padding: 28px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .market-stat:nth-child(2) { padding-left: 0; }
+      .market-stat:last-child   { padding-left: 0; padding-right: 0; border-bottom: none; }
+      .market-thesis { grid-template-columns: 1fr; gap: 28px; margin-bottom: 40px; }
+
+      /* TAM $48B+ heading — direct class targeting */
+      .tam-heading {
+        font-size: clamp(26px, 7vw, 38px) !important;
+        line-height: 1.05 !important;
+        word-break: break-word !important;
+      }
+
+      /* TRUMP / DEMO CASE STUDY CARDS — collapse 2-col inline grid */
+      .trump-cards-grid {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+      }
+      /* Tighten inner card padding on mobile */
+      .trump-cards-grid > div > div:first-child { padding: 20px 18px 16px !important; }
+      .trump-cards-grid > div > div:last-child  { padding: 16px 18px 24px !important; }
+
+      /* OUTPUT CARDS */
+      .output-section { padding: 64px 24px; gap: 20px; }
+      .output-intro-h2 { font-size: clamp(20px, 6vw, 28px); max-width: 100%; }
+      .output-intro-sub { max-width: 100%; font-size: 14px; }
+      .output-cards { grid-template-columns: 1fr; }
+      .output-card-q { padding: 22px 20px 18px; }
+      .output-card-a { padding: 18px 20px 28px; }
+
+      /* TIERS / ROADMAP */
+      .tiers-section { padding: 64px 24px; gap: 20px; }
+      .tiers-intro-h2 { font-size: clamp(20px, 6vw, 28px); max-width: 100%; }
+      .tiers-intro-sub { max-width: 100%; font-size: 14px; }
+      .phases-grid { grid-template-columns: 1fr; }
+      .phase { padding: 48px 0; border-right: none; border-bottom: 1px solid var(--border); }
+      .phase-n { font-size: clamp(44px, 12vw, 60px); }
+      .phase-title { font-size: clamp(20px, 5.5vw, 26px); }
+      .phase:nth-child(n+2) { padding-left: 0; }
+      .phase:last-child { border-bottom: none; }
+
+      /* FOUNDER */
+      .founder-wrap { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
+      .founder-left h2 { font-size: clamp(22px, 6.5vw, 32px); }
+      .founder-left h2 em { font-size: clamp(13px, 3.5vw, 16px); }
+      .founder-left p { max-width: 100%; font-size: 15px; }
+      .founder-right img { aspect-ratio: 4 / 3; }
+
+      /* CTA */
+      .cta-section { grid-template-columns: 1fr; padding: 64px 24px; gap: 48px; }
+      .cta-left h2 { font-size: clamp(28px, 8vw, 40px); }
+      .cta-right p { margin-bottom: 28px; }
+
+      /* REVENUE PROJECTION */
+      .section-big-title { font-size: clamp(20px, 6vw, 28px); margin-bottom: 24px; }
+      .rev-amount { font-size: clamp(28px, 8vw, 38px); }
+      .revenue-projection { margin-top: 48px; padding-top: 32px; }
+      .pricing-boxes { grid-template-columns: repeat(2, 1fr); }
+      .pricing-box { padding: 16px 14px 18px; }
+      .pricing-box:nth-child(n+3) { border-top: 1px solid var(--border); }
+      .pricing-box:nth-child(even) { border-right: none; }
+      .pricing-price { font-size: clamp(22px, 6vw, 32px); }
+      .rev-grid { grid-template-columns: 1fr; }
+      .rev-col { border-right: none; border-bottom: 1px solid var(--border); padding: 24px 0; }
+      .rev-col:last-child { border-bottom: none; }
+      .rev-assumption { font-size: 11px; margin-top: 16px; line-height: 1.6; }
+
+      /* COMPETITOR MATRIX */
+      .competitor-matrix {
+        margin-left: -24px; margin-right: -24px;
+        padding: 40px 20px 48px;
+        overflow-x: scroll;
+        -webkit-overflow-scrolling: touch;
+      }
+      .competitor-matrix .section-big-title { font-size: clamp(18px, 5.5vw, 26px); }
+      .comp-table { min-width: 480px; width: max-content; }
+      .comp-table th { font-size: 9px; padding: 10px 8px; letter-spacing: 0.5px; }
+      .comp-table td { font-size: 11px; padding: 10px 8px; }
+      .comp-table td:first-child { font-size: 12px; }
+
+      /* CONTACT SECTION */
+      .contact-section { grid-template-columns: 1fr; padding: 64px 24px; gap: 48px; }
+      .contact-left h2 { font-size: clamp(24px, 7vw, 34px); max-width: 100%; }
+      .contact-form { width: 100%; }
+      .contact-submit { align-self: stretch; width: 100%; padding: 16px 24px; }
+      .linkedin-outline-btn { flex: 1; text-align: center; justify-content: center; }
+
+      /* FOOTER */
+      footer { padding: 28px 24px; flex-direction: column; gap: 12px; text-align: center; }
+
+      /* FORCE ALL ANIMATED ELEMENTS VISIBLE — iOS Safari fix */
+      .reveal, .step { opacity: 1 !important; transform: none !important; transition: none !important; }
+
+      /* BRUTE-FORCE: nothing on mobile may exceed viewport width */
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+
+      /* Neutralize competitor matrix negative margins — fit table in viewport instead of scrolling */
+      .competitor-matrix {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 32px 16px 40px !important;
+        max-width: 100% !important;
+        overflow-x: auto;
+      }
+      .comp-table {
+        min-width: 0 !important;
+        width: 100% !important;
+        table-layout: fixed;
+      }
+      .comp-table th, .comp-table td { word-break: break-word; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/speedrun" class="nav-logo">SuccessCode</a>
+  <button class="nav-toggle" aria-label="Menu" onclick="toggleNav(this)">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="#value" class="nav-link">Value</a>
+    <a href="#method" class="nav-link">Method</a>
+    <a href="#investors" class="nav-link">Investors</a>
+    <a href="#demo" class="nav-link">Demo</a>
+    <a href="#founder" class="nav-link">Founder</a>
+    <a href="#contact" class="nav-btn">Get in Touch</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Structural Life Intelligence</div>
+    <h1 class="hero-h1">
+      You Were<br>
+      Born with a<br>
+      <em>Blueprint.</em>
+    </h1>
+    <p class="hero-sub">SuccessCode decodes it. An AI strategic intelligence platform built on over 1,000 years of verified pattern science — revealing your innate strengths, your optimal decade, and exactly when to act.</p>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1400&q=80" alt="">
+    <div class="scroll-word">Scroll</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Know Your Strengths</span><span class="dot">·</span>
+    <span>Own Your Decade</span><span class="dot">·</span>
+    <span>Move at the Right Time</span><span class="dot">·</span>
+    <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
+    <span>Your Life Structure — Decoded</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
+    <span>Know Your Strengths</span><span class="dot">·</span>
+    <span>Own Your Decade</span><span class="dot">·</span>
+    <span>Move at the Right Time</span><span class="dot">·</span>
+    <span>1,000+ Years of Pattern Science</span><span class="dot">·</span>
+    <span>Your Life Structure — Decoded</span><span class="dot">·</span>
+    <span>Zi Wei Dou Shu · AI-Powered</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- VALUE / PROBLEM -->
+<section class="manifesto s-light" id="value">
+  <div class="side-label">Value · The Problem</div>
+  <div class="manifesto-body reveal">
+    <h2 class="manifesto-h2">
+      High-stakes decisions.<br>
+      <strong>No personal</strong><br>
+      <strong>intelligence layer.</strong>
+    </h2>
+    <div class="manifesto-cols">
+      <p>Every person faces high-stakes decisions — career, partnerships, money, health, investments — with no personal decision or timing intelligence layer. They rely on generic advice, gut instinct, or consultants who don't know their specific profile. The result is preventable mistakes at the worst possible moments.</p>
+      <p>Zi Wei Dou Shu is an over 1,000-year-old mathematically derived system — used by emperors, built from precise birth data — that maps individual timing windows, risk periods, and winning angles. Structural personal intelligence, used by Eastern businesses for centuries. Many Western executives, investors, and founders quietly use alternative timing and decision frameworks — from astrology to numerology to biorhythm cycles — without making it public. The difference: those methods are informal and not scalable. SuccessCode is built on a mathematically structured system with a 1,000-year empirical record. SuccessCode brings it to everyone in scalable manner on demand.</p>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="side-label">Value · The Problem</div>
+  <div class="manifesto-body reveal">
+    <h2 class="manifesto-h2">
+      You've optimized<br>
+      <strong>what</strong> to do.<br>
+      No one told you <strong>when.</strong>
+    </h2>
+    <div class="manifesto-cols">
+      <p>Every major decision — a salary negotiation, a career pivot, a launch, a legal battle — has two dimensions: strategy and timing. Every coaching platform, every advisor, every MBA programme focuses on strategy. Timing is treated as luck, intuition, or gut feeling. It is none of those things.</p>
+      <p>Timing is a pattern. Your pattern. Encoded in your birth data and mappable with extraordinary precision using an over 1,000-year system of human pattern observation that has been used as a private strategic tool by business families across East Asia for generations. SuccessCode is the first AI engine to make it accessible globally — specific, structural, and personalised to you alone.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats-wrap s-light">
+  <div class="stats-rule"></div>
+  <div class="side-label">Value · Proof</div>
+  <div class="stats-grid reveal">
+    <div class="stat">
+      <div class="stat-n">1,000<sup>+yrs</sup></div>
+      <div class="stat-tag">Empirical Pattern Data</div>
+      <p>Zi Wei Dou Shu has been refined across over ten centuries of observation. It predates the algorithm — and outlasted every trend in personal development.</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n">€150<sup>K</sup></div>
+      <div class="stat-tag">Invested Before Launch</div>
+      <p>The founder spent 10 years and €150,000 mastering the methodology on herself — using it to navigate every high-stakes move before building a single feature.</p>
+    </div>
+    <div class="stat">
+      <div class="stat-n">10<sup>yrs</sup></div>
+      <div class="stat-tag">Personal Validation Period</div>
+      <p>A decade of high-stakes decisions — salary negotiations, career pivots, strategic timing calls — all mapped using the system before a product was built. Every predicted window delivered. Tested methodology with 600+ clients.</p>
+    </div>
+  </div>
+</section>
+
+<!-- THREE PILLARS: WHAT YOU GET -->
+<section class="pillars-section">
+  <div class="side-label">Value · What You Get</div>
+  <div class="pillars-content">
+
+    <div class="approach-grid reveal">
+      <div class="approach-block">
+        <div class="approach-heading">Approach 01</div>
+        <div class="approach-box">
+          <h3>Question-Driven</h3>
+          <p>Bring your specific decision. SuccessCode maps it against your structural pattern and active timing layers — delivering a structured answer calibrated to your situation and your current period.</p>
+        </div>
+        <ul class="approach-examples">
+          <li>What is my optimal timing window for a job search this year?</li>
+          <li>Should I take this co-founder or build alone?</li>
+          <li>When is my peak window to raise my next funding round?</li>
+          <li>What are my legal and regulatory risks in the next 12 months?</li>
+          <li>Is this the right decade for a geographic relocation?</li>
+          <li>What is my structural edge — and where am I wasting leverage?</li>
+          <li>When should I make my next major investment or capital move?</li>
+        </ul>
+        <p class="approach-note">Any important question a person is facing. A specific, structured answer — derived entirely from your unique map.</p>
+      </div>
+      <div class="approach-block">
+        <div class="approach-heading">Approach 02</div>
+        <div class="approach-box">
+          <h3>Pre-Defined Packages</h3>
+          <p>Choose from structured report formats covering your core life domains — career, wealth, relationships, property, timing. Each package is derived from your permanent structural map and the timing layer active in your current period.</p>
+        </div>
+        <ul class="approach-examples">
+          <li><strong>Blueprint</strong> — Full natal map, 12 domains, innate edge, decade identification</li>
+          <li><strong>Strategic Calendar</strong> — 12-month timing map with monthly window quality by domain</li>
+          <li><strong>Decision Intelligence</strong> — Unlimited questions, major decision framing</li>
+          <li><strong>Company</strong> — Structural mapping for founding teams and key executives</li>
+        </ul>
+        <p class="approach-note">These are early examples. The final product will offer a much wider range of package types and delivery formats.</p>
+      </div>
+    </div>
+
+    <div class="pillars-grid reveal">
+      <div class="pillar">
+        <div class="pillar-no">I &nbsp;·&nbsp; Blueprint</div>
+        <h3>Your Innate Structural Advantage</h3>
+        <p>Your natural talents. Your optimal career domains. The industries and roles where your pattern has maximum structural leverage — and the ones quietly working against you.</p>
+        <p class="pillar-detail">Derived from your birth data, not from a questionnaire. Permanent and specific — this does not change as trends change. It is the map you were born with.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-no">II &nbsp;·&nbsp; Decade</div>
+        <h3>Your 10-Year Strategic Arc</h3>
+        <p>Which decade you are currently in. Whether it is structurally built for expansion, consolidation, transformation, or harvest. What your dominant domain is for the next 10 years.</p>
+        <p class="pillar-detail">Most people make decade-scale decisions without knowing which decade they are in. When your actions align with your arc, results compound. When they oppose it, even perfect strategy fails.</p>
+      </div>
+      <div class="pillar">
+        <div class="pillar-no">III &nbsp;·&nbsp; Timing</div>
+        <h3>Your Year and Month in Focus</h3>
+        <p>What this year is structurally optimised for: negotiation, expansion, visibility, relationships, money, or strategic patience. Updated annually. Specific to your pattern, not a general season.</p>
+        <p class="pillar-detail">This is where strategic intelligence becomes operational — specific enough to act on, structured enough to trust, and precise enough to plan around.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- METHOD -->
+<section class="method s-light" id="method">
+  <div class="method-top">
+    <div class="side-label">Method</div>
+    <h2 class="reveal">One input.<br>A lifetime of<br><em>structural clarity.</em></h2>
+  </div>
+  <div class="steps">
+
+    <div class="step">
+      <div class="step-no">01</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M19.07 4.93l-2.83 2.83M7.76 16.24l-2.83 2.83"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>One Input. Permanent Output.</h3>
+        <p>Date of birth, time, location. That's all. No quiz, no survey, no personality framework that changes with your mood. Your birth data encodes a fixed structural pattern — the algorithm reads it and produces a map that is permanently yours, across 12 domains of life.</p>
+      </div>
+      <div class="step-aside">Birth date · Time · Location<br><br>2 minutes to complete<br><br>One chart. Valid for a lifetime.<br>Updated annually for timing layers.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">02</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="1"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>Your Decade — Identified.</h3>
+        <p>You are never in a neutral period. Right now, your chart is in a specific decade that is structurally built for one dominant domain. SuccessCode identifies it — and tells you whether your current strategy is running with your arc or against it. The difference is not marginal. It is the difference between effort that compounds and effort that drains.</p>
+      </div>
+      <div class="step-aside">Career · Wealth · Relationships<br><br>Expansion vs. Consolidation<br><br>Decade + annual + monthly layers<br>delivered as a strategic document.</div>
+    </div>
+
+    <div class="step">
+      <div class="step-no">03</div>
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      </div>
+      <div class="step-text">
+        <h3>Monthly Windows. Specific Actions.</h3>
+        <p>Each month has a structural quality for your specific pattern — a quality that favours negotiation, or launch, or hiring, or patience. SuccessCode turns that into a decision calendar. Not abstract seasons. Specific windows mapped to your individual structure and the domains that matter to you right now.</p>
+      </div>
+      <div class="step-aside">Monthly precision alerts<br><br>Domain-specific guidance<br>(career · money · relationships)</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PULLQUOTE IMAGE -->
+<div class="pullquote-wrap">
+  <img src="https://images.unsplash.com/photo-1509048191080-d2984bad6ae5?auto=format&fit=crop&w=1600&q=80" alt="">
+  <div class="pullquote-text">
+    <blockquote>"A decade of high-stakes decisions — salary negotiations, career pivots, strategic timing calls — all mapped using this system before a product was built. Every predicted window delivered. Tested with 600+ clients. That is why I am building the platform."</blockquote>
+    <cite>Olga Bressers &nbsp;—&nbsp; Founder, SuccessCode</cite>
+  </div>
+</div>
+
+<!-- MARKET OPPORTUNITY -->
+<section class="market-section" id="investors">
+  <div class="side-label">For Investors</div>
+  <div class="market-body reveal">
+    <div style="margin-bottom:32px;">
+      <div style="font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Total Addressable Market</div>
+      <div class="tam-heading" style="font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,96px);font-weight:300;line-height:1;color:var(--gold2);">TAM $48B+</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:8px;font-style:italic;"><a href="https://www.grandviewresearch.com/industry-analysis/personal-development-market" target="_blank" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Source: Grand View Research, 2024</a></div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px 32px;margin-top:20px;">
+        <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">2024</span> &nbsp;$48.4B market size</div>
+        <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">2030</span> &nbsp;$67.21B projected</div>
+        <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">CAGR</span> &nbsp;5.7% (2025–2030)</div>
+        <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">Largest</span> &nbsp;North America</div>
+        <div style="font-size:12px;color:var(--dim);"><span style="color:var(--gold);font-weight:600;">Fastest growing</span> &nbsp;Asia Pacific</div>
+      </div>
+    </div>
+    <h2 class="market-h2">Coaching. Astrology. Personal development. $8.34 billion spent on guidance<br><em>with no timing precision.</em></h2>
+    <div class="market-grid" style="border-top:none;">
+      <div class="market-stat">
+        <div class="market-n">$5.34<sup>B</sup></div>
+        <p>People already pay premium prices for personalised strategic guidance — career moves, leadership decisions, life transitions. None of it includes individual timing intelligence. Coaches advise on what. No one advises on when.</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;font-style:italic;"><a href="https://coachingfederation.org/blog/coaching-industry-continues-global-growth-with-5-34-billion-usd-revenue-new-research-reveals/" target="_blank" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Source: ICF / PwC Global Coaching Study, 2025</a></p>
+      </div>
+      <div class="market-stat">
+        <div class="market-n">$3<sup>B</sup></div>
+        <p><strong>Astrology and personal insight apps.</strong> People already pay for pattern-based personal intelligence — birth charts, daily guidance, annual forecasts. The demand for individual pattern reading at scale is proven. The precision and actionability are not.</p>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;font-style:italic;"><a href="https://www.marknteladvisors.com/research-library/astrology-app-market.html" target="_blank" style="color:var(--muted);text-decoration:underline;text-underline-offset:3px;">Source: MarkNtel Advisors, 2024</a></p>
+      </div>
+      <div class="market-stat">
+        <div class="market-n">$0</div>
+        <p><strong>AI-native personal timing intelligence</strong> for a Western audience. The $8.34B combined market has no product that delivers structural individual timing precision. SuccessCode is building into an empty category — not competing in a crowded one.</p>
+      </div>
+    </div>
+    <div class="market-thesis">
+      <div>
+        <span class="market-label">The thesis</span>
+        <p>Every major decision-support platform — coaching, HR tech, career advisory, financial planning — will need a timing layer in the next decade. SuccessCode is building that layer, starting with the individual. The individual chart is the first product. The outcome data accumulated across thousands of users is the long-term moat — the first AI model that can predict when interventions land, across any domain of life.</p>
+      </div>
+      <div>
+        <span class="market-label">Why now</span>
+        <p>Three forces converge in 2025–2026: AI cost reduction makes per-user chart generation economically viable at scale for the first time; post-pandemic demand for personal agency frameworks has created mass-market appetite for individualised decision tools; and Western audiences are now receptive to non-Western methodologies at a scale that simply did not exist five years ago. The strategic timing layer is the last missing piece across every major decision-support category — and no precision product exists for it yet.</p>
+      </div>
+    </div>
+
+    <div class="revenue-projection reveal">
+      <span class="rev-eyebrow">Investors</span>
+      <h2 class="section-big-title">Projected Revenue.</h2>
+      <div class="pricing-boxes">
+        <div class="pricing-box">
+          <div class="pricing-tier">Basic</div>
+          <div class="pricing-price">€49</div>
+          <div class="pricing-desc">One-time report</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Single Question</div>
+          <div class="pricing-price">€99</div>
+          <div class="pricing-desc">Per question</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Annual Analysis</div>
+          <div class="pricing-price">€499</div>
+          <div class="pricing-desc">Annual subscription</div>
+        </div>
+        <div class="pricing-box">
+          <div class="pricing-tier">Corporate</div>
+          <div class="pricing-price">€10,000</div>
+          <div class="pricing-desc">Team / Enterprise</div>
+        </div>
+      </div>
+      <div class="rev-grid">
+        <div class="rev-col">
+          <div class="rev-year">2026</div>
+          <div class="rev-subs">500 new consumers · 1 corporate</div>
+          <div class="rev-amount">€177K</div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-year">2027</div>
+          <div class="rev-subs">5,000 new · 360 renewals · 5 corporate</div>
+          <div class="rev-amount">€1.9M</div>
+        </div>
+        <div class="rev-col">
+          <div class="rev-year">2028</div>
+          <div class="rev-subs">20,000 new · 3,600 renewals · 15 corporate</div>
+          <div class="rev-amount">€8.3M</div>
+        </div>
+      </div>
+      <p class="rev-assumption">Mix: 10% Basic (€49) · 30% Single Q (€99) · 60% Annual (€499). 80% annual retention on Single Q and Annual. Corporate €10,000/client. Excludes upsell and expansion revenue.</p>
+    </div>
+
+    <div class="competitor-matrix reveal">
+      <span class="rev-eyebrow">Competitive position</span>
+      <h2 class="section-big-title">No direct competitor.</h2>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Individual precision</th>
+            <th>Timing intelligence</th>
+            <th>Decision-specific output</th>
+            <th>Science-derived</th>
+            <th>AI layer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>SuccessCode</td>
+            <td><span class="comp-check">✓</span> Birth-data chart</td>
+            <td><span class="comp-check">✓</span> Annual + decade layers</td>
+            <td><span class="comp-check">✓</span> Question-driven output</td>
+            <td><span class="comp-check">✓</span> 1,000-yr methodology</td>
+            <td><span class="comp-check">✓</span> Phase 2</td>
+          </tr>
+          <tr>
+            <td>Executive coaching<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(BetterUp, Torch, Exec coaches)</span></td>
+            <td><span class="comp-partial">~</span> Coach-dependent</td>
+            <td><span class="comp-cross">✗</span> No timing layer</td>
+            <td><span class="comp-check">✓</span> Goal-specific</td>
+            <td><span class="comp-partial">~</span> Psychology-based</td>
+            <td><span class="comp-partial">~</span> Session assist only</td>
+          </tr>
+          <tr>
+            <td>Personality assessments<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(Myers-Briggs, DISC, Enneagram)</span></td>
+            <td><span class="comp-partial">~</span> Personality type</td>
+            <td><span class="comp-cross">✗</span> Static, no timing</td>
+            <td><span class="comp-partial">~</span> Communication style</td>
+            <td><span class="comp-partial">~</span> Survey-based</td>
+            <td><span class="comp-cross">✗</span> None</td>
+          </tr>
+          <tr>
+            <td>Horoscope apps<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(Astrology.com, Cafe Astrology)</span></td>
+            <td><span class="comp-partial">~</span> Sun sign only</td>
+            <td><span class="comp-cross">✗</span> No timing layer</td>
+            <td><span class="comp-cross">✗</span> Generic daily content</td>
+            <td><span class="comp-cross">✗</span> Pop astrology</td>
+            <td><span class="comp-cross">✗</span> None</td>
+          </tr>
+          <tr>
+            <td>AI assistants<br><span style="font-size:12px;color:#6a6878;font-weight:400;">(ChatGPT, Claude, Gemini)</span></td>
+            <td><span class="comp-cross">✗</span> No personal map</td>
+            <td><span class="comp-cross">✗</span> No timing model</td>
+            <td><span class="comp-partial">~</span> General advice only</td>
+            <td><span class="comp-cross">✗</span> Training data only</td>
+            <td><span class="comp-check">✓</span> Native</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP / PHASES -->
+<section class="tiers-section" id="plans">
+  <div class="side-label">Roadmap</div>
+  <div>
+    <h2 class="tiers-intro-h2 reveal" style="color:var(--gold)">Three phases.</h2>
+    <div class="phases-grid reveal">
+
+      <div class="phase">
+        <div class="phase-n">01</div>
+        <div class="phase-status live">Live</div>
+        <div class="phase-title">Calculator &amp; Foundation</div>
+        <ul class="phase-items">
+          <li>Live ZWDS calculator at successcode.net/zwds — full chart generation from birth data</li>
+          <li>Model foundation established</li>
+          <li>User accounts in build</li>
+        </ul>
+        <div class="phase-timeline">Foundation · Live Now</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-n">02</div>
+        <div class="phase-status inbuild">In Build</div>
+        <div class="phase-title">AI Interpretation Layer</div>
+        <ul class="phase-items">
+          <li>Chart reading AI model</li>
+          <li>Personalised recommendation reports</li>
+          <li>Question-answer interface over your chart</li>
+          <li>Annual, decade, and lifetime timing layers</li>
+        </ul>
+        <div class="phase-timeline">Target · Q3 2026</div>
+      </div>
+
+      <div class="phase">
+        <div class="phase-n">03</div>
+        <div class="phase-status planned">Planned</div>
+        <div class="phase-title">Consumer Launch</div>
+        <ul class="phase-items">
+          <li>Consumer subscriptions — Blueprint · Full · VIP · Company</li>
+          <li>Revenue target: €177K in 2026, €1.9M in 2027</li>
+          <li>International market activation</li>
+        </ul>
+        <div class="phase-timeline">Target · Q4 2026</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DEMO CALCULATOR -->
+<section class="demo-section s-light" id="demo">
+  <div class="demo-header">
+    <div class="side-label">The Engine</div>
+    <div>
+      <h2 class="demo-title reveal">The analytical layer<br>beneath every important<br><em>decision window.</em></h2>
+      <p class="demo-sub reveal">Every person carries an invisible structural calendar — periods of maximum leverage, negotiation authority, and expansion that no coach or consultant has ever mapped for them. This engine surfaces it. Enter your birth data. Your personal intelligence map generates in seconds.</p>
+    </div>
+  </div>
+  <!-- TRUMP CASE STUDY CARDS -->
+  <div class="demo-reading-intro reveal">
+    <h2 class="demo-reading-h2">Demo — analytical reading<br>from chart <em>driven by calculator engine. End product — Customer Report.</em></h2>
+    <p class="demo-reading-sub">The calculator is the backbone. Answers below are an example of generated customer reports based on birth data. The level of detail of the report will depend on the product type selected by the customer.</p>
+  </div>
+  <div style="margin-bottom: 48px;" class="reveal">
+    <div style="display:flex; align-items:center; gap:18px; margin-bottom:28px; padding-top:24px; border-top:1px solid var(--border);">
+      <span style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;">Case Study — Public Chart</span>
+      <span style="font-size:9px;letter-spacing:2px;color:var(--muted);">The President · b. June 14, 1946 · 10:54 AM · Queens, New York</span>
+    </div>
+    <div style="
+      display:grid; grid-template-columns:1fr 1fr;
+      border-left:1px solid var(--border); border-top:1px solid var(--border);
+    " class="trump-cards-grid">
+
+      <!-- 1 — Structural Source of Power -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">What is the structural source of my authority — and where does it permanently leak?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your core identity domain carries a dual public-visibility configuration — a mass-communication authority pattern and a private capital-accumulation pattern running simultaneously. This is the structure of someone built to operate at public scale, permanently. Your career domain carries a <strong style="color:var(--gold2);">double-strength legacy-recognition signal running for life</strong> — the historical record of your decisions is being built and preserved continuously. The permanent structural leak: a <strong style="color:var(--gold2);">200%-strength health obstacle signal</strong>, present from birth, that peaks in 2021–2030. In this profile, power and physical cost are permanently coupled — there is no version of the authority signal that does not carry the health cost.</p>
+        </div>
+      </div>
+
+      <!-- 2 — 2026 Year Analysis -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">I am making the most consequential decisions of my presidency in 2026. What does my timing analysis show?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">2026 is a triple-stack year — three separate timing layers carry the same signal simultaneously, which happens fewer than 3 times per lifetime. The result: <strong style="color:var(--gold2);">peak strategic intelligence and peak career authority</strong> — your strongest decision-making and public recognition year in this decade — running in parallel with <strong style="color:#e07070;">the highest structural health pressure of your lifetime</strong>. The analysis does not choose between the two — both are active simultaneously. The triple-stack also seats the annual focal point in your most volatile alliance and network domain. Maximum power, maximum physical cost, maximum network turbulence — all in the same year.</p>
+        </div>
+      </div>
+
+      <!-- 4 — Capital Deployment Timing -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">I am about to deploy capital into major new ventures and real-asset positions. What does my structural timing say — when do I commit, and when do I wait?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your wealth domain in 2026 carries a <strong style="color:var(--gold2);">double-authority configuration</strong> — both the decade layer and the annual layer send power signals into your financial and asset domain simultaneously. This is the strongest capital-deployment window of your current decade. <strong style="color:var(--gold2);">Optimal commitment window: Q2–Q3 2026</strong> — positions initiated in this range carry the highest structural probability of conversion to long-term gain. Caution: Q4 2026 through Q1 2027 introduces a friction signal in the asset domain — initiating new positions in this window tends toward renegotiation cycles and delayed settlement. Strategy: <strong style="color:var(--gold2);">commit before September 2026.</strong> Q2 2027 opens a second consolidation window for positions already seeded.</p>
+        </div>
+      </div>
+
+      <!-- 4b — Health Risks -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid #7a2020; border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c05050;font-weight:600;margin-bottom:10px;">Question to SuccessCode — Health</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">What are the structural health risks in my current decade — and in 2026 specifically?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:#c05050;display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Your current decade (2021–2030) is structurally health-dominant — the decade's focal energy sits directly in the health domain for the entire arc. Three concurrent risk indicators are active: a <strong style="color:#e07070;">200%-strength cardiovascular and circulatory obstacle signal</strong>, a latent-pattern indicator (conditions that develop below detection thresholds and surface suddenly), and a chronic-overextension signal driven by sustained high-pressure operation. 2026 triples this activation — it is the <strong style="color:#e07070;">peak health-risk year of the decade</strong>. The same domain also carries a systematic institutional-protection indicator — the structural support is available when actively sought. The risk is not seeking it. Highest-risk window: <strong style="color:#e07070;">September–October 2026.</strong></p>
+        </div>
+      </div>
+
+      <!-- 5 — Power Erosion / Polarization -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">My approval is at historic lows. Is this a structural pattern or a recoverable situation?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">It is structural. <strong style="color:var(--gold2);">Five separate external timing channels simultaneously direct pressure signals at your three core domains</strong> — identity, wealth, and career — while three separate support channels arrive in the same domains at the same time. This is not recoverable in the conventional sense because it was never unipolar. This profile generates maximum opposition and maximum support as a simultaneous permanent state. The pattern is not "collapse then recover." It is <strong style="color:var(--gold2);">sustained high-amplitude polarization with no moderate equilibrium available</strong> — in this profile, that is the normal operating condition, not an aberration.</p>
+        </div>
+      </div>
+
+      <!-- 6 — Presidential Timing Windows -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">My term ends January 2029. Map my remaining 32 months — when does structural momentum peak for my presidency, and when are the highest-risk windows for my authority?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Three annual cycles, three distinct profiles. <strong style="color:var(--gold2);">2026:</strong> Triple-stack career authority — the strongest presidential authority signal of your decade — runs simultaneously with the highest health pressure of your lifetime. Rating amplitude is at maximum: the highest highs and sharpest drops are both available in the same window. Highest-risk period: <strong style="color:#e07070;">September–October 2026</strong>, when the annual focal layer aligns with your most volatile alliance and network domain as health pressure peaks. <strong style="color:var(--gold2);">2027:</strong> Spring 2027 marks a structural rotation — the volatile domain exits the annual focal layer. Polarization drops. <strong style="color:var(--gold2);">April–September 2027 is the cleanest window of your remaining term</strong> — opposition channels reduce, alliances open, consolidation moves land with weight. <strong style="color:var(--gold2);">2028:</strong> The record-building signal in your career domain doubles. Institutional authority increases while mass-popularity signals soften — 2028 is built for legacy positioning, not rating maximization. Whatever you place on record this year is preserved at highest density. <strong style="color:var(--gold2);">Sequence:</strong> use 2026 peak authority for major moves. Use 2027 to consolidate. Lock in the record in 2028.</p>
+        </div>
+      </div>
+
+      <!-- 8 — Third Term Run -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid var(--gold); border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px;">Question to SuccessCode</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">Will I win if I run for a third presidential term in 2028?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:var(--gold);display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">This analysis does not calculate probability the way a pollster does — it reads whether the timing pattern is aligned with the outcome. The 2028 read: your career domain's record-building indicators run at <strong style="color:var(--gold2);">double strength in 2028</strong> — this is the same configuration that was active during your previous electoral victories. Your public identity domain carries a permanent mass-resonance signal that does not diminish in 2028. Alliance and network channels open structurally in Q2–Q3 2027 — precisely when a winning coalition needs to form. <strong style="color:var(--gold2);">The pattern that has produced electoral wins before is present again in 2028.</strong> One variable the analysis flags clearly: the 200%-strength cardiovascular obstacle signal in the health domain remains active through 2030 — a campaign is the highest physical-demand scenario possible, running directly through the final years of this signal. The verdict: <strong style="color:var(--gold2);">the winning pattern is available in 2028.</strong> Whether it converts to victory depends entirely on whether you can sustain the full campaign arc. If you can — the same energy that won before is active again.</p>
+        </div>
+      </div>
+
+      <!-- 9 — Legal Risks -->
+      <div style="border-right:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; flex-direction:column;">
+        <div style="padding:26px 30px 20px; border-top:2px solid #7a2020; border-bottom:1px solid rgba(184,144,58,0.15); background:rgba(184,144,58,0.04);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:#c05050;font-weight:600;margin-bottom:10px;">Question to SuccessCode — Legal</div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--white);line-height:1.3;">I face legal battles on multiple fronts. When is my legal exposure at its peak — and how do I protect myself?</div>
+        </div>
+        <div style="padding:20px 30px 28px; flex:1; background:var(--surface2);">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:10px;"><span style="width:16px;height:1px;background:#c05050;display:inline-block;flex-shrink:0;"></span>SuccessCode output</div>
+          <p style="font-size:13px;line-height:1.82;color:var(--dim);">Legal pressure in this profile is not a temporary anomaly — it is a permanent structural feature of the core identity domain. Every adversarial pattern this profile generates produces simultaneous opposition AND institutional protection — the protection mechanism activates in direct proportion to the pressure. <strong style="color:#e07070;">Peak legal exposure window: September–October 2026</strong> — the same period where multiple high-pressure signals stack simultaneously across identity, health, and alliance domains. This is when legally significant actions are most likely to be initiated and when procedural outcomes are most unpredictable. <strong style="color:var(--gold2);">The mitigation principle the analysis identifies consistently:</strong> the protection mechanism requires active engagement with formal institutional channels — courts, official legal structures, documented processes. Outside formal systems, the protective signal weakens. Do not fight from informal positions when formal ones are available. <strong style="color:var(--gold2);">The cleanest window for legal resolution: spring 2027 onwards</strong>, when the volatile alliance domain exits the annual focal layer and adversarial pressure structurally reduces. Cases initiated or escalated before that window carry higher reversal risk than those reaching resolution after it.</p>
+        </div>
+      </div>
+
+    </div>
+    <p style="font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:16px;font-style:italic;">All analysis derived from ZWDS natal chart, decade D8 (2021–2030), and 2026–2028 annual layers. Birth data: June 14, 1946, 10:54 AM, Queens, New York.</p>
+  </div>
+
+  <div class="calc-frame-outer reveal">
+    <iframe src="/zwds-demo" class="calc-iframe" title="Zi Wei Dou Shu Chart Calculator" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- FOUNDER -->
+<section class="founder-wrap" id="founder">
+  <div class="founder-left reveal">
+    <div class="founder-eyebrow">The Founder</div>
+    <h2>
+      Olga Bressers<br>
+      <em>Strategist · Builder · Operator · Founder</em>
+    </h2>
+    <p>Olga Bressers brings two rare disciplines to one platform: 20 years as a senior executive at Richemont, Adidas, Nike, and IBM — running €150M P&amp;L, 12 luxury brands, digital transformation across 26 countries — and 10 years of deep study in Chinese Metaphysics under leading Asian masters.</p>
+    <p>She built SuccessCode because she lived both sides. She used the system on herself for a decade, applying it to every high-stakes career decision, negotiation, and transition. Tested methodology with 600+ clients. Every predicted window delivered. Then she built the platform to make that same precision available to everyone.</p>
+    <div class="creds">
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>TrendsOnFire</strong>
+          <span>Founder &amp; Creator · AI-powered strategic market intelligence platform</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Richemont Luxury Group</strong>
+          <span>Director, E-Commerce Sales &amp; Operations · 12 luxury brands · 26 EU countries · €150M P&amp;L</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Adidas</strong>
+          <span>Director, Omni-channel and Digital Partner Commerce Strategy</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Nike</strong>
+          <span>Director, Digital Transformation · European Sporting Goods market</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="founder-right reveal">
+    <div class="founder-photo-wrap">
+      <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers — Founder, SuccessCode" fetchpriority="high">
+      <div class="founder-caption"><p>SuccessCode · Founded 2025</p></div>
+    </div>
+    <div class="founder-right-creds">
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>IBM</strong>
+          <span>Senior Supply Chain Consultant</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>TU/e — Technical University Eindhoven</strong>
+          <span>Professional doctorate, logistics &amp; supply chain systems</span>
+        </div>
+      </div>
+      <div class="cred">
+        <div class="cred-bar"></div>
+        <div class="cred-body">
+          <strong>Saratov State University</strong>
+          <span>Master's Degree, Applied Mathematics</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GET IN TOUCH -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="contact-eyebrow">Get in Touch</div>
+    <h2>Exploring investment<br>or <em>partnership</em> opportunities.</h2>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Email</span>
+          <a href="mailto:contact@successcode.net" class="contact-detail-val">contact@successcode.net</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Phone</span>
+          <a href="tel:+31647779797" class="contact-detail-val">+31 6 4777 9797</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-detail-val">linkedin.com/in/olgabressers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
+      <input class="contact-input" type="text"  name="name"    placeholder="NAME *"    required>
+      <input class="contact-input" type="text"  name="company" placeholder="COMPANY">
+      <input class="contact-input" type="email" name="email"   placeholder="EMAIL *"   required>
+      <select class="contact-select" name="inquiry">
+        <option value="" disabled selected>INQUIRY TYPE</option>
+        <option>Investment / Partnership</option>
+        <option>Advisory</option>
+        <option>Speaking</option>
+        <option>Product feedback</option>
+        <option>Other</option>
+      </select>
+      <textarea class="contact-textarea" name="message" placeholder="MESSAGE *" rows="4" required></textarea>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px;">
+        <button type="submit" class="contact-submit" id="contact-btn" style="margin-top:0;">Send Message →</button>
+        <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="linkedin-outline-btn">Connect on LinkedIn →</a>
+      </div>
+    </form>
+    <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <small>© 2026 SuccessCode &nbsp;·&nbsp; successcode.net</small>
+</footer>
+
+<script>
+  // Scroll reveal
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Steps stagger
+  const stepIo = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = [...document.querySelectorAll('.step')].indexOf(e.target);
+        setTimeout(() => e.target.classList.add('in'), i * 160);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.step').forEach(el => stepIo.observe(el));
+
+  // Mobile nav toggle
+  function toggleNav(btn) {
+    btn.classList.toggle('open');
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  document.querySelectorAll('.nav-link, .nav-btn').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelector('.nav-toggle').classList.remove('open');
+      document.querySelector('.nav-links').classList.remove('open');
+    });
+  });
+
+  // Contact form
+  async function submitContact(e) {
+    e.preventDefault();
+    const form = document.getElementById('contact-form');
+    const btn  = document.getElementById('contact-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xrejwqlq', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('contact-sent').style.display = 'block';
+      } else {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  }
+
+  // Waitlist submit
+  function joinList(src) {
+    const email = document.getElementById(src + (src === 'cta' ? '-email' : '-email')).value;
+    if (!email || !email.includes('@')) return;
+    if (src === 'hero') {
+      document.getElementById('hero-form').style.display = 'none';
+      document.getElementById('hero-done').style.display  = 'block';
+    } else {
+      document.getElementById('cta-form').style.display = 'none';
+      document.getElementById('cta-done').style.display  = 'block';
+    }
+  }
+</script>
+</body>
+</html>

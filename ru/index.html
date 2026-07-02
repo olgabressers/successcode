@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuccessCode — Расшифруйте карту своей жизни</title>
+  <meta name="description" content="Древнекитайская карта судьбы Цзы Вэй Доу Шу. Ответы на главные вопросы вашей жизни — карьера, деньги, отношения, здоровье, время решений.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --gold-dim: rgba(184,144,58,0.10);
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { max-width: 100vw; overflow-x: hidden; position: relative; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-link {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; transition: color .25s;
+    }
+    .nav-link:hover { color: var(--gold2); }
+    .nav-btn {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 12px 26px; text-decoration: none; transition: background .25s;
+    }
+    .nav-btn:hover { background: var(--gold2); }
+
+    /* Language switch */
+    .lang-switch {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--border);
+    }
+    .lang-switch a {
+      font-size: 11px; letter-spacing: 2px; font-weight: 600;
+      color: var(--muted); padding: 8px 12px;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch a.active { background: var(--gold); color: #f5f1eb; }
+    .lang-switch a:not(.active):hover { color: var(--gold2); }
+
+    /* HERO */
+    .hero {
+      height: 100vh; min-height: 700px;
+      display: grid;
+      grid-template-columns: 58% 1fr;
+      position: relative; overflow: hidden;
+    }
+    .hero-left {
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 0 72px 88px 72px;
+      position: relative; z-index: 2;
+    }
+    .hero-tag {
+      display: flex; align-items: center; gap: 18px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 36px; font-weight: 600;
+    }
+    .hero-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .hero-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(56px, 7vw, 104px);
+      font-weight: 300; line-height: 0.95;
+      letter-spacing: -2px; color: var(--white);
+    }
+    .hero-h1 em { font-style: italic; color: var(--gold2); }
+    .hero-sub {
+      font-size: 16px; line-height: 1.75; color: var(--white);
+      max-width: 460px; margin-top: 36px; margin-bottom: 36px;
+    }
+    .inline-form {
+      display: flex; align-items: center;
+      max-width: 560px; border-bottom: 1px solid var(--gold); gap: 0;
+      flex-wrap: wrap;
+    }
+    .inline-form input {
+      flex: 1; background: transparent; border: none; outline: none;
+      font-size: 12px; letter-spacing: 1px; color: var(--white);
+      padding: 14px 0; font-family: 'Inter', sans-serif; min-width: 0;
+    }
+    .inline-form input + input { border-left: 1px solid rgba(184,144,58,0.3); padding-left: 14px; }
+    .inline-form input::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 12px; }
+    .inline-form button {
+      background: transparent; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); padding: 14px 0 14px 24px;
+      font-family: 'Inter', sans-serif; transition: color .2s; white-space: nowrap;
+    }
+    .inline-form button:hover { color: var(--gold2); }
+
+    .hero-right { position: relative; overflow: hidden; }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(.65);
+    }
+    .hero-right::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, rgba(58,60,72,0) 50%);
+    }
+    .scroll-word {
+      position: absolute; bottom: 48px; right: 0;
+      writing-mode: vertical-rl;
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: #f3ecdf; z-index: 3;
+      display: flex; align-items: center; gap: 14px; padding-right: 32px;
+    }
+    .scroll-word::after { content: ''; width: 1px; height: 56px; background: var(--gold); }
+
+    /* TICKER */
+    .ticker { background: var(--gold); overflow: hidden; padding: 15px 0; }
+    .ticker-track {
+      display: inline-flex; white-space: nowrap;
+      animation: slide 32s linear infinite;
+    }
+    .ticker-track span {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: #1c1814; font-weight: 600; padding: 0 36px;
+    }
+    .ticker-track span.dot { color: rgba(0,0,0,.35); padding: 0 8px; }
+    @keyframes slide { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* MANIFESTO */
+    .manifesto {
+      padding: 96px 72px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px; font-weight: 600;
+    }
+    .manifesto-body { max-width: 1000px; }
+    .manifesto-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.4vw, 64px);
+      font-weight: 300; line-height: 1.18;
+      max-width: 880px; color: var(--white);
+    }
+    .manifesto-h2 strong { font-weight: 500; font-style: italic; color: var(--gold2); }
+    .manifesto-cols {
+      margin-top: 36px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 48px;
+      max-width: 880px;
+    }
+    .manifesto-cols p { font-size: 16px; line-height: 1.85; color: var(--white); }
+
+    /* EMPEROR / SECRECY */
+    .emperor-section {
+      min-height: 80vh;
+      display: grid;
+      grid-template-columns: 58% 1fr;
+      position: relative; overflow: hidden;
+    }
+    .emperor-left {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 110px 72px;
+      position: relative; z-index: 2;
+    }
+    .emperor-right { position: relative; overflow: hidden; }
+    .emperor-right img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      filter: brightness(.65);
+    }
+    .emperor-right::before {
+      content: ''; position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(to right, var(--black) 0%, rgba(58,60,72,0) 50%);
+    }
+    .emperor-text {}
+    .emperor-tag {
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 30px; font-weight: 600;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .emperor-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .emperor-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300; line-height: 1.12;
+      letter-spacing: -1px; color: var(--white);
+      margin-bottom: 36px;
+    }
+    .emperor-h2 em { font-style: italic; color: var(--gold2); }
+    .emperor-p {
+      font-size: 17px; line-height: 1.85; color: var(--white);
+      max-width: 620px; margin-bottom: 22px;
+    }
+    .emperor-p strong { color: var(--gold2); font-weight: 600; }
+    .emperor-stats {
+      margin-top: 50px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+      max-width: 720px;
+      padding-top: 42px;
+      border-top: 1px solid var(--border);
+    }
+    .emperor-stat-n {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(46px, 5vw, 68px);
+      font-weight: 300; line-height: 1;
+      color: var(--gold2); margin-bottom: 10px;
+    }
+    .emperor-stat-label {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* QUESTIONS */
+    .questions-section {
+      padding: 110px 72px;
+      background: var(--surface);
+    }
+    .questions-header {
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      margin-bottom: 64px;
+    }
+    .questions-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 4.4vw, 60px);
+      font-weight: 300; line-height: 1.15;
+      max-width: 820px; color: var(--white);
+    }
+    .questions-h2 em { font-style: italic; color: var(--gold2); }
+    .questions-sub {
+      font-size: 16px; line-height: 1.85; color: var(--white);
+      max-width: 700px; margin-top: 22px;
+    }
+    .questions-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--border);
+    }
+    .question-card {
+      padding: 44px 44px 48px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .question-card:nth-child(2n) { border-right: none; }
+    .question-card:nth-last-child(-n+2) { border-bottom: none; }
+    .question-no {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; color: var(--gold2);
+      letter-spacing: 4px; font-weight: 700; text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .question-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 400; color: var(--white);
+      margin-bottom: 22px; line-height: 1.18;
+    }
+    .question-list { list-style: none; }
+    .question-list li {
+      font-size: 15px; line-height: 1.7; color: var(--dim);
+      padding: 7px 0 7px 22px;
+      position: relative;
+    }
+    .question-list li::before {
+      content: '—'; position: absolute; left: 0;
+      color: var(--gold); font-weight: 600;
+    }
+
+    /* CALCULATOR */
+    .calc-section {
+      padding: 110px 72px;
+      display: grid; grid-template-columns: 180px 1fr 1fr; gap: 80px;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .calc-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      font-weight: 300; line-height: 1.18;
+      color: var(--white); margin-bottom: 28px;
+    }
+    .calc-text h2 em { font-style: italic; color: var(--gold2); }
+    .calc-text p {
+      font-size: 16px; line-height: 1.85; color: var(--white);
+      margin-bottom: 22px; max-width: 480px;
+    }
+    .calc-text strong { color: var(--gold2); font-weight: 600; }
+    .calc-cta {
+      display: inline-block;
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 18px 38px; text-decoration: none; margin-top: 12px;
+      transition: background .25s;
+    }
+    .calc-cta:hover { background: var(--gold2); }
+    .calc-visual {
+      border: 1px solid var(--border);
+      padding: 24px;
+      background: var(--surface);
+    }
+    .calc-chart {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      aspect-ratio: 1 / 1;
+      gap: 2px;
+      background: var(--gold);
+    }
+    .calc-cell {
+      background: var(--surface);
+      padding: 10px 8px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+    .calc-cell-center {
+      grid-column: 2 / 4; grid-row: 2 / 4;
+      background: var(--surface2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 8px;
+    }
+    .calc-cell-symbol {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 4vw, 56px);
+      color: var(--gold2); font-style: italic; line-height: 1;
+    }
+    .calc-cell-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; color: var(--white);
+      text-align: center; letter-spacing: 1px;
+    }
+    .calc-cell-pal {
+      font-size: 8px; letter-spacing: 1px; color: var(--gold);
+      text-transform: uppercase; font-weight: 600;
+    }
+    .calc-cell-stars {
+      font-size: 9px; color: var(--dim); line-height: 1.3;
+    }
+    .calc-caption {
+      margin-top: 14px;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); text-align: center; font-weight: 600;
+    }
+
+    /* FINAL CTA */
+    .cta-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 96px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 120px;
+      align-items: center;
+    }
+    .cta-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 5.2vw, 78px);
+      font-weight: 300; line-height: 1.08; letter-spacing: -1px;
+      color: var(--white);
+    }
+    .cta-left h2 em { font-style: italic; color: var(--gold2); }
+    .cta-left p {
+      font-size: 16px; line-height: 1.85; color: var(--white);
+      margin-top: 28px; max-width: 480px;
+    }
+    .cta-right {}
+    .cta-fields { display: flex; flex-direction: column; gap: 0; }
+    .cta-field-group { display: flex; flex-direction: column; }
+    .cta-label {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--muted); margin-top: 18px;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+    }
+    .cta-field-group .cta-input { padding-top: 8px; }
+    .cta-input {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(226,228,236,.20);
+      font-size: 14px; color: var(--white);
+      padding: 20px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-bottom-color: var(--gold); }
+    .cta-input:invalid:not(:placeholder-shown) { border-bottom-color: #d96b5a; }
+    .cta-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(226,228,236,.20);
+      font-size: 14px; color: var(--white);
+      padding: 20px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+      resize: vertical;
+      min-height: 70px;
+      line-height: 1.6;
+    }
+    .cta-textarea::placeholder { color: var(--muted); }
+    .cta-textarea:focus { border-bottom-color: var(--gold); }
+    .cta-submit {
+      margin-top: 36px; align-self: flex-start;
+      background: var(--gold); color: #f5f1eb; border: none; cursor: pointer;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 20px 56px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .cta-submit:hover { background: var(--gold2); }
+    .cta-note {
+      font-size: 12px; color: var(--muted); margin-top: 22px;
+      letter-spacing: 1px;
+    }
+    .consent-row {
+      display: flex; align-items: flex-start; gap: 12px;
+      margin: 26px 0 0; padding: 16px 0 0;
+      border-top: 1px solid rgba(226,228,236,.18);
+    }
+    .consent-row input[type="checkbox"] {
+      width: 16px; height: 16px; margin-top: 3px;
+      accent-color: var(--gold); flex-shrink: 0;
+      cursor: pointer;
+    }
+    .consent-row label {
+      font-size: 12px; line-height: 1.65; color: var(--dim);
+      cursor: pointer; letter-spacing: 0.2px;
+    }
+    .consent-row label a {
+      color: var(--gold2); text-decoration: underline;
+    }
+    .consent-row label a:hover { color: #fff; }
+    .liability-box {
+      margin: 32px 0 0;
+      padding: 22px 26px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.18);
+    }
+    .liability-box p {
+      font-size: 13px; line-height: 1.7; color: var(--dim);
+      margin: 0;
+    }
+    .liability-box strong { color: var(--gold2); }
+    .hero-consent {
+      display: flex; align-items: flex-start; gap: 10px;
+      margin-top: 18px; max-width: 560px;
+    }
+    .hero-consent input[type="checkbox"] {
+      width: 14px; height: 14px; margin-top: 3px;
+      accent-color: var(--gold); flex-shrink: 0;
+      cursor: pointer;
+    }
+    .hero-consent label {
+      font-size: 11px; line-height: 1.55; color: var(--dim);
+      cursor: pointer;
+    }
+    .hero-consent label a {
+      color: var(--gold2); text-decoration: underline;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center;
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb; background: var(--gold);
+      padding: 20px 40px; text-decoration: none;
+      transition: background .25s, transform .25s;
+      align-self: flex-start;
+    }
+    .hero-cta:hover { background: var(--gold2); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer {
+      padding: 48px 72px 36px;
+      border-top: 1px solid var(--border);
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 32px;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-links {
+      display: flex; gap: 28px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s; font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--gold2); }
+    .footer-disclaimer {
+      max-width: 980px;
+      font-size: 11px; line-height: 1.75; color: var(--muted);
+      padding-top: 24px; border-top: 1px solid var(--border);
+      margin-bottom: 18px;
+    }
+    footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+
+    /* LIGHT SECTION OVERRIDE — mirrors English version */
+    .s-light {
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.20);
+      background: #f8f6f1;
+      color: #1e1c28;
+    }
+    .s-light .question-card { background: rgba(255,255,255,0.4); }
+    .s-light .question-title { color: var(--white); }
+    .s-light .question-list li { color: var(--dim); }
+
+    /* BACK TO TOP */
+    .back-to-top {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 54px; height: 54px;
+      background: var(--gold); color: #f5f1eb;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      z-index: 250;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, background .25s, transform .25s;
+      cursor: pointer;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: #cfa44e; transform: translateY(-2px); }
+    .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      body { font-size: 15px; }
+
+      nav { padding: 10px 10px; }
+      .nav-logo { font-size: 12px; letter-spacing: 1.2px; }
+      .nav-links { gap: 6px; align-items: center; }
+      .nav-link { display: inline; font-size: 9px; letter-spacing: 0.6px; padding: 3px 2px; }
+      .nav-btn { padding: 7px 10px; font-size: 9px; letter-spacing: 0.6px; }
+      .lang-switch a { padding: 5px 6px; font-size: 9px; letter-spacing: 0.6px; }
+
+      .hero {
+        grid-template-columns: 1fr;
+        height: auto; min-height: auto;
+      }
+      .hero-left {
+        order: 2;
+        padding: 60px 22px 60px;
+      }
+      .hero-right {
+        order: 1;
+        height: 50vh; min-height: 320px;
+      }
+      .hero-h1 { font-size: 44px; }
+      .hero-sub { font-size: 14px; }
+      .inline-form { max-width: 100%; }
+      .scroll-word { display: none; }
+
+      .manifesto {
+        grid-template-columns: 1fr; gap: 28px;
+        padding: 60px 22px;
+      }
+      .side-label {
+        writing-mode: horizontal-tb;
+        font-size: 11px; letter-spacing: 3px;
+      }
+      .manifesto-h2 { font-size: 28px; }
+      .manifesto-cols { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; }
+      .manifesto-cols p { font-size: 14px; }
+
+      .emperor-section {
+        grid-template-columns: 1fr; min-height: auto;
+      }
+      .emperor-left { padding: 70px 22px; }
+      .emperor-right { height: 320px; }
+      .emperor-h2 { font-size: 30px; }
+      .emperor-p { font-size: 15px; }
+      .emperor-stats {
+        grid-template-columns: 1fr; gap: 24px;
+        margin-top: 36px; padding-top: 28px;
+      }
+      .emperor-stat-n { font-size: 38px; }
+
+      .questions-section { padding: 70px 22px; }
+      .questions-header { grid-template-columns: 1fr; gap: 22px; margin-bottom: 36px; }
+      .questions-h2 { font-size: 28px; }
+      .questions-sub { font-size: 14px; }
+      .questions-grid { grid-template-columns: 1fr; }
+      .question-card {
+        padding: 32px 24px;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .question-card:nth-child(2n) { border-right: none; }
+      .question-card:last-child { border-bottom: none; }
+      .question-title { font-size: 22px; }
+      .question-list li { font-size: 14px; }
+
+      .calc-section {
+        grid-template-columns: 1fr; gap: 40px;
+        padding: 60px 22px;
+      }
+      .calc-text h2 { font-size: 28px; }
+      .calc-visual { padding: 16px; }
+      .calc-cell { padding: 6px 4px; }
+      .calc-cell-pal { font-size: 7px; }
+      .calc-cell-stars { font-size: 8px; }
+      .calc-cell-symbol { font-size: 32px; }
+      .calc-cell-name { font-size: 11px; }
+      .back-to-top { width: 46px; height: 46px; bottom: 22px; right: 22px; }
+
+      .cta-section {
+        grid-template-columns: 1fr; gap: 40px;
+        padding: 60px 22px;
+      }
+      .cta-left h2 { font-size: 32px; }
+
+      footer { padding: 36px 22px 28px; }
+      .footer-top { flex-direction: column; gap: 20px; text-align: center; }
+      .footer-links { justify-content: center; gap: 16px; }
+      .footer-links a { font-size: 10px; letter-spacing: 1.5px; }
+      .footer-disclaimer { font-size: 10px; line-height: 1.7; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">SuccessCode</a>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">О методе</a>
+    <a href="#questions" class="nav-link">Вопросы</a>
+    <a href="/calculators?lang=ru" class="nav-link">Калькулятор</a>
+    <div class="lang-switch" aria-label="Language">
+      <a href="/ru/" class="active">RU</a>
+      <a href="/">EN</a>
+    </div>
+    <a href="#booking" class="nav-btn">Записаться</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-tag">Карта судьбы · Цзы Вэй Доу Шу</div>
+    <h1 class="hero-h1">
+      Вы родились<br>
+      с картой<br>
+      <em>своей судьбы.</em>
+    </h1>
+    <p class="hero-sub">
+      Код успеха расшифровывает её. Древнекитайская система, по которой
+      тысячу лет читали жизнь императоров — теперь доступна вам.
+      Ответы на главные вопросы карьеры, денег, отношений, здоровья и времени решений.
+    </p>
+    <a href="#booking" class="hero-cta">Записаться на консультацию &rarr;</a>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1400&q=80" alt="">
+    <div class="scroll-word">Скролл</div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Узнайте свои сильные стороны</span><span class="dot">·</span>
+    <span>Действуйте в своё время</span><span class="dot">·</span>
+    <span>1000+ лет проверенной точности</span><span class="dot">·</span>
+    <span>Система императоров Китая</span><span class="dot">·</span>
+    <span>Ваша карта судьбы — расшифрована</span><span class="dot">·</span>
+    <span>Цзы Вэй Доу Шу</span><span class="dot">·</span>
+    <span>Узнайте свои сильные стороны</span><span class="dot">·</span>
+    <span>Действуйте в своё время</span><span class="dot">·</span>
+    <span>1000+ лет проверенной точности</span><span class="dot">·</span>
+    <span>Система императоров Китая</span><span class="dot">·</span>
+    <span>Ваша карта судьбы — расшифрована</span><span class="dot">·</span>
+    <span>Цзы Вэй Доу Шу</span><span class="dot">·</span>
+  </div>
+</div>
+
+<!-- MANIFESTO / PROBLEM -->
+<section class="manifesto s-light" id="about">
+  <div class="side-label">Код успеха · Главное</div>
+  <div class="manifesto-body">
+    <h2 class="manifesto-h2">
+      Главные решения жизни — каждый день.<br>
+      <strong>Без карты,</strong><br>
+      <strong>по которой их принимать.</strong>
+    </h2>
+    <div class="manifesto-cols">
+      <p>Карьера, деньги, переезд, партнёр, здоровье, время важных шагов. Каждый человек принимает ключевые решения, опираясь на общие советы, интуицию или мнение тех, кто не знает его персональной карты. Цена этих решений — годы жизни. <strong>Со знанием своей карты те же самые решения принимаются точнее, успешнее и приводят к гораздо более счастливой жизни.</strong></p>
+      <p>Цзы Вэй Доу Шу — древнекитайская карта судьбы, рассчитанная по точной дате, времени и месту рождения. Она показывает структуру именно вашей жизни: где ваши сильные стороны, какой период вы проживаете, когда действовать, а когда выдержать паузу. Не общий гороскоп. Структурный ответ на ваш конкретный вопрос.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EMPEROR / SECRECY -->
+<section class="emperor-section">
+  <div class="emperor-left">
+    <div class="emperor-text">
+      <div class="emperor-tag">Тысяча лет точности</div>
+      <h2 class="emperor-h2">
+        Система, по которой читали жизнь <em>императоров Китая.</em>
+      </h2>
+      <p class="emperor-p">
+        Цзы Вэй Доу Шу — древнекитайская карта судьбы, разработанная при императорском дворе.
+        Тысячу лет эта система оставалась <strong>закрытой для простых людей</strong> —
+        ею пользовались только императоры и их ближайший круг при принятии судьбоносных решений
+        государственного и личного масштаба.
+      </p>
+      <p class="emperor-p">
+        Причина строгой секретности — <strong>чрезвычайная точность системы</strong>. Карта рассчитывается
+        по точной дате, времени и месту рождения и показывает структуру жизни с точностью до года и месяца.
+        Доступ к такому инструменту означал доступ к власти. Поэтому система веками хранилась
+        в императорских архивах и передавалась только избранным.
+      </p>
+      <p class="emperor-p">
+        Сегодня Код успеха делает этот инструмент доступным для тех,
+        кто принимает ответственные решения и хочет понимать структуру своей жизни.
+      </p>
+      <div class="emperor-stats">
+        <div>
+          <div class="emperor-stat-n">1000+</div>
+          <div class="emperor-stat-label">Лет<br>применения</div>
+        </div>
+        <div>
+          <div class="emperor-stat-n">紫微</div>
+          <div class="emperor-stat-label">Императорская<br>астрология</div>
+        </div>
+        <div>
+          <div class="emperor-stat-n">∞</div>
+          <div class="emperor-stat-label">Закрытость до<br>наших дней</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="emperor-right">
+    <img src="images/temple-of-heaven-beijing.webp" alt="">
+  </div>
+</section>
+
+<!-- QUESTIONS -->
+<section class="questions-section s-light" id="questions">
+  <div class="questions-header">
+    <div class="side-label">Вопросы</div>
+    <div>
+      <h2 class="questions-h2">Вопросы, на которые <em>ваша карта</em> даёт точный ответ</h2>
+      <p class="questions-sub">
+        Это примеры вопросов, на которые карта даёт ответ. Консультация работает
+        не с общими предсказаниями, а с конкретными решениями вашей жизни.
+      </p>
+    </div>
+  </div>
+  <div class="questions-grid">
+
+    <div class="question-card">
+      <div class="question-no">I · Карьера</div>
+      <div class="question-title">Работа и профессия</div>
+      <ul class="question-list">
+        <li>В какой профессии мой максимальный потенциал?</li>
+        <li>Когда лучший момент сменить работу для роста дохода?</li>
+        <li>Когда придут карьерные прорывы и повышения?</li>
+        <li>Какой формат работы раскроет мои сильные стороны — найм, фриланс или своё дело?</li>
+        <li>Какой канал поиска работы сработает именно для меня?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">II · Деньги</div>
+      <div class="question-title">Доход и капитал</div>
+      <ul class="question-list">
+        <li>Когда придут пиковые годы по доходу?</li>
+        <li>Какие каналы заработка приведут к максимальному результату?</li>
+        <li>Когда возможны крупные финансовые события?</li>
+        <li>Где мой максимальный потенциал — инвестиции, акции, бизнес?</li>
+        <li>Как выйти из финансового тупика и вернуться к росту?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">III · Отношения</div>
+      <div class="question-title">Партнёр и брак</div>
+      <ul class="question-list">
+        <li>Когда я встречу своего человека?</li>
+        <li>Подходит ли мне нынешний партнёр по карте?</li>
+        <li>Когда лучшие годы для брака?</li>
+        <li>Почему повторяются одни и те же сценарии — и как выйти из круга?</li>
+        <li>Когда возможны новые отношения?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">IV · Здоровье</div>
+      <div class="question-title">Тело и восстановление</div>
+      <ul class="question-list">
+        <li>Какие риски для здоровья заложены в моей карте?</li>
+        <li>В какие годы быть особенно внимательной к здоровью?</li>
+        <li>Где мои слабые места — какая система органов?</li>
+        <li>Когда планировать большие медицинские решения и операции?</li>
+        <li>Как восстановиться после стресса и истощения?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">V · Недвижимость</div>
+      <div class="question-title">Жильё и активы</div>
+      <ul class="question-list">
+        <li>Когда покупать квартиру или дом?</li>
+        <li>Когда лучший момент продать недвижимость?</li>
+        <li>Где мне лучше жить — какой регион и тип жилья?</li>
+        <li>Как избежать рисков при покупке или продаже?</li>
+        <li>Когда возможна крупная сделка с активами?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">VI · Переезд</div>
+      <div class="question-title">Эмиграция и страна</div>
+      <ul class="question-list">
+        <li>Когда лучший момент для переезда?</li>
+        <li>Какая страна подходит мне по карте?</li>
+        <li>Где найду максимальный карьерный рост — дома или за рубежом?</li>
+        <li>Когда возможно возвращение?</li>
+        <li>Как обойти риски при эмиграции?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">VII · Дети</div>
+      <div class="question-title">Семья и поколения</div>
+      <ul class="question-list">
+        <li>Когда лучший момент планировать ребёнка?</li>
+        <li>Какой характер у моего ребёнка — как правильно его воспитывать?</li>
+        <li>Какие таланты ребёнка развивать в первую очередь?</li>
+        <li>Как выстроить лёгкие отношения с детьми?</li>
+        <li>Что карта показывает про отношения с родителями?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">VIII · Миссия</div>
+      <div class="question-title">Призвание и направление</div>
+      <ul class="question-list">
+        <li>В чём моя жизненная задача?</li>
+        <li>Какие у меня природные сильные стороны и таланты?</li>
+        <li>Когда ключевые поворотные точки впереди?</li>
+        <li>Какая декада жизни самая сильная?</li>
+        <li>Как раскрыть потенциал, заложенный в карте?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">IX · Конфликты</div>
+      <div class="question-title">Юридические вопросы</div>
+      <ul class="question-list">
+        <li>Чем закончится мой судебный процесс?</li>
+        <li>Какие риски конфликтов с властями впереди?</li>
+        <li>Какой адвокат поможет именно мне?</li>
+        <li>Когда подписывать формальные документы и контракты?</li>
+        <li>Как защититься от рисков в деловых соглашениях?</li>
+      </ul>
+    </div>
+
+    <div class="question-card">
+      <div class="question-no">X · Бизнес</div>
+      <div class="question-title">Дело и партнёрство</div>
+      <ul class="question-list">
+        <li>Когда лучший момент запустить своё дело?</li>
+        <li>Подходит ли мой партнёр по бизнесу по карте?</li>
+        <li>В какой сфере моя максимальная отдача?</li>
+        <li>Когда масштабироваться, а когда сохранять текущее?</li>
+        <li>Когда возможны крупные инвесторские события?</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CALCULATOR -->
+<section class="calc-section" id="calculator">
+  <div class="side-label">Калькулятор</div>
+  <div class="calc-text">
+    <h2>Постройте свою карту <em>прямо сейчас.</em></h2>
+    <p>
+      Перед консультацией вы можете самостоятельно построить свою карту судьбы
+      на нашем главном калькуляторе. Это даст представление о
+      <strong>глубине и сложности метода</strong> и поможет вам разобраться
+      в своей карте, если вы профессионально занимаетесь Цзы Вэй Доу Шу.
+    </p>
+    <a href="https://successcode.net/calculators?lang=ru" target="_blank" rel="noopener" class="calc-cta">Открыть калькулятор →</a>
+  </div>
+  <div class="calc-visual">
+    <div class="calc-chart">
+      <div class="calc-cell"><div class="calc-cell-pal">巳 · Душа</div><div class="calc-cell-stars">廉貞 貪狼</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">午 · Родители</div><div class="calc-cell-stars">巨門</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">未 · Жизнь</div><div class="calc-cell-stars">天相</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">申 · Родственники</div><div class="calc-cell-stars">天梁</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">辰 · Недвиж.</div><div class="calc-cell-stars">太陰</div></div>
+      <div class="calc-cell-center">
+        <div class="calc-cell-symbol">紫微</div>
+        <div class="calc-cell-name">Ваша карта</div>
+        <div class="calc-cell-pal">12 дворцов</div>
+      </div>
+      <div class="calc-cell"><div class="calc-cell-pal">酉 · Супруг</div><div class="calc-cell-stars">七殺</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">卯 · Карьера</div><div class="calc-cell-stars">天府</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">戌 · Дети</div><div class="calc-cell-stars">天同</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">寅 · Друзья</div><div class="calc-cell-stars">破軍</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">丑 · Здоровье</div><div class="calc-cell-stars">武曲</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">子 · Богатство</div><div class="calc-cell-stars">太陽</div></div>
+      <div class="calc-cell"><div class="calc-cell-pal">亥 · Путешествия</div><div class="calc-cell-stars">天機</div></div>
+    </div>
+    <div class="calc-caption">successcode.net/calculators</div>
+  </div>
+</section>
+
+<!-- FINAL CTA / BOOKING -->
+<section class="cta-section" id="booking">
+  <div class="cta-left">
+    <h2>Получите <em>ответы</em> на ваши вопросы.</h2>
+    <p>
+      Оставьте контакты — я свяжусь с вами лично как можно скорее,
+      согласуем время и подготовку к консультации.
+    </p>
+  </div>
+  <div class="cta-right">
+    <form class="cta-fields" action="https://formspree.io/f/xaqkqweb" method="POST">
+      <input class="cta-input" type="text"  name="name"  placeholder="ВАШЕ ИМЯ" required>
+      <input class="cta-input" type="email" name="email" placeholder="EMAIL" required>
+      <div class="cta-field-group">
+        <label class="cta-label" for="cta-phone">Телефон</label>
+        <input class="cta-input" type="tel" id="cta-phone" name="phone"
+               value="+31 "
+               pattern="^\+[0-9][0-9 \-()]{6,}$"
+               required>
+      </div>
+      <textarea class="cta-textarea" name="message"
+                placeholder="ВАШ ЗАПРОС"
+                maxlength="1000"></textarea>
+      <input type="hidden" name="source" value="booking">
+
+      <div class="consent-row">
+        <input type="checkbox" id="booking-consent-cb" name="consent" value="accepted" required>
+        <label for="booking-consent-cb">
+          Принимаю <a href="terms.html" target="_blank" rel="noopener">Условия</a>
+          и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.
+        </label>
+      </div>
+
+      <button class="cta-submit" type="submit">Записаться на консультацию</button>
+      <p class="cta-note">Свяжусь с вами в ближайшее время.</p>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">SuccessCode</div>
+    <div class="footer-links">
+      <a href="#booking">Записаться</a>
+      <a href="https://successcode.net/calculators?lang=ru" target="_blank" rel="noopener">Калькулятор</a>
+      <a href="privacy.html">Обработка данных</a>
+      <a href="terms.html">Условия консультаций</a>
+    </div>
+  </div>
+  <small>© Код успеха · Цзы Вэй Доу Шу · Карта судьбы</small>
+</footer>
+
+<!-- BACK TO TOP -->
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+
+<script>
+  try { localStorage.setItem('sc-lang', 'ru'); } catch(e) {}
+  (function() {
+    var btn = document.getElementById('backToTop');
+    function check() {
+      if (window.scrollY > 400) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    check();
+  })();
+</script>
+
+</body>
+</html>

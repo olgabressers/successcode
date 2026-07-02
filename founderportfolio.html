@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Olga Bressers — Founder Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #f8f6f1;
+      --surface:  #edebe5;
+      --surface2: #e4e1db;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.10);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.22);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 26px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(48,46,58,0.97) 0%, rgba(48,46,58,0) 100%);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 17px; font-weight: 600;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: #eceef8; text-decoration: none;
+    }
+    .nav-back {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: #c0c2d4; text-decoration: none; transition: color .25s;
+    }
+    .nav-back:hover { color: #cfa44e; }
+    .nav-back-short { display: none; }
+
+    /* ─── PROFILE HERO ────────────────────────────────── */
+    .profile {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 44% 1fr;
+    }
+    .profile-img {
+      position: relative; overflow: hidden;
+    }
+    .profile-img img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: brightness(.72) saturate(.85);
+    }
+    .profile-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(248,246,241,0) 50%, rgba(248,246,241,1) 100%);
+    }
+    .profile-right {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 72px 72px 64px;
+    }
+    .profile-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .profile-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .profile-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 5vw, 76px);
+      font-weight: 300; line-height: 1; letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
+    .profile-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 300; font-style: italic;
+      color: var(--gold2); margin-bottom: 36px;
+    }
+    .profile-bio {
+      font-size: 16px; line-height: 1.85; color: var(--dim);
+      margin-bottom: 40px;
+    }
+    .profile-tags {
+      display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
+    }
+    .profile-tag {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); border: 1px solid var(--border); padding: 6px 14px;
+    }
+    .profile-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .profile-link {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--dim); text-decoration: none;
+      border-bottom: 1px solid var(--border); padding-bottom: 3px;
+      transition: color .2s, border-color .2s;
+    }
+    .profile-link:hover { color: var(--gold2); border-color: var(--gold2); }
+
+    /* ─── SECTION INTRO ───────────────────────────────── */
+    .section-intro {
+      padding: 80px 72px 56px;
+      border-top: 1px solid var(--border);
+    }
+    .section-label {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .section-label::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .section-intro h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 5vw, 72px);
+      font-weight: 300; line-height: 1.1;
+    }
+    .section-intro h2 em { font-style: italic; color: var(--gold2); }
+
+    /* ─── DARK SECTION OVERRIDES ─────────────────────── */
+    .profile {
+      background: #3a3c48;
+    }
+    .profile .profile-name  { color: #eceef8; }
+    .profile .profile-bio   { color: #d4d6e8; }
+    .profile .profile-title { color: #cfa44e; }
+    .profile .profile-tag   { color: #b8903a; border-color: rgba(184,144,58,0.25); }
+    .profile .profile-link  { color: #d4d6e8; border-color: rgba(184,144,58,0.25); }
+    .profile .profile-link:hover { color: #cfa44e; border-color: #cfa44e; }
+    .profile-img::after {
+      background: linear-gradient(to right, rgba(58,60,72,0) 50%, rgba(58,60,72,1) 100%);
+    }
+    @media (max-width: 768px) {
+      .profile-img::after { background: linear-gradient(to bottom, rgba(58,60,72,0) 40%, rgba(58,60,72,1) 100%); }
+    }
+
+    .contact-section {
+      background: #3a3c48 !important;
+      border-top: 1px solid rgba(184,144,58,0.25);
+    }
+    .contact-section .contact-left h2  { color: #eceef8; }
+    .contact-section .contact-detail-val   { color: #d4d6e8; }
+    .contact-section .contact-detail-label { color: #c0c2d4; }
+    .contact-section .contact-detail-val:hover { color: #cfa44e; }
+    .contact-section .contact-input,
+    .contact-section .contact-select,
+    .contact-section .contact-textarea {
+      color: #eceef8; border-bottom-color: rgba(212,214,232,0.18);
+    }
+    .contact-section .contact-input::placeholder,
+    .contact-section .contact-textarea::placeholder { color: #c0c2d4; text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+    .contact-section .contact-select { color: #c0c2d4; font-size: 11px; letter-spacing: 2px; }
+    .contact-section .contact-select:focus { color: #eceef8; }
+    .contact-section .contact-sent { color: #b8903a; }
+
+    /* ─── PROJECT ROWS ────────────────────────────────── */
+    .projects { padding: 0; }
+
+    .project-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 480px;
+      border-top: 1px solid var(--border);
+      opacity: 0; transform: translateY(28px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .project-row.in { opacity: 1; transform: translateY(0); }
+    .project-row:last-child { border-bottom: 1px solid var(--border); }
+
+    /* ── SCREENSHOT VISUAL ── */
+    .project-visual {
+      position: relative; overflow: hidden;
+      background: var(--surface2);
+    }
+    .project-screenshot {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top center;
+      transition: transform .5s ease, filter .3s ease;
+      filter: brightness(.92) saturate(1);
+      display: block;
+    }
+    .project-row:hover .project-screenshot {
+      transform: scale(1.02);
+      filter: brightness(1) saturate(1.05);
+    }
+    .project-visual-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,18,28,0.90) 0%, rgba(20,18,28,0.45) 28%, transparent 55%);
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 40px 44px;
+    }
+    .project-name-large {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.2vw, 52px);
+      font-weight: 300; line-height: 1.1;
+      color: #ffffff; margin-bottom: 14px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    }
+    .project-name-large em { font-style: italic; color: var(--gold2); }
+    .project-status {
+      display: inline-block; align-self: flex-start;
+      font-size: 9px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; padding: 5px 12px; border: 1px solid;
+    }
+    .project-status.live    { background: #1e4a1e; border-color: #4a8a4a; color: #8ada8a; }
+    .project-status.building{ border-color: var(--gold); color: var(--gold2); }
+    .project-status.mvp     { background: #1a2a4a; border-color: #4a6aaa; color: #8aabda; }
+
+    /* ── TEXT SIDE ── */
+    .project-text {
+      padding: 56px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--black);
+      border-left: 3px solid var(--border);
+    }
+    .project-row.flip .project-text {
+      border-left: none;
+      border-right: 3px solid var(--border);
+    }
+    .project-category {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 20px;
+    }
+    .project-text h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 2.4vw, 34px);
+      font-weight: 400; line-height: 1.2;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .project-text p {
+      font-size: 15px; line-height: 1.85; color: var(--dim);
+      max-width: 420px; margin-bottom: 28px;
+    }
+    .project-meta {
+      display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px;
+      padding-top: 20px; border-top: 1px solid var(--border);
+    }
+    .project-meta-row { display: flex; gap: 12px; align-items: baseline; }
+    .meta-key {
+      font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600; min-width: 72px; flex-shrink: 0;
+    }
+    .meta-val { font-size: 13px; color: var(--dim); line-height: 1.5; }
+    .project-links-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .project-link {
+      display: inline-block;
+      font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-weight: 600; color: #f5f1eb;
+      background: var(--gold); padding: 12px 28px;
+      text-decoration: none; transition: background .25s; align-self: flex-start;
+    }
+    .project-link:hover { background: var(--gold2); }
+    .project-link.ghost {
+      background: transparent; color: var(--muted);
+      border: 1px solid var(--border); padding: 11px 28px;
+    }
+    .project-link.ghost:hover { border-color: var(--gold); color: var(--gold2); background: transparent; }
+    .project-link.red { background: #6e1515; color: #e8d0d0; }
+    .project-link.red:hover { background: #7e1c1c; }
+
+    /* flip: odd = screenshot left · even = screenshot right */
+    .project-row.flip .project-visual { order: 2; }
+    .project-row.flip .project-text   { order: 1; }
+
+    /* ─── CONTACT SECTION ────────────────────────────── */
+    .contact-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 100px 72px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 96px;
+      align-items: start;
+    }
+    .contact-left {}
+    .contact-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 28px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .contact-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .contact-left h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(36px, 3.8vw, 56px);
+      font-weight: 300; line-height: 1.1; margin-bottom: 36px;
+    }
+    .contact-left h2 em { font-style: italic; color: var(--gold2); }
+    .contact-details { display: flex; flex-direction: column; gap: 20px; }
+    .contact-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .contact-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-icon svg { width: 14px; height: 14px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+    .contact-detail-body { display: flex; flex-direction: column; gap: 3px; padding-top: 6px; }
+    .contact-detail-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+    .contact-detail-val {
+      font-size: 14px; color: var(--dim); text-decoration: none; transition: color .2s;
+    }
+    .contact-detail-val:hover { color: var(--gold2); }
+    /* Form */
+    .contact-form { display: flex; flex-direction: column; gap: 0; }
+    .contact-input, .contact-select, .contact-textarea {
+      background: transparent; border: none; outline: none;
+      border-bottom: 1px solid rgba(212,214,232,0.2);
+      font-size: 14px; color: var(--white);
+      padding: 16px 0; width: 100%;
+      font-family: 'Inter', sans-serif;
+      transition: border-color .25s;
+    }
+    .contact-input::placeholder, .contact-textarea::placeholder { color: var(--muted); text-transform: uppercase; letter-spacing: 2px; font-size: 11px; }
+    .contact-input:focus, .contact-select:focus, .contact-textarea:focus { border-bottom-color: var(--gold); }
+    .contact-select { color: var(--muted); appearance: none; cursor: pointer; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
+    .contact-select option { background: var(--surface); color: var(--white); }
+    .contact-textarea { resize: none; min-height: 100px; margin-top: 8px; }
+    .contact-submit {
+      margin-top: 28px; align-self: flex-start;
+      background: var(--gold); color: #1a1408; border: none; cursor: pointer;
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 700;
+      padding: 16px 44px; font-family: 'Inter', sans-serif; transition: background .25s;
+    }
+    .contact-submit:hover { background: var(--gold2); }
+    .contact-sent { display: none; font-size: 13px; color: var(--gold); letter-spacing: 1px; margin-top: 20px; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    .gold-rule {
+      height: 3px;
+      background: linear-gradient(to right, var(--gold) 0%, var(--gold2) 40%, transparent 100%);
+    }
+
+    footer {
+      padding: 36px 72px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
+    .footer-links { display: flex; gap: 24px; align-items: center; }
+    .footer-link {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+    }
+    .footer-link:hover { color: var(--gold2); }
+
+    /* ─── MOBILE ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      /* NAV */
+      nav { padding: 16px 20px; }
+      .nav-logo { font-size: 14px; letter-spacing: 3px; }
+      .nav-back { font-size: 9px; letter-spacing: 1.5px; }
+
+      /* PROFILE */
+      .profile { grid-template-columns: 1fr; min-height: auto; }
+      .profile-img { height: 70vw; min-height: 260px; }
+      .profile-img::after { background: linear-gradient(to bottom, rgba(58,60,72,0) 35%, rgba(58,60,72,1) 100%); }
+      .profile-right { padding: 36px 24px 60px; }
+      .profile-name { font-size: clamp(42px, 12vw, 64px); }
+      .profile-title { font-size: 18px; margin-bottom: 24px; }
+      .profile-bio { font-size: 15px; line-height: 1.75; }
+      .profile-tags { gap: 8px; margin-bottom: 28px; }
+      .profile-tag { font-size: 9px; padding: 5px 10px; }
+
+      /* SECTION INTRO */
+      .section-intro { padding: 52px 24px 36px; }
+
+      /* PROJECTS */
+      .project-row { grid-template-columns: 1fr; min-height: auto; }
+      .project-row.flip .project-visual { order: 1; }
+      .project-row.flip .project-text   { order: 2; }
+      .project-visual { min-height: 240px; }
+      .project-visual-overlay { padding: 28px 28px; }
+      .project-name-large { font-size: clamp(28px, 8vw, 44px); margin-bottom: 10px; }
+      .project-text { padding: 36px 24px; }
+      .project-text h3 { font-size: clamp(20px, 5vw, 28px); }
+      .project-text p { font-size: 14px; max-width: 100%; }
+      .project-meta { gap: 8px; }
+      .meta-key { min-width: 60px; }
+      .project-links-row { flex-direction: column; gap: 10px; }
+      .project-link { text-align: center; padding: 14px 20px; }
+
+      /* CONTACT */
+      .contact-section { grid-template-columns: 1fr; padding: 60px 24px 56px; gap: 44px; }
+      .contact-left h2 { font-size: clamp(32px, 8vw, 48px); margin-bottom: 28px; }
+      .contact-details { gap: 16px; }
+      .contact-submit { width: 100%; text-align: center; }
+
+      /* FOOTER */
+      footer { padding: 24px 20px; flex-direction: column; gap: 10px; text-align: center; }
+      .footer-links { justify-content: center; }
+
+      /* NAV back — short on mobile */
+      .nav-back-full { display: none; }
+      .nav-back-short { display: inline; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">SuccessCode</a>
+  <a href="/speedrun" class="nav-back"><span class="nav-back-full">SuccessCode.net/speedrun →</span><span class="nav-back-short">speedrun →</span></a>
+</nav>
+
+<!-- PROFILE -->
+<section class="profile">
+  <div class="profile-img">
+    <img src="https://trendsonfire.com/olgabressers/Olga%20Bressers.jpg" alt="Olga Bressers">
+  </div>
+  <div class="profile-right">
+    <div class="profile-eyebrow">Founder Portfolio</div>
+    <h1 class="profile-name">Olga<br>Bressers</h1>
+    <p class="profile-title">Strategist · Builder · Operator · Founder</p>
+    <p class="profile-bio">20 years operating business complexity, implementing technology and running €150M P&L across Richemont Luxury Brands, Adidas, Nike, and IBM.<br><br>Now building a portfolio of AI and SaaS products targeting the personal decision intelligence vertical — combining 20 years of enterprise systems thinking with founder-built execution. All four products are solo-built and founder-owned, with zero external dependency on product or engineering.</p>
+    <div class="profile-tags">
+      <span class="profile-tag">E-Commerce</span>
+      <span class="profile-tag">AI Products</span>
+      <span class="profile-tag">Digital Transformation</span>
+      <span class="profile-tag">Consumer Focused</span>
+    </div>
+    <div class="profile-links">
+      <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="profile-link">LinkedIn</a>
+      <a href="#contact" class="profile-link">Contact</a>
+    </div>
+  </div>
+</section>
+
+<div class="gold-rule"></div>
+
+<!-- SECTION INTRO -->
+<div class="section-intro">
+  <div class="section-label">Portfolio</div>
+  <h2>Four products.<br>Built <em>in parallel.</em></h2>
+</div>
+
+<!-- PROJECTS -->
+<div class="projects">
+
+  <!-- 1 — SuccessCode -->
+  <div class="project-row">
+    <div class="project-visual">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://successcode.net/zwds"
+           alt="SuccessCode Calculator">
+      <div class="project-visual-overlay">
+        <div class="project-name-large">Success<em>Code</em></div>
+        <span class="project-status building">Building · 2025–2026</span>
+      </div>
+    </div>
+    <div class="project-text">
+      <div class="project-category">AI · Strategic Decision &amp; Timing Platform</div>
+      <h3>The first AI engine for personal strategic timing</h3>
+      <p>Translates over 1,000 years of Imperial Zi Wei Dou Shu pattern science into a personal decision tool — revealing your competitive advantages, the trends of your life, characteristics of the decade you're in, annual focus and which months to act, and when your leverage is highest across career, money, and relationships.</p>
+      <div class="project-meta">
+        <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">Individuals · executives · business decision-makers</span></div>
+        <div class="project-meta-row"><span class="meta-key">Model</span><span class="meta-val">Consumer subscriptions — Basic · Full · VIP · Company tier (Phase 3)</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Phase 1. Live calculator — model foundation · user accounts in build</span></div>
+        <div class="project-meta-row"><span class="meta-key">Phase 2</span><span class="meta-val">AI interpretation layer — chart reading model + personalised recommendation reports · Q3 2026</span></div>
+        <div class="project-meta-row"><span class="meta-key">Phase 3</span><span class="meta-val">Consumer launch · target 500 subscribers by Q4 2026</span></div>
+      </div>
+      <div class="project-links-row">
+        <a href="https://successcode.net/zwds" target="_blank" class="project-link">Live Calculator →</a>
+        <a href="https://successcode.net/" target="_blank" class="project-link red">Investor Page →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2 — TrendsOnFire -->
+  <div class="project-row flip">
+    <div class="project-visual">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://trendsonfire.com"
+           alt="TrendsOnFire">
+      <div class="project-visual-overlay">
+        <div class="project-name-large">Trends<em>OnFire</em></div>
+        <span class="project-status live">Live · 2025–</span>
+      </div>
+    </div>
+    <div class="project-text">
+      <div class="project-category">AI · Market Intelligence</div>
+      <h3>See what others miss</h3>
+      <p>AI-powered strategic market intelligence for senior leaders. Surfaces the trends that matter — across European retail, technology, supply chain, and finance — before they become mainstream.</p>
+      <div class="project-meta">
+        <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">Senior executives · strategy teams · investors</span></div>
+        <div class="project-meta-row"><span class="meta-key">Model</span><span class="meta-val">Subscription</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Launched Q4 2025 · early-access cohort</span></div>
+      </div>
+      <div class="project-links-row">
+        <a href="https://trendsonfire.com" target="_blank" class="project-link">Visit TrendsOnFire →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3 — AstroCRM -->
+  <div class="project-row">
+    <div class="project-visual">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://astrocrm.app"
+           alt="AstroCRM">
+      <div class="project-visual-overlay">
+        <div class="project-name-large">Astro<em>CRM</em></div>
+        <span class="project-status mvp">MVP · Jun 2026</span>
+      </div>
+    </div>
+    <div class="project-text">
+      <div class="project-category">SaaS · Practice Management</div>
+      <h3>Client management built for astrology practitioners</h3>
+      <p>A CRM designed for professional astrologers and Chinese Metaphysics practitioners. Stores client charts, session notes, and timing calendars in one place — so practitioners spend time reading, not managing spreadsheets.</p>
+      <div class="project-meta">
+        <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">ZWDS · Ba Zi · Western astrology practitioners</span></div>
+        <div class="project-meta-row"><span class="meta-key">Model</span><span class="meta-val">Subscription SaaS</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">In build · MVP June 2026</span></div>
+      </div>
+      <div class="project-links-row">
+        <a href="https://astrocrm.app" target="_blank" class="project-link ghost">Visit AstroCRM →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4 — Beste Slaap Advies -->
+  <div class="project-row flip">
+    <div class="project-visual">
+      <img class="project-screenshot"
+           src="https://image.thum.io/get/width/1200/crop/900/noanimate/https://besteslaapadvies.nl"
+           alt="Beste Slaap Advies">
+      <div class="project-visual-overlay">
+        <div class="project-name-large">Beste Slaap<em>Advies</em></div>
+        <span class="project-status live">Live · 2026</span>
+      </div>
+    </div>
+    <div class="project-text">
+      <div class="project-category">Content · Health &amp; Wellness</div>
+      <h3>Evidence-based sleep guidance for Dutch audiences</h3>
+      <p>A Dutch-language platform delivering practical, science-backed sleep advice. Built to fill a gap in the Dutch wellness market — where most sleep content is either too clinical or too generic to act on.</p>
+      <div class="project-meta">
+        <div class="project-meta-row"><span class="meta-key">Audience</span><span class="meta-val">Dutch-language health &amp; wellness consumers</span></div>
+        <div class="project-meta-row"><span class="meta-key">Model</span><span class="meta-val">Content · affiliate</span></div>
+        <div class="project-meta-row"><span class="meta-key">Stage</span><span class="meta-val">Live · 2026</span></div>
+      </div>
+      <div class="project-links-row">
+        <a href="https://besteslaapadvies.nl" target="_blank" class="project-link">Visit Site →</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="contact-left">
+    <div class="contact-eyebrow">Get in Touch</div>
+    <h2>Exploring investment<br>or <em>partnership</em> opportunities.</h2>
+    <div class="contact-details">
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Email</span>
+          <a href="mailto:olga.bressers@gmail.com" class="contact-detail-val">olga.bressers@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.02 2.35 2 2 0 012 .18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">Phone</span>
+          <a href="tel:+31647779797" class="contact-detail-val">+31 6 4777 9797</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <span class="contact-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        </span>
+        <div class="contact-detail-body">
+          <span class="contact-detail-label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="contact-detail-val">linkedin.com/in/olgabressers</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact-right">
+    <form class="contact-form" id="contact-form" onsubmit="submitContact(event)">
+      <input class="contact-input" type="text"  name="name"    placeholder="NAME *"    required>
+      <input class="contact-input" type="text"  name="company" placeholder="COMPANY">
+      <input class="contact-input" type="email" name="email"   placeholder="EMAIL *"   required>
+      <select class="contact-select" name="inquiry">
+        <option value="" disabled selected>INQUIRY TYPE</option>
+        <option>Investment / Partnership</option>
+        <option>Advisory</option>
+        <option>Speaking</option>
+        <option>Product feedback</option>
+        <option>Other</option>
+      </select>
+      <textarea class="contact-textarea" name="message" placeholder="MESSAGE *" rows="4" required></textarea>
+      <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:28px;">
+        <button type="submit" class="contact-submit" id="contact-btn" style="margin-top:0;">Send Message →</button>
+        <a href="https://www.linkedin.com/in/olgabressers/" target="_blank" class="project-link ghost" style="font-size:10px;letter-spacing:2px;">Connect on LinkedIn →</a>
+      </div>
+    </form>
+    <p class="contact-sent" id="contact-sent">Message sent. I'll be in touch shortly.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <small>© 2026 Olga Bressers &nbsp;·&nbsp; successcode.net/founderportfolio</small>
+</footer>
+
+<script>
+  async function submitContact(e) {
+    e.preventDefault();
+    const form = document.getElementById('contact-form');
+    const btn  = document.getElementById('contact-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/xrejwqlq', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
+      });
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('contact-sent').style.display = 'block';
+      } else {
+        btn.textContent = 'Send Message →';
+        btn.disabled = false;
+        alert('Something went wrong. Please email olga.bressers@gmail.com directly.');
+      }
+    } catch {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+      alert('Something went wrong. Please email olga.bressers@gmail.com directly.');
+    }
+  }
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.06 });
+  document.querySelectorAll('.project-row').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

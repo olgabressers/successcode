@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /ru
+Disallow: /ru/
+Disallow: /admin/
+Disallow: /zwds-alena
+Disallow: /zwds-julia
+Disallow: /zwds-maxim

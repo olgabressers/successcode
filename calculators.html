@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Калькуляторы — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    nav {
+      position: sticky; top: 0; z-index: 200;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-right { display: flex; gap: 30px; align-items: center; }
+    .nav-link {
+      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--white); font-weight: 600;
+      text-decoration: none; transition: color .25s;
+    }
+    .nav-link:hover { color: var(--gold2); }
+
+    .lang-switch {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--border);
+    }
+    .lang-btn {
+      background: transparent; border: none; cursor: pointer;
+      font-size: 11px; letter-spacing: 2px; font-weight: 600;
+      color: var(--muted); padding: 8px 14px;
+      font-family: 'Inter', sans-serif; transition: background .2s, color .2s;
+    }
+    .lang-btn.active { background: var(--gold); color: #f5f1eb; }
+    .lang-btn:not(.active):hover { color: var(--gold2); }
+
+    .page {
+      flex: 1;
+      padding: 80px 56px 120px 56px;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .page-body { width: 100%; }
+    .page-tag {
+      display: flex; align-items: center; gap: 18px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 30px; font-weight: 600;
+    }
+    .page-tag::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .page-h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(42px, 4.6vw, 68px);
+      font-weight: 300; line-height: 1.08;
+      letter-spacing: -1.5px; color: var(--white);
+      margin-bottom: 56px;
+    }
+    .page-h1 em { font-style: italic; color: var(--gold2); }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .card {
+      display: flex; flex-direction: column;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: background .25s, border-color .25s, transform .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover {
+      background: var(--surface2);
+      border-color: var(--gold);
+      transform: translateY(-3px);
+    }
+    .card-header {
+      padding: 38px 36px 30px 36px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      align-items: stretch;
+      gap: 24px;
+      min-height: 200px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-names {
+      display: flex; flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 10px;
+      width: 100%;
+    }
+    .card-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px, 3.2vw, 44px);
+      font-weight: 400; line-height: 1.05;
+      color: var(--white);
+      letter-spacing: -0.5px;
+    }
+    .card-name-en em { font-style: italic; color: var(--gold2); }
+    .card-name-ru {
+      font-size: 12px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    .card-cta {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: #f5f1eb; background: var(--gold);
+      font-weight: 700;
+      padding: 12px 24px;
+      align-self: center;
+      display: inline-flex; align-items: center; gap: 10px;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background .25s;
+    }
+    .card-cta:hover { background: var(--gold2); }
+    .card-cta::after { content: '→'; font-size: 14px; }
+
+    .card-screenshot {
+      display: block;
+      width: 100%;
+      background: #f5f1eb;
+      flex: 1;
+      text-decoration: none;
+    }
+    .card-screenshot img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    footer {
+      padding: 32px 72px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; transition: color .25s; }
+    footer a:hover { color: var(--gold2); }
+
+    /* Language visibility */
+    [data-lang] { display: none; }
+    body[data-current-lang="ru"] [data-lang="ru"] { display: initial; }
+    body[data-current-lang="en"] [data-lang="en"] { display: initial; }
+
+    @media (max-width: 1180px) {
+      .cards { grid-template-columns: 1fr 1fr; }
+      .card-name-en { font-size: clamp(28px, 3vw, 40px); }
+      .card-header { min-height: 180px; }
+    }
+    @media (max-width: 900px) {
+      nav { padding: 14px 16px; }
+      .nav-right { gap: 12px; }
+      .page { padding: 50px 18px 60px 18px; }
+      .page-h1 { font-size: 28px; margin-bottom: 30px; }
+      .cards { grid-template-columns: 1fr; gap: 20px; }
+      .card-header {
+        min-height: 150px;
+        padding: 26px 22px 22px;
+        gap: 16px;
+      }
+      .card-name-en { font-size: 30px; }
+      .card-name-ru { font-size: 11px; letter-spacing: 2.5px; }
+      footer {
+        flex-direction: column; gap: 12px;
+        padding: 24px 18px; text-align: center;
+      }
+    }
+  </style>
+</head>
+<body data-current-lang="ru">
+
+<nav>
+  <a href="/" class="nav-logo">SuccessCode</a>
+  <div class="nav-right">
+    <a href="/ru" class="nav-link home-link">
+      <span data-lang="ru">Главная</span>
+      <span data-lang="en">Home</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn active" data-set-lang="ru" type="button">RU</button>
+      <button class="lang-btn"        data-set-lang="en" type="button">EN</button>
+    </div>
+  </div>
+</nav>
+
+<main class="page">
+  <div class="page-body">
+    <div class="page-tag">
+      <span data-lang="ru">Калькуляторы</span>
+      <span data-lang="en">Calculators</span>
+    </div>
+
+    <h1 class="page-h1">
+      <span data-lang="ru">Древние системы, <em>современные инструменты.</em></span>
+      <span data-lang="en">Ancient systems, <em>modern instruments.</em></span>
+    </h1>
+
+    <div class="cards">
+      <div class="card" data-href="/zwds">
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Zi Wei Dou Shu</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Цзы Вэй Доу Шу · Карта жизни</span>
+              <span data-lang="en">Zi Wei Dou Shu · Life-map</span>
+            </div>
+          </div>
+          <a href="/zwds" class="card-cta card-open">
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
+          </a>
+        </div>
+        <a href="/zwds" class="card-screenshot card-open">
+          <img src="images/calculators/zwds.png" alt="ZWDS Calculator preview" loading="lazy">
+        </a>
+      </div>
+
+      <div class="card" data-href="/qmdj">
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Qi Men Dun Jia</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Ци Мэнь Дунь Цзя · Тайминг и стратегия</span>
+              <span data-lang="en">Qi Men Dun Jia · Timing &amp; strategy</span>
+            </div>
+          </div>
+          <a href="/qmdj" class="card-cta card-open">
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
+          </a>
+        </div>
+        <a href="/qmdj" class="card-screenshot card-open">
+          <img src="images/calculators/qmdj.png" alt="QMDJ Calculator preview" loading="lazy">
+        </a>
+      </div>
+
+      <div class="card" data-href="/bazi">
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Ba Zi</div>
+            <div class="card-name-ru">
+              <span data-lang="ru">Ба Цзы · Четыре столпа судьбы</span>
+              <span data-lang="en">Ba Zi · Four Pillars of Destiny</span>
+            </div>
+          </div>
+          <a href="/bazi" class="card-cta card-open">
+            <span data-lang="ru">Открыть</span>
+            <span data-lang="en">Open</span>
+          </a>
+        </div>
+        <a href="/bazi" class="card-screenshot card-open">
+          <img src="images/calculators/bazi.png" alt="BaZi Calculator preview" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div>© SuccessCode</div>
+  <div><a href="/ru">
+    <span data-lang="ru">Главная</span>
+    <span data-lang="en">Home</span>
+  </a></div>
+</footer>
+
+<script>
+  (function() {
+    var STORAGE_KEY = 'sc-lang';
+    var body = document.body;
+    var buttons = document.querySelectorAll('[data-set-lang]');
+    var homeLinks = document.querySelectorAll('.home-link, footer a');
+    var cardLinks = document.querySelectorAll('.card-open');
+
+    function setLang(lang) {
+      if (lang !== 'ru' && lang !== 'en') lang = 'ru';
+      body.setAttribute('data-current-lang', lang);
+      document.documentElement.setAttribute('lang', lang);
+      buttons.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+      });
+      homeLinks.forEach(function(a) {
+        a.setAttribute('href', lang === 'en' ? '/' : '/ru');
+      });
+      cardLinks.forEach(function(a) {
+        var base = a.getAttribute('href').split('?')[0];
+        a.setAttribute('href', base + '?lang=' + lang);
+      });
+      try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
+    }
+
+    var initial = null;
+    try { initial = new URL(location.href).searchParams.get('lang'); } catch(e){}
+    if (initial !== 'ru' && initial !== 'en') {
+      try { initial = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    }
+    setLang(initial || 'ru');
+
+    buttons.forEach(function(b) {
+      b.addEventListener('click', function() {
+        setLang(b.getAttribute('data-set-lang'));
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
