@@ -161,7 +161,7 @@
 <script src="/tz.js"></script>
 <script src="/qmdj-engine.bundle.js"></script>
 <script>
-let LANG="ru";
+let LANG=(function(){var q=null;try{q=new URL(location.href).searchParams.get("lang");}catch(e){}if(q==="ru"||q==="en"){try{localStorage.setItem("sc-lang",q);}catch(e){}return q;}var s=null;try{s=localStorage.getItem("sc-lang");}catch(e){}return (s==="en"||s==="ru")?s:"ru";})();
 const T={
   ru:{ sub:"Qi Men Dun Jia · Чай Бу", secDate:"Дата, время и город",
     lYear:"Год",lMonth:"Месяц",lDay:"День",lHour:"Час",lMin:"Минута",calc:"Рассчитать",
@@ -275,7 +275,7 @@ function applyLang(){
   document.getElementById("lang-ru").classList.toggle("on",LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on",LANG==="en");
 }
-function setLang(l){ LANG=l; applyLang(); if(CUR_PAN){ render(CUR_PAN); if(CUR_PAL) showDetail(CUR_PAL); } }
+function setLang(l){ LANG=l; try{localStorage.setItem("sc-lang",l);}catch(e){} applyLang(); if(CUR_PAN){ render(CUR_PAN); if(CUR_PAL) showDetail(CUR_PAL); } }
 
 function tzOffsetMin(date,tz){
   try{

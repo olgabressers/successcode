@@ -315,6 +315,7 @@
     var body = document.body;
     var buttons = document.querySelectorAll('[data-set-lang]');
     var homeLinks = document.querySelectorAll('.home-link, footer a');
+    var cardLinks = document.querySelectorAll('.card');
 
     function setLang(lang) {
       if (lang !== 'ru' && lang !== 'en') lang = 'ru';
@@ -326,12 +327,19 @@
       homeLinks.forEach(function(a) {
         a.setAttribute('href', lang === 'en' ? '/' : '/ru');
       });
+      cardLinks.forEach(function(a) {
+        var base = a.getAttribute('href').split('?')[0];
+        a.setAttribute('href', base + '?lang=' + lang);
+      });
       try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) {}
     }
 
-    var saved = null;
-    try { saved = localStorage.getItem(STORAGE_KEY); } catch (e) {}
-    setLang(saved || 'ru');
+    var initial = null;
+    try { initial = new URL(location.href).searchParams.get('lang'); } catch(e){}
+    if (initial !== 'ru' && initial !== 'en') {
+      try { initial = localStorage.getItem(STORAGE_KEY); } catch (e) {}
+    }
+    setLang(initial || 'ru');
 
     buttons.forEach(function(b) {
       b.addEventListener('click', function() {

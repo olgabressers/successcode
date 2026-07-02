@@ -78,9 +78,11 @@
   .pil-shen { font-size: 11px; color: var(--text-dim); letter-spacing: 0.5px; line-height: 1.35; }
   .pil-gan  { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; line-height: 1; padding-top: 12px; }
   .pil-zhi  { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; line-height: 1; }
-  .pil-hide { font-size: 11px; color: var(--text-dim); line-height: 1.45; }
-  .pil-hide .hg { font-family: 'Cormorant Garamond', serif; font-size: 15px; margin: 0 3px 0 0; }
-  .pil-hide .hs { font-size: 10px; color: var(--text-muted); margin-right: 8px; }
+  .pil-hide { font-size: 11px; color: var(--text-dim); line-height: 1.45;
+              display: flex; flex-direction: column; gap: 4px; align-items: stretch; }
+  .pil-hide-row { display: grid; grid-template-columns: 22px 1fr; gap: 6px; align-items: center; text-align: left; }
+  .pil-hide-row .hg { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; text-align: center; }
+  .pil-hide-row .hs { font-size: 10.5px; color: var(--text-muted); }
   .pil-nayin { font-size: 11px; color: var(--text-dim); line-height: 1.35; }
   .pil-void { opacity: .32; }
   .pil-void-tag { display: block; font-size: 8px; letter-spacing: 1.5px;
@@ -102,6 +104,42 @@
   .sum-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
   .sum-value { font-size: 15px; color: var(--text); font-weight: 500; }
   .sum-value .cn { font-family: 'Cormorant Garamond', serif; font-size: 20px; margin-right: 5px; }
+
+  /* Auxiliary Stars (Shen Sha) */
+  .stars {
+    background: var(--surface); border: 1px solid var(--border);
+    margin-bottom: 18px;
+  }
+  .stars-title {
+    padding: 12px 20px; background: #faf7ef;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-dim); font-weight: 700;
+    border-bottom: 1px solid var(--border);
+  }
+  .stars-grid { display: grid; grid-template-columns: repeat(2, 1fr); }
+  .star-item {
+    padding: 14px 18px;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .star-item:nth-child(2n) { border-right: none; }
+  .star-item:nth-last-child(-n+2) { border-bottom: none; }
+  .star-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 500;
+    color: var(--gold); margin-bottom: 4px;
+  }
+  .star-name .cn { font-size: 14px; margin-left: 6px; color: var(--gold-dim); font-weight: 400; }
+  .star-pos {
+    font-size: 11px; color: var(--text-muted); letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+  .star-pos .cn { font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; margin: 0 3px; }
+  .star-hit {
+    font-size: 12px; color: var(--text-dim); margin-top: 3px;
+  }
+  .star-hit.match { color: var(--gold); font-weight: 600; }
+  .star-hit .cn { font-family: 'Cormorant Garamond', serif; font-weight: 600; margin: 0 2px; }
 
   /* ── Luck Pillars (大运) ────────────────── */
   .dayun {
@@ -232,6 +270,12 @@
   <!-- Summary -->
   <div class="summary" id="summary"></div>
 
+  <!-- Auxiliary Stars (Shen Sha) -->
+  <div class="stars">
+    <div class="stars-title" data-i18n="starsTitle">Дополнительные звёзды</div>
+    <div class="stars-grid" id="stars-grid"></div>
+  </div>
+
   <!-- Luck pillars -->
   <div class="dayun">
     <div class="dayun-title">
@@ -275,6 +319,15 @@ const I18N = {
     dayunTitle: "Большие циклы (大运)",
     dayunStart: "Начало: возраст",
     age: "возраст",
+    starsTitle: "Дополнительные звёзды",
+    starNoble: "Благородных",
+    starAcademic: "Звезда академика",
+    starTravel: "Путешествующая лошадь",
+    starPeach: "Цветок персика",
+    starPosition: "Позиции",
+    starInPillar: "В столпе",
+    starAbsent: "Отсутствует в чарте",
+    starPillarHour: "Час", starPillarDay: "День", starPillarMonth: "Месяц", starPillarYear: "Год",
     liunianTitle: "Текущий год (流年)",
     computeFirst: "Введите данные и нажмите «Рассчитать».",
     invalidDate: "Такой даты не существует.",
@@ -308,6 +361,15 @@ const I18N = {
     dayunTitle: "Luck Pillars (大运)",
     dayunStart: "Start age",
     age: "age",
+    starsTitle: "Auxiliary Stars",
+    starNoble: "Nobleman",
+    starAcademic: "Academic Star",
+    starTravel: "Travelling Horse",
+    starPeach: "Peach Blossom",
+    starPosition: "Positions",
+    starInPillar: "In pillar",
+    starAbsent: "Not present in the chart",
+    starPillarHour: "Hour", starPillarDay: "Day", starPillarMonth: "Month", starPillarYear: "Year",
     liunianTitle: "Current Year (流年)",
     computeFirst: "Enter data and press Compute.",
     invalidDate: "This date does not exist.",
@@ -318,7 +380,16 @@ const I18N = {
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
 };
-let LANG = "ru";
+/* Language: URL ?lang= > localStorage sc-lang > default 'ru' */
+function initLang(){
+  var q = null;
+  try { q = new URL(location.href).searchParams.get("lang"); } catch(e){}
+  if (q === "ru" || q === "en") { try { localStorage.setItem("sc-lang", q); } catch(e){} return q; }
+  var s = null;
+  try { s = localStorage.getItem("sc-lang"); } catch(e){}
+  return (s === "en" || s === "ru") ? s : "ru";
+}
+let LANG = initLang();
 const L = () => I18N[LANG];
 
 /* ===== Element / stem-branch tables ===== */
@@ -332,8 +403,8 @@ const elName  = ch => (LANG === "ru" ? EL_NAME_RU : EL_NAME_EN)[STEM_EL[ch] || B
 
 /* Ten God translations (drop Chinese chars in display) */
 const TEN_GOD = {
-  ru: {"比肩":"Соратник","劫财":"Соперник","食神":"Творец","伤官":"Мятежник","偏财":"Приход","正财":"Достаток","七杀":"Меч","正官":"Чиновник","偏印":"Наставник","正印":"Опора"},
-  en: {"比肩":"Peer","劫财":"Rival","食神":"Creator","伤官":"Rebel","偏财":"Windfall","正财":"Wealth","七杀":"Killer","正官":"Officer","偏印":"Mentor","正印":"Support"}
+  ru: {"比肩":"Братство","劫财":"Грабитель богатства","食神":"Дух наслаждения","伤官":"Вызов власти","偏财":"Непрямое богатство","正财":"Прямое богатство","七杀":"7 Убийца","正官":"Правильная власть","偏印":"Непрямые ресурсы","正印":"Прямые ресурсы"},
+  en: {"比肩":"Companion","劫财":"Rob Wealth","食神":"Eating God","伤官":"Hurting Officer","偏财":"Indirect Wealth","正财":"Direct Wealth","七杀":"Seven Killings","正官":"Direct Officer","偏印":"Indirect Resource","正印":"Direct Resource"}
 };
 const tg = s => (TEN_GOD[LANG] && TEN_GOD[LANG][s]) || s || "";
 
@@ -518,13 +589,13 @@ function renderPillars(ec){
     ${p.shenBranch.map((s,i)=>`<div class="pil-shen${voidClass(i)}">${tg(s)}</div>`).join("")}
   </div>`);
 
-  // Hidden stems (translate Ten Gods, keep Chinese stem chars)
+  // Hidden stems — stems stacked vertically, Chinese char + translated Ten God per row
   rows.push(`<div class="pil-row">
     <div class="pil-label">${L().hidden}</div>
     ${p.hide.map((arr,i)=>{
       const shen = p.hideShen[i] || [];
       return `<div class="pil-hide${voidClass(i)}">${arr.map((g,j)=>
-        `<span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg(shen[j]||"")}</span>`
+        `<div class="pil-hide-row"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg(shen[j]||"")}</span></div>`
       ).join("")}</div>`;
     }).join("")}
   </div>`);
@@ -575,6 +646,69 @@ function renderSummary(ec, lunar){
   `;
 }
 
+/* ===== Auxiliary Stars (神煞) ===== */
+const NOBLE_BY_DAY_STEM = {
+  甲:["丑","未"], 戊:["丑","未"], 庚:["丑","未"],
+  乙:["子","申"], 己:["子","申"],
+  丙:["亥","酉"], 丁:["亥","酉"],
+  辛:["午","寅"],
+  壬:["巳","卯"], 癸:["巳","卯"]
+};
+const ACADEMIC_BY_DAY_STEM = {
+  甲:"巳", 乙:"午", 丙:"申", 戊:"申", 丁:"酉", 己:"酉",
+  庚:"亥", 辛:"子", 壬:"寅", 癸:"卯"
+};
+const TRAVEL_HORSE_BY_BRANCH = {
+  申:"寅", 子:"寅", 辰:"寅",
+  巳:"亥", 酉:"亥", 丑:"亥",
+  寅:"申", 午:"申", 戌:"申",
+  亥:"巳", 卯:"巳", 未:"巳"
+};
+const PEACH_BY_BRANCH = {
+  申:"酉", 子:"酉", 辰:"酉",
+  巳:"午", 酉:"午", 丑:"午",
+  寅:"卯", 午:"卯", 戌:"卯",
+  亥:"子", 卯:"子", 未:"子"
+};
+
+function computeStars(ec){
+  const dm = ec.getDayGan();
+  const dayZhi = ec.getDayZhi();
+  return [
+    {name: L().starNoble,    cn: "贵人", positions: NOBLE_BY_DAY_STEM[dm] || []},
+    {name: L().starAcademic, cn: "文昌", positions: [ACADEMIC_BY_DAY_STEM[dm]].filter(Boolean)},
+    {name: L().starTravel,   cn: "驿马", positions: [TRAVEL_HORSE_BY_BRANCH[dayZhi]].filter(Boolean)},
+    {name: L().starPeach,    cn: "桃花", positions: [PEACH_BY_BRANCH[dayZhi]].filter(Boolean)}
+  ];
+}
+
+function renderStars(ec){
+  const stars = computeStars(ec);
+  const branches = [
+    {label: L().starPillarHour,  zhi: ec.getTimeZhi()},
+    {label: L().starPillarDay,   zhi: ec.getDayZhi()},
+    {label: L().starPillarMonth, zhi: ec.getMonthZhi()},
+    {label: L().starPillarYear,  zhi: ec.getYearZhi()}
+  ];
+
+  const html = stars.map(st => {
+    const posHtml = st.positions.length
+      ? st.positions.map(z => `<span class="cn ${elClass(z)}">${z}</span>`).join(" ")
+      : "—";
+    const hits = branches.filter(b => st.positions.includes(b.zhi));
+    const hitHtml = hits.length
+      ? `${L().starInPillar}: ` + hits.map(h => `${h.label} (<span class="cn ${elClass(h.zhi)}">${h.zhi}</span>)`).join(" · ") + " ✓"
+      : L().starAbsent;
+    return `<div class="star-item">
+      <div class="star-name">${st.name} <span class="cn">${st.cn}</span></div>
+      <div class="star-pos">${L().starPosition}: ${posHtml}</div>
+      <div class="star-hit${hits.length ? " match" : ""}">${hitHtml}</div>
+    </div>`;
+  }).join("");
+
+  document.getElementById("stars-grid").innerHTML = html;
+}
+
 function renderDayun(ec, sex){
   // sex: 1=male, 0=female per lunar-js. sect=2 for modern-common calculation.
   const yun = ec.getYun(sex, 2);
@@ -584,10 +718,6 @@ function renderDayun(ec, sex){
   const startAge = firstLuck ? firstLuck.getStartAge() : "";
   const currentYear = (new Date()).getFullYear();
   const dm = ec.getDayGan();
-
-  // Void branches (natal Day Xun Kong) — greys out any luck pillar OR annual year whose BRANCH is void
-  const kong = ec.getDayXunKong ? (ec.getDayXunKong()||"") : "";
-  const voidSet = new Set(kong.split(""));
 
   const cells = [];
   for (let i = 1; i <= 10; i++) {
@@ -601,10 +731,9 @@ function renderDayun(ec, sex){
     const isCurrent = currentYear >= startY && currentYear <= endY;
 
     const gan = gz.charAt(0), zhi = gz.charAt(1);
-    const isVoidCell = voidSet.has(zhi);
     const shenCn = tenGodStem(dm, gan);
 
-    // Annual (流年) list — 10 rows per luck pillar
+    // Annual (流年) list — 10 rows per luck pillar. NO void styling here — only natal pillars can be void.
     let liuRows = "";
     try {
       const liu = d.getLiuNian ? d.getLiuNian(10) : null;
@@ -614,11 +743,9 @@ function renderDayun(ec, sex){
           const lg = lgz.charAt(0), lz = lgz.charAt(1);
           const lYear = ln.getYear();
           const lAge = ln.getAge();
-          const lVoid = voidSet.has(lz);
           const lCurr = lYear === currentYear;
           const lShen = tg(tenGodStem(dm, lg));
-          const cls = [(lCurr ? "current" : ""), (lVoid ? "void" : "")].filter(Boolean).join(" ");
-          return `<div class="dayun-liu-row ${cls}" title="${L().age} ${lAge} · ${lShen}">
+          return `<div class="dayun-liu-row ${lCurr ? "current" : ""}" title="${L().age} ${lAge} · ${lShen}">
             <span class="dayun-liu-y">${lYear}</span>
             <span class="dayun-liu-gz"><span class="${elClass(lg)}">${lg}</span><span class="${elClass(lz)}">${lz}</span></span>
           </div>`;
@@ -626,8 +753,7 @@ function renderDayun(ec, sex){
       }
     } catch(e) { liuRows = ""; }
 
-    const cellCls = [(isCurrent ? "current" : ""), (isVoidCell ? "void" : "")].filter(Boolean).join(" ");
-    cells.push(`<div class="dayun-cell ${cellCls}">
+    cells.push(`<div class="dayun-cell ${isCurrent ? "current" : ""}">
       <div class="dayun-age">${startA}–${endA}</div>
       <div class="dayun-gz">
         <span class="${elClass(gan)}">${gan}</span><br>
@@ -698,6 +824,7 @@ function renderLiunian(ec){
 function render(ec, lunar, sex, cm){
   renderPillars(ec);
   renderSummary(ec, lunar);
+  renderStars(ec);
   renderDayun(ec, sex);
   renderLiunian(ec);
   const sign=cm>=0?"+":"-";
@@ -715,7 +842,12 @@ function applyLang(){
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
 }
-function setLang(l){ LANG = l; applyLang(); if(document.getElementById("result").style.display==="block") compute(); }
+function setLang(l){
+  LANG = l;
+  try { localStorage.setItem("sc-lang", l); } catch(e){}
+  applyLang();
+  if(document.getElementById("result").style.display==="block") compute();
+}
 
 document.getElementById("lang-ru").addEventListener("click", ()=>setLang("ru"));
 document.getElementById("lang-en").addEventListener("click", ()=>setLang("en"));
