@@ -59,6 +59,21 @@
     }
     .nav-btn:hover { background: var(--gold2); }
 
+    /* Language switch */
+    .lang-switch {
+      display: inline-flex; align-items: center;
+      border: 1px solid var(--border);
+    }
+    .lang-switch a {
+      font-size: 11px; letter-spacing: 2px; font-weight: 600;
+      color: var(--muted); padding: 8px 12px;
+      font-family: 'Inter', sans-serif;
+      text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch a.active { background: var(--gold); color: #f5f1eb; }
+    .lang-switch a:not(.active):hover { color: var(--gold2); }
+
     /* HERO */
     .hero {
       height: 100vh; min-height: 700px;
@@ -552,10 +567,11 @@
       body { font-size: 15px; }
 
       nav { padding: 16px 22px; }
-      .nav-links { gap: 14px; }
+      .nav-links { gap: 12px; }
       .nav-link { display: none; }
       .nav-btn { padding: 11px 18px; font-size: 10px; letter-spacing: 1.5px; }
       .nav-logo { font-size: 16px; letter-spacing: 3px; }
+      .lang-switch a { padding: 6px 9px; font-size: 10px; }
 
       .hero {
         grid-template-columns: 1fr;
@@ -649,6 +665,10 @@
     <a href="#about" class="nav-link">О методе</a>
     <a href="#questions" class="nav-link">Вопросы</a>
     <a href="#calculator" class="nav-link">Калькулятор</a>
+    <div class="lang-switch" aria-label="Language">
+      <a href="/ru/" class="active">RU</a>
+      <a href="/">EN</a>
+    </div>
     <a href="#booking" class="nav-btn">Записаться</a>
   </div>
 </nav>
