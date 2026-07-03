@@ -75,7 +75,7 @@
   .cal-dow div.we { color: var(--gold-dim); }
 
   .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-          min-height: 92px; padding: 7px 7px 8px; cursor: pointer; position: relative;
+          min-height: 106px; padding: 7px 7px 8px; cursor: pointer; position: relative;
           display: flex; flex-direction: column; gap: 3px; transition: background .12s; }
   .cell:nth-child(7n) { border-right: none; }
   .cell:hover { background: #faf7ef; }
@@ -91,6 +91,38 @@
   .c-gz { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600;
           line-height: 1; margin-top: auto; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
+  .c-ind { font-size: 10px; line-height: 1.15; color: var(--gold-dim); font-weight: 600; margin-top: 3px; }
+  .c-clash { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
+  .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #fff; }
+  .cl-m { background: #c0392b; }   /* clash with month (月破) */
+  .cl-y { background: #7b4397; }   /* clash with year (岁破) */
+
+  /* Display-options dropdown */
+  .disp-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  .disp { position: relative; }
+  #disp-btn { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+              padding: 8px 14px; cursor: pointer; transition: background .2s, color .2s; }
+  #disp-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .disp-menu { position: absolute; top: 100%; right: 0; margin-top: 4px; z-index: 40; background: #fff;
+               border: 1px solid var(--border); min-width: 220px; display: none; padding: 6px 0;
+               box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .disp-menu.open { display: block; }
+  .disp-menu label { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+                     font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-dim); cursor: pointer; }
+  .disp-menu label:hover { background: #faf7ef; }
+  .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+
+  /* Officers legend */
+  .ind-legend { max-width: 960px; margin: 14px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
+                line-height: 2; display: none; }
+  .ind-legend.show { display: block; }
+  .ind-legend .lg-title { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--gold);
+                          letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .ind-legend b { color: var(--gold-dim); }
+  .ind-legend .lg-clash { margin-top: 8px; }
+  .ind-legend .cl-m, .ind-legend .cl-y { font-size: 10px; }
 
   /* ── Hour pillars table ─────────────────────────────── */
   .hours { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
@@ -154,11 +186,15 @@
     .nav { gap: 7px; flex-wrap: wrap; }
     .nav .title { font-size: 18px; min-width: 0; order: -1; width: 100%; }
     .nav button { padding: 7px 11px; }
-    .cell { min-height: 68px; padding: 5px 4px 6px; gap: 2px; }
+    .cell { min-height: 84px; padding: 5px 3px 6px; gap: 2px; }
     .c-num { font-size: 15px; }
     .c-gz { font-size: 15px; }
     .c-lunar { font-size: 8.5px; }
     .c-term { font-size: 8px; }
+    .c-ind { font-size: 8.5px; margin-top: 2px; }
+    .cl-m, .cl-y { font-size: 8px; padding: 0 3px; }
+    .disp-menu { min-width: 190px; }
+    .ind-legend { font-size: 11.5px; line-height: 1.9; }
     .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
     .hours-grid { grid-template-columns: repeat(4, 1fr); }
     .hcell:nth-child(6n) { border-right: 1px solid var(--border); }
@@ -211,11 +247,25 @@
     <button class="today-btn" id="today" type="button">Today</button>
   </div>
 
+  <!-- Display options -->
+  <div class="disp-row">
+    <div class="disp">
+      <button id="disp-btn" type="button">Показать ▾</button>
+      <div class="disp-menu" id="disp-menu">
+        <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
+        <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения (冲)</span></label>
+      </div>
+    </div>
+  </div>
+
   <!-- Calendar grid -->
   <div class="cal">
     <div class="cal-dow" id="cal-dow"></div>
     <div id="cal-body"></div>
   </div>
+
+  <!-- Day Officers legend (shown when Indicators enabled) -->
+  <div class="ind-legend" id="ind-legend"></div>
 
   <!-- Hour pillars for the selected day -->
   <div class="hours">
@@ -252,6 +302,10 @@ const I18N = {
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
+    show: "Показать", optInd: "Индикаторы (1–12)", optClash: "Столкновения (冲)",
+    legendTitle: "Индикаторы дня (建除)",
+    clashMonthTip: "День сталкивается с месяцем (月破)", clashYearTip: "День сталкивается с годом (岁破)",
+    officers: ["","Установление","Устранение","Полнота","Равновесие","Стабильность","Исполнение","Разрушение","Опасность","Достижение","Сбор","Открытие","Закрытие"],
     months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
     dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
     dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
@@ -262,6 +316,10 @@ const I18N = {
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
+    show: "Show", optInd: "Day Officers (1–12)", optClash: "Clashes (冲)",
+    legendTitle: "Day Officers (建除)",
+    clashMonthTip: "Day clashes the month (月破)", clashYearTip: "Day clashes the year (岁破)",
+    officers: ["","Establish","Remove","Full","Balance","Stable","Initiate","Destruction","Danger","Success","Receive","Open","Close"],
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
     dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -295,6 +353,10 @@ const EL_NAME = {
   ru: {wood:"Дерево",fire:"Огонь",earth:"Земля",metal:"Металл",water:"Вода"},
   en: {wood:"Wood",fire:"Fire",earth:"Earth",metal:"Metal",water:"Water"}
 };
+const BRANCH_IDX = {子:0,丑:1,寅:2,卯:3,辰:4,巳:5,午:6,未:7,申:8,酉:9,戌:10,亥:11};
+/* 建除十二神 — 12 Day Officers; getZhiXing() returns the char, mapped to 1–12 */
+const OFFICER_NUM = {建:1,除:2,满:3,平:4,定:5,执:6,破:7,危:8,成:9,收:10,开:11,闭:12};
+const OFFICER_CHARS = ["建","除","满","平","定","执","破","危","成","收","开","闭"];
 const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
 const elName  = ch => EL_NAME[LANG][STEM_EL[ch] || BRANCH_EL[ch]] || "";
 const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
@@ -337,6 +399,8 @@ const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.g
 
 /* ── Solar-time correction (city longitude, same method as bazi.html) ── */
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
+/* display toggles for extra cell info (Officers + Clashes) */
+let SHOW_IND = true, SHOW_CLASH = true;
 function tzOffsetMin(date, tz) {
   try {
     const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
@@ -426,6 +490,35 @@ function syncNav() {
   document.getElementById("sel-year").value = viewY;
 }
 
+/* 建除 day officer tag */
+function indHtml(lunar) {
+  const ch = lunar.getZhiXing(), n = OFFICER_NUM[ch] || 0;
+  if (!n) return "";
+  return `<div class="c-ind" title="${n} · ${ch} · ${L().officers[n]}">${n} ${L().officers[n]}</div>`;
+}
+/* day-vs-month (月破) and day-vs-year (岁破) clash tags */
+function clashHtml(p) {
+  const di = BRANCH_IDX[p.d[1]], mi = BRANCH_IDX[p.m[1]], yi = BRANCH_IDX[p.y[1]];
+  let t = "";
+  if ((di + 6) % 12 === mi) t += `<span class="cl-m" title="${L().clashMonthTip}">冲月</span>`;
+  if ((di + 6) % 12 === yi) t += `<span class="cl-y" title="${L().clashYearTip}">冲年</span>`;
+  return t ? `<div class="c-clash">${t}</div>` : "";
+}
+function renderLegend() {
+  const el = document.getElementById("ind-legend");
+  if (!SHOW_IND && !SHOW_CLASH) { el.classList.remove("show"); return; }
+  let html = "";
+  if (SHOW_IND) {
+    const items = OFFICER_CHARS.map((c,i) => `<b>${i+1}</b> ${c} ${L().officers[i+1]}`).join(" · ");
+    html += `<div class="lg-title">${L().legendTitle}</div>${items}`;
+  }
+  if (SHOW_CLASH) {
+    html += `<div class="lg-clash"><span class="cl-m">冲月</span> ${L().clashMonthTip} &nbsp; <span class="cl-y">冲年</span> ${L().clashYearTip}</div>`;
+  }
+  el.innerHTML = html;
+  el.classList.add("show");
+}
+
 function renderGrid() {
   syncNav();
   document.getElementById("cal-dow").innerHTML =
@@ -457,6 +550,8 @@ function renderGrid() {
           <div class="c-lunar">${lunarDay}</div>
           ${term ? `<div class="c-term">${termLabel(term)}</div>` : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
+          ${SHOW_IND ? indHtml(p.lunar) : ``}
+          ${SHOW_CLASH ? clashHtml(p) : ``}
         </div>`;
       cur.setDate(cur.getDate()+1);
     }
@@ -473,6 +568,7 @@ function renderGrid() {
       renderDayBar(); renderHours(); refreshSelection();
     });
   });
+  renderLegend();
 }
 
 function refreshSelection() {
@@ -547,6 +643,13 @@ document.addEventListener("click", e => {
   if (!e.target.closest(".city-wrap")) document.getElementById("cal-city-dd").style.display = "none";
 });
 
+/* ===================== Display-options dropdown ===================== */
+const _dispMenu = document.getElementById("disp-menu");
+document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropagation(); _dispMenu.classList.toggle("open"); });
+document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
+document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
+document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
+
 /* ===================== Language ===================== */
 function applyLang() {
   document.documentElement.lang = LANG;
@@ -555,6 +658,9 @@ function applyLang() {
   document.getElementById("backlink").textContent = L().back;
   document.getElementById("solar-label").textContent = L().solar;
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
+  document.getElementById("disp-btn").textContent = L().show + " ▾";
+  document.getElementById("lbl-ind").textContent = L().optInd;
+  document.getElementById("lbl-clash").textContent = L().optClash;
   buildMonthOptions(); syncNav();
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
@@ -569,6 +675,8 @@ document.getElementById("lang-en").addEventListener("click", () => setLang("en")
 
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
+document.getElementById("opt-ind").checked = SHOW_IND;
+document.getElementById("opt-clash").checked = SHOW_CLASH;
 buildYearOptions();
 applyLang();
 renderAll();
