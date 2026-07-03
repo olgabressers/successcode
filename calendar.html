@@ -39,9 +39,9 @@
                  flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
   .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
-  #db-date { background: #f8f6f2; border: 1px solid var(--border); color: var(--text-dim);
-             font-family: 'Inter', sans-serif; font-size: 12px; padding: 5px 8px; cursor: pointer; }
-  #db-date:focus { border-color: var(--gold); outline: none; }
+  #nav-date { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+              font-family: 'Inter', sans-serif; font-size: 13px; padding: 7px 9px; cursor: pointer; }
+  #nav-date:focus { border-color: var(--gold); outline: none; }
   .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
   .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
 
@@ -292,7 +292,6 @@
     <div class="daybar-head">
       <div class="db-datewrap">
         <span class="daybar-greg" id="db-greg"></span>
-        <input type="date" id="db-date">
         <span class="daybar-dow"  id="db-dow"></span>
         <span class="daybar-term" id="db-term"></span>
       </div>
@@ -322,6 +321,7 @@
 
   <!-- Month navigation -->
   <div class="nav">
+    <input type="date" id="nav-date">
     <button id="prev" type="button" aria-label="prev">‹</button>
     <div class="nav-selects">
       <select id="sel-month" aria-label="month"></select>
@@ -355,9 +355,6 @@
     <div id="cal-body"></div>
   </div>
 
-  <!-- Flying stars (year + solar months in view) -->
-  <div class="flystars" id="flystars"></div>
-
   <!-- Hour pillars for the selected day -->
   <div class="hours">
     <div class="hours-title"><span id="hours-title"></span></div>
@@ -366,6 +363,9 @@
 
   <!-- Day Officers legend (shown when Indicators enabled) -->
   <div class="ind-legend" id="ind-legend"></div>
+
+  <!-- Flying stars (year + solar months in view) -->
+  <div class="flystars" id="flystars"></div>
 
   <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
   <div class="footer-brand">SuccessCode</div>
@@ -624,7 +624,7 @@ function renderDayBar() {
   const dowIdx = (selected.getDay()+6)%7;
   document.getElementById("db-greg").textContent =
     `${d} ${L().months[selected.getMonth()]} ${y}`;
-  document.getElementById("db-date").value = `${y}-${pad2(m)}-${pad2(d)}`;
+  document.getElementById("nav-date").value = `${y}-${pad2(m)}-${pad2(d)}`;
   document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
 
   // effective hour: current hour if today (solar-adjusted when enabled), else noon
@@ -972,7 +972,7 @@ document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
 document.getElementById("next").addEventListener("click", () => shiftMonth(1));
 document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
 document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
-document.getElementById("db-date").addEventListener("change", e => {
+document.getElementById("nav-date").addEventListener("change", e => {
   const [yy,mm,dd] = e.target.value.split("-").map(Number);
   if (!yy) return;
   selected = new Date(yy, mm-1, dd);
