@@ -33,25 +33,31 @@
 
   .wrap { max-width: 960px; margin: 0 auto; }
 
-  /* ── Top pillars bar (dates on top) ─────────────────── */
+  /* ── Top: date + dual charts ─────────────────── */
   .daybar { background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px; }
-  .daybar-head { display: flex; align-items: baseline; justify-content: center; gap: 14px;
-                 flex-wrap: wrap; padding: 16px 20px 10px; border-bottom: 1px solid var(--border); }
-  .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; color: var(--text); }
+  .daybar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+                 flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
   .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
-  .daybar-lunar{ font-size: 12px; color: var(--text-muted); letter-spacing: .5px; }
   .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
+
+  .db-charts { display: flex; }
+  .db-chart { flex: 1; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+  .db-chart:last-child { border-right: none; }
+  .db-cap { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .3px; color: var(--gold-dim);
+            text-align: center; padding: 8px 8px 10px; border-top: 1px solid var(--border); line-height: 1.35; }
 
   .pillars { display: grid; grid-template-columns: repeat(4, 1fr); }
   .pillar { display: flex; flex-direction: column; align-items: center; text-align: center;
-            gap: 6px; padding: 14px 8px 16px; border-right: 1px solid var(--border); }
+            gap: 5px; padding: 12px 4px 14px; border-right: 1px solid var(--border); }
   .pillar:last-child { border-right: none; }
-  .pillar-h { background: #faf7ef; color: var(--text-muted); font-size: 10px; letter-spacing: 1.5px;
-              text-transform: uppercase; font-weight: 600; padding: 6px 8px; margin: -14px -8px 6px;
-              width: calc(100% + 16px); border-bottom: 1px solid var(--border); }
-  .pillar-gz { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; line-height: 1; }
-  .pillar-el { font-size: 9.5px; letter-spacing: .4px; color: var(--text-muted);
-               text-transform: uppercase; white-space: nowrap; }
+  .pillar-h { background: #faf7ef; color: var(--text-muted); font-size: 9px; letter-spacing: 1px;
+              text-transform: uppercase; font-weight: 600; padding: 5px 4px; margin: -12px -4px 5px;
+              width: calc(100% + 8px); border-bottom: 1px solid var(--border); }
+  .pillar-gz { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .pillar-el { font-size: 8.5px; letter-spacing: .3px; color: var(--text-muted);
+               text-transform: uppercase; line-height: 1.2; }
 
   /* ── Month navigation ───────────────────────────────── */
   .nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
@@ -88,6 +94,12 @@
 
   .c-num { position: absolute; top: 4px; right: 6px; font-family: 'Cormorant Garamond', serif;
            font-size: 17px; font-weight: 600; line-height: 1; }
+  /* top-left icons: Mercury retrograde (black), solar/lunar eclipse (half black / half yellow) */
+  .c-icons { position: absolute; top: 5px; left: 5px; display: flex; gap: 2px; }
+  .ic-merc, .ic-esol, .ic-elun { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .ic-merc { background: #111; }
+  .ic-esol { background: linear-gradient(90deg, #111 0 50%, #f1c40f 50% 100%); box-shadow: 0 0 0 .5px #b7791f; }
+  .ic-elun { background: linear-gradient(90deg, #111 0 50%, #e8d174 50% 100%); box-shadow: 0 0 0 .5px #7d6608; }
   /* day pillar horizontal: stem + branch side by side */
   .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
@@ -207,8 +219,12 @@
     body { padding: 28px 10px; }
     .lang-switch { top: 10px; right: 10px; }
     header h1 { font-size: 22px; }
-    .daybar-greg { font-size: 22px; }
-    .pillar-gz { font-size: 26px; }
+    .daybar-greg { font-size: 20px; }
+    .daybar-head { justify-content: center; }
+    .db-charts { flex-direction: column; }
+    .db-chart { border-right: none; border-bottom: 1px solid var(--border); }
+    .db-chart:last-child { border-bottom: none; }
+    .pillar-gz { font-size: 28px; }
     .pillar { padding: 12px 4px 14px; }
     .pillar-h { font-size: 9px; letter-spacing: 1px; padding: 5px 4px; margin: -12px -4px 5px; width: calc(100% + 8px); }
     .nav { gap: 7px; flex-wrap: wrap; }
@@ -255,15 +271,36 @@
 
 <div class="wrap">
 
-  <!-- Selected-day pillars (dates on top) -->
+  <!-- Selected-day: date + controls, then Solar chart (left) + Lunar chart (right) -->
   <div class="daybar">
     <div class="daybar-head">
-      <span class="daybar-greg" id="db-greg"></span>
-      <span class="daybar-dow"  id="db-dow"></span>
-      <span class="daybar-lunar" id="db-lunar"></span>
-      <span class="daybar-term" id="db-term"></span>
+      <div class="db-datewrap">
+        <span class="daybar-greg" id="db-greg"></span>
+        <span class="daybar-dow"  id="db-dow"></span>
+        <span class="daybar-term" id="db-term"></span>
+      </div>
+      <div class="hours-controls" id="db-controls">
+        <div class="city-wrap">
+          <input type="text" id="cal-city" autocomplete="off" placeholder="Город">
+          <div class="city-dd" id="cal-city-dd"></div>
+        </div>
+        <label class="solar-toggle">
+          <input type="checkbox" id="cal-solar">
+          <span id="solar-label">Солнечное время</span>
+        </label>
+        <span class="solar-info" id="cal-solar-info"></span>
+      </div>
     </div>
-    <div class="pillars" id="db-pillars"></div>
+    <div class="db-charts">
+      <div class="db-chart">
+        <div class="pillars" id="db-solar"></div>
+        <div class="db-cap" id="db-solar-cap"></div>
+      </div>
+      <div class="db-chart">
+        <div class="pillars" id="db-lunar"></div>
+        <div class="db-cap" id="db-lunar-cap"></div>
+      </div>
+    </div>
   </div>
 
   <!-- Month navigation -->
@@ -276,9 +313,6 @@
     <button id="next" type="button" aria-label="next">›</button>
     <button class="today-btn" id="today" type="button">Today</button>
   </div>
-
-  <!-- Header: Solar month (left) + Lunar month (right) -->
-  <div class="cal-header" id="cal-header"></div>
 
   <!-- Display options -->
   <div class="disp-row">
@@ -306,20 +340,7 @@
 
   <!-- Hour pillars for the selected day -->
   <div class="hours">
-    <div class="hours-title">
-      <span id="hours-title"></span>
-      <div class="hours-controls">
-        <div class="city-wrap">
-          <input type="text" id="cal-city" autocomplete="off" placeholder="Город">
-          <div class="city-dd" id="cal-city-dd"></div>
-        </div>
-        <label class="solar-toggle">
-          <input type="checkbox" id="cal-solar">
-          <span id="solar-label">Солнечное время</span>
-        </label>
-        <span class="solar-info" id="cal-solar-info"></span>
-      </div>
-    </div>
+    <div class="hours-title"><span id="hours-title"></span></div>
     <div class="hours-grid" id="hours-grid"></div>
   </div>
 
@@ -556,44 +577,60 @@ function selectCity(i) {
   if (USE_SOLAR) { renderDayBar(); renderHours(); }
 }
 
-/* ===================== Render: top day bar ===================== */
-function renderDayBar() {
-  const p = dayPillars(selected);
-  const dowIdx = (selected.getDay()+6)%7;
-  document.getElementById("db-greg").textContent =
-    `${selected.getDate()} ${L().months[selected.getMonth()]} ${selected.getFullYear()}`;
-  document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
-  document.getElementById("db-lunar").textContent =
-    `${p.lunar.getMonthInChinese()}月 ${p.lunar.getDayInChinese()}`;
-  const term = p.lunar.getJieQi();
-  const nw = NO_WEALTH_DAYS.includes(p.d[0] + p.d[1]);
-  document.getElementById("db-term").textContent =
-    (term ? "· " + termLabel(term) : "") + (nw ? "  · " + L().noWealthTag : "");
-
-  // Hour pillar = current hour if selected is today (solar-adjusted when enabled), else noon (午)
-  let hEC;
-  if (sameDay(selected, new Date())) {
-    const base = new Date();
-    const cm = USE_SOLAR ? corrMin(base) : 0;
-    const eff = new Date(base.getTime() + cm*60000);
-    hEC = eightChar(eff.getFullYear(), eff.getMonth()+1, eff.getDate(), eff.getHours());
-  } else {
-    hEC = eightChar(selected.getFullYear(), selected.getMonth()+1, selected.getDate(), 12);
-  }
-  // Order: Hour (left) → Day → Month → Year (right)
-  const cols = [
-    {lab: L().pHour,  g:hEC.getTimeGan(), z:hEC.getTimeZhi()},
-    {lab: L().pDay,   g:p.d[0], z:p.d[1]},
-    {lab: L().pMonth, g:p.m[0], z:p.m[1]},
-    {lab: L().pYear,  g:p.y[0], z:p.y[1]}
-  ];
-
-  document.getElementById("db-pillars").innerHTML = cols.map(c => `
+/* ===================== Render: top (date + Solar chart + Lunar chart) ===================== */
+function renderPillars(elId, cols) {
+  document.getElementById(elId).innerHTML = cols.map(c => `
     <div class="pillar">
       <div class="pillar-h">${c.lab}</div>
       <div class="pillar-gz">${gzHtml(c.g, c.z)}</div>
       <div class="pillar-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
     </div>`).join("");
+}
+function renderDayBar() {
+  const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
+  const dowIdx = (selected.getDay()+6)%7;
+  document.getElementById("db-greg").textContent =
+    `${d} ${L().months[selected.getMonth()]} ${y}`;
+  document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
+
+  // effective hour: current hour if today (solar-adjusted when enabled), else noon
+  let eh = 12, ey = y, em = m, ed = d;
+  if (sameDay(selected, new Date())) {
+    const base = new Date();
+    const cm = USE_SOLAR ? corrMin(base) : 0;
+    const eff = new Date(base.getTime() + cm*60000);
+    ey = eff.getFullYear(); em = eff.getMonth()+1; ed = eff.getDate(); eh = eff.getHours();
+  }
+  const lunar = Solar.fromYmdHms(ey, em, ed, eh, 0, 0).getLunar();
+  const ec = lunar.getEightChar();
+
+  const term = lunar.getJieQi();
+  const nw = NO_WEALTH_DAYS.includes(ec.getDayGan() + ec.getDayZhi());
+  document.getElementById("db-term").textContent =
+    (term ? "· " + termLabel(term) : "") + (nw ? "  · " + L().noWealthTag : "");
+
+  // SOLAR (BaZi) chart — LiChun year, 节气 month; Hour→Day→Month→Year
+  renderPillars("db-solar", [
+    {lab: L().pHour,  g: ec.getTimeGan(),  z: ec.getTimeZhi()},
+    {lab: L().pDay,   g: ec.getDayGan(),   z: ec.getDayZhi()},
+    {lab: L().pMonth, g: ec.getMonthGan(), z: ec.getMonthZhi()},
+    {lab: L().pYear,  g: ec.getYearGan(),  z: ec.getYearZhi()}
+  ]);
+  // LUNAR chart — CNY year, lunar month
+  renderPillars("db-lunar", [
+    {lab: L().pHour,  g: lunar.getTimeGan(),  z: lunar.getTimeZhi()},
+    {lab: L().pDay,   g: lunar.getDayGan(),   z: lunar.getDayZhi()},
+    {lab: L().pMonth, g: lunar.getMonthGan(), z: lunar.getMonthZhi()},
+    {lab: L().pYear,  g: lunar.getYearGan(),  z: lunar.getYearZhi()}
+  ]);
+
+  // captions for the selected day's solar & lunar month
+  const mn = L().months, sr = solarMonthByDate(selected), lr = lunarMonthByDate(selected);
+  const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
+  document.getElementById("db-solar-cap").textContent =
+    `☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)}`;
+  document.getElementById("db-lunar-cap").textContent =
+    `🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)}`;
 }
 
 /* ===================== Render: month grid ===================== */
@@ -650,73 +687,47 @@ function killMasterHtml(p) {
     return `<div class="c-clash"><span class="cl-km" title="${L().kmTip}">${L().kmTag}</span></div>`;
   return "";
 }
-/* Mercury retrograde + eclipse markers (data 2025–2028; nothing shows outside that range) */
+/* Mercury retrograde + eclipse ICONS at top-left (data 2025–2028; nothing outside that range) */
 const dateKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
-function rxHtml(dk) {
+function rxIcon(dk) {
   for (const [s,e] of MERCURY_RX) if (dk >= s && dk <= e)
-    return `<div class="c-clash"><span class="cl-rx" title="${L().rxTip}">${L().rxTag}</span></div>`;
+    return `<span class="ic-merc" title="${L().rxTip}"></span>`;
   return "";
 }
-function eclipseHtml(dk) {
+function eclipseIcon(dk) {
   const ec = ECLIPSES[dk]; if (!ec) return "";
   const solar = ec.t === "solar";
   const tip = `${solar ? L().eclSolar : L().eclLunar} — ${L().eclKinds[ec.k]}`;
-  return `<div class="c-clash"><span class="${solar ? 'cl-esol' : 'cl-elun'}" title="${tip}">${solar ? '☀' : '🌙'} ${L().eclShort}</span></div>`;
+  return `<span class="${solar ? 'ic-esol' : 'ic-elun'}" title="${tip}"></span>`;
 }
 
-/* Solar month range (节→节) for the viewed Gregorian month */
-function solarRange() {
-  const midL = Solar.fromYmdHms(viewY, viewM+1, 15, 12, 0, 0).getLunar();
-  const pj = midL.getPrevJie(), nj = midL.getNextJie();
+/* Solar month range (节→节) containing a given date */
+function solarMonthByDate(dt) {
+  const lu = Solar.fromYmdHms(dt.getFullYear(), dt.getMonth()+1, dt.getDate(), 12, 0, 0).getLunar();
+  const pj = lu.getPrevJie(), nj = lu.getNextJie();
   const ps = pj.getSolar(), ns = nj.getSolar();
   const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
   const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
   end.setDate(end.getDate()-1);
   return { start, end, jie: pj.getName() };
 }
-/* Lunar month range (lunar day 1 → last lunar day) for the viewed Gregorian month */
-function lunarRange() {
-  const midL = Solar.fromYmdHms(viewY, viewM+1, 15, 12, 0, 0).getLunar();
-  const lm = midL.getMonth(), ly = midL.getYear();
-  const start = new Date(viewY, viewM, 16 - midL.getDay());   // Gregorian date of lunar day 1
+/* Lunar month range (lunar day 1 → last lunar day) containing a given date */
+function lunarMonthByDate(dt) {
+  const lu = Solar.fromYmdHms(dt.getFullYear(), dt.getMonth()+1, dt.getDate(), 12, 0, 0).getLunar();
+  const lm = lu.getMonth(), ly = lu.getYear();
+  const start = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() - (lu.getDay()-1));
   let end = new Date(start);
   for (let k = 1; k < 33; k++) {
     const t = new Date(start); t.setDate(start.getDate()+k);
-    const lu = Solar.fromYmdHms(t.getFullYear(), t.getMonth()+1, t.getDate(), 12, 0, 0).getLunar();
-    if (lu.getMonth() === lm && lu.getYear() === ly) end = t; else break;
+    const l2 = Solar.fromYmdHms(t.getFullYear(), t.getMonth()+1, t.getDate(), 12, 0, 0).getLunar();
+    if (l2.getMonth() === lm && l2.getYear() === ly) end = t; else break;
   }
-  return { start, end, lm, ly, leap: lm < 0, lunarObj: midL };
+  return { start, end, lm, ly, leap: lm < 0, lunarObj: lu };
 }
+/* Grid ranges: anchored on the 15th of the viewed month */
+function solarRange() { return solarMonthByDate(new Date(viewY, viewM, 15)); }
+function lunarRange() { return lunarMonthByDate(new Date(viewY, viewM, 15)); }
 
-/* Header: Solar month pillars + caption (left), Lunar month + year (right) */
-function renderHeader() {
-  const mn = L().months, sr = solarRange(), lr = lunarRange();
-  const ec = eightChar(viewY, viewM+1, 15, 12);
-  const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
-  const pill = (lab,g,z) => `<div class="mp"><div class="mp-h">${lab}</div><div class="mp-gz">${gzHtml(g,z)}</div><div class="mp-el">${stemLabel(g)} / ${animalLabel(z)}</div></div>`;
-
-  const solarActive = SOLAR_MONTH && !LUNAR_MONTH;
-  const solarHtml = `
-    <div class="hdr-side hdr-solar${solarActive ? ' active' : ''}">
-      <div class="hdr-cap">☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)}</div>
-      <div class="month-pillars">
-        ${pill(L().pMonth, ec.getMonthGan(), ec.getMonthZhi())}
-        ${pill(L().pYear,  ec.getYearGan(),  ec.getYearZhi())}
-      </div>
-    </div>`;
-
-  const lyG = lr.lunarObj.getYearGan(), lyZ = lr.lunarObj.getYearZhi();
-  const lunarHtml = `
-    <div class="hdr-side hdr-lunar${LUNAR_MONTH ? ' active' : ''}">
-      <div class="hdr-cap">🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)}</div>
-      <div class="month-pillars">
-        <div class="mp"><div class="mp-h">${L().lunarCaptionWord}</div><div class="mp-num">${Math.abs(lr.lm)}</div><div class="mp-el">${lr.leap ? '('+L().leapWord+')' : ''}</div></div>
-        ${pill(L().pYear, lyG, lyZ)}
-      </div>
-    </div>`;
-
-  document.getElementById("cal-header").innerHTML = solarHtml + lunarHtml;
-}
 function renderLegend() {
   const el = document.getElementById("ind-legend");
   if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
@@ -739,8 +750,8 @@ function renderLegend() {
   }
   if (SHOW_RX || SHOW_ECLIPSE) {
     let ln = "";
-    if (SHOW_RX) ln += `<span class="cl-rx">${L().rxTag}</span> ${L().rxTip}`;
-    if (SHOW_ECLIPSE) ln += ` &nbsp; <span class="cl-esol">☀ ${L().eclShort}</span> ${L().eclSolar} &nbsp; <span class="cl-elun">🌙 ${L().eclShort}</span> ${L().eclLunar}`;
+    if (SHOW_RX) ln += `<span class="ic-merc" style="display:inline-block;vertical-align:middle"></span> ${L().rxTip}`;
+    if (SHOW_ECLIPSE) ln += ` &nbsp; <span class="ic-esol" style="display:inline-block;vertical-align:middle"></span> ${L().eclSolar} &nbsp; <span class="ic-elun" style="display:inline-block;vertical-align:middle"></span> ${L().eclLunar}`;
     html += `<div class="lg-clash">${ln} &nbsp;·&nbsp; <i>${L().astroNote}</i></div>`;
   }
   el.innerHTML = html;
@@ -758,7 +769,6 @@ function monthRange() {
 
 function renderGrid() {
   syncNav();
-  renderHeader();
   document.getElementById("cal-dow").innerHTML =
     L().dow.map((d,i)=>`<div class="${i>=5?'we':''}">${d}</div>`).join("");
 
@@ -782,8 +792,10 @@ function renderGrid() {
       if (!inMonth) cls.push("out");
       if (sameDay(cur, today)) cls.push("today");
       if (sameDay(cur, selected)) cls.push("sel");
+      const icons = (SHOW_RX ? rxIcon(dk) : ``) + (SHOW_ECLIPSE ? eclipseIcon(dk) : ``);
       html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
           <div class="c-num">${cur.getDate()}</div>
+          ${icons ? `<div class="c-icons">${icons}</div>` : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
           ${term ? `<div class="c-term">${termLabel(term)}</div>` : ``}
           ${SHOW_IND ? indHtml(p.lunar) : ``}
@@ -791,8 +803,6 @@ function renderGrid() {
           ${SHOW_CLASH ? clashHtml(p) : ``}
           ${SHOW_NW ? noWealthHtml(p) : ``}
           ${SHOW_KM ? killMasterHtml(p) : ``}
-          ${SHOW_RX ? rxHtml(dk) : ``}
-          ${SHOW_ECLIPSE ? eclipseHtml(dk) : ``}
         </div>`;
       cur.setDate(cur.getDate()+1);
     }
