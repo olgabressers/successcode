@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>历 · Успешные даты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+    --el-wood: #2e7d32; --el-fire: #c62828; --el-earth: #8d6e2b;
+    --el-metal: #607d8b; --el-water: #1565c0;
+    --good-bg: #dff0da; --good-bg-h: #d3e9cc;
+    --bad-bg:  #f6dcd7; --bad-bg-h:  #efccc6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+
+  .lang-switch { position: fixed; top: 14px; right: 16px; z-index: 50; display: flex; gap: 4px; }
+  .lang-switch button { background: transparent; border: 1px solid var(--border);
+                        color: var(--text-muted); padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
+                        cursor: pointer; font-family: 'Inter', sans-serif; }
+  .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+             color: var(--text-muted); margin-top: 6px; }
+
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  /* ── Top: date + solar chart ─────────────────── */
+  .daybar { background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px; }
+  .daybar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+                 flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
+  .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
+  .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
+  .daybar-rating { font-size: 15px; letter-spacing: 1px; }
+  .daybar-rating .st { color: #d8d4c8; } .daybar-rating .st.on { color: #e0a92e; }
+
+  .db-charts { display: flex; gap: 18px; padding: 18px; }
+  .db-chart { flex: 1; border: 1px solid var(--border); display: flex; flex-direction: column; }
+  .db-cap { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .3px; color: var(--gold-dim);
+            text-align: center; padding: 8px 8px 10px; border-top: 1px solid var(--border); line-height: 1.35; }
+
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .pillar { display: flex; flex-direction: column; align-items: center; text-align: center;
+            gap: 5px; padding: 12px 4px 14px; border-right: 1px solid var(--border); }
+  .pillar:last-child { border-right: none; }
+  .pillar-h { background: #faf7ef; color: var(--text-muted); font-size: 9px; letter-spacing: 1px;
+              text-transform: uppercase; font-weight: 600; padding: 5px 4px; margin: -12px -4px 5px;
+              width: calc(100% + 8px); border-bottom: 1px solid var(--border); }
+  .pillar-gz { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .pillar-el { font-size: 8.5px; letter-spacing: .3px; color: var(--text-muted);
+               text-transform: uppercase; line-height: 1.2; }
+
+  /* ── Month navigation ───────────────────────────────── */
+  .nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
+  .nav button { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+                font-family: 'Inter', sans-serif; font-size: 14px; padding: 8px 14px; cursor: pointer;
+                transition: background .2s, color .2s; line-height: 1; }
+  .nav button:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .nav .title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500;
+                color: var(--gold); letter-spacing: 1px; min-width: 220px; text-align: center; }
+  .nav .today-btn { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 8px 12px; }
+  .nav select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+                padding: 6px 8px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; }
+
+  /* ── Calendar grid ──────────────────────────────────── */
+  .cal { background: var(--surface); border: 1px solid var(--border); border-bottom: none; }
+  .cal-dow, .cal-week { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-dow div { text-align: center; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+                 color: var(--text-muted); font-weight: 600; padding: 10px 2px; background: #faf7ef;
+                 border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .cal-dow div:last-child { border-right: none; }
+  .cal-dow div.we { color: var(--gold-dim); }
+
+  .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+          min-height: 104px; padding: 6px 5px 8px; cursor: pointer; position: relative;
+          display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background .12s; }
+  .cell:nth-child(7n) { border-right: none; }
+  .cell:hover { background: #faf7ef; }
+  .cell.out { background: #faf9f5; cursor: default; }
+  .cell.out:hover { background: #faf9f5; }
+  .cell.out .c-num, .cell.out .c-gz { opacity: .34; }
+  .cell.out .c-stars, .cell.out .c-term { display: none; }
+  /* Day-quality colouring: good = green, clash/bad = red */
+  .cell.q-good { background: var(--good-bg); }
+  .cell.q-good:hover { background: var(--good-bg-h); }
+  .cell.q-bad  { background: var(--bad-bg); }
+  .cell.q-bad:hover  { background: var(--bad-bg-h); }
+  .cell.today { box-shadow: inset 0 0 0 2px var(--gold); }
+  .cell.sel   { box-shadow: inset 0 0 0 2px var(--gold-dim); }
+
+  .c-num { position: absolute; top: 4px; right: 6px; font-family: 'Cormorant Garamond', serif;
+           font-size: 17px; font-weight: 600; line-height: 1; }
+  .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
+  .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
+  .c-stars { display: flex; gap: 1px; margin-top: 4px; }
+  .c-stars .st { font-size: 12px; line-height: 1; color: #cfcabb; }
+  .c-stars .st.on { color: #e0a92e; }
+
+  .el-wood  { color: var(--el-wood); }
+  .el-fire  { color: var(--el-fire); }
+  .el-earth { color: var(--el-earth); }
+  .el-metal { color: var(--el-metal); }
+  .el-water { color: var(--el-water); }
+
+  /* Display-options dropdown (Solar month only) */
+  .disp-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  .disp { position: relative; }
+  #disp-btn { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+              padding: 8px 14px; cursor: pointer; transition: background .2s, color .2s; }
+  #disp-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .disp-menu { position: absolute; top: 100%; right: 0; margin-top: 4px; z-index: 40; background: #fff;
+               border: 1px solid var(--border); min-width: 200px; display: none; padding: 6px 0;
+               box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .disp-menu.open { display: block; }
+  .disp-menu label { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+                     font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-dim); cursor: pointer; }
+  .disp-menu label:hover { background: #faf7ef; }
+  .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+
+  /* Quality legend */
+  .q-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
+              padding: 12px 18px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
+              display: flex; gap: 20px 26px; flex-wrap: wrap; align-items: center; }
+  .q-legend .sw { display: inline-block; width: 26px; height: 15px; border: 1px solid var(--border);
+                  vertical-align: middle; margin-right: 7px; }
+  .q-legend .sw.good { background: var(--good-bg); } .q-legend .sw.bad { background: var(--bad-bg); }
+  .q-legend .st.on { color: #e0a92e; } .q-legend .st { color: #cfcabb; }
+
+  /* ── Hour pillars table ─────────────────────────────── */
+  .hours { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
+  .hours-title { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px;
+                 flex-wrap: wrap; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                 color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase;
+                 padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .hours-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .city-wrap { position: relative; }
+  #cal-city { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0; text-transform: none;
+              padding: 7px 10px; width: 170px; outline: none; }
+  #cal-city:focus { border-color: var(--gold); }
+  .solar-toggle { display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;
+                  font-size: 12px; letter-spacing: .5px; text-transform: none; color: var(--text-dim);
+                  cursor: pointer; white-space: nowrap; }
+  .solar-toggle input { cursor: pointer; accent-color: var(--gold); width: 15px; height: 15px; }
+  .solar-info { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0; text-transform: none;
+                color: var(--gold-dim); font-weight: 400; white-space: nowrap; }
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; min-width: 240px; z-index: 30; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto;
+             display: none; text-transform: none; letter-spacing: 0; }
+  .city-opt { padding: 8px 10px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400;
+              color: var(--text); cursor: pointer; border-bottom: 1px solid #eee; letter-spacing: 0; }
+  .city-opt:hover { background: #faf7ef; }
+  .hours-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .hcell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+           padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+  .hcell:nth-child(6n) { border-right: none; }
+  .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: none; }
+  .hcell.now { background: #fbf3e0; }
+  .h-range { font-size: 10px; color: var(--text-muted); letter-spacing: .3px; }
+  .h-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1; }
+  .h-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
+
+  .backnav { text-align: center; margin-top: 30px; }
+  .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+               text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .backnav a:hover { color: var(--gold); }
+
+  .footer-brand { text-align: center; margin-top: 22px; font-family: 'Cormorant Garamond', serif;
+                  font-size: 13px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; }
+
+  @media (max-width: 768px) {
+    * { max-width: 100vw; }
+    img, iframe, video, table { max-width: 100% !important; }
+    body { padding: 28px 10px; }
+    .lang-switch { top: 10px; right: 10px; }
+    header h1 { font-size: 22px; }
+    .daybar-greg { font-size: 20px; }
+    .daybar-head { justify-content: center; }
+    .db-charts { flex-direction: column; gap: 12px; padding: 12px; }
+    .pillar-gz { font-size: 28px; }
+    .nav { gap: 7px; flex-wrap: wrap; }
+    .nav .title { font-size: 18px; min-width: 0; order: -1; width: 100%; }
+    .nav button { padding: 7px 11px; }
+    .cell { min-height: 84px; padding: 4px 2px 6px; gap: 2px; }
+    .c-num { font-size: 13px; top: 3px; right: 4px; }
+    .c-gz { font-size: 17px; margin-top: 12px; }
+    .c-term { font-size: 8px; }
+    .c-stars .st { font-size: 10px; }
+    .disp-menu { min-width: 180px; }
+    .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
+    .q-legend { font-size: 11.5px; gap: 10px 18px; }
+    .hours-grid { grid-template-columns: repeat(4, 1fr); }
+    .hcell:nth-child(6n) { border-right: 1px solid var(--border); }
+    .hcell:nth-child(4n) { border-right: none; }
+    .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: 1px solid var(--border); }
+    .hcell:nth-child(n+9) { border-bottom: none; }
+    .h-gz { font-size: 20px; }
+    .hours-title { font-size: 15px; }
+    .hours-controls { width: 100%; }
+    #cal-city { flex: 1; width: auto; min-width: 120px; }
+    .city-dd { min-width: 0; }
+    .nav-selects { flex: 1; justify-content: center; }
+    .nav select { flex: 1; }
+    .nav-selects { display: flex; gap: 8px; }
+  }
+  .nav-selects { display: flex; gap: 8px; }
+</style>
+</head>
+<body>
+
+<div class="lang-switch">
+  <button id="lang-ru" class="on" type="button">RU</button>
+  <button id="lang-en" type="button">EN</button>
+</div>
+
+<header>
+  <h1>历 · <span id="page-title">Успешные даты</span></h1>
+  <p id="tagline">Успешные даты</p>
+</header>
+
+<div class="wrap">
+
+  <!-- Selected-day: date + rating + Solar chart -->
+  <div class="daybar">
+    <div class="daybar-head">
+      <div class="db-datewrap">
+        <span class="daybar-greg" id="db-greg"></span>
+        <span class="daybar-dow"  id="db-dow"></span>
+        <span class="daybar-term" id="db-term"></span>
+        <span class="daybar-rating" id="db-rating"></span>
+      </div>
+      <div class="hours-controls" id="db-controls">
+        <div class="city-wrap">
+          <input type="text" id="cal-city" autocomplete="off" placeholder="Город">
+          <div class="city-dd" id="cal-city-dd"></div>
+        </div>
+        <label class="solar-toggle">
+          <input type="checkbox" id="cal-solar">
+          <span id="solar-label">Солнечное время</span>
+        </label>
+        <span class="solar-info" id="cal-solar-info"></span>
+      </div>
+    </div>
+    <div class="db-charts">
+      <div class="db-chart">
+        <div class="pillars" id="db-solar"></div>
+        <div class="db-cap" id="db-solar-cap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Month navigation -->
+  <div class="nav">
+    <button id="prev" type="button" aria-label="prev">‹</button>
+    <div class="nav-selects">
+      <select id="sel-day" aria-label="day"></select>
+      <select id="sel-month" aria-label="month"></select>
+      <select id="sel-year" aria-label="year"></select>
+    </div>
+    <button id="next" type="button" aria-label="next">›</button>
+    <button class="today-btn" id="today" type="button">Today</button>
+  </div>
+
+  <!-- Display options: Solar month only -->
+  <div class="disp-row">
+    <div class="disp">
+      <button id="disp-btn" type="button">Настройки календаря ▾</button>
+      <div class="disp-menu" id="disp-menu">
+        <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar grid -->
+  <div class="cal">
+    <div class="cal-dow" id="cal-dow"></div>
+    <div id="cal-body"></div>
+  </div>
+
+  <!-- Quality legend -->
+  <div class="q-legend" id="q-legend"></div>
+
+  <!-- Hour pillars for the selected day -->
+  <div class="hours">
+    <div class="hours-title"><span id="hours-title"></span></div>
+    <div class="hours-grid" id="hours-grid"></div>
+  </div>
+
+  <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
+  <div class="footer-brand">SuccessCode</div>
+
+</div>
+
+<script src="/tz.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+<script>
+/* ===================== i18n ===================== */
+const I18N = {
+  ru: {
+    pageTitle: "Успешные даты", tagline: "Успешные даты",
+    today: "Сегодня", back: "← Все калькуляторы",
+    pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
+    hoursTitle: "Столпы часов",
+    solar: "Солнечное время", cityPh: "Город", min: "мин",
+    show: "Настройки календаря", optSolarMonth: "Солнечный месяц",
+    solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
+    lgGood: "Благоприятный день", lgBad: "Столкновение / неблагоприятный день", lgRating: "Оценка дня",
+    months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+    dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
+    dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
+  },
+  en: {
+    pageTitle: "Success Dates", tagline: "Success Dates",
+    today: "Today", back: "← All calculators",
+    pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
+    hoursTitle: "Hour Pillars",
+    solar: "Solar time", cityPh: "City", min: "min",
+    show: "Calendar settings", optSolarMonth: "Solar month",
+    solarCaption: "Solar month", gregCaption: "Calendar month",
+    lgGood: "Favourable day", lgBad: "Clash / unfavourable day", lgRating: "Day rating",
+    months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+  }
+};
+let LANG = "ru";
+try { const s = localStorage.getItem("sc-lang"); if (s === "ru" || s === "en") LANG = s; } catch(e){}
+const L = () => I18N[LANG];
+
+/* Solar term names (节气) → localized */
+const TERM_NAME = {
+  ru: {"立春":"Личунь","雨水":"Дождевая вода","惊蛰":"Пробуждение насекомых","春分":"Весеннее равноденствие",
+       "清明":"Цинмин","谷雨":"Хлебные дожди","立夏":"Начало лета","小满":"Малое изобилие",
+       "芒种":"Колошение","夏至":"Летнее солнцестояние","小暑":"Малая жара","大暑":"Большая жара",
+       "立秋":"Начало осени","处暑":"Конец жары","白露":"Белые росы","秋分":"Осеннее равноденствие",
+       "寒露":"Холодные росы","霜降":"Выпадение инея","立冬":"Начало зимы","小雪":"Малые снега",
+       "大雪":"Большие снега","冬至":"Зимнее солнцестояние","小寒":"Малые холода","大寒":"Большие холода"},
+  en: {"立春":"Lichun","雨水":"Rain Water","惊蛰":"Awakening Insects","春分":"Spring Equinox",
+       "清明":"Qingming","谷雨":"Grain Rain","立夏":"Start of Summer","小满":"Grain Full",
+       "芒种":"Grain in Ear","夏至":"Summer Solstice","小暑":"Minor Heat","大暑":"Major Heat",
+       "立秋":"Start of Autumn","处暑":"End of Heat","白露":"White Dew","秋分":"Autumn Equinox",
+       "寒露":"Cold Dew","霜降":"Frost's Descent","立冬":"Start of Winter","小雪":"Minor Snow",
+       "大雪":"Major Snow","冬至":"Winter Solstice","小寒":"Minor Cold","大寒":"Major Cold"}
+};
+const termLabel = cn => (TERM_NAME[LANG][cn] || cn);
+
+/* ===================== Element maps ===================== */
+const STEM_EL = {甲:"wood",乙:"wood",丙:"fire",丁:"fire",戊:"earth",己:"earth",庚:"metal",辛:"metal",壬:"water",癸:"water"};
+const BRANCH_EL = {子:"water",丑:"earth",寅:"wood",卯:"wood",辰:"earth",巳:"fire",午:"fire",未:"earth",申:"metal",酉:"metal",戌:"earth",亥:"water"};
+const EL_NAME = {
+  ru: {wood:"Дерево",fire:"Огонь",earth:"Земля",metal:"Металл",water:"Вода"},
+  en: {wood:"Wood",fire:"Fire",earth:"Earth",metal:"Metal",water:"Water"}
+};
+const BRANCH_IDX = {子:0,丑:1,寅:2,卯:3,辰:4,巳:5,午:6,未:7,申:8,酉:9,戌:10,亥:11};
+/* 建除十二神 — 12 Day Officers */
+const OFFICER_NUM = {建:1,除:2,满:3,平:4,定:5,执:6,破:7,危:8,成:9,收:10,开:11,闭:12};
+/* День без богатства (day without wealth): 甲辰, 乙巳 */
+const NO_WEALTH_DAYS = ["甲辰","乙巳"];
+/* 三煞 (Three Killings) by branch's san-he group */
+const SANSHA = {};
+[ [[8,0,4],  {jie:5, zai:6, sui:7}],
+  [[2,6,10], {jie:11,zai:0, sui:1}],
+  [[5,9,1],  {jie:2, zai:3, sui:4}],
+  [[11,3,7], {jie:8, zai:9, sui:10}]
+].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
+/* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s) */
+const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
+
+const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
+const POLARITY = { ru:{yang:"Ян",yin:"Инь"}, en:{yang:"Yang",yin:"Yin"} };
+const ANIMAL = {
+  ru:{子:"Крыса",丑:"Бык",寅:"Тигр",卯:"Кролик",辰:"Дракон",巳:"Змея",午:"Лошадь",未:"Коза",申:"Обезьяна",酉:"Петух",戌:"Собака",亥:"Свинья"},
+  en:{子:"Rat",丑:"Ox",寅:"Tiger",卯:"Rabbit",辰:"Dragon",巳:"Snake",午:"Horse",未:"Goat",申:"Monkey",酉:"Rooster",戌:"Dog",亥:"Pig"}
+};
+
+const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
+const stemLabel = g => `${POLARITY[LANG][STEM_YY[g]]} ${EL_NAME[LANG][STEM_EL[g]]}`;
+const animalLabel = z => ANIMAL[LANG][z] || "";
+const elName  = ch => EL_NAME[LANG][STEM_EL[ch] || BRANCH_EL[ch]] || "";
+const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
+
+/* Double-hour branches; sm = solar start minute-of-day (子 begins 23:00 = 1380) */
+const HOURS = [
+  {h:0,  z:"子", sm:1380}, {h:2,  z:"丑", sm:60},   {h:4,  z:"寅", sm:180},
+  {h:6,  z:"卯", sm:300},  {h:8,  z:"辰", sm:420},  {h:10, z:"巳", sm:540},
+  {h:12, z:"午", sm:660},  {h:14, z:"未", sm:780},  {h:16, z:"申", sm:900},
+  {h:18, z:"酉", sm:1020}, {h:20, z:"戌", sm:1140}, {h:22, z:"亥", sm:1260}
+];
+const pad2 = n => String(n).padStart(2, "0");
+const fmtHM = min => { min = ((min % 1440) + 1440) % 1440; return pad2(Math.floor(min/60)) + ":" + pad2(min%60); };
+const rangeLabel = (sm, cm) => `${fmtHM(sm - cm)}–${fmtHM(sm + 120 - cm)}`;
+
+/* ===================== Pillar computation (lunar-javascript) ===================== */
+function eightChar(y, m, d, h) {
+  return Solar.fromYmdHms(y, m, d, h, 0, 0).getLunar().getEightChar();
+}
+function dayPillars(date) {
+  const y = date.getFullYear(), m = date.getMonth()+1, d = date.getDate();
+  const lunar = Solar.fromYmdHms(y, m, d, 12, 0, 0).getLunar();
+  const ec = lunar.getEightChar();
+  return {
+    y: [ec.getYearGan(),  ec.getYearZhi()],
+    m: [ec.getMonthGan(), ec.getMonthZhi()],
+    d: [ec.getDayGan(),   ec.getDayZhi()],
+    lunar
+  };
+}
+
+/* ===================== Day-quality score (0–5 stars) ======================
+   Transparent composite of classical 择日 (date-selection) signals already
+   computed by the engine. Tune the point values below to taste.
+   Base = 3 stars. Adjusted by the 12 Day Officer (建除), then penalised for
+   clashes (月破/岁破), 三煞, 无禄日, 杀师日.
+     good  → green cell (≥4 stars, no sha/no-wealth/kill-master)
+     bad   → red cell   (any clash, or ≤1 star)
+     other → neutral (no colour)                                            */
+const OFFICER_PTS = {1:0, 2:1, 3:1, 4:0, 5:1, 6:0, 7:-3, 8:-2, 9:2, 10:0, 11:2, 12:-2};
+function dayClash(p) {
+  const di = BRANCH_IDX[p.d[1]], mi = BRANCH_IDX[p.m[1]], yi = BRANCH_IDX[p.y[1]];
+  return (di+6)%12 === mi || (di+6)%12 === yi;
+}
+function daySha(p) {
+  const di = BRANCH_IDX[p.d[1]];
+  const mo = SANSHA[BRANCH_IDX[p.m[1]]], yr = SANSHA[BRANCH_IDX[p.y[1]]];
+  return di===mo.jie||di===mo.zai||di===mo.sui||di===yr.jie||di===yr.zai||di===yr.sui;
+}
+function dayKillMaster(p) {
+  const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
+  return (KILL_MASTER[lm] || []).includes(ld);
+}
+function dayScore(p) {
+  const clash = dayClash(p), sha = daySha(p);
+  const nw = NO_WEALTH_DAYS.includes(p.d[0] + p.d[1]);
+  const km = dayKillMaster(p);
+  const off = OFFICER_NUM[p.lunar.getZhiXing()] || 0;
+  let s = 3 + (OFFICER_PTS[off] || 0);
+  if (clash) s -= 3;
+  if (sha) s -= 1;
+  if (nw) s -= 1;
+  if (km) s -= 1;
+  s = Math.max(0, Math.min(5, s));
+  let q = "neutral";
+  if (clash || s <= 1) q = "bad";
+  else if (s >= 4 && !sha && !nw && !km) q = "good";
+  return { stars: s, quality: q };
+}
+function starsHtml(n, cls) {
+  let h = "";
+  for (let i = 1; i <= 5; i++) h += `<span class="st ${i<=n?'on':''}">★</span>`;
+  return `<span class="${cls||'c-stars'}">${h}</span>`;
+}
+
+/* ===================== State ===================== */
+const now = new Date();
+let viewY = now.getFullYear();
+let viewM = now.getMonth();
+let selected = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+
+let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
+let SOLAR_MONTH = true;
+function tzOffsetMin(date, tz) {
+  try {
+    const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p = {}; f.formatToParts(date).forEach(x => p[x.type] = x.value);
+    const hh = p.hour === "24" ? "00" : p.hour;
+    return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second) - date.getTime())/60000);
+  } catch(e) { return Math.round(LON/15)*60; }
+}
+function corrMin(d) { return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
+
+function onCityInput() {
+  clearTimeout(_cityTimer);
+  const q = document.getElementById("cal-city").value.trim();
+  if (q.length < 2) { document.getElementById("cal-city-dd").style.display = "none"; return; }
+  _cityTimer = setTimeout(() => fetchCities(q), 350);
+}
+async function fetchCities(q) {
+  const dd = document.getElementById("cal-city-dd");
+  try {
+    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language="+LANG+"&limit=6&q="+encodeURIComponent(q));
+    const arr = await r.json();
+    if (!arr || !arr.length) { dd.style.display = "none"; return; }
+    dd._data = arr;
+    dd.innerHTML = arr.map((c,i) => `<div class="city-opt" data-i="${i}">${c.display_name}</div>`).join("");
+    dd.style.display = "block";
+    dd.querySelectorAll(".city-opt").forEach(el => el.addEventListener("click", () => selectCity(+el.getAttribute("data-i"))));
+  } catch(e) { dd.style.display = "none"; }
+}
+function selectCity(i) {
+  const dd = document.getElementById("cal-city-dd"), c = dd._data[i];
+  LON = parseFloat(c.lon); CITYNAME = c.display_name.split(",")[0];
+  try { TZNAME = tzlookup(parseFloat(c.lat), LON); } catch(e) {}
+  document.getElementById("cal-city").value = CITYNAME;
+  dd.style.display = "none";
+  if (USE_SOLAR) { renderDayBar(); renderHours(); }
+}
+
+/* ===================== Render: top (date + rating + Solar chart) ===================== */
+function renderPillars(elId, cols) {
+  document.getElementById(elId).innerHTML = cols.map(c => `
+    <div class="pillar">
+      <div class="pillar-h">${c.lab}</div>
+      <div class="pillar-gz">${gzHtml(c.g, c.z)}</div>
+      <div class="pillar-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
+    </div>`).join("");
+}
+function renderDayBar() {
+  const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
+  const dowIdx = (selected.getDay()+6)%7;
+  document.getElementById("db-greg").textContent =
+    `${d} ${L().months[selected.getMonth()]} ${y}`;
+  { const sd = document.getElementById("sel-day");
+    if (selected.getFullYear()===viewY && selected.getMonth()===viewM && sd.options.length) sd.value = d; }
+  document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
+
+  let eh = 12, ey = y, em = m, ed = d;
+  if (sameDay(selected, new Date())) {
+    const base = new Date();
+    const cm = USE_SOLAR ? corrMin(base) : 0;
+    const eff = new Date(base.getTime() + cm*60000);
+    ey = eff.getFullYear(); em = eff.getMonth()+1; ed = eff.getDate(); eh = eff.getHours();
+  }
+  const lunar = Solar.fromYmdHms(ey, em, ed, eh, 0, 0).getLunar();
+  const ec = lunar.getEightChar();
+
+  const term = lunar.getJieQi();
+  document.getElementById("db-term").textContent = term ? "· " + termLabel(term) : "";
+
+  // day rating for the selected day
+  const p = dayPillars(selected);
+  document.getElementById("db-rating").innerHTML = starsHtml(dayScore(p).stars, "st-row");
+
+  renderPillars("db-solar", [
+    {lab: L().pHour,  g: ec.getTimeGan(),  z: ec.getTimeZhi()},
+    {lab: L().pDay,   g: ec.getDayGan(),   z: ec.getDayZhi()},
+    {lab: L().pMonth, g: ec.getMonthGan(), z: ec.getMonthZhi()},
+    {lab: L().pYear,  g: ec.getYearGan(),  z: ec.getYearZhi()}
+  ]);
+
+  const mn = L().months, sr = solarMonthByDate(selected);
+  const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
+  document.getElementById("db-solar-cap").textContent =
+    `☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)}`;
+}
+
+/* ===================== Render: month grid ===================== */
+function buildYearOptions() {
+  let o = ""; for (let y = 1900; y <= 2100; y++) o += `<option value="${y}">${y}</option>`;
+  document.getElementById("sel-year").innerHTML = o;
+}
+function buildMonthOptions() {
+  document.getElementById("sel-month").innerHTML =
+    L().months.map((n,i) => `<option value="${i}">${n}</option>`).join("");
+}
+function buildDayOptions() {
+  const n = new Date(viewY, viewM+1, 0).getDate();
+  let o = ""; for (let d = 1; d <= n; d++) o += `<option value="${d}">${d}</option>`;
+  document.getElementById("sel-day").innerHTML = o;
+}
+function syncNav() {
+  buildDayOptions();
+  const inView = selected.getFullYear()===viewY && selected.getMonth()===viewM;
+  document.getElementById("sel-day").value = inView ? selected.getDate() : 1;
+  document.getElementById("sel-month").value = viewM;
+  document.getElementById("sel-year").value = viewY;
+}
+
+/* Solar month range (节→节) containing a given date */
+function solarMonthByDate(dt) {
+  const lu = Solar.fromYmdHms(dt.getFullYear(), dt.getMonth()+1, dt.getDate(), 12, 0, 0).getLunar();
+  const pj = lu.getPrevJie(), nj = lu.getNextJie();
+  const ps = pj.getSolar(), ns = nj.getSolar();
+  const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
+  const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+  end.setDate(end.getDate()-1);
+  return { start, end, jie: pj.getName() };
+}
+function solarRange() { return solarMonthByDate(new Date(viewY, viewM, 15)); }
+
+/* Range of the displayed grid: solar (节→节) or Gregorian */
+function monthRange() {
+  try { if (SOLAR_MONTH) return solarRange(); } catch (e) {}
+  return { start: new Date(viewY, viewM, 1), end: new Date(viewY, viewM+1, 0) };
+}
+
+function renderLegend() {
+  document.getElementById("q-legend").innerHTML =
+    `<span><span class="sw good"></span>${L().lgGood}</span>` +
+    `<span><span class="sw bad"></span>${L().lgBad}</span>` +
+    `<span>${L().lgRating}: ${starsHtml(5)}</span>`;
+}
+
+function renderGrid() {
+  syncNav();
+  document.getElementById("cal-dow").innerHTML =
+    L().dow.map((d,i)=>`<div class="${i>=5?'we':''}">${d}</div>`).join("");
+
+  const { start: mStart, end: mEnd } = monthRange();
+  const isIn = d => d >= mStart && d <= mEnd;
+
+  const lead = (mStart.getDay()+6)%7;
+  const start = new Date(mStart); start.setDate(start.getDate()-lead);
+  const today = new Date();
+
+  let html = "";
+  let cur = new Date(start);
+  for (let w = 0; w < 6; w++) {
+    html += '<div class="cal-week">';
+    for (let i = 0; i < 7; i++) {
+      const inMonth = isIn(cur);
+      const p = dayPillars(cur);
+      const term = p.lunar.getJieQi();
+      const sc = dayScore(p);
+      const cls = ["cell"];
+      if (!inMonth) cls.push("out");
+      else cls.push("q-" + sc.quality);
+      if (sameDay(cur, today)) cls.push("today");
+      if (sameDay(cur, selected)) cls.push("sel");
+      html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
+          <div class="c-num">${cur.getDate()}</div>
+          <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
+          ${term ? `<div class="c-term">${termLabel(term)}</div>` : ``}
+          ${starsHtml(sc.stars)}
+        </div>`;
+      cur.setDate(cur.getDate()+1);
+    }
+    html += '</div>';
+    if (cur > mEnd) break;
+  }
+  const body = document.getElementById("cal-body");
+  body.innerHTML = html;
+  body.querySelectorAll(".cell:not(.out)").forEach(el => {
+    el.addEventListener("click", () => {
+      const [yy,mm,dd] = el.getAttribute("data-date").split("-").map(Number);
+      selected = new Date(yy, mm, dd);
+      renderDayBar(); renderHours(); refreshSelection();
+    });
+  });
+  renderLegend();
+}
+
+function refreshSelection() {
+  document.querySelectorAll(".cell").forEach(el => {
+    const a = el.getAttribute("data-date"); if (!a) return;
+    const [yy,mm,dd] = a.split("-").map(Number);
+    el.classList.toggle("sel", sameDay(new Date(yy,mm,dd), selected));
+  });
+}
+
+/* ===================== Render: hour pillars ===================== */
+function renderHours() {
+  const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
+  document.getElementById("hours-title").textContent =
+    `${L().hoursTitle} · ${d} ${L().months[selected.getMonth()]} ${y}`;
+
+  const cm = USE_SOLAR ? corrMin(new Date(y, m-1, d, 12, 0, 0)) : 0;
+  const si = document.getElementById("cal-solar-info");
+  if (USE_SOLAR) {
+    const sign = cm >= 0 ? "+" : "−";
+    si.textContent = `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().min}`;
+  } else si.textContent = "";
+
+  let nowH = -1;
+  if (sameDay(selected, new Date())) {
+    const base = new Date();
+    const eff = USE_SOLAR ? new Date(base.getTime() + cm*60000) : base;
+    nowH = eff.getHours();
+  }
+  document.getElementById("hours-grid").innerHTML = HOURS.map(hr => {
+    const ec = eightChar(y, m, d, hr.h);
+    const g = ec.getTimeGan(), z = ec.getTimeZhi();
+    let isNow = false;
+    if (nowH >= 0) {
+      if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
+      else isNow = (nowH === hr.h - 1 || nowH === hr.h);
+    }
+    return `<div class="hcell${isNow?' now':''}">
+        <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
+        <div class="h-gz">${gzHtml(g, z)}</div>
+        <div class="h-el">${elName(g)} / ${elName(z)}</div>
+      </div>`;
+  }).join("");
+}
+
+/* ===================== Navigation ===================== */
+function shiftMonth(delta) {
+  viewM += delta;
+  if (viewM < 0) { viewM = 11; viewY--; }
+  else if (viewM > 11) { viewM = 0; viewY++; }
+  renderGrid();
+}
+document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
+document.getElementById("next").addEventListener("click", () => shiftMonth(1));
+document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
+document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
+document.getElementById("sel-day").addEventListener("change", e => {
+  selected = new Date(viewY, viewM, +e.target.value);
+  renderDayBar(); renderHours(); refreshSelection();
+});
+document.getElementById("today").addEventListener("click", () => {
+  const t = new Date();
+  viewY = t.getFullYear(); viewM = t.getMonth();
+  selected = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  renderAll();
+});
+
+/* ===================== Solar-time controls ===================== */
+document.getElementById("cal-solar").addEventListener("change", e => {
+  USE_SOLAR = e.target.checked; renderDayBar(); renderHours();
+});
+document.getElementById("cal-city").addEventListener("input", onCityInput);
+document.addEventListener("click", e => {
+  if (!e.target.closest(".city-wrap")) document.getElementById("cal-city-dd").style.display = "none";
+});
+
+/* ===================== Display-options dropdown (Solar month) ===================== */
+const _dispMenu = document.getElementById("disp-menu");
+document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropagation(); _dispMenu.classList.toggle("open"); });
+document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
+document.getElementById("opt-solar").addEventListener("change", e => { SOLAR_MONTH = e.target.checked; renderGrid(); });
+
+/* ===================== Language ===================== */
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.getElementById("page-title").textContent = L().pageTitle;
+  document.getElementById("tagline").textContent = L().tagline;
+  document.title = "历 · " + L().pageTitle;
+  document.getElementById("today").textContent = L().today;
+  document.getElementById("backlink").textContent = L().back;
+  document.getElementById("solar-label").textContent = L().solar;
+  document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
+  document.getElementById("disp-btn").textContent = L().show + " ▾";
+  document.getElementById("lbl-solar").textContent = L().optSolarMonth;
+  buildMonthOptions(); syncNav();
+  document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
+  document.getElementById("lang-en").classList.toggle("on", LANG==="en");
+}
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem("sc-lang", l); } catch(e){}
+  applyLang(); renderAll();
+}
+document.getElementById("lang-ru").addEventListener("click", () => setLang("ru"));
+document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+
+/* ===================== Init ===================== */
+function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
+document.getElementById("opt-solar").checked = SOLAR_MONTH;
+buildYearOptions();
+applyLang();
+renderAll();
+</script>
+</body>
+</html>
