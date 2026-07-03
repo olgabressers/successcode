@@ -103,18 +103,23 @@
   .sha-zai { background: #ca6f1e; }  /* 灾煞 disaster */
   .sha-sui { background: #7d6608; }  /* 岁煞 / 月煞 */
 
-  /* selected solar-month Month+Year pillars */
-  .month-pillars { display: flex; justify-content: center; max-width: 340px; margin: 0 auto 12px;
-                   border: 1px solid var(--border); background: var(--surface); }
-  .mp { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 5px;
-        padding: 9px 8px 11px; border-right: 1px solid var(--border); }
-  .mp:last-child { border-right: none; }
-  .mp-h { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-  .mp-gz { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 600; line-height: 1; }
-  .mp-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
+  .cl-km { color: #fff; background: #5b2c6f; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }  /* убивающий мастера */
 
-  .cal-caption { text-align: center; font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: .5px;
-                 color: var(--gold-dim); margin-bottom: 10px; min-height: 15px; }
+  /* Header: Solar month (left) + Lunar month (right) */
+  .cal-header { display: flex; gap: 12px; max-width: 760px; margin: 0 auto 14px; }
+  .hdr-side { flex: 1; border: 1px solid var(--border); background: var(--surface);
+              padding: 8px 8px 10px; display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .hdr-side.active { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+  .hdr-cap { font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: .3px;
+             color: var(--gold-dim); text-align: center; line-height: 1.35; }
+  .month-pillars { display: flex; width: 100%; }
+  .mp { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+        padding: 4px 6px; border-right: 1px solid var(--border); }
+  .mp:last-child { border-right: none; }
+  .mp-h { font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .mp-gz { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1; }
+  .mp-num { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1; color: var(--gold); }
+  .mp-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; text-align: center; }
 
   /* Display-options dropdown */
   .disp-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
@@ -213,8 +218,9 @@
     .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui { font-size: 7.5px; padding: 0 2px; }
     .disp-menu { min-width: 190px; }
     .ind-legend { font-size: 11.5px; line-height: 1.9; }
-    .month-pillars { max-width: 260px; }
-    .mp-gz { font-size: 22px; }
+    .cal-header { flex-direction: column; gap: 8px; }
+    .mp-gz, .mp-num { font-size: 22px; }
+    .cl-km { font-size: 7.5px; padding: 0 2px; }
     .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
     .hours-grid { grid-template-columns: repeat(4, 1fr); }
     .hcell:nth-child(6n) { border-right: 1px solid var(--border); }
@@ -267,11 +273,8 @@
     <button class="today-btn" id="today" type="button">Today</button>
   </div>
 
-  <!-- Selected solar-month pillars (Month + Year) -->
-  <div class="month-pillars" id="month-pillars"></div>
-
-  <!-- Solar/Gregorian month caption -->
-  <div class="cal-caption" id="cal-caption"></div>
+  <!-- Header: Solar month (left) + Lunar month (right) -->
+  <div class="cal-header" id="cal-header"></div>
 
   <!-- Display options -->
   <div class="disp-row">
@@ -279,10 +282,12 @@
       <button id="disp-btn" type="button">Настройки календаря ▾</button>
       <div class="disp-menu" id="disp-menu">
         <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
+        <label><input type="checkbox" id="opt-lunar"> <span id="lbl-lunar">Лунный месяц</span></label>
         <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
         <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения</span></label>
         <label><input type="checkbox" id="opt-sha"> <span id="lbl-sha">Ша (三煞)</span></label>
         <label><input type="checkbox" id="opt-nw"> <span id="lbl-nw">День без богатства</span></label>
+        <label><input type="checkbox" id="opt-km"> <span id="lbl-km">День убивающий мастера</span></label>
       </div>
     </div>
   </div>
@@ -332,12 +337,14 @@ const I18N = {
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
     show: "Настройки календаря", optInd: "Индикаторы (1–12)", optClash: "Столкновения",
-    optSolarMonth: "Солнечный месяц", optNoWealth: "День без богатства",
+    optSolarMonth: "Солнечный месяц", optLunarMonth: "Лунный месяц", optNoWealth: "День без богатства",
+    optKillMaster: "День убивающий мастера",
     legendTitle: "Индикаторы дня (建除)",
     clashMonthTag: "День–Месяц", clashYearTag: "День–Год",
     clashMonthTip: "Столкновение День–Месяц (月破)", clashYearTip: "Столкновение День–Год (岁破)",
     noWealthTag: "Без богатства", noWealthTip: "День без богатства (甲辰 / 乙巳)",
-    solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
+    kmTag: "Уб. мастера", kmTip: "День, убивающий мастера (杀师日)",
+    solarCaption: "Солнечный месяц", lunarCaptionWord: "Лунный месяц", gregCaption: "Календарный месяц", leapWord: "високосный",
     optSha: "Ша (三煞)",
     sha: {
       suiM:{t:"Ша мес", tip:"Ша месяца (月煞)"}, suiY:{t:"Ша год", tip:"Ша года (岁煞)"},
@@ -357,12 +364,14 @@ const I18N = {
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
     show: "Calendar settings", optInd: "Day Officers (1–12)", optClash: "Clashes",
-    optSolarMonth: "Solar month", optNoWealth: "Day without wealth",
+    optSolarMonth: "Solar month", optLunarMonth: "Lunar month", optNoWealth: "Day without wealth",
+    optKillMaster: "Day that kills the master",
     legendTitle: "Day Officers (建除)",
     clashMonthTag: "Day–Month", clashYearTag: "Day–Year",
     clashMonthTip: "Day–Month clash (月破)", clashYearTip: "Day–Year clash (岁破)",
     noWealthTag: "No wealth", noWealthTip: "Day without wealth (甲辰 / 乙巳)",
-    solarCaption: "Solar month", gregCaption: "Calendar month",
+    kmTag: "Kills master", kmTip: "Day that kills the master (杀师日)",
+    solarCaption: "Solar month", lunarCaptionWord: "Lunar month", gregCaption: "Calendar month", leapWord: "leap",
     optSha: "Sha (三煞)",
     sha: {
       suiM:{t:"Sha M", tip:"Month Sha (月煞)"}, suiY:{t:"Sha Y", tip:"Year Sha (岁煞)"},
@@ -418,6 +427,9 @@ const SANSHA = {};
   [[5,9,1],  {jie:2, zai:3, sui:4}],    // 巳酉丑(metal) → 煞东 寅卯辰
   [[11,3,7], {jie:8, zai:9, sui:10}]    // 亥卯未(wood)  → 煞西 申酉戌
 ].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
+/* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s). Source: fengi.ru table.
+   Month 7 has two (1 and 29). */
+const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
 const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
 const POLARITY = { ru:{yang:"Ян",yin:"Инь"}, en:{yang:"Yang",yin:"Yin"} };
 const ANIMAL = {
@@ -471,6 +483,7 @@ const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.g
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
 /* display toggles */
 let SHOW_IND = true, SHOW_CLASH = true, SHOW_NW = true, SOLAR_MONTH = true, SHOW_SHA = true;
+let LUNAR_MONTH = false, SHOW_KM = true;
 function tzOffsetMin(date, tz) {
   try {
     const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
@@ -596,32 +609,80 @@ function shaHtml(p) {
   else if (di === yr.sui) t += shaChip("sha-sui", S.suiY);
   return t ? `<div class="c-clash">${t}</div>` : "";
 }
-/* Month + Year pillars of the currently-viewed solar month (stable per month) */
-function renderMonthPillars() {
-  const ec = eightChar(viewY, viewM+1, 15, 12);   // 15th is safely inside the solar month
-  const cols = [
-    {lab: L().pMonth, g: ec.getMonthGan(), z: ec.getMonthZhi()},
-    {lab: L().pYear,  g: ec.getYearGan(),  z: ec.getYearZhi()}
-  ];
-  document.getElementById("month-pillars").innerHTML = cols.map(c => `
-    <div class="mp">
-      <div class="mp-h">${c.lab}</div>
-      <div class="mp-gz">${gzHtml(c.g, c.z)}</div>
-      <div class="mp-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
-    </div>`).join("");
+/* День убивающий мастера — lunar month → lunar day (甲辰 fixed table) */
+function killMasterHtml(p) {
+  const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
+  if ((KILL_MASTER[lm] || []).includes(ld))
+    return `<div class="c-clash"><span class="cl-km" title="${L().kmTip}">${L().kmTag}</span></div>`;
+  return "";
+}
+
+/* Solar month range (节→节) for the viewed Gregorian month */
+function solarRange() {
+  const midL = Solar.fromYmdHms(viewY, viewM+1, 15, 12, 0, 0).getLunar();
+  const pj = midL.getPrevJie(), nj = midL.getNextJie();
+  const ps = pj.getSolar(), ns = nj.getSolar();
+  const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
+  const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+  end.setDate(end.getDate()-1);
+  return { start, end, jie: pj.getName() };
+}
+/* Lunar month range (lunar day 1 → last lunar day) for the viewed Gregorian month */
+function lunarRange() {
+  const midL = Solar.fromYmdHms(viewY, viewM+1, 15, 12, 0, 0).getLunar();
+  const lm = midL.getMonth(), ly = midL.getYear();
+  const start = new Date(viewY, viewM, 16 - midL.getDay());   // Gregorian date of lunar day 1
+  let end = new Date(start);
+  for (let k = 1; k < 33; k++) {
+    const t = new Date(start); t.setDate(start.getDate()+k);
+    const lu = Solar.fromYmdHms(t.getFullYear(), t.getMonth()+1, t.getDate(), 12, 0, 0).getLunar();
+    if (lu.getMonth() === lm && lu.getYear() === ly) end = t; else break;
+  }
+  return { start, end, lm, ly, leap: lm < 0, lunarObj: midL };
+}
+
+/* Header: Solar month pillars + caption (left), Lunar month + year (right) */
+function renderHeader() {
+  const mn = L().months, sr = solarRange(), lr = lunarRange();
+  const ec = eightChar(viewY, viewM+1, 15, 12);
+  const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
+  const pill = (lab,g,z) => `<div class="mp"><div class="mp-h">${lab}</div><div class="mp-gz">${gzHtml(g,z)}</div><div class="mp-el">${stemLabel(g)} / ${animalLabel(z)}</div></div>`;
+
+  const solarActive = SOLAR_MONTH && !LUNAR_MONTH;
+  const solarHtml = `
+    <div class="hdr-side hdr-solar${solarActive ? ' active' : ''}">
+      <div class="hdr-cap">☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)}</div>
+      <div class="month-pillars">
+        ${pill(L().pMonth, ec.getMonthGan(), ec.getMonthZhi())}
+        ${pill(L().pYear,  ec.getYearGan(),  ec.getYearZhi())}
+      </div>
+    </div>`;
+
+  const lyG = lr.lunarObj.getYearGan(), lyZ = lr.lunarObj.getYearZhi();
+  const lunarHtml = `
+    <div class="hdr-side hdr-lunar${LUNAR_MONTH ? ' active' : ''}">
+      <div class="hdr-cap">🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)}</div>
+      <div class="month-pillars">
+        <div class="mp"><div class="mp-h">${L().lunarCaptionWord}</div><div class="mp-num">${Math.abs(lr.lm)}</div><div class="mp-el">${lr.leap ? '('+L().leapWord+')' : ''}</div></div>
+        ${pill(L().pYear, lyG, lyZ)}
+      </div>
+    </div>`;
+
+  document.getElementById("cal-header").innerHTML = solarHtml + lunarHtml;
 }
 function renderLegend() {
   const el = document.getElementById("ind-legend");
-  if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA) { el.classList.remove("show"); return; }
+  if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA && !SHOW_KM) { el.classList.remove("show"); return; }
   let html = "";
   if (SHOW_IND) {
     const items = OFFICER_CHARS.map((c,i) => `<b>${i+1}</b> ${c} ${L().officers[i+1]}`).join(" · ");
     html += `<div class="lg-title">${L().legendTitle}</div>${items}`;
   }
-  if (SHOW_CLASH || SHOW_NW) {
+  if (SHOW_CLASH || SHOW_NW || SHOW_KM) {
     let ln = "";
     if (SHOW_CLASH) ln += `<span class="cl-m">${L().clashMonthTag}</span> ${L().clashMonthTip} &nbsp; <span class="cl-y">${L().clashYearTag}</span> ${L().clashYearTip}`;
     if (SHOW_NW) ln += ` &nbsp; <span class="cl-nw">${L().noWealthTag}</span> ${L().noWealthTip}`;
+    if (SHOW_KM) ln += ` &nbsp; <span class="cl-km">${L().kmTag}</span> ${L().kmTip}`;
     html += `<div class="lg-clash">${ln}</div>`;
   }
   if (SHOW_SHA) {
@@ -633,37 +694,23 @@ function renderLegend() {
   el.classList.add("show");
 }
 
-/* Range of the displayed month: solar (节-to-节) or Gregorian */
+/* Range of the displayed grid: lunar / solar (节→节) / Gregorian, by view mode */
 function monthRange() {
-  if (SOLAR_MONTH) {
-    try {
-      const midL = Solar.fromYmdHms(viewY, viewM+1, 15, 12, 0, 0).getLunar();
-      const pj = midL.getPrevJie(), nj = midL.getNextJie();
-      const ps = pj.getSolar(), ns = nj.getSolar();
-      const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
-      const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
-      end.setDate(end.getDate()-1);   // day before next 节
-      return { start, end, jie: pj.getName() };
-    } catch (e) { /* fall through to Gregorian */ }
-  }
-  return { start: new Date(viewY, viewM, 1), end: new Date(viewY, viewM+1, 0), jie: null };
+  try {
+    if (LUNAR_MONTH) { const r = lunarRange(); return { start: r.start, end: r.end }; }
+    if (SOLAR_MONTH) return solarRange();
+  } catch (e) { /* fall through to Gregorian */ }
+  return { start: new Date(viewY, viewM, 1), end: new Date(viewY, viewM+1, 0) };
 }
 
 function renderGrid() {
   syncNav();
-  renderMonthPillars();
+  renderHeader();
   document.getElementById("cal-dow").innerHTML =
     L().dow.map((d,i)=>`<div class="${i>=5?'we':''}">${d}</div>`).join("");
 
-  const { start: mStart, end: mEnd, jie } = monthRange();
+  const { start: mStart, end: mEnd } = monthRange();
   const isIn = d => d >= mStart && d <= mEnd;
-
-  // caption: solar-month term + date range, or nothing in Gregorian mode
-  const cap = document.getElementById("cal-caption");
-  if (SOLAR_MONTH && jie) {
-    const mn = L().months;
-    cap.textContent = `☀ ${L().solarCaption} · ${termLabel(jie)} · ${mStart.getDate()} ${mn[mStart.getMonth()]} – ${mEnd.getDate()} ${mn[mEnd.getMonth()]}`;
-  } else cap.textContent = "";
 
   const lead = (mStart.getDay()+6)%7;                // Mon-first offset
   const start = new Date(mStart); start.setDate(start.getDate()-lead);
@@ -689,6 +736,7 @@ function renderGrid() {
           ${SHOW_SHA ? shaHtml(p) : ``}
           ${SHOW_CLASH ? clashHtml(p) : ``}
           ${SHOW_NW ? noWealthHtml(p) : ``}
+          ${SHOW_KM ? killMasterHtml(p) : ``}
         </div>`;
       cur.setDate(cur.getDate()+1);
     }
@@ -783,11 +831,21 @@ document.addEventListener("click", e => {
 const _dispMenu = document.getElementById("disp-menu");
 document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropagation(); _dispMenu.classList.toggle("open"); });
 document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
-document.getElementById("opt-solar").addEventListener("change", e => { SOLAR_MONTH = e.target.checked; renderGrid(); });
+document.getElementById("opt-solar").addEventListener("change", e => {
+  SOLAR_MONTH = e.target.checked;
+  if (SOLAR_MONTH && LUNAR_MONTH) { LUNAR_MONTH = false; document.getElementById("opt-lunar").checked = false; }
+  renderGrid();
+});
+document.getElementById("opt-lunar").addEventListener("change", e => {
+  LUNAR_MONTH = e.target.checked;
+  if (LUNAR_MONTH && SOLAR_MONTH) { SOLAR_MONTH = false; document.getElementById("opt-solar").checked = false; }
+  renderGrid();
+});
 document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
 document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
 document.getElementById("opt-sha").addEventListener("change", e => { SHOW_SHA = e.target.checked; renderGrid(); });
 document.getElementById("opt-nw").addEventListener("change", e => { SHOW_NW = e.target.checked; renderGrid(); });
+document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
 
 /* ===================== Language ===================== */
 function applyLang() {
@@ -799,10 +857,12 @@ function applyLang() {
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
   document.getElementById("disp-btn").textContent = L().show + " ▾";
   document.getElementById("lbl-solar").textContent = L().optSolarMonth;
+  document.getElementById("lbl-lunar").textContent = L().optLunarMonth;
   document.getElementById("lbl-ind").textContent = L().optInd;
   document.getElementById("lbl-clash").textContent = L().optClash;
   document.getElementById("lbl-sha").textContent = L().optSha;
   document.getElementById("lbl-nw").textContent = L().optNoWealth;
+  document.getElementById("lbl-km").textContent = L().optKillMaster;
   buildMonthOptions(); syncNav();
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
@@ -818,10 +878,12 @@ document.getElementById("lang-en").addEventListener("click", () => setLang("en")
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
 document.getElementById("opt-solar").checked = SOLAR_MONTH;
+document.getElementById("opt-lunar").checked = LUNAR_MONTH;
 document.getElementById("opt-ind").checked = SHOW_IND;
 document.getElementById("opt-clash").checked = SHOW_CLASH;
 document.getElementById("opt-sha").checked = SHOW_SHA;
 document.getElementById("opt-nw").checked = SHOW_NW;
+document.getElementById("opt-km").checked = SHOW_KM;
 buildYearOptions();
 applyLang();
 renderAll();
