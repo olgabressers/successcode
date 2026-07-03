@@ -39,9 +39,6 @@
                  flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
   .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
-  #nav-date { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
-              font-family: 'Inter', sans-serif; font-size: 13px; padding: 7px 9px; cursor: pointer; }
-  #nav-date:focus { border-color: var(--gold); outline: none; }
   .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
   .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
 
@@ -321,9 +318,9 @@
 
   <!-- Month navigation -->
   <div class="nav">
-    <input type="date" id="nav-date">
     <button id="prev" type="button" aria-label="prev">‹</button>
     <div class="nav-selects">
+      <select id="sel-day" aria-label="day"></select>
       <select id="sel-month" aria-label="month"></select>
       <select id="sel-year" aria-label="year"></select>
     </div>
@@ -624,7 +621,8 @@ function renderDayBar() {
   const dowIdx = (selected.getDay()+6)%7;
   document.getElementById("db-greg").textContent =
     `${d} ${L().months[selected.getMonth()]} ${y}`;
-  document.getElementById("nav-date").value = `${y}-${pad2(m)}-${pad2(d)}`;
+  { const sd = document.getElementById("sel-day");
+    if (selected.getFullYear()===viewY && selected.getMonth()===viewM && sd.options.length) sd.value = d; }
   document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
 
   // effective hour: current hour if today (solar-adjusted when enabled), else noon
@@ -676,7 +674,15 @@ function buildMonthOptions() {
   document.getElementById("sel-month").innerHTML =
     L().months.map((n,i) => `<option value="${i}">${n}</option>`).join("");
 }
+function buildDayOptions() {
+  const n = new Date(viewY, viewM+1, 0).getDate();   // days in the viewed month
+  let o = ""; for (let d = 1; d <= n; d++) o += `<option value="${d}">${d}</option>`;
+  document.getElementById("sel-day").innerHTML = o;
+}
 function syncNav() {
+  buildDayOptions();
+  const inView = selected.getFullYear()===viewY && selected.getMonth()===viewM;
+  document.getElementById("sel-day").value = inView ? selected.getDate() : 1;
   document.getElementById("sel-month").value = viewM;
   document.getElementById("sel-year").value = viewY;
 }
@@ -972,12 +978,9 @@ document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
 document.getElementById("next").addEventListener("click", () => shiftMonth(1));
 document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
 document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
-document.getElementById("nav-date").addEventListener("change", e => {
-  const [yy,mm,dd] = e.target.value.split("-").map(Number);
-  if (!yy) return;
-  selected = new Date(yy, mm-1, dd);
-  viewY = yy; viewM = mm-1;
-  renderAll();
+document.getElementById("sel-day").addEventListener("change", e => {
+  selected = new Date(viewY, viewM, +e.target.value);
+  renderDayBar(); renderHours(); refreshSelection();
 });
 document.getElementById("today").addEventListener("click", () => {
   const t = new Date();
