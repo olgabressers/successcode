@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>历 · Chinese Calendar · Four Pillars</title>
+<title>历 · Chinese Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -94,9 +94,29 @@
 
   /* ── Hour pillars table ─────────────────────────────── */
   .hours { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
-  .hours-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+  .hours-title { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px;
+                 flex-wrap: wrap; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
                  color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase;
-                 padding: 14px 18px; border-bottom: 1px solid var(--border); }
+                 padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .hours-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .city-wrap { position: relative; }
+  #cal-city { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0; text-transform: none;
+              padding: 7px 10px; width: 170px; outline: none; }
+  #cal-city:focus { border-color: var(--gold); }
+  .solar-toggle { display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;
+                  font-size: 12px; letter-spacing: .5px; text-transform: none; color: var(--text-dim);
+                  cursor: pointer; white-space: nowrap; }
+  .solar-toggle input { cursor: pointer; accent-color: var(--gold); width: 15px; height: 15px; }
+  .solar-info { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0; text-transform: none;
+                color: var(--gold-dim); font-weight: 400; white-space: nowrap; }
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; min-width: 240px; z-index: 30; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto;
+             display: none; text-transform: none; letter-spacing: 0; }
+  .city-opt { padding: 8px 10px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400;
+              color: var(--text); cursor: pointer; border-bottom: 1px solid #eee; letter-spacing: 0; }
+  .city-opt:hover { background: #faf7ef; }
+  .nav-selects { display: flex; gap: 8px; }
   .hours-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
   .hcell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
            padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
@@ -146,6 +166,12 @@
     .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: 1px solid var(--border); }
     .hcell:nth-child(n+9) { border-bottom: none; }
     .h-gz { font-size: 20px; }
+    .hours-title { font-size: 15px; }
+    .hours-controls { width: 100%; }
+    #cal-city { flex: 1; width: auto; min-width: 120px; }
+    .city-dd { min-width: 0; }
+    .nav-selects { flex: 1; justify-content: center; }
+    .nav select { flex: 1; }
   }
 </style>
 </head>
@@ -158,7 +184,7 @@
 
 <header>
   <h1>历 · Chinese Calendar</h1>
-  <p id="tagline">Китайский календарь · Четыре столпа по дате</p>
+  <p id="tagline">Китайский календарь</p>
 </header>
 
 <div class="wrap">
@@ -177,7 +203,10 @@
   <!-- Month navigation -->
   <div class="nav">
     <button id="prev" type="button" aria-label="prev">‹</button>
-    <div class="title" id="cal-title"></div>
+    <div class="nav-selects">
+      <select id="sel-month" aria-label="month"></select>
+      <select id="sel-year" aria-label="year"></select>
+    </div>
     <button id="next" type="button" aria-label="next">›</button>
     <button class="today-btn" id="today" type="button">Today</button>
   </div>
@@ -190,7 +219,20 @@
 
   <!-- Hour pillars for the selected day -->
   <div class="hours">
-    <div class="hours-title" id="hours-title"></div>
+    <div class="hours-title">
+      <span id="hours-title"></span>
+      <div class="hours-controls">
+        <div class="city-wrap">
+          <input type="text" id="cal-city" autocomplete="off" placeholder="Город">
+          <div class="city-dd" id="cal-city-dd"></div>
+        </div>
+        <label class="solar-toggle">
+          <input type="checkbox" id="cal-solar">
+          <span id="solar-label">Солнечное время</span>
+        </label>
+        <span class="solar-info" id="cal-solar-info"></span>
+      </div>
+    </div>
     <div class="hours-grid" id="hours-grid"></div>
   </div>
 
@@ -199,24 +241,27 @@
 
 </div>
 
+<script src="/tz.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
 <script>
 /* ===================== i18n ===================== */
 const I18N = {
   ru: {
-    tagline: "Китайский календарь · Четыре столпа по дате",
+    tagline: "Китайский календарь",
     today: "Сегодня", back: "← Все калькуляторы",
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
+    solar: "Солнечное время", cityPh: "Город", min: "мин",
     months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
     dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
     dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
   },
   en: {
-    tagline: "Chinese Calendar · Four Pillars by date",
+    tagline: "Chinese Calendar",
     today: "Today", back: "← All calculators",
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
+    solar: "Solar time", cityPh: "City", min: "min",
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
     dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -254,15 +299,17 @@ const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
 const elName  = ch => EL_NAME[LANG][STEM_EL[ch] || BRANCH_EL[ch]] || "";
 const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
 
-/* Double-hour branches with their clock ranges (子 = 23:00–01:00) */
+/* Double-hour branches; sm = solar start minute-of-day (子 begins 23:00 = 1380) */
 const HOURS = [
-  {h:0,  z:"子", range:"23:00–01:00"}, {h:2,  z:"丑", range:"01:00–03:00"},
-  {h:4,  z:"寅", range:"03:00–05:00"}, {h:6,  z:"卯", range:"05:00–07:00"},
-  {h:8,  z:"辰", range:"07:00–09:00"}, {h:10, z:"巳", range:"09:00–11:00"},
-  {h:12, z:"午", range:"11:00–13:00"}, {h:14, z:"未", range:"13:00–15:00"},
-  {h:16, z:"申", range:"15:00–17:00"}, {h:18, z:"酉", range:"17:00–19:00"},
-  {h:20, z:"戌", range:"19:00–21:00"}, {h:22, z:"亥", range:"21:00–23:00"}
+  {h:0,  z:"子", sm:1380}, {h:2,  z:"丑", sm:60},   {h:4,  z:"寅", sm:180},
+  {h:6,  z:"卯", sm:300},  {h:8,  z:"辰", sm:420},  {h:10, z:"巳", sm:540},
+  {h:12, z:"午", sm:660},  {h:14, z:"未", sm:780},  {h:16, z:"申", sm:900},
+  {h:18, z:"酉", sm:1020}, {h:20, z:"戌", sm:1140}, {h:22, z:"亥", sm:1260}
 ];
+const pad2 = n => String(n).padStart(2, "0");
+const fmtHM = min => { min = ((min % 1440) + 1440) % 1440; return pad2(Math.floor(min/60)) + ":" + pad2(min%60); };
+/* Clock-time window for a branch = its solar window shifted back by the correction (clock = solar − cm) */
+const rangeLabel = (sm, cm) => `${fmtHM(sm - cm)}–${fmtHM(sm + 120 - cm)}`;
 
 /* ===================== Pillar computation (lunar-javascript) ===================== */
 function eightChar(y, m, d, h) {
@@ -288,6 +335,46 @@ let viewM = now.getMonth();          // 0-based
 let selected = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
 
+/* ── Solar-time correction (city longitude, same method as bazi.html) ── */
+let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
+function tzOffsetMin(date, tz) {
+  try {
+    const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p = {}; f.formatToParts(date).forEach(x => p[x.type] = x.value);
+    const hh = p.hour === "24" ? "00" : p.hour;
+    return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second) - date.getTime())/60000);
+  } catch(e) { return Math.round(LON/15)*60; }
+}
+/* minutes to add to clock time to get mean solar time */
+function corrMin(d) { return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
+
+function onCityInput() {
+  clearTimeout(_cityTimer);
+  const q = document.getElementById("cal-city").value.trim();
+  if (q.length < 2) { document.getElementById("cal-city-dd").style.display = "none"; return; }
+  _cityTimer = setTimeout(() => fetchCities(q), 350);
+}
+async function fetchCities(q) {
+  const dd = document.getElementById("cal-city-dd");
+  try {
+    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language="+LANG+"&limit=6&q="+encodeURIComponent(q));
+    const arr = await r.json();
+    if (!arr || !arr.length) { dd.style.display = "none"; return; }
+    dd._data = arr;
+    dd.innerHTML = arr.map((c,i) => `<div class="city-opt" data-i="${i}">${c.display_name}</div>`).join("");
+    dd.style.display = "block";
+    dd.querySelectorAll(".city-opt").forEach(el => el.addEventListener("click", () => selectCity(+el.getAttribute("data-i"))));
+  } catch(e) { dd.style.display = "none"; }
+}
+function selectCity(i) {
+  const dd = document.getElementById("cal-city-dd"), c = dd._data[i];
+  LON = parseFloat(c.lon); CITYNAME = c.display_name.split(",")[0];
+  try { TZNAME = tzlookup(parseFloat(c.lat), LON); } catch(e) {}
+  document.getElementById("cal-city").value = CITYNAME;
+  dd.style.display = "none";
+  if (USE_SOLAR) { renderDayBar(); renderHours(); }
+}
+
 /* ===================== Render: top day bar ===================== */
 function renderDayBar() {
   const p = dayPillars(selected);
@@ -305,11 +392,13 @@ function renderDayBar() {
     {lab: L().pMonth, g:p.m[0], z:p.m[1]},
     {lab: L().pDay,   g:p.d[0], z:p.d[1]}
   ];
-  // 4th pillar = current hour if selected is today, else noon (午)
+  // 4th pillar = current hour if selected is today (solar-adjusted when enabled), else noon (午)
   let hEC;
   if (sameDay(selected, new Date())) {
-    const n = new Date();
-    hEC = eightChar(n.getFullYear(), n.getMonth()+1, n.getDate(), n.getHours());
+    const base = new Date();
+    const cm = USE_SOLAR ? corrMin(base) : 0;
+    const eff = new Date(base.getTime() + cm*60000);
+    hEC = eightChar(eff.getFullYear(), eff.getMonth()+1, eff.getDate(), eff.getHours());
   } else {
     hEC = eightChar(selected.getFullYear(), selected.getMonth()+1, selected.getDate(), 12);
   }
@@ -324,8 +413,21 @@ function renderDayBar() {
 }
 
 /* ===================== Render: month grid ===================== */
+function buildYearOptions() {
+  let o = ""; for (let y = 1900; y <= 2100; y++) o += `<option value="${y}">${y}</option>`;
+  document.getElementById("sel-year").innerHTML = o;
+}
+function buildMonthOptions() {
+  document.getElementById("sel-month").innerHTML =
+    L().months.map((n,i) => `<option value="${i}">${n}</option>`).join("");
+}
+function syncNav() {
+  document.getElementById("sel-month").value = viewM;
+  document.getElementById("sel-year").value = viewY;
+}
+
 function renderGrid() {
-  document.getElementById("cal-title").textContent = `${L().months[viewM]} ${viewY}`;
+  syncNav();
   document.getElementById("cal-dow").innerHTML =
     L().dow.map((d,i)=>`<div class="${i>=5?'we':''}">${d}</div>`).join("");
 
@@ -386,18 +488,32 @@ function renderHours() {
   const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
   document.getElementById("hours-title").textContent =
     `${L().hoursTitle} · ${d} ${L().months[selected.getMonth()]} ${y}`;
-  const nowH = sameDay(selected, new Date()) ? new Date().getHours() : -1;
+
+  const cm = USE_SOLAR ? corrMin(new Date(y, m-1, d, 12, 0, 0)) : 0;
+  const si = document.getElementById("cal-solar-info");
+  if (USE_SOLAR) {
+    const sign = cm >= 0 ? "+" : "−";
+    si.textContent = `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().min}`;
+  } else si.textContent = "";
+
+  // "now" highlight — solar-adjusted current time when enabled
+  let nowH = -1;
+  if (sameDay(selected, new Date())) {
+    const base = new Date();
+    const eff = USE_SOLAR ? new Date(base.getTime() + cm*60000) : base;
+    nowH = eff.getHours();
+  }
   document.getElementById("hours-grid").innerHTML = HOURS.map(hr => {
     const ec = eightChar(y, m, d, hr.h);
     const g = ec.getTimeGan(), z = ec.getTimeZhi();
-    // "now" = the double-hour containing current clock hour (子 spans 23–1)
+    // "now" = the double-hour containing current hour (子 spans 23–1)
     let isNow = false;
     if (nowH >= 0) {
       if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
       else isNow = (nowH === hr.h - 1 || nowH === hr.h);
     }
     return `<div class="hcell${isNow?' now':''}">
-        <div class="h-range">${hr.range}</div>
+        <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
         <div class="h-gz">${gzHtml(g, z)}</div>
         <div class="h-el">${elName(g)} / ${elName(z)}</div>
       </div>`;
@@ -413,11 +529,22 @@ function shiftMonth(delta) {
 }
 document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
 document.getElementById("next").addEventListener("click", () => shiftMonth(1));
+document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
+document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
 document.getElementById("today").addEventListener("click", () => {
   const t = new Date();
   viewY = t.getFullYear(); viewM = t.getMonth();
   selected = new Date(t.getFullYear(), t.getMonth(), t.getDate());
   renderAll();
+});
+
+/* ===================== Solar-time controls ===================== */
+document.getElementById("cal-solar").addEventListener("change", e => {
+  USE_SOLAR = e.target.checked; renderDayBar(); renderHours();
+});
+document.getElementById("cal-city").addEventListener("input", onCityInput);
+document.addEventListener("click", e => {
+  if (!e.target.closest(".city-wrap")) document.getElementById("cal-city-dd").style.display = "none";
 });
 
 /* ===================== Language ===================== */
@@ -426,6 +553,9 @@ function applyLang() {
   document.getElementById("tagline").textContent = L().tagline;
   document.getElementById("today").textContent = L().today;
   document.getElementById("backlink").textContent = L().back;
+  document.getElementById("solar-label").textContent = L().solar;
+  document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
+  buildMonthOptions(); syncNav();
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
 }
@@ -439,6 +569,7 @@ document.getElementById("lang-en").addEventListener("click", () => setLang("en")
 
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
+buildYearOptions();
 applyLang();
 renderAll();
 </script>
