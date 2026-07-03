@@ -75,7 +75,7 @@
   .cal-dow div.we { color: var(--gold-dim); }
 
   .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-          min-height: 116px; padding: 6px 5px 8px; cursor: pointer; position: relative;
+          min-height: 104px; padding: 6px 5px 8px; cursor: pointer; position: relative;
           display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background .12s; }
   .cell:nth-child(7n) { border-right: none; }
   .cell:hover { background: #faf7ef; }
@@ -88,9 +88,8 @@
 
   .c-num { position: absolute; top: 4px; right: 6px; font-family: 'Cormorant Garamond', serif;
            font-size: 17px; font-weight: 600; line-height: 1; }
-  /* day pillar stacked vertically: stem on top, branch below */
-  .c-gz { display: flex; flex-direction: column; align-items: center; margin-top: 15px;
-          font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; line-height: 1.08; }
+  /* day pillar horizontal: stem + branch side by side */
+  .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
   .c-ind { font-size: 10px; line-height: 1.15; color: var(--gold-dim); font-weight: 600; margin-top: 3px; }
   .c-clash { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
@@ -134,12 +133,12 @@
   .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
 
   /* Officers legend */
-  .ind-legend { max-width: 960px; margin: 14px auto 0; background: var(--surface); border: 1px solid var(--border);
-                padding: 12px 16px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
+  .ind-legend { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 12px 18px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
                 line-height: 2; display: none; }
   .ind-legend.show { display: block; }
-  .ind-legend .lg-title { font-family: 'Cormorant Garamond', serif; font-size: 15px; color: var(--gold);
-                          letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .ind-legend .lg-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                          letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
   .ind-legend b { color: var(--gold-dim); }
   .ind-legend .lg-clash { margin-top: 8px; }
   .ind-legend .cl-m, .ind-legend .cl-y { font-size: 10px; }
@@ -206,9 +205,9 @@
     .nav { gap: 7px; flex-wrap: wrap; }
     .nav .title { font-size: 18px; min-width: 0; order: -1; width: 100%; }
     .nav button { padding: 7px 11px; }
-    .cell { min-height: 100px; padding: 4px 2px 6px; gap: 2px; }
+    .cell { min-height: 88px; padding: 4px 2px 6px; gap: 2px; }
     .c-num { font-size: 13px; top: 3px; right: 4px; }
-    .c-gz { font-size: 16px; margin-top: 13px; }
+    .c-gz { font-size: 17px; margin-top: 12px; }
     .c-term { font-size: 8px; }
     .c-ind { font-size: 8.5px; margin-top: 2px; }
     .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui { font-size: 7.5px; padding: 0 2px; }
@@ -294,9 +293,6 @@
     <div id="cal-body"></div>
   </div>
 
-  <!-- Day Officers legend (shown when Indicators enabled) -->
-  <div class="ind-legend" id="ind-legend"></div>
-
   <!-- Hour pillars for the selected day -->
   <div class="hours">
     <div class="hours-title">
@@ -315,6 +311,9 @@
     </div>
     <div class="hours-grid" id="hours-grid"></div>
   </div>
+
+  <!-- Day Officers legend (shown when Indicators enabled) -->
+  <div class="ind-legend" id="ind-legend"></div>
 
   <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
   <div class="footer-brand">SuccessCode</div>
@@ -419,7 +418,16 @@ const SANSHA = {};
   [[5,9,1],  {jie:2, zai:3, sui:4}],    // 巳酉丑(metal) → 煞东 寅卯辰
   [[11,3,7], {jie:8, zai:9, sui:10}]    // 亥卯未(wood)  → 煞西 申酉戌
 ].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
+const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
+const POLARITY = { ru:{yang:"Ян",yin:"Инь"}, en:{yang:"Yang",yin:"Yin"} };
+const ANIMAL = {
+  ru:{子:"Крыса",丑:"Бык",寅:"Тигр",卯:"Кролик",辰:"Дракон",巳:"Змея",午:"Лошадь",未:"Коза",申:"Обезьяна",酉:"Петух",戌:"Собака",亥:"Свинья"},
+  en:{子:"Rat",丑:"Ox",寅:"Tiger",卯:"Rabbit",辰:"Dragon",巳:"Snake",午:"Horse",未:"Goat",申:"Monkey",酉:"Rooster",戌:"Dog",亥:"Pig"}
+};
 const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
+/* stem sub-label = polarity + element ("Ян Вода"); branch sub-label = animal ("Собака") */
+const stemLabel = g => `${POLARITY[LANG][STEM_YY[g]]} ${EL_NAME[LANG][STEM_EL[g]]}`;
+const animalLabel = z => ANIMAL[LANG][z] || "";
 const elName  = ch => EL_NAME[LANG][STEM_EL[ch] || BRANCH_EL[ch]] || "";
 const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
 
@@ -537,7 +545,7 @@ function renderDayBar() {
     <div class="pillar">
       <div class="pillar-h">${c.lab}</div>
       <div class="pillar-gz">${gzHtml(c.g, c.z)}</div>
-      <div class="pillar-el">${elName(c.g)} / ${elName(c.z)}</div>
+      <div class="pillar-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
     </div>`).join("");
 }
 
@@ -599,7 +607,7 @@ function renderMonthPillars() {
     <div class="mp">
       <div class="mp-h">${c.lab}</div>
       <div class="mp-gz">${gzHtml(c.g, c.z)}</div>
-      <div class="mp-el">${elName(c.g)} / ${elName(c.z)}</div>
+      <div class="mp-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
     </div>`).join("");
 }
 function renderLegend() {
