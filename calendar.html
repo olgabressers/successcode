@@ -39,12 +39,14 @@
                  flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
   .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
+  #db-date { background: #f8f6f2; border: 1px solid var(--border); color: var(--text-dim);
+             font-family: 'Inter', sans-serif; font-size: 12px; padding: 5px 8px; cursor: pointer; }
+  #db-date:focus { border-color: var(--gold); outline: none; }
   .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
   .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
 
-  .db-charts { display: flex; }
-  .db-chart { flex: 1; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
-  .db-chart:last-child { border-right: none; }
+  .db-charts { display: flex; gap: 18px; padding: 18px; }
+  .db-chart { flex: 1; border: 1px solid var(--border); display: flex; flex-direction: column; }
   .db-cap { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .3px; color: var(--gold-dim);
             text-align: center; padding: 8px 8px 10px; border-top: 1px solid var(--border); line-height: 1.35; }
 
@@ -99,7 +101,7 @@
   .ic-merc, .ic-esol, .ic-elun { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
   .ic-merc { background: #111; }
   .ic-esol { background: linear-gradient(90deg, #111 0 50%, #f1c40f 50% 100%); box-shadow: 0 0 0 .5px #b7791f; }
-  .ic-elun { background: linear-gradient(90deg, #111 0 50%, #e8d174 50% 100%); box-shadow: 0 0 0 .5px #7d6608; }
+  .ic-elun { background: linear-gradient(90deg, #060f26 0 50%, #33507d 50% 100%); box-shadow: 0 0 0 .5px #060f26; }
   /* day pillar horizontal: stem + branch side by side */
   .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
@@ -213,6 +215,22 @@
   .footer-brand { text-align: center; margin-top: 22px; font-family: 'Cormorant Garamond', serif;
                   font-size: 13px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; }
 
+  /* ── Flying stars (玄空飞星) ─────────────────────────── */
+  .flystars { max-width: 960px; margin: 20px auto 0; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .fs-block { background: var(--surface); border: 1px solid var(--border); padding: 14px 16px 16px; flex: 1 1 250px; max-width: 300px; }
+  .fs-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--gold);
+              letter-spacing: 1px; text-align: center; }
+  .fs-range { font-size: 11.5px; color: var(--text-muted); text-align: center; margin: 3px 0 12px; letter-spacing: .3px; }
+  .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .fs-cell { aspect-ratio: 1 / 1; border: 1px solid var(--border); background: #faf8f3; position: relative;
+             display: flex; align-items: center; justify-content: center; }
+  .fs-cell.c { background: #fbf3e0; }
+  .fs-dir { position: absolute; top: 3px; left: 0; right: 0; text-align: center; font-size: 8.5px;
+            letter-spacing: .5px; color: var(--text-muted); text-transform: uppercase; }
+  .fs-val { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 700; line-height: 1; margin-top: 5px; }
+  .fs-1{color:#3f5f88} .fs-2{color:#222} .fs-3{color:#1a7d6b} .fs-4{color:#2e7d32} .fs-5{color:#b8882a}
+  .fs-6{color:#607d8b} .fs-7{color:#c62828} .fs-8{color:#7a5a2a} .fs-9{color:#7b1fa2}
+
   @media (max-width: 768px) {
     * { max-width: 100vw; }
     img, iframe, video, table { max-width: 100% !important; }
@@ -221,9 +239,7 @@
     header h1 { font-size: 22px; }
     .daybar-greg { font-size: 20px; }
     .daybar-head { justify-content: center; }
-    .db-charts { flex-direction: column; }
-    .db-chart { border-right: none; border-bottom: 1px solid var(--border); }
-    .db-chart:last-child { border-bottom: none; }
+    .db-charts { flex-direction: column; gap: 12px; padding: 12px; }
     .pillar-gz { font-size: 28px; }
     .pillar { padding: 12px 4px 14px; }
     .pillar-h { font-size: 9px; letter-spacing: 1px; padding: 5px 4px; margin: -12px -4px 5px; width: calc(100% + 8px); }
@@ -276,6 +292,7 @@
     <div class="daybar-head">
       <div class="db-datewrap">
         <span class="daybar-greg" id="db-greg"></span>
+        <input type="date" id="db-date">
         <span class="daybar-dow"  id="db-dow"></span>
         <span class="daybar-term" id="db-term"></span>
       </div>
@@ -338,6 +355,9 @@
     <div id="cal-body"></div>
   </div>
 
+  <!-- Flying stars (year + solar months in view) -->
+  <div class="flystars" id="flystars"></div>
+
   <!-- Hour pillars for the selected day -->
   <div class="hours">
     <div class="hours-title"><span id="hours-title"></span></div>
@@ -377,6 +397,7 @@ const I18N = {
     noWealthTag: "Без богатства", noWealthTip: "День без богатства (甲辰 / 乙巳)",
     kmTag: "Уб. мастера", kmTip: "День, убивающий мастера (杀师日)",
     solarCaption: "Солнечный месяц", lunarCaptionWord: "Лунный месяц", gregCaption: "Календарный месяц", leapWord: "високосный",
+    fsYear: "Летящие звёзды: года", fsMonth: "Летящие звёзды: месяца",
     optSha: "Ша (三煞)",
     sha: {
       suiM:{t:"Ша мес", tip:"Ша месяца (月煞)"}, suiY:{t:"Ша год", tip:"Ша года (岁煞)"},
@@ -409,6 +430,7 @@ const I18N = {
     noWealthTag: "No wealth", noWealthTip: "Day without wealth (甲辰 / 乙巳)",
     kmTag: "Kills master", kmTip: "Day that kills the master (杀师日)",
     solarCaption: "Solar month", lunarCaptionWord: "Lunar month", gregCaption: "Calendar month", leapWord: "leap",
+    fsYear: "Flying stars: year", fsMonth: "Flying stars: month",
     optSha: "Sha (三煞)",
     sha: {
       suiM:{t:"Sha M", tip:"Month Sha (月煞)"}, suiY:{t:"Sha Y", tip:"Year Sha (岁煞)"},
@@ -491,6 +513,17 @@ const ANIMAL = {
   ru:{子:"Крыса",丑:"Бык",寅:"Тигр",卯:"Кролик",辰:"Дракон",巳:"Змея",午:"Лошадь",未:"Коза",申:"Обезьяна",酉:"Петух",戌:"Собака",亥:"Свинья"},
   en:{子:"Rat",丑:"Ox",寅:"Tiger",卯:"Rabbit",辰:"Dragon",巳:"Snake",午:"Horse",未:"Goat",申:"Monkey",酉:"Rooster",戌:"Dog",亥:"Pig"}
 };
+/* ── Flying stars (玄空飞星) ── base Lo Shu (center 5) by direction; forward-fly = additive shift */
+const LOSHU = { SE:4, S:9, SW:2, E:3, C:5, W:7, NE:8, N:1, NW:6 };
+const FS_ORDER = ["SE","S","SW","E","C","W","NE","N","NW"];   // row-major, South on top
+const DIR_LABEL = {
+  ru: {SE:"ЮВ",S:"Ю",SW:"ЮЗ",E:"В",C:"",W:"З",NE:"СВ",N:"С",NW:"СЗ"},
+  en: {SE:"SE",S:"S",SW:"SW",E:"E",C:"",W:"W",NE:"NE",N:"N",NW:"NW"}
+};
+const B2MI = {寅:1,卯:2,辰:3,巳:4,午:5,未:6,申:7,酉:8,戌:9,亥:10,子:11,丑:12}; // solar month index (寅=1)
+/* month-1 (寅) center by solar-year branch group: 子午卯酉→8, 辰戌丑未→5, 寅申巳亥→2 */
+const YEARGRP_START = {子:8,午:8,卯:8,酉:8, 辰:5,戌:5,丑:5,未:5, 寅:2,申:2,巳:2,亥:2};
+
 const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
 /* stem sub-label = polarity + element ("Ян Вода"); branch sub-label = animal ("Собака") */
 const stemLabel = g => `${POLARITY[LANG][STEM_YY[g]]} ${EL_NAME[LANG][STEM_EL[g]]}`;
@@ -591,6 +624,7 @@ function renderDayBar() {
   const dowIdx = (selected.getDay()+6)%7;
   document.getElementById("db-greg").textContent =
     `${d} ${L().months[selected.getMonth()]} ${y}`;
+  document.getElementById("db-date").value = `${y}-${pad2(m)}-${pad2(d)}`;
   document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
 
   // effective hour: current hour if today (solar-adjusted when enabled), else noon
@@ -728,6 +762,66 @@ function lunarMonthByDate(dt) {
 function solarRange() { return solarMonthByDate(new Date(viewY, viewM, 15)); }
 function lunarRange() { return lunarMonthByDate(new Date(viewY, viewM, 15)); }
 
+/* ===================== Flying stars (玄空飞星) ===================== */
+const dmy = d => `${pad2(d.getDate())}.${pad2(d.getMonth()+1)}.${d.getFullYear()}`;
+/* 立春 (start of solar year) for a Gregorian year — from Feb 20 the prev 节 is 立春 */
+function liChun(gy) {
+  const s = Solar.fromYmdHms(gy, 2, 20, 12, 0, 0).getLunar().getPrevJie().getSolar();
+  return new Date(s.getYear(), s.getMonth()-1, s.getDay());
+}
+/* LiChun-based solar year number containing a date */
+function solarYearNum(dt) { return dt < liChun(dt.getFullYear()) ? dt.getFullYear()-1 : dt.getFullYear(); }
+/* annual center: 2026 solar year = 1, descends by 1 each solar year */
+function yearCenter(sy) { return (((2026 - sy) % 9) + 9) % 9 + 1; }
+/* monthly center: from year-branch group start, descend by 1 per solar month */
+function monthCenter(yearZhi, monthZhi) {
+  const start = YEARGRP_START[yearZhi], mi = B2MI[monthZhi];
+  return ((start - (mi-1) - 1) % 9 + 9) % 9 + 1;
+}
+/* distinct solar months (节→节) overlapping [a,b]; each with its month center star */
+function solarMonthsInRange(a, b) {
+  const out = [], seen = new Set(), cur = new Date(a);
+  while (cur <= b) {
+    const lu = Solar.fromYmdHms(cur.getFullYear(), cur.getMonth()+1, cur.getDate(), 12, 0, 0).getLunar();
+    const ps = lu.getPrevJie().getSolar(), ns = lu.getNextJie().getSolar();
+    const key = ps.getYear()+"-"+ps.getMonth()+"-"+ps.getDay();
+    if (!seen.has(key)) {
+      seen.add(key);
+      const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
+      const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+      const rep = new Date(start); rep.setDate(rep.getDate()+3);   // date solidly inside the month
+      const ec = Solar.fromYmdHms(rep.getFullYear(), rep.getMonth()+1, rep.getDate(), 12, 0, 0).getLunar().getEightChar();
+      out.push({ start, end, center: monthCenter(ec.getYearZhi(), ec.getMonthZhi()) });
+    }
+    cur.setDate(cur.getDate()+1);
+  }
+  return out;
+}
+/* one 3×3 Lo Shu block given a center star */
+function fsBlock(title, range, center) {
+  const cells = FS_ORDER.map(dir => {
+    const base = LOSHU[dir];
+    const val = ((base - 1 + (center - 5)) % 9 + 9) % 9 + 1;
+    return `<div class="fs-cell${dir==="C"?" c":""}">
+        <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
+        <span class="fs-val fs-${val}">${val}</span>
+      </div>`;
+  }).join("");
+  return `<div class="fs-block">
+      <div class="fs-title">${title}</div>
+      <div class="fs-range">${range}</div>
+      <div class="fs-grid">${cells}</div>
+    </div>`;
+}
+function renderFlyingStars() {
+  const { start, end } = monthRange();
+  const sy = solarYearNum(new Date(viewY, viewM, 15));
+  let blocks = fsBlock(L().fsYear, `${dmy(liChun(sy))} – ${dmy(liChun(sy+1))}`, yearCenter(sy));
+  solarMonthsInRange(start, end).forEach(mm =>
+    blocks += fsBlock(L().fsMonth, `${dmy(mm.start)} – ${dmy(mm.end)}`, mm.center));
+  document.getElementById("flystars").innerHTML = blocks;
+}
+
 function renderLegend() {
   const el = document.getElementById("ind-legend");
   if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
@@ -819,6 +913,7 @@ function renderGrid() {
     });
   });
   renderLegend();
+  renderFlyingStars();
 }
 
 function refreshSelection() {
@@ -877,6 +972,13 @@ document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
 document.getElementById("next").addEventListener("click", () => shiftMonth(1));
 document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
 document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
+document.getElementById("db-date").addEventListener("change", e => {
+  const [yy,mm,dd] = e.target.value.split("-").map(Number);
+  if (!yy) return;
+  selected = new Date(yy, mm-1, dd);
+  viewY = yy; viewM = mm-1;
+  renderAll();
+});
 document.getElementById("today").addEventListener("click", () => {
   const t = new Date();
   viewY = t.getFullYear(); viewM = t.getMonth();
