@@ -209,7 +209,7 @@
   .cat-col li { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; padding-left: 12px; position: relative; }
   .cat-col li::before { content: "·"; position: absolute; left: 2px; color: var(--gold-dim); }
   .cat-note { font-size: 12.5px; color: var(--text-dim); margin-top: 12px; line-height: 1.5; }
-  .cat-warn { font-size: 12.5px; color: #c0392b; font-weight: 700; margin-top: 10px; line-height: 1.5; }
+  .cat-warn { font-size: 12.5px; color: #111; font-weight: 700; margin-top: 10px; line-height: 1.5; }
   @media (max-width: 768px) { .cat-cols { grid-template-columns: 1fr; } }
 
   /* Calendar marker definitions panel */
@@ -264,7 +264,20 @@
            padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
   .hcell:nth-child(6n) { border-right: none; }
   .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: none; }
-  .hcell.now { background: #fbf3e0; }
+  /* Hour quality: best = green, void (空亡) = grey, clash = red */
+  .hcell.h-best  { background: var(--good-bg); }
+  .hcell.h-void  { background: #ececec; }
+  .hcell.h-clash { background: var(--bad-bg); }
+  .hcell.now { box-shadow: inset 0 0 0 2px var(--gold); }
+  /* Hours legend */
+  .hours-legend { display: flex; gap: 18px; flex-wrap: wrap; align-items: center;
+                  padding: 10px 14px; border-top: 1px solid var(--border); font-family: 'Inter', sans-serif;
+                  font-size: 12px; color: var(--text-dim); }
+  .hours-legend .hsw { display: inline-block; width: 22px; height: 13px; border: 1px solid var(--border);
+                       vertical-align: middle; margin-right: 6px; }
+  .hours-legend .hsw.h-best { background: var(--good-bg); }
+  .hours-legend .hsw.h-void { background: #ececec; }
+  .hours-legend .hsw.h-clash { background: var(--bad-bg); }
   .h-range { font-size: 10px; color: var(--text-muted); letter-spacing: .3px; }
   .h-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1; }
   .h-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
@@ -416,6 +429,7 @@
   <div class="hours">
     <div class="hours-title"><span id="hours-title"></span></div>
     <div class="hours-grid" id="hours-grid"></div>
+    <div class="hours-legend" id="hours-legend"></div>
   </div>
 
   <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
@@ -442,6 +456,7 @@ const I18N = {
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
     lgClash: "Столкновение — избегать",
     lgStars: "Звёзды показывают качество дня.",
+    hrBest: "Лучшие часы", hrVoid: "Пустые часы (空亡)", hrClash: "Часы столкновения",
     lgUG: "UG — полезный элемент дня (сильный / полезный элемент для мастера дня)",
     optCat: "Категории ($ ♥ ♛)",
     catMoney: "Деньги и Продвижение", catHealth: "Ресурсы и Здоровье", catPower: "Начальство и Власть",
@@ -497,6 +512,7 @@ const I18N = {
     solarCaption: "Solar month", gregCaption: "Calendar month",
     lgClash: "Clash — avoid",
     lgStars: "Stars show the quality of the day.",
+    hrBest: "Best hours", hrVoid: "Void hours (空亡)", hrClash: "Clash hours",
     lgUG: "UG — the day's beneficial element (element that is strong / useful for the day master)",
     optCat: "Categories ($ ♥ ♛)",
     catMoney: "Money & Promotion", catHealth: "Resources & Health", catPower: "Bosses & Power",
@@ -1079,6 +1095,21 @@ function renderHours() {
     const eff = USE_SOLAR ? new Date(base.getTime() + cm*60000) : base;
     nowH = eff.getHours();
   }
+
+  /* Hour quality — clash (with day OR year branch) = red · void (空亡) = grey ·
+     best (branch element = a Useful-God element, not clash, not void) = green. */
+  const p = dayPillars(selected);
+  const dayI = BRANCH_IDX[p.d[1]], yearI = BRANCH_IDX[p.y[1]];
+  let voidStr = ""; try { voidStr = p.lunar.getDayXunKong() || ""; } catch (e) {}
+  const ugEls = usefulGod(p).ug;
+  const hourClass = z => {
+    const zi = BRANCH_IDX[z];
+    if ((zi + 6) % 12 === dayI || (zi + 6) % 12 === yearI) return "h-clash";
+    if (voidStr.includes(z)) return "h-void";
+    if (ugEls.includes(BRANCH_EL[z])) return "h-best";
+    return "";
+  };
+
   document.getElementById("hours-grid").innerHTML = HOURS.map(hr => {
     const ec = eightChar(y, m, d, hr.h);
     const g = ec.getTimeGan(), z = ec.getTimeZhi();
@@ -1087,12 +1118,21 @@ function renderHours() {
       if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
       else isNow = (nowH === hr.h - 1 || nowH === hr.h);
     }
-    return `<div class="hcell${isNow?' now':''}">
+    const hq = hourClass(z);
+    return `<div class="hcell${hq ? ' ' + hq : ''}${isNow ? ' now' : ''}">
         <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
         <div class="h-gz">${gzHtml(g, z)}</div>
         <div class="h-el">${elName(g)} / ${elName(z)}</div>
       </div>`;
   }).join("");
+  renderHoursLegend();
+}
+function renderHoursLegend() {
+  const el = document.getElementById("hours-legend"); if (!el) return;
+  el.innerHTML =
+    `<span><span class="hsw h-best"></span>${L().hrBest}</span>` +
+    `<span><span class="hsw h-void"></span>${L().hrVoid}</span>` +
+    `<span><span class="hsw h-clash"></span>${L().hrClash}</span>`;
 }
 
 /* ===================== Navigation ===================== */
