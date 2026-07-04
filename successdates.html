@@ -28,6 +28,16 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
 
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: transparent;
+               border: 1px solid var(--border); color: var(--text-muted); padding: 5px 11px;
+               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .print-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  @media print {
+    .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav { display: none !important; }
+    body { padding: 8px; background: #fff; }
+    .cell { min-height: 96px; }
+  }
+
   header { text-align: center; margin-bottom: 28px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
@@ -93,7 +103,7 @@
   .cell.out:hover { background: #faf9f5; }
   .cell.out .c-num, .cell.out .c-gz { opacity: .34; }
   .cell.out .c-stars, .cell.out .c-term, .cell.out .c-icons,
-  .cell.out .c-ind, .cell.out .c-clash, .cell.out .c-ug { display: none; }
+  .cell.out .c-ind, .cell.out .c-clash, .cell.out .c-ug, .cell.out .c-cat { display: none; }
   /* Day-quality colouring: clash/bad = red only (green removed — was miscalculated) */
   .cell.q-bad  { background: var(--bad-bg); }
   .cell.q-bad:hover  { background: var(--bad-bg-h); }
@@ -133,6 +143,12 @@
   .c-ug .el-wood { color: var(--el-wood); } .c-ug .el-fire { color: var(--el-fire); }
   .c-ug .el-earth { color: var(--el-earth); } .c-ug .el-metal { color: var(--el-metal); }
   .c-ug .el-water { color: var(--el-water); }
+  /* Target-category icons at cell top: $ money, ♥ health/relationship, ♛ bosses/power */
+  .c-cat { position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
+           display: flex; gap: 4px; font-size: 13px; line-height: 1; }
+  .cat-money  { color: #2e7d32; font-weight: 800; }
+  .cat-health { color: #c62828; }
+  .cat-power  { color: #8e24aa; }
 
   .el-wood  { color: var(--el-wood); }
   .el-fire  { color: var(--el-fire); }
@@ -164,6 +180,25 @@
                   vertical-align: middle; margin-right: 7px; }
   .q-legend .sw.bad { background: var(--bad-bg); }
   .q-legend .st.on { color: #e0a92e; } .q-legend .st { color: #cfcabb; }
+
+  /* Target-category definitions panel */
+  .cat-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 14px 18px 16px; font-family: 'Inter', sans-serif; display: none; }
+  .cat-legend.show { display: block; }
+  .cat-legend .cl-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                          letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .cat-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cat-col { border: 1px solid var(--border); padding: 10px 12px 12px; }
+  .cat-col h4 { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text);
+                display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
+  .cat-col h4 .g { font-size: 17px; line-height: 1; }
+  .cat-col h4 .g.cat-money { color: #2e7d32; font-weight: 800; }
+  .cat-col h4 .g.cat-health { color: #c62828; } .cat-col h4 .g.cat-power { color: #8e24aa; }
+  .cat-col ul { list-style: none; margin: 0; padding: 0; }
+  .cat-col li { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; padding-left: 12px; position: relative; }
+  .cat-col li::before { content: "·"; position: absolute; left: 2px; color: var(--gold-dim); }
+  .cat-note { font-size: 12.5px; color: var(--text-muted); margin-top: 12px; font-style: italic; }
+  @media (max-width: 768px) { .cat-cols { grid-template-columns: 1fr; } }
 
   /* Markers legend (建除 officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
   .ind-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
@@ -241,6 +276,7 @@
     .c-stars .st { font-size: 10px; }
     .c-ind { font-size: 8.5px; margin-top: 2px; }
     .c-ug { font-size: 8.5px; margin-top: 2px; }
+    .c-cat { font-size: 10px; gap: 2px; }
     .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui, .cl-km { font-size: 7.5px; padding: 0 2px; }
     .disp-menu { min-width: 180px; }
     .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
@@ -268,6 +304,7 @@
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
 </div>
+<button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
 
 <header>
   <h1>历 · <span id="page-title">Успешные даты</span></h1>
@@ -324,6 +361,7 @@
       <div class="disp-menu" id="disp-menu">
         <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
         <label><input type="checkbox" id="opt-ug"> <span id="lbl-ug">Полезный бог (UG)</span></label>
+        <label><input type="checkbox" id="opt-cat"> <span id="lbl-cat">Категории ($ ♥ ♛)</span></label>
         <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
         <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения</span></label>
         <label><input type="checkbox" id="opt-sha"> <span id="lbl-sha">Ша (三煞)</span></label>
@@ -343,6 +381,9 @@
 
   <!-- Quality legend (star rating + clash) -->
   <div class="q-legend" id="q-legend"></div>
+
+  <!-- Target-category definitions ($ money · ♥ resources/health · ♛ bosses/power) -->
+  <div class="cat-legend" id="cat-legend"></div>
 
   <!-- Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) -->
   <div class="ind-legend" id="ind-legend"></div>
@@ -365,7 +406,7 @@
 const I18N = {
   ru: {
     pageTitle: "Успешные даты", tagline: "Успешные даты",
-    today: "Сегодня", back: "← Все калькуляторы",
+    today: "Сегодня", back: "← Все калькуляторы", print: "Печать",
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
@@ -377,6 +418,13 @@ const I18N = {
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
     lgClash: "Столкновение (красный день)",
     lgUG: "UG — полезный элемент дня (сильный / полезный элемент для мастера дня)",
+    optCat: "Категории ($ ♥ ♛)",
+    catMoney: "Деньги и Продвижение", catHealth: "Ресурсы и Здоровье", catPower: "Начальство и Власть",
+    catLegendTitle: "Целевые категории дня",
+    catMoneyDef: ["Начало бизнеса, запуск проектов", "Переговоры и сделки", "Продвижение: реклама, соцсети, новые контакты"],
+    catHealthDef: ["Начало лечения или обследования, врачи, диета, смена привычек", "Приобретение недвижимости и других ценностей", "Долгосрочное инвестирование", "Семейные темы: отношения, традиции"],
+    catPowerDef: ["Решение вопросов с вышестоящими органами", "Подача заявления в инстанции (начальство, суд)", "Устройство на работу, интервью"],
+    catNote: "Эффект дня выше, если делать акцент действий на категорию, соответствующую вашим целям.",
     lg3: "Лучший день", lg2: "Хороший день", lg1: "Приемлемый день",
     legendTitle: "Индикаторы дня (建除)",
     clashMonthTag: "День–Месяц", clashYearTag: "День–Год",
@@ -400,7 +448,7 @@ const I18N = {
   },
   en: {
     pageTitle: "Success Dates", tagline: "Success Dates",
-    today: "Today", back: "← All calculators",
+    today: "Today", back: "← All calculators", print: "Print",
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
@@ -412,6 +460,13 @@ const I18N = {
     solarCaption: "Solar month", gregCaption: "Calendar month",
     lgClash: "Clash (red day)",
     lgUG: "UG — the day's beneficial element (element that is strong / useful for the day master)",
+    optCat: "Categories ($ ♥ ♛)",
+    catMoney: "Money & Promotion", catHealth: "Resources & Health", catPower: "Bosses & Power",
+    catLegendTitle: "Target categories of the day",
+    catMoneyDef: ["Starting a business, launching projects", "Negotiations and deals", "Promotion: advertising, social media, new contacts"],
+    catHealthDef: ["Start of treatment or check-ups, doctors, diet, changing habits", "Acquiring real estate and other valuables", "Long-term investing", "Family matters: relationships, traditions"],
+    catPowerDef: ["Dealing with higher authorities", "Applications to institutions (bosses, court)", "Getting a job, interviews"],
+    catNote: "The day's effect is stronger if you focus your actions on the category matching your goals.",
     lg3: "Best day", lg2: "Good day", lg1: "OK day",
     legendTitle: "Day Officers (建除)",
     clashMonthTag: "Day–Month", clashYearTag: "Day–Year",
@@ -662,6 +717,28 @@ function ugHtml(p) {
   const els = r.ug.map(el => `<span class="el-${el}">${EL_NAME[LANG][el]}</span>`).join(", ");
   return `<div class="c-ug" title="${L().ugTip}">UG: ${els}</div>`;
 }
+/* Target categories (from the day's useful-god aspect). Rule (per client):
+   output/wealth UG → Money & Promotion; resource/companion UG → Resources & Health;
+   power element strong → Bosses & Power (combines with either; money & resources are
+   mutually exclusive because they come from a strong vs weak day master). */
+function dayCategories(p) {
+  const dm = STEM_EL[p.d[0]];
+  const MS = MONTH_STRONG[p.m[1]] || [];
+  const strong = MS.includes(dm), has = el => MS.includes(el);
+  return {
+    money:     strong && (has(GENERATES[dm]) || has(CONTROLS[dm])),  // 食伤 / 财
+    resources: !strong && (has(RESOURCE[dm]) || has(dm)),            // 印 / 比劫
+    power:     has(POWER[dm])                                        // 官杀
+  };
+}
+function catHtml(p) {
+  const c = dayCategories(p);
+  let t = "";
+  if (c.money)     t += `<span class="cat-money"  title="${L().catMoney}">$</span>`;
+  if (c.resources) t += `<span class="cat-health" title="${L().catHealth}">♥</span>`;
+  if (c.power)     t += `<span class="cat-power"  title="${L().catPower}">♛</span>`;
+  return t ? `<div class="c-cat">${t}</div>` : "";
+}
 
 /* ===================== State ===================== */
 const now = new Date();
@@ -672,7 +749,7 @@ const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.g
 
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
 let SOLAR_MONTH = true;
-let SHOW_IND = true, SHOW_CLASH = true, SHOW_SHA = true, SHOW_NW = true, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true, SHOW_UG = true;
+let SHOW_IND = true, SHOW_CLASH = true, SHOW_SHA = true, SHOW_NW = true, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true, SHOW_UG = true, SHOW_CAT = true;
 function tzOffsetMin(date, tz) {
   try {
     const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
@@ -807,6 +884,21 @@ function renderLegend() {
     `<span><span class="sw bad"></span>${L().lgClash}</span>` +
     (SHOW_UG ? `<span><b>UG</b> — ${L().lgUG.replace(/^UG\s*—\s*/, "")}</span>` : ``);
 
+  /* Target-category definitions panel */
+  const catEl = document.getElementById("cat-legend");
+  if (SHOW_CAT) {
+    const col = (glyph, cls, name, defs) =>
+      `<div class="cat-col"><h4><span class="g ${cls}">${glyph}</span>${name}</h4>` +
+      `<ul>${defs.map(d => `<li>${d}</li>`).join("")}</ul></div>`;
+    catEl.innerHTML =
+      `<div class="cl-title">${L().catLegendTitle}</div><div class="cat-cols">` +
+      col("$", "cat-money",  L().catMoney,  L().catMoneyDef) +
+      col("♥", "cat-health", L().catHealth, L().catHealthDef) +
+      col("♛", "cat-power",  L().catPower,  L().catPowerDef) +
+      `</div><div class="cat-note">${L().catNote}</div>`;
+    catEl.classList.add("show");
+  } else catEl.classList.remove("show");
+
   /* Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
   const el = document.getElementById("ind-legend");
   if (!SHOW_IND && !SHOW_CLASH && !SHOW_SHA && !SHOW_NW && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) {
@@ -868,6 +960,7 @@ function renderGrid() {
       html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
           <div class="c-num">${cur.getDate()}</div>
           ${icons ? `<div class="c-icons">${icons}</div>` : ``}
+          ${SHOW_CAT ? catHtml(p) : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
           ${starsHtml(sc.stars)}
           ${SHOW_UG ? ugHtml(p) : ``}
@@ -974,6 +1067,7 @@ document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropa
 document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
 document.getElementById("opt-solar").addEventListener("change", e => { SOLAR_MONTH = e.target.checked; renderGrid(); });
 document.getElementById("opt-ug").addEventListener("change", e => { SHOW_UG = e.target.checked; renderGrid(); });
+document.getElementById("opt-cat").addEventListener("change", e => { SHOW_CAT = e.target.checked; renderGrid(); });
 document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
 document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
 document.getElementById("opt-sha").addEventListener("change", e => { SHOW_SHA = e.target.checked; renderGrid(); });
@@ -989,12 +1083,14 @@ function applyLang() {
   document.getElementById("tagline").textContent = L().tagline;
   document.title = "历 · " + L().pageTitle;
   document.getElementById("today").textContent = L().today;
+  document.getElementById("print-btn").textContent = "⎙ " + L().print;
   document.getElementById("backlink").textContent = L().back;
   document.getElementById("solar-label").textContent = L().solar;
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
   document.getElementById("disp-btn").textContent = L().show + " ▾";
   document.getElementById("lbl-solar").textContent = L().optSolarMonth;
   document.getElementById("lbl-ug").textContent = L().optUG;
+  document.getElementById("lbl-cat").textContent = L().optCat;
   document.getElementById("lbl-ind").textContent = L().optInd;
   document.getElementById("lbl-clash").textContent = L().optClash;
   document.getElementById("lbl-sha").textContent = L().optSha;
@@ -1013,11 +1109,13 @@ function setLang(l) {
 }
 document.getElementById("lang-ru").addEventListener("click", () => setLang("ru"));
 document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+document.getElementById("print-btn").addEventListener("click", () => window.print());
 
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
 document.getElementById("opt-solar").checked = SOLAR_MONTH;
 document.getElementById("opt-ug").checked = SHOW_UG;
+document.getElementById("opt-cat").checked = SHOW_CAT;
 document.getElementById("opt-ind").checked = SHOW_IND;
 document.getElementById("opt-clash").checked = SHOW_CLASH;
 document.getElementById("opt-sha").checked = SHOW_SHA;

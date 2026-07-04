@@ -25,6 +25,17 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
 
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: transparent;
+               border: 1px solid var(--border); color: var(--text-muted); padding: 5px 11px;
+               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .print-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  @media print {
+    .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav { display: none !important; }
+    body { padding: 8px; background: #fff; }
+    .cell { min-height: 92px; }
+    .flystars { break-inside: avoid; }
+  }
+
   header { text-align: center; margin-bottom: 28px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
@@ -276,6 +287,7 @@
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
 </div>
+<button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
 
 <header>
   <h1>历 · Chinese Calendar</h1>
@@ -376,7 +388,7 @@
 const I18N = {
   ru: {
     tagline: "Китайский календарь",
-    today: "Сегодня", back: "← Все калькуляторы",
+    today: "Сегодня", back: "← Все калькуляторы", print: "Печать",
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
@@ -409,7 +421,7 @@ const I18N = {
   },
   en: {
     tagline: "Chinese Calendar",
-    today: "Today", back: "← All calculators",
+    today: "Today", back: "← All calculators", print: "Print",
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
@@ -1025,6 +1037,7 @@ function applyLang() {
   document.documentElement.lang = LANG;
   document.getElementById("tagline").textContent = L().tagline;
   document.getElementById("today").textContent = L().today;
+  document.getElementById("print-btn").textContent = "⎙ " + L().print;
   document.getElementById("backlink").textContent = L().back;
   document.getElementById("solar-label").textContent = L().solar;
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
@@ -1049,6 +1062,7 @@ function setLang(l) {
 }
 document.getElementById("lang-ru").addEventListener("click", () => setLang("ru"));
 document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+document.getElementById("print-btn").addEventListener("click", () => window.print());
 
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
