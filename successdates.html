@@ -15,6 +15,7 @@
     --el-wood: #2e7d32; --el-fire: #c62828; --el-earth: #8d6e2b;
     --el-metal: #607d8b; --el-water: #1565c0;
     --good-bg: #dff0da; --good-bg-h: #d3e9cc;
+    --blue-bg: #d9e6f2; --blue-bg-h: #cadcee;
     --bad-bg:  #f6dcd7; --bad-bg-h:  #efccc6;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -95,7 +96,7 @@
   .cal-dow div.we { color: var(--gold-dim); }
 
   .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
-          min-height: 104px; padding: 6px 5px 8px; cursor: pointer; position: relative;
+          min-height: 116px; padding: 6px 5px 8px; cursor: pointer; position: relative;
           display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background .12s; }
   .cell:nth-child(7n) { border-right: none; }
   .cell:hover { background: #faf7ef; }
@@ -104,7 +105,11 @@
   .cell.out .c-num, .cell.out .c-gz { opacity: .34; }
   .cell.out .c-stars, .cell.out .c-term, .cell.out .c-icons,
   .cell.out .c-ind, .cell.out .c-clash, .cell.out .c-ug, .cell.out .c-cat { display: none; }
-  /* Day-quality colouring: clash/bad = red only (green removed — was miscalculated) */
+  /* Day-quality colouring: green = has UG & no Sha (3★), blue = has UG & Sha (2★), red = clash */
+  .cell.q-good { background: var(--good-bg); }
+  .cell.q-good:hover { background: var(--good-bg-h); }
+  .cell.q-blue { background: var(--blue-bg); }
+  .cell.q-blue:hover { background: var(--blue-bg-h); }
   .cell.q-bad  { background: var(--bad-bg); }
   .cell.q-bad:hover  { background: var(--bad-bg-h); }
   .cell.today { box-shadow: inset 0 0 0 2px var(--gold); }
@@ -112,7 +117,7 @@
 
   .c-num { position: absolute; top: 4px; right: 6px; font-family: 'Cormorant Garamond', serif;
            font-size: 17px; font-weight: 600; line-height: 1; }
-  .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
+  .c-gz { margin-top: 24px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
   .c-stars { display: flex; gap: 1px; margin-top: 4px; }
   .c-stars .st { font-size: 12px; line-height: 1; color: #cfcabb; }
@@ -143,12 +148,15 @@
   .c-ug .el-wood { color: var(--el-wood); } .c-ug .el-fire { color: var(--el-fire); }
   .c-ug .el-earth { color: var(--el-earth); } .c-ug .el-metal { color: var(--el-metal); }
   .c-ug .el-water { color: var(--el-water); }
-  /* Target-category icons at cell top: $ money, ♥ health/relationship, ♛ bosses/power */
-  .c-cat { position: absolute; top: 3px; left: 50%; transform: translateX(-50%);
-           display: flex; gap: 4px; font-size: 13px; line-height: 1; }
-  .cat-money  { color: #2e7d32; font-weight: 800; }
-  .cat-health { color: #c62828; }
-  .cat-power  { color: #8e24aa; }
+  /* Target-category icons at cell top: $ money, ♥ health/relationship, ♛ bosses/power.
+     All three rendered at the SAME large size for visibility. */
+  .c-cat { position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
+           display: flex; gap: 6px; line-height: 1; z-index: 2; }
+  .c-cat span { font-size: 20px; font-weight: 900; line-height: 1; display: inline-block;
+                text-align: center; text-shadow: 0 0 2px rgba(255,255,255,.9); }
+  .cat-money  { color: #0a7d2c; }
+  .cat-health { color: #d81b60; }
+  .cat-power  { color: #6a1b9a; }
 
   .el-wood  { color: var(--el-wood); }
   .el-fire  { color: var(--el-fire); }
@@ -178,6 +186,8 @@
               display: flex; gap: 20px 26px; flex-wrap: wrap; align-items: center; }
   .q-legend .sw { display: inline-block; width: 26px; height: 15px; border: 1px solid var(--border);
                   vertical-align: middle; margin-right: 7px; }
+  .q-legend .sw.good { background: var(--good-bg); }
+  .q-legend .sw.blue { background: var(--blue-bg); }
   .q-legend .sw.bad { background: var(--bad-bg); }
   .q-legend .st.on { color: #e0a92e; } .q-legend .st { color: #cfcabb; }
 
@@ -197,8 +207,17 @@
   .cat-col ul { list-style: none; margin: 0; padding: 0; }
   .cat-col li { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; padding-left: 12px; position: relative; }
   .cat-col li::before { content: "·"; position: absolute; left: 2px; color: var(--gold-dim); }
-  .cat-note { font-size: 12.5px; color: var(--text-muted); margin-top: 12px; font-style: italic; }
+  .cat-note { font-size: 12.5px; color: var(--text-dim); margin-top: 12px; line-height: 1.5; }
   @media (max-width: 768px) { .cat-cols { grid-template-columns: 1fr; } }
+
+  /* Calendar marker definitions panel */
+  .def-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 14px 18px 16px; font-family: 'Inter', sans-serif; }
+  .def-legend .cl-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                          letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px; }
+  .def-item { margin-bottom: 11px; font-size: 12.5px; color: var(--text-dim); line-height: 1.5; }
+  .def-item:last-child { margin-bottom: 0; }
+  .def-item b { color: var(--gold-dim); }
 
   /* Markers legend (建除 officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
   .ind-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
@@ -269,14 +288,14 @@
     .nav { gap: 7px; flex-wrap: wrap; }
     .nav .title { font-size: 18px; min-width: 0; order: -1; width: 100%; }
     .nav button { padding: 7px 11px; }
-    .cell { min-height: 84px; padding: 4px 2px 6px; gap: 2px; }
+    .cell { min-height: 96px; padding: 4px 2px 6px; gap: 2px; }
     .c-num { font-size: 13px; top: 3px; right: 4px; }
-    .c-gz { font-size: 17px; margin-top: 12px; }
+    .c-gz { font-size: 17px; margin-top: 20px; }
     .c-term { font-size: 8px; }
     .c-stars .st { font-size: 10px; }
     .c-ind { font-size: 8.5px; margin-top: 2px; }
     .c-ug { font-size: 8.5px; margin-top: 2px; }
-    .c-cat { font-size: 10px; gap: 2px; }
+    .c-cat { gap: 4px; } .c-cat span { font-size: 15px; }
     .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui, .cl-km { font-size: 7.5px; padding: 0 2px; }
     .disp-menu { min-width: 180px; }
     .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
@@ -385,6 +404,9 @@
   <!-- Target-category definitions ($ money · ♥ resources/health · ♛ bosses/power) -->
   <div class="cat-legend" id="cat-legend"></div>
 
+  <!-- Calendar marker definitions (clash · Mercury retrograde · day without wealth · eclipse corridor) -->
+  <div class="def-legend" id="def-legend"></div>
+
   <!-- Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) -->
   <div class="ind-legend" id="ind-legend"></div>
 
@@ -416,7 +438,7 @@ const I18N = {
     optRx: "Ретроградный Меркурий", optEclipse: "Затмения", optUG: "Полезный бог (UG)",
     ugTip: "Личное Полезное Божество — полезный элемент дня", ugNo: "нет",
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
-    lgClash: "Столкновение (красный день)",
+    lgClash: "Столкновение — красный день",
     lgUG: "UG — полезный элемент дня (сильный / полезный элемент для мастера дня)",
     optCat: "Категории ($ ♥ ♛)",
     catMoney: "Деньги и Продвижение", catHealth: "Ресурсы и Здоровье", catPower: "Начальство и Власть",
@@ -424,8 +446,19 @@ const I18N = {
     catMoneyDef: ["Начало бизнеса, запуск проектов", "Переговоры и сделки", "Продвижение: реклама, соцсети, новые контакты"],
     catHealthDef: ["Начало лечения или обследования, врачи, диета, смена привычек", "Приобретение недвижимости и других ценностей", "Долгосрочное инвестирование", "Семейные темы: отношения, традиции"],
     catPowerDef: ["Решение вопросов с вышестоящими органами", "Подача заявления в инстанции (начальство, суд)", "Устройство на работу, интервью"],
-    catNote: "Эффект дня выше, если делать акцент действий на категорию, соответствующую вашим целям.",
-    lg3: "Лучший день", lg2: "Хороший день", lg1: "Приемлемый день",
+    catNote: "Эффект дня будет выше, если делать акцент действий на соответствующую Вашим целям категорию. Например, если Ваша цель продвижение, то выберете день с фокусом Деньги и Продвижение. Действие нужно запланировать на указанное время.",
+    lg3: "Есть полезный бог (UG), нет Ша — зелёный",
+    lg2: "Есть UG, но есть Ша — синий",
+    lg1: "Нет UG, без столкновений и Ша",
+    defTitle: "Обозначения календаря",
+    clashTitle: "Дни столкновений",
+    clashDef: "Дни столкновений помечены отдельно красным цветом в календаре. Это не значит, что эти дни плохие. Для кого-то индивидуально они могут быть отличными. Это значит, что в эти дни вероятность конфликтов выше, а степень внимания ниже. Поэтому рекомендовано думать, прежде чем делать. В дни столкновений важно избегать медицинских процедур, особенно операций.",
+    rxTitle: "Период Ретрограда Меркурия",
+    rxDefFull: "Этот период благоприятен для завершения чего-либо. Например, в эти дни можно подписывать контракты, если это завершение переговоров. Но начинать переговоры по совершенно новому делу лучше в этот период не стоит. А вот переговоры по текущему делу могут быстрее привести к результату. В этот период крайне нежелательно покупать технику, особенно автомобили, и в целом, делать крупные покупки. В результате может обнаружиться брак или Вы получите не то, что ожидали.",
+    nwTitleFull: "День без Богатства",
+    nwDefFull: "День без Богатства помечен красным крестиком. В эти дни инвестиции могут оказаться пустыми. Не нужно давать и просить в долг. Любые вложения, от которых Вы ожидаете прибыль (материальные и нематериальные) в этот день делать не нужно.",
+    eclTitle: "Коридор затмений",
+    eclDefFull: "Коридор затмений – период между солнечным и лунным затмением, характерный тревожностью и напряженностью психик. В дни начала и конца затмений лучше не начинать новое и не начинать путешествия.",
     legendTitle: "Индикаторы дня (建除)",
     clashMonthTag: "День–Месяц", clashYearTag: "День–Год",
     clashMonthTip: "Столкновение День–Месяц (月破)", clashYearTip: "Столкновение День–Год (岁破)",
@@ -458,7 +491,7 @@ const I18N = {
     optRx: "Mercury retrograde", optEclipse: "Eclipses", optUG: "Useful God (UG)",
     ugTip: "Personal Useful God — the day's beneficial element", ugNo: "no",
     solarCaption: "Solar month", gregCaption: "Calendar month",
-    lgClash: "Clash (red day)",
+    lgClash: "Clash — red day",
     lgUG: "UG — the day's beneficial element (element that is strong / useful for the day master)",
     optCat: "Categories ($ ♥ ♛)",
     catMoney: "Money & Promotion", catHealth: "Resources & Health", catPower: "Bosses & Power",
@@ -466,8 +499,19 @@ const I18N = {
     catMoneyDef: ["Starting a business, launching projects", "Negotiations and deals", "Promotion: advertising, social media, new contacts"],
     catHealthDef: ["Start of treatment or check-ups, doctors, diet, changing habits", "Acquiring real estate and other valuables", "Long-term investing", "Family matters: relationships, traditions"],
     catPowerDef: ["Dealing with higher authorities", "Applications to institutions (bosses, court)", "Getting a job, interviews"],
-    catNote: "The day's effect is stronger if you focus your actions on the category matching your goals.",
-    lg3: "Best day", lg2: "Good day", lg1: "OK day",
+    catNote: "The day's effect will be stronger if you focus your actions on the category that matches your goals. For example, if your goal is promotion, choose a day with the focus Money & Promotion. The action should be planned for the indicated time.",
+    lg3: "Has Useful God (UG), no Sha — green",
+    lg2: "Has UG but Sha present — blue",
+    lg1: "No UG, no clash, no Sha",
+    defTitle: "Calendar designations",
+    clashTitle: "Clash days",
+    clashDef: "Clash days are marked separately in red on the calendar. It does not mean these days are bad — for some individuals they can be excellent. It means that on these days the probability of conflict is higher and attentiveness is lower, so it is recommended to think before acting. On clash days it is important to avoid medical procedures, especially surgery.",
+    rxTitle: "Mercury retrograde period",
+    rxDefFull: "This period is favourable for completing something. For example, you can sign contracts on these days if it concludes negotiations. But it is better not to start negotiations on a completely new matter during this period. Negotiations on a current matter, however, may reach a result faster. During this period it is highly undesirable to buy equipment, especially cars, or to make large purchases in general — you may find a defect or receive something other than expected.",
+    nwTitleFull: "Day without Wealth",
+    nwDefFull: "The Day without Wealth is marked with a red cross. On these days investments may turn out empty. Do not lend or borrow. Any investment from which you expect profit (material or immaterial) should not be made on this day.",
+    eclTitle: "Eclipse corridor",
+    eclDefFull: "The eclipse corridor is the period between a solar and a lunar eclipse, characterised by anxiety and mental tension. On the start and end days of eclipses it is better not to start anything new and not to begin journeys.",
     legendTitle: "Day Officers (建除)",
     clashMonthTag: "Day–Month", clashYearTag: "Day–Year",
     clashMonthTip: "Day–Month clash (月破)", clashYearTip: "Day–Year clash (岁破)",
@@ -628,22 +672,18 @@ function dayKillMaster(p) {
   const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
   return (KILL_MASTER[lm] || []).includes(ld);
 }
-/* ── 3-star day rating ─────────────────────────────────────────────
-   Clash (月破 / 岁破) = red cell, always lowest (1★).
-   Otherwise: officer tier (auspicious +1 / neutral 0 / inauspicious −1)
-   minus minor negatives (三煞 / без богатства / убивающий мастера).
-     score ≥ 1 → 3★ (best)   score = 0 → 2★ (good)   score ≤ −1 → 1★ (ok)   */
+/* ── Day rating + cell colour — linked to the Useful God (UG) ───────
+   clash (月破 / 岁破)              → red,   0★
+   has UG & no Sha (三煞)          → green, 3★  (perfect day with UG)
+   has UG & Sha                    → blue,  2★  (not-perfect day with UG)
+   no UG, no clash, no Sha         → white, 1★
+   otherwise (no UG + Sha)         → white, 0★  */
 function dayScore(p) {
-  if (dayClash(p)) return { stars: 1, quality: "bad" };
+  if (dayClash(p)) return { stars: 0, quality: "clash" };
   const sha = daySha(p);
-  const nw  = NO_WEALTH_DAYS.includes(p.d[0] + p.d[1]);
-  const km  = dayKillMaster(p);
-  const off = OFFICER_NUM[p.lunar.getZhiXing()] || 0;
-  const tier = OFFICER_GOOD.has(off) ? 1 : (OFFICER_BAD.has(off) ? -1 : 0);
-  const neg = (sha?1:0) + (nw?1:0) + (km?1:0);
-  const score = tier - neg;
-  const stars = score >= 1 ? 3 : (score === 0 ? 2 : 1);
-  return { stars, quality: "neutral" };
+  const hasUG = !usefulGod(p).none;
+  if (hasUG) return sha ? { stars: 2, quality: "sha" } : { stars: 3, quality: "good" };
+  return { stars: sha ? 0 : 1, quality: "plain" };
 }
 function starsHtml(n, cls) {
   let h = "";
@@ -878,11 +918,10 @@ function monthRange() {
 function renderLegend() {
   /* Star-rating + clash legend */
   document.getElementById("q-legend").innerHTML =
-    `<span>${starsHtml(3)} ${L().lg3}</span>` +
-    `<span>${starsHtml(2)} ${L().lg2}</span>` +
+    `<span><span class="sw good"></span>${starsHtml(3)} ${L().lg3}</span>` +
+    `<span><span class="sw blue"></span>${starsHtml(2)} ${L().lg2}</span>` +
     `<span>${starsHtml(1)} ${L().lg1}</span>` +
-    `<span><span class="sw bad"></span>${L().lgClash}</span>` +
-    (SHOW_UG ? `<span><b>UG</b> — ${L().lgUG.replace(/^UG\s*—\s*/, "")}</span>` : ``);
+    `<span><span class="sw bad"></span>${L().lgClash}</span>`;
 
   /* Target-category definitions panel */
   const catEl = document.getElementById("cat-legend");
@@ -898,6 +937,17 @@ function renderLegend() {
       `</div><div class="cat-note">${L().catNote}</div>`;
     catEl.classList.add("show");
   } else catEl.classList.remove("show");
+
+  /* Calendar marker definitions (clash · Mercury retrograde · day without wealth · eclipse corridor) */
+  const defs = [
+    [L().clashTitle,   L().clashDef],
+    [L().rxTitle,      L().rxDefFull],
+    [L().nwTitleFull,  L().nwDefFull],
+    [L().eclTitle,     L().eclDefFull]
+  ];
+  document.getElementById("def-legend").innerHTML =
+    `<div class="cl-title">${L().defTitle}</div>` +
+    defs.map(([t, d]) => `<div class="def-item"><b>${t}.</b> ${d}</div>`).join("");
 
   /* Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
   const el = document.getElementById("ind-legend");
@@ -953,7 +1003,9 @@ function renderGrid() {
       const dk = dateKey(cur);
       const cls = ["cell"];
       if (!inMonth) cls.push("out");
-      else if (sc.quality === "bad") cls.push("q-bad");
+      else if (sc.quality === "clash") cls.push("q-bad");
+      else if (sc.quality === "good") cls.push("q-good");
+      else if (sc.quality === "sha") cls.push("q-blue");
       if (sameDay(cur, today)) cls.push("today");
       if (sameDay(cur, selected)) cls.push("sel");
       const icons = (SHOW_RX ? rxIcon(dk) : ``) + (SHOW_ECLIPSE ? eclipseIcon(dk) : ``);
