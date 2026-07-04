@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuccessCode · Terms of Consultation</title>
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; overflow-x: hidden; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black); color: var(--white);
+      font-size: 16px; line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 22px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(52,54,64,0.98);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-back {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold2); text-decoration: none; font-weight: 600;
+    }
+    .nav-back:hover { color: #fff; }
+
+    /* HEADER */
+    .doc-header {
+      padding: 160px 72px 56px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+    }
+    .side-label {
+      writing-mode: vertical-rl; text-orientation: mixed;
+      font-size: 16px; letter-spacing: 5px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 6vw, 86px);
+      font-weight: 300; line-height: 1.05; letter-spacing: -1.5px;
+      color: var(--white); margin-bottom: 28px;
+    }
+    h1 em { font-style: italic; color: var(--gold2); }
+    .doc-meta {
+      font-size: 13px; letter-spacing: 1px; color: var(--muted);
+    }
+
+    /* DOC BODY */
+    .doc-body {
+      padding: 72px 72px 100px;
+      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      align-items: start;
+    }
+    .doc-content { max-width: 880px; }
+    h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(26px, 3.2vw, 38px);
+      font-weight: 500; line-height: 1.2;
+      color: var(--white); margin-top: 56px; margin-bottom: 22px;
+      letter-spacing: -0.3px;
+    }
+    h2:first-child { margin-top: 0; }
+    p { margin-bottom: 20px; color: var(--white); }
+    p strong { color: var(--gold2); font-weight: 600; }
+    ul { margin: 0 0 24px 22px; }
+    ul li { margin-bottom: 10px; color: var(--white); }
+    a { color: var(--gold2); text-decoration: underline; }
+    a:hover { color: #fff; }
+    .important-box {
+      border: 1px solid var(--gold);
+      padding: 28px 34px;
+      margin: 32px 0;
+      background: rgba(184,144,58,0.06);
+    }
+    .important-box strong { color: var(--gold2); }
+    .important-box p { margin-bottom: 0; }
+
+    /* FOOTER */
+    footer {
+      padding: 40px 72px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--dim);
+    }
+    .footer-links {
+      display: flex; gap: 24px; flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; font-weight: 500;
+    }
+    .footer-links a:hover { color: var(--gold2); }
+
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      nav { padding: 16px 22px; }
+      .nav-logo { font-size: 16px; letter-spacing: 3px; }
+      .nav-back { font-size: 11px; letter-spacing: 1.5px; }
+      body { font-size: 15px; }
+
+      .doc-header {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 110px 22px 40px;
+      }
+      .side-label {
+        writing-mode: horizontal-tb;
+        font-size: 11px; letter-spacing: 3px;
+      }
+      h1 { font-size: 36px; }
+      .doc-body {
+        grid-template-columns: 1fr; gap: 22px;
+        padding: 50px 22px 60px;
+      }
+      h2 { font-size: 22px; margin-top: 40px; }
+      .important-box { padding: 22px 24px; }
+      footer {
+        padding: 28px 22px;
+        flex-direction: column; text-align: center;
+      }
+      .footer-links { justify-content: center; gap: 14px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">SuccessCode</a>
+  <a href="index.html" class="nav-back">← Home</a>
+</nav>
+
+<header class="doc-header">
+  <div class="side-label">Documents</div>
+  <div>
+    <h1>Terms of <em>Consultation</em></h1>
+    <div class="doc-meta">Last updated: 24 June 2026 · Jurisdiction: The Netherlands</div>
+  </div>
+</header>
+
+<section class="doc-body">
+  <div class="side-label">Consultations</div>
+  <div class="doc-content">
+
+  <h2>1. General Provisions</h2>
+  <p>These Terms govern the provision of consultation services for the interpretation
+  of Zi Wei Dou Shu charts by the SuccessCode project (hereinafter — the "Service"), available at
+  <a href="https://successcode.net/">successcode.net</a>.</p>
+  <p>The Service is registered and operates within the Kingdom of the Netherlands. The relationship
+  between the Service and the client is governed by the law of the Netherlands.</p>
+  <p>By submitting a consultation request, you confirm that you have read these
+  Terms and fully agree to them.</p>
+
+  <h2>2. Nature of the Services</h2>
+  <p>The Service provides consultations based on the structural analysis of a
+  Zi Wei Dou Shu chart — an ancient Chinese system of astrological analysis, calculated
+  from the client's date, time, and place of birth.</p>
+  <p>A consultation constitutes an <strong>intellectual product</strong>
+  based on the interpretation of a structural chart within the stated methodology.
+  The results of a consultation are informational in nature.</p>
+
+  <div class="important-box">
+    <p><strong>A Zi Wei Dou Shu consultation is not medical, legal,
+    financial, or psychological assistance.</strong> If you require help
+    in these areas, please consult a licensed professional in the relevant field.</p>
+  </div>
+
+  <h2>3. Responsibility for Decisions and Results</h2>
+  <p><strong>All decisions made by the client on the basis of information obtained
+  during a consultation are made by the client independently and at the client's own
+  responsibility.</strong></p>
+  <p>The SuccessCode Service is not liable for:</p>
+  <ul>
+    <li>Decisions made by the client on the basis of consultation materials</li>
+    <li>The results of any actions taken by the client following a consultation</li>
+    <li>Financial, emotional, professional, or other consequences of applying
+    information obtained during a consultation</li>
+    <li>Possible discrepancies between the client's expectations and the actual course of events</li>
+    <li>The client's decisions regarding medical, legal, financial, or
+    psychological matters</li>
+  </ul>
+  <p>The client fully understands and agrees that Zi Wei Dou Shu is a
+  structural method of analysis, and not a prediction of the future, not a scientific diagnosis,
+  and not a directive instruction to act.</p>
+
+  <h2>4. Consultation Procedure</h2>
+  <p>The standard procedure:</p>
+  <ul>
+    <li>The client submits a request through the form on the Website, providing contact details</li>
+    <li>The Service contacts the client as soon as possible to arrange the time
+    and terms of the consultation</li>
+    <li>Prior to the consultation, the client provides accurate birth data (date,
+    time to the nearest hour, place)</li>
+    <li>Payment is made before the consultation through the agreed channels</li>
+    <li>The consultation is conducted online (Zoom, Google Meet, or another agreed channel)
+    at the agreed time</li>
+    <li>Following the consultation, the client receives a recording of the meeting (upon request)
+    and a written summary of the main conclusions</li>
+  </ul>
+
+  <h2>5. Accuracy of Birth Data</h2>
+  <p>The client bears full responsibility for the <strong>accuracy of the birth data
+  provided</strong>. The calculation of the chart is based on this data. Inaccurate or incorrect data
+  will result in an incorrect calculation of the chart and, consequently, in an interpretation that
+  does not relate to the client.</p>
+  <p>The Service is not liable for the results of a consultation if the client provided
+  incorrect or inaccurate birth data.</p>
+
+  <h2>6. Confidentiality</h2>
+  <p>The content of your consultations (questions, discussions, chart materials, written
+  summaries, meeting recordings) is strictly confidential and is not disclosed to third parties.</p>
+  <p>For more information on the handling of personal data, see the
+  <a href="privacy.html">Personal Data Processing Policy</a>.</p>
+
+  <h2>7. Payment and Cancellation</h2>
+  <p>Payment is made before the consultation. After payment:</p>
+  <ul>
+    <li>Rescheduling the consultation to another time is possible by agreement no later than 24 hours in advance</li>
+    <li>In the event of cancellation by the client less than 24 hours before the agreed time —
+    no refund is made</li>
+    <li>In the event of cancellation by the Service on its own initiative — a full refund is made</li>
+    <li>If the client fails to attend the consultation at the agreed time without notice —
+    no refund is made</li>
+  </ul>
+
+  <h2>8. Consumer Right of Withdrawal (Dutch Law)</h2>
+  <p>In accordance with the law of the Netherlands and EU Directive 2011/83/EU
+  on consumer rights, a consumer has the right to withdraw from a distance contract
+  within <strong>14 days</strong> of its conclusion without giving any reason.</p>
+  <p>However, since a consultation is a service provided at a time agreed
+  with the client, when submitting a request and making payment before the expiry of the 14-day period
+  the client gives express consent to the commencement of the service and confirms that, once the service
+  has been fully performed, the right of withdrawal is lost (Art. 16(a) of EU Directive 2011/83/EU,
+  Burgerlijk Wetboek 6:230p).</p>
+
+  <h2>9. Warranties and Their Absence</h2>
+  <p>The Service makes every reasonable effort to ensure that the consultation is of high quality,
+  well structured, and as useful as possible for the client. However:</p>
+  <ul>
+    <li>The Service <strong>does not guarantee</strong> the occurrence or non-occurrence of any
+    events described in the chart</li>
+    <li>The Service <strong>does not guarantee</strong> financial, professional, personal,
+    or other success for the client as a result of applying information from the consultation</li>
+    <li>The Service <strong>does not guarantee</strong> that the interpretation of the chart will
+    coincide with the opinion of other Zi Wei Dou Shu specialists or of other astrological systems</li>
+  </ul>
+
+  <h2>10. Copyright</h2>
+  <p>All materials provided to the client as a result of a consultation (written summary,
+  recordings, analytical materials) are the intellectual property of the Service
+  and are intended for the client's personal use. Distribution, publication,
+  resale, or commercial use of these materials without the prior
+  written consent of the Service is not permitted.</p>
+
+  <h2>11. Audience Restriction</h2>
+  <p>Consultations are provided to persons of legal age. If you have not reached the age of majority
+  under the law of your country, use of the Service is possible only with the written
+  consent of a parent or legal guardian.</p>
+
+  <h2>12. Changes to the Terms</h2>
+  <p>We reserve the right to update these Terms. The current version is always
+  published at
+  <a href="https://successcode.net/terms.html">successcode.net/terms.html</a>.
+  The Terms in force at the time of payment for a specific consultation apply to that
+  consultation.</p>
+
+  <h2>13. Governing Law and Disputes</h2>
+  <p>The relationship between the Service and the client is governed by the <strong>law
+  of the Kingdom of the Netherlands</strong>. All disputes that cannot be resolved
+  through negotiation shall be referred to the competent court of the Netherlands.
+  Consumers residing in the EU additionally retain the rights granted
+  to them by the law of their country of habitual residence.</p>
+
+  <h2>14. Contact</h2>
+  <p>For any questions relating to consultations and the terms of their provision,
+  please contact: <a href="mailto:contact@successcode.net">contact@successcode.net</a></p>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">SuccessCode</div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="privacy.html">Data Processing</a>
+    <a href="mailto:contact@successcode.net">Contact</a>
+  </div>
+</footer>
+
+</body>
+</html>
