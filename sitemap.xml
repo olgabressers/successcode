@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://successcode.net/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://successcode.net/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://successcode.net/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://successcode.net/"/>
+  </url>
+  <url>
+    <loc>https://successcode.net/ru/</loc>
+    <lastmod>2026-07-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://successcode.net/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://successcode.net/ru/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://successcode.net/"/>
+  </url>
+  <url><loc>https://successcode.net/calculators</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/zwds</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/bazi</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/calendar</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/successdates</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/qmdj</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/ru/privacy.html</loc><lastmod>2026-07-04</lastmod></url>
+  <url><loc>https://successcode.net/ru/terms.html</loc><lastmod>2026-07-04</lastmod></url>
+</urlset>

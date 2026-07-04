@@ -1,7 +1,16 @@
 User-agent: *
-Disallow: /ru
-Disallow: /ru/
 Disallow: /admin/
 Disallow: /zwds-alena
 Disallow: /zwds-julia
 Disallow: /zwds-maxim
+Disallow: /zwds-andrey
+Disallow: /zwds-irina
+Disallow: /zwds-nelly
+Disallow: /zwds-sophia
+Disallow: /report-
+Disallow: /questionnaire
+Disallow: /founderportfolio
+Disallow: /pitch-deck
+Disallow: /speedrun
+
+Sitemap: https://successcode.net/sitemap.xml
