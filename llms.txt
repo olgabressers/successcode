@@ -1,0 +1,35 @@
+# SuccessCode
+
+> Zi Wei Dou Shu (Purple Star Astrology) consultations and a free online destiny-map calculator. Structural answers to key life questions — career, money, relationships, health, and the timing of decisions — calculated from the exact date, time, and place of birth. Available in English and Russian.
+
+## Main pages
+
+- [Home (English)](https://successcode.net/): What Zi Wei Dou Shu is and the specific life questions a destiny map answers.
+- [Home (Russian)](https://successcode.net/ru/): О методе Цзы Вэй Доу Шу и вопросах, на которые отвечает карта судьбы.
+- [Book a consultation](https://successcode.net/#booking): Request a personal Zi Wei Dou Shu consultation (EN/RU).
+
+## Free calculators
+
+- [All calculators](https://successcode.net/calculators): Hub of free Chinese-metaphysics calculators.
+- [Zi Wei Dou Shu calculator](https://successcode.net/zwds): Build your twelve-palace destiny map from birth date, time, and place.
+- [BaZi (Four Pillars) calculator](https://successcode.net/bazi): Four Pillars of Destiny chart.
+- [Chinese calendar](https://successcode.net/calendar): Chinese solar/lunar calendar with per-day quality.
+- [Success dates calendar](https://successcode.net/successdates): Date selection based on the personal Useful God.
+- [Qi Men Dun Jia calculator](https://successcode.net/qmdj): Qi Men Dun Jia chart.
+
+## What a consultation covers
+
+- Career: where your potential lies and when to change roles.
+- Money: peak income years and income channels.
+- Relationships: partnership and marriage timing.
+- Health: tendencies written into the chart.
+- Also: property and relocation, children, life purpose, legal matters, and the timing of launching or scaling a venture.
+
+## About the method
+
+- Zi Wei Dou Shu is an ancient Chinese destiny-map system that maps a life across twelve palaces from the exact date, time, and place of birth. It gives a structural answer to a specific question rather than a generic horoscope.
+
+## Legal
+
+- [Privacy policy](https://successcode.net/ru/privacy.html)
+- [Terms of consultation](https://successcode.net/ru/terms.html)
