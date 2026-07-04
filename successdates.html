@@ -281,6 +281,26 @@
   .h-range { font-size: 10px; color: var(--text-muted); letter-spacing: .3px; }
   .h-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1; }
   .h-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
+  /* Diagnostic tags (temporary — to expose the raw hour signals) */
+  .h-diag { display: flex; flex-wrap: wrap; gap: 3px; justify-content: center; margin-top: 3px; }
+  .h-diag .dg { font-size: 9px; line-height: 1.3; padding: 1px 4px; border-radius: 3px;
+                font-family: 'Inter', sans-serif; letter-spacing: .2px; white-space: nowrap; }
+  .dg-clash { background: #f2d2cf; color: #7a2318; }
+  .dg-ctrl  { background: #e6d4ef; color: #5b2c6f; }
+  .dg-sha   { background: #f6e2c9; color: #8a4b12; }
+  .dg-void  { background: #e2e2e2; color: #444; }
+  .dg-noble { background: #d9ecd4; color: #256029; }
+  .dg-ug    { background: #d7e9c9; color: #2f5d17; font-weight: 700; }
+  /* Day switcher under the hours table (mirrors the top nav) */
+  .hours-daynav { display: flex; align-items: center; justify-content: center; gap: 12px;
+                  padding: 12px 14px; border-top: 1px solid var(--border); }
+  .hours-daynav button { background: #f8f6f2; border: 1px solid var(--border); color: var(--gold-dim);
+                  font-family: 'Inter', sans-serif; font-size: 14px; padding: 7px 13px; cursor: pointer;
+                  transition: background .2s, color .2s; line-height: 1; }
+  .hours-daynav button:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .hours-daynav .hd-title { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 500;
+                  color: var(--gold); letter-spacing: 1px; min-width: 180px; text-align: center; }
+  .hours-daynav .hd-today { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 7px 11px; }
 
   .backnav { text-align: center; margin-top: 30px; }
   .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
@@ -429,6 +449,12 @@
   <div class="hours">
     <div class="hours-title"><span id="hours-title"></span></div>
     <div class="hours-grid" id="hours-grid"></div>
+    <div class="hours-daynav">
+      <button id="hd-prev" type="button" aria-label="prev day">‹</button>
+      <span class="hd-title" id="hd-title"></span>
+      <button id="hd-next" type="button" aria-label="next day">›</button>
+      <button class="hd-today" id="hd-today" type="button">Today</button>
+    </div>
     <div class="hours-legend" id="hours-legend"></div>
   </div>
 
@@ -456,7 +482,9 @@ const I18N = {
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
     lgClash: "Столкновение — избегать",
     lgStars: "Звёзды показывают качество дня.",
-    hrBest: "Лучшие часы (с полезным богом)", hrVoid: "Пустые часы (空亡)", hrClash: "Избегать (столкновение / совпадение с ДМ)",
+    hrBest: "Лучшие часы (с полезным богом)", hrVoid: "Пустые часы (空亡)", hrClash: "Избегать (столкновение / контроль мастера дня)",
+    dgClashD: "Столкн·день", dgClashM: "Столкн·месяц", dgClashY: "Столкн·год", dgCtrl: "Контроль ДМ",
+    dgSha: "Саньша", dgVoid: "Пустой", dgNoble: "Гуй Жэнь", dgUG: "ПБ",
     lgUG: "UG — полезный элемент дня (сильный / полезный элемент для мастера дня)",
     optCat: "Категории ($ ♥ ♛)",
     catMoney: "Деньги и Продвижение", catHealth: "Ресурсы и Здоровье", catPower: "Начальство и Власть",
@@ -512,7 +540,9 @@ const I18N = {
     solarCaption: "Solar month", gregCaption: "Calendar month",
     lgClash: "Clash — avoid",
     lgStars: "Stars show the quality of the day.",
-    hrBest: "Best hours (with a useful god)", hrVoid: "Void hours (空亡)", hrClash: "Avoid (clash / same stem as DM)",
+    hrBest: "Best hours (with a useful god)", hrVoid: "Void hours (空亡)", hrClash: "Avoid (clash / controls Day Master)",
+    dgClashD: "Clash·day", dgClashM: "Clash·month", dgClashY: "Clash·year", dgCtrl: "Controls DM",
+    dgSha: "Sansha", dgVoid: "Void", dgNoble: "Nobleman", dgUG: "UG",
     lgUG: "UG — the day's beneficial element (element that is strong / useful for the day master)",
     optCat: "Categories ($ ♥ ♛)",
     catMoney: "Money & Promotion", catHealth: "Resources & Health", catPower: "Bosses & Power",
@@ -612,6 +642,10 @@ const SANSHA = {};
   [[5,9,1],  {jie:2, zai:3, sui:4}],
   [[11,3,7], {jie:8, zai:9, sui:10}]
 ].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
+/* 天乙贵人 (Nobleman) by DAY stem → two nobleman branches
+   甲戊庚→丑未 · 乙己→子申 · 丙丁→亥酉 · 壬癸→卯巳 · 辛→午寅 */
+const TIAN_YI = {甲:["丑","未"],戊:["丑","未"],庚:["丑","未"],乙:["子","申"],己:["子","申"],
+                 丙:["亥","酉"],丁:["亥","酉"],壬:["卯","巳"],癸:["卯","巳"],辛:["午","寅"]};
 /* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s) */
 const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
 /* Mercury retrograde periods (2025–2028). Astronomical station dates. */
@@ -1096,21 +1130,46 @@ function renderHours() {
     nowH = eff.getHours();
   }
 
-  /* Hour quality — clash (with day OR year branch) = red · void (空亡) = grey ·
-     best (branch element = a Useful-God element, not clash, not void) = green. */
+  /* Hour quality — red: clash (hour branch 冲 day / month / year branch) OR the hour
+     CONTROLS the day master (官杀, hour element controls the DM element) · grey: void
+     (空亡) · green: carries a Useful-God element. Diagnostic tags below expose EVERY
+     raw signal (clash-day/month/year, controls-DM, sansha, void, nobleman, UG). */
   const p = dayPillars(selected);
-  const dayI = BRANCH_IDX[p.d[1]], yearI = BRANCH_IDX[p.y[1]], dayStem = p.d[0];
+  const dayI = BRANCH_IDX[p.d[1]], monI = BRANCH_IDX[p.m[1]], yearI = BRANCH_IDX[p.y[1]];
+  const dm = STEM_EL[p.d[0]];
+  const ctrlEl = POWER[dm];                 // element that controls the day master (官杀)
   let voidStr = ""; try { voidStr = p.lunar.getDayXunKong() || ""; } catch (e) {}
+  const monSha = SANSHA[monI], yrSha = SANSHA[yearI];
+  const isSha = zi => zi===monSha.jie||zi===monSha.zai||zi===monSha.sui||
+                      zi===yrSha.jie||zi===yrSha.zai||zi===yrSha.sui;
+  const nobleBr = TIAN_YI[p.d[0]] || [];
   const ugEls = usefulGod(p).ug;
-  const hourClass = (g, z) => {
-    const zi = BRANCH_IDX[z];
-    // red: clash with day/year branch, OR hour stem = day stem (比肩, same polarity) — always red
-    if ((zi + 6) % 12 === dayI || (zi + 6) % 12 === yearI || g === dayStem) return "h-clash";
-    if (voidStr.includes(z)) return "h-void";
-    // green: any hour carrying a Useful-God element (stem or branch)
-    if (ugEls.includes(STEM_EL[g]) || ugEls.includes(BRANCH_EL[z])) return "h-best";
-    return "";
-  };
+  const T = L();
+
+  function hourInfo(g, z) {
+    const zi = BRANCH_IDX[z], opp = (zi + 6) % 12;
+    const clashD = opp === dayI, clashM = opp === monI, clashY = opp === yearI;
+    const controlsDM = STEM_EL[g] === ctrlEl || BRANCH_EL[z] === ctrlEl;
+    const sha = isSha(zi);
+    const isVoid = voidStr.includes(z);
+    const noble = nobleBr.includes(z);
+    const hasUG = ugEls.includes(STEM_EL[g]) || ugEls.includes(BRANCH_EL[z]);
+    let cls = "";
+    if (clashD || clashM || clashY || controlsDM) cls = "h-clash";
+    else if (isVoid) cls = "h-void";
+    else if (hasUG) cls = "h-best";
+    // diagnostic chips
+    const tags = [];
+    if (clashD) tags.push(`<span class="dg dg-clash">${T.dgClashD}</span>`);
+    if (clashM) tags.push(`<span class="dg dg-clash">${T.dgClashM}</span>`);
+    if (clashY) tags.push(`<span class="dg dg-clash">${T.dgClashY}</span>`);
+    if (controlsDM) tags.push(`<span class="dg dg-ctrl">${T.dgCtrl}</span>`);
+    if (sha) tags.push(`<span class="dg dg-sha">${T.dgSha}</span>`);
+    if (isVoid) tags.push(`<span class="dg dg-void">${T.dgVoid}</span>`);
+    if (noble) tags.push(`<span class="dg dg-noble">${T.dgNoble}</span>`);
+    if (hasUG) tags.push(`<span class="dg dg-ug">${T.dgUG}</span>`);
+    return { cls, tags: tags.join("") };
+  }
 
   document.getElementById("hours-grid").innerHTML = HOURS.map(hr => {
     const ec = eightChar(y, m, d, hr.h);
@@ -1120,13 +1179,18 @@ function renderHours() {
       if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
       else isNow = (nowH === hr.h - 1 || nowH === hr.h);
     }
-    const hq = hourClass(g, z);
-    return `<div class="hcell${hq ? ' ' + hq : ''}${isNow ? ' now' : ''}">
+    const info = hourInfo(g, z);
+    return `<div class="hcell${info.cls ? ' ' + info.cls : ''}${isNow ? ' now' : ''}">
         <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
         <div class="h-gz">${gzHtml(g, z)}</div>
         <div class="h-el">${elName(g)} / ${elName(z)}</div>
+        <div class="h-diag">${info.tags}</div>
       </div>`;
   }).join("");
+
+  document.getElementById("hd-title").textContent =
+    `${d} ${L().months[selected.getMonth()]} ${y}`;
+  document.getElementById("hd-today").textContent = L().today;
   renderHoursLegend();
 }
 function renderHoursLegend() {
@@ -1136,6 +1200,20 @@ function renderHoursLegend() {
     `<span><span class="hsw h-void"></span>${L().hrVoid}</span>` +
     `<span><span class="hsw h-clash"></span>${L().hrClash}</span>`;
 }
+/* Hours day switcher — shift the selected day by ±1 (mirrors the top nav) */
+function shiftDay(delta) {
+  selected = new Date(selected.getFullYear(), selected.getMonth(), selected.getDate() + delta);
+  viewY = selected.getFullYear(); viewM = selected.getMonth();
+  renderDayBar(); renderHours(); renderGrid(); refreshSelection();
+}
+document.getElementById("hd-prev").addEventListener("click", () => shiftDay(-1));
+document.getElementById("hd-next").addEventListener("click", () => shiftDay(1));
+document.getElementById("hd-today").addEventListener("click", () => {
+  const t = new Date();
+  selected = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  viewY = selected.getFullYear(); viewM = selected.getMonth();
+  renderDayBar(); renderHours(); renderGrid(); refreshSelection();
+});
 
 /* ===================== Navigation ===================== */
 function shiftMonth(delta) {
