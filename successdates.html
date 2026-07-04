@@ -456,7 +456,7 @@ const I18N = {
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
     lgClash: "Столкновение — избегать",
     lgStars: "Звёзды показывают качество дня.",
-    hrBest: "Лучшие часы", hrVoid: "Пустые часы (空亡)", hrClash: "Часы столкновения",
+    hrBest: "Лучшие часы (с полезным богом)", hrVoid: "Пустые часы (空亡)", hrClash: "Избегать (столкновение / совпадение с ДМ)",
     lgUG: "UG — полезный элемент дня (сильный / полезный элемент для мастера дня)",
     optCat: "Категории ($ ♥ ♛)",
     catMoney: "Деньги и Продвижение", catHealth: "Ресурсы и Здоровье", catPower: "Начальство и Власть",
@@ -512,7 +512,7 @@ const I18N = {
     solarCaption: "Solar month", gregCaption: "Calendar month",
     lgClash: "Clash — avoid",
     lgStars: "Stars show the quality of the day.",
-    hrBest: "Best hours", hrVoid: "Void hours (空亡)", hrClash: "Clash hours",
+    hrBest: "Best hours (with a useful god)", hrVoid: "Void hours (空亡)", hrClash: "Avoid (clash / same stem as DM)",
     lgUG: "UG — the day's beneficial element (element that is strong / useful for the day master)",
     optCat: "Categories ($ ♥ ♛)",
     catMoney: "Money & Promotion", catHealth: "Resources & Health", catPower: "Bosses & Power",
@@ -1099,14 +1099,16 @@ function renderHours() {
   /* Hour quality — clash (with day OR year branch) = red · void (空亡) = grey ·
      best (branch element = a Useful-God element, not clash, not void) = green. */
   const p = dayPillars(selected);
-  const dayI = BRANCH_IDX[p.d[1]], yearI = BRANCH_IDX[p.y[1]];
+  const dayI = BRANCH_IDX[p.d[1]], yearI = BRANCH_IDX[p.y[1]], dayStem = p.d[0];
   let voidStr = ""; try { voidStr = p.lunar.getDayXunKong() || ""; } catch (e) {}
   const ugEls = usefulGod(p).ug;
-  const hourClass = z => {
+  const hourClass = (g, z) => {
     const zi = BRANCH_IDX[z];
-    if ((zi + 6) % 12 === dayI || (zi + 6) % 12 === yearI) return "h-clash";
+    // red: clash with day/year branch, OR hour stem = day stem (比肩, same polarity) — always red
+    if ((zi + 6) % 12 === dayI || (zi + 6) % 12 === yearI || g === dayStem) return "h-clash";
     if (voidStr.includes(z)) return "h-void";
-    if (ugEls.includes(BRANCH_EL[z])) return "h-best";
+    // green: any hour carrying a Useful-God element (stem or branch)
+    if (ugEls.includes(STEM_EL[g]) || ugEls.includes(BRANCH_EL[z])) return "h-best";
     return "";
   };
 
@@ -1118,7 +1120,7 @@ function renderHours() {
       if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
       else isNow = (nowH === hr.h - 1 || nowH === hr.h);
     }
-    const hq = hourClass(z);
+    const hq = hourClass(g, z);
     return `<div class="hcell${hq ? ' ' + hq : ''}${isNow ? ' now' : ''}">
         <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
         <div class="h-gz">${gzHtml(g, z)}</div>
