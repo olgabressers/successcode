@@ -29,14 +29,17 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
 
-  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: transparent;
-               border: 1px solid var(--border); color: var(--text-muted); padding: 5px 11px;
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: var(--gold);
+               border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
                font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .print-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
   @media print {
     .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav { display: none !important; }
     body { padding: 8px; background: #fff; }
     .cell { min-height: 96px; }
+    /* Page 1 = calendar table only; everything else onto page 2 */
+    .wrap { display: flex; flex-direction: column; }
+    .cal { order: -1; break-after: page; page-break-after: always; }
   }
 
   header { text-align: center; margin-bottom: 28px; }
@@ -127,16 +130,21 @@
   .c-icons { position: absolute; top: 5px; left: 5px; display: flex; gap: 2px; }
   .ic-merc, .ic-esol, .ic-elun { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
   .ic-merc { background: #111; }
-  .ic-esol { background: #111; }                                                    /* solar eclipse — solid */
-  .ic-elun { background: linear-gradient(90deg, #111 0 50%, #fff 50% 100%); box-shadow: 0 0 0 .5px #111; }  /* lunar — half */
-  /* 建除 day officer indicator */
+  .ic-esol { background: linear-gradient(90deg, #111 0 50%, #f1c40f 50% 100%); box-shadow: 0 0 0 .5px #b7791f; }
+  .ic-elun { background: linear-gradient(90deg, #060f26 0 50%, #33507d 50% 100%); box-shadow: 0 0 0 .5px #060f26; }
+  /* 建除 day officer indicator (kept black per request) */
   .c-ind { font-size: 10px; line-height: 1.15; color: #111; font-weight: 600; margin-top: 3px; }
-  /* clash / sha / no-wealth / kill-master chips — monochrome (colour is carried by the cell background) */
+  /* clash / sha / no-wealth / kill-master chips (original colours) */
   .c-clash { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-top: 3px; }
-  .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #111; background: #e6e6e6; }
-  .cl-nw { color: #111; background: #e6e6e6; font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; }
-  .sha-jie, .sha-zai, .sha-sui { color: #111; background: #e6e6e6; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
-  .cl-km { color: #111; background: #e6e6e6; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
+  .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #fff; }
+  .cl-m { background: #c0392b; }   /* clash with month (月破) */
+  .cl-y { background: #7b4397; }   /* clash with year (岁破) */
+  .cl-nw { color: #fff; background: #4a4a4a; font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; }
+  .sha-jie, .sha-zai, .sha-sui { color: #fff; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
+  .sha-jie { background: #a93226; }  /* 劫煞 robbery */
+  .sha-zai { background: #ca6f1e; }  /* 灾煞 disaster */
+  .sha-sui { background: #7d6608; }  /* 岁煞 / 月煞 */
+  .cl-km { color: #fff; background: #5b2c6f; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
   /* Personal Useful God element line */
   .c-ug { font-size: 10px; line-height: 1.2; font-weight: 700; margin-top: 3px; letter-spacing: .2px; }
   .c-ug.none { color: var(--text-muted); font-weight: 600; }
@@ -144,11 +152,11 @@
   .c-ug, .c-ug.none,
   .c-ug .el-wood, .c-ug .el-fire, .c-ug .el-earth, .c-ug .el-metal, .c-ug .el-water { color: #111; }
   /* Target-category icons at cell top: $ money, ♥ health/relationship, ♛ bosses/power.
-     Black (monochrome); crown enlarged to read the same size as $. */
+     Gold; crown enlarged to read the same size as $. */
   .c-cat { position: absolute; top: 2px; left: 50%; transform: translateX(-50%);
            display: flex; align-items: center; gap: 6px; line-height: 1; z-index: 2; }
   .c-cat span { font-size: 20px; font-weight: 900; line-height: 1; display: inline-block;
-                text-align: center; color: #111; text-shadow: 0 0 2px rgba(255,255,255,.9); }
+                text-align: center; color: var(--gold); text-shadow: 0 0 2px rgba(255,255,255,.95); }
   .c-cat .cat-power { font-size: 25px; }
 
   .el-wood  { color: var(--el-wood); }
@@ -195,12 +203,13 @@
   .cat-col { border: 1px solid var(--border); padding: 10px 12px 12px; }
   .cat-col h4 { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--text);
                 display: flex; align-items: center; gap: 7px; margin-bottom: 7px; }
-  .cat-col h4 .g { font-size: 17px; line-height: 1; color: #111; font-weight: 800; }
+  .cat-col h4 .g { font-size: 17px; line-height: 1; color: var(--gold); font-weight: 800; }
   .cat-col h4 .g.cat-power { font-size: 21px; }
   .cat-col ul { list-style: none; margin: 0; padding: 0; }
   .cat-col li { font-size: 12.5px; color: var(--text-dim); line-height: 1.5; padding-left: 12px; position: relative; }
   .cat-col li::before { content: "·"; position: absolute; left: 2px; color: var(--gold-dim); }
   .cat-note { font-size: 12.5px; color: var(--text-dim); margin-top: 12px; line-height: 1.5; }
+  .cat-warn { font-size: 12.5px; color: #c0392b; font-weight: 700; margin-top: 10px; line-height: 1.5; }
   @media (max-width: 768px) { .cat-cols { grid-template-columns: 1fr; } }
 
   /* Calendar marker definitions panel */
@@ -441,6 +450,7 @@ const I18N = {
     catHealthDef: ["Начало лечения или обследования, врачи, диета, смена привычек", "Приобретение недвижимости и других ценностей", "Долгосрочное инвестирование", "Семейные темы: отношения, традиции"],
     catPowerDef: ["Решение вопросов с вышестоящими органами", "Подача заявления в инстанции (начальство, суд)", "Устройство на работу, интервью"],
     catNote: "Эффект дня будет выше, если делать акцент действий на соответствующую Вашим целям категорию. Например, если Ваша цель продвижение, то выберете день с фокусом Деньги и Продвижение. Действие нужно запланировать на указанное время.",
+    catWarn: "Обратите внимание, что в дни столкновений, в которых есть полезный бог, именно аспект этого полезного бога будет под давлением. И именно с ним вы рискуете получить проблемы!",
     lg3: "Идеальный день с полезным богом",
     lg2: "Хороший день с полезным богом",
     lg1: "Обычный день",
@@ -495,6 +505,7 @@ const I18N = {
     catHealthDef: ["Start of treatment or check-ups, doctors, diet, changing habits", "Acquiring real estate and other valuables", "Long-term investing", "Family matters: relationships, traditions"],
     catPowerDef: ["Dealing with higher authorities", "Applications to institutions (bosses, court)", "Getting a job, interviews"],
     catNote: "The day's effect will be stronger if you focus your actions on the category that matches your goals. For example, if your goal is promotion, choose a day with the focus Money & Promotion. The action should be planned for the indicated time.",
+    catWarn: "Note that on clash days which have a useful god, it is precisely the aspect of that useful god that will be under pressure — and that is exactly where you risk running into problems!",
     lg3: "Perfect day with a useful god",
     lg2: "Good day with a useful god",
     lg1: "Ordinary day",
@@ -771,6 +782,7 @@ function dayCategories(p) {
   };
 }
 function catHtml(p) {
+  if (usefulGod(p).none) return "";   // no useful god → no category icon
   const c = dayCategories(p);
   let t = "";
   if (c.money)     t += `<span class="cat-money"  title="${L().catMoney}">$</span>`;
@@ -934,7 +946,8 @@ function renderLegend() {
       col("$", "cat-money",  L().catMoney,  L().catMoneyDef) +
       col("♥", "cat-health", L().catHealth, L().catHealthDef) +
       col("♛", "cat-power",  L().catPower,  L().catPowerDef) +
-      `</div><div class="cat-note">${L().catNote}</div>`;
+      `</div><div class="cat-note">${L().catNote}</div>` +
+      `<div class="cat-warn">❗ ${L().catWarn} ❗</div>`;
     catEl.classList.add("show");
   } else catEl.classList.remove("show");
 

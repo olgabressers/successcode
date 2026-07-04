@@ -25,10 +25,10 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
 
-  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: transparent;
-               border: 1px solid var(--border); color: var(--text-muted); padding: 5px 11px;
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: var(--gold);
+               border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
                font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .print-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
   @media print {
     .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav { display: none !important; }
     body { padding: 8px; background: #fff; }
