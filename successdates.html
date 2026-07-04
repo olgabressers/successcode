@@ -92,10 +92,9 @@
   .cell.out { background: #faf9f5; cursor: default; }
   .cell.out:hover { background: #faf9f5; }
   .cell.out .c-num, .cell.out .c-gz { opacity: .34; }
-  .cell.out .c-stars, .cell.out .c-term { display: none; }
-  /* Day-quality colouring: good = green, clash/bad = red */
-  .cell.q-good { background: var(--good-bg); }
-  .cell.q-good:hover { background: var(--good-bg-h); }
+  .cell.out .c-stars, .cell.out .c-term, .cell.out .c-icons,
+  .cell.out .c-ind, .cell.out .c-clash { display: none; }
+  /* Day-quality colouring: clash/bad = red only (green removed — was miscalculated) */
   .cell.q-bad  { background: var(--bad-bg); }
   .cell.q-bad:hover  { background: var(--bad-bg-h); }
   .cell.today { box-shadow: inset 0 0 0 2px var(--gold); }
@@ -108,6 +107,26 @@
   .c-stars { display: flex; gap: 1px; margin-top: 4px; }
   .c-stars .st { font-size: 12px; line-height: 1; color: #cfcabb; }
   .c-stars .st.on { color: #e0a92e; }
+
+  /* top-left icons: Mercury retrograde (black), solar/lunar eclipse (half black / half yellow) */
+  .c-icons { position: absolute; top: 5px; left: 5px; display: flex; gap: 2px; }
+  .ic-merc, .ic-esol, .ic-elun { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .ic-merc { background: #111; }
+  .ic-esol { background: linear-gradient(90deg, #111 0 50%, #f1c40f 50% 100%); box-shadow: 0 0 0 .5px #b7791f; }
+  .ic-elun { background: linear-gradient(90deg, #060f26 0 50%, #33507d 50% 100%); box-shadow: 0 0 0 .5px #060f26; }
+  /* 建除 day officer indicator */
+  .c-ind { font-size: 10px; line-height: 1.15; color: var(--gold-dim); font-weight: 600; margin-top: 3px; }
+  /* clash / sha / no-wealth / kill-master chips */
+  .c-clash { display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; margin-top: 3px; }
+  .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #fff; }
+  .cl-m { background: #c0392b; }   /* clash with month (月破) */
+  .cl-y { background: #7b4397; }   /* clash with year (岁破) */
+  .cl-nw { color: #fff; background: #4a4a4a; font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; }
+  .sha-jie, .sha-zai, .sha-sui { color: #fff; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
+  .sha-jie { background: #a93226; }  /* 劫煞 robbery */
+  .sha-zai { background: #ca6f1e; }  /* 灾煞 disaster */
+  .sha-sui { background: #7d6608; }  /* 岁煞 / 月煞 */
+  .cl-km { color: #fff; background: #5b2c6f; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
 
   .el-wood  { color: var(--el-wood); }
   .el-fire  { color: var(--el-fire); }
@@ -137,8 +156,22 @@
               display: flex; gap: 20px 26px; flex-wrap: wrap; align-items: center; }
   .q-legend .sw { display: inline-block; width: 26px; height: 15px; border: 1px solid var(--border);
                   vertical-align: middle; margin-right: 7px; }
-  .q-legend .sw.good { background: var(--good-bg); } .q-legend .sw.bad { background: var(--bad-bg); }
+  .q-legend .sw.bad { background: var(--bad-bg); }
   .q-legend .st.on { color: #e0a92e; } .q-legend .st { color: #cfcabb; }
+
+  /* Markers legend (建除 officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
+  .ind-legend { max-width: 960px; margin: 16px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 12px 18px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
+                line-height: 2; display: none; }
+  .ind-legend.show { display: block; }
+  .ind-legend .lg-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                          letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .ind-legend b { color: var(--gold-dim); }
+  .ind-legend .lg-clash { margin-top: 8px; }
+  .ind-legend .cl-m, .ind-legend .cl-y, .ind-legend .cl-nw, .ind-legend .cl-km,
+  .ind-legend .sha-jie, .ind-legend .sha-zai, .ind-legend .sha-sui { font-size: 10px; }
+  .ind-legend .ic-merc, .ind-legend .ic-esol, .ind-legend .ic-elun {
+    width: 11px; height: 11px; border-radius: 50%; display: inline-block; vertical-align: middle; }
 
   /* ── Hour pillars table ─────────────────────────────── */
   .hours { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
@@ -200,6 +233,8 @@
     .c-gz { font-size: 17px; margin-top: 12px; }
     .c-term { font-size: 8px; }
     .c-stars .st { font-size: 10px; }
+    .c-ind { font-size: 8.5px; margin-top: 2px; }
+    .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui, .cl-km { font-size: 7.5px; padding: 0 2px; }
     .disp-menu { min-width: 180px; }
     .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
     .q-legend { font-size: 11.5px; gap: 10px 18px; }
@@ -281,6 +316,13 @@
       <button id="disp-btn" type="button">Настройки календаря ▾</button>
       <div class="disp-menu" id="disp-menu">
         <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
+        <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
+        <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения</span></label>
+        <label><input type="checkbox" id="opt-sha"> <span id="lbl-sha">Ша (三煞)</span></label>
+        <label><input type="checkbox" id="opt-nw"> <span id="lbl-nw">День без богатства</span></label>
+        <label><input type="checkbox" id="opt-km"> <span id="lbl-km">День убивающий мастера</span></label>
+        <label><input type="checkbox" id="opt-rx"> <span id="lbl-rx">Ретроградный Меркурий</span></label>
+        <label><input type="checkbox" id="opt-ecl"> <span id="lbl-ecl">Затмения</span></label>
       </div>
     </div>
   </div>
@@ -291,8 +333,11 @@
     <div id="cal-body"></div>
   </div>
 
-  <!-- Quality legend -->
+  <!-- Quality legend (star rating + clash) -->
   <div class="q-legend" id="q-legend"></div>
+
+  <!-- Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) -->
+  <div class="ind-legend" id="ind-legend"></div>
 
   <!-- Hour pillars for the selected day -->
   <div class="hours">
@@ -317,8 +362,28 @@ const I18N = {
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
     show: "Настройки календаря", optSolarMonth: "Солнечный месяц",
+    optInd: "Индикаторы (1–12)", optClash: "Столкновения", optSha: "Ша (三煞)",
+    optNoWealth: "День без богатства", optKillMaster: "День убивающий мастера",
+    optRx: "Ретроградный Меркурий", optEclipse: "Затмения",
     solarCaption: "Солнечный месяц", gregCaption: "Календарный месяц",
-    lgGood: "Благоприятный день", lgBad: "Столкновение / неблагоприятный день", lgRating: "Оценка дня",
+    lgClash: "Столкновение (красный день)",
+    lg3: "Лучший день", lg2: "Хороший день", lg1: "Приемлемый день",
+    legendTitle: "Индикаторы дня (建除)",
+    clashMonthTag: "День–Месяц", clashYearTag: "День–Год",
+    clashMonthTip: "Столкновение День–Месяц (月破)", clashYearTip: "Столкновение День–Год (岁破)",
+    noWealthTag: "Без богатства", noWealthTip: "День без богатства (甲辰 / 乙巳)",
+    kmTag: "Уб. мастера", kmTip: "День, убивающий мастера (杀师日)",
+    rxTip: "Ретроградный Меркурий",
+    eclSolar: "Солнечное затмение", eclLunar: "Лунное затмение",
+    eclKinds: {total:"полное", partial:"частное", annular:"кольцеобразное", penumbral:"полутеневое"},
+    astroNote: "Ретроградный Меркурий и затмения — данные 2025–2028",
+    sha: {
+      suiM:{t:"Ша мес", tip:"Ша месяца (月煞)"}, suiY:{t:"Ша год", tip:"Ша года (岁煞)"},
+      zaiM:{t:"Несч мес", tip:"Ша несчастья месяца (灾煞)"}, zaiY:{t:"Несч год", tip:"Ша несчастья года (灾煞)"},
+      jieM:{t:"Ограб мес", tip:"Ша ограбления месяца (劫煞)"}, jieY:{t:"Ограб год", tip:"Ша ограбления года (劫煞)"}
+    },
+    shaTypes: {jie:"Ша ограбления (劫煞)", zai:"Ша несчастья (灾煞)", sui:"Ша (岁煞 / 月煞)"},
+    officers: ["","Установление","Устранение","Полнота","Равновесие","Стабильность","Исполнение","Разрушение","Опасность","Достижение","Сбор","Открытие","Закрытие"],
     months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
     dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
     dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
@@ -330,8 +395,28 @@ const I18N = {
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
     show: "Calendar settings", optSolarMonth: "Solar month",
+    optInd: "Day Officers (1–12)", optClash: "Clashes", optSha: "Sha (三煞)",
+    optNoWealth: "Day without wealth", optKillMaster: "Day that kills the master",
+    optRx: "Mercury retrograde", optEclipse: "Eclipses",
     solarCaption: "Solar month", gregCaption: "Calendar month",
-    lgGood: "Favourable day", lgBad: "Clash / unfavourable day", lgRating: "Day rating",
+    lgClash: "Clash (red day)",
+    lg3: "Best day", lg2: "Good day", lg1: "OK day",
+    legendTitle: "Day Officers (建除)",
+    clashMonthTag: "Day–Month", clashYearTag: "Day–Year",
+    clashMonthTip: "Day–Month clash (月破)", clashYearTip: "Day–Year clash (岁破)",
+    noWealthTag: "No wealth", noWealthTip: "Day without wealth (甲辰 / 乙巳)",
+    kmTag: "Kills master", kmTip: "Day that kills the master (杀师日)",
+    rxTip: "Mercury retrograde",
+    eclSolar: "Solar eclipse", eclLunar: "Lunar eclipse",
+    eclKinds: {total:"total", partial:"partial", annular:"annular", penumbral:"penumbral"},
+    astroNote: "Mercury retrograde and eclipses — 2025–2028 data",
+    sha: {
+      suiM:{t:"Sha M", tip:"Month Sha (月煞)"}, suiY:{t:"Sha Y", tip:"Year Sha (岁煞)"},
+      zaiM:{t:"Dis M", tip:"Disaster Sha, month (灾煞)"}, zaiY:{t:"Dis Y", tip:"Disaster Sha, year (灾煞)"},
+      jieM:{t:"Rob M", tip:"Robbery Sha, month (劫煞)"}, jieY:{t:"Rob Y", tip:"Robbery Sha, year (劫煞)"}
+    },
+    shaTypes: {jie:"Robbery Sha (劫煞)", zai:"Disaster Sha (灾煞)", sui:"Sha (岁煞 / 月煞)"},
+    officers: ["","Establish","Remove","Full","Balance","Stable","Initiate","Destruction","Danger","Success","Receive","Open","Close"],
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
     dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
@@ -368,6 +453,10 @@ const EL_NAME = {
 const BRANCH_IDX = {子:0,丑:1,寅:2,卯:3,辰:4,巳:5,午:6,未:7,申:8,酉:9,戌:10,亥:11};
 /* 建除十二神 — 12 Day Officers */
 const OFFICER_NUM = {建:1,除:2,满:3,平:4,定:5,执:6,破:7,危:8,成:9,收:10,开:11,闭:12};
+const OFFICER_CHARS = ["建","除","满","平","定","执","破","危","成","收","开","闭"];
+/* Auspicious / inauspicious officer sets for the 3-star day rating */
+const OFFICER_GOOD = new Set([2,3,5,9,11]);   /* 除 满 定 成 开 */
+const OFFICER_BAD  = new Set([7,8,12]);        /* 破 危 闭 */
 /* День без богатства (day without wealth): 甲辰, 乙巳 */
 const NO_WEALTH_DAYS = ["甲辰","乙巳"];
 /* 三煞 (Three Killings) by branch's san-he group */
@@ -379,6 +468,24 @@ const SANSHA = {};
 ].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
 /* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s) */
 const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
+/* Mercury retrograde periods (2025–2028). Astronomical station dates. */
+const MERCURY_RX = [
+  ["2025-03-15","2025-04-07"],["2025-07-18","2025-08-11"],["2025-11-09","2025-11-29"],
+  ["2026-02-26","2026-03-20"],["2026-06-29","2026-07-23"],["2026-10-24","2026-11-13"],
+  ["2027-02-09","2027-03-03"],["2027-06-10","2027-07-04"],["2027-10-07","2027-10-28"],
+  ["2028-01-24","2028-02-14"],["2028-05-21","2028-06-13"],["2028-09-19","2028-10-11"]
+];
+/* Solar & lunar eclipses (2025–2028, UTC dates). Sources: USNO, NASA, Wikipedia. */
+const ECLIPSES = {
+  "2025-03-14":{t:"lunar",k:"total"},   "2025-03-29":{t:"solar",k:"partial"},
+  "2025-09-07":{t:"lunar",k:"total"},   "2025-09-21":{t:"solar",k:"partial"},
+  "2026-02-17":{t:"solar",k:"annular"}, "2026-03-03":{t:"lunar",k:"total"},
+  "2026-08-12":{t:"solar",k:"total"},   "2026-08-28":{t:"lunar",k:"partial"},
+  "2027-02-06":{t:"solar",k:"annular"}, "2027-02-20":{t:"lunar",k:"penumbral"},
+  "2027-07-18":{t:"lunar",k:"penumbral"},"2027-08-02":{t:"solar",k:"total"}, "2027-08-17":{t:"lunar",k:"penumbral"},
+  "2028-01-12":{t:"lunar",k:"partial"}, "2028-01-26":{t:"solar",k:"annular"},
+  "2028-07-06":{t:"lunar",k:"partial"}, "2028-07-22":{t:"solar",k:"total"},  "2028-12-31":{t:"lunar",k:"total"}
+};
 
 const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
 const POLARITY = { ru:{yang:"Ян",yin:"Инь"}, en:{yang:"Yang",yin:"Yin"} };
@@ -428,7 +535,6 @@ function dayPillars(date) {
      good  → green cell (≥4 stars, no sha/no-wealth/kill-master)
      bad   → red cell   (any clash, or ≤1 star)
      other → neutral (no colour)                                            */
-const OFFICER_PTS = {1:0, 2:1, 3:1, 4:0, 5:1, 6:0, 7:-3, 8:-2, 9:2, 10:0, 11:2, 12:-2};
 function dayClash(p) {
   const di = BRANCH_IDX[p.d[1]], mi = BRANCH_IDX[p.m[1]], yi = BRANCH_IDX[p.y[1]];
   return (di+6)%12 === mi || (di+6)%12 === yi;
@@ -442,26 +548,76 @@ function dayKillMaster(p) {
   const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
   return (KILL_MASTER[lm] || []).includes(ld);
 }
+/* ── 3-star day rating ─────────────────────────────────────────────
+   Clash (月破 / 岁破) = red cell, always lowest (1★).
+   Otherwise: officer tier (auspicious +1 / neutral 0 / inauspicious −1)
+   minus minor negatives (三煞 / без богатства / убивающий мастера).
+     score ≥ 1 → 3★ (best)   score = 0 → 2★ (good)   score ≤ −1 → 1★ (ok)   */
 function dayScore(p) {
-  const clash = dayClash(p), sha = daySha(p);
-  const nw = NO_WEALTH_DAYS.includes(p.d[0] + p.d[1]);
-  const km = dayKillMaster(p);
+  if (dayClash(p)) return { stars: 1, quality: "bad" };
+  const sha = daySha(p);
+  const nw  = NO_WEALTH_DAYS.includes(p.d[0] + p.d[1]);
+  const km  = dayKillMaster(p);
   const off = OFFICER_NUM[p.lunar.getZhiXing()] || 0;
-  let s = 3 + (OFFICER_PTS[off] || 0);
-  if (clash) s -= 3;
-  if (sha) s -= 1;
-  if (nw) s -= 1;
-  if (km) s -= 1;
-  s = Math.max(0, Math.min(5, s));
-  let q = "neutral";
-  if (clash || s <= 1) q = "bad";
-  else if (s >= 4 && !sha && !nw && !km) q = "good";
-  return { stars: s, quality: q };
+  const tier = OFFICER_GOOD.has(off) ? 1 : (OFFICER_BAD.has(off) ? -1 : 0);
+  const neg = (sha?1:0) + (nw?1:0) + (km?1:0);
+  const score = tier - neg;
+  const stars = score >= 1 ? 3 : (score === 0 ? 2 : 1);
+  return { stars, quality: "neutral" };
 }
 function starsHtml(n, cls) {
   let h = "";
-  for (let i = 1; i <= 5; i++) h += `<span class="st ${i<=n?'on':''}">★</span>`;
+  for (let i = 1; i <= 3; i++) h += `<span class="st ${i<=n?'on':''}">★</span>`;
   return `<span class="${cls||'c-stars'}">${h}</span>`;
+}
+
+/* ── Cell marker helpers (ported from Chinese Calendar) ── */
+function indHtml(lunar) {
+  const ch = lunar.getZhiXing(), n = OFFICER_NUM[ch] || 0;
+  if (!n) return "";
+  return `<div class="c-ind" title="${n} · ${ch} · ${L().officers[n]}">${n} ${L().officers[n]}</div>`;
+}
+function clashHtml(p) {
+  const di = BRANCH_IDX[p.d[1]], mi = BRANCH_IDX[p.m[1]], yi = BRANCH_IDX[p.y[1]];
+  let t = "";
+  if ((di + 6) % 12 === mi) t += `<span class="cl-m" title="${L().clashMonthTip}">${L().clashMonthTag}</span>`;
+  if ((di + 6) % 12 === yi) t += `<span class="cl-y" title="${L().clashYearTip}">${L().clashYearTag}</span>`;
+  return t ? `<div class="c-clash">${t}</div>` : "";
+}
+function noWealthHtml(p) {
+  if (!NO_WEALTH_DAYS.includes(p.d[0] + p.d[1])) return "";
+  return `<div class="c-clash"><span class="cl-nw" title="${L().noWealthTip}">${L().noWealthTag}</span></div>`;
+}
+function shaChip(cls, o) { return `<span class="${cls}" title="${o.tip}">${o.t}</span>`; }
+function shaHtml(p) {
+  const di = BRANCH_IDX[p.d[1]], S = L().sha;
+  const mo = SANSHA[BRANCH_IDX[p.m[1]]], yr = SANSHA[BRANCH_IDX[p.y[1]]];
+  let t = "";
+  if (di === mo.jie) t += shaChip("sha-jie", S.jieM);
+  else if (di === mo.zai) t += shaChip("sha-zai", S.zaiM);
+  else if (di === mo.sui) t += shaChip("sha-sui", S.suiM);
+  if (di === yr.jie) t += shaChip("sha-jie", S.jieY);
+  else if (di === yr.zai) t += shaChip("sha-zai", S.zaiY);
+  else if (di === yr.sui) t += shaChip("sha-sui", S.suiY);
+  return t ? `<div class="c-clash">${t}</div>` : "";
+}
+function killMasterHtml(p) {
+  const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
+  if ((KILL_MASTER[lm] || []).includes(ld))
+    return `<div class="c-clash"><span class="cl-km" title="${L().kmTip}">${L().kmTag}</span></div>`;
+  return "";
+}
+const dateKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+function rxIcon(dk) {
+  for (const [s,e] of MERCURY_RX) if (dk >= s && dk <= e)
+    return `<span class="ic-merc" title="${L().rxTip}"></span>`;
+  return "";
+}
+function eclipseIcon(dk) {
+  const ec = ECLIPSES[dk]; if (!ec) return "";
+  const solar = ec.t === "solar";
+  const tip = `${solar ? L().eclSolar : L().eclLunar} — ${L().eclKinds[ec.k]}`;
+  return `<span class="${solar ? 'ic-esol' : 'ic-elun'}" title="${tip}"></span>`;
 }
 
 /* ===================== State ===================== */
@@ -473,6 +629,7 @@ const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.g
 
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
 let SOLAR_MONTH = true;
+let SHOW_IND = true, SHOW_CLASH = true, SHOW_SHA = true, SHOW_NW = true, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true;
 function tzOffsetMin(date, tz) {
   try {
     const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
@@ -599,10 +756,42 @@ function monthRange() {
 }
 
 function renderLegend() {
+  /* Star-rating + clash legend */
   document.getElementById("q-legend").innerHTML =
-    `<span><span class="sw good"></span>${L().lgGood}</span>` +
-    `<span><span class="sw bad"></span>${L().lgBad}</span>` +
-    `<span>${L().lgRating}: ${starsHtml(5)}</span>`;
+    `<span>${starsHtml(3)} ${L().lg3}</span>` +
+    `<span>${starsHtml(2)} ${L().lg2}</span>` +
+    `<span>${starsHtml(1)} ${L().lg1}</span>` +
+    `<span><span class="sw bad"></span>${L().lgClash}</span>`;
+
+  /* Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) */
+  const el = document.getElementById("ind-legend");
+  if (!SHOW_IND && !SHOW_CLASH && !SHOW_SHA && !SHOW_NW && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) {
+    el.classList.remove("show"); return;
+  }
+  let html = "";
+  if (SHOW_IND) {
+    const items = OFFICER_CHARS.map((c,i) => `<b>${i+1}</b> ${c} ${L().officers[i+1]}`).join(" · ");
+    html += `<div class="lg-title">${L().legendTitle}</div>${items}`;
+  }
+  if (SHOW_CLASH || SHOW_NW || SHOW_KM) {
+    let ln = "";
+    if (SHOW_CLASH) ln += `<span class="cl-m">${L().clashMonthTag}</span> ${L().clashMonthTip} &nbsp; <span class="cl-y">${L().clashYearTag}</span> ${L().clashYearTip}`;
+    if (SHOW_NW) ln += ` &nbsp; <span class="cl-nw">${L().noWealthTag}</span> ${L().noWealthTip}`;
+    if (SHOW_KM) ln += ` &nbsp; <span class="cl-km">${L().kmTag}</span> ${L().kmTip}`;
+    html += `<div class="lg-clash">${ln}</div>`;
+  }
+  if (SHOW_SHA) {
+    const S = L().sha, T = L().shaTypes;
+    html += `<div class="lg-clash"><b>${L().optSha}:</b> <span class="sha-jie">${S.jieM.t}</span> <span class="sha-jie">${S.jieY.t}</span> ${T.jie} · <span class="sha-zai">${S.zaiM.t}</span> <span class="sha-zai">${S.zaiY.t}</span> ${T.zai} · <span class="sha-sui">${S.suiM.t}</span> <span class="sha-sui">${S.suiY.t}</span> ${T.sui}</div>`;
+  }
+  if (SHOW_RX || SHOW_ECLIPSE) {
+    let ln = "";
+    if (SHOW_RX) ln += `<span class="ic-merc"></span> ${L().rxTip}`;
+    if (SHOW_ECLIPSE) ln += ` &nbsp; <span class="ic-esol"></span> ${L().eclSolar} &nbsp; <span class="ic-elun"></span> ${L().eclLunar}`;
+    html += `<div class="lg-clash">${ln} &nbsp;·&nbsp; <i>${L().astroNote}</i></div>`;
+  }
+  el.innerHTML = html;
+  el.classList.add("show");
 }
 
 function renderGrid() {
@@ -624,18 +813,24 @@ function renderGrid() {
     for (let i = 0; i < 7; i++) {
       const inMonth = isIn(cur);
       const p = dayPillars(cur);
-      const term = p.lunar.getJieQi();
       const sc = dayScore(p);
+      const dk = dateKey(cur);
       const cls = ["cell"];
       if (!inMonth) cls.push("out");
-      else cls.push("q-" + sc.quality);
+      else if (sc.quality === "bad") cls.push("q-bad");
       if (sameDay(cur, today)) cls.push("today");
       if (sameDay(cur, selected)) cls.push("sel");
+      const icons = (SHOW_RX ? rxIcon(dk) : ``) + (SHOW_ECLIPSE ? eclipseIcon(dk) : ``);
       html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
           <div class="c-num">${cur.getDate()}</div>
+          ${icons ? `<div class="c-icons">${icons}</div>` : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
-          ${term ? `<div class="c-term">${termLabel(term)}</div>` : ``}
           ${starsHtml(sc.stars)}
+          ${SHOW_IND ? indHtml(p.lunar) : ``}
+          ${SHOW_SHA ? shaHtml(p) : ``}
+          ${SHOW_CLASH ? clashHtml(p) : ``}
+          ${SHOW_NW ? noWealthHtml(p) : ``}
+          ${SHOW_KM ? killMasterHtml(p) : ``}
         </div>`;
       cur.setDate(cur.getDate()+1);
     }
@@ -733,6 +928,13 @@ const _dispMenu = document.getElementById("disp-menu");
 document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropagation(); _dispMenu.classList.toggle("open"); });
 document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
 document.getElementById("opt-solar").addEventListener("change", e => { SOLAR_MONTH = e.target.checked; renderGrid(); });
+document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
+document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
+document.getElementById("opt-sha").addEventListener("change", e => { SHOW_SHA = e.target.checked; renderGrid(); });
+document.getElementById("opt-nw").addEventListener("change", e => { SHOW_NW = e.target.checked; renderGrid(); });
+document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
+document.getElementById("opt-rx").addEventListener("change", e => { SHOW_RX = e.target.checked; renderGrid(); });
+document.getElementById("opt-ecl").addEventListener("change", e => { SHOW_ECLIPSE = e.target.checked; renderGrid(); });
 
 /* ===================== Language ===================== */
 function applyLang() {
@@ -746,6 +948,13 @@ function applyLang() {
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
   document.getElementById("disp-btn").textContent = L().show + " ▾";
   document.getElementById("lbl-solar").textContent = L().optSolarMonth;
+  document.getElementById("lbl-ind").textContent = L().optInd;
+  document.getElementById("lbl-clash").textContent = L().optClash;
+  document.getElementById("lbl-sha").textContent = L().optSha;
+  document.getElementById("lbl-nw").textContent = L().optNoWealth;
+  document.getElementById("lbl-km").textContent = L().optKillMaster;
+  document.getElementById("lbl-rx").textContent = L().optRx;
+  document.getElementById("lbl-ecl").textContent = L().optEclipse;
   buildMonthOptions(); syncNav();
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
@@ -761,6 +970,13 @@ document.getElementById("lang-en").addEventListener("click", () => setLang("en")
 /* ===================== Init ===================== */
 function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
 document.getElementById("opt-solar").checked = SOLAR_MONTH;
+document.getElementById("opt-ind").checked = SHOW_IND;
+document.getElementById("opt-clash").checked = SHOW_CLASH;
+document.getElementById("opt-sha").checked = SHOW_SHA;
+document.getElementById("opt-nw").checked = SHOW_NW;
+document.getElementById("opt-km").checked = SHOW_KM;
+document.getElementById("opt-rx").checked = SHOW_RX;
+document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
 buildYearOptions();
 applyLang();
 renderAll();
