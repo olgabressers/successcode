@@ -127,6 +127,10 @@
     select { cursor: pointer; }
     select option { background: var(--surface); color: var(--white); }
     textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+    .date-selects { display: flex; gap: 10px; }
+    .date-selects select:nth-child(1) { flex: 0 0 26%; }
+    .date-selects select:nth-child(2) { flex: 1 1 auto; }
+    .date-selects select:nth-child(3) { flex: 0 0 30%; }
 
     /* CITY AUTOCOMPLETE */
     .city-input-wrap { position: relative; }
@@ -605,8 +609,14 @@
         </div>
 
         <div class="field">
-          <label class="field-label" for="birth_date">Дата рождения</label>
-          <input type="date" id="birth_date" name="birth_date" required>
+          <label class="field-label">Дата рождения</label>
+          <div class="date-selects">
+            <select id="birth_day" aria-label="День" onchange="syncBirthDate()"><option value="">День</option></select>
+            <select id="birth_month" aria-label="Месяц" onchange="syncBirthDate()"><option value="">Месяц</option></select>
+            <select id="birth_year" aria-label="Год" onchange="syncBirthDate()"><option value="">Год</option></select>
+          </div>
+          <!-- Composed YYYY-MM-DD from the three dropdowns (no native date picker) -->
+          <input type="hidden" id="birth_date" name="birth_date">
         </div>
 
         <div class="field">
@@ -994,6 +1004,23 @@
       alert('Ошибка сети. Проверьте соединение и попробуйте снова.');
     }
   }
+
+  /* ДАТА РОЖДЕНИЯ — три выпадающих списка складываются в скрытое поле birth_date (YYYY-MM-DD). Без нативного date-picker. */
+  function syncBirthDate() {
+    var d = document.getElementById('birth_day').value;
+    var m = document.getElementById('birth_month').value;
+    var y = document.getElementById('birth_year').value;
+    document.getElementById('birth_date').value = (d && m && y) ? (y + '-' + m + '-' + d) : '';
+  }
+  (function populateBirthDate() {
+    var day = document.getElementById('birth_day'), mon = document.getElementById('birth_month'), yr = document.getElementById('birth_year');
+    if (!day || !mon || !yr) return;
+    var months = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+    var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+    for (var i = 1; i <= 31; i++) { var o = document.createElement('option'); o.value = pad(i); o.textContent = i; day.appendChild(o); }
+    months.forEach(function(nm, idx) { var o = document.createElement('option'); o.value = pad(idx + 1); o.textContent = nm; mon.appendChild(o); });
+    for (var y = 2012; y >= 1935; y--) { var o = document.createElement('option'); o.value = '' + y; o.textContent = y; yr.appendChild(o); }
+  })();
 
   /* ИНИЦИАЛИЗАЦИЯ */
   updateProgress(1);
