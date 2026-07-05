@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Персональная стратегия 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
+      --goldfade:rgba(154,110,32,0.09); --text:#1A1820; --dim:#383644; --muted:#72707E;
+      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;}
+    .report-header{padding:52px 0 44px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .header-left{flex:1;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:14px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(154,110,32,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @media print{body{background:white;}.page{padding:0 32px 60px;}.month-table tr.peak-row td{background:#FAF5E8!important;}.chart-wrap{page-break-before:always;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:34px;}
+      .intro-block{padding:26px 24px;}
+      .intro-lead{font-size:20px;}
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <header class="report-header">
+    <div class="header-left">
+      <span class="brand">SuccessCode</span>
+      <h1 class="report-title">Персональная стратегия<br><em>карьеры и повышения в 2026</em></h1>
+      <p class="report-subtitle">Индивидуальный анализ &nbsp;·&nbsp; Июль 2026 — Январь 2027</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Юлия Громакова</div>
+      <div class="client-meta">Старший специалист · Project &amp; Commercial Management</div>
+      <div class="client-meta">Украина</div>
+      <div class="report-date">Июль 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule"></div>
+
+  <!-- ГЛАВНЫЙ ВЫВОД -->
+  <div class="section-label">Главный вывод</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Ваш самый сильный путь в 2026 — не широкий нетворкинг, а <em>один старший наставник-покровитель</em>
+      внутри компании плюс формально оформленное обоснование повышения.
+    </p>
+    <p class="intro-body">
+      Раньше тёплые связи не срабатывали, потому что это был горизонтальный подход — «поговорить со всеми»
+      на уровне равных коллег. В 2026 году — и на все ближайшие десять лет — открывается другой канал:
+      покровительство со стороны одной старшей, авторитетной фигуры. Это не про равных — это про влиятельного
+      ментора, который реально продвигает вас.
+    </p>
+    <p class="intro-body">
+      Одновременно это год признания в карьере через оформленные, задокументированные результаты. Ваша сила
+      в этом году — не устная импровизация, а структурированный, подкреплённый цифрами кейс. Ваша цель —
+      остаться в текущей компании и вырасти в более высокую и интересную роль — полностью совпадает с тем,
+      что поддерживает год.
+    </p>
+  </div>
+
+  <!-- 3 КАРТЫ -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Главный метод</div>
+      <div class="vc-value">Внутренний покровитель + письменный кейс</div>
+      <div class="vc-sub">Один старший ментор внутри компании продвигает ваше повышение. Вы даёте ему готовое деловое обоснование с цифрами и результатами.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Целевой формат</div>
+      <div class="vc-value">Только внутри компании</div>
+      <div class="vc-sub">Не широкий нетворкинг и не внешний или международный поиск. Один авторитетный человек плюс структурированный документ.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Ключевое окно</div>
+      <div class="vc-value">8 января — 5 февраля 2027</div>
+      <div class="vc-sub">Вероятная точка формального решения и пересмотра. Ждите придирок к деталям — и делайте ставку на личную устную подачу.</div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Делайте в 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Соберите письменный кейс заранее — метрики и достижения (рост дохода 2020, повышение 2023, свой проект 2024) — до окон августа и января</li>
+        <li><span style="color:var(--green)">●</span>Определите и целенаправленно выстройте отношения с ОДНИМ старшим покровителем — авторитетной фигурой, не равным коллегой</li>
+        <li><span style="color:var(--green)">●</span>Подайте и обсудите обоснование в окне 13 августа — 10 сентября: двойной сигнал признания в карьере</li>
+        <li><span style="color:var(--green)">●</span>Сначала «мягкий запуск»: проверьте идею через доверенные связи неформально, потом формализуйте</li>
+        <li><span style="color:var(--green)">●</span>11 сентября — 9 октября: окно личной видимости — используйте моменты, где вас видит руководство</li>
+        <li><span style="color:var(--green)">●</span>Готовьтесь к 8 января — 5 февраля 2027 как к точке решения: ставка на живую устную подачу истории, не только на документ</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Избегайте в 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Не повторяйте прежний широкий «тёплый нетворкинг» — работает канал старшего покровителя, а не общение с равными</li>
+        <li><span style="color:var(--red)">●</span>Не давите личной «историей» в окне 9 ноября — 8 декабря: держитесь фактов и цифр</li>
+        <li><span style="color:var(--red)">●</span>Не гонитесь за внешними или международными ролями и переездом — это ваша зона трения; инстинкт «остаться в своей стране» верен</li>
+        <li><span style="color:var(--red)">●</span>Не игнорируйте здоровье во время рывка — в фоне накапливается усталость, нужна профилактика</li>
+        <li><span style="color:var(--red)">●</span>Не позволяйте тревоге из-за офисной политики просачиваться в отношения с покровителем или в документ</li>
+        <li><span style="color:var(--red)">●</span>Не полагайтесь только на формальный HR-процесс — в этом десятилетии человеческие отношения с покровителем сильнее комитетов и регламентов</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Про нетворкинг — важное уточнение.</strong>
+      Речь НЕ о том, чтобы обходить всех коллег и «поддерживать связи». Речь об одном человеке —
+      старшем, авторитетном, кто реально может продвинуть ваше повышение. Один сильный покровитель
+      важнее двадцати ровных знакомств. Именно это отличает 2026 от прежних лет, когда широкий нетворкинг
+      не давал результата.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОМЕСЯЧНАЯ СТРАТЕГИЯ -->
+  <div class="section-label">Помесячная стратегия</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Период</th>
+        <th>Что происходит и почему</th>
+        <th style="min-width:200px">Конкретные действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="m-name">Июль — Август</span>
+          <span class="m-dates">1 июля — 12 августа</span>
+          <span class="m-badge mod">Подготовка</span>
+        </td>
+        <td>
+          <div class="m-focus">Тихий фон · Сбор материала</div>
+          <p class="m-desc">Спокойный период без ярких событий на поверхности. Лучшее время, чтобы без спешки собрать письменное обоснование, определить кандидата в покровители и подготовить почву.</p>
+        </td>
+        <td>
+          <div class="action-row">Доработайте кейс: цифры, результаты, расширение зоны ответственности</div>
+          <div class="action-row">Наметьте одного старшего человека как будущего покровителя</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Август — Сентябрь</span>
+          <span class="m-dates">13 августа — 10 сентября</span>
+          <span class="m-badge peak">Пиковый</span>
+        </td>
+        <td>
+          <div class="m-focus">Признание в карьере · Двойной сигнал</div>
+          <p class="m-desc">Самое сильное окно года для признания вашей экспертизы. Оформленные, задокументированные результаты воспринимаются особенно хорошо. Именно сейчас — подать обоснование и запросить встречу-ревью.</p>
+        </td>
+        <td>
+          <div class="action-row">Передайте структурированный кейс покровителю</div>
+          <div class="action-row">Запросите формальную встречу о повышении</div>
+          <div class="action-row">Делайте ставку на цифры и факты</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Сентябрь — Октябрь</span>
+          <span class="m-dates">11 сентября — 9 октября</span>
+          <span class="m-badge peak" style="opacity:.75">Видимость</span>
+        </td>
+        <td>
+          <div class="m-focus">Личная видимость · Репутация</div>
+          <p class="m-desc">Активируется тема вашего профиля и репутации в компании. Хорошее время для моментов, где вас видит руководство — кросс-функциональные проекты, публичные выступления, заметные роли.</p>
+        </td>
+        <td>
+          <div class="action-row">Берите задачи, заметные для руководства</div>
+          <div class="action-row">Укрепляйте личный профиль параллельно кейсу</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Октябрь — Ноябрь</span>
+          <span class="m-dates">10 октября — 8 ноября</span>
+          <span class="m-badge mod">Умеренный</span>
+        </td>
+        <td>
+          <div class="m-focus">Поддержка темпа</div>
+          <p class="m-desc">Спокойный период. Продолжайте поддерживать отношения с покровителем без давления. Хорошее время для подготовки к финальным окнам конца года.</p>
+        </td>
+        <td>
+          <div class="action-row">Держите связь с покровителем, ровный темп</div>
+          <div class="action-row">Дорабатывайте детали кейса</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Ноябрь — Декабрь</span>
+          <span class="m-dates">9 ноября — 8 декабря</span>
+          <span class="m-badge caution">Осторожно</span>
+        </td>
+        <td>
+          <div class="m-focus">Только факты · Без «истории»</div>
+          <p class="m-desc">В этом окне личный, эмоциональный или сторителлинг-подход в карьере даёт сбои. Если нужно общаться по повышению — держитесь строго фактов, данных и цифр, без личной драматургии.</p>
+        </td>
+        <td>
+          <div class="action-row">Коммуникация только фактическая, по данным</div>
+          <div class="action-row">Отложите эмоциональные аргументы</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Декабрь — Январь</span>
+          <span class="m-dates">9 декабря — 7 января</span>
+          <span class="m-badge peak" style="opacity:.75">Второе признание</span>
+        </td>
+        <td>
+          <div class="m-focus">Второе окно признания</div>
+          <p class="m-desc">Повторный сигнал признания вашего профиля и надёжности. Хорошее время для неформальных check-in с покровителем и укрепления образа стабильного, проверенного специалиста.</p>
+        </td>
+        <td>
+          <div class="action-row">Неформальные встречи с покровителем</div>
+          <div class="action-row">Подчёркивайте надёжность и результат</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Январь 2027</span>
+          <span class="m-dates">8 января — 5 февраля 2027</span>
+          <span class="m-badge peak">Точка решения</span>
+        </td>
+        <td>
+          <div class="m-focus">Формальное решение · Пик года</div>
+          <p class="m-desc">Наиболее вероятное окно формального решения или пересмотра по повышению во всём горизонте. Ждите пристального внимания к деталям и бумагам — но личная, живая устная подача истории здесь принимается лучше всего.</p>
+        </td>
+        <td>
+          <div class="action-row">Будьте готовы к придирчивому формальному ревью</div>
+          <div class="action-row">Ставка на устную подачу вживую, не только документ</div>
+          <div class="action-row">Держите бумаги безупречными по деталям</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- КАРТА -->
+  <div class="section-label">Карта Цзы Вэй Доу Шу</div>
+
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-yuliya"
+            title="Карта Цзы Вэй Доу Шу — Юлия"
+            loading="lazy">
+    </iframe>
+  </div>
+  <p class="chart-note">
+    Ваша персональная карта судьбы. Нажмите «Годовой» и выберите 2026, чтобы увидеть активные каналы года.
+  </p>
+
+  <!-- НИЖНЯЯ ЗАМЕТКА -->
+  <div class="bottom-note">
+    <div class="bn-icon">ℹ</div>
+    <div class="bn-text">
+      <strong>Два фоновых момента на весь год.</strong>
+      На фоне карьерного рывка держите в поле зрения здоровье — год располагает к накопительной усталости,
+      поэтому важна профилактика, а не героизм. И не давайте офисной политике втягивать вас эмоционально:
+      ваш кейс и отношения с покровителем должны оставаться чистыми, профессиональными и по делу.
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
+  </footer>
+
+</div>
+</body>
+</html>
