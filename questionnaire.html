@@ -622,6 +622,9 @@
                    oninput="onBirthLocationInput()" autocomplete="off" required>
             <div class="city-dropdown" id="birth-location-dd"></div>
           </div>
+          <!-- Birth coordinates captured from the city pick (Nominatim) — feed solar-time engine -->
+          <input type="hidden" name="birth_lat" id="birth_lat">
+          <input type="hidden" name="birth_lon" id="birth_lon">
         </div>
 
         <div class="field">
@@ -946,6 +949,11 @@
     var parts = item.display_name.split(',');
     var displayName = parts.slice(0, 3).join(',').trim();
     document.getElementById(dd._inputId).value = displayName;
+    // Capture birth coordinates so the submission carries lat/lon for solar-time computation
+    if (dd._inputId === 'birth_location' && item.lat != null && item.lon != null) {
+      document.getElementById('birth_lat').value = item.lat;
+      document.getElementById('birth_lon').value = item.lon;
+    }
     hideCityDd(ddId);
   }
 
