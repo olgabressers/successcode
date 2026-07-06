@@ -83,6 +83,9 @@
   .cell.center { background: #faf7ef; }
   .cell.void-cell { background: #dcd9cf; }   /* 空亡 by hour — greyed out */
   .boxed { outline: 1.5px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+  .cell.jia-cell { outline: 2px solid #00b050; outline-offset: -2px; border-radius: 3px; }
+  .jia-badge { position: absolute; top: 6px; left: 6px; font-size: 12px; font-weight: 700;
+               color: #00b050; border: 1px solid #00b050; border-radius: 3px; padding: 0 3px; line-height: 1.35; }
   .cell .dir { position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
                font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
   .deity, .star, .gate { font-size: 15px; font-weight: 600; line-height: 1.15; }
@@ -291,7 +294,7 @@ const JIE={立春:["Начало весны","Start of Spring"],雨水:["Дож�
   大雪:["Большие снега","Major Snow"],冬至:["Зимнее солнцестояние","Winter Solstice"],小寒:["Малые холода","Minor Cold"],大寒:["Большие холода","Major Cold"]};
 const YUANK={上元:"upper",中元:"mid",下元:"lower"};
 
-let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null;
+let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PAL=null;
 
 const v=id=>document.getElementById(id).value;
 const pad=n=>String(n).padStart(2,"0");
@@ -363,7 +366,7 @@ function compute(){
   }catch(err){ showError((LANG==="ru"?"Ошибка расчёта: ":"Calculation error: ")+err.message); }
 }
 function render(pan){
-  VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0];
+  VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PAL=jiaPalace(pan);
   renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan);
 }
 
@@ -373,6 +376,11 @@ const JIA_YI=[["甲子","戊"],["甲戌","己"],["甲申","庚"],["甲午","辛"
 function heavenPalaceOfStem(pan,stem){
   for(let i=0;i<9;i++){ if((pan.九宮[i].天盤干||[]).includes(stem)) return IDX2GUA[i]; }
   return "";
+}
+// palace where the governing 甲 (旬首) sits: it hides under its 儀 on the heaven plate.
+function jiaPalace(pan){
+  const pair=JIA_YI.find(([jia])=>jia===pan.旬首);
+  return pair?heavenPalaceOfStem(pan,pair[1]):"";
 }
 function renderDunjia(pan){
   const head=pan.旬首;
@@ -446,9 +454,10 @@ function cellHTML(pan,pal){
       <div class="stem-h">${stemSpans(st)}</div></div>`;
   }
   const c=pan.九宮[PIDX[pal]], g=gateD(c.八門), s=starD(c.九星), d=deityD(c.八神);
-  const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL;
+  const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL, jb=JIA_PAL==="中"?"坤":JIA_PAL;
   const vd=c.是否空亡?" void-cell":"", sb=pal===vfb?" boxed":"", gb=pal===vsb?" boxed":"";
-  return `<div class="cell${vd}" onclick="showDetail('${pal}')"><span class="dir">${DIRI[LANG][pal]}</span>
+  const jc=pal===jb?" jia-cell":"", jbadge=pal===jb?'<span class="jia-badge">甲</span>':"";
+  return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')">${jbadge}<span class="dir">${DIRI[LANG][pal]}</span>
     <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${nm(d)}</span></div>
     <div class="star${sb}" style="color:${s[2]}">${s[0]}星 <span class="ru">${nm(s)}</span></div>
     <div class="gate${gb}" style="color:${g[2]}">${g[0]}門 <span class="ru">${nm(g)}</span></div>
