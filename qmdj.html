@@ -76,26 +76,35 @@
           margin-bottom: 22px; font-size: 14px; line-height: 1.9; color: var(--text-dim); }
   .meta b { color: var(--gold-dim); font-weight: 500; }
 
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .chart-wrap { position: relative; max-width: 500px; margin: 0 auto; padding: 24px 24px 6px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
   .cell { background: var(--surface); border: 1px solid var(--border); aspect-ratio: 1/1;
-          position: relative; padding: 12px; cursor: pointer; transition: box-shadow .15s; }
+          position: relative; padding: 7px 8px; cursor: pointer; transition: box-shadow .15s;
+          display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr 1fr;
+          grid-template-areas: "deity gate heaven" "star star earth"; column-gap: 2px; }
   .cell:hover { box-shadow: 0 0 0 2px var(--gold) inset; }
-  .cell.center { background: #faf7ef; }
+  .cell.center { background: #faf7ef; display: flex; align-items: center; justify-content: center; }
   .cell.void-cell { background: #dcd9cf; }   /* 空亡 by hour — greyed out */
-  .boxed { outline: 1.5px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
+  .boxed { outline: 1.5px solid var(--gold); outline-offset: 1px; border-radius: 2px; }
   .cell.jia-cell { outline: 2px solid #00b050; outline-offset: -2px; border-radius: 3px; }
-  .cell .dir { position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
-               font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
-  .deity, .star, .gate { font-size: 15px; font-weight: 600; line-height: 1.15; }
-  .ru { font-size: 11px; font-weight: 400; }
-  .deity { position: absolute; top: 22px; left: 11px; }
-  .star  { position: absolute; top: 48px; left: 11px; }
-  .gate  { position: absolute; bottom: 11px; left: 11px; }
-  .stem-h { position: absolute; top: 22px; right: 11px; text-align: right; }
-  .stem-e { position: absolute; bottom: 11px; right: 11px; text-align: right; }
-  .stem-h span, .stem-e span { font-size: 15px; font-weight: 700; }
-  .cell.center .stem-h { top: 50%; left: 50%; right: auto; transform: translate(-50%,-50%); }
-  .cell.center .stem-h span { font-size: 22px; }
+  .c-deity, .c-gate, .c-star { font-size: 20px; font-weight: 600; line-height: 1.05; }
+  .c-deity { grid-area: deity;  justify-self: start;  align-self: start; }
+  .c-gate  { grid-area: gate;   justify-self: center; align-self: start; text-align: center; }
+  .c-heaven{ grid-area: heaven; justify-self: end;    align-self: start; text-align: right; }
+  .c-star  { grid-area: star;   justify-self: start;  align-self: end; }
+  .c-earth { grid-area: earth;  justify-self: end;    align-self: end; text-align: right; }
+  .c-deity .ru, .c-gate .ru, .c-star .ru { display: block; font-size: 9px; font-weight: 400;
+             letter-spacing: 0; line-height: 1.15; }
+  .c-heaven span, .c-earth span { font-size: 20px; font-weight: 700; display: block; line-height: 1.08; }
+  .cell.center .c-center span { font-size: 26px; font-weight: 700; }
+  /* compass directions OUTSIDE the grid (fixed Luo Shu positions) */
+  .dl { position: absolute; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+        color: var(--text-muted); font-weight: 600; }
+  .dl-tl { top: 4px; left: 8px; }   .dl-t { top: 4px; left: 50%; transform: translateX(-50%); }   .dl-tr { top: 4px; right: 8px; }
+  .dl-l { left: 0; top: 50%; transform: translateY(-50%); }   .dl-r { right: 0; top: 50%; transform: translateY(-50%); }
+  .dl-bl { bottom: 4px; left: 8px; }   .dl-b { bottom: 4px; left: 50%; transform: translateX(-50%); }   .dl-br { bottom: 4px; right: 8px; }
+  .chart-date { text-align: center; font-size: 16px; font-weight: 600; color: #c62828;
+                margin: 4px auto 20px; letter-spacing: 0.5px; }
 
   .dunjia-ref { text-align: center; font-size: 15px; color: var(--text-dim); letter-spacing: 1px;
                 margin-top: 16px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); }
@@ -128,21 +137,42 @@
     .hour-cell { font-size: 7.5px; padding: 6px 1px; letter-spacing: 0; }
     .hour-cell .br { font-size: 11px; }
     .meta { font-size: 12px; padding: 12px 14px; line-height: 1.7; }
-    .grid { gap: 6px; }
-    .cell { padding: 8px; }
-    .deity, .star, .gate { font-size: 12px; }
-    .deity { top: 18px; left: 6px; }
-    .star  { top: 40px; left: 6px; }
-    .gate  { bottom: 8px; left: 6px; }
-    .stem-h { top: 18px; right: 6px; }
-    .stem-e { bottom: 8px; right: 6px; }
-    .ru { font-size: 9px; }
-    .cell .dir { font-size: 8px; top: 4px; }
-    .cell.center .stem-h span { font-size: 18px; }
+    .chart-wrap { padding: 20px 18px 4px; }
+    .grid { gap: 5px; }
+    .cell { padding: 5px 6px; }
+    .c-deity, .c-gate, .c-star { font-size: 16px; }
+    .c-heaven span, .c-earth span { font-size: 16px; }
+    .c-deity .ru, .c-gate .ru, .c-star .ru { font-size: 8px; }
+    .cell.center .c-center span { font-size: 20px; }
+    .dl { font-size: 9px; }
+    .chart-date { font-size: 13px; }
     .dunjia-ref { font-size: 11px; padding: 8px 10px; letter-spacing: 0; }
     .dunjia-ref b { font-size: 12px; }
     .lang-switch { top: 8px; right: 8px; }
     .lang-switch button { padding: 3px 8px; font-size: 10px; }
+    .print-btn { top: 36px; right: 8px; padding: 4px 9px; font-size: 9px; }
+  }
+  /* PDF / Print button */
+  .print-btn { position: fixed; top: 46px; right: 16px; z-index: 50; width: auto;
+               background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+               padding: 6px 12px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+               font-family: 'Inter', sans-serif; cursor: pointer; }
+  .print-btn:hover { border-color: var(--gold); color: var(--gold); background: transparent; }
+  /* PRINT — fit A4, palace description on its own page */
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body { padding: 0; background: #fff; color: #000;
+           -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-switch, .print-btn, .form-panel, .hour-row, #error-display, header p,
+    .city-dd, .solar-info { display: none !important; }
+    header { margin-bottom: 8px; }
+    header h1 { font-size: 20px; }
+    .result { max-width: 100%; }
+    .bazi-table { max-width: 150mm; margin: 0 auto; }
+    .meta { margin-bottom: 8px; font-size: 12px; padding: 10px 14px; }
+    .chart-wrap { max-width: 152mm; page-break-inside: avoid; }
+    .cell:hover { box-shadow: none; }
+    .cell-detail { page-break-before: always; margin-top: 0; }
   }
 </style>
 </head>
@@ -151,6 +181,7 @@
   <button id="lang-ru" class="on" onclick="setLang('ru')">RU</button>
   <button id="lang-en" onclick="setLang('en')">EN</button>
 </div>
+<button class="print-btn" onclick="window.print()">PDF / Печать</button>
 <header>
   <h1>奇門遁甲 · QMDJ Calculator</h1>
   <p id="sub" data-i18n="sub"></p>
@@ -185,7 +216,18 @@
   </div>
   <div class="hour-row" id="hour-row"></div>
   <div class="meta" id="meta"></div>
-  <div class="grid" id="grid"></div>
+  <div class="chart-wrap">
+    <span class="dl dl-tl" data-gua="巽"></span>
+    <span class="dl dl-t"  data-gua="離"></span>
+    <span class="dl dl-tr" data-gua="坤"></span>
+    <span class="dl dl-l"  data-gua="震"></span>
+    <span class="dl dl-r"  data-gua="兌"></span>
+    <span class="dl dl-bl" data-gua="艮"></span>
+    <span class="dl dl-b"  data-gua="坎"></span>
+    <span class="dl dl-br" data-gua="乾"></span>
+    <div class="grid" id="grid"></div>
+  </div>
+  <div class="chart-date" id="chart-date"></div>
   <div class="dunjia-ref" id="dunjia-ref"></div>
   <div class="cell-detail" id="cell-detail"></div>
 </div>
@@ -292,7 +334,7 @@ const JIE={立春:["Начало весны","Start of Spring"],雨水:["Дож�
   大雪:["Большие снега","Major Snow"],冬至:["Зимнее солнцестояние","Winter Solstice"],小寒:["Малые холода","Minor Cold"],大寒:["Большие холода","Major Cold"]};
 const YUANK={上元:"upper",中元:"mid",下元:"lower"};
 
-let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PAL=null;
+let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PAL=null, CUR_CLOCK=null, CUR_CM=0;
 
 const v=id=>document.getElementById(id).value;
 const pad=n=>String(n).padStart(2,"0");
@@ -306,6 +348,7 @@ function applyLang(){
   document.getElementById("f-city").placeholder=L().cityPh;
   document.getElementById("lang-ru").classList.toggle("on",LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on",LANG==="en");
+  var pb=document.querySelector(".print-btn"); if(pb) pb.textContent=LANG==="ru"?"PDF / Печать":"PDF / Print";
 }
 function setLang(l){ LANG=l; try{localStorage.setItem("sc-lang",l);}catch(e){} applyLang(); if(CUR_PAN){ render(CUR_PAN); if(CUR_PAL) showDetail(CUR_PAL); } }
 
@@ -357,6 +400,7 @@ function compute(){
     const solar=new Date(clock.getTime()+cm*60000);
     const lunar=QMDJ.Solar.fromYmdHms(solar.getFullYear(),solar.getMonth()+1,solar.getDate(),solar.getHours(),solar.getMinutes(),0).getLunar();
     CUR_PAN=QMDJ.QimenUtil.create(lunar); CUR_PAL=null;
+    CUR_CLOCK=clock; CUR_CM=cm;
     render(CUR_PAN);
     renderSolar(cm); renderHourRow(clock,cm);
     document.getElementById("cell-detail").style.display="none";
@@ -365,7 +409,25 @@ function compute(){
 }
 function render(pan){
   VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PAL=jiaPalace(pan);
-  renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan);
+  renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan); renderDirs();
+  if(CUR_CLOCK) renderChartDate(CUR_CLOCK,CUR_CM);
+}
+// compass directions around the grid (fixed Luo Shu positions), localised
+function renderDirs(){
+  document.querySelectorAll(".dl").forEach(el=>{ el.textContent=(DIRI[LANG]||{})[el.dataset.gua]||""; });
+}
+const MON={ru:["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
+           en:["January","February","March","April","May","June","July","August","September","October","November","December"]};
+// date + clock time-window of the shown hour, printed under the chart
+function renderChartDate(clock,cm){
+  const SS=[23,1,3,5,7,9,11,13,15,17,19,21];
+  const curSolar=((clock.getHours()*60+clock.getMinutes()+cm)%1440+1440)%1440;
+  let ai=0;
+  for(let i=0;i<12;i++){const a=SS[i]*60,b=a+120,cs=curSolar<a?curSolar+1440:curSolar;if(cs>=a&&cs<b){ai=i;break;}}
+  const clockStart=SS[ai]*60-cm;
+  const d=clock.getDate(),mo=clock.getMonth(),y=clock.getFullYear();
+  const dateStr=LANG==="ru"?`${d} ${MON.ru[mo]} ${y}`:`${MON.en[mo]} ${d}, ${y}`;
+  document.getElementById("chart-date").textContent=`${dateStr} · ${fmtMin(clockStart)}–${fmtMin(clockStart+120)}`;
 }
 
 // 遁甲: each 甲 hides under its 儀; locate it by where that 儀 sits on the heaven plate (天盤).
@@ -448,19 +510,18 @@ function nm(arr){return arr[LANG==="ru"?1:3];}
 function cellHTML(pan,pal){
   if(pal==="中"){
     const c=pan.九宮[4], st=(c.地盤干&&c.地盤干.length?c.地盤干:c.天盤干)||[];
-    return `<div class="cell center" onclick="showDetail('中')"><span class="dir">${DIRI[LANG][pal]}</span>
-      <div class="stem-h">${stemSpans(st)}</div></div>`;
+    return `<div class="cell center" onclick="showDetail('中')"><div class="c-center">${stemSpans(st)}</div></div>`;
   }
   const c=pan.九宮[PIDX[pal]], g=gateD(c.八門), s=starD(c.九星), d=deityD(c.八神);
   const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL, jb=JIA_PAL==="中"?"坤":JIA_PAL;
   const vd=c.是否空亡?" void-cell":"", sb=pal===vfb?" boxed":"", gb=pal===vsb?" boxed":"";
   const jc=pal===jb?" jia-cell":"";
-  return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')"><span class="dir">${DIRI[LANG][pal]}</span>
-    <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${nm(d)}</span></div>
-    <div class="star${sb}" style="color:${s[2]}">${s[0]}星 <span class="ru">${nm(s)}</span></div>
-    <div class="gate${gb}" style="color:${g[2]}">${g[0]}門 <span class="ru">${nm(g)}</span></div>
-    <div class="stem-h">${stemSpans(c.天盤干)}</div>
-    <div class="stem-e">${stemSpans(c.地盤干)}</div></div>`;
+  return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')">
+    <div class="c-deity" style="color:${d[2]}">${d[0]}神<span class="ru">${nm(d)}</span></div>
+    <div class="c-gate${gb}" style="color:${g[2]}">${g[0]}<span class="ru">${nm(g)}</span></div>
+    <div class="c-heaven">${stemSpans(c.天盤干)}</div>
+    <div class="c-star${sb}" style="color:${s[2]}">${s[0]}星<span class="ru">${nm(s)}</span></div>
+    <div class="c-earth">${stemSpans(c.地盤干)}</div></div>`;
 }
 function renderGrid(pan){
   document.getElementById("grid").innerHTML=GRID.map(r=>r.map(p=>cellHTML(pan,p)).join("")).join("");
