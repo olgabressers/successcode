@@ -25,6 +25,11 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
 
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: var(--gold);
+               border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
+               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
+
   header { text-align: center; margin-bottom: 36px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
@@ -216,9 +221,45 @@
   footer-note { display: block; text-align: center; font-size: 10px; letter-spacing: 2px;
                 text-transform: uppercase; color: var(--text-muted); margin-top: 20px; }
 
+  /* ── Print / A4 ─────────────────────────── */
+  @page { size: A4 portrait; margin: 10mm; }
+  @media print {
+    :root { --bg: #fff; }
+    html, body { background: #fff; width: 100%; max-width: none; overflow: visible; }
+    body { padding: 0; font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-switch, .print-btn, .form-panel, .error-msg, .city-dd { display: none !important; }
+    header { margin-bottom: 12px; }
+    header h1 { font-size: 22px; }
+    header p { font-size: 9px; letter-spacing: 2px; }
+    .result { display: block !important; max-width: 100%; margin: 0; }
+
+    /* Keep whole blocks from splitting across pages */
+    .chart-layout, .pillars, .aux, .dayun, .liunian { break-inside: avoid; }
+    .chart-layout { gap: 10px; margin-bottom: 12px; }
+    .pillar { padding: 10px 6px 12px; gap: 5px; }
+    .pillar-h { font-size: 8.5px; padding: 5px 6px; margin: -10px -6px 4px; width: calc(100% + 12px); }
+    .pillar-stem, .pillar-branch { font-size: 26px; }
+    .pillar-god { font-size: 9px; }
+    .hide-row .hg { font-size: 15px; }
+    .hide-row .hs { font-size: 9px; }
+    .aux-item { padding: 8px 12px; }
+    .aux-pos .cn { font-size: 17px; }
+
+    /* Luck pillars: 10 columns must fit A4 width */
+    .dayun { margin-bottom: 12px; }
+    .dayun-title { padding: 8px 12px; font-size: 10px; }
+    .dayun-cell { padding: 8px 3px; font-size: 10px; break-inside: avoid; }
+    .dayun-gz { font-size: 17px; }
+    .dayun-age, .dayun-year, .dayun-shen { font-size: 8.5px; }
+    .dayun-liu-row { font-size: 8px; }
+    .liunian { padding: 12px 16px; }
+    .liunian-gz { font-size: 20px; }
+  }
+
   @media (max-width: 640px) {
     body { padding: 30px 14px; }
     .lang-switch { top: 10px; right: 10px; }
+    .print-btn { top: 40px; right: 10px; }
     header h1 { font-size: 22px; }
     .form-panel { padding: 18px 18px; }
     .form-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -250,6 +291,8 @@
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
 </div>
+
+<button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
 
 <header>
   <h1>八字 · BaZi Calculator</h1>
@@ -333,6 +376,7 @@ const I18N = {
     year: "Год", month: "Месяц", day: "День",
     hour: "Час", minute: "Минута",
     sex: "Пол", male: "Мужской", female: "Женский",
+    print: "Печать",
     city: "Город (для пересчёта в солнечное время)",
     cityPh: "Начните вводить город...",
     compute: "Рассчитать",
@@ -375,6 +419,7 @@ const I18N = {
     year: "Year", month: "Month", day: "Day",
     hour: "Hour", minute: "Minute",
     sex: "Sex", male: "Male", female: "Female",
+    print: "Print",
     city: "City (for solar-time correction)",
     cityPh: "Start typing a city...",
     compute: "Compute",
@@ -898,6 +943,7 @@ function applyLang(){
   });
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
+  document.getElementById("print-btn").textContent = "⎙ " + L().print;
 }
 function setLang(l){
   LANG = l;
@@ -909,6 +955,7 @@ function setLang(l){
 document.getElementById("lang-ru").addEventListener("click", ()=>setLang("ru"));
 document.getElementById("lang-en").addEventListener("click", ()=>setLang("en"));
 document.getElementById("btn-compute").addEventListener("click", compute);
+document.getElementById("print-btn").addEventListener("click", ()=>window.print());
 document.getElementById("f-city").addEventListener("input", onCityInput);
 ["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
   document.getElementById(id).addEventListener("input", updateSolarInfo));
