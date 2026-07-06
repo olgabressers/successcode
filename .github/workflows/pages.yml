@@ -15,15 +15,16 @@ permissions:
   pages: write
   id-token: write
 
-# One deployment at a time; never cancel one in progress.
-# Do NOT push commits seconds apart — rapid deploys collide.
+# One deployment at a time, but a NEW push cancels a stuck/queued predecessor
+# so a hung deploy run can never wedge the queue for hours.
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,6 +38,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -44,3 +46,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 300000
+          error_count: 15
