@@ -84,8 +84,6 @@
   .cell.void-cell { background: #dcd9cf; }   /* 空亡 by hour — greyed out */
   .boxed { outline: 1.5px solid var(--gold); outline-offset: 2px; border-radius: 2px; }
   .cell.jia-cell { outline: 2px solid #00b050; outline-offset: -2px; border-radius: 3px; }
-  .jia-badge { position: absolute; top: 6px; left: 6px; font-size: 12px; font-weight: 700;
-               color: #00b050; border: 1px solid #00b050; border-radius: 3px; padding: 0 3px; line-height: 1.35; }
   .cell .dir { position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
                font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
   .deity, .star, .gate { font-size: 15px; font-weight: 600; line-height: 1.15; }
@@ -99,11 +97,6 @@
   .cell.center .stem-h { top: 50%; left: 50%; right: auto; transform: translate(-50%,-50%); }
   .cell.center .stem-h span { font-size: 22px; }
 
-  .dunjia-ref { text-align: center; font-size: 15px; color: var(--text-dim); letter-spacing: 1px;
-                margin-top: 16px; padding: 10px 12px; background: var(--surface); border: 1px solid var(--border); }
-  .dunjia-ref b { color: var(--gold-dim); font-weight: 600; margin-right: 10px; font-size: 16px; }
-  .dunjia-ref .jia-head { color: var(--gold); font-weight: 700; border: 1px solid var(--gold);
-                          border-radius: 3px; padding: 0 4px; }
   .cell-detail { display: none; background: var(--surface); border: 1px solid var(--border);
                  margin-top: 16px; padding: 18px 22px; }
   .d-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text);
@@ -141,8 +134,6 @@
     .ru { font-size: 9px; }
     .cell .dir { font-size: 8px; top: 4px; }
     .cell.center .stem-h span { font-size: 18px; }
-    .dunjia-ref { font-size: 11px; padding: 8px 10px; letter-spacing: 0; }
-    .dunjia-ref b { font-size: 12px; }
     .lang-switch { top: 8px; right: 8px; }
     .lang-switch button { padding: 3px 8px; font-size: 10px; }
   }
@@ -188,7 +179,6 @@
   <div class="hour-row" id="hour-row"></div>
   <div class="meta" id="meta"></div>
   <div class="grid" id="grid"></div>
-  <div class="dunjia-ref" id="dunjia-ref"></div>
   <div class="cell-detail" id="cell-detail"></div>
 </div>
 
@@ -367,7 +357,7 @@ function compute(){
 }
 function render(pan){
   VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PAL=jiaPalace(pan);
-  renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan);
+  renderBazi(pan); renderMeta(pan); renderGrid(pan);
 }
 
 // 遁甲: each 甲 hides under its 儀; locate it by where that 儀 sits on the heaven plate (天盤).
@@ -378,18 +368,10 @@ function heavenPalaceOfStem(pan,stem){
   return "";
 }
 // palace where the governing 甲 (旬首) sits: it hides under its 儀 on the heaven plate.
+// Used ONLY to draw a box around that palace — never rendered as text/glyph on the chart.
 function jiaPalace(pan){
   const pair=JIA_YI.find(([jia])=>jia===pan.旬首);
   return pair?heavenPalaceOfStem(pan,pair[1]):"";
-}
-function renderDunjia(pan){
-  const head=pan.旬首;
-  const html=JIA_YI.map(([jia,yi])=>{
-    const pal=heavenPalaceOfStem(pan,yi);
-    const cls=(jia===head)?' class="jia-head"':'';
-    return `<span${cls}>${jia}→${yi}${pal?"→"+pal:""}</span>`;
-  }).join("　");
-  document.getElementById("dunjia-ref").innerHTML=`<b>遁甲</b> ${html}`;
 }
 
 function renderSolar(cm){
@@ -456,8 +438,8 @@ function cellHTML(pan,pal){
   const c=pan.九宮[PIDX[pal]], g=gateD(c.八門), s=starD(c.九星), d=deityD(c.八神);
   const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL, jb=JIA_PAL==="中"?"坤":JIA_PAL;
   const vd=c.是否空亡?" void-cell":"", sb=pal===vfb?" boxed":"", gb=pal===vsb?" boxed":"";
-  const jc=pal===jb?" jia-cell":"", jbadge=pal===jb?'<span class="jia-badge">甲</span>':"";
-  return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')">${jbadge}<span class="dir">${DIRI[LANG][pal]}</span>
+  const jc=pal===jb?" jia-cell":"";
+  return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')"><span class="dir">${DIRI[LANG][pal]}</span>
     <div class="deity" style="color:${d[2]}">${d[0]}神 <span class="ru">${nm(d)}</span></div>
     <div class="star${sb}" style="color:${s[2]}">${s[0]}星 <span class="ru">${nm(s)}</span></div>
     <div class="gate${gb}" style="color:${g[2]}">${g[0]}門 <span class="ru">${nm(g)}</span></div>
