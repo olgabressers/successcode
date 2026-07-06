@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Портрет и характер · Gerard · SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #F7F5F0;
+      --surface:  #EDEBE4;
+      --surface2: #E5E2D8;
+      --gold:     #9A6E20;
+      --gold2:    #B8882A;
+      --goldfade: rgba(154,110,32,0.09);
+      --text:     #1A1820;
+      --dim:      #383644;
+      --muted:    #72707E;
+      --border:   rgba(154,110,32,0.22);
+      --border2:  rgba(30,28,40,0.10);
+      --red:      #7A1E1E;
+      --green:    #1A5026;
+      --blue:     #1A3060;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
+
+    .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
+
+    /* HEADER */
+    .report-header { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+    .header-left { flex: 1; }
+    .brand { font-family: 'Cormorant Garamond', serif; font-size: 12px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--gold); margin-bottom: 24px; display: block; }
+    .report-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
+    .report-title em { font-style: italic; color: var(--gold2); }
+    .report-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .header-right { text-align: right; flex-shrink: 0; padding-bottom: 4px; }
+    .client-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .client-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
+
+    .sec-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    /* TECHNICAL BASIS (verification layer — can be hidden for final client version) */
+    .tech-note { background: rgba(30,28,40,0.035); border: 1px dashed var(--border2); border-left: 2px solid var(--gold); padding: 12px 16px; margin-top: 16px; }
+    .tn-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
+    .tn-body { font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .tn-body em { color: var(--red); font-style: normal; font-weight: 600; }
+
+    /* INTRO BLOCK */
+    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
+    .intro-block p + p { margin-top: 14px; }
+    .intro-block strong { color: var(--text); }
+
+    /* VERDICT CARDS */
+    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .verdict-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
+    .verdict-icon { font-size: 22px; margin-bottom: 12px; }
+    .verdict-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.25; }
+    .verdict-body { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .verdict-card.affirm { border-top: 3px solid var(--green); }
+    .verdict-card.caution { border-top: 3px solid #8a6000; }
+    .verdict-card.strong { border-top: 3px solid var(--blue); }
+
+    /* DECISION BOX */
+    .decision-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--blue); padding: 28px 32px; margin-bottom: 20px; }
+    .decision-verdict { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; padding: 4px 10px; border: 1px solid; margin-bottom: 10px; display: inline-block; }
+    .decision-verdict.inform { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .decision-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.3; }
+    .decision-body { font-size: 13.5px; color: var(--dim); line-height: 1.7; }
+    .decision-body p + p { margin-top: 10px; }
+    .decision-body strong { color: var(--text); }
+
+    /* MONTH / YEAR TABLE */
+    .month-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .month-table thead tr { background: var(--surface); }
+    .month-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 600; }
+    .month-table td { padding: 14px 16px; border-bottom: 1px solid var(--border2); font-size: 13px; vertical-align: top; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table tr.peak-row td { background: rgba(26,48,96,0.04); }
+    .month-table tr.caution-row td { background: rgba(122,30,30,0.03); }
+    .month-name { font-weight: 500; color: var(--text); }
+    .month-period { font-size: 14px; color: var(--muted); margin-top: 3px; font-weight: 500; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+    .badge-peak { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .badge-strong { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .badge-caution { color: #8a6000; border-color: rgba(138,96,0,0.35); background: rgba(138,96,0,0.06); }
+    .badge-mixed { color: var(--muted); border-color: var(--border2); background: var(--surface); }
+    .month-action { font-size: 12.5px; color: var(--dim); }
+
+    /* PALACE CARDS */
+    .palace-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .palace-card { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .palace-name { font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.25; }
+    .palace-reading { font-size: 13px; color: var(--dim); line-height: 1.65; }
+    .palace-card.critical { border-left: 3px solid var(--red); }
+    .palace-card.strong { border-left: 3px solid var(--green); }
+    .palace-card.active { border-left: 3px solid var(--blue); }
+    .palace-card.neutral { border-left: 3px solid #8a6000; }
+
+    /* CHART EMBED */
+    .chart-wrap { background: var(--surface2); padding: 24px; border: 1px solid var(--border); }
+    .chart-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .chart-wrap iframe { width: 100%; height: 780px; border: none; display: block; }
+
+    /* FOOTER */
+    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      .page { padding: 0 20px 60px; }
+      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
+      .header-right { text-align: left; }
+      .report-title { font-size: 34px; }
+      .verdict-row { grid-template-columns: 1fr; }
+      .palace-grid { grid-template-columns: 1fr; }
+      .chart-wrap iframe { height: 680px; }
+      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="header-left">
+      <span class="brand">SuccessCode · Портрет и характер</span>
+      <h1 class="report-title">Кто он —<br><em>характер, деньги, любовь</em></h1>
+      <p class="report-subtitle">Что им движет · как он проходит кризисы · чего он ищет рядом</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Анализ по</div>
+      <div class="client-name">Gerard</div>
+      <div class="client-meta">
+        29 января 1978 · 08:00<br>
+        Утрехт · Мужчина
+      </div>
+    </div>
+  </header>
+
+  <div class="gold-rule"></div>
+
+  <!-- 1. WHO HE IS -->
+  <div class="sec-label">Кто он и что им движет</div>
+
+  <div class="intro-block">
+    <p>
+      Это портрет человека, который <strong>сделал себя сам</strong>. Его главная сила — ясный, быстрый ум и умение просчитывать ситуацию на несколько ходов вперёд. Его ценят именно за это: за способность думать, находить решение, выстраивать стратегию. Он убедителен, хорошо говорит, держит логику.
+    </p>
+    <p>
+      <strong>Но за внешней открытостью — осторожность.</strong> Он доверяет немногим, полагается прежде всего на себя и порой говорит лишнее — от этого в его жизни регулярно возникают споры и недопонимания. Слово для него — и главный инструмент, и источник трений.
+    </p>
+    <p>
+      <strong>Стержень его судьбы — пройти через разрушение и собрать себя заново, сильнее прежнего.</strong> Он из тех, кто может потерять почти всё и вернуться на вершину. Это не случайность и не везение — это его природа. Кризис для него не конец, а точка перезапуска.
+    </p>
+    <p>
+      <strong>Внутри у него — принципы, дисциплина и чувство ответственности,</strong> желание вести и опекать. И есть редкое качество: в самые тёмные моменты рядом с ним появляется помощь — нужный человек или нужная возможность. Поэтому он выкарабкивается там, где другие ломаются.
+    </p>
+    <div class="tech-note"><span class="tn-label">Техн. основа · база карты</span><div class="tn-body">Карта <strong>нормальной</strong> полярности, бюро Земля-5, год 丁巳. Дворец Жизни П1 (酉) = Тянь Цзи <strong>科</strong> (стратег-интеллект, признанный) + Цзюй Мэнь <strong>忌</strong> (речь/спор/подозрительность). Пара Тянь Цзи+Цзюй Мэнь = «карьера с нуля, сделал себя сам». Дворец Благополучия П11 (亥) = Тянь Лян (принципы, опекун-старший) + Тянь Куй + Ю Би (покровитель в тёмный час). Натальные полёты 丁: Лу→Тай Инь→П3, Цюань→Тянь Тун→П5, Кэ→Тянь Цзи→П1, Цзи→Цзюй Мэнь→П1.</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 2. THREE STRENGTHS -->
+  <div class="sec-label">Три его сильных качества</div>
+
+  <div class="verdict-row">
+
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">&#9906;</div>
+      <div class="verdict-title">Ум, который признают</div>
+      <div class="verdict-body">
+        Быстрый расчётливый ум-стратег. Он видит структуру ситуации, находит ход, убеждает логикой — и окружающие это признают. Оборотная сторона: та же сила слова делает его уязвимым — он может сказать лишнее, нажить спор, вызвать недоверие. Его ум — козырь, его язык — зона риска.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Тянь Цзи <strong>科</strong> (Кэ = внешнее признание ума/стратегии) + Цзюй Мэнь <strong>忌</strong> (Цзи = трение через слово) — обе звезды в Дворце Жизни П1. «Признан под трением»: и признание, и споры — на оси личности, пожизненная тема, не катастрофа.</div></div>
+    </div>
+
+    <div class="verdict-card strong">
+      <div class="verdict-icon">&#9832;</div>
+      <div class="verdict-title">Феникс — восстаёт из краха</div>
+      <div class="verdict-body">
+        Его денежная природа — разрушить старое и построить новое, крупными смелыми ходами, по принципу «всё или ничего». Он способен пройти через обвал, близкий к краху, и вернуться сильнее прежнего. Возвращение из руин — не исключение в его судьбе, а встроенный сценарий.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Денежный двигатель = По Цзюнь (звезда «сноса и пересборки», П6, линия достижений 1-6-10) + Ци Ша (решительные «военные» ходы, П10 Недвижимость) + Тянь Тун <strong>权</strong> (Цюань на комфортной звезде в П5 Богатство). Классический профиль «из краха — в миллионеры».</div></div>
+    </div>
+
+    <div class="verdict-card caution">
+      <div class="verdict-icon">&#9819;</div>
+      <div class="verdict-title">Стержень и покровитель в трудный час</div>
+      <div class="verdict-body">
+        В нём — принципиальность, дисциплина, мудрость «старшего», стремление вести и опекать. И редкая структурная защита: в самые тёмные моменты рядом появляется нужная помощь — человек, совет, возможность. Именно это вытаскивало его из провалов.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Благополучия П11 (亥) = Тянь Лян (принцип, дисциплина, «старший»/опекун) + Тянь Куй + Ю Би (благородные помощники, «покровитель приходит в тёмный час»). Структурно объясняет его способность восстанавливаться после кризисов.</div></div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 3. MONEY: FROM THE EDGE TO THE TOP -->
+  <div class="sec-label">Деньги — путь от края до вершины</div>
+
+  <div class="intro-block" style="margin-bottom:20px;">
+    <p>
+      Его денежная линия — не ровный подъём, а глубокая буква «V»: сильные годы, затем сползание к почти-краху, и резкий рывок обратно на вершину. Это и есть «феникс» в действии. Ниже — как эта дуга легла по годам.
+    </p>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th>Период</th>
+        <th>Фаза</th>
+        <th>Что происходило</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="caution-row">
+        <td><div class="month-name">2017–2018</div></td>
+        <td><span class="badge badge-caution">Первые трещины</span></td>
+        <td class="month-action">Начало трудностей на «личном» уровне: споры, сорванные планы, потеря устойчивости. Фундамент под ногами начинает шататься.</td>
+      </tr>
+      <tr class="caution-row">
+        <td><div class="month-name">2019–2020</div></td>
+        <td><span class="badge badge-caution">Дно · почти крах</span></td>
+        <td class="month-action"><strong>Денежный обвал, близко к краху — низшая точка 2020.</strong> Именно здесь его финансовая опора проседает сильнее всего. Это тот кризис, о котором он вспоминает как о «6–8 лет назад, тянулось 3–4 года».</td>
+      </tr>
+      <tr>
+        <td><div class="month-name">2021–2022</div></td>
+        <td><span class="badge badge-mixed">Пауза · перестройка</span></td>
+        <td class="month-action">Тяжёлый, переходный период. Активного роста ещё нет — идёт тихая пересборка перед разворотом.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">2023</div></td>
+        <td><span class="badge badge-strong">Разворот</span></td>
+        <td class="month-action">Восстановление начинается: у «звезды пересборки» появляется ресурс — фундамент под подъём заложен, дело снова питает само себя.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">2024</div></td>
+        <td><span class="badge badge-peak">Резкий взлёт</span></td>
+        <td class="month-action"><strong>Мощный рывок — выход на уровень миллионера.</strong> Решительная, «силовая» пересборка полностью включается — это и есть его сильное, резкое восстановление.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><div class="month-name">2025</div></td>
+        <td><span class="badge badge-strong">Закрепление</span></td>
+        <td class="month-action">Успех закрепляется. Последние три года — его подъёмная волна.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="tech-note"><span class="tn-label">Техн. основа · механика денежной дуги</span><div class="tn-body">Фон 2012–2021: декада Д4 (丙) Лу→Тянь Тун→П5 = «строительная» денежная декада (пики ~2016–2017). Трудности: 2017–2018 удвоенный Цзи→Цзюй Мэнь→П1 и Цзи→Тянь Цзи→П1 + столкновение 戌 к П6 (По Цзюнь); 2019 (己亥) ветвь 亥 сталкивается с П5 Богатство. Дно <em>2020 (庚子): Цзи→Тянь Тун→П5</em> — прямой удар по звезде богатства + ветвь 子 активирует Ци Ша в П10. Разворот 2023 (癸卯): Лу→По Цзюнь→П6. Взлёт <em>2024 (甲辰): Цюань→По Цзюнь→П6 + ветвь 辰 активирует свой дворец По Цзюнь</em> = силовая пересборка → миллионерский рывок. 2025 (乙巳): ветвь 巳 активирует П5. Подтверждено клиентом: трудности ~2018–2020, резкое восстановление 2024, успех последних 3 лет.</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 4. WHAT HE WANTS IN A PARTNER -->
+  <div class="sec-label">Чего он ищет в партнёре</div>
+
+  <div class="intro-block">
+    <p>
+      Его тянет к <strong>теплу, заботе и дому</strong>. Рядом ему нужен человек, который согревает, поддерживает и создаёт ощущение опоры, — тот, о ком заботятся и кто заботится в ответ. И одновременно ему важно, чтобы партнёр был <strong>ярким, живым, «тем, кем можно гордиться»</strong> на людях. То есть и нежность наедине, и красота вовне — обе стороны для него значимы.
+    </p>
+    <p>
+      <strong>Но в близости он осторожен.</strong> Доверяется медленно, держит дистанцию умом — сначала «просчитывает», потом впускает. И его сфера отношений «горячая»: там легко вспыхивают острые конфликты и резкие эмоции. Поэтому ему важно не торопиться и не «прыгать» в серьёзное слишком быстро — его лучшие отношения складываются постепенно, а не с наскока.
+    </p>
+    <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Супруга П3 (未) = Тай Ян (яркий, открытый, «на людях» партнёр) + Тай Инь <strong>禄</strong> (Лу на «Луне»: тёплый, заботливый, дающий опору и уют партнёр; звезда дома/недвижимости) — формация Солнце-Луна. Рядом: Ди Кун (внезапная пустота), Хо Син (вспышки), Цин Ян (острые конфликты) → «горячая», волатильная ось, требующая не спешить. Осторожность/недоверие = Цзюй Мэнь 忌 в П1.</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 5. AFTER LOSS — THE NEW CHAPTER (sensitive) -->
+  <div class="sec-label">После утраты — новая глава</div>
+
+  <div class="decision-box">
+    <div class="decision-verdict inform">Отношения · новый этап</div>
+    <div class="decision-title">Как он входит в новые отношения</div>
+    <div class="decision-body">
+      <p>Он знает, что такое настоящая привязанность — и настоящая потеря. Его брак был тёплым и опорным, а уход близкого человека после долгой болезни оставил глубокий след. То, что он снова открывается, — здоровое, живое движение.</p>
+      <p><strong>Важно понимать его внутреннюю динамику.</strong> Его сильно тянет к заботливому, «согревающему» партнёру — и здесь есть риск привязаться слишком быстро, из потребности снова обрести тепло и опору. Это естественно, но об этом стоит помнить.</p>
+      <p><strong>Что подсказывает карта:</strong> тёплое общение и близость сейчас — да, это ему во благо. Но глубокие, «на всю жизнь» решения лучше <strong>не форсировать</strong> — им нужно время дозреть. Самые устойчивые и спокойные отношения складываются у него чуть позже, когда внутренняя тема утраты окончательно затихает. Спешка здесь — единственный реальный риск; терпение работает на него.</p>
+    </div>
+    <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Звезда-партнёр Тай Инь <strong>禄</strong> в П3 = тёплый, опорный брак. Уход супруги — 2021: ветвь 丑 сталкивается (冲) с П3 (未) + годовые подвижные Цин Ян (2019, начало болезни) и Тоу Ло (2020, затяжной спад) на П3, поверх декадного Цзи по её «дворцу здоровья» (П8). <em>Текущая декада Д5 (2022–2031) продолжает давать Цзи→Тай Инь→П3</em> → давление на «партнёрскую» звезду сохраняется примерно до 2031: тёплое общение доступно уже сейчас, но глубокая новая привязанность крепче ляжет позже. См. также [метод датировки утраты в рабочих файлах].</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 6. PSYCHOLOGICAL PORTRAIT -->
+  <div class="sec-label">Его психологический портрет — ключевые черты</div>
+
+  <div class="palace-grid">
+
+    <div class="palace-card active">
+      <div class="palace-name">Ум и слово — сила и слабость</div>
+      <div class="palace-reading">
+        Его личность построена вокруг ясного, гибкого ума: он анализирует, приспосабливается, находит решение. Через него проходят крупные дела и суммы. Но та же речистость делает его уязвимым — он может сказать лишнее, увязнуть в споре, вызвать недоверие. Сила и слабость у него в одном месте — в слове.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Жизни П1 = Тянь Цзи 科 (гибкий стратег, признан) + Цзюй Мэнь 忌 (речь, спор, подозрительность). «Через руки проходят крупные суммы» = природа Тянь Цзи.</div></div>
+    </div>
+
+    <div class="palace-card strong">
+      <div class="palace-name">Феникс: разрушить и собрать заново</div>
+      <div class="palace-reading">
+        Он движется циклами: слом — и пересборка на новом уровне. Там, где другой сломался бы окончательно, он перезапускается. Это делает его сильным в кризис и склонным к смелым, «всё или ничего», решениям — особенно там, где речь о деньгах и активах.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">По Цзюнь в П6 (линия достижений) + Ци Ша в П10 Недвижимость (решительные, рисковые ходы с активами) + Тянь Тун 权 в П5. Профиль «разрушение → успех».</div></div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-name">Чего он ждёт от близости</div>
+      <div class="palace-reading">
+        Ему нужны и нежность, забота, дом — и партнёр, которым можно гордиться на людях. Он ищет опору и тепло, но входит в близость осторожно, «с расчётом». Его отношенческая сфера эмоционально горячая: сильные чувства и острые конфликты рядом друг с другом.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Супруга П3 = Тай Ян + Тай Инь 禄 (формация Солнце-Луна: статус + тепло) с Ди Кун + Хо Син + Цин Ян (волатильность, острые трения).</div></div>
+    </div>
+
+    <div class="palace-card active">
+      <div class="palace-name">Внутренний стержень и покровитель</div>
+      <div class="palace-reading">
+        В основе — принципы, дисциплина, ответственность и желание опекать. Он держит высокую внутреннюю планку. И у него есть структурная удача: в трудный момент приходит нужная помощь. Это его тихая опора, которую он сам иногда недооценивает.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Дворец Благополучия П11 = Тянь Лян (принцип, опекун-«старший») + Тянь Куй + Ю Би (благородные помощники в тёмный час).</div></div>
+    </div>
+
+    <div class="palace-card neutral">
+      <div class="palace-name">Осторожность и недоверие</div>
+      <div class="palace-reading">
+        Он держит близкий круг узким и впускает людей не сразу. Опора прежде всего на себя, склонность перепроверять и подозревать. Это защищает его от ошибок, но иногда мешает опереться на других и довериться вовремя.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Цзюй Мэнь 忌 в Дворце Жизни П1 = недоверчивость, опора на себя, «доверяет немногим»; трение через слово как жизненная тема.</div></div>
+    </div>
+
+    <div class="palace-card critical">
+      <div class="palace-name">Деньги в центре — двигатель и уязвимость</div>
+      <div class="palace-reading">
+        Деньги для него — не «одна из тем», а центральная ось самооценки и контроля. Это даёт мощный драйв зарабатывать и восстанавливаться. Но это же делает его уязвимым: финансовые провалы он переживает как удар по себе, а не как обычную неудачу.
+      </div>
+      <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">П5 Богатство = Тянь Тун 权 (воля превращает «мягкую» звезду в денежный двигатель) + Ци Ша в П10 + По Цзюнь в П6. Прямой удар 2020 (Цзи→Тянь Тун→П5) = почти-крах ощущался как личный.</div></div>
+    </div>
+
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 7. HIS CHART -->
+  <div class="sec-label">Его натальная карта</div>
+  <div class="chart-wrap">
+    <div class="chart-label">Расчётная карта · Gerard · 29 января 1978 · 08:00 · Утрехт (солнечное ≈07:08 · час 辰)</div>
+    <iframe src="https://successcode.net/zwds" loading="lazy" title="Калькулятор карты · Gerard" allowfullscreen></iframe>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- FOOTER -->
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+  </footer>
+
+</div>
+</body>
+</html>
