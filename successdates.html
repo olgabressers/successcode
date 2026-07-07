@@ -179,6 +179,7 @@
   .disp-menu label { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
                      font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-dim); cursor: pointer; }
   .disp-menu label:hover { background: #faf7ef; }
+  .disp-menu label.disp-all { font-weight: 600; color: var(--gold); border-bottom: 1px solid var(--border); }
   .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
 
   /* Quality legend */
@@ -413,6 +414,7 @@
     <div class="disp">
       <button id="disp-btn" type="button">Настройки календаря ▾</button>
       <div class="disp-menu" id="disp-menu">
+        <label class="disp-all"><input type="checkbox" id="opt-all"> <span id="lbl-all">Выбрать всё</span></label>
         <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
         <label><input type="checkbox" id="opt-ug"> <span id="lbl-ug">Полезный бог (UG)</span></label>
         <label><input type="checkbox" id="opt-cat"> <span id="lbl-cat">Категории ($ ♥ ♛)</span></label>
@@ -433,19 +435,7 @@
     <div id="cal-body"></div>
   </div>
 
-  <!-- Quality legend (star rating + clash) -->
-  <div class="q-legend" id="q-legend"></div>
-
-  <!-- Target-category definitions ($ money · ♥ resources/health · ♛ bosses/power) -->
-  <div class="cat-legend" id="cat-legend"></div>
-
-  <!-- Calendar marker definitions (clash · Mercury retrograde · day without wealth · eclipse corridor) -->
-  <div class="def-legend" id="def-legend"></div>
-
-  <!-- Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) -->
-  <div class="ind-legend" id="ind-legend"></div>
-
-  <!-- Hour pillars for the selected day -->
+  <!-- Hour pillars for the selected day (directly under the calendar) -->
   <div class="hours">
     <div class="hours-title"><span id="hours-title"></span></div>
     <div class="hours-grid" id="hours-grid"></div>
@@ -457,6 +447,18 @@
     </div>
     <div class="hours-legend" id="hours-legend"></div>
   </div>
+
+  <!-- Quality legend (star rating + clash) -->
+  <div class="q-legend" id="q-legend"></div>
+
+  <!-- Target-category definitions ($ money · ♥ resources/health · ♛ bosses/power) -->
+  <div class="cat-legend" id="cat-legend"></div>
+
+  <!-- Calendar marker definitions (clash · Mercury retrograde · day without wealth · eclipse corridor) -->
+  <div class="def-legend" id="def-legend"></div>
+
+  <!-- Markers legend (officers, clashes, sha, no-wealth, kill-master, Rx, eclipses) -->
+  <div class="ind-legend" id="ind-legend"></div>
 
   <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
   <div class="footer-brand">SuccessCode</div>
@@ -474,7 +476,7 @@ const I18N = {
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
-    show: "Настройки календаря", optSolarMonth: "Солнечный месяц",
+    show: "Настройки календаря", optAll: "Выбрать всё", optSolarMonth: "Солнечный месяц",
     optInd: "Индикаторы (1–12)", optClash: "Столкновения", optSha: "Ша (三煞)",
     optNoWealth: "День без богатства", optKillMaster: "День убивающий мастера",
     optRx: "Ретроградный Меркурий", optEclipse: "Затмения", optUG: "Полезный бог (UG)",
@@ -532,7 +534,7 @@ const I18N = {
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
-    show: "Calendar settings", optSolarMonth: "Solar month",
+    show: "Calendar settings", optAll: "Select all", optSolarMonth: "Solar month",
     optInd: "Day Officers (1–12)", optClash: "Clashes", optSha: "Sha (三煞)",
     optNoWealth: "Day without wealth", optKillMaster: "Day that kills the master",
     optRx: "Mercury retrograde", optEclipse: "Eclipses", optUG: "Useful God (UG)",
@@ -848,7 +850,7 @@ let viewM = now.getMonth();
 let selected = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
 
-let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
+let LON = 5.1214, TZNAME = "Europe/Amsterdam", CITYNAME = "Utrecht", USE_SOLAR = true, _cityTimer = null;
 let SOLAR_MONTH = true;
 let SHOW_IND = true, SHOW_CLASH = true, SHOW_SHA = true, SHOW_NW = true, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true, SHOW_UG = true, SHOW_CAT = true;
 function tzOffsetMin(date, tz) {
@@ -1260,6 +1262,22 @@ document.getElementById("opt-nw").addEventListener("change", e => { SHOW_NW = e.
 document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
 document.getElementById("opt-rx").addEventListener("change", e => { SHOW_RX = e.target.checked; renderGrid(); });
 document.getElementById("opt-ecl").addEventListener("change", e => { SHOW_ECLIPSE = e.target.checked; renderGrid(); });
+/* Tick all / untick all */
+const _ALL_OPTS = ["opt-solar","opt-ug","opt-cat","opt-ind","opt-clash","opt-sha","opt-nw","opt-km","opt-rx","opt-ecl"];
+function syncAllOpts() {
+  const cbs = _ALL_OPTS.map(id => document.getElementById(id));
+  const all = cbs.every(c => c.checked), none = cbs.every(c => !c.checked);
+  const a = document.getElementById("opt-all");
+  a.checked = all; a.indeterminate = !all && !none;
+}
+document.getElementById("opt-all").addEventListener("change", e => {
+  const on = e.target.checked;
+  e.target.indeterminate = false;
+  SOLAR_MONTH = SHOW_UG = SHOW_CAT = SHOW_IND = SHOW_CLASH = SHOW_SHA = SHOW_NW = SHOW_KM = SHOW_RX = SHOW_ECLIPSE = on;
+  _ALL_OPTS.forEach(id => document.getElementById(id).checked = on);
+  renderGrid();
+});
+_ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", syncAllOpts));
 
 /* ===================== Language ===================== */
 function applyLang() {
@@ -1273,6 +1291,7 @@ function applyLang() {
   document.getElementById("solar-label").textContent = L().solar;
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
   document.getElementById("disp-btn").textContent = L().show + " ▾";
+  document.getElementById("lbl-all").textContent = L().optAll;
   document.getElementById("lbl-solar").textContent = L().optSolarMonth;
   document.getElementById("lbl-ug").textContent = L().optUG;
   document.getElementById("lbl-cat").textContent = L().optCat;
@@ -1308,6 +1327,9 @@ document.getElementById("opt-nw").checked = SHOW_NW;
 document.getElementById("opt-km").checked = SHOW_KM;
 document.getElementById("opt-rx").checked = SHOW_RX;
 document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
+document.getElementById("cal-city").value = CITYNAME;
+document.getElementById("cal-solar").checked = USE_SOLAR;
+syncAllOpts();
 buildYearOptions();
 applyLang();
 renderAll();
