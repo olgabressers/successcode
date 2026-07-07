@@ -715,7 +715,7 @@ function dayPillars(date) {
   const ec = lunar.getEightChar();
   return {
     y: [ec.getYearGan(),  ec.getYearZhi()],
-    m: [ec.getMonthGan(), ec.getMonthZhi()],
+    m: monthAtHour(lunar, selHour),
     d: [ec.getDayGan(),   ec.getDayZhi()],
     lunar
   };
@@ -905,6 +905,24 @@ function bjToLocal(s) {
   const d = new Date(utcMs + off*60000);
   return { day: d.getUTCDate(), mon: d.getUTCMonth(), hm: pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) };
 }
+/* Month pillar at a LOCAL hour: on a 节 day the solar month switches at the 节's TRUE LOCAL time */
+function shiftMonthEc(js, dm) {
+  const t = new Date(Date.UTC(js.getYear(), js.getMonth()-1, js.getDay(), js.getHour(), js.getMinute()+dm));
+  return Solar.fromYmdHms(t.getUTCFullYear(), t.getUTCMonth()+1, t.getUTCDate(), t.getUTCHours(), t.getUTCMinutes(), 0).getLunar().getEightChar();
+}
+function monthAtHour(lunar, hour) {
+  const s = lunar.getSolar();
+  for (const jq of [lunar.getPrevJie(), lunar.getNextJie()]) {
+    const js = jq.getSolar();
+    if (js.getYear()===s.getYear() && js.getMonth()===s.getMonth() && js.getDay()===s.getDay()) {
+      const [hh, mm] = bjToLocal(js).hm.split(":").map(Number);
+      const ec = (hour >= hh + mm/60) ? shiftMonthEc(js, 2) : shiftMonthEc(js, -2);
+      return [ec.getMonthGan(), ec.getMonthZhi()];
+    }
+  }
+  const ec = lunar.getEightChar();
+  return [ec.getMonthGan(), ec.getMonthZhi()];
+}
 /* On a 节 (sectional term) day — i.e. the day a NEW SOLAR MONTH begins — show the term + exact local start time */
 function solarTermCellHtml(p) {
   const s = p.lunar.getSolar();
@@ -974,7 +992,7 @@ function renderDayBar() {
   renderPillars("db-solar", [
     {lab: L().pHour,  g: ec.getTimeGan(),  z: ec.getTimeZhi()},
     {lab: L().pDay,   g: ec.getDayGan(),   z: ec.getDayZhi()},
-    {lab: L().pMonth, g: ec.getMonthGan(), z: ec.getMonthZhi()},
+    {lab: L().pMonth, g: monthAtHour(lunar, selHour)[0], z: monthAtHour(lunar, selHour)[1]},
     {lab: L().pYear,  g: ec.getYearGan(),  z: ec.getYearZhi()}
   ]);
 
