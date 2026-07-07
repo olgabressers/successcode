@@ -122,6 +122,7 @@
            font-size: 17px; font-weight: 600; line-height: 1; }
   .c-gz { margin-top: 24px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
+  .c-term-t { font-weight: 400; color: var(--text-muted); font-size: 8.5px; }
   .c-stars { display: flex; gap: 1px; margin-top: 4px; }
   .c-stars .st { font-size: 12px; line-height: 1; color: #cfcabb; }
   .c-stars .st.on { color: #111; }
@@ -862,6 +863,23 @@ function tzOffsetMin(date, tz) {
   } catch(e) { return Math.round(LON/15)*60; }
 }
 function corrMin(d) { return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
+/* Solar-term times from lunar-javascript are Beijing (UTC+8); convert to active tz clock (DST-aware) */
+function bjToLocal(s) {
+  const utcMs = Date.UTC(s.getYear(), s.getMonth()-1, s.getDay(), s.getHour(), s.getMinute()) - 480*60000;
+  const off = tzOffsetMin(new Date(utcMs), TZNAME);
+  const d = new Date(utcMs + off*60000);
+  return { day: d.getUTCDate(), mon: d.getUTCMonth(), hm: pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) };
+}
+/* On a 节 (sectional term) day — i.e. the day a NEW SOLAR MONTH begins — show the term + exact local start time */
+function solarTermCellHtml(p) {
+  const s = p.lunar.getSolar();
+  for (const jq of [p.lunar.getPrevJie(), p.lunar.getNextJie()]) {
+    const js = jq.getSolar();
+    if (js.getYear()===s.getYear() && js.getMonth()===s.getMonth() && js.getDay()===s.getDay())
+      return `<div class="c-term">${termLabel(jq.getName())} <span class="c-term-t">${bjToLocal(js).hm}</span></div>`;
+  }
+  return "";
+}
 
 function onCityInput() {
   clearTimeout(_cityTimer);
@@ -1079,6 +1097,7 @@ function renderGrid() {
           ${icons ? `<div class="c-icons">${icons}</div>` : ``}
           ${SHOW_CAT ? catHtml(p) : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
+          ${solarTermCellHtml(p)}
           ${starsHtml(sc.stars)}
           ${SHOW_UG ? ugHtml(p) : ``}
           ${SHOW_IND ? indHtml(p.lunar) : ``}
