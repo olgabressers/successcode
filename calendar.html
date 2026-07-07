@@ -335,6 +335,7 @@
   <div class="nav">
     <button id="prev" type="button" aria-label="prev">‹</button>
     <div class="nav-selects">
+      <select id="sel-hour" aria-label="hour"></select>
       <select id="sel-day" aria-label="day"></select>
       <select id="sel-month" aria-label="month"></select>
       <select id="sel-year" aria-label="year"></select>
@@ -570,9 +571,10 @@ function eightChar(y, m, d, h) {
   return Solar.fromYmdHms(y, m, d, h, 0, 0).getLunar().getEightChar();
 }
 /* Year / Month / Day pillars for a Gregorian date, computed at noon (canonical day pillar) */
+let selHour = 12;   /* reference hour for pillars + month-boundary clash (0–23) */
 function dayPillars(date) {
   const y = date.getFullYear(), m = date.getMonth()+1, d = date.getDate();
-  const lunar = Solar.fromYmdHms(y, m, d, 12, 0, 0).getLunar();
+  const lunar = Solar.fromYmdHms(y, m, d, selHour, 0, 0).getLunar();
   const ec = lunar.getEightChar();
   return {
     y: [ec.getYearGan(),  ec.getYearZhi()],
@@ -659,14 +661,7 @@ function renderDayBar() {
   document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
 
   // effective hour: current hour if today (solar-adjusted when enabled), else noon
-  let eh = 12, ey = y, em = m, ed = d;
-  if (sameDay(selected, new Date())) {
-    const base = new Date();
-    const cm = USE_SOLAR ? corrMin(base) : 0;
-    const eff = new Date(base.getTime() + cm*60000);
-    ey = eff.getFullYear(); em = eff.getMonth()+1; ed = eff.getDate(); eh = eff.getHours();
-  }
-  const lunar = Solar.fromYmdHms(ey, em, ed, eh, 0, 0).getLunar();
+  const lunar = Solar.fromYmdHms(y, m, d, selHour, 0, 0).getLunar();
   const ec = lunar.getEightChar();
 
   const term = lunar.getJieQi();
@@ -700,6 +695,10 @@ function renderDayBar() {
 }
 
 /* ===================== Render: month grid ===================== */
+function buildHourOptions() {
+  let o = ""; for (let h = 0; h < 24; h++) o += `<option value="${h}">${pad2(h)}:00</option>`;
+  const el = document.getElementById("sel-hour"); el.innerHTML = o; el.value = selHour;
+}
 function buildYearOptions() {
   let o = ""; for (let y = 1900; y <= 2100; y++) o += `<option value="${y}">${y}</option>`;
   document.getElementById("sel-year").innerHTML = o;
@@ -1038,6 +1037,7 @@ document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
 document.getElementById("next").addEventListener("click", () => shiftMonth(1));
 document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
 document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
+document.getElementById("sel-hour").addEventListener("change", e => { selHour = +e.target.value; renderAll(); });
 document.getElementById("sel-day").addEventListener("change", e => {
   selected = new Date(viewY, viewM, +e.target.value);
   renderDayBar(); renderHours(); refreshSelection();
@@ -1137,6 +1137,7 @@ document.getElementById("opt-km").checked = SHOW_KM;
 document.getElementById("opt-rx").checked = SHOW_RX;
 document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
 syncAllOpts();
+buildHourOptions();
 buildYearOptions();
 applyLang();
 renderAll();
