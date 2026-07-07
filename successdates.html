@@ -123,6 +123,7 @@
   .c-gz { margin-top: 24px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
   .c-term-t { font-weight: 400; color: var(--text-muted); font-size: 8.5px; }
+  .c-evt-t { display: block; font-weight: 600; font-size: 8px; color: var(--text-dim); line-height: 1.1; margin-top: 1px; letter-spacing: .2px; }
   .c-stars { display: flex; gap: 1px; margin-top: 4px; }
   .c-stars .st { font-size: 12px; line-height: 1; color: #cfcabb; }
   .c-stars .st.on { color: #111; }
@@ -652,22 +653,30 @@ const TIAN_YI = {甲:["丑","未"],戊:["丑","未"],庚:["丑","未"],乙:["子
 /* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s) */
 const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
 /* Mercury retrograde periods (2025–2028). Astronomical station dates. */
+/* Mercury retrograde: date range (for the icon) + UTC station times (moontracks, JPL-DE405-checked).
+   2028 station TIMES not reliably published yet -> date-only (icon shows, no time). */
 const MERCURY_RX = [
-  ["2025-03-15","2025-04-07"],["2025-07-18","2025-08-11"],["2025-11-09","2025-11-29"],
-  ["2026-02-26","2026-03-20"],["2026-06-29","2026-07-23"],["2026-10-24","2026-11-13"],
-  ["2027-02-09","2027-03-03"],["2027-06-10","2027-07-04"],["2027-10-07","2027-10-28"],
-  ["2028-01-24","2028-02-14"],["2028-05-21","2028-06-13"],["2028-09-19","2028-10-11"]
+  {s:"2025-03-15",e:"2025-04-07",sU:"2025-03-15 06:45",eU:"2025-04-07 11:07"},
+  {s:"2025-07-18",e:"2025-08-11",sU:"2025-07-18 04:44",eU:"2025-08-11 07:30"},
+  {s:"2025-11-09",e:"2025-11-29",sU:"2025-11-09 19:02",eU:"2025-11-29 17:38"},
+  {s:"2026-02-26",e:"2026-03-20",sU:"2026-02-26 06:47",eU:"2026-03-20 19:32"},
+  {s:"2026-06-29",e:"2026-07-23",sU:"2026-06-29 17:36",eU:"2026-07-23 22:57"},
+  {s:"2026-10-24",e:"2026-11-13",sU:"2026-10-24 07:12",eU:"2026-11-13 15:53"},
+  {s:"2027-02-09",e:"2027-03-03",sU:"2027-02-09 17:36",eU:"2027-03-03 12:31"},
+  {s:"2027-06-10",e:"2027-07-04",sU:"2027-06-10 18:15",eU:"2027-07-04 19:39"},
+  {s:"2027-10-07",e:"2027-10-28",sU:"2027-10-07 14:36",eU:"2027-10-28 14:10"},
+  {s:"2028-01-24",e:"2028-02-14"},{s:"2028-05-21",e:"2028-06-13"},{s:"2028-09-19",e:"2028-10-11"}
 ];
 /* Solar & lunar eclipses (2025–2028, UTC dates). Sources: USNO, NASA, Wikipedia. */
 const ECLIPSES = {
-  "2025-03-14":{t:"lunar",k:"total"},   "2025-03-29":{t:"solar",k:"partial"},
-  "2025-09-07":{t:"lunar",k:"total"},   "2025-09-21":{t:"solar",k:"partial"},
-  "2026-02-17":{t:"solar",k:"annular"}, "2026-03-03":{t:"lunar",k:"total"},
-  "2026-08-12":{t:"solar",k:"total"},   "2026-08-28":{t:"lunar",k:"partial"},
-  "2027-02-06":{t:"solar",k:"annular"}, "2027-02-20":{t:"lunar",k:"penumbral"},
-  "2027-07-18":{t:"lunar",k:"penumbral"},"2027-08-02":{t:"solar",k:"total"}, "2027-08-17":{t:"lunar",k:"penumbral"},
-  "2028-01-12":{t:"lunar",k:"partial"}, "2028-01-26":{t:"solar",k:"annular"},
-  "2028-07-06":{t:"lunar",k:"partial"}, "2028-07-22":{t:"solar",k:"total"},  "2028-12-31":{t:"lunar",k:"total"}
+  "2025-03-14":{t:"lunar",k:"total",pk:"2025-03-14 07:00"},   "2025-03-29":{t:"solar",k:"partial",pk:"2025-03-29 10:49"},
+  "2025-09-07":{t:"lunar",k:"total",pk:"2025-09-07 18:13"},   "2025-09-21":{t:"solar",k:"partial",pk:"2025-09-21 19:43"},
+  "2026-02-17":{t:"solar",k:"annular",pk:"2026-02-17 12:13"}, "2026-03-03":{t:"lunar",k:"total",pk:"2026-03-03 11:35"},
+  "2026-08-12":{t:"solar",k:"total",pk:"2026-08-12 17:47"},   "2026-08-28":{t:"lunar",k:"partial",pk:"2026-08-28 04:14"},
+  "2027-02-06":{t:"solar",k:"annular",pk:"2027-02-06 16:01"}, "2027-02-20":{t:"lunar",k:"penumbral",pk:"2027-02-20 23:14"},
+  "2027-07-18":{t:"lunar",k:"penumbral",pk:"2027-07-18 16:04"},"2027-08-02":{t:"solar",k:"total",pk:"2027-08-02 10:08"}, "2027-08-17":{t:"lunar",k:"penumbral",pk:"2027-08-17 07:15"},
+  "2028-01-12":{t:"lunar",k:"partial",pk:"2028-01-12 04:14"}, "2028-01-26":{t:"solar",k:"annular",pk:"2028-01-26 15:09"},
+  "2028-07-06":{t:"lunar",k:"partial",pk:"2028-07-06 18:21"}, "2028-07-22":{t:"solar",k:"total",pk:"2028-07-22 02:57"},  "2028-12-31":{t:"lunar",k:"total",pk:"2028-12-31 16:53"}
 };
 
 const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
@@ -792,8 +801,32 @@ function killMasterHtml(p) {
 }
 const dateKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
 function rxIcon(dk) {
-  for (const [s,e] of MERCURY_RX) if (dk >= s && dk <= e)
+  for (const {s,e} of MERCURY_RX) if (dk >= s && dk <= e)
     return `<span class="ic-merc" title="${L().rxTip}"></span>`;
+  return "";
+}
+/* UTC "YYYY-MM-DD HH:MM" -> active-tz local {dk, hm} (DST-aware) */
+function utcToLocal(str) {
+  const [dp, tp] = str.split(" ");
+  const [Y,Mo,D] = dp.split("-").map(Number), [H,Mi] = tp.split(":").map(Number);
+  const utcMs = Date.UTC(Y, Mo-1, D, H, Mi);
+  const off = tzOffsetMin(new Date(utcMs), TZNAME);
+  const d = new Date(utcMs + off*60000);
+  return { dk: d.getUTCFullYear()+"-"+pad2(d.getUTCMonth()+1)+"-"+pad2(d.getUTCDate()), hm: pad2(d.getUTCHours())+":"+pad2(d.getUTCMinutes()) };
+}
+/* Exact local time Mercury stations retrograde (℞) or direct (→) */
+function rxTimeHtml(dk) {
+  for (const r of MERCURY_RX) {
+    if (r.sU) { const l = utcToLocal(r.sU); if (l.dk === dk) return `<div class="c-evt-t" title="${L().rxTip}">℞ ${l.hm}</div>`; }
+    if (r.eU) { const l = utcToLocal(r.eU); if (l.dk === dk) return `<div class="c-evt-t" title="${L().rxTip}">→ ${l.hm}</div>`; }
+  }
+  return "";
+}
+/* Exact local time of greatest eclipse on its day */
+function eclipseTimeHtml(dk) {
+  for (const k in ECLIPSES) { const ec = ECLIPSES[k];
+    if (ec.pk) { const l = utcToLocal(ec.pk); if (l.dk === dk) return `<div class="c-evt-t">${ec.t==="solar"?"☀":"🌙"} ${l.hm}</div>`; }
+  }
   return "";
 }
 function eclipseIcon(dk) {
@@ -1095,6 +1128,8 @@ function renderGrid() {
       html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
           <div class="c-num">${cur.getDate()}</div>
           ${icons ? `<div class="c-icons">${icons}</div>` : ``}
+          ${SHOW_RX ? rxTimeHtml(dk) : ``}
+          ${SHOW_ECLIPSE ? eclipseTimeHtml(dk) : ``}
           ${SHOW_CAT ? catHtml(p) : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
           ${solarTermCellHtml(p)}
