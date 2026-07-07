@@ -113,6 +113,8 @@
   /* day pillar horizontal: stem + branch side by side */
   .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
   .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
+  .c-term-t { font-weight: 400; color: var(--text-muted); font-size: 8.5px; }
+  .c-evt-t { display: block; font-weight: 600; font-size: 8px; color: var(--text-dim); line-height: 1.1; margin-top: 1px; letter-spacing: .2px; }
   .c-ind { font-size: 10px; line-height: 1.15; color: var(--gold-dim); font-weight: 600; margin-top: 3px; }
   .c-clash { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
   .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #fff; }
@@ -920,7 +922,7 @@ function renderGrid() {
           <div class="c-num">${cur.getDate()}</div>
           ${icons ? `<div class="c-icons">${icons}</div>` : ``}
           <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
-          ${term ? `<div class="c-term">${termLabel(term)}</div>` : ``}
+          ${term ? `<div class="c-term">${termLabel(term)} <span class="c-term-t">${bjToLocal(p.lunar.getJieQiTable()[term]).hm}</span></div>` : ``}
           ${SHOW_IND ? indHtml(p.lunar) : ``}
           ${SHOW_SHA ? shaHtml(p) : ``}
           ${SHOW_CLASH ? clashHtml(p) : ``}
