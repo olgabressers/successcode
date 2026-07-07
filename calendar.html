@@ -161,6 +161,7 @@
   .disp-menu label { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
                      font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-dim); cursor: pointer; }
   .disp-menu label:hover { background: #faf7ef; }
+  .disp-menu label.disp-all { font-weight: 600; color: var(--gold); border-bottom: 1px solid var(--border); }
   .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
 
   /* Officers legend */
@@ -345,6 +346,7 @@
     <div class="disp">
       <button id="disp-btn" type="button">Настройки календаря ▾</button>
       <div class="disp-menu" id="disp-menu">
+        <label class="disp-all"><input type="checkbox" id="opt-all"> <span id="lbl-all">Выбрать всё</span></label>
         <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
         <label><input type="checkbox" id="opt-lunar"> <span id="lbl-lunar">Лунный месяц</span></label>
         <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
@@ -392,7 +394,7 @@ const I18N = {
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
     solar: "Солнечное время", cityPh: "Город", min: "мин",
-    show: "Настройки календаря", optInd: "Индикаторы (1–12)", optClash: "Столкновения",
+    show: "Настройки календаря", optAll: "Выбрать всё", optInd: "Индикаторы (1–12)", optClash: "Столкновения",
     optSolarMonth: "Солнечный месяц", optLunarMonth: "Лунный месяц", optNoWealth: "День без богатства",
     optKillMaster: "День убивающий мастера",
     optRx: "Ретроградный Меркурий", optEclipse: "Затмения",
@@ -425,7 +427,7 @@ const I18N = {
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
     solar: "Solar time", cityPh: "City", min: "min",
-    show: "Calendar settings", optInd: "Day Officers (1–12)", optClash: "Clashes",
+    show: "Calendar settings", optAll: "Select all", optInd: "Day Officers (1–12)", optClash: "Clashes",
     optSolarMonth: "Solar month", optLunarMonth: "Lunar month", optNoWealth: "Day without wealth",
     optKillMaster: "Day that kills the master",
     optRx: "Mercury retrograde", optEclipse: "Eclipses",
@@ -589,6 +591,14 @@ function tzOffsetMin(date, tz) {
     return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second) - date.getTime())/60000);
   } catch(e) { return Math.round(LON/15)*60; }
 }
+/* Solar-term times from lunar-javascript are Beijing (UTC+8) wall-clock.
+   Convert to the calendar's active timezone clock time (DST-aware). */
+function bjToLocal(s) {
+  const utcMs = Date.UTC(s.getYear(), s.getMonth()-1, s.getDay(), s.getHour(), s.getMinute()) - 480*60000;
+  const off = tzOffsetMin(new Date(utcMs), TZNAME);
+  const d = new Date(utcMs + off*60000);
+  return { day: d.getUTCDate(), mon: d.getUTCMonth(), hm: pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) };
+}
 /* minutes to add to clock time to get mean solar time */
 function corrMin(d) { return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
 
@@ -671,10 +681,11 @@ function renderDayBar() {
   // captions for the selected day's solar & lunar month
   const mn = L().months, sr = solarMonthByDate(selected), lr = lunarMonthByDate(selected);
   const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
+  const sbj = bjToLocal(sr.jieSolar);
   document.getElementById("db-solar-cap").textContent =
-    `☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)}`;
+    `☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)} · ⏱ ${sbj.day} ${mn[sbj.mon]} ${sbj.hm}`;
   document.getElementById("db-lunar-cap").textContent =
-    `🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)}`;
+    `🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)} · 🌑 ${lr.start.getDate()} ${mn[lr.start.getMonth()]}`;
 }
 
 /* ===================== Render: month grid ===================== */
@@ -761,7 +772,7 @@ function solarMonthByDate(dt) {
   const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
   const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
   end.setDate(end.getDate()-1);
-  return { start, end, jie: pj.getName() };
+  return { start, end, jie: pj.getName(), jieSolar: ps };
 }
 /* Lunar month range (lunar day 1 → last lunar day) containing a given date */
 function lunarMonthByDate(dt) {
@@ -1031,6 +1042,18 @@ document.getElementById("opt-nw").addEventListener("change", e => { SHOW_NW = e.
 document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
 document.getElementById("opt-rx").addEventListener("change", e => { SHOW_RX = e.target.checked; renderGrid(); });
 document.getElementById("opt-ecl").addEventListener("change", e => { SHOW_ECLIPSE = e.target.checked; renderGrid(); });
+/* Tick all / untick all */
+const _ALL_OPTS = ["opt-solar","opt-lunar","opt-ind","opt-clash","opt-sha","opt-nw","opt-km","opt-rx","opt-ecl"];
+function syncAllOpts() {
+  const cbs = _ALL_OPTS.map(id => document.getElementById(id));
+  const all = cbs.every(c => c.checked), none = cbs.every(c => !c.checked);
+  const a = document.getElementById("opt-all"); a.checked = all; a.indeterminate = !all && !none;
+}
+document.getElementById("opt-all").addEventListener("change", e => {
+  const on = e.target.checked; e.target.indeterminate = false;
+  _ALL_OPTS.forEach(id => { const cb = document.getElementById(id); if (cb.checked !== on) { cb.checked = on; cb.dispatchEvent(new Event("change")); } });
+});
+_ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", syncAllOpts));
 
 /* ===================== Language ===================== */
 function applyLang() {
@@ -1042,6 +1065,7 @@ function applyLang() {
   document.getElementById("solar-label").textContent = L().solar;
   document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
   document.getElementById("disp-btn").textContent = L().show + " ▾";
+  document.getElementById("lbl-all").textContent = L().optAll;
   document.getElementById("lbl-solar").textContent = L().optSolarMonth;
   document.getElementById("lbl-lunar").textContent = L().optLunarMonth;
   document.getElementById("lbl-ind").textContent = L().optInd;
@@ -1075,6 +1099,7 @@ document.getElementById("opt-nw").checked = SHOW_NW;
 document.getElementById("opt-km").checked = SHOW_KM;
 document.getElementById("opt-rx").checked = SHOW_RX;
 document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
+syncAllOpts();
 buildYearOptions();
 applyLang();
 renderAll();
