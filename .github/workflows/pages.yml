@@ -15,11 +15,13 @@ permissions:
   pages: write
   id-token: write
 
-# One deployment at a time, but a NEW push cancels a stuck/queued predecessor
-# so a hung deploy run can never wedge the queue for hours.
+# One deployment at a time. Do NOT cancel an in-progress deploy — cancelling a
+# live Pages deployment leaves the github-pages environment in a failed state,
+# which fails the deploy step on nearly every subsequent push. This matches
+# GitHub's official Pages workflow (cancel-in-progress: false).
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:

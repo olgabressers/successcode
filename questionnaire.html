@@ -659,6 +659,11 @@
           </label>
         </div>
 
+        <!-- ЗАЩИТА ОТ СПАМА (reCAPTCHA) — появляется только когда задан ключ; иначе форма работает как раньше -->
+        <div class="field" id="captcha-field" style="display:none">
+          <div id="recaptcha-box"></div>
+        </div>
+
         <input type="hidden" name="_subject" id="form_subject" value="SuccessCode 2026 — Анкета">
         <input type="hidden" name="_replyto" id="form_replyto" value="">
 
@@ -681,6 +686,15 @@
 </div>
 
 <script>
+  /* ─────────────────────────────────────────────────────────────
+     ЗАЩИТА ОТ СПАМА — Google reCAPTCHA v2 ("I'm not a robot").
+     Впиши сюда site key с https://www.google.com/recaptcha/admin
+     (reCAPTCHA v2 → "I'm not a robot Checkbox", домен successcode.net),
+     затем добавь ТОТ ЖЕ ключ в Formspree → форма → Settings → reCAPTCHA.
+     Пока ключ пустой ('') — капча выключена и форма работает как раньше. */
+  var RECAPTCHA_SITE_KEY = '';
+  /* ───────────────────────────────────────────────────────────── */
+
   var curStep = 1;
   var selQ = null;
 
@@ -979,10 +993,30 @@
     }
   });
 
+  /* КАПЧА — грузим виджет только если задан ключ (иначе форма без капчи, как прежде) */
+  var _captchaWidgetId = null;
+  window.__cbCaptchaReady = function() {
+    try {
+      _captchaWidgetId = grecaptcha.render('recaptcha-box', { sitekey: RECAPTCHA_SITE_KEY });
+      document.getElementById('captcha-field').style.display = 'block';
+    } catch (e) { /* если что-то не так с ключом — не блокируем форму */ }
+  };
+  (function initCaptcha() {
+    if (!RECAPTCHA_SITE_KEY) return; // выключено
+    var s = document.createElement('script');
+    s.src = 'https://www.google.com/recaptcha/api.js?onload=__cbCaptchaReady&render=explicit';
+    s.async = true; s.defer = true;
+    document.head.appendChild(s);
+  })();
+
   /* ОТПРАВКА */
   async function submitForm() {
     if (!validate(4)) return;
     if (!document.getElementById('consent-cb').checked) { alert('Пожалуйста, подтвердите согласие.'); return; }
+    // Капча обязательна, только если она включена (задан ключ и виджет отрисован)
+    if (RECAPTCHA_SITE_KEY && _captchaWidgetId !== null) {
+      if (!grecaptcha.getResponse(_captchaWidgetId)) { alert('Пожалуйста, подтвердите, что вы не робот.'); return; }
+    }
     var btn = document.getElementById('btn-submit');
     btn.disabled = true; btn.textContent = 'Отправляем…';
     var fd = new FormData(document.getElementById('qform'));
