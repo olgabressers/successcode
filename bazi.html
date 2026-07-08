@@ -65,6 +65,12 @@
 
   .result { max-width: 900px; margin: 0 auto; display: none; }
 
+  .hour-boundary { display: none; max-width: 900px; margin: 0 auto 16px; background: #fdf5df;
+                   border: 1px solid var(--gold); color: var(--gold-dim);
+                   padding: 11px 16px; font-size: 13px; font-weight: 600;
+                   letter-spacing: 0.6px; text-align: center; }
+  .hour-boundary.show { display: block; }
+
   /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
   .chart-layout {
     display: grid;
@@ -99,25 +105,25 @@
   }
   .pillar-el {
     font-family: 'Inter', sans-serif;
-    font-size: 9.5px; letter-spacing: 0.4px;
+    font-size: 9.5px; letter-spacing: 0.3px;
     color: var(--text-muted); line-height: 1.2;
     text-transform: uppercase;
-    white-space: nowrap;
+    white-space: normal; word-break: break-word; hyphens: auto;
   }
   .pillar-qi {
     font-family: 'Inter', sans-serif;
-    font-size: 10px; letter-spacing: 0.4px;
+    font-size: 9.5px; letter-spacing: 0.2px;
     color: var(--gold-dim); font-weight: 600;
-    line-height: 1.25;
+    line-height: 1.2;
     text-transform: uppercase;
-    white-space: nowrap;
+    white-space: normal; word-break: break-word; hyphens: auto;
   }
   .pillar-god {
     font-family: 'Inter', sans-serif;
-    font-size: 10.5px; line-height: 1.2;
-    color: var(--text-dim); letter-spacing: 0.15px;
+    font-size: 10px; line-height: 1.2;
+    color: var(--text-dim); letter-spacing: 0.1px;
     padding: 0 2px;
-    white-space: nowrap;
+    white-space: normal; word-break: break-word; hyphens: auto;
   }
   .pillar-god.hidden-slot { visibility: hidden; height: 12px; }
   .pillar-hide {
@@ -239,7 +245,9 @@
     .pillar { padding: 10px 6px 12px; gap: 5px; }
     .pillar-h { font-size: 8.5px; padding: 5px 6px; margin: -10px -6px 4px; width: calc(100% + 12px); }
     .pillar-stem, .pillar-branch { font-size: 26px; }
-    .pillar-god { font-size: 9px; }
+    .pillar-god { font-size: 8.5px; }
+    .pillar-el { font-size: 8px; }
+    .pillar-qi { font-size: 8px; }
     .hide-row .hg { font-size: 15px; }
     .hide-row .hs { font-size: 9px; }
     .aux-item { padding: 8px 12px; }
@@ -345,6 +353,9 @@
 
 <div class="result" id="result">
 
+  <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
+  <div class="hour-boundary" id="hour-boundary"></div>
+
   <!-- Chart: 4 pillars on the left, Auxiliary Stars + Void on the right -->
   <div class="chart-layout">
     <div class="pillars" id="pillars"></div>
@@ -410,6 +421,7 @@ const I18N = {
     checkDT: "Проверьте дату и время.",
     calcErr: "Ошибка расчёта: ",
     mm: "мин",
+    hourBoundary: "Граница часа",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -453,6 +465,7 @@ const I18N = {
     checkDT: "Check date and time.",
     calcErr: "Calculation error: ",
     mm: "min",
+    hourBoundary: "Hour boundary",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -607,6 +620,16 @@ function compute(){
     const ec = lunar.getEightChar();
 
     render(ec, lunar, sex, cm);
+
+    // Hour-branch (时辰) boundary check on SOLAR time — branches switch at odd hours
+    // (…23:00, 01:00, 03:00, …). Warn if within ±15 min of a switch.
+    const solMin = sh*60 + smi;
+    const r = ((((solMin - 60) % 120) + 120) % 120);
+    const distToBoundary = Math.min(r, 120 - r);
+    const hb = document.getElementById("hour-boundary");
+    if (distToBoundary <= 15) { hb.textContent = L().hourBoundary; hb.classList.add("show"); }
+    else { hb.classList.remove("show"); hb.textContent = ""; }
+
     document.getElementById("result").style.display="block";
   }catch(err){
     console.error(err);
@@ -693,7 +716,6 @@ function renderPillars(ec){
       <div class="pillar-branch ${elClass(p.zhi[i])}">${p.zhi[i]}</div>
       <div class="pillar-el">${branchEl}</div>
       <div class="pillar-qi">${qi}</div>
-      <div class="pillar-god">${tg(p.shenBranch[i]||"")}</div>
       ${hideRows ? `<div class="pillar-hide">${hideRows}</div>` : ""}
     </div>`);
   }
