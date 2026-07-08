@@ -447,6 +447,7 @@ const I18N = {
     solarTimeLabel: "Солнечное время",
     solarBirth: "Солнечное время рождения",
     clockBirth: "Время рождения (по часам)",
+    solarShort: "солнечное время", clockShort: "по часам",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -495,6 +496,7 @@ const I18N = {
     solarTimeLabel: "Solar time",
     solarBirth: "Solar birth time",
     clockBirth: "Birth time (clock)",
+    solarShort: "solar time", clockShort: "clock time",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -710,7 +712,7 @@ function compute(){
       const beforeRange = `${pad(beforeH)}:00–${pad(bH)}:00`;
       const afterRange  = `${pad(bH)}:00–${pad(afterEndH)}:00`;
       hb.innerHTML =
-        `<div class="hb-head">${L().hourBoundary} · ${pad(bH)}:00</div>` +
+        `<div class="hb-head">${L().hourBoundary} · ${pad(bH)}:00 · ${useSolar ? L().solarShort : L().clockShort}</div>` +
         `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${beforeRange} → ` +
           `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span></div>` +
         `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${afterRange} → ` +
