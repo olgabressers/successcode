@@ -371,9 +371,6 @@
 
 <div class="result" id="result">
 
-  <!-- Solar birth time actually used for the chart (always published) -->
-  <div class="solar-birth" id="solar-birth"></div>
-
   <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
   <div class="hour-boundary" id="hour-boundary"></div>
 
@@ -691,13 +688,9 @@ function compute(){
 
     render(ec, lunar, sex, cm);
 
-    // Always publish the time actually used for the chart (solar if ticked, clock if not)
-    const sb = document.getElementById("solar-birth");
-    sb.textContent = `${useSolar ? L().solarBirth : L().clockBirth}: ${pad(sd)}.${pad(smo)}.${sy} · ${pad(sh)}:${pad(smi)}`;
-    sb.classList.add("show");
-
-    // Hour-branch (时辰) boundary check on SOLAR time — branches switch at odd hours
-    // (…23:00, 01:00, 03:00, …). Warn if within ±15 min of a switch.
+    // Hour-branch (时辰) boundary check — branches switch at odd hours (…23:00, 01:00, 03:00…).
+    // Warn if within ±15 min of a switch; split the two branches at the actual birth time.
+    // Uses solar time when the Solar-time box is ticked, otherwise clock time.
     const solMin = sh*60 + smi;
     const r = ((((solMin - 60) % 120) + 120) % 120);
     const distToBoundary = Math.min(r, 120 - r);
@@ -705,14 +698,17 @@ function compute(){
     if (distToBoundary <= 15) {
       const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary, min-of-day
       const bH   = ((Math.round(bMin / 60)) % 24 + 24) % 24;      // boundary hour (odd)
-      const afterBr   = BRANCH_BY_START_HOUR[bH];
-      const beforeH   = (bH - 2 + 24) % 24;
-      const beforeBr  = BRANCH_BY_START_HOUR[beforeH];
-      const afterEndH = (bH + 2) % 24;
-      const beforeRange = `${pad(beforeH)}:00–${pad(bH)}:00`;
-      const afterRange  = `${pad(bH)}:00–${pad(afterEndH)}:00`;
+      const prevStartH = (bH - 2 + 24) % 24;                      // start of the earlier branch block
+      const nextEndH   = (bH + 2) % 24;                           // end of the later branch block
+      const beforeBr = BRANCH_BY_START_HOUR[prevStartH];         // branch before the boundary
+      const afterBr  = BRANCH_BY_START_HOUR[bH];                 // branch after the boundary
+      const hereT = `${pad(sh)}:${pad(smi)}`;                    // the birth time itself = the split
+      const aMin  = (solMin + 1) % 1440;
+      const aT    = `${pad(Math.floor(aMin/60))}:${pad(aMin%60)}`;
+      const beforeRange = `${pad(prevStartH)}:00–${hereT}`;
+      const afterRange  = `${aT}–${pad(nextEndH)}:00`;
       hb.innerHTML =
-        `<div class="hb-head">${L().hourBoundary} · ${pad(bH)}:00 · ${useSolar ? L().solarShort : L().clockShort}</div>` +
+        `<div class="hb-head">${L().hourBoundary} · ${useSolar ? L().solarShort : L().clockShort}</div>` +
         `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${beforeRange} → ` +
           `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span></div>` +
         `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${afterRange} → ` +
