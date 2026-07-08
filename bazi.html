@@ -361,7 +361,7 @@
     </div>
     <div class="solar-info" id="solar-info"></div>
     <div class="form-group check-group">
-      <label class="check-label"><input type="checkbox" id="f-solar"><span data-i18n="solarTimeLabel">Введено солнечное время (без пересчёта)</span></label>
+      <label class="check-label"><input type="checkbox" id="f-solar" checked><span data-i18n="solarTimeLabel">Солнечное время</span></label>
     </div>
   </div>
   <div class="form-actions">
@@ -444,8 +444,9 @@ const I18N = {
     mm: "мин",
     hourBoundary: "Граница часа",
     hbBefore: "До", hbAfter: "После",
-    solarTimeLabel: "Введено солнечное время (без пересчёта)",
+    solarTimeLabel: "Солнечное время",
     solarBirth: "Солнечное время рождения",
+    clockBirth: "Время рождения (по часам)",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -491,8 +492,9 @@ const I18N = {
     mm: "min",
     hourBoundary: "Hour boundary",
     hbBefore: "Before", hbAfter: "After",
-    solarTimeLabel: "Solar time entered (no conversion)",
+    solarTimeLabel: "Solar time",
     solarBirth: "Solar birth time",
+    clockBirth: "Birth time (clock)",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -623,8 +625,8 @@ function updateSolarInfo(){
   if(!y||!mo||!d) return;
   const clock=new Date(y,mo-1,d,h,mi,0);
   if(isNaN(clock.getTime())) return;
-  const solarEntered = document.getElementById("f-solar").checked;
-  const cm = solarEntered ? 0 : corrMin(clock);
+  const useSolar = document.getElementById("f-solar").checked;
+  const cm = useSolar ? corrMin(clock) : 0;
   const sign=cm>=0?"+":"-";
   document.getElementById("solar-info").textContent =
     `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
@@ -675,8 +677,8 @@ function compute(){
     if(clock.getFullYear()!==y||clock.getMonth()!==mo-1||clock.getDate()!==d){
       showError(L().invalidDate); return;
     }
-    const solarEntered = document.getElementById("f-solar").checked;
-    const cm = solarEntered ? 0 : corrMin(clock);
+    const useSolar = document.getElementById("f-solar").checked;
+    const cm = useSolar ? corrMin(clock) : 0;
     const solar=new Date(clock.getTime()+cm*60000);
     const sy=solar.getFullYear(), smo=solar.getMonth()+1, sd=solar.getDate(),
           sh=solar.getHours(), smi=solar.getMinutes();
@@ -687,9 +689,9 @@ function compute(){
 
     render(ec, lunar, sex, cm);
 
-    // Always publish the solar time actually used for the chart
+    // Always publish the time actually used for the chart (solar if ticked, clock if not)
     const sb = document.getElementById("solar-birth");
-    sb.textContent = `${L().solarBirth}: ${pad(sd)}.${pad(smo)}.${sy} · ${pad(sh)}:${pad(smi)}`;
+    sb.textContent = `${useSolar ? L().solarBirth : L().clockBirth}: ${pad(sd)}.${pad(smo)}.${sy} · ${pad(sh)}:${pad(smi)}`;
     sb.classList.add("show");
 
     // Hour-branch (时辰) boundary check on SOLAR time — branches switch at odd hours
