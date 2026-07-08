@@ -67,9 +67,16 @@
 
   .hour-boundary { display: none; max-width: 900px; margin: 0 auto 16px; background: #fdf5df;
                    border: 1px solid var(--gold); color: var(--gold-dim);
-                   padding: 11px 16px; font-size: 13px; font-weight: 600;
-                   letter-spacing: 0.6px; text-align: center; }
+                   padding: 12px 18px; text-align: center; }
   .hour-boundary.show { display: block; }
+  .hour-boundary .hb-head { font-size: 14px; font-weight: 700; letter-spacing: 0.6px; margin-bottom: 7px; }
+  .hour-boundary .hb-row { font-size: 13px; font-weight: 500; margin-top: 3px; color: var(--text); }
+  .hour-boundary .hb-lab { display: inline-block; min-width: 58px; text-align: right;
+                           color: var(--text-muted); text-transform: uppercase;
+                           font-size: 10px; letter-spacing: 1px; margin-right: 4px; }
+  .hour-boundary .cn { font-family: 'Cormorant Garamond', serif; font-size: 19px;
+                       font-weight: 600; vertical-align: middle; }
+  .hour-boundary .hb-pol { color: var(--text-dim); font-size: 11px; }
 
   /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
   .chart-layout {
@@ -422,6 +429,7 @@ const I18N = {
     calcErr: "Ошибка расчёта: ",
     mm: "мин",
     hourBoundary: "Граница часа",
+    hbBefore: "До", hbAfter: "После",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -466,6 +474,7 @@ const I18N = {
     calcErr: "Calculation error: ",
     mm: "min",
     hourBoundary: "Hour boundary",
+    hbBefore: "Before", hbAfter: "After",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -537,6 +546,9 @@ function qiPhase(dayStem, branch) {
 
 /* Ten Gods table: index by (DM index, target index) — computed via lunar-js */
 
+/* Hour-branch (时辰) by the odd hour at which the 2-hour block STARTS */
+const BRANCH_BY_START_HOUR = {23:"子",1:"丑",3:"寅",5:"卯",7:"辰",9:"巳",11:"午",13:"未",15:"申",17:"酉",19:"戌",21:"亥"};
+
 /* Season from month branch (BaZi solar month) */
 const SEASON_BY_BRANCH = {
   寅:"spring",卯:"spring",辰:"spring",
@@ -599,6 +611,38 @@ function updateSolarInfo(){
     `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
 }
 
+/* ===== Persist last calculation for 1 hour across reloads ===== */
+const LAST_KEY = "bazi-last", LAST_TTL = 3600000; // 1 hour
+function saveState(){
+  try {
+    localStorage.setItem(LAST_KEY, JSON.stringify({
+      y:v("f-year"), mo:v("f-month"), d:v("f-day"),
+      h:v("f-hour"), mi:v("f-min"), sex:v("f-sex"),
+      city:v("f-city"), lon:LON, tz:TZNAME, cityName:CITYNAME,
+      ts: Date.now()
+    }));
+  } catch(e){}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(LAST_KEY);
+    if(!raw) return false;
+    const st = JSON.parse(raw);
+    if(!st || !st.ts || (Date.now() - st.ts > LAST_TTL)){ localStorage.removeItem(LAST_KEY); return false; }
+    document.getElementById("f-year").value  = st.y;
+    document.getElementById("f-month").value = st.mo;
+    document.getElementById("f-day").value   = st.d;
+    document.getElementById("f-hour").value  = st.h;
+    document.getElementById("f-min").value   = st.mi;
+    document.getElementById("f-sex").value   = st.sex;
+    document.getElementById("f-city").value  = st.city;
+    if(st.lon != null && !isNaN(parseFloat(st.lon))) LON = parseFloat(st.lon);
+    if(st.tz)       TZNAME   = st.tz;
+    if(st.cityName) CITYNAME = st.cityName;
+    return true;
+  } catch(e){ return false; }
+}
+
 /* ===== Compute ===== */
 function compute(){
   hideError();
@@ -627,9 +671,25 @@ function compute(){
     const r = ((((solMin - 60) % 120) + 120) % 120);
     const distToBoundary = Math.min(r, 120 - r);
     const hb = document.getElementById("hour-boundary");
-    if (distToBoundary <= 15) { hb.textContent = L().hourBoundary; hb.classList.add("show"); }
-    else { hb.classList.remove("show"); hb.textContent = ""; }
+    if (distToBoundary <= 15) {
+      const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary, min-of-day
+      const bH   = ((Math.round(bMin / 60)) % 24 + 24) % 24;      // boundary hour (odd)
+      const afterBr   = BRANCH_BY_START_HOUR[bH];
+      const beforeH   = (bH - 2 + 24) % 24;
+      const beforeBr  = BRANCH_BY_START_HOUR[beforeH];
+      const afterEndH = (bH + 2) % 24;
+      const beforeRange = `${pad(beforeH)}:00–${pad(bH)}:00`;
+      const afterRange  = `${pad(bH)}:00–${pad(afterEndH)}:00`;
+      hb.innerHTML =
+        `<div class="hb-head">${L().hourBoundary} · ${pad(bH)}:00</div>` +
+        `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${beforeRange} → ` +
+          `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span></div>` +
+        `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${afterRange} → ` +
+          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span></div>`;
+      hb.classList.add("show");
+    } else { hb.classList.remove("show"); hb.innerHTML = ""; }
 
+    saveState();
     document.getElementById("result").style.display="block";
   }catch(err){
     console.error(err);
@@ -986,8 +1046,9 @@ document.addEventListener("click", e=>{
 });
 
 applyLang();
+loadState(); // restore last calculation if it is less than 1 hour old
 updateSolarInfo();
-// Auto-compute on load with defaults
+// Auto-compute on load (restored inputs if available, otherwise defaults)
 try { compute(); } catch(e) {}
 </script>
 </body>
