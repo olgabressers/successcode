@@ -21,9 +21,11 @@
       --border:   rgba(154,110,32,0.22);
       --border2:  rgba(30,28,40,0.10);
       --red:      #7A1E1E;
+      --redfade:  rgba(122,30,30,0.06);
       --green:    #1A5026;
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
     html { scroll-behavior: smooth; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
 
@@ -82,6 +84,8 @@
     .clarify-box .icon { color: var(--gold); font-size: 18px; flex-shrink: 0; line-height: 1; margin-top: 2px; }
     .clarify-box p { font-size: 12.5px; color: var(--dim); line-height: 1.65; }
     .clarify-box strong { color: var(--text); }
+    .clarify-box.warn { background: var(--redfade); border-color: rgba(122,30,30,0.3); }
+    .clarify-box.warn .icon { color: var(--red); }
 
     /* TABLE LEGEND */
     .table-legend { display: flex; gap: 22px; align-items: center; margin-bottom: 16px; font-size: 11px; color: var(--muted); flex-wrap: wrap; }
@@ -98,12 +102,14 @@
     .month-table tr:last-child { border-bottom: none; }
     .month-table td { padding: 20px 18px; vertical-align: top; background: white; }
     .month-table tr.peak-row td { background: var(--goldfade) !important; }
+    .month-table tr.dip-row td { background: var(--redfade) !important; }
 
     .m-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--text); display: block; line-height: 1.2; }
     .m-dates { font-size: 11px; color: var(--muted); display: block; margin-top: 4px; }
     .m-badge { display: inline-block; margin-top: 8px; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; padding: 3px 7px; }
     .m-badge.peak { color: var(--gold); border: 1px solid var(--border); background: rgba(154,110,32,0.08); }
     .m-badge.mod  { color: var(--muted); border: 1px solid var(--border2); }
+    .m-badge.dip  { color: var(--red); border: 1px solid rgba(122,30,30,0.3); }
 
     .intensity-row { display: flex; gap: 5px; justify-content: center; margin-bottom: 6px; }
     .intensity-label { font-size: 10px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; text-align: center; }
@@ -113,6 +119,15 @@
 
     .action-row { font-size: 12.5px; color: var(--dim); padding: 5px 0; display: flex; gap: 8px; align-items: flex-start; line-height: 1.45; }
     .action-row::before { content: '→'; color: var(--gold); flex-shrink: 0; margin-top: 1px; }
+
+    /* TECH APPENDIX */
+    .tech-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .tech-table th { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); background: var(--surface2); }
+    .tech-table td { padding: 9px 12px; border-bottom: 1px solid var(--border2); color: var(--dim); vertical-align: top; }
+    .tech-table tr:last-child td { border-bottom: none; }
+    .tech-strong { color: var(--gold); font-weight: 600; }
+    .tech-dip { color: var(--red); }
+    .tech-note-lead { font-size: 12.5px; color: var(--dim); line-height: 1.7; margin-bottom: 16px; }
 
     /* CHART SECTION */
     .chart-wrap { border: 1px solid var(--border2); overflow: hidden; background: white; }
@@ -137,12 +152,14 @@
       .chart-wrap { page-break-before: always; }
     }
     @media (max-width: 900px) {
+      * { max-width: 100vw; }
       .page { padding: 0 24px 60px; }
       .report-header { flex-direction: column; align-items: flex-start; gap: 24px; }
       .header-right { text-align: left; }
       .verdict-row { grid-template-columns: 1fr; }
       .do-dont-grid { grid-template-columns: 1fr; }
       .report-title { font-size: 36px; }
+      table, .tech-table, .month-table { max-width: 100% !important; }
     }
   </style>
 </head>
@@ -157,14 +174,13 @@
         <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше · Discover more →</a>
       </div>
       <h1 class="report-title">Персональная стратегия<br><em>поиска работы в 2026</em></h1>
-      <p class="report-subtitle">Индивидуальный анализ &nbsp;·&nbsp; Июль — Декабрь 2026</p>
+      <p class="report-subtitle">Индивидуальный анализ &nbsp;·&nbsp; Июль 2026 — Февраль 2027</p>
     </div>
     <div class="header-right">
       <div class="client-label">Подготовлено для</div>
       <div class="client-name">Алена</div>
       <div class="client-meta">Старший директор · E-commerce &amp; Digital</div>
-      <div class="client-meta">Нидерланды</div>
-      <div class="report-date">Июнь 2026</div>
+      <div class="report-date">Июль 2026</div>
     </div>
   </header>
 
@@ -175,18 +191,25 @@
 
   <div class="intro-block">
     <p class="intro-lead">
-      Работодатели, которые не знают вас лично, реагируют на ваши материалы
-      <em>значительно сильнее</em>, чем компании, к которым вас подводят через общих знакомых.
+      Ваш канал 2026 года — <em>массовые прямые отклики</em> с сильным экспертным профилем.
+      Работу приносит ваш профиль, а не связи.
     </p>
     <p class="intro-body">
-      Это не случайность — паттерн повторяется в вашей истории раз в десять лет.
-      В 2006 году четыре холодных обращения дали четыре предложения (конверсия 100%).
-      В 2016 году Adidas тоже пришёл через прямой контакт. В 2026 условия идентичны.
+      Когда незнакомый рекрутер видит CV и профиль, которые с первой строки показывают ваш
+      директорский уровень, он откликается даже «вхолодную». Именно так вы получали офферы
+      в 2006 (четыре холодных обращения → четыре предложения) и в 2016. В 2026 работает
+      тот же механизм: сильный профиль + большой объём прямых откликов на LinkedIn и job-boards.
     </p>
     <p class="intro-body">
-      Два главных усилителя этого года: ваш профиль автоматически проецирует авторитет
-      через письменные материалы — рекрутеры видят вас как эксперта ещё до разговора.
-      И международные или remote-first компании реагируют заметно лучше, чем локальные.
+      <strong>Два настоящих окна во второй половине года:</strong> <strong>12 августа — 9 сентября</strong>
+      (пик восприятия профиля) и <strong>7 ноября — 5 декабря</strong> (пик выхода на оффер —
+      сильнейшее окно года). Остальные месяцы либо готовят эти два, либо работают на другие сферы жизни.
+    </p>
+    <p class="intro-body">
+      <strong>Честная калибровка.</strong> Окно — это период, когда канал <em>открыт и благоприятен</em>,
+      а не гарантия подписанного контракта в эти 30 дней. И важная опора: в отличие от 2025 года,
+      в 2026 на вашем карьерном секторе <strong>нет ни одной вредящей звезды</strong> — ось структурно
+      открыта. В 2025 её глушила годовая звезда-тормоз; в 2026 этого нет.
     </p>
   </div>
 
@@ -194,18 +217,18 @@
   <div class="verdict-row">
     <div class="verdict-card highlight">
       <div class="vc-label">Главный метод</div>
-      <div class="vc-value">Холодные прямые обращения</div>
-      <div class="vc-sub">CV и сопроводительное письмо — ваши сильнейшие инструменты в этом году. Персональное письмо конкретному человеку, не форма на сайте.</div>
+      <div class="vc-value">Прямые массовые отклики</div>
+      <div class="vc-sub">LinkedIn и job-boards. Сильный CV/профиль, показывающий директорский уровень сразу. Не персональные письма конкретным людям — а объём прямых откликов.</div>
     </div>
     <div class="verdict-card">
-      <div class="vc-label">Целевой формат</div>
-      <div class="vc-value">Международные и remote-first</div>
-      <div class="vc-sub">Компании за пределами Нидерландов или с распределёнными командами откликаются заметно лучше в этот период.</div>
+      <div class="vc-label">Чего избегать</div>
+      <div class="vc-value">Нетворкинг как главный канал</div>
+      <div class="vc-sub">В этом году энергия связей нестабильна: «позвони знакомому» разочаровывает. Связи дают контекст о компании — но оффер приходит через ваш отклик.</div>
     </div>
     <div class="verdict-card">
-      <div class="vc-label">Ключевое окно</div>
-      <div class="vc-value">Октябрь — ноябрь 2026</div>
-      <div class="vc-sub">Структурный пик для подписания оффера. Аналогичные условия в июле 2018 года дали лучший контракт в карьере.</div>
+      <div class="vc-label">Ключевые окна</div>
+      <div class="vc-value">12 авг — 9 сен &nbsp;·&nbsp; 7 ноя — 5 дек</div>
+      <div class="vc-sub">Август — пик профиля (максимум откликов). Ноябрь — пик выхода на оффер (год вашего рождения удваивает карьерный сигнал). Сюда — основной напор.</div>
     </div>
   </div>
 
@@ -214,23 +237,23 @@
     <div class="dd-card">
       <div class="dd-title green">✓ &nbsp; Делайте в 2026</div>
       <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span>Отправляйте CV напрямую — без посредников и взаимных рекомендаций</li>
-        <li><span style="color:var(--green)">●</span>Фокус на C-suite и hiring manager — не на HR-inbox</li>
-        <li><span style="color:var(--green)">●</span>Международные компании, EMEA-роли, remote-first</li>
-        <li><span style="color:var(--green)">●</span>Твёрдо торгуйтесь по компенсации — в июне–июле и октябре переговоры идут в вашу пользу</li>
-        <li><span style="color:var(--green)">●</span>Обновляйте LinkedIn для входящего трафика — но не как основной канал</li>
-        <li><span style="color:var(--green)">●</span>Будьте доступны в октябре: финальные раунды — ваш пик</li>
+        <li><span style="color:var(--green)">●</span>Держите большой объём прямых откликов на LinkedIn / job-boards</li>
+        <li><span style="color:var(--green)">●</span>CV и профиль должны с первой строки показывать директорский, экспертный уровень</li>
+        <li><span style="color:var(--green)">●</span>Основной напор — в два окна: 12 авг — 9 сен и 7 ноя — 5 дек</li>
+        <li><span style="color:var(--green)">●</span>В тихие месяцы держите базовый темп — они наполняют воронку, а не проваливаются</li>
+        <li><span style="color:var(--green)">●</span>Твёрдо торгуйтесь по компенсации — сильнее всего позиция в ноябрьском окне</li>
+        <li><span style="color:var(--green)">●</span>Освободите календарь под финальные раунды в ноябре</li>
       </ul>
     </div>
     <div class="dd-card">
       <div class="dd-title red">✗ &nbsp; Избегайте в 2026</div>
       <ul class="dd-list">
-        <li><span style="color:var(--red)">●</span>Нетворкинг как основная стратегия — энергия сети в этом году нестабильна</li>
-        <li><span style="color:var(--red)">●</span>Ставка на «позвони кому-то знакомому» — этот канал приносит разочарования</li>
-        <li><span style="color:var(--red)">●</span>Ждать, пока рекрутеры найдут вас сами — пассивный режим не работает в этом году</li>
-        <li><span style="color:var(--red)">●</span>Принимать первый оффер без переговоров — особенно в июле и ноябре</li>
-        <li><span style="color:var(--red)">●</span>Смешивать рабочие переговоры с личными отношениями</li>
-        <li><span style="color:var(--red)">●</span>Рассылать один и тот же слабый CV — работает только сильный профиль, который сразу показывает уровень эксперта</li>
+        <li><span style="color:var(--red)">●</span>Нетворкинг и тёплые интро как основной канал — в этом году ненадёжно</li>
+        <li><span style="color:var(--red)">●</span>Ждать, пока рекрутеры найдут вас сами — пассивный режим не работает</li>
+        <li><span style="color:var(--red)">●</span>Писать персональные письма отдельным людям вместо объёма откликов</li>
+        <li><span style="color:var(--red)">●</span>Считать тихий месяц (июль, декабрь) провалом — там просто нет карьерной активации</li>
+        <li><span style="color:var(--red)">●</span>Принимать первый оффер без переговоров</li>
+        <li><span style="color:var(--red)">●</span>Форсировать в октябре — это структурный спад перед ноябрьским пиком</li>
       </ul>
     </div>
   </div>
@@ -242,21 +265,35 @@
       Это массовые отклики на вакансии напрямую — LinkedIn, job-boards — с сильным CV и профилем,
       которые с первой строки показывают ваш уровень эксперта. Незнакомый рекрутер видит экспертизу
       и отвечает даже «вхолодную». Именно так вы получали офферы в 2006 и 2016. Что НЕ работает
-      в 2026 — ставка на нетворкинг и знакомых. Канал — ваш профиль, а не связи.
+      в 2026 — ставка на нетворкинг и знакомых, и персональные письма конкретным людям. Канал — ваш профиль, а не связи.
+    </p>
+  </div>
+
+  <!-- FRAUD CAUTION -->
+  <div class="clarify-box warn">
+    <div class="icon">⚠</div>
+    <p>
+      <strong>Осторожно: мошенничество во время поиска работы.</strong>
+      2026 — год повышенного риска мошенничества на оси «деньги + незнакомцы/онлайн». В поиске работы это
+      значит: фальшивые «рекрутеры», «офферы» через Telegram/WhatsApp, просьбы оплатить «обучение»,
+      «оборудование», «проверку», крипто-задания, «инвестиции». <strong>Настоящий работодатель никогда
+      не просит у вас денег.</strong> Проверяйте каждого рекрутёра через официальный сайт компании.
+      Особая осторожность — к контактам «только онлайн» и иностранным, вышедшим на вас первыми.
+      Острее всего — конец апреля–июль и повтор в 2028.
     </p>
   </div>
 
   <div class="gold-rule-full"></div>
 
   <!-- MONTH TABLE -->
-  <div class="section-label">Помесячная стратегия</div>
-  <h2 class="section-title">Июль — Январь 2027</h2>
+  <div class="section-label">Как действовать в каждом месяце</div>
+  <h2 class="section-title">Июль 2026 — Февраль 2027</h2>
 
   <div class="table-legend">
     <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-right:4px;">Потенциал месяца:</span>
     <div class="legend-item">
       <div class="legend-dots"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
-      <span>Пиковый — максимально активно</span>
+      <span>Пиковый — максимальный напор</span>
     </div>
     <div class="legend-item">
       <div class="legend-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
@@ -264,7 +301,11 @@
     </div>
     <div class="legend-item">
       <div class="legend-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
-      <span>Умеренный — поддерживайте темп</span>
+      <span>Умеренный — темп</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-dots"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <span>Тихий — базовый темп</span>
     </div>
   </div>
 
@@ -279,158 +320,224 @@
     </thead>
     <tbody>
 
-      <tr class="peak-row">
+      <!-- M5 -->
+      <tr>
         <td>
           <span class="m-name">Июнь–Июль</span>
           <span class="m-dates">15 июня — 13 июля</span>
-          <span class="m-badge peak">Пиковый</span>
+          <span class="m-badge mod">Тихий · Не карьерный</span>
         </td>
         <td style="text-align:center">
-          <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
-          <div class="intensity-label">Пиковый</div>
+          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="intensity-label">Тихий</div>
         </td>
         <td>
-          <div class="m-focus">Финансовый пик · Переговоры по деньгам</div>
-          <p class="m-desc">Самый сильный денежный сигнал полугодия. Финансовые каналы открыты на максимум — это период, когда обсуждение компенсации разрешается в вашу пользу. Если оффер находился в стадии переговоров — именно сейчас нужно дожимать. Этот же паттерн в 2006 году дал 100% конверсию по холодным обращениям.</p>
+          <div class="m-focus">Сфера денег, не карьеры · Риск мошенничества</div>
+          <p class="m-desc">Энергия месяца — на деньгах и активах, а не на карьерном секторе. Плюс именно здесь стоит годовой «клинок мошенничества» на деньгах — не случайно предложения-ловушки идут сейчас. Это не месяц выхода на работу. Не читайте отсутствие оффера как провал — карьерная сфера в этом месяце не активна.</p>
         </td>
         <td>
-          <div class="action-row">Требуйте финальные условия по открытым переговорам</div>
-          <div class="action-row">Называйте цифру первой — позиция сильная</div>
-          <div class="action-row">Запустите 10–15 персональных писем в новые компании</div>
-          <div class="action-row">Подписывайте контракты и оферты</div>
+          <div class="action-row">Держите ровный базовый темп откликов (5–10 в неделю)</div>
+          <div class="action-row">Никаких «инвестиций» и «офферов» с просьбой денег — это мошенники</div>
+          <div class="action-row">Готовьте сильное директорское CV к августовскому напору</div>
         </td>
       </tr>
 
+      <!-- M6 -->
       <tr>
         <td>
           <span class="m-name">Июль–Август</span>
           <span class="m-dates">14 июля — 11 августа</span>
-          <span class="m-badge peak" style="opacity:.75">Входящий поток</span>
+          <span class="m-badge mod">Подготовка</span>
+        </td>
+        <td style="text-align:center">
+          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="intensity-label">Тихий–умер.</div>
+        </td>
+        <td>
+          <div class="m-focus">Сеть слегка теплеет · Разгон</div>
+          <p class="m-desc">Сетевой сектор мягко оживает, но карьерной активации ещё нет — это разгонный месяц перед августовским пиком. Тихая полоса здесь структурна, а не тревожна.</p>
+        </td>
+        <td>
+          <div class="action-row">Обновите LinkedIn и CV под директорский уровень</div>
+          <div class="action-row">Соберите список целевых компаний</div>
+          <div class="action-row">Наращивайте объём откликов к середине августа</div>
+        </td>
+      </tr>
+
+      <!-- M7 PEAK -->
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Август–Сентябрь</span>
+          <span class="m-dates">12 августа — 9 сентября</span>
+          <span class="m-badge peak">Сильный · Пик профиля</span>
         </td>
         <td style="text-align:center">
           <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
           <div class="intensity-label">Сильный</div>
         </td>
         <td>
-          <div class="m-focus">Хедхантеры · Международные роли</div>
-          <p class="m-desc">Хедхантеры и тёплые контакты выходят на вас сами — без видимых причин. Международные и remote-first компании особенно восприимчивы именно сейчас. Ваш профиль воспринимается как экспертный у незнакомой аудитории.</p>
+          <div class="m-focus">Максимум авторитета профиля · Объём</div>
+          <p class="m-desc">Ваш профиль проецирует максимальный авторитет — сетевой/экспертный канал на пике (тройное усиление). Незнакомые рекрутеры читают вас как топ-кандидата ещё до звонка. Это месяц для максимального объёма прямых откликов.</p>
         </td>
         <td>
-          <div class="action-row">Отвечайте на входящие в течение 24 часов</div>
-          <div class="action-row">Приоритет — компании за пределами NL</div>
-          <div class="action-row">Обновите LinkedIn и CV под международный рынок</div>
-        </td>
-      </tr>
-
-      <tr class="peak-row">
-        <td>
-          <span class="m-name">Август–Сентябрь</span>
-          <span class="m-dates">12 августа — 9 сентября</span>
-          <span class="m-badge peak">Пиковый</span>
-        </td>
-        <td style="text-align:center">
-          <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
-          <div class="intensity-label">Пиковый</div>
-        </td>
-        <td>
-          <div class="m-focus">Максимальный авторитет · Объём холодного поиска</div>
-          <p class="m-desc">Наивысшая точка года по восприятию вашего профиля. Тройное усиление авторитетного сигнала — компании, читающие ваш отклик в этот период, видят вас как топ-кандидата ещё до звонка. Именно сейчас нужен максимальный объём откликов на вакансии. Личная жизнь под давлением — строго отделяйте работу.</p>
-        </td>
-        <td>
-          <div class="action-row">20–30 персональных писем в новые компании</div>
-          <div class="action-row">Пишите напрямую GM / VP / C-suite на английском</div>
+          <div class="action-row">20–30 прямых откликов на директорские роли</div>
+          <div class="action-row">Профиль сразу показывает senior-уровень</div>
           <div class="action-row">Follow-up через 5 рабочих дней</div>
+          <div class="action-row">Строго отделяйте работу от личного давления</div>
         </td>
       </tr>
 
+      <!-- M8 -->
       <tr>
         <td>
           <span class="m-name">Сентябрь–Октябрь</span>
           <span class="m-dates">10 сентября — 8 октября</span>
-          <span class="m-badge mod">Умеренный</span>
+          <span class="m-badge mod">Умеренный · Трение</span>
         </td>
         <td style="text-align:center">
           <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
           <div class="intensity-label">Умеренный</div>
         </td>
         <td>
-          <div class="m-focus">Поддерживайте темп · Подготовка к октябрю</div>
-          <p class="m-desc">Смешанный сигнал: сетевые контакты реагируют, но с трением. Часть диалогов зависает или идёт медленнее, чем ожидалось. Продолжайте отправки в прежнем темпе, без форсирования. Хорошее время, чтобы углублённо исследовать компании и подготовиться к финальным раундам в октябре.</p>
+          <div class="m-focus">Признание с трением · Осторожность</div>
+          <p class="m-desc">Признание через сеть продолжается, но с трением: часть диалогов виснет, возможны недопонимания и искажение ваших слов. Держите набранный в августе темп. Снова бдительность к «слишком хорошим» предложениям (месяц с повышенным риском обмана).</p>
         </td>
         <td>
-          <div class="action-row">10–15 писем в неделю, ровный темп</div>
-          <div class="action-row">Исследуйте целевые компании глубоко</div>
-          <div class="action-row">Доработайте сопроводительное письмо</div>
+          <div class="action-row">10–15 откликов в неделю, ровно</div>
+          <div class="action-row">Двигайте августовские диалоги к интервью</div>
+          <div class="action-row">В переписке — точные формулировки, без лишнего</div>
         </td>
       </tr>
 
-      <tr class="peak-row">
+      <!-- M9 DIP -->
+      <tr class="dip-row">
         <td>
           <span class="m-name">Октябрь–Ноябрь</span>
           <span class="m-dates">9 октября — 6 ноября</span>
-          <span class="m-badge peak">Окно оффера</span>
+          <span class="m-badge dip">Спад · Не форсировать</span>
+        </td>
+        <td style="text-align:center">
+          <div class="intensity-row"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="intensity-label">Спад</div>
+        </td>
+        <td>
+          <div class="m-focus">Карьерный сектор подавлен · Затишье перед пиком</div>
+          <p class="m-desc">В этом месяце карьерный сектор подавлен — выйти на подпись здесь труднее всего. НЕ читайте затишье как провал: это спад ровно перед вашим пиком. Одновременно идёт энергия перестройки идентичности — хорошо для подготовки, плохо для форсирования оффера.</p>
+        </td>
+        <td>
+          <div class="action-row">Держите воронку тёплой, но не ждите подписи</div>
+          <div class="action-row">Готовьте материалы для финальных раундов</div>
+          <div class="action-row">Не соглашайтесь на слабый оффер из-за давления</div>
+        </td>
+      </tr>
+
+      <!-- M10 PEAK -->
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Ноябрь–Декабрь</span>
+          <span class="m-dates">7 ноября — 5 декабря</span>
+          <span class="m-badge peak">Пиковый · Окно оффера</span>
         </td>
         <td style="text-align:center">
           <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div></div>
           <div class="intensity-label">Пиковый</div>
         </td>
         <td>
-          <div class="m-focus">Решение приходит · Освободите календарь</div>
-          <p class="m-desc">Главное окно для финального оффера года. Структурный сдвиг: даже если до этого момента что-то буксовало — здесь разблокируется. Это точная копия условий июля 2018, когда был подписан лучший контракт в карьере. Оффер может прийти неожиданно — не затягивайте с ответом.</p>
+          <div class="m-focus">Сильнейшее карьерное окно года · Подпись</div>
+          <p class="m-desc">Самое сильное карьерное окно года. Год вашего рождения удваивает сигнал на карьерной оси и оси личности одновременно — это пик выхода на оффер и подписания. Предложения могут кристаллизоваться быстро — будьте доступны.</p>
         </td>
         <td>
-          <div class="action-row">Освободите 2 недели для финальных интервью</div>
-          <div class="action-row">Отвечайте на предложения в течение 24 часов</div>
-          <div class="action-row">Торгуйтесь — позиция структурно сильная</div>
-          <div class="action-row">Не затягивайте подписание без причины</div>
+          <div class="action-row">Освободите календарь под финальные интервью</div>
+          <div class="action-row">Отвечайте на офферы в течение 24 часов</div>
+          <div class="action-row">Твёрдо торгуйтесь — позиция сильнейшая сейчас</div>
+          <div class="action-row">В начале окна — финальная волна откликов</div>
         </td>
       </tr>
 
+      <!-- M11 -->
       <tr>
         <td>
-          <span class="m-name">Ноябрь–Декабрь</span>
-          <span class="m-dates">7 ноября — 5 декабря</span>
-          <span class="m-badge peak" style="opacity:.75">Детали контракта</span>
+          <span class="m-name">Декабрь–Январь</span>
+          <span class="m-dates">6 декабря — 3 января 2027</span>
+          <span class="m-badge mod">Тихий · Закрытие</span>
         </td>
         <td style="text-align:center">
-          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div></div>
-          <div class="intensity-label">Сильный</div>
+          <div class="intensity-row"><div class="dot on"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="intensity-label">Тихий</div>
         </td>
         <td>
-          <div class="m-focus">Внутренний радар на максимуме</div>
-          <p class="m-desc">Ваш внутренний радар для оценки офферов сейчас на пике. Вы точно отличите хорошее предложение от ловушки. Используйте период для due diligence по любому офферу из октября — реальные полномочия, команда, культура. Переговоры по equity, scope или льготам — именно сейчас.</p>
+          <div class="m-focus">Нет карьерной активации · Консолидация</div>
+          <p class="m-desc">Карьерной активации нет — тихий месяц. Не месяц новых офферов, а время закрыть и проверить то, что открылось в ноябре. Спокойно проведите due diligence по любому предложению.</p>
         </td>
         <td>
-          <div class="action-row">Изучайте условия контракта детально</div>
-          <div class="action-row">Задавайте неудобные вопросы — момент для этого</div>
-          <div class="action-row">Переговоры по scope, бонусам, льготам</div>
+          <div class="action-row">Доводите ноябрьские процессы до решения</div>
+          <div class="action-row">Проверяйте оффер: реальные полномочия, команда, scope</div>
+          <div class="action-row">Отдых и перезагрузка</div>
         </td>
       </tr>
 
-      <tr class="peak-row">
+      <!-- M12 -->
+      <tr>
         <td>
-          <span class="m-name">Декабрь–Январь</span>
-          <span class="m-dates">6 дек — 3 янв 2027</span>
-          <span class="m-badge peak">Второй пик</span>
+          <span class="m-name">Январь–Февраль</span>
+          <span class="m-dates">4 января — 1 февраля 2027</span>
+          <span class="m-badge mod">Умеренный · 2-е окно</span>
         </td>
         <td style="text-align:center">
-          <div class="intensity-row"><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot peak"></div><div class="dot"></div></div>
-          <div class="intensity-label">Пиковый</div>
+          <div class="intensity-row"><div class="dot on"></div><div class="dot on"></div><div class="dot on"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="intensity-label">Умеренный</div>
         </td>
         <td>
-          <div class="m-focus">Резервное окно · Сильная переговорная позиция</div>
-          <p class="m-desc">Если октябрь не принёс финального результата — декабрь даёт второй шанс той же силы. Компании закрывают позиции до конца года — используйте это как рычаг. Переговоры по компенсации и дате выхода идут в вашу пользу.</p>
+          <div class="m-focus">Сеть снова теплеет · Личная подача работает</div>
+          <p class="m-desc">Сетевой канал снова оживает, и ваша личная история/подача заходит хорошо. Вторичное окно — хорошо для устных, интервью-ведомых шагов и оживления зависших диалогов.</p>
         </td>
         <td>
-          <div class="action-row">Финальный объём: 15–20 писем в новые компании</div>
-          <div class="action-row">Дедлайн конца года — ваш аргумент</div>
-          <div class="action-row">Дата выхода — не раньше 1 февраля 2027</div>
-          <div class="action-row">Называйте цифру без извинений</div>
+          <div class="action-row">Оживите зависшие с осени диалоги</div>
+          <div class="action-row">Делайте ставку на устную/интервью-подачу</div>
+          <div class="action-row">Дата выхода — не раньше ~1 февраля 2027</div>
         </td>
       </tr>
 
     </tbody>
   </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- TECH APPENDIX -->
+  <div class="section-label">Техническая основа — почему именно эти месяцы</div>
+  <p class="tech-note-lead">
+    Это не «ощущения» — расчёт детерминированный. Месяц считается карьерным окном, только если полёт
+    усилителя месяца попадает на вашу <strong>карьерную звезду (Тань Лан, П9)</strong> или на <strong>сетевой
+    канал (Тянь Цзи / Цзюй Мэнь, П8)</strong>. Полёты на другие дворцы (богатство, здоровье, путешествия)
+    карьеру не двигают. Ниже — весь год, чтобы вы могли проверить каждую строку. <em>Пройденные месяцы
+    показаны для проверки; апрель (М4) был реальным окном и открыл процесс, но не подпись.</em>
+  </p>
+
+  <div style="overflow-x:auto;">
+  <table class="tech-table">
+    <thead>
+      <tr>
+        <th style="min-width:130px">Лунный месяц</th>
+        <th>Полёт на карьерные дворцы (П9 / П8 / П1)</th>
+        <th style="min-width:110px">Сила для работы</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>М1 庚寅 · 17.02–18.03</td><td>только ветвь 寅→П9 (без полёта усилителя)</td><td>Слабый</td></tr>
+      <tr><td>М2 辛卯 · 19.03–16.04</td><td>Лу→Цзюй Мэнь→П8 + ветвь 卯→П8</td><td>Умеренный</td></tr>
+      <tr><td>М3 壬辰 · 17.04–15.05</td><td>— (полёты на П6/П7)</td><td>Низкий</td></tr>
+      <tr><td>М4 癸巳 · 16.05–14.06</td><td>Цзи→Тань Лан→П9 (активатор) + Цюань→Цзюй Мэнь→П8</td><td class="tech-strong">Сильный (пройден)</td></tr>
+      <tr><td>М5 甲午 · 15.06–13.07</td><td>нет П9/П8 (Цюань→По Цзюнь→П1, ветвь→П5 Богатство)</td><td>Не карьерный</td></tr>
+      <tr><td>М6 乙未 · 14.07–11.08</td><td>Лу→Тянь Цзи→П8 (мягко)</td><td>Низкий–умер.</td></tr>
+      <tr><td>М7 丙申 · 12.08–09.09</td><td>Цюань→Тянь Цзи→П8 (тройное: год+декада+месяц)</td><td class="tech-strong">Сильный</td></tr>
+      <tr><td>М8 丁酉 · 10.09–08.10</td><td>Кэ→Тянь Цзи→П8 + Цзи→Цзюй Мэнь→П8 (трение)</td><td>Умеренный</td></tr>
+      <tr><td>М9 戊戌 · 09.10–06.11</td><td>Лу→Тань Лан→П9 = подавление карьеры</td><td class="tech-dip">Спад</td></tr>
+      <tr><td>М10 己亥 · 07.11–05.12</td><td>Цюань→Тань Лан→П9 + Цзи→Вэнь Цюй→П1 (год рождения 己)</td><td class="tech-strong">ПИК</td></tr>
+      <tr><td>М11 庚子 · 06.12–03.01</td><td>— (Цзи→Тянь Тун→П12)</td><td>Низкий</td></tr>
+      <tr><td>М12 辛丑 · 04.01–01.02.27</td><td>Лу→Цзюй Мэнь→П8 + Кэ→Вэнь Цюй→П1</td><td>Умеренный</td></tr>
+    </tbody>
+  </table>
+  </div>
 
   <div class="gold-rule-full"></div>
 
@@ -453,12 +560,12 @@
   <div class="bottom-note">
     <div class="bn-icon">ℹ</div>
     <div class="bn-text">
-      <strong>Про нетворкинг в 2026.</strong>
-      Поддерживайте контакты и посещайте встречи — но не рассчитывайте на то,
-      что знакомые приведут оффер. Это не значит, что связи бесполезны: они дают информацию
-      о компании и внутренний контекст. Но финальное предложение в этом году с высокой вероятностью
-      придёт через ваш собственный отклик на вакансию (LinkedIn / job-boards), а не через знакомых —
-      ваша история это подтверждает дважды.
+      <strong>Прямая линия, без сдвига целей.</strong>
+      Два настоящих окна — <strong>12 авг — 9 сен</strong> и <strong>7 ноя — 5 дек</strong>. Метод —
+      объём прямых откликов с сильным экспертным профилем (LinkedIn / job-boards), не нетворкинг и не
+      персональные письма. Окно открывает дверь — метод в неё входит. Если оба окна пройдут с сильным
+      профилем, отработанным на объём, и ничего не сложится — значит, тезис по 2026 неверен, и это будет
+      сказано прямо, а не заменено ещё одной датой.
     </div>
   </div>
 
@@ -466,7 +573,7 @@
 
   <footer class="report-footer">
     <div class="footer-brand">SuccessCode</div>
-    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально &nbsp;·&nbsp; Июнь 2026</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
   </footer>
 
 </div>
