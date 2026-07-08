@@ -85,6 +85,7 @@
   .hour-boundary .cn { font-family: 'Cormorant Garamond', serif; font-size: 19px;
                        font-weight: 600; vertical-align: middle; }
   .hour-boundary .hb-pol { color: var(--text-dim); font-size: 11px; }
+  .hour-boundary .hb-note { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
 
   /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
   .chart-layout {
@@ -445,6 +446,7 @@ const I18N = {
     solarBirth: "Солнечное время рождения",
     clockBirth: "Время рождения (по часам)",
     solarShort: "солнечное время", clockShort: "по часам",
+    minsAfter: "Минут после начала часа",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -494,6 +496,7 @@ const I18N = {
     solarBirth: "Solar birth time",
     clockBirth: "Birth time (clock)",
     solarShort: "solar time", clockShort: "clock time",
+    minsAfter: "Minutes after hour start",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -688,31 +691,30 @@ function compute(){
 
     render(ec, lunar, sex, cm);
 
-    // Hour-branch (时辰) boundary check — branches switch at odd hours (…23:00, 01:00, 03:00…).
-    // Warn if within ±15 min of a switch; split the two branches at the actual birth time.
-    // Uses solar time when the Solar-time box is ticked, otherwise clock time.
+    // Hour-branch (时辰) boundary check. Branches begin at solar 23:00/01:00/03:00…, but the grid
+    // is DISPLAYED in the user's clock time = shifted by the solar correction (clock = solar − cm).
+    // With Solar-time ticked the boundaries move off the round hours (e.g. 01:49, 03:49, 05:49…);
+    // unticked cm = 0 so they stay on the round hours. Warn within ±15 min of a switch.
     const solMin = sh*60 + smi;
-    const r = ((((solMin - 60) % 120) + 120) % 120);
+    const r = ((((solMin - 60) % 120) + 120) % 120);   // minutes into the current branch
     const distToBoundary = Math.min(r, 120 - r);
     const hb = document.getElementById("hour-boundary");
     if (distToBoundary <= 15) {
-      const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary, min-of-day
+      const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary (calc frame)
       const bH   = ((Math.round(bMin / 60)) % 24 + 24) % 24;      // boundary hour (odd)
-      const prevStartH = (bH - 2 + 24) % 24;                      // start of the earlier branch block
-      const nextEndH   = (bH + 2) % 24;                           // end of the later branch block
-      const beforeBr = BRANCH_BY_START_HOUR[prevStartH];         // branch before the boundary
-      const afterBr  = BRANCH_BY_START_HOUR[bH];                 // branch after the boundary
-      const hereT = `${pad(sh)}:${pad(smi)}`;                    // the birth time itself = the split
-      const aMin  = (solMin + 1) % 1440;
-      const aT    = `${pad(Math.floor(aMin/60))}:${pad(aMin%60)}`;
-      const beforeRange = `${pad(prevStartH)}:00–${hereT}`;
-      const afterRange  = `${aT}–${pad(nextEndH)}:00`;
+      const beforeBr = BRANCH_BY_START_HOUR[(bH - 2 + 24) % 24];  // branch before the boundary
+      const afterBr  = BRANCH_BY_START_HOUR[bH];                  // branch after the boundary
+      const fmt = m => { const x = ((Math.round(m)) % 1440 + 1440) % 1440; return `${pad(Math.floor(x/60))}:${pad(x%60)}`; };
+      const bClock  = bH*60 - cm;         // the switch, in clock time
+      const startCl = (bH-2)*60 - cm;     // start of the earlier branch, clock time
+      const endCl   = (bH+2)*60 - cm;     // end of the later branch, clock time
       hb.innerHTML =
-        `<div class="hb-head">${L().hourBoundary} · ${useSolar ? L().solarShort : L().clockShort}</div>` +
-        `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${beforeRange} → ` +
+        `<div class="hb-head">${L().hourBoundary} · ${fmt(bClock)}</div>` +
+        `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${fmt(startCl)}–${fmt(bClock)} → ` +
           `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span></div>` +
-        `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${afterRange} → ` +
-          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span></div>`;
+        `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${fmt(bClock)}–${fmt(endCl)} → ` +
+          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span></div>` +
+        `<div class="hb-note">${L().minsAfter}: ${r}</div>`;
       hb.classList.add("show");
     } else { hb.classList.remove("show"); hb.innerHTML = ""; }
 
