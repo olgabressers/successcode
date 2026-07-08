@@ -120,7 +120,17 @@
       .report-title{font-size:34px;}
       .intro-block{padding:26px 24px;}
       .intro-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
     }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
   </style>
 </head>
 <body>
@@ -440,5 +450,17 @@
   </footer>
 
 </div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
 </body>
 </html>
