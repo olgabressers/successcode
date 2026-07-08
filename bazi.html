@@ -72,6 +72,10 @@
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
   .result { max-width: 900px; margin: 0 auto; display: none; }
+  .chart-name { display: none; text-align: center; font-family: 'Cormorant Garamond', serif;
+                font-size: 22px; font-weight: 600; color: var(--gold); letter-spacing: 1px;
+                margin-bottom: 14px; }
+  .chart-name.show { display: block; }
 
   .hour-boundary { display: none; max-width: 900px; margin: 0 auto 16px; background: #fdf5df;
                    border: 1px solid var(--gold); color: var(--gold-dim);
@@ -360,6 +364,10 @@
 <div class="form-panel">
   <div class="section-label" data-i18n="birthTitle">Дата, время и город рождения</div>
   <div class="form-grid">
+    <div class="form-group full">
+      <label data-i18n="name">Имя</label>
+      <input type="text" id="f-name" autocomplete="off">
+    </div>
     <div class="form-group">
       <label data-i18n="year">Год</label>
       <input type="number" id="f-year" value="1990" min="1900" max="2100">
@@ -404,6 +412,9 @@
 
 <div class="result" id="result">
 
+  <!-- Person's name (shown when provided) -->
+  <div class="chart-name" id="chart-name"></div>
+
   <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
   <div class="hour-boundary" id="hour-boundary"></div>
 
@@ -435,6 +446,7 @@ const I18N = {
   ru: {
     tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный календарь",
     birthTitle: "Дата, время и город рождения",
+    name: "Имя",
     year: "Год", month: "Месяц", day: "День",
     hour: "Час", minute: "Минута",
     sex: "Пол", male: "Мужской", female: "Женский",
@@ -489,6 +501,7 @@ const I18N = {
   en: {
     tagline: "Ba Zi · Four Pillars of Destiny · Solar Calendar",
     birthTitle: "Birth date, time and city",
+    name: "Name",
     year: "Year", month: "Month", day: "Day",
     hour: "Hour", minute: "Minute",
     sex: "Sex", male: "Male", female: "Female",
@@ -679,6 +692,7 @@ const LAST_KEY = "bazi-last", LAST_TTL = 3600000; // 1 hour
 function saveState(){
   try {
     localStorage.setItem(LAST_KEY, JSON.stringify({
+      name:v("f-name"),
       y:v("f-year"), mo:v("f-month"), d:v("f-day"),
       h:v("f-hour"), mi:v("f-min"), sex:v("f-sex"),
       solar: document.getElementById("f-solar").checked,
@@ -693,6 +707,7 @@ function loadState(){
     if(!raw) return false;
     const st = JSON.parse(raw);
     if(!st || !st.ts || (Date.now() - st.ts > LAST_TTL)){ localStorage.removeItem(LAST_KEY); return false; }
+    if(st.name != null) document.getElementById("f-name").value = st.name;
     document.getElementById("f-year").value  = st.y;
     document.getElementById("f-month").value = st.mo;
     document.getElementById("f-day").value   = st.d;
@@ -733,6 +748,12 @@ function compute(){
     const baziYear = (smo > 2 || (smo === 2 && sd >= 4)) ? sy : sy - 1;
 
     render(ec, lunar, sex, cm, baziYear);
+
+    // Person's name (optional) at the top of the chart
+    const nm = v("f-name").trim();
+    const cn = document.getElementById("chart-name");
+    cn.textContent = nm;
+    cn.classList.toggle("show", nm.length > 0);
 
     // Hour-branch (时辰) boundary check. Branches begin at solar 23:00/01:00/03:00…, but the grid
     // is DISPLAYED in the user's clock time = shifted by the solar correction (clock = solar − cm).
