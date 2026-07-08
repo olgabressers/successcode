@@ -60,6 +60,14 @@
   .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
   .city-opt:hover { background: #faf7ef; }
   .solar-info { font-size: 11px; color: var(--gold-dim); margin-top: 6px; min-height: 14px; grid-column: 1 / -1; }
+  .check-group { grid-column: 1 / -1; }
+  .check-label { display: flex; align-items: center; gap: 9px; font-size: 12px;
+                 letter-spacing: 0.3px; text-transform: none; color: var(--text-dim); cursor: pointer; }
+  .check-label input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0;
+                 accent-color: var(--gold); cursor: pointer; flex: 0 0 auto; }
+  .solar-birth { display: none; max-width: 900px; margin: 0 auto 16px; text-align: center;
+                 font-size: 13px; font-weight: 600; letter-spacing: 0.4px; color: var(--gold-dim); }
+  .solar-birth.show { display: block; }
   .error-msg { max-width: 820px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
@@ -352,6 +360,9 @@
       <div class="city-dd" id="city-dd"></div>
     </div>
     <div class="solar-info" id="solar-info"></div>
+    <div class="form-group check-group">
+      <label class="check-label"><input type="checkbox" id="f-solar"><span data-i18n="solarTimeLabel">Введено солнечное время (без пересчёта)</span></label>
+    </div>
   </div>
   <div class="form-actions">
     <button class="btn-compute" id="btn-compute" data-i18n="compute">Рассчитать</button>
@@ -359,6 +370,9 @@
 </div>
 
 <div class="result" id="result">
+
+  <!-- Solar birth time actually used for the chart (always published) -->
+  <div class="solar-birth" id="solar-birth"></div>
 
   <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
   <div class="hour-boundary" id="hour-boundary"></div>
@@ -430,6 +444,8 @@ const I18N = {
     mm: "мин",
     hourBoundary: "Граница часа",
     hbBefore: "До", hbAfter: "После",
+    solarTimeLabel: "Введено солнечное время (без пересчёта)",
+    solarBirth: "Солнечное время рождения",
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
@@ -475,6 +491,8 @@ const I18N = {
     mm: "min",
     hourBoundary: "Hour boundary",
     hbBefore: "Before", hbAfter: "After",
+    solarTimeLabel: "Solar time entered (no conversion)",
+    solarBirth: "Solar birth time",
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
@@ -605,7 +623,8 @@ function updateSolarInfo(){
   if(!y||!mo||!d) return;
   const clock=new Date(y,mo-1,d,h,mi,0);
   if(isNaN(clock.getTime())) return;
-  const cm=corrMin(clock);
+  const solarEntered = document.getElementById("f-solar").checked;
+  const cm = solarEntered ? 0 : corrMin(clock);
   const sign=cm>=0?"+":"-";
   document.getElementById("solar-info").textContent =
     `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
@@ -618,6 +637,7 @@ function saveState(){
     localStorage.setItem(LAST_KEY, JSON.stringify({
       y:v("f-year"), mo:v("f-month"), d:v("f-day"),
       h:v("f-hour"), mi:v("f-min"), sex:v("f-sex"),
+      solar: document.getElementById("f-solar").checked,
       city:v("f-city"), lon:LON, tz:TZNAME, cityName:CITYNAME,
       ts: Date.now()
     }));
@@ -635,6 +655,7 @@ function loadState(){
     document.getElementById("f-hour").value  = st.h;
     document.getElementById("f-min").value   = st.mi;
     document.getElementById("f-sex").value   = st.sex;
+    document.getElementById("f-solar").checked = !!st.solar;
     document.getElementById("f-city").value  = st.city;
     if(st.lon != null && !isNaN(parseFloat(st.lon))) LON = parseFloat(st.lon);
     if(st.tz)       TZNAME   = st.tz;
@@ -654,7 +675,8 @@ function compute(){
     if(clock.getFullYear()!==y||clock.getMonth()!==mo-1||clock.getDate()!==d){
       showError(L().invalidDate); return;
     }
-    const cm=corrMin(clock);
+    const solarEntered = document.getElementById("f-solar").checked;
+    const cm = solarEntered ? 0 : corrMin(clock);
     const solar=new Date(clock.getTime()+cm*60000);
     const sy=solar.getFullYear(), smo=solar.getMonth()+1, sd=solar.getDate(),
           sh=solar.getHours(), smi=solar.getMinutes();
@@ -664,6 +686,11 @@ function compute(){
     const ec = lunar.getEightChar();
 
     render(ec, lunar, sex, cm);
+
+    // Always publish the solar time actually used for the chart
+    const sb = document.getElementById("solar-birth");
+    sb.textContent = `${L().solarBirth}: ${pad(sd)}.${pad(smo)}.${sy} · ${pad(sh)}:${pad(smi)}`;
+    sb.classList.add("show");
 
     // Hour-branch (时辰) boundary check on SOLAR time — branches switch at odd hours
     // (…23:00, 01:00, 03:00, …). Warn if within ±15 min of a switch.
@@ -1041,6 +1068,10 @@ document.getElementById("print-btn").addEventListener("click", ()=>window.print(
 document.getElementById("f-city").addEventListener("input", onCityInput);
 ["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
   document.getElementById(id).addEventListener("input", updateSolarInfo));
+document.getElementById("f-solar").addEventListener("change", ()=>{
+  updateSolarInfo();
+  if(document.getElementById("result").style.display==="block") compute();
+});
 document.addEventListener("click", e=>{
   if(!e.target.closest(".form-group")) document.getElementById("city-dd").style.display="none";
 });
