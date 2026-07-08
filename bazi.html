@@ -1070,10 +1070,7 @@ document.getElementById("print-btn").addEventListener("click", ()=>window.print(
 document.getElementById("f-city").addEventListener("input", onCityInput);
 ["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
   document.getElementById(id).addEventListener("input", updateSolarInfo));
-document.getElementById("f-solar").addEventListener("change", ()=>{
-  updateSolarInfo();
-  if(document.getElementById("result").style.display==="block") compute();
-});
+document.getElementById("f-solar").addEventListener("change", updateSolarInfo);
 document.addEventListener("click", e=>{
   if(!e.target.closest(".form-group")) document.getElementById("city-dd").style.display="none";
 });
