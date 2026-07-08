@@ -201,6 +201,24 @@
   }
   .aux-hit .cn { font-family: 'Cormorant Garamond', serif; font-weight: 600; margin: 0 2px; }
 
+  /* ── Ming Gua + Eight Mansions directions (八宅) ── */
+  .bagua { background: var(--surface); border: 1px solid var(--border);
+           padding: 14px 18px; margin-bottom: 18px; display: none; }
+  .bagua.show { display: block; }
+  .bagua-title { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+                 color: var(--gold-dim); font-weight: 700; margin-bottom: 10px; }
+  .bagua-title b { color: var(--gold); font-size: 17px; font-family: 'Cormorant Garamond', serif; }
+  .bagua-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .bagua-tbl th { text-align: left; font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase;
+                  color: var(--text-muted); font-weight: 700; padding: 4px 8px; border-bottom: 1px solid var(--border); }
+  .bagua-tbl td { padding: 5px 8px; border-bottom: 1px solid #f0ede4; }
+  .bagua-tbl tr:last-child td { border-bottom: none; }
+  .bagua-tbl .bg-k { color: var(--text-dim); }
+  .bagua-tbl .bg-d { font-weight: 700; }
+  .bagua-tbl .bg-d.good { color: var(--el-wood); }
+  .bagua-tbl .bg-d.bad  { color: var(--el-fire); }
+  .aux-sub { font-size: 9.5px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+
   /* ── Luck Pillars (大运) ────────────────── */
   .dayun {
     background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px;
@@ -381,6 +399,9 @@
     <div class="aux" id="aux"></div>
   </div>
 
+  <!-- Ming Gua + Eight Mansions favourable / unfavourable directions -->
+  <div class="bagua" id="bagua"></div>
+
   <!-- Luck pillars -->
   <div class="dayun">
     <div class="dayun-title">
@@ -430,6 +451,10 @@ const I18N = {
     starAcademic: "Звезда академика",
     starTravel: "Путешествующая лошадь",
     starPeach: "Цветок персика",
+    forDay: "для Дня", forYear: "для Год",
+    guaTitle: "Гуа человека",
+    guaGood: "Благоприятные направления",
+    guaBad: "Неблагоприятные направления",
     starPosition: "Позиции",
     starInPillar: "В столпе",
     starAbsent: "Отсутствует в чарте",
@@ -480,6 +505,10 @@ const I18N = {
     starAcademic: "Academic Star",
     starTravel: "Travelling Horse",
     starPeach: "Peach Blossom",
+    forDay: "for Day", forYear: "for Year",
+    guaTitle: "Life Gua",
+    guaGood: "Auspicious directions",
+    guaBad: "Inauspicious directions",
     starPosition: "Positions",
     starInPillar: "In pillar",
     starAbsent: "Not present in the chart",
@@ -689,7 +718,10 @@ function compute(){
     const lunar = S.getLunar();
     const ec = lunar.getEightChar();
 
-    render(ec, lunar, sex, cm);
+    // BaZi solar year for the Ming Gua (Li Chun ≈ Feb 4; earlier births use the previous year)
+    const baziYear = (smo > 2 || (smo === 2 && sd >= 4)) ? sy : sy - 1;
+
+    render(ec, lunar, sex, cm, baziYear);
 
     // Hour-branch (时辰) boundary check. Branches begin at solar 23:00/01:00/03:00…, but the grid
     // is DISPLAYED in the user's clock time = shifted by the solar correction (clock = solar − cm).
@@ -874,53 +906,88 @@ const PEACH_BY_BRANCH = {
   亥:"子", 卯:"子", 未:"子"
 };
 
-function computeStars(ec){
+function renderStars(ec){
   const dm = ec.getDayGan();
   const dayZhi = ec.getDayZhi();
-  return [
-    {name: L().starNoble,    cn: "贵人", positions: NOBLE_BY_DAY_STEM[dm] || []},
-    {name: L().starAcademic, cn: "文昌", positions: [ACADEMIC_BY_DAY_STEM[dm]].filter(Boolean)},
-    {name: L().starTravel,   cn: "驿马", positions: [TRAVEL_HORSE_BY_BRANCH[dayZhi]].filter(Boolean)},
-    {name: L().starPeach,    cn: "桃花", positions: [PEACH_BY_BRANCH[dayZhi]].filter(Boolean)}
-  ];
-}
+  const yearZhi = ec.getYearZhi();
 
-function renderStars(ec){
-  const stars = computeStars(ec);
-  const branches = [
-    {label: L().starPillarHour,  zhi: ec.getTimeZhi()},
-    {label: L().starPillarDay,   zhi: ec.getDayZhi()},
-    {label: L().starPillarMonth, zhi: ec.getMonthZhi()},
-    {label: L().starPillarYear,  zhi: ec.getYearZhi()}
-  ];
+  const noble     = NOBLE_BY_DAY_STEM[dm] || [];
+  const academic  = [ACADEMIC_BY_DAY_STEM[dm]].filter(Boolean);
+  const travel    = [TRAVEL_HORSE_BY_BRANCH[dayZhi]].filter(Boolean);
+  const peachDay  = [PEACH_BY_BRANCH[dayZhi]].filter(Boolean);
+  const peachYear = [PEACH_BY_BRANCH[yearZhi]].filter(Boolean);
+  const voidDay   = ec.getDayXunKong  ? (ec.getDayXunKong()||"")  : "";
+  const voidYear  = ec.getYearXunKong ? (ec.getYearXunKong()||"") : "";
 
-  const itemsHtml = stars.map(st => {
-    const posHtml = st.positions.length
-      ? st.positions.map(z => `<span class="cn ${elClass(z)}">${z}</span>`).join(" ")
-      : "—";
-    const hits = branches.filter(b => st.positions.includes(b.zhi));
-    const hitHtml = hits.length
-      ? `<div class="aux-hit">${L().starInPillar}: ` + hits.map(h => `${h.label} <span class="cn ${elClass(h.zhi)}">${h.zhi}</span>`).join(" · ") + `</div>`
-      : "";
-    return `<div class="aux-item">
-      <div class="aux-name">${st.name} <span class="cn">${st.cn}</span></div>
-      <div class="aux-pos">${posHtml}</div>
-      ${hitHtml}
-    </div>`;
-  }).join("");
-
-  // Void branches (空亡) block at the bottom of the aux column
-  const kong = ec.getDayXunKong ? (ec.getDayXunKong()||"") : "";
-  const voidPos = kong
-    ? kong.split("").map(z => `<span class="cn ${elClass(z)}">${z}</span>`).join(" ")
-    : "—";
-  const voidHtml = `<div class="aux-item void">
-    <div class="aux-name">${L().voidBranches} <span class="cn">空亡</span></div>
-    <div class="aux-pos">${voidPos}</div>
-  </div>`;
+  const z   = ch => `<span class="cn ${elClass(ch)}">${ch}</span>`;
+  const pos = arr => arr.length ? arr.map(z).join(" ") : "—";
+  const kong = k => k ? k.split("").map(z).join(" ") : "—";
+  const dual = (d, y) => `<span class="aux-sub">${L().forDay}:</span> ${d} &nbsp; <span class="aux-sub">${L().forYear}:</span> ${y}`;
+  const item = (name, body, cls) => `<div class="aux-item${cls?" "+cls:""}">
+      <div class="aux-name">${name}</div><div class="aux-pos">${body}</div></div>`;
 
   document.getElementById("aux").innerHTML =
-    `<div class="aux-title">${L().starsTitle}</div>` + itemsHtml + voidHtml;
+    `<div class="aux-title">${L().starsTitle}</div>` +
+    item(L().starNoble,    pos(noble)) +
+    item(L().starAcademic, pos(academic)) +
+    item(L().starTravel,   pos(travel)) +
+    item(L().starPeach,    dual(pos(peachDay),  pos(peachYear))) +
+    item(L().voidBranches, dual(kong(voidDay),  kong(voidYear)), "void");
+}
+
+/* ===== Ming Gua (命卦) + Eight Mansions directions (八宅) =====
+   Kua formula: BaZi solar (Li-Chun) year, standard pre/post-2000 male/female rule.
+   Direction table derived algorithmically (trigram line-change / XOR method),
+   calibrated to the validated Gua-7 chart. */
+const DIR_RU = {N:"С",S:"Ю",E:"В",W:"З",NE:"СВ",NW:"СЗ",SE:"ЮВ",SW:"ЮЗ"};
+const DIR_EN = {N:"N",S:"S",E:"E",W:"W",NE:"NE",NW:"NW",SE:"SE",SW:"SW"};
+const TRIGRAM_DIR = {"010":"N","000":"SW","001":"E","110":"SE","111":"NW","011":"W","100":"NE","101":"S"};
+const GUA_BITS = {1:"010",2:"000",3:"001",4:"110",6:"111",7:"011",8:"100",9:"101"};
+const STAR_BY_XOR = {"000":"fuwei","100":"shengqi","011":"tianyi","111":"yannian",
+                     "001":"huohai","101":"liusha","110":"wugui","010":"jueming"};
+const STAR_NAME = {
+  ru:{shengqi:"Шень-Ци",tianyi:"Тянь-И",yannian:"Янь-Нянь",fuwei:"Фу-Вэй",huohai:"Хо-Хай",wugui:"У-Гуй",liusha:"Лю-Ша",jueming:"Дзюэ-Минг"},
+  en:{shengqi:"Sheng Qi",tianyi:"Tian Yi",yannian:"Yan Nian",fuwei:"Fu Wei",huohai:"Huo Hai",wugui:"Wu Gui",liusha:"Liu Sha",jueming:"Jue Ming"}
+};
+function mingGua(year, sex){ // sex: 1=male, 0=female
+  let s = (Math.floor(year/10)%10) + (year%10);
+  while (s > 9) s = Math.floor(s/10) + (s%10);
+  let g = (year < 2000) ? (sex===1 ? 10-s : 5+s) : (sex===1 ? 9-s : 6+s);
+  while (g > 9) g = Math.floor(g/10) + (g%10);
+  if (g === 0) g = 9;
+  if (g === 5) g = (sex===1) ? 2 : 8;
+  return g;
+}
+function baguaDirections(gua){
+  const bits = GUA_BITS[gua]; if(!bits) return null;
+  const out = {};
+  Object.keys(TRIGRAM_DIR).forEach(tb => {
+    let xor = "";
+    for (let i=0;i<3;i++) xor += (bits[i]===tb[i] ? "0" : "1");
+    out[STAR_BY_XOR[xor]] = TRIGRAM_DIR[tb];
+  });
+  return out;
+}
+function renderBagua(baziYear, sex){
+  const gua = mingGua(baziYear, sex);
+  const d   = baguaDirections(gua);
+  const nm  = LANG==="ru" ? STAR_NAME.ru : STAR_NAME.en;
+  const dir = LANG==="ru" ? DIR_RU : DIR_EN;
+  const good = ["shengqi","tianyi","yannian","fuwei"];
+  const bad  = ["huohai","wugui","liusha","jueming"];
+  const rows = good.map((g,i) => {
+    const b = bad[i];
+    return `<tr>
+      <td class="bg-k">${nm[g]}:</td><td class="bg-d good">${dir[d[g]]}</td>
+      <td class="bg-k">${nm[b]}:</td><td class="bg-d bad">${dir[d[b]]}</td></tr>`;
+  }).join("");
+  const el = document.getElementById("bagua");
+  el.innerHTML =
+    `<div class="bagua-title">${L().guaTitle}: <b>${gua}</b></div>
+     <table class="bagua-tbl">
+       <thead><tr><th colspan="2">${L().guaGood}</th><th colspan="2">${L().guaBad}</th></tr></thead>
+       <tbody>${rows}</tbody></table>`;
+  el.classList.add("show");
 }
 
 function renderDayun(ec, sex){
@@ -1035,9 +1102,10 @@ function renderLiunian(ec){
   `;
 }
 
-function render(ec, lunar, sex, cm){
+function render(ec, lunar, sex, cm, baziYear){
   renderPillars(ec);
   renderStars(ec);
+  renderBagua(baziYear, sex);
   renderDayun(ec, sex);
   renderLiunian(ec);
   const sign=cm>=0?"+":"-";
