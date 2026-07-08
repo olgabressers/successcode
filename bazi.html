@@ -77,15 +77,14 @@
                    border: 1px solid var(--gold); color: var(--gold-dim);
                    padding: 12px 18px; text-align: center; }
   .hour-boundary.show { display: block; }
-  .hour-boundary .hb-head { font-size: 14px; font-weight: 700; letter-spacing: 0.6px; margin-bottom: 7px; }
-  .hour-boundary .hb-row { font-size: 13px; font-weight: 500; margin-top: 3px; color: var(--text); }
-  .hour-boundary .hb-lab { display: inline-block; min-width: 58px; text-align: right;
-                           color: var(--text-muted); text-transform: uppercase;
-                           font-size: 10px; letter-spacing: 1px; margin-right: 4px; }
-  .hour-boundary .cn { font-family: 'Cormorant Garamond', serif; font-size: 19px;
+  .hour-boundary .hb-head { font-size: 13px; font-weight: 700; letter-spacing: 0.6px; margin-bottom: 5px; }
+  .hour-boundary .hb-row { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .hour-boundary .hb-lab { color: var(--text-muted); text-transform: uppercase;
+                           font-size: 10px; letter-spacing: 1px; margin: 0 3px; }
+  .hour-boundary .hb-sep { color: var(--border); margin: 0 8px; }
+  .hour-boundary .cn { font-family: 'Cormorant Garamond', serif; font-size: 18px;
                        font-weight: 600; vertical-align: middle; }
   .hour-boundary .hb-pol { color: var(--text-dim); font-size: 11px; }
-  .hour-boundary .hb-note { font-size: 11px; color: var(--text-dim); margin-top: 6px; }
 
   /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
   .chart-layout {
@@ -244,19 +243,12 @@
     gap: 4px; font-size: 9.5px; color: var(--text-dim); text-align: left;
     line-height: 1.15; padding: 1px 4px;
   }
-  .dayun-liu-row.current { background: #fdf5df; }
+  .dayun-liu-row.current { background: #fdf5df; outline: 1.5px solid var(--gold);
+                           outline-offset: -1px; border-radius: 2px; font-weight: 700; }
   .dayun-liu-row.void    { opacity: .35; }
   .dayun-liu-y { color: var(--text-muted); }
+  .dayun-liu-row.current .dayun-liu-y { color: var(--gold-dim); }
   .dayun-liu-gz { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 11px; }
-
-  /* ── Annual (流年) ───────────────────────── */
-  .liunian {
-    background: var(--surface); border: 1px solid var(--border); padding: 16px 20px; margin-bottom: 18px;
-    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
-  }
-  .liunian-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); font-weight: 700; }
-  .liunian-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; }
-  .liunian-meta { font-size: 12px; color: var(--text-dim); }
 
   footer-note { display: block; text-align: center; font-size: 10px; letter-spacing: 2px;
                 text-transform: uppercase; color: var(--text-muted); margin-top: 20px; }
@@ -266,36 +258,48 @@
   @media print {
     :root { --bg: #fff; }
     html, body { background: #fff; width: 100%; max-width: none; overflow: visible; }
-    body { padding: 0; font-size: 11px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    body { padding: 0; font-size: 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .lang-switch, .print-btn, .form-panel, .error-msg, .city-dd { display: none !important; }
-    header { margin-bottom: 12px; }
-    header h1 { font-size: 22px; }
-    header p { font-size: 9px; letter-spacing: 2px; }
+    header { margin-bottom: 6px; }
+    header h1 { font-size: 18px; }
+    header p { font-size: 8px; letter-spacing: 2px; margin-top: 2px; }
     .result { display: block !important; max-width: 100%; margin: 0; }
 
-    /* Keep whole blocks from splitting across pages */
-    .chart-layout, .pillars, .aux, .dayun, .liunian { break-inside: avoid; }
-    .chart-layout { gap: 10px; margin-bottom: 12px; }
-    .pillar { padding: 10px 6px 12px; gap: 5px; }
-    .pillar-h { font-size: 8.5px; padding: 5px 6px; margin: -10px -6px 4px; width: calc(100% + 12px); }
-    .pillar-stem, .pillar-branch { font-size: 26px; }
-    .pillar-god { font-size: 8.5px; }
-    .pillar-el { font-size: 8px; }
-    .pillar-qi { font-size: 8px; }
-    .hide-row .hg { font-size: 15px; }
-    .hide-row .hs { font-size: 9px; }
-    .aux-item { padding: 8px 12px; }
-    .aux-pos .cn { font-size: 17px; }
+    /* Whole page onto one A4: keep blocks intact and compress */
+    .chart-layout, .pillars, .aux, .dayun, .bagua, .hour-boundary { break-inside: avoid; }
+    .chart-layout { gap: 8px; margin-bottom: 8px; }
+    .pillar { padding: 8px 5px 10px; gap: 4px; }
+    .pillar-h { font-size: 8px; padding: 4px 5px; margin: -8px -5px 3px; width: calc(100% + 10px); }
+    .pillar-stem, .pillar-branch { font-size: 23px; }
+    .pillar-god { font-size: 8px; }
+    .pillar-el { font-size: 7.5px; }
+    .pillar-qi { font-size: 7.5px; }
+    .hide-row .hg { font-size: 14px; }
+    .hide-row .hs { font-size: 8px; }
+    .aux-item { padding: 5px 10px; }
+    .aux-pos { font-size: 11px; }
+    .aux-pos .cn { font-size: 15px; }
+    .aux-title { padding: 6px 10px; }
+
+    .hour-boundary { padding: 7px 12px; margin-bottom: 8px; }
+    .hour-boundary .hb-head { font-size: 11px; margin-bottom: 2px; }
+    .hour-boundary .hb-row { font-size: 11px; }
+    .hour-boundary .cn { font-size: 15px; }
+
+    .bagua { padding: 8px 12px; margin-bottom: 8px; }
+    .bagua-title { font-size: 10px; margin-bottom: 5px; }
+    .bagua-tbl { font-size: 10px; }
+    .bagua-tbl td { padding: 2px 6px; }
 
     /* Luck pillars: 10 columns must fit A4 width */
-    .dayun { margin-bottom: 12px; }
-    .dayun-title { padding: 8px 12px; font-size: 10px; }
-    .dayun-cell { padding: 8px 3px; font-size: 10px; break-inside: avoid; }
-    .dayun-gz { font-size: 17px; }
-    .dayun-age, .dayun-year, .dayun-shen { font-size: 8.5px; }
-    .dayun-liu-row { font-size: 8px; }
-    .liunian { padding: 12px 16px; }
-    .liunian-gz { font-size: 20px; }
+    .dayun { margin-bottom: 0; }
+    .dayun-title { padding: 5px 10px; font-size: 9px; }
+    .dayun-cell { padding: 6px 2px; font-size: 9px; break-inside: avoid; }
+    .dayun-gz { font-size: 15px; }
+    .dayun-age, .dayun-year, .dayun-shen { font-size: 8px; }
+    .dayun-liu { margin-top: 6px; padding-top: 5px; gap: 1px; }
+    .dayun-liu-row { font-size: 7.5px; padding: 0 3px; }
+    .dayun-liu-gz { font-size: 9px; }
   }
 
   @media (max-width: 640px) {
@@ -324,6 +328,16 @@
     .dayun-cell:nth-child(5) { border-right: none; }
     .dayun-cell:nth-child(n+6) { border-bottom: none; }
     .dayun-gz { font-size: 18px; }
+
+    /* Ming Gua table + boundary readable and contained on phones */
+    .bagua { padding: 12px 14px; }
+    .bagua-tbl { font-size: 12px; }
+    .bagua-tbl th { font-size: 9px; padding: 4px 5px; }
+    .bagua-tbl td { padding: 5px 5px; }
+    .hour-boundary { padding: 11px 14px; }
+    .hour-boundary .hb-row { font-size: 12px; }
+    .hour-boundary .hb-sep { display: block; height: 0; margin: 3px 0; color: transparent; }
+    .hour-boundary .cn { font-size: 16px; }
   }
 </style>
 </head>
@@ -408,10 +422,7 @@
     <div class="dayun-grid" id="dayun-grid"></div>
   </div>
 
-  <!-- Annual pillar (this year) -->
-  <div class="liunian" id="liunian"></div>
-
-  <!-- Ming Gua + Eight Mansions favourable / unfavourable directions (moved to bottom) -->
+  <!-- Ming Gua + Eight Mansions favourable / unfavourable directions -->
   <div class="bagua" id="bagua"></div>
 
 </div>
@@ -742,11 +753,13 @@ function compute(){
       const endCl   = (bH+2)*60 - cm;     // end of the later branch, clock time
       hb.innerHTML =
         `<div class="hb-head">${L().hourBoundary} · ${fmt(bClock)}</div>` +
-        `<div class="hb-row"><span class="hb-lab">${L().hbBefore}</span> ${fmt(startCl)}–${fmt(bClock)} → ` +
-          `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span></div>` +
-        `<div class="hb-row"><span class="hb-lab">${L().hbAfter}</span> ${fmt(bClock)}–${fmt(endCl)} → ` +
-          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span></div>` +
-        `<div class="hb-note">${L().minsAfter}: ${r}</div>`;
+        `<div class="hb-row">` +
+          `<span class="hb-lab">${L().hbBefore}</span> ${fmt(startCl)}–${fmt(bClock)} → ` +
+          `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span>` +
+          `<span class="hb-sep">·</span>` +
+          `<span class="hb-lab">${L().hbAfter}</span> ${fmt(bClock)}–${fmt(endCl)} → ` +
+          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span>` +
+        `</div>`;
       hb.classList.add("show");
     } else { hb.classList.remove("show"); hb.innerHTML = ""; }
 
@@ -1107,7 +1120,6 @@ function render(ec, lunar, sex, cm, baziYear){
   renderStars(ec);
   renderBagua(baziYear, sex);
   renderDayun(ec, sex);
-  renderLiunian(ec);
   const sign=cm>=0?"+":"-";
   document.getElementById("solar-info").textContent =
     `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
