@@ -400,11 +400,22 @@
 
         <!-- ── Q2: ПРОФИЛЬ БИЗНЕСА ── -->
         <div class="q-sec" id="s2-q2">
-          <h2 class="step-title">Ваш бизнес</h2>
-          <p class="step-desc">Расскажите о своём бизнесе — чем занимаетесь, кто ваши клиенты, как устроена команда.</p>
+          <h2 class="step-title">Ваша ситуация с клиентами</h2>
+          <p class="step-desc">Расскажите, чем вы занимаетесь, кто ваши клиенты и как вы их находите. Подходит и тем, кто работает на себя, и тем, кто продаёт в найме.</p>
 
           <div class="field">
-            <label class="field-label" for="biz_description">Что вы продаёте и кому?</label>
+            <label class="field-label">Ваша текущая ситуация</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_current_situation')"><input type="radio" name="biz_current_situation" value="Работаю на себя — фриланс / частная практика / соло"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Работаю на себя — фриланс, частная практика, соло</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_current_situation')"><input type="radio" name="biz_current_situation" value="Владею бизнесом с командой"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Владею бизнесом с командой</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_current_situation')"><input type="radio" name="biz_current_situation" value="Менеджер / специалист по продажам в компании (в найме)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Менеджер / специалист по продажам в компании (в найме)</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_current_situation')"><input type="radio" name="biz_current_situation" value="Совмещаю — работа в найме и свой проект"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Совмещаю — работа в найме и свой проект</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_current_situation')"><input type="radio" name="biz_current_situation" value="Только запускаюсь — начинаю привлекать клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запускаюсь — начинаю привлекать клиентов</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label" for="biz_description">Что вы продаёте / предлагаете — и кому?</label>
             <textarea id="biz_description" name="biz_description" style="min-height:90px" placeholder="Например: B2B SaaS для HR-команд, коучинг для руководителей, производство мебели на заказ, digital-агентство для e-commerce брендов..."></textarea>
           </div>
 
@@ -454,11 +465,11 @@
           </div>
 
           <div class="field">
-            <label class="field-label">Стадия бизнеса</label>
+            <label class="field-label">Как давно вы привлекаете клиентов в этой сфере?</label>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="Только запустился — менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только запустился — менее года</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="1–3 года, растём"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года, растём</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="3+ лет, устоявшийся бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет, устоявшийся бизнес</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="Менее года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Менее года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="1–3 года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">1–3 года</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_stage')"><input type="radio" name="biz_stage" value="3+ лет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">3+ лет</span></span></label>
             </div>
           </div>
 
@@ -476,6 +487,15 @@
             <p class="field-hint">Когда клиентов не было — несмотря на все усилия. Конкретный год и период, что пробовали.</p>
             <div id="biz-lows-rows"></div>
             <button type="button" class="btn-add" onclick="addBizLow()">+ Добавить</button>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
+            <label class="field-label">Как к вам пришёл каждый ваш лучший клиент?</label>
+            <p class="field-hint">Добавьте самых значимых клиентов или сделки. Для каждого — когда и КАК он к вам пришёл. Это ключ к тому, чтобы определить ваш рабочий канал привлечения.</p>
+            <div id="biz-clients-rows"></div>
+            <button type="button" class="btn-add" onclick="addBizClient()">+ Добавить клиента / сделку</button>
           </div>
         </div>
 
@@ -548,6 +568,34 @@
         <!-- Q2 — ПРИВЛЕЧЕНИЕ КЛИЕНТОВ -->
         <div class="q-sec" id="qs-q2">
           <div class="field">
+            <label class="field-label" for="biz_target_clients">Каких клиентов вы хотите привлекать в 2026?</label>
+            <input type="text" id="biz_target_clients" name="biz_target_clients" placeholder="Например: корпоративные B2B-клиенты в фарме, частные клиенты премиум-сегмента, 5 крупных контрактов вместо 50 мелких">
+          </div>
+
+          <div class="field">
+            <label class="field-label">Ваш рынок / география клиентов</label>
+            <div class="opts two">
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="В основном своя страна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">В основном своя страна</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Международные клиенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Международные клиенты</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Онлайн — география не важна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн — география не важна</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Гибко, открыт(а) ко всему"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Гибко / открыт(а) ко всему</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Главная цель по клиентам на 2026</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Больше клиентов того же типа"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Больше клиентов того же типа</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Выйти на более крупных клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выйти на более крупных клиентов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Новый сегмент или рынок"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Новый сегмент или рынок</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Стабилизировать поток клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабилизировать поток клиентов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Первые клиенты — только начинаю"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Первые клиенты — только начинаю</span></span></label>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="field">
             <label class="field-label">Какой канал привлечения клиентов работал лучше всего?</label>
             <div class="opts">
               <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Сарафанное радио / рекомендации клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сарафанное радио / рекомендации клиентов</span></span></label>
@@ -573,6 +621,27 @@
             </div>
             <div id="biz-failed-other-wrap" style="display:none; margin-top:10px">
               <textarea id="biz_failed_acq_other" name="biz_failed_acq_other" placeholder="Опишите: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Как устроен ваш поток клиентов сейчас?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_flow')"><input type="radio" name="biz_client_flow" value="Зависит от 1–2 крупных клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Зависит от 1–2 крупных клиентов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_flow')"><input type="radio" name="biz_client_flow" value="Много мелких клиентов, поток нестабильный"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Много мелких клиентов, поток нестабильный</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_flow')"><input type="radio" name="biz_client_flow" value="Стабильный поток разных клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабильный поток разных клиентов</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_flow')"><input type="radio" name="biz_client_flow" value="Потока почти нет — только начинаю"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Потока почти нет — только начинаю</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_flow')"><input type="radio" name="biz_client_flow" value="Не применимо"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Не применимо</span></span></label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label class="field-label">Клиенты остаются с вами надолго — или чаще уходят после одной сделки?</label>
+            <div class="opts">
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_relations')"><input type="radio" name="biz_client_relations" value="Остаются надолго, возвращаются, рекомендуют"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Остаются надолго, возвращаются, рекомендуют</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_relations')"><input type="radio" name="biz_client_relations" value="По-разному"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">По-разному</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_relations')"><input type="radio" name="biz_client_relations" value="Чаще разовые сделки, удержание слабое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Чаще разовые сделки, удержание слабое</span></span></label>
+              <label class="opt radio" onclick="pickOpt(this,'biz_client_relations')"><input type="radio" name="biz_client_relations" value="Не применимо (только начинаю)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Не применимо (только начинаю)</span></span></label>
             </div>
           </div>
 
@@ -803,6 +872,44 @@
     document.getElementById('jobs-rows').appendChild(div);
   }
 
+  /* КЛИЕНТСКИЕ КАНАЛЫ (Q2) — как пришёл каждый клиент */
+  var bizChOpts = [
+    ['referral','Рекомендация / сарафанное радио','Клиент пришёл по рекомендации существующего клиента или контакта. Меня привели.'],
+    ['warm','Тёплая связь / нетворкинг','Через личное или деловое знакомство — я знал(а) кого-то, кто нас свёл.'],
+    ['cold','Холодное обращение','Я написал(а) или позвонил(а) первым(ой), без предварительного знакомства.'],
+    ['content','Контент / соцсети','Клиент пришёл сам через мои посты, статьи, видео или подкаст.'],
+    ['event','Мероприятие / выступление','Познакомились на конференции, событии или после доклада.'],
+    ['ads','Платная реклама','Клиент пришёл по объявлению — Google, Meta, Яндекс и т.п.'],
+    ['partner','Партнёр / агент / площадка','Через посредника, партнёрство, дистрибьютора или маркетплейс.'],
+    ['repeat','Повторный / вернувшийся клиент','Уже покупал(а) раньше и вернулся(лась) снова.']
+  ];
+
+  var bizClientCount = 0;
+  function addBizClient() {
+    bizClientCount++;
+    var n = bizClientCount;
+    var radios = bizChOpts.map(function(o) {
+      return '<label class="opt radio" onclick="pickOpt(this,\'bcl_ch_' + n + '\')">' +
+        '<input type="radio" name="bcl_ch_' + n + '" value="' + o[0] + '">' +
+        '<div class="opt-box"></div>' +
+        '<span class="opt-text"><span class="opt-main">' + o[1] + '</span><span class="opt-sub">' + o[2] + '</span></span>' +
+        '</label>';
+    }).join('');
+    var div = document.createElement('div');
+    div.className = 'jobs-entry';
+    div.id = 'bcl-' + n;
+    div.innerHTML =
+      '<div class="row-top">' +
+        '<input type="text" name="bcl_what_' + n + '" placeholder="Клиент / сделка — например: контракт с сетью отелей на €80k, 20 частных клиентов на коучинг">' +
+        yearSelect('bcl_year_' + n) +
+        monthSelect('bcl_month_' + n) +
+        '<button type="button" class="btn-remove" onclick="removeRow(\'bcl-' + n + '\')">×</button>' +
+      '</div>' +
+      '<span class="job-ch-label">Как этот клиент к вам пришёл?</span>' +
+      '<div class="opts">' + radios + '</div>';
+    document.getElementById('biz-clients-rows').appendChild(div);
+  }
+
   function removeRow(id) {
     var el = document.getElementById(id);
     if (el) el.remove();
@@ -931,9 +1038,9 @@
         if (!document.querySelector('input[name="current_status"]:checked')) { alert('Пожалуйста, выберите текущую ситуацию.'); return false; }
       }
       if (selQ === 'q2') {
-        if (!document.getElementById('biz_description').value.trim()) { alert('Пожалуйста, опишите ваш бизнес.'); return false; }
+        if (!document.querySelector('input[name="biz_current_situation"]:checked')) { alert('Пожалуйста, выберите вашу текущую ситуацию.'); return false; }
+        if (!document.getElementById('biz_description').value.trim()) { alert('Пожалуйста, опишите, что вы продаёте и кому.'); return false; }
         if (!document.querySelector('input[name="biz_cust_type"]:checked')) { alert('Пожалуйста, укажите тип клиентов.'); return false; }
-        if (!document.querySelector('input[name="biz_team_size"]:checked')) { alert('Пожалуйста, укажите размер команды.'); return false; }
       }
     }
     if (step === 4) {
