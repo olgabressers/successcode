@@ -426,14 +426,13 @@
 
           <div class="field">
             <label class="field-label">Кто ваши клиенты — кто вам платит?</label>
-            <p class="field-hint">Выберите то, что описывает большинство ваших клиентов.</p>
+            <p class="field-hint">Можно выбрать несколько.</p>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Частные лица напрямую"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Частные лица напрямую</span><span class="opt-sub">Люди платят мне лично — консультации, услуги, розница.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Малый бизнес — часто по рекомендации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Малый бизнес — часто по рекомендации</span><span class="opt-sub">Небольшие компании и предприниматели, приходят через сеть контактов.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Средние и крупные компании — по репутации"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Средние и крупные компании — по репутации</span><span class="opt-sub">Меня выбирают за профессиональную репутацию и опыт.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Крупные корпорации / энтерпрайз"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Крупные корпорации / энтерпрайз</span><span class="opt-sub">Большие корпоративные контракты, долгие циклы согласования.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Госструктуры / институции / тендеры"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Госструктуры / институции / тендеры</span><span class="opt-sub">Государственные, образовательные, официальные учреждения.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_client_sphere')"><input type="radio" name="biz_client_sphere" value="Смешанные / по-разному"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Смешанные / по-разному</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_client_sphere" value="Частные лица (B2C)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Частные лица (B2C)</span><span class="opt-sub">Люди платят мне лично: консультации, услуги, розница.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_client_sphere" value="Малый бизнес и предприниматели"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Малый бизнес и предприниматели</span><span class="opt-sub">Небольшие компании, ИП, стартапы.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_client_sphere" value="Средний и крупный бизнес"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Средний и крупный бизнес</span><span class="opt-sub">Компании среднего и крупного размера.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_client_sphere" value="Крупные корпорации / энтерпрайз"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Крупные корпорации / энтерпрайз</span><span class="opt-sub">Большие корпоративные контракты, долгие циклы согласования.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_client_sphere" value="Госструктуры и институции"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Госструктуры и институции</span><span class="opt-sub">Государственные, образовательные, официальные учреждения, тендеры.</span></span></label>
             </div>
           </div>
 
@@ -538,22 +537,23 @@
 
           <div class="field">
             <label class="field-label">Ваш рынок / география клиентов</label>
+            <p class="field-hint">Можно выбрать несколько.</p>
             <div class="opts two">
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="В основном своя страна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">В основном своя страна</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Международные клиенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Международные клиенты</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Онлайн — география не важна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн — география не важна</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_market')"><input type="radio" name="biz_target_market" value="Гибко, открыт(а) ко всему"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Гибко / открыт(а) ко всему</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_market" value="В основном своя страна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">В основном своя страна</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_market" value="Другие страны / международные"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другие страны / международные</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_market" value="Онлайн — география не важна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн — география не важна</span></span></label>
             </div>
           </div>
 
           <div class="field">
             <label class="field-label">Главная цель по клиентам на 2026</label>
+            <p class="field-hint">Можно выбрать несколько.</p>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Больше клиентов того же типа"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Больше клиентов того же типа</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Выйти на более крупных клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выйти на более крупных клиентов</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Новый сегмент или рынок"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Новый сегмент или рынок</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Стабилизировать поток клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабилизировать поток клиентов</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_target_goal')"><input type="radio" name="biz_target_goal" value="Первые клиенты — только начинаю"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Первые клиенты — только начинаю</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_goal" value="Больше клиентов того же типа"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Больше клиентов того же типа</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_goal" value="Выйти на более крупных клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выйти на более крупных клиентов</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_goal" value="Новый сегмент или рынок"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Новый сегмент или рынок</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_goal" value="Стабилизировать поток клиентов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабилизировать поток клиентов</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_target_goal" value="Первые клиенты — только начинаю"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Первые клиенты — только начинаю</span></span></label>
             </div>
           </div>
 
@@ -561,29 +561,31 @@
 
           <div class="field">
             <label class="field-label">Какой канал привлечения клиентов работал лучше всего?</label>
+            <p class="field-hint">Можно выбрать до 3.</p>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Рекомендации и тёплые связи"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Рекомендации и тёплые связи</span><span class="opt-sub">Сарафанное радио, знакомства, рекомендации клиентов.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Я сам(а) пишу/звоню первым(ой) незнакомым клиентам.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Моя публичность и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Моя публичность и соцсети</span><span class="opt-sub">Личный бренд, известность, контент, реклама — клиенты приходят сами.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Экспертные материалы и кейсы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Экспертные материалы и кейсы</span><span class="opt-sub">Статьи, публикации, кейсы, где виден мой профессионализм.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Выступления и живые мероприятия"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выступления и живые мероприятия</span><span class="opt-sub">Конференции, события, нетворкинг-встречи.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Старшие покровители и наставники"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Старшие покровители и наставники</span><span class="opt-sub">Авторитетные люди рекомендуют меня и ручаются за меня.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Партнёры, агенты, площадки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёры, агенты, площадки</span><span class="opt-sub">Посредники, партнёрства, агентства, маркетплейсы.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Повторные и вернувшиеся клиенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Повторные и вернувшиеся клиенты</span><span class="opt-sub">Основной поток — те, кто уже покупал.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'q2_best_acq')"><input type="radio" name="q2_best_acq" value="Стабильного канала пока нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабильного канала пока нет</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Рекомендации и тёплые связи"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Рекомендации и тёплые связи</span><span class="opt-sub">Сарафанное радио, знакомства, рекомендации клиентов.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Я сам(а) пишу/звоню первым(ой) незнакомым клиентам.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Моя публичность и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Моя публичность и соцсети</span><span class="opt-sub">Личный бренд, известность, контент, реклама — клиенты приходят сами.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Экспертные материалы и кейсы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Экспертные материалы и кейсы</span><span class="opt-sub">Статьи, публикации, кейсы, где виден мой профессионализм.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Выступления и живые мероприятия"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выступления и живые мероприятия</span><span class="opt-sub">Конференции, события, нетворкинг-встречи.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Старшие покровители и наставники"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Старшие покровители и наставники</span><span class="opt-sub">Авторитетные люди рекомендуют меня и ручаются за меня.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Партнёры, агенты, площадки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёры, агенты, площадки</span><span class="opt-sub">Посредники, партнёрства, агентства, маркетплейсы.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Повторные и вернувшиеся клиенты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Повторные и вернувшиеся клиенты</span><span class="opt-sub">Основной поток — те, кто уже покупал.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="q2_best_acq" value="Стабильного канала пока нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Стабильного канала пока нет</span></span></label>
             </div>
           </div>
 
           <div class="field">
             <label class="field-label">Что стабильно НЕ работало — на протяжении всего существования бизнеса?</label>
+            <p class="field-hint">Можно выбрать несколько.</p>
             <div class="opts">
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Я пишу/звоню первым(ой) — без ответа или с отказами.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Публичность и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Публичность и соцсети</span><span class="opt-sub">Контент, реклама, личный бренд — просмотры есть, клиентов нет.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Экспертные материалы и кейсы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Экспертные материалы и кейсы</span><span class="opt-sub">Статьи и публикации не приводят клиентов.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Выступления и мероприятия"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выступления и мероприятия</span><span class="opt-sub">Много разговоров — мало сделок.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Партнёры, агенты, площадки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёры, агенты, площадки</span><span class="opt-sub">Посредники и партнёрства не дают потока клиентов.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(false)"><input type="radio" name="biz_failed_acq" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные каналы работали по-разному в разное время.</span></span></label>
-              <label class="opt radio" onclick="pickOpt(this,'biz_failed_acq'); showBizFailedOther(true)"><input type="radio" name="biz_failed_acq" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Холодные обращения"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Холодные обращения</span><span class="opt-sub">Я пишу/звоню первым(ой) — без ответа или с отказами.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Публичность и соцсети"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Публичность и соцсети</span><span class="opt-sub">Контент, реклама, личный бренд — просмотры есть, клиентов нет.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Экспертные материалы и кейсы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Экспертные материалы и кейсы</span><span class="opt-sub">Статьи и публикации не приводят клиентов.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Выступления и мероприятия"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выступления и мероприятия</span><span class="opt-sub">Много разговоров — мало сделок.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Партнёры, агенты, площадки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Партнёры, агенты, площадки</span><span class="opt-sub">Посредники и партнёрства не дают потока клиентов.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="biz_failed_acq" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span><span class="opt-sub">Разные каналы работали по-разному в разное время.</span></span></label>
+              <label class="opt check" onclick="toggleOpt(this); showBizFailedOther(this.querySelector('input').checked)"><input type="checkbox" name="biz_failed_acq" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите конкретно.</span></span></label>
             </div>
             <div id="biz-failed-other-wrap" style="display:none; margin-top:10px">
               <textarea id="biz_failed_acq_other" name="biz_failed_acq_other" placeholder="Опишите: что именно пробовали и почему не сработало" style="min-height:70px"></textarea>
@@ -662,7 +664,7 @@
           <label class="field-label">Место рождения</label>
           <div class="city-input-wrap">
             <input type="text" id="birth_location" name="birth_location"
-                   placeholder="Город и страна, например: Саратов, Россия"
+                   placeholder="Город и страна, например: Амстердам, Нидерланды"
                    oninput="onBirthLocationInput()" autocomplete="off" required>
             <div class="city-dropdown" id="birth-location-dd"></div>
           </div>
@@ -879,6 +881,18 @@
     el.classList.add('selected');
     var inp = el.querySelector('input');
     if (inp) inp.checked = true;
+  }
+
+  /* МУЛЬТИ-ВЫБОР — можно отметить несколько; max опционально ограничивает число */
+  function toggleOpt(el, max) {
+    var inp = el.querySelector('input');
+    if (!inp) return;
+    if (!inp.checked && max) {
+      var n = document.querySelectorAll('input[name="' + inp.name + '"]:checked').length;
+      if (n >= max) { alert('Можно выбрать не более ' + max + '.'); return; }
+    }
+    inp.checked = !inp.checked;
+    el.classList.toggle('selected', inp.checked);
   }
 
   /* ДРУГОЕ — НЕ РАБОТАЛО (Q1) */
