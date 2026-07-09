@@ -160,6 +160,30 @@
       height: auto;
     }
 
+    .consult-band {
+      margin-top: 48px;
+      padding: 44px 48px;
+      background: linear-gradient(135deg, var(--surface2), var(--surface));
+      border: 1px solid var(--gold);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .consult-band p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 300; line-height: 1.2; color: var(--white);
+      letter-spacing: -0.5px; max-width: 720px;
+    }
+    .consult-band a {
+      flex-shrink: 0;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: #f5f1eb; background: var(--gold); font-weight: 700;
+      padding: 16px 34px; text-decoration: none;
+      transition: background .25s;
+      white-space: nowrap;
+    }
+    .consult-band a:hover { background: var(--gold2); }
+
     footer {
       padding: 32px 72px;
       border-top: 1px solid var(--border);
@@ -193,6 +217,12 @@
       }
       .card-name-en { font-size: 30px; }
       .card-name-ru { font-size: 11px; letter-spacing: 2.5px; }
+      .consult-band {
+        flex-direction: column; align-items: stretch; text-align: center;
+        padding: 32px 20px; margin-top: 32px;
+      }
+      .consult-band p { font-size: 24px; max-width: 100%; }
+      .consult-band a { text-align: center; }
       footer {
         flex-direction: column; gap: 12px;
         padding: 24px 18px; text-align: center;
@@ -300,10 +330,22 @@
             <span data-lang="en">Open</span>
           </a>
         </div>
-        <a href="/calendar" class="card-screenshot card-open"
-           style="flex:1;display:flex;align-items:center;justify-content:center;background:#f5f1eb;min-height:150px;">
-          <span style="font-family:'Cormorant Garamond',serif;font-size:88px;color:#b8882a;line-height:1;">历</span>
+        <a href="/calendar" class="card-screenshot card-open">
+          <img src="images/calculators/calendar.png" alt="Chinese Calendar preview" loading="lazy">
         </a>
+      </div>
+    </div>
+
+    <div data-lang="ru">
+      <div class="consult-band">
+        <p>Ваша карта построена. Хотите узнать, что она значит для ваших решений?</p>
+        <a href="/ru/#booking">Записаться на консультацию →</a>
+      </div>
+    </div>
+    <div data-lang="en">
+      <div class="consult-band">
+        <p>Your chart is ready. Want to know what it means for your decisions?</p>
+        <a href="/#booking">Book a consultation →</a>
       </div>
     </div>
   </div>
