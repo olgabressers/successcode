@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="googlebot" content="noindex, nofollow">
+  <title>Клиенты 2026 · SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #F7F5F0;
+      --surface:  #EDEBE4;
+      --surface2: #E5E2D8;
+      --gold:     #9A6E20;
+      --gold2:    #B8882A;
+      --goldfade: rgba(154,110,32,0.09);
+      --text:     #1A1820;
+      --dim:      #383644;
+      --muted:    #72707E;
+      --border:   rgba(154,110,32,0.22);
+      --border2:  rgba(30,28,40,0.10);
+      --red:      #7A1E1E;
+      --green:    #1A5026;
+      --blue:     #1A3060;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.65; }
+
+    .page { width: 100%; max-width: 1060px; margin: 0 auto; padding: 0 56px 80px; }
+
+    .report-header { padding: 52px 0 44px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+    .header-left { flex: 1; }
+    .report-title { font-family: 'Cormorant Garamond', serif; font-size: 50px; font-weight: 400; line-height: 1.1; color: var(--text); margin-bottom: 10px; }
+    .report-title em { font-style: italic; color: var(--gold2); }
+    .report-subtitle { font-size: 13px; color: var(--muted); margin-top: 8px; }
+    .header-right { text-align: right; flex-shrink: 0; padding-bottom: 4px; }
+    .client-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .client-name { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .client-meta { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+    .gold-rule { height: 1px; background: linear-gradient(90deg, var(--gold) 0%, transparent 70%); margin: 44px 0; }
+
+    .sec-label { font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; gap: 14px; }
+    .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .tech-note { background: rgba(30,28,40,0.035); border: 1px dashed var(--border2); border-left: 2px solid var(--gold); padding: 12px 16px; margin-top: 16px; }
+    .tn-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
+    .tn-body { font-size: 13px; line-height: 1.6; color: var(--muted); }
+    .tn-body em { color: var(--red); font-style: normal; font-weight: 600; }
+
+    .intro-block { background: var(--surface); border-left: 3px solid var(--gold2); padding: 28px 36px; }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--dim); }
+    .intro-block p + p { margin-top: 14px; }
+    .intro-block strong { color: var(--text); }
+
+    .verdict-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .verdict-card { background: white; border: 1px solid var(--border2); padding: 24px 26px; }
+    .verdict-icon { font-size: 22px; margin-bottom: 12px; }
+    .verdict-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.25; }
+    .verdict-body { font-size: 13.5px; color: var(--dim); line-height: 1.68; }
+    .verdict-card.affirm { border-top: 3px solid var(--green); }
+    .verdict-card.caution { border-top: 3px solid #8a6000; }
+    .verdict-card.strong { border-top: 3px solid var(--blue); }
+
+    .decision-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--blue); padding: 28px 32px; margin-bottom: 20px; }
+    .decision-title { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; color: var(--gold2); margin-bottom: 12px; line-height: 1.3; }
+    .decision-body { font-size: 14px; color: var(--dim); line-height: 1.7; }
+    .decision-body p + p { margin-top: 10px; }
+    .decision-body strong { color: var(--text); }
+
+    .do-dont-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .do-col, .dont-col { background: white; border: 1px solid var(--border2); padding: 22px 26px; }
+    .do-col { border-top: 3px solid var(--green); }
+    .dont-col { border-top: 3px solid var(--red); }
+    .col-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+    .do-col .col-title { color: var(--green); }
+    .dont-col .col-title { color: var(--red); }
+    .action-list { list-style: none; }
+    .action-list li { font-size: 13.5px; color: var(--dim); padding: 8px 0; border-bottom: 1px solid var(--border2); line-height: 1.55; display: flex; gap: 10px; }
+    .action-list li:last-child { border-bottom: none; }
+    .action-list .marker { flex-shrink: 0; font-weight: 600; }
+    .do-col .marker { color: var(--green); }
+    .dont-col .marker { color: var(--red); }
+
+    .month-table { width: 100%; border-collapse: collapse; background: white; border: 1px solid var(--border2); }
+    .month-table thead tr { background: var(--surface); }
+    .month-table th { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); padding: 11px 16px; text-align: left; border-bottom: 1px solid var(--border2); font-weight: 600; }
+    .month-table td { padding: 14px 16px; border-bottom: 1px solid var(--border2); font-size: 13.5px; vertical-align: top; }
+    .month-table tr:last-child td { border-bottom: none; }
+    .month-table tr.peak-row td { background: rgba(26,48,96,0.04); }
+    .month-table tr.caution-row td { background: rgba(122,30,30,0.03); }
+    .month-name { font-weight: 500; color: var(--text); }
+    .month-period { font-size: 14px; color: var(--muted); margin-top: 3px; font-weight: 500; }
+    .badge { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; padding: 2px 8px; border: 1px solid; }
+    .badge-peak { color: var(--blue); border-color: rgba(26,48,96,0.35); background: rgba(26,48,96,0.06); }
+    .badge-strong { color: var(--green); border-color: rgba(26,80,38,0.35); background: rgba(26,80,38,0.06); }
+    .badge-caution { color: #8a6000; border-color: rgba(138,96,0,0.35); background: rgba(138,96,0,0.06); }
+    .badge-mixed { color: var(--muted); border-color: var(--border2); background: var(--surface); }
+
+    .next-box { background: linear-gradient(135deg, #12112a 0%, #1A3060 100%); padding: 34px 38px; color: white; }
+    .next-label { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+    .next-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; color: white; margin-bottom: 16px; line-height: 1.2; }
+    .next-title span { color: rgba(184,136,42,1); font-style: italic; }
+    .next-body { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.75; }
+    .next-body p + p { margin-top: 12px; }
+    .next-list { list-style: none; margin: 16px 0 4px; }
+    .next-list li { font-size: 14px; color: rgba(255,255,255,0.9); padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.12); line-height: 1.5; }
+    .next-list li:last-child { border-bottom: none; }
+    .next-list strong { color: rgba(184,136,42,1); font-weight: 600; }
+
+    .chart-wrap { background: var(--surface2); padding: 24px; border: 1px solid var(--border); }
+    .chart-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+    .chart-wrap iframe { width: 100%; height: 780px; border: none; display: block; }
+
+    .report-footer { padding: 32px 0 24px; border-top: 1px solid var(--border); margin-top: 56px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      .page { padding: 0 20px 60px; }
+      .report-header { flex-direction: column; align-items: flex-start; gap: 20px; padding: 32px 0 28px; }
+      .header-right { text-align: left; }
+      .report-title { font-size: 34px; }
+      .verdict-row { grid-template-columns: 1fr; }
+      .do-dont-grid { grid-template-columns: 1fr; }
+      .chart-wrap iframe { height: 680px; }
+      .report-footer { flex-direction: column; gap: 10px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span><span style="font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:2px;color:var(--muted,#72707E);text-transform:uppercase;"> · Клиенты и стратегия</span></a>
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше →</a>
+      </div>
+      <h1 class="report-title">Клиенты 2026 —<br><em>где они к вам приходят</em></h1>
+      <p class="report-subtitle">Ваши рабочие каналы · чего избегать · окна года · ваша десятилетняя опора</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Анализ для</div>
+      <div class="client-name">Юлия</div>
+      <div class="client-meta">
+        Вопрос: привлечь клиентов<br>
+        в 2026 году
+      </div>
+    </div>
+  </header>
+
+  <div class="gold-rule"></div>
+
+  <!-- 1. SHORT -->
+  <div class="sec-label">Коротко</div>
+  <div class="intro-block">
+    <p>
+      Вы выстраиваете практику с авторской программой и хотите ровный поток тех же клиентов, что приходят к вам сейчас, — состоятельных частных людей. Ваша карта очень ясно показывает, <strong>как именно</strong> эти клиенты к вам приходят. И это точно совпадает с вашим собственным опытом.
+    </p>
+    <p>
+      Короткая суть: они приходят <strong>тёплыми</strong> — через людей и через живые залы, — а не холодными, через ленту и рассылки. Ваша сила не в объёме касаний, а в качестве присутствия.
+    </p>
+    <p>
+      И ещё одно, важное для тайминга: <strong>2026 год открывает целое десятилетие</strong>, в котором ваш профессиональный путь становится центром жизни. То, что вы строите сейчас, будет расти все следующие десять лет.
+    </p>
+    <div class="tech-note"><span class="tn-label">Техн. основа · база карты</span><div class="tn-body">Карта нормальной полярности, бюро Огонь-6, час 丑. Натальный стебель 辛: Лу→Цзюй Мэнь→П3, Цюань→Тай Ян→П11, Кэ→Вэнь Цюй→П4, Цзи→Вэнь Чан→П12. Текущая декада Д5 (2026–2035, жизнь декады в П9 Карьера, стебель 庚): Лу→Тай Ян→П11, Цюань→У Цюй→П12, Кэ→Тай Инь→П5, Цзи→Тянь Тун→П1. Год 2026 (丙): Лу→Тянь Тун→П1, Цюань→Тянь Цзи→П9, Кэ→Вэнь Чан→П12, Цзи→Лянь Чжэнь→П4. Подтверждено расчётом (iztro) и её North-school картой.</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 2. THREE CHANNELS -->
+  <div class="sec-label">Ваши три рабочих канала</div>
+  <div class="verdict-row">
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">🗣️</div>
+      <div class="verdict-title">Тёплое слово и рекомендации</div>
+      <div class="verdict-body">Клиенты приходят через живой разговор и через тех, кто уже почувствовал вашу работу и передал вас дальше. Это ваш самый сильный и пожизненный канал — и именно он приводил к вам людей в 2021 и 2024 годах. Просите довольных клиентов рассказывать о вас — для вас это работает лучше любой рекламы.</div>
+    </div>
+    <div class="verdict-card strong">
+      <div class="verdict-icon">🎙️</div>
+      <div class="verdict-title">Живая сцена, а не холодный экран</div>
+      <div class="verdict-body">Вы раскрываетесь, когда говорите вживую — с убеждением, в зале, перед людьми. Выступления, мастер-классы, живые встречи. Здесь вас видят и чувствуют. А вот холодные соцсети и «публичность ради охвата» вам отдачи не давали — и карта это подтверждает: ваш свет работает в присутствии, а не в рассылке.</div>
+    </div>
+    <div class="verdict-card affirm">
+      <div class="verdict-icon">🕊️</div>
+      <div class="verdict-title">Старший покровитель</div>
+      <div class="verdict-body">2026 год открывает тёплое знакомство через старшего — наставника или уважаемую фигуру, которая приводит к вам людей или даёт вам сцену. Этот канал вы уже знаете по своему опыту. В этом году он особенно открыт — примите такое приглашение, если оно появится.</div>
+    </div>
+  </div>
+  <div class="tech-note"><span class="tn-label">Техн. основа · каналы</span><div class="tn-body">Тёплое слово = натальный Лу→Цзюй Мэнь→П3 (речь/рекомендация течёт легко в близких связях; совпадает с анкетой: «рекомендации и тёплые связи», тёплые входы 2021/2024). Живая сцена = натальный Цюань→Тай Ян→П11 (видимость/сияние из убеждений — в живой, воплощённой форме; анкета: «выступления и живые мероприятия» сработали, «публичность и соцсети» — нет; разделение взято из её данных, не выдумано). Старший покровитель = годовой Хун Луань→П12 (тёплая связь в сфере старших) + декадный Цюань→У Цюй→П12; анкета: «старшие покровители и наставники». <em>Каждое утверждение опирается и на полёт карты, и на её реальную историю.</em></div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 3. AUTHORED PROGRAM -->
+  <div class="sec-label">Ваша программа — магнит признания</div>
+  <div class="intro-block">
+    <p>
+      Ваша авторская программа — это не просто услуга, это ваш инструмент притяжения. Когда работа показана с мастерством, она сама вызывает уважение и приводит нужных людей. Не нужно уговаривать — нужно показать глубину.
+    </p>
+    <p>
+      В 2026 у программы появляется <strong>устойчивая опора</strong>: это хороший год, чтобы поставить её на ровные рельсы — первый поток, первый высокий чек. Вы это уже чувствуете по своим планам.
+    </p>
+    <p>
+      Одна осторожность: <strong>держите предложение простым и чистым</strong>. В этом году есть риск переусложнить структуру программы. Ясное, одно понятное обещание работает сильнее, чем богатая, но запутанная конструкция.
+    </p>
+    <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Магнит признания = натальный Кэ→Вэнь Цюй→П4 (изящный авторский продукт получает статус/видимость; П4 = творческий выход/программа). Опора 2026 = годовой Лу Цунь→П4 (финансовый «пол» в сфере выхода) — совпадает с анкетой (высокий чек М2, запуск программы М6, 2026). Осторожность = годовой Цзи→Лянь Чжэнь→П4 (усложнение/запутывание в сфере выхода) — держать оффер простым.</div></div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 4. DO / DON'T -->
+  <div class="sec-label">Куда вкладывать силу — и куда нет</div>
+  <div class="do-dont-grid">
+    <div class="do-col">
+      <div class="col-title">Работает для вас</div>
+      <ul class="action-list">
+        <li><span class="marker">→</span> Живой разговор один на один — ваш главный вход</li>
+        <li><span class="marker">→</span> Просить довольных клиентов рекомендовать вас</li>
+        <li><span class="marker">→</span> Выступать вживую — с убеждением, из своих ценностей</li>
+        <li><span class="marker">→</span> Принять знакомство через старшего наставника</li>
+        <li><span class="marker">→</span> Показывать мастерство своей программы, а не рекламу</li>
+        <li><span class="marker">→</span> Ясные условия оплаты — заранее и в открытую</li>
+      </ul>
+    </div>
+    <div class="dont-col">
+      <div class="col-title">Не даёт вам отдачи</div>
+      <ul class="action-list">
+        <li><span class="marker">✕</span> Холодные обращения и рассылки незнакомым</li>
+        <li><span class="marker">✕</span> Гнаться за объёмом холодного контента</li>
+        <li><span class="marker">✕</span> Вкладывать силы в «публичность ради охвата»</li>
+        <li><span class="marker">✕</span> Переусложнять программу и предложение</li>
+        <li><span class="marker">✕</span> Формальные, безличные заявки вместо тёплых входов</li>
+        <li><span class="marker">✕</span> Оставлять денежные условия размытыми</li>
+      </ul>
+    </div>
+  </div>
+  <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">«Не работает» = отсутствие поддержки холодных методов в карте + анкета (провалы: «холодные обращения», «публичность и соцсети»). Ясные денежные условия = годовой Тоу Ло→П5 (хроническое торможение денег — медленные поступления; просить предоплату/чёткие сроки). Формальные заявки под трением = натальный Цзи→Вэнь Чан→П12 (трение с формальными системами) — тёплый человеческий вход сильнее холодной формальной заявки.</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 5. YEAR WINDOWS -->
+  <div class="sec-label">2026 — окна года</div>
+  <table class="month-table">
+    <thead><tr><th>Месяц</th><th>Окно</th><th>Что делать</th></tr></thead>
+    <tbody>
+      <tr class="peak-row">
+        <td><span class="month-name">Пик</span><div class="month-period">19 мар – 16 апр</div></td>
+        <td><span class="badge badge-peak">высокий чек</span></td>
+        <td>Ваши сильнейшие каналы работают вдвойне. Лучшее окно, чтобы закрыть высокий чек и взять тёплых клиентов по рекомендации. Это тот самый месяц, который вы сами отметили.</td>
+      </tr>
+      <tr>
+        <td><span class="month-name">Деньги</span><div class="month-period">17 мая – 14 июн</div></td>
+        <td><span class="badge badge-strong">признание дохода</span></td>
+        <td>Хорошее окно для спокойного, признанного дохода — оформить оплату, зафиксировать договорённости.</td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="month-name">Запуск</span><div class="month-period">14 июл – 12 авг</div></td>
+        <td><span class="badge badge-peak">запуск программы</span></td>
+        <td>Сильное окно, чтобы запустить поток программы и представить её своему кругу. Ваш отмеченный месяц запуска.</td>
+      </tr>
+      <tr>
+        <td><span class="month-name">Позиция</span><div class="month-period">13 авг – 10 сен</div></td>
+        <td><span class="badge badge-strong">вы как эксперт</span></td>
+        <td>Момент заявить о себе как о зрелом эксперте — стратегия, структура, спокойная уверенность.</td>
+      </tr>
+      <tr>
+        <td><span class="month-name">Итог года</span><div class="month-period">9 дек – 7 янв</div></td>
+        <td><span class="badge badge-strong">закрепить</span></td>
+        <td>Год закрывается на профессиональной ноте — подвести итоги, закрепить достигнутое, спланировать следующий шаг.</td>
+      </tr>
+      <tr class="caution-row">
+        <td><span class="month-name">Весь год</span><div class="month-period">осторожность</div></td>
+        <td><span class="badge badge-caution">два акцента</span></td>
+        <td>Деньги в этом году идут медленнее обычного — берите предоплату и держите сроки ясными. И держите чистыми близкие деловые связи один на один: возможен резкий момент — спасают заранее оговорённые условия.</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="tech-note"><span class="tn-label">Техн. основа · месяцы 2026 (丙 год, Пять Тигров → М1 庚寅)</span><div class="tn-body">Пик М2 辛卯 (19 мар – 16 апр): месячный стебель 辛 = натальный стебель → её натальные каналы удваиваются (тёплое слово Цзюй Мэнь, видимость Тай Ян, признание программы Вэнь Цюй) — совпадает с «первая оплата высокого чека, М2» из анкеты. М4 癸巳 (17 мая – 14 июн): Кэ→Тай Инь→П5 (признание дохода). М6 乙未 (14 июл – 12 авг): Лу→Тянь Цзи→П9 (карьера гладко) + Кэ→Цзы Вэй→П8 (статус в сети) — совпадает с «запуск потока программы, М6». М7 丙申 (13 авг – 10 сен): месячный 丙 = годовой стебель → Цюань→Тянь Цзи→П9 удваивается (позиция эксперта). М11 庚子 (9 дек – 7 янв): месячный 庚 = декадный стебель + ветвь 子 = П9 Карьера. Осторожности весь год: Тоу Ло→П5 (деньги медленно), Цин Ян→П3 (резкость в связях один на один).</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 6. DECADE -->
+  <div class="sec-label">Ваша десятилетняя опора</div>
+  <div class="decision-box">
+    <div class="decision-title">2026 — это не рывок на один год. Это начало вашего десятилетия.</div>
+    <div class="decision-body">
+      <p>С 2026 по 2035 год <strong>ваш профессиональный путь становится центральной осью жизни</strong>. Практика, которую вы ставите на ноги сейчас, не разовая — она будет складываться и укрепляться все следующие десять лет.</p>
+      <p>Это меняет то, как стоит смотреть на этот год. Не «успеть набрать клиентов», а <strong>заложить основу</strong>, на которой будет расти всё остальное: ваше имя, ваш поток, ваш доход. Первые клиенты 2026-го — это фундамент, а не финал.</p>
+      <p>Поэтому спокойствие важнее спешки. У вас впереди десятилетие, а не квартал.</p>
+    </div>
+  </div>
+  <div class="tech-note"><span class="tn-label">Техн. основа</span><div class="tn-body">Декада Д5 (2026–2035): дворец-жизнь декады (大限命) ложится на натальный дворец Карьеры П9 (庚子) → карьера становится центральной осью на десять лет (UR5). 2026 = 虚岁 46 = первый год декады. Годовой Цюань→Тянь Цзи→П9 = активная стратегическая сила на профессиональной оси именно в 2026.</div></div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 7. RETENTION HOOK -->
+  <div class="sec-label">Что дальше</div>
+  <div class="next-box">
+    <div class="next-label">Ваша карта отвечает не только на этот вопрос</div>
+    <div class="next-title">Этот отчёт — про <span>один вопрос и один год</span>. Карта хранит гораздо больше.</div>
+    <div class="next-body">
+      <p>Клиенты в 2026 — лишь одна дверь. Ваша карта так же ясно отвечает и на другие вопросы вашей жизни и практики:</p>
+      <ul class="next-list">
+        <li><strong>Деньги.</strong> Как ваш доход становится ровным и растёт на протяжении всего десятилетия — и что именно его укрепляет.</li>
+        <li><strong>Следующие годы.</strong> У 2027, 2028 и 2029 — свои окна и своя динамика. У практики, которую вы начинаете сейчас, есть карта на годы вперёд.</li>
+        <li><strong>Точный тайминг.</strong> Лучшее время для конкретного запуска, важного решения или большого шага.</li>
+        <li><strong>Отношения и здоровье.</strong> Те же линии карты, только про другие сферы вашей жизни.</li>
+      </ul>
+      <p>Когда захотите заглянуть в следующую дверь — карта уже готова ответить.</p>
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <!-- 8. CHART -->
+  <div class="sec-label">Ваша карта</div>
+  <div class="chart-wrap">
+    <div class="chart-label">Расчётная карта · 22 сентября 1981 · Огонь-6</div>
+    <iframe src="https://successcode.net/zwds-julia-komo" loading="lazy" title="Карта Юлии" allowfullscreen></iframe>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+  </footer>
+
+</div>
+</body>
+</html>
