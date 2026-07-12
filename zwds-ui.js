@@ -67,8 +67,28 @@ function __tzCorrect(i) {
     return m ? m[1] : null;
   }
 
+  // 虚岁 (nominal age) fix for the annual year-tags. The engine renders each palace's
+  // annual tag as "YEAR AGE" with AGE = year − birthYear (Western/elapsed). ZWDS ages are
+  // nominal (age 1 at birth), so AGE must be year − birthYear + 1 to match the decade ages.
+  // Idempotent: recomputed from the year each render, so the MutationObserver can't drift it.
+  function __birthYear() {
+    var el = document.getElementById('birth-date');
+    return el && /^\d{4}/.test(el.value) ? parseInt(el.value.slice(0, 4), 10) : null;
+  }
+  function __fixNominalAge(co) {
+    var by = __birthYear();
+    if (!by) return;
+    co.querySelectorAll('.pal-year-tag').forEach(function(tag) {
+      var m = tag.textContent.replace(/ /g, ' ').match(/^\s*(\d{4})\s+(\d+)\s*$/);
+      if (!m) return;
+      var correct = String((+m[1]) - by + 1);
+      if (m[2] !== correct) tag.innerHTML = m[1] + ' &nbsp;' + correct;
+    });
+  }
+
   // Inline styles beat everything, including the engine's own inline styles
   function __applyState(co) {
+    __fixNominalAge(co);
     var on = co.classList.contains('annual-on');
     co.querySelectorAll(_ANN).forEach(function(el) {
       if (on) { el.style.removeProperty('display'); }
