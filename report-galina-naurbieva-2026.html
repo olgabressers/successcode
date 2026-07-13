@@ -32,7 +32,18 @@
     html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
     .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
-    .report-header{padding:30px 0 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+      background-image:linear-gradient(100deg, rgba(55,13,13,0.58) 0%, rgba(55,13,13,0.30) 42%, rgba(55,13,13,0.08) 72%, rgba(55,13,13,0) 100%), url('/assets/backgrounds/bg-clients-red.png?v=1');
+      background-size:cover;background-position:center right;border:1px solid rgba(230,201,126,0.28);border-radius:4px;overflow:hidden;}
+    /* clients red hero — light header text on dark-red */
+    .report-header .report-title{color:#FAF7F0;}
+    .report-header .report-title em{color:#E6C97E;}
+    .report-header .report-subtitle{color:rgba(250,247,240,0.78);}
+    .report-header .client-label{color:rgba(250,247,240,0.62);}
+    .report-header .client-name{color:#FAF7F0;}
+    .report-header .client-meta{color:rgba(250,247,240,0.78);}
+    .report-header .report-date{color:rgba(250,247,240,0.6);}
+    .report-header .header-left a span{color:#E6C97E !important;}
     .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
     .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
     .print-btn:hover{background:var(--gold2);}
@@ -111,7 +122,11 @@
       .page{padding:0;max-width:100%;}
       .report-actions{display:none!important;}
       .gold-rule,.gold-rule-full{margin:22px 0!important;}
-      .report-header{padding:6px 0 18px;}
+      .report-header{padding:6px 0 18px;background:none!important;border:none!important;border-radius:0!important;}
+      .report-header .report-title,.report-header .client-name{color:#1A1820!important;}
+      .report-header .report-title em{color:#9A6E20!important;}
+      .report-header .report-subtitle,.report-header .client-label,.report-header .client-meta,.report-header .report-date{color:#72707E!important;}
+      .report-header .header-left a span{color:#9A6E20!important;}
       .report-title{font-size:34px;}
       .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
       .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
@@ -127,7 +142,7 @@
     @media (max-width:900px){
       *{max-width:100vw;}
       .page{padding:0 24px 60px;}
-      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding-top:56px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 24px;background-position:top right;}
       .header-right{text-align:left;}
       .verdict-row{grid-template-columns:1fr;}
       .do-dont-grid{grid-template-columns:1fr;}
@@ -190,8 +205,8 @@
       слову и через людей, которые за вас ручаются.
     </p>
     <p class="intro-body">
-      Этот канал — рекомендации и тёплые связи — работает у вас не случайно, а постоянно, и сейчас он на
-      многолетнем подъёме. Это подтверждает и ваша практика: три ваших лучших клиента пришли именно так —
+      Этот канал — рекомендации и тёплые связи — работает у вас не случайно: так вы устроены, это ваша
+      опора и так по жизни, и в 2026-м он особенно силён. Это подтверждает и ваша практика: три ваших лучших клиента пришли именно так —
       по рекомендации куратора, через знакомство на нетворкинге, по доброму слову. А то, что не сработало —
       холодные обращения и экспертные материалы «в холодную» — не сработало не по случайности: для вашей
       карты это структурно закрытые каналы. Вывод простой: не тратьте силы на холод, усиливайте тёплое.
@@ -229,7 +244,7 @@
     <div class="dd-card">
       <div class="dd-title green">✓ &nbsp; Делайте в 2026</div>
       <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span>Опирайтесь на рекомендации и тёплые связи — это ваш главный и самый стабильный двигатель клиентов, и в этом десятилетии он на пике</li>
+        <li><span style="color:var(--green)">●</span>Опирайтесь на рекомендации и тёплые связи — это ваш главный и самый стабильный двигатель клиентов — так по жизни, и в 2026-м особенно</li>
         <li><span style="color:var(--green)">●</span>Целенаправленно просите вход через авторитетных посредников — кураторов курсов, старших коллег и экспертов в нише (так пришёл ваш клиент-гинеколог)</li>
         <li><span style="color:var(--green)">●</span>Открывайте сегмент клиник и врачей в 2026 — но тёплым институциональным входом, через рекомендацию, а не рассылку</li>
         <li><span style="color:var(--green)">●</span>Поднимайте чек и позиционируйтесь премиально — в этом году ваше признание как эксперта усиливается и оправдывает более высокую цену</li>
@@ -241,7 +256,7 @@
       <div class="dd-title red">✗ &nbsp; Избегайте в 2026</div>
       <ul class="dd-list">
         <li><span style="color:var(--red)">●</span>Не делайте ставку на холодные обращения — для вас это структурно закрытый канал, и ваша практика это уже показала</li>
-        <li><span style="color:var(--red)">●</span>Не рассчитывайте на экспертные материалы и кейсы как на холодный магнит для лидов — весь этот период контент работает как подтверждение для тёплых контактов, а не как способ поймать холодных</li>
+        <li><span style="color:var(--red)">●</span>Не рассчитывайте в 2026-м на экспертные материалы и кейсы как на холодный магнит для лидов — в этом году их отдача низкая; контент работает как подтверждение для тёплых контактов, а не как способ поймать холодных</li>
         <li><span style="color:var(--red)">●</span>Не запускайте курс через холодный трафик и контент-воронку — те же закрытые каналы; распространяйте его через свою сеть</li>
         <li><span style="color:var(--red)">●</span>Не оставляйте объём работ и цену «на словах» — в 2026 обострена линия удержания клиента; фиксируйте рамки и стоимость договором заранее</li>
         <li><span style="color:var(--red)">●</span>Не начинайте новые договоры и вопросы оплаты в окне 8 января — 5 февраля 2027 — там трение по бумагам и платежам; закройте их раньше</li>
@@ -271,7 +286,7 @@
     <div class="verdict-card highlight">
       <div class="vc-label">Ваша сеть и репутация</div>
       <div class="vc-value" style="color:var(--green)">Сильная и признанная</div>
-      <div class="vc-sub">Ваш главный актив — тёплая сеть и доброе имя; в этом десятилетии этот канал на подъёме. Люди за вас ручаются — на этом и стройте поток клиентов.</div>
+      <div class="vc-sub">Ваш главный актив — тёплая сеть и доброе имя; так вы устроены по жизни, а в 2026-м этот канал особенно силён. Люди за вас ручаются — на этом и стройте поток клиентов.</div>
     </div>
     <div class="verdict-card">
       <div class="vc-label">Слабое место</div>
@@ -426,7 +441,7 @@
     <div class="bn-icon">ℹ</div>
     <div class="bn-text">
       <strong>Два фоновых момента на весь год.</strong>
-      Первое: ваш двигатель клиентов в ближайшие годы — тёплая сеть и рекомендации, а не холод; всё, что
+      Первое: ваш двигатель клиентов и так по жизни — тёплая сеть и рекомендации, а не холод; всё, что
       укрепляет доброе имя и связи, работает на вас сильнее любой рекламы. Второе: в 2026 напряжена линия
       удержания клиента и восприятия цены — это фон года, а не ваша ошибка; ясные письменные
       договорённости о рамках и стоимости снимают его. И берегите ресурс: год подсвечивает тему усталости
@@ -446,9 +461,9 @@
       и ресурса, для запуска обучающего продукта.
     </p>
     <p class="intro-body">
-      Если захотите — вернёмся к любой из этих тем отдельно, а также посмотрим, как для вас складываются
-      следующие годы: где ваши сильнейшие окна в 2027–2029 и когда лучше масштабироваться. Просто
-      напишите, какой вопрос для вас сейчас важнее — и мы разберём его так же предметно.
+      Если захотите — вернёмся к любой из этих тем отдельно, а также разберём вашу стратегию на любой
+      следующий год: каждый год и каждая тема — это отдельный разбор со своими окнами. Просто напишите,
+      какой вопрос для вас сейчас важнее — и мы разберём его так же предметно.
     </p>
   </div>
 
