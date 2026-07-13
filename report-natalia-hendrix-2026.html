@@ -32,7 +32,19 @@
     html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
     .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
-    .report-header{padding:30px 0 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+      background-image:linear-gradient(100deg, rgba(55,13,13,0.58) 0%, rgba(55,13,13,0.30) 42%, rgba(55,13,13,0.08) 72%, rgba(55,13,13,0) 100%), url('/assets/backgrounds/bg-clients-red.png?v=1');
+      background-size:cover;background-position:center right;border:1px solid rgba(230,201,126,0.28);border-radius:4px;overflow:hidden;}
+    /* clients red hero — light header text on dark-red */
+    .report-header .report-title{color:#FAF7F0;}
+    .report-header .report-title em{color:#E6C97E;}
+    .report-header .report-subtitle{color:rgba(250,247,240,0.78);}
+    .report-header .client-label{color:rgba(250,247,240,0.62);}
+    .report-header .client-name{color:#FAF7F0;}
+    .report-header .client-meta{color:rgba(250,247,240,0.78);}
+    .report-header .report-date{color:rgba(250,247,240,0.6);}
+    .report-header .header-left a span{color:#E6C97E !important;}
+    .report-actions .print-btn.ghost{color:#E6C97E;border-color:rgba(230,201,126,0.45);}
     .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
     .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
     .print-btn:hover{background:var(--gold2);}
@@ -111,7 +123,11 @@
       .page{padding:0;max-width:100%;}
       .report-actions{display:none!important;}
       .gold-rule,.gold-rule-full{margin:22px 0!important;}
-      .report-header{padding:6px 0 18px;}
+      .report-header{padding:6px 0 18px;background:none!important;border:none!important;border-radius:0!important;}
+      .report-header .report-title,.report-header .client-name{color:#1A1820!important;}
+      .report-header .report-title em{color:#9A6E20!important;}
+      .report-header .report-subtitle,.report-header .client-label,.report-header .client-meta,.report-header .report-date{color:#72707E!important;}
+      .report-header .header-left a span{color:#9A6E20!important;}
       .report-title{font-size:34px;}
       .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
       .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
@@ -127,7 +143,7 @@
     @media (max-width:900px){
       *{max-width:100vw;}
       .page{padding:0 24px 60px;}
-      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding-top:56px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 24px;background-position:top right;}
       .header-right{text-align:left;}
       .verdict-row{grid-template-columns:1fr;}
       .do-dont-grid{grid-template-columns:1fr;}
@@ -250,11 +266,11 @@
     <div class="icon">◆</div>
     <p>
       <strong>Про корпоративных клиентов — важное уточнение.</strong>
-      Вы хотите выйти на более крупных и корпоративных клиентов — это верное направление, но по вашей
-      карте это <strong>плавный, многолетний рост</strong>, а не быстрый рывок в 2026-м. Самый надёжный
-      мост к корпоративным дверям — не общий B2B-питч, а ваша уже сильная ниша детского и семейного
-      этикета: через школы, семейные программы и бренды. Начинайте строить эту линию сейчас, но
-      результат считайте в горизонте нескольких лет, а не одного года.
+      Вы хотите выйти на более крупных и корпоративных клиентов — это верное направление, но в 2026-м
+      это <strong>год фундамента, а не быстрого рывка</strong>. Самый надёжный мост к корпоративным
+      дверям — не общий B2B-питч, а ваша уже сильная ниша детского и семейного этикета: через школы,
+      семейные программы и бренды. В этом году закладывайте эту линию — знакомства, репутацию, первые
+      пилоты; как она развернётся дальше, разберём отдельно по каждому следующему году.
     </p>
   </div>
 
@@ -422,11 +438,11 @@
     <p class="intro-body">
       Эта стратегия отвечает на один ваш вопрос — как привлекать клиентов в 2026-м. Ваша карта говорит
       и о многом другом: о деньгах и том, что из дохода остаётся с вами; о здоровье; об отношениях; о
-      том, как складываются следующие годы — 2027, 2028 и дальше.
+      стратегии на любой следующий год.
     </p>
     <p class="intro-body">
-      Если захотите заглянуть в любую из этих тем — просто напишите. Разберём спокойно и по вашей
-      же карте.
+      Каждый год и каждая тема — отдельный разбор. Если захотите заглянуть в любую из них — просто
+      напишите. Разберём спокойно и по вашей же карте.
     </p>
   </div>
 
