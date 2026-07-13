@@ -25,7 +25,7 @@
     // dynamic annual layer) come from zwds-ui.js?v=7. Birth: 1976-11-17 18:45 Zvenigorod
     // (lon 36.8586, lat 55.7294), F. Solar hour = 酉 (You). P1 辛丑, Bureau Earth 5 —
     // year 丙辰 NaYin (Earth) == P1 辛丑 NaYin (Earth) so NO bureau override needed.
-    function __loadNataliaDefaults() {
+    function __loadNataliaHendrixDefaults() {
       var d = document.getElementById('birth-date');    if (d) d.value = '1976-11-17';
       var t = document.getElementById('birth-time');    if (t) t.value = '18:45';
       var s = document.getElementById('birth-sex');     if (s) s.value = 'female';
@@ -45,11 +45,11 @@
       if (dd) { dd.style.display = 'none'; dd.innerHTML = ''; }
       if (typeof buildChart === 'function') buildChart();
     }
-    window.loadNatalia = __loadNataliaDefaults;
+    window.loadNataliaHendrix = __loadNataliaHendrixDefaults;
 
     window.addEventListener('DOMContentLoaded', function() {
-      window.loadTrump = __loadNataliaDefaults;
-      setTimeout(__loadNataliaDefaults, 100);
+      window.loadTrump = __loadNataliaHendrixDefaults;
+      setTimeout(__loadNataliaHendrixDefaults, 100);
       var _origSC = window.selectCity;
       if (typeof _origSC === 'function') {
         window.selectCity = function(i) { _origSC(i); __tzCorrect(i); };
