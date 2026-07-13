@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Разворот кризиса 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* SILVER "winner" theme — replaces the gold palette */
+      --bg:#F5F6F8; --surface:#EAECEF; --surface2:#E0E3E7; --gold:#4F5A67; --gold2:#6B7787;
+      --goldfade:rgba(79,90,103,0.09); --text:#171A1F; --dim:#343842; --muted:#6D7480;
+      --border:rgba(79,90,103,0.24); --border2:rgba(23,26,31,0.10); --red:#7A1E1E; --green:#1A5026;
+      --silver-grad:linear-gradient(135deg,#9AA3AE 0%,#CBD0D6 40%,#7E8894 60%,#B4BBC2 100%);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .win-strip{width:100%;height:7px;background:var(--silver-grad);}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .report-header{padding:30px 0 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
+    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--border);}
+    .print-btn.ghost:hover{background:var(--goldfade);color:var(--gold2);}
+    .print-btn svg{width:14px;height:14px;fill:currentColor;}
+    .chart-print-only{display:none;}
+    .header-left{flex:1;}
+    .win-badge{display:inline-flex;align-items:center;gap:8px;background:var(--silver-grad);color:#20262E;padding:6px 15px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;box-shadow:0 2px 9px rgba(79,90,103,0.28);margin-bottom:18px;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:14px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(79,90,103,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @page{margin:13mm;}
+    @media print{
+      html,body{background:white;}
+      body{font-size:11.5px;line-height:1.55;}
+      .page{padding:0;max-width:100%;}
+      .report-actions{display:none!important;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;}
+      .report-header{padding:6px 0 18px;}
+      .report-title{font-size:34px;}
+      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
+      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
+      .section-label{break-after:avoid;page-break-after:avoid;}
+      .month-table tr.peak-row td{background:#EEF0F3!important;}
+      .chart-wrap{display:none!important;}
+      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+    }
+    @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding-top:56px;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:34px;}
+      .intro-block{padding:26px 24px;}
+      .intro-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
+    }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
+  </style>
+</head>
+<body>
+<div class="win-strip"></div>
+<div class="page">
+
+  <div class="report-actions">
+    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      PDF отчёта
+    </button>
+    <a class="print-btn ghost" href="https://successcode.net/zwds-alena" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      Печать карты
+    </a>
+  </div>
+
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:20px;">
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#4F5A67);">SuccessCode</span></a>
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--silver-grad);color:#20262E;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(79,90,103,0.28);">Узнать больше · Discover more →</a>
+      </div>
+      <div class="win-badge">★ &nbsp;Стратегия победителя · 2026</div>
+      <h1 class="report-title">Как выиграть кризис<br><em>разворот 2026</em></h1>
+      <p class="report-subtitle">Индивидуальная стратегия разворота &nbsp;·&nbsp; Июль 2026 — Февраль 2027</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Алёна</div>
+      <div class="client-meta">Разворот кризиса · Карьера · Доход</div>
+      <div class="report-date">Июль 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule" style="margin:20px 0 24px;"></div>
+
+  <!-- ГЛАВНЫЙ ВЫВОД -->
+  <div class="section-label">Главный вывод</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Это не крах — это <em>нижняя точка разворота</em>. Ваша карта устроена так, что она сначала
+      обнуляет старую конструкцию, а затем собирает новую, выше прежней. Два тяжёлых года были сносом.
+      2026-й — год, когда начинается сборка, и главное окно совсем близко.
+    </p>
+    <p class="intro-body">
+      Самое важное, что нужно знать: то, что вы строили 25 лет, никуда не делось. Ваш опыт, репутация
+      и уровень — это канал, по которому приходит результат. Когда механизм года срабатывает, он приносит
+      роль ВАШЕГО уровня именно потому, что за спиной эти годы. Без них тот же механизм давал бы стартовую
+      позицию — с ними он даёт руководящую.
+    </p>
+    <p class="intro-body">
+      И ещё: вы уже проходили ровно такую двухлетнюю яму. После переезда в 2002-м у вас почти два года
+      не было работы — ноль по карьере, доходу и статусу. Затем сработал тот же самый механизм входа
+      в новую роль — и открылась дорога на 20 лет вперёд, до директорского уровня. Это ваш ВТОРОЙ такой
+      разворот, по той же схеме. Выход из ямы у вас в карте есть, и он датирован.
+    </p>
+  </div>
+
+  <!-- 3 КАРТЫ -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Главный метод</div>
+      <div class="vc-value">Действие, а не ожидание</div>
+      <div class="vc-sub">В 2026-м доход приходит через конкретный шаг — активные заявки с сильным резюме и целевой выход на нужные роли. Ваш профиль в этом году считывается как экспертный и авторитетный. Это тот же канал, что дал результат в прошлом.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Ключевое окно</div>
+      <div class="vc-value">10 октября — 8 ноября</div>
+      <div class="vc-sub">Сильнейшее окно года для подписания новой роли — механизм «выход из старой конструкции, вход в новую». Именно он дал вам оффер 2006-го и оффер 2018-го. Сюда — главный рывок.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Потенциал</div>
+      <div class="vc-value">Руководящий уровень</div>
+      <div class="vc-sub">Карта поддерживает возвращение на директорский+ уровень, а не понижение. Полный доход роли раскрывается в 2027-м, когда снимается денежное сжатие этого года. Пик десятилетия — 2029-й.</div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Делайте — так вы выигрываете</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Сконцентрируйте главный рывок на октябре–декабре: подготовьте резюме и портфель к окну 10 октября</li>
+        <li><span style="color:var(--green)">●</span>Действуйте активно — подавайтесь, выходите на нужные роли; в этом году срабатывает шаг, а не ожидание «пока пойдёт само»</li>
+        <li><span style="color:var(--green)">●</span>10 октября — 8 ноября: главное окно подписания. Ведите переговоры об оффере именно здесь</li>
+        <li><span style="color:var(--green)">●</span>9 декабря — 7 января: жёстко торгуйтесь по деньгам — это ваше окно «требуй достойный оклад»</li>
+        <li><span style="color:var(--green)">●</span>Держите тело и энергию: движение, восстановление, поддержка — это отдельный ресурс десятилетия, не разовый</li>
+        <li><span style="color:var(--green)">●</span>Помните: вы выходили из точно такой ямы в 2002–2003 и вышли на директорский трек. Это второй разворот, а не конец</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Избегайте — это тянет в спираль</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Не читайте это как «всё потеряно навсегда». Вы стоите в нижней точке разворота — худший ракурс для оценки</li>
+        <li><span style="color:var(--red)">●</span>Не ждите, что деньги «материализуются» сами. Ваш доход приходит через конкретное действие и событие, а не через пассивный поток</li>
+        <li><span style="color:var(--red)">●</span>Не занижайте себя ниже руководящего уровня из усталости — карта держит директорский+</li>
+        <li><span style="color:var(--red)">●</span>Не путайте денежное сжатие 2026-го с приговором — это временная черта года, она снимается в 2027-м</li>
+        <li><span style="color:var(--red)">●</span>Не начинайте новые бумажные/договорные споры в окне 8 января — 5 февраля 2027; закройте оффер до него</li>
+        <li><span style="color:var(--red)">●</span>Не оставайтесь в изоляции: канал старших, авторитетных контактов открывается к концу года — используйте его</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Почему деньги ещё не идут — важное уточнение.</strong>
+      Это НЕ значит, что разворот не начался. В 2026-м на денежной линии стоит временное сжатие —
+      черта именно этого года, которая снимается на смене года (с начала февраля 2027-го). Плюс само
+      окно подписания открывается только в октябре–декабре. Поэтому «пока тихо» — это про сроки, а не
+      про то, что выхода нет. Ваши 1500 заявок были не впустую: в 2025-м канал был структурно
+      заблокирован, а в 2026-м эта блокировка снята — и открывается окно, где действие конвертируется.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОЗИЦИЯ -->
+  <div class="section-label">Ваша позиция и почему это разворот, а не конец</div>
+
+  <div class="verdict-row" style="grid-template-columns:1fr 2fr;">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Ваша личная линия</div>
+      <div class="vc-value" style="color:var(--green)">Защищена и признаётся</div>
+      <div class="vc-sub">Вы прошли самый тяжёлый год живой и целой — это про встроенную защиту вашей карты. В сложных ситуациях вам приходит нужная помощь (это подтверждено трижды). Вы — не «под срез».</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-value" style="line-height:1.35;">Снос был этапом,<br>а не итогом</div>
+      <div class="vc-sub" style="margin-top:8px;">Ваша карта устроена как «снести старое — построить новое выше». 2024–2025 — фаза сноса; 2026 — начало сборки; десятилетие в центре держит именно карьеру. То, что вы построили за 25 лет, — это канал, по которому новая роль заходит на высоком уровне.</div>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    <p class="intro-body">
+      <strong>Вы это уже проходили.</strong> Двухлетняя яма без работы после переезда (2002–2003) выглядела
+      как полный обвал — и оказалась порогом вашего лучшего двадцатилетия. Тот же механизм входа в новую
+      роль, что сработал тогда, снова активен в окне октября–декабря 2026-го.
+    </p>
+    <p class="intro-body">
+      <strong>Одно действие до октября.</strong> Приведите резюме, портфель кейсов и целевой список
+      компаний в полную боевую готовность к 10 октября — чтобы главный рывок попал в самое сильное окно
+      года, а не собирался на ходу.
+    </p>
+    <p class="intro-body">
+      <strong>Одно окно осторожности.</strong> 8 января — 5 февраля 2027 — короткий период трения по
+      бумагам. Оффер и договор закройте ДО него.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОМЕСЯЧНАЯ СТРАТЕГИЯ -->
+  <div class="section-label">Помесячная стратегия · с этого месяца до февраля 2027</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Период</th>
+        <th>Что происходит и почему</th>
+        <th style="min-width:200px">Конкретные действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="m-name">Июль — Август</span>
+          <span class="m-dates">14 июля — 12 августа</span>
+          <span class="m-badge mod">Подготовка</span>
+        </td>
+        <td>
+          <div class="m-focus">Сбор ресурса · Тело и энергия</div>
+          <p class="m-desc">Спокойный подготовительный месяц. Берегите тело и восстанавливайте энергию — это ваш отдельный ресурс. Параллельно без спешки готовьте резюме, портфель кейсов и целевой список компаний под осеннее окно.</p>
+        </td>
+        <td>
+          <div class="action-row">Приведите резюме и кейсы в порядок</div>
+          <div class="action-row">Составьте целевой список компаний уровня директора</div>
+          <div class="action-row">Восстановление, движение, поддержка энергии</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Август — Сентябрь</span>
+          <span class="m-dates">13 августа — 10 сентября</span>
+          <span class="m-badge mod">Активные заявки</span>
+        </td>
+        <td>
+          <div class="m-focus">Профиль звучит авторитетно</div>
+          <p class="m-desc">Открывается сильный канал: ваш профиль в этом году считывается как экспертный и авторитетный. Хорошее время активно подаваться и выходить на нужные роли — именно этот канал давал вам результат раньше.</p>
+        </td>
+        <td>
+          <div class="action-row">Активно подавайтесь на целевые роли</div>
+          <div class="action-row">Выходите напрямую на людей уровня решения</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Сентябрь — Октябрь</span>
+          <span class="m-dates">11 сентября — 9 октября</span>
+          <span class="m-badge mod">Собеседования</span>
+        </td>
+        <td>
+          <div class="m-focus">Признание в среде · Разговоры</div>
+          <p class="m-desc">Период интервью и признания вашей экспертизы. Ведите разговоры, доводите контакты до конкретики и держите линию к окну подписания в октябре.</p>
+        </td>
+        <td>
+          <div class="action-row">Проводите собеседования, укрепляйте контакты</div>
+          <div class="action-row">Готовьте почву к окну подписания</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Октябрь — Ноябрь</span>
+          <span class="m-dates">10 октября — 8 ноября</span>
+          <span class="m-badge peak">Пиковое окно · Подписание</span>
+        </td>
+        <td>
+          <div class="m-focus">Вход в новую роль</div>
+          <p class="m-desc">Сильнейшее окно года: механизм «выход из старой конструкции — вход в новую». Именно он дал вам оффер 2006-го и оффер 2018-го. Здесь заходит новая роль вашего уровня — это ваш главный рывок года.</p>
+        </td>
+        <td>
+          <div class="action-row">Главный рывок: ведите переговоры об оффере</div>
+          <div class="action-row">Целитесь в директорский+ уровень, не ниже</div>
+          <div class="action-row">Доводите лучшего кандидата до подписания</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Ноябрь — Декабрь</span>
+          <span class="m-dates">9 ноября — 8 декабря</span>
+          <span class="m-badge mod">Разворот карьеры</span>
+        </td>
+        <td>
+          <div class="m-focus">Собственный ход · Сильный второй заход</div>
+          <p class="m-desc">Сильный месяц для карьерного разворота: активируется ваша внутренняя «пружина». Хорошо и для второго захода на роль, и для собственного дела/партнёрства, если этот путь для вас на столе.</p>
+        </td>
+        <td>
+          <div class="action-row">Закрепляйте роль или запускайте свой ход</div>
+          <div class="action-row">Подключайте старшие, авторитетные контакты</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Декабрь — Январь</span>
+          <span class="m-dates">9 декабря — 7 января</span>
+          <span class="m-badge peak">Деньги · Второй пик</span>
+        </td>
+        <td>
+          <div class="m-focus">Окно «требуй достойный оклад»</div>
+          <p class="m-desc">Второе сильное окно — по деньгам и условиям. Структурно это ваш период «проси высокий оклад». Хорошее время жёстко и по делу отстоять денежные условия новой роли.</p>
+        </td>
+        <td>
+          <div class="action-row">Жёстко торгуйтесь по окладу и условиям</div>
+          <div class="action-row">Фиксируйте договорённости письменно</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Январь — Февраль 2027</span>
+          <span class="m-dates">8 января — 5 февраля 2027</span>
+          <span class="m-badge caution">Осторожно с бумагами</span>
+        </td>
+        <td>
+          <div class="m-focus">Закрыть до окна · Снятие сжатия</div>
+          <p class="m-desc">Короткое окно придирок к бумагам — оффер и договор закройте ДО него. И главное: со сменой года (с начала февраля 2027-го) снимается денежное сжатие 2026-го, и доход роли раскрывается в полную силу.</p>
+        </td>
+        <td>
+          <div class="action-row">Закройте оффер и договор до этого окна</div>
+          <div class="action-row">Тщательно проверьте детали документов</div>
+          <div class="action-row">С февраля 2027 — деньги идут свободнее</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ДВА ФОНОВЫХ МОМЕНТА -->
+  <div class="bottom-note">
+    <div class="bn-icon">ℹ</div>
+    <div class="bn-text">
+      <strong>Два фоновых момента на весь год.</strong>
+      Первое: денежное сжатие 2026-го — это временная черта именно этого года; оно снимается на смене
+      года (начало февраля 2027-го), и полный доход новой роли раскрывается тогда. Второе: восстановление
+      энергии — это отдельная работа десятилетия, а не разовое действие; держите тело в движении и
+      опирайтесь на встроенную защиту карты, которая уже провела вас через самый тяжёлый год. Разворот
+      начался; ваша задача — попасть действием в осеннее окно.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ЧТО ДАЛЬШЕ -->
+  <div class="section-label">Что дальше</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Этот отчёт — про ближайший разворот. Но горизонт куда шире, и он в вашу пользу.
+    </p>
+    <p class="intro-body">
+      <strong>2027-й</strong> снимает денежное сжатие и открывает более свободный доход. <strong>2029-й</strong> —
+      пик десятилетия по силе и по деньгам: тот же класс года, что дал вам вершину 2019-го. А
+      <strong>2030-й, 2033–2034-й</strong> держат карьерную линию сильной до конца десятилетия. Снос
+      позади; впереди — сборка, и она датирована.
+    </p>
+    <p class="intro-body">
+      Когда пройдёте ближайшее окно, к любому из этих годов — и к отдельным темам (доход, недвижимость,
+      отношения, здоровье) — можно вернуться отдельным разбором. Каждый следующий вопрос — это ещё один
+      ход, сделанный тогда, когда карта на вашей стороне.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- КАРТА -->
+  <div class="section-label">Карта Цзы Вэй Доу Шу</div>
+
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-alena"
+            title="Карта Цзы Вэй Доу Шу — Алёна">
+    </iframe>
+  </div>
+
+  <div class="chart-print-only">
+    <div class="bn-icon">◆</div>
+    <div class="bn-text">
+      <strong>Карта печатается отдельно.</strong>
+      Интерактивная карта открывается и печатается со своей страницы:
+      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span>
+      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
+  </footer>
+
+</div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+</body>
+</html>
