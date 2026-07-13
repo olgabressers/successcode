@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Персональная стратегия 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
+      --goldfade:rgba(154,110,32,0.09); --text:#1A1820; --dim:#383644; --muted:#72707E;
+      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .report-header{padding:30px 0 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
+    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--border);}
+    .print-btn.ghost:hover{background:var(--goldfade);color:var(--gold2);}
+    .print-btn svg{width:14px;height:14px;fill:currentColor;}
+    .chart-print-only{display:none;}
+    .header-left{flex:1;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:14px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(154,110,32,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @page{margin:13mm;}
+    @media print{
+      html,body{background:white;}
+      body{font-size:11.5px;line-height:1.55;}
+      .page{padding:0;max-width:100%;}
+      .report-actions{display:none!important;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;}
+      .report-header{padding:6px 0 18px;}
+      .report-title{font-size:34px;}
+      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
+      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
+      .section-label{break-after:avoid;page-break-after:avoid;}
+      .month-table tr.peak-row td{background:#FAF5E8!important;}
+      .chart-wrap{display:none!important;}
+      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+    }
+    @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding-top:56px;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:34px;}
+      .intro-block{padding:26px 24px;}
+      .intro-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
+    }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-actions">
+    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      PDF отчёта
+    </button>
+    <a class="print-btn ghost" href="https://successcode.net/zwds-natalia-hendrix" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      Печать карты
+    </a>
+  </div>
+
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span></a>
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше · Discover more →</a>
+      </div>
+      <h1 class="report-title">Персональная стратегия<br><em>привлечения клиентов в 2026</em></h1>
+      <p class="report-subtitle">Индивидуальный анализ &nbsp;·&nbsp; Июль 2026 — Январь 2027</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Наталья Хендрикс</div>
+      <div class="client-meta">Коуч руководителей · Преподаватель делового и столового этикета</div>
+      <div class="report-date">Июль 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule" style="margin:20px 0 24px;"></div>
+
+  <!-- ГЛАВНЫЙ ВЫВОД -->
+  <div class="section-label">Главный вывод</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Ваши клиенты в 2026-м приходят не с холодных обращений, а через <em>тёплые рекомендации
+      и ваше имя, которое видят нужные люди</em>.
+    </p>
+    <p class="intro-body">
+      Самый сильный ваш канал — это доверие и связи: довольный человек приводит следующего, а хорошая
+      рекомендация открывает дверь надёжнее любой рассылки. В 2026-м этот канал у вас на подъёме, и
+      именно на него стоит опираться в первую очередь. Ваш собственный опыт это подтверждает — люди
+      всё активнее приходили к вам на мастер-классы во второй половине прошлого года и приходят сейчас.
+    </p>
+    <p class="intro-body">
+      Второй ключ года — ваша видимость. Когда ваша экспертиза оформлена и на виду — под вашим именем,
+      с вашими сертификатами и живыми выступлениями, — она работает на вас особенно сильно именно в
+      этом году. Холодные обращения — не ваш путь; ваш путь — быть на виду и дать людям вас рекомендовать.
+    </p>
+  </div>
+
+  <!-- 3 КАРТЫ -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Главный метод</div>
+      <div class="vc-value">Тёплые рекомендации и связи</div>
+      <div class="vc-sub">Ваш природный, самый надёжный канал. Просите довольных клиентов и партнёров о рекомендациях напрямую — один тёплый контакт стоит двадцати холодных.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Что усиливает</div>
+      <div class="vc-value">Имя на виду + живые выступления</div>
+      <div class="vc-sub">Ваша экспертиза под вашим именем — публикации, сертификаты, соцсети — плюс мастер-классы и живые встречи. Международно и онлайн — это ваш естественный формат роста.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Ключевое окно</div>
+      <div class="vc-value">Осень 2026</div>
+      <div class="vc-sub">Август–декабрь — самая сильная часть года. Пики: 13 августа – 9 октября (имя и сеть) и 9 ноября – 8 декабря (живые выступления).</div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Делайте в 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Опирайтесь на тёплые рекомендации как на главный канал — напрямую просите довольных клиентов и партнёров привести к вам людей</li>
+        <li><span style="color:var(--green)">●</span>Держите своё имя и экспертизу на виду: публикации, сертификаты, экспертный контент под вашим именем — узнаваемость в этом году работает вдвойне</li>
+        <li><span style="color:var(--green)">●</span>Проводите живые мастер-классы и выступления, особенно осенью — это ваш подтверждённый и самый сильный формат</li>
+        <li><span style="color:var(--green)">●</span>Спокойно и уверенно позиционируйте цены и пакеты для международной и онлайн-аудитории — это ваш естественный простор</li>
+        <li><span style="color:var(--green)">●</span>Оформляйте партнёрские договорённости в октябре — в этом окне такие связи получают признание</li>
+        <li><span style="color:var(--green)">●</span>К корпоративным клиентам идите через вашу сильную нишу — детский этикет: школы, семейные программы, бренд-партнёрства</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Избегайте в 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Не делайте ставку на холодные обращения — ни ваша карта, ни ваш опыт их не поддерживают</li>
+        <li><span style="color:var(--red)">●</span>Не ждите крупного корпоративного контракта именно в 2026-м — это спокойная многолетняя стройка, а не результат одного года</li>
+        <li><span style="color:var(--red)">●</span>Не запускайте главный анонс в разгар лета (май–август) — это ваш естественно тихий сезон</li>
+        <li><span style="color:var(--red)">●</span>В этом году не принимайте каждое новое знакомство на веру — тёплый канал силён, но новые контакты стоит спокойно проверять, прежде чем вкладывать время</li>
+        <li><span style="color:var(--red)">●</span>Не превращайте авторитет наставника в излишний контроль — мягкость держит учеников ближе</li>
+        <li><span style="color:var(--red)">●</span>Не ждите пассивно — ваши результаты приходят через движение вовне: выступления, встречи, партнёрства</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Про корпоративных клиентов — важное уточнение.</strong>
+      Вы хотите выйти на более крупных и корпоративных клиентов — это верное направление, но по вашей
+      карте это <strong>плавный, многолетний рост</strong>, а не быстрый рывок в 2026-м. Самый надёжный
+      мост к корпоративным дверям — не общий B2B-питч, а ваша уже сильная ниша детского и семейного
+      этикета: через школы, семейные программы и бренды. Начинайте строить эту линию сейчас, но
+      результат считайте в горизонте нескольких лет, а не одного года.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОЗИЦИЯ -->
+  <div class="section-label">Ваша позиция</div>
+
+  <div class="verdict-row" style="grid-template-columns:1fr 2fr;">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Кто вы на рынке</div>
+      <div class="vc-value" style="color:var(--green)">Эксперт и наставник</div>
+      <div class="vc-sub">Ваша сила — знание, слово и репутация, а не громкая самопрезентация. Люди доверяют вам как носителю метода и стандарта.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Ваш природный канал</div>
+      <div class="vc-value">Доверие, которое передаётся дальше</div>
+      <div class="vc-sub">Ваша репутация работает тихо и надёжно — через людей, которые вас уже знают и рекомендуют. Задача года — сделать так, чтобы этих людей стало больше, а ваше имя было заметнее.</div>
+    </div>
+  </div>
+
+  <div class="intro-block">
+    <p class="intro-body">
+      <strong>Ваша основа — экспертность и стандарт.</strong> Вы сильны как человек знания и метода:
+      ваше имя ассоциируется с грамотностью, сертификацией и высокой планкой. Это спокойная,
+      уверенная авторитетность — именно она притягивает клиентов, которые ценят качество, а не шум.
+    </p>
+    <p class="intro-body">
+      <strong>Вы — методичный наставник.</strong> Особенно сильна ваша позиция там, где вы обучаете
+      и ведёте — с детьми и учениками. Это ваша самая укоренённая линия, и именно она — опора для
+      роста в новые сегменты.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОМЕСЯЧНАЯ СТРАТЕГИЯ -->
+  <div class="section-label">Помесячная стратегия</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Период</th>
+        <th>Что происходит и почему</th>
+        <th style="min-width:200px">Конкретные действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="m-name">Июль — Август</span>
+          <span class="m-dates">14 июля — 12 августа</span>
+          <span class="m-badge mod">Подготовка · тихий сезон</span>
+        </td>
+        <td>
+          <div class="m-focus">Летнее затишье · Сбор материалов</div>
+          <p class="m-desc">Спокойный период — летом люди учатся меньше, и это нормально по вашей карте. Лучшее время без спешки подготовить всё к сильной осени: материалы, программы, страницы, список тех, кого попросите о рекомендациях.</p>
+        </td>
+        <td>
+          <div class="action-row">Подготовьте программы, страницы и материалы к осени</div>
+          <div class="action-row">Составьте список тёплых контактов для рекомендаций</div>
+          <div class="action-row">Не форсируйте запуск — отдыхайте и собирайтесь</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Август — Сентябрь</span>
+          <span class="m-dates">13 августа — 10 сентября</span>
+          <span class="m-badge peak">Пиковый · имя на виду</span>
+        </td>
+        <td>
+          <div class="m-focus">Видимость · Публикации</div>
+          <p class="m-desc">Одно из самых сильных окон года для вашего имени. Ваша экспертиза под вашим именем воспринимается особенно ярко — время публиковать, заявлять о себе и просить довольных клиентов рекомендовать вас.</p>
+        </td>
+        <td>
+          <div class="action-row">Публикуйте экспертный контент под своим именем</div>
+          <div class="action-row">Просите тёплые рекомендации напрямую</div>
+          <div class="action-row">Заявляйте о себе публично — соцсети, сертификаты</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Сентябрь — Октябрь</span>
+          <span class="m-dates">11 сентября — 9 октября</span>
+          <span class="m-badge peak">Пиковый · сеть</span>
+        </td>
+        <td>
+          <div class="m-focus">Рекомендации · Связи</div>
+          <p class="m-desc">Самый сильный «сетевой» месяц года. Тёплые связи и рекомендации работают на пике — это лучшее время активно включать людей, которые вас знают, и превращать знакомства в клиентов.</p>
+        </td>
+        <td>
+          <div class="action-row">Активно включайте тёплые связи и рекомендации</div>
+          <div class="action-row">Проводите личные и онлайн-встречи с потенциальными клиентами</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Октябрь — Ноябрь</span>
+          <span class="m-dates">10 октября — 8 ноября</span>
+          <span class="m-badge mod">Партнёрства</span>
+        </td>
+        <td>
+          <div class="m-focus">Договорённости · Набор</div>
+          <p class="m-desc">Хорошее окно, чтобы оформить партнёрские и агентские связи и открыть набор на осенне-зимние программы. Партнёрства в этот период получают признание и легче складываются.</p>
+        </td>
+        <td>
+          <div class="action-row">Оформляйте партнёрские договорённости</div>
+          <div class="action-row">Открывайте набор на мастер-классы и программы</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Ноябрь — Декабрь</span>
+          <span class="m-dates">9 ноября — 8 декабря</span>
+          <span class="m-badge peak">Пиковый · выступления</span>
+        </td>
+        <td>
+          <div class="m-focus">Живые мероприятия · Мастер-классы</div>
+          <p class="m-desc">Ваше подтверждённое сильное окно — именно в это время в прошлом к вам активнее всего приходили люди. Лучший момент года для живых выступлений и мастер-классов: они заходят особенно сильно.</p>
+        </td>
+        <td>
+          <div class="action-row">Проводите живые мастер-классы и выступления</div>
+          <div class="action-row">Собирайте аудиторию на офлайн- и онлайн-события</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">Декабрь — Январь</span>
+          <span class="m-dates">9 декабря — 7 января 2027</span>
+          <span class="m-badge mod">Ровный</span>
+        </td>
+        <td>
+          <div class="m-focus">Спокойное продолжение</div>
+          <p class="m-desc">Ровный период без сильных пиков и спадов. Хорошее время закреплять отношения с новыми клиентами, доводить начатые разговоры до результата и планировать следующий год.</p>
+        </td>
+        <td>
+          <div class="action-row">Закрепляйте отношения с новыми клиентами</div>
+          <div class="action-row">Доводите начатые разговоры до конкретики</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ФОНОВЫЙ МОМЕНТ -->
+  <div class="bottom-note">
+    <div class="bn-icon">ℹ</div>
+    <div class="bn-text">
+      <strong>Один фоновый момент на весь год.</strong>
+      Ваш главный рычаг в 2026-м — <strong>доверие и видимость</strong>: всё, что делает вас заметной
+      и рекомендуемой, работает сильнее, чем усилия «на объём». Ваш ритм — осень, а не лето: не
+      расстраивайтесь тихому лету и берегите силы к сильному сезону. И одно спокойное правило года —
+      новые знакомства проверяйте прежде, чем вкладывать в них много времени; ваш тёплый канал силён,
+      но в этом году ему полезна разборчивость.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ЧТО ДАЛЬШЕ -->
+  <div class="section-label">Что дальше</div>
+
+  <div class="intro-block" style="margin-bottom:0;">
+    <p class="intro-body">
+      Эта стратегия отвечает на один ваш вопрос — как привлекать клиентов в 2026-м. Ваша карта говорит
+      и о многом другом: о деньгах и том, что из дохода остаётся с вами; о здоровье; об отношениях; о
+      том, как складываются следующие годы — 2027, 2028 и дальше.
+    </p>
+    <p class="intro-body">
+      Если захотите заглянуть в любую из этих тем — просто напишите. Разберём спокойно и по вашей
+      же карте.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- КАРТА -->
+  <div class="section-label">Карта Цзы Вэй Доу Шу</div>
+
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-natalia-hendrix"
+            title="Карта Цзы Вэй Доу Шу — Наталья Хендрикс">
+    </iframe>
+  </div>
+
+  <div class="chart-print-only">
+    <div class="bn-icon">◆</div>
+    <div class="bn-text">
+      <strong>Карта печатается отдельно.</strong>
+      Интерактивная карта открывается и печатается со своей страницы:
+      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-natalia-hendrix</span>
+      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
+  </footer>
+
+</div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+</body>
+</html>
