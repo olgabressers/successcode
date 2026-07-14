@@ -44,7 +44,8 @@
     .report-header .report-date{color:rgba(250,247,240,0.6);}
     .report-header .header-left a span{color:#E6C97E !important;}
     .report-actions .print-btn.ghost{color:#E6C97E;border-color:rgba(230,201,126,0.45);}
-    .report-actions{position:absolute;top:22px;right:56px;display:flex;align-items:stretch;gap:10px;z-index:20;}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:20;}
+    .print-row{display:flex;gap:10px;}
     /* Language switch — cloned from master (index.html) */
     .lang-switch{display:inline-flex;align-items:center;border:1px solid var(--border);}
     .lang-switch a{font-size:11px;letter-spacing:2px;font-weight:600;color:var(--muted);padding:8px 12px;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s,color .2s;}
@@ -175,18 +176,20 @@
 <div class="page">
 
   <div class="report-actions">
-    <div class="lang-switch" aria-label="Language">
-      <a href="https://successcode.net/" target="_blank" rel="noopener">EN</a>
-      <a href="https://successcode.net/ru/" class="active" target="_blank" rel="noopener">RU</a>
+    <div class="print-row">
+      <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
+        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        PDF отчёта
+      </button>
+      <a class="print-btn ghost" href="https://successcode.net/zwds-sophia" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
+        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        Печать карты
+      </a>
     </div>
-    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
-      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      PDF отчёта
-    </button>
-    <a class="print-btn ghost" href="https://successcode.net/zwds-sophia" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
-      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      Печать карты
-    </a>
+    <div class="lang-switch" aria-label="Language">
+      <a href="https://successcode.net/report-sophia-health-2026-en">EN</a>
+      <a href="https://successcode.net/report-sophia-health-2026" class="active">RU</a>
+    </div>
   </div>
 
   <header class="report-header">
@@ -230,7 +233,7 @@
       достаточно воды и один плановый осмотр.
     </p>
     <p class="intro-body">
-      <strong>Честная калибровка.</strong> Главное окно внимания к телу — осень, сентябрь–октябрь.
+      <strong>Прямо о сроках.</strong> Главное окно внимания к телу — осень, сентябрь–октябрь.
       Это не повод для тревоги: это лучшее время сделать плановый чек-ап, чтобы всё мелкое заметить рано.
       И важная связь: у Софии напряжение уходит в пищеварение — спокойствие и режим сами по себе
       лечебны в этом году. Каждый следующий год смотрим отдельно — у него своё.
@@ -275,7 +278,7 @@
         <li><span style="color:var(--red)">●</span>Не игнорируйте мелкие симптомы кожи, горла или ЖКТ по принципу «само пройдёт» — в этом году лучше проверить рано</li>
         <li><span style="color:var(--red)">●</span>Не запускайте пищеварение — тяжёлая, нерегулярная еда бьёт по её слабому месту</li>
         <li><span style="color:var(--red)">●</span>Не копите стресс — у неё он превращается в телесные симптомы, а не растворяется сам</li>
-        <li><span style="color:var(--red)">●</span>Не занимайтесь самолечением по интернету при неясных симптомах — карта показывает: нужен реальный врач, и он находится</li>
+        <li><span style="color:var(--red)">●</span>Не занимайтесь самолечением по интернету при неясных симптомах — карта показывает: нужен врач, а не сеть, и он находится</li>
         <li><span style="color:var(--red)">●</span>Не путайте «год профилактики» с «годом болезни»: знака тяжёлого заболевания или травмы на 2026 нет — это про заботу, а не про тревогу</li>
       </ul>
     </div>
