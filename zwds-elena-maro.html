@@ -24,14 +24,14 @@
     // Elena Maro's chart pre-fill. Shared utilities (__computeUtcOffset, __tzCorrect,
     // dynamic annual layer) come from zwds-ui.js?v=7.
     function __loadElenaDefaults() {
-      var d = document.getElementById('birth-date');   if (d) d.value = '1971-05-06';
+      var d = document.getElementById('birth-date');   if (d) d.value = '1971-05-05';
       var t = document.getElementById('birth-time');   if (t) t.value = '04:20';
       var s = document.getElementById('birth-sex');    if (s) s.value = 'female';
       var n = document.getElementById('birth-name');   if (n) n.value = 'Elena Maro';
       var c = document.getElementById('birth-city');   if (c) c.value = 'Moscow, Russia';
       var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '37.6173';
 
-      var offset = __computeUtcOffset(55.7558, 37.6173, '1971-05-06', '04:20');
+      var offset = __computeUtcOffset(55.7558, 37.6173, '1971-05-05', '04:20');
       if (offset === null) offset = 3;
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
@@ -747,7 +747,7 @@
       <div class="form-grid">
         <div class="form-group">
           <label>Date of Birth</label>
-          <input type="date" id="birth-date" value="1971-05-06">
+          <input type="date" id="birth-date" value="1971-05-05">
         </div>
         <div class="form-group">
           <label>Time of Birth</label>
@@ -811,7 +811,7 @@
   ── Why this override exists ────────────────────────────────────────────────
   The engine computes the Five Elements Bureau (五行局, 2–6) from the *year*
   ganzhi's NaYin element. The canonical ZWDS rule is to use the *Life-palace
-  (P1) ganzhi*'s NaYin instead. For Elena Maro (1971-05-06) the two diverge:
+  (P1) ganzhi*'s NaYin instead. For Elena Maro (1971-05-05) the two diverge:
 
       Year ganzhi   辛亥  → NaYin 釵釧金 → Metal → Bureau 4  (engine — WRONG)
       P1   ganzhi   辛卯  → NaYin 松柏木 → Wood  → Bureau 3  (correct — iztro)
