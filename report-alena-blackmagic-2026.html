@@ -22,7 +22,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root{
-      /* PURPLE "power / hidden influence" theme */
       --bg:#F6F5F8; --surface:#ECE9F1; --surface2:#E3DFEB; --gold:#6B4C8A; --gold2:#8A6BB0;
       --goldfade:rgba(107,76,138,0.09); --text:#1A161F; --dim:#38323F; --muted:#6E6678;
       --border:rgba(107,76,138,0.24); --border2:rgba(26,22,31,0.10); --red:#7A1E1E; --green:#1A5026;
@@ -37,7 +36,6 @@
     .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
       background-image:linear-gradient(100deg, rgba(30,16,48,0.82) 0%, rgba(30,16,48,0.55) 42%, rgba(30,16,48,0.22) 72%, rgba(30,16,48,0.05) 100%), url('/assets/backgrounds/bg-power-purple.png?v=1');
       background-size:cover;background-position:center right;border:1px solid rgba(138,107,176,0.30);border-radius:4px;overflow:hidden;margin-top:24px;}
-    /* light header text on dark-purple */
     .report-header .report-title{color:#FAF7FF;}
     .report-header .report-title em{color:#C9AEE8;}
     .report-header .report-subtitle{color:rgba(250,247,255,0.80);}
@@ -75,11 +73,18 @@
     .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
     .intro-body+.intro-body{margin-top:12px;}
     .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-row.four{grid-template-columns:repeat(2,1fr);}
     .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
     .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .verdict-card.attack{border-left:3px solid var(--red);}
+    .verdict-card.power{border-left:3px solid var(--green);}
+    .verdict-card.intu{border-left:3px solid var(--gold2);}
+    .verdict-card.ghost{border-left:3px solid #4A4358;}
     .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
     .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-years{font-size:12px;letter-spacing:1px;color:var(--gold);font-weight:600;margin-bottom:10px;}
     .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .vc-sub strong{color:var(--dim);}
     .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
     .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
     .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
@@ -108,6 +113,14 @@
     .m-badge.gift{color:var(--green);border:1px solid rgba(26,80,38,0.3);}
     .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
     .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .m-desc+.m-desc{margin-top:8px;}
+    .m-use{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border2);}
+    .m-use strong{color:var(--gold);font-weight:600;}
+    .tag{display:inline-block;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:2px 6px;margin-right:5px;border-radius:2px;}
+    .tag.at{color:var(--red);background:rgba(122,30,30,0.08);border:1px solid rgba(122,30,30,0.25);}
+    .tag.po{color:var(--green);background:rgba(26,80,38,0.07);border:1px solid rgba(26,80,38,0.25);}
+    .tag.in{color:var(--gold);background:rgba(107,76,138,0.08);border:1px solid var(--border);}
+    .tag.gh{color:#3D3750;background:rgba(74,67,88,0.08);border:1px solid rgba(74,67,88,0.3);}
     .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
     .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
     .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
@@ -149,7 +162,7 @@
       .page{padding:0 24px 60px;}
       .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 26px;background-position:top right;}
       .header-right{text-align:left;}
-      .verdict-row{grid-template-columns:1fr;}
+      .verdict-row,.verdict-row.four{grid-template-columns:1fr;}
       .do-dont-grid{grid-template-columns:1fr;}
       .report-title{font-size:32px;}
       .intro-block{padding:26px 24px;}
@@ -190,7 +203,7 @@
       </div>
       <div class="win-badge">✦ &nbsp;Карта на десятилетие</div>
       <h1 class="report-title">Скрытые влияния, дар<br><em>и долголетие</em></h1>
-      <p class="report-subtitle">Внешние влияния · интуиция · долголетие &nbsp;·&nbsp; Десятилетие 2024–2033</p>
+      <p class="report-subtitle">Порча · сила · интуиция · духи · долголетие &nbsp;·&nbsp; Десятилетие 2024–2033 + сверка с прошлым</p>
     </div>
     <div class="header-right">
       <div class="client-label">Подготовлено для</div>
@@ -207,64 +220,85 @@
 
   <div class="intro-block">
     <p class="intro-lead">
-      Три вещи в вашей карте важно не путать: <em>внешнее влияние</em> (когда чужая тяжёлая энергия
-      пытается дотянуться до вас), <em>ваш собственный дар восприятия</em> — и <em>долголетие</em>.
-      Первое — временное окно, второе можно развивать, третье у вас сильное.
+      В этой теме легко всё смешать в один страх. Поэтому сразу разложим её на <em>четыре разных
+      явления</em> — у каждого свой механизм, своё время и свой способ использовать. Их нельзя путать:
+      два из них — риск, два — ваша сила.
     </p>
     <p class="intro-body">
-      Сразу о главном и с ясной границей: карта показывает КАНАЛ и ВРЕМЯ — где тонкое место и в какие
-      годы оно открыто. Она <strong>не</strong> показывает конкретного человека, намерение или ритуал, и
-      <strong>не</strong> называет никаких «дат конца» — такого расчёта в методе просто нет. Всё, что
-      прямо даёт карта в этой теме, — это ОКНА повышенного риска и ОКНА силы. Ни одной даты смерти в этом
-      отчёте нет и быть не может.
+      Ключ, которым различаются все четыре, — <strong>качество энергии</strong>. Когда точка восприятия
+      зажигается «со знаком плюс» (через признание, защиту) — это ВАША сила: ясная интуиция и дар. Когда
+      та же точка зажигается «со знаком минус» (через трение, без защиты) — это встреча низкого порядка:
+      духи, тревога, чужое давление. Один и тот же орган восприятия — но два противоположных исхода,
+      и карта показывает, какой именно в каком году.
     </p>
     <p class="intro-body">
-      И самое важное для спокойствия: ваша карта устроена как <strong>защитная</strong>. В теле заложены
-      «долгая жизнь + вовремя приходит нужный врач», в уме — сильная защита, а в характере — способность
-      пройти сквозь тяжёлое и собраться заново. Поэтому даже в самых заряженных окнах карта проводит вас
-      насквозь. Естественный горизонт этой карты — глубокая старость, а не ранний обрыв.
+      И граница, чтобы не было тревоги: карта показывает КАНАЛ и ВРЕМЯ — где тонко и когда открыто. Она
+      <strong>не</strong> называет человека, намерение или ритуал и <strong>не</strong> содержит никакой
+      «даты конца» — такого расчёта в методе нет. Ваша карта при этом <strong>защитная</strong>: сильная
+      защита ума, «вовремя приходит нужный врач», способность пройти сквозь тяжёлое. Поэтому даже
+      заряженные окна вы проходите насквозь, а естественный горизонт — глубокая старость.
     </p>
   </div>
 
-  <!-- 3 КАРТЫ -->
-  <div class="verdict-row">
-    <div class="verdict-card highlight">
-      <div class="vc-label">Где риск выше всего</div>
-      <div class="vc-value">Текущее десятилетие · и 2034–2043</div>
-      <div class="vc-sub">Канал внешнего влияния сильнее всего в текущем десятилетии (оно открыто все 10 лет) и в следующем (2034–2043), когда «центр жизни» садится ровно на точку тонкого влияния. Между ними и после — заметно тише.</div>
+  <!-- ЧЕТЫРЕ ЯВЛЕНИЯ -->
+  <div class="section-label">Четыре явления — что это и по каким годам</div>
+
+  <div class="verdict-row four">
+    <div class="verdict-card attack">
+      <div class="vc-label">① Риск · внешнее</div>
+      <div class="vc-value">Порча / атака на ум</div>
+      <div class="vc-years">Годы «тёмной звезды»: 2026 (пик) · 2027 · 2032</div>
+      <div class="vc-sub">Когда чужая тяжёлая энергия целит именно в <strong>ум</strong>. В вашей карте это годы, где «тёмная звезда» зажигается и давит на линию мышления. Проявление — навязчивый «шум» в голове, чужое влияние, ощущение, что мысли не совсем ваши. <strong>Как использовать:</strong> держать ум под защитой — тишина, границы, чистое окружение; НЕ искать «кто это».</div>
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Долголетие</div>
-      <div class="vc-value">Защитная карта</div>
-      <div class="vc-sub">Отдельные годы отмечены как окна повышенной телесной осторожности — но у карты сильная встроенная защита, и она их проходит. Естественный горизонт — глубокая старость (десятилетие 76–85 лет структурно самое «долгое»).</div>
+    <div class="verdict-card power">
+      <div class="vc-label">② Сила · ваше</div>
+      <div class="vc-value">Обретение дара</div>
+      <div class="vc-years">«Родной такт» (раз в 10 лет): …2009 · 2019 · 2029 (пик) · 2039</div>
+      <div class="vc-sub">Когда вы САМИ обретаете ясное, высокого порядка восприятие — «знание наперёд», точную интуицию, способность помогать другим видеть. Это позитивное качество энергии. <strong>Как использовать:</strong> это годы ОБУЧЕНИЯ — учиться, практиковать, ставить дар как навык; разряжать через движение, а не глушить.</div>
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Ваш дар</div>
-      <div class="vc-value">Интуиция, которую можно развить</div>
-      <div class="vc-sub">Карта несёт устойчивый тип восприятия — не «тревожащий», а спокойный, с сильной защитой ума. Это дар, который РАЗВИВАЮТ практикой, а не подавляют. Самое громкое окно для этого — 2029-й.</div>
+    <div class="verdict-card intu">
+      <div class="vc-label">③ Фон + всплески</div>
+      <div class="vc-value">Интуиция сильнее</div>
+      <div class="vc-years">Годы «точки восприятия»: 2013 · 2025 · 2037 (и с детства — фон)</div>
+      <div class="vc-sub">У вас есть <strong>врождённый</strong> устойчивый тип восприятия — тихий фон всю жизнь. Он усиливается в «годы точки восприятия», когда чувствительная точка активируется напрямую. <strong>Как использовать:</strong> доверять первому сигналу, вести записи-сверки, проверять интуицию на мелком, прежде чем опираться на крупном.</div>
+    </div>
+    <div class="verdict-card ghost">
+      <div class="vc-label">④ Риск · встреча</div>
+      <div class="vc-value">Духи / призраки</div>
+      <div class="vc-years">Годы «точки восприятия» с минусом: 2025 (сильнее) · 2037</div>
+      <div class="vc-sub">Та же точка восприятия, но зажжённая «со знаком минус» — прямой контакт низкого порядка: ощущение присутствия, «видеть/слышать», тревожные состояния. Часто идёт рядом с телесной осторожностью. <strong>Как использовать:</strong> не углубляться и не романтизировать; держать защиту ума; сначала — обычный врач и отдых; это ПРОХОДИТ.</div>
     </div>
   </div>
 
-  <!-- DO / DON'T -->
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Как отличить силу (②) от встречи (④) — они в одной точке.</strong> Смотрите на «знак» года:
+      если точка восприятия активируется через <strong>признание/защиту</strong> (годы «родного такта») —
+      это ВАШ дар, его развивают. Если через <strong>трение/зло, без защиты</strong> — это встреча
+      низкого порядка, её проходят и не углубляют. Годы ниже уже размечены по знаку, чтобы вам не гадать.
+    </p>
+  </div>
+
+  <!-- DO / DONT -->
+  <div class="section-label" style="margin-top:44px;">Как действовать — по типу года</div>
   <div class="do-dont-grid">
     <div class="dd-card">
-      <div class="dd-title green">✓ &nbsp; Что укрепляет и защищает</div>
+      <div class="dd-title green">✓ &nbsp; Использовать силу</div>
       <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span>Держите ум сильным: тишина, границы, чистое окружение — ваша защита ума и есть главный «фильтр» в заряженные годы</li>
-        <li><span style="color:var(--green)">●</span>Тело — через движение: в вашей карте лишнюю тяжёлую энергию не «блокируют», а разряжают телом (движение, дыхание, практика)</li>
-        <li><span style="color:var(--green)">●</span>В годы телесной осторожности (см. ниже) — сразу к врачу: у вас в карте «нужный врач приходит вовремя», это ваш собственный рычаг</li>
-        <li><span style="color:var(--green)">●</span>Дар — развивать, а не глушить: обучение, практика, наблюдение. Пик развития — 2029-й</li>
-        <li><span style="color:var(--green)">●</span>Сначала — обычное объяснение: усталость, здоровье, стресс проверяются ПЕРВЫМИ; «тонкое» — только когда обычное исключено</li>
+        <li><span style="color:var(--green)">●</span><strong>В годы дара (②, пик 2029):</strong>&nbsp;учиться и практиковать восприятие как навык — это лучшие годы, чтобы поставить его «на рельсы»</li>
+        <li><span style="color:var(--green)">●</span><strong>В годы интуиции (③):</strong>&nbsp;доверять первому сигналу; вести дневник-сверку (записал → проверил), чтобы отделить точное от тревожного</li>
+        <li><span style="color:var(--green)">●</span>Разряжать восприятие ТЕЛОМ — движение, дыхание, практика: в вашей карте его нельзя «заглушить» силой воли, только направить</li>
+        <li><span style="color:var(--green)">●</span>Сначала — обычное объяснение (усталость, здоровье, стресс); «тонкое» — только когда обычное исключено</li>
       </ul>
     </div>
     <div class="dd-card">
-      <div class="dd-title red">✗ &nbsp; Что открывает тонкое место</div>
+      <div class="dd-title red">✗ &nbsp; Закрыть риск</div>
       <ul class="dd-list">
-        <li><span style="color:var(--red)">●</span>Не оставляйте ум без опоры в пиковые годы (2026, 2032): переутомление и изоляция — это и есть открытая «дверь»</li>
-        <li><span style="color:var(--red)">●</span>Не ищите виноватого-человека: карта не показывает лицо. Персонализация тратит силы впустую — работайте с каналом, не с «кем-то»</li>
-        <li><span style="color:var(--red)">●</span>Не глушите восприятие силой воли — в вашей карте это «делает хуже». Его разряжают и направляют, а не давят</li>
-        <li><span style="color:var(--red)">●</span>Не списывайте телесные сигналы на «мистику» в годы осторожности — сначала обычный врач, потом всё остальное</li>
-        <li><span style="color:var(--red)">●</span>Не оставайтесь в тяжёлом окружении: где чужая энергия давит на ум постоянно — там канал и «горит»</li>
+        <li><span style="color:var(--red)">●</span><strong>В годы порчи (①: 2026, 2027, 2032):</strong>&nbsp;не оставлять ум без опоры — переутомление и изоляция и есть открытая «дверь»</li>
+        <li><span style="color:var(--red)">●</span><strong>В годы встречи (④: 2025, 2037):</strong>&nbsp;не углубляться в контакт и не романтизировать его; держать защиту ума, беречь тело</li>
+        <li><span style="color:var(--red)">●</span>Не искать виноватого-человека: карта не показывает лицо. Персонализация тратит силы впустую</li>
+        <li><span style="color:var(--red)">●</span>Не глушить восприятие силой воли — в вашей карте это «делает хуже»; его направляют, а не давят</li>
       </ul>
     </div>
   </div>
@@ -272,84 +306,23 @@
   <div class="clarify-box">
     <div class="icon">◆</div>
     <p>
-      <strong>Граница метода — чтобы не было тревоги.</strong>
-      «Тёмная энергия» в карте — это НЕ окончательный вердикт и не обвинение конкретному человеку. Это описание
-      <strong>канала</strong> (где у вас тонко) и <strong>времени</strong> (когда открыто). Метод не
-      различает буквальный ритуал и просто долгое давление чужой тяжёлой энергии на ум — и то, и другое
-      читается одинаково, структурно. Поэтому единственно верная работа — укреплять защиту ума и тела в
-      помеченные годы, а не искать «кто это сделал».
+      <strong>Граница метода — чтобы не было тревоги.</strong> «Тёмная энергия» в карте — это НЕ
+      окончательный вердикт и не обвинение конкретному человеку. Это описание <strong>канала</strong>
+      (где у вас тонко) и <strong>времени</strong> (когда открыто). Метод не различает буквальный ритуал
+      и просто долгое давление чужой тяжёлой энергии на ум — читается одинаково, структурно. Поэтому
+      единственно верная работа — укреплять защиту ума и тела в помеченные годы, а не искать «кто это сделал».
     </p>
   </div>
 
   <div class="gold-rule-full"></div>
 
   <!-- ДЕСЯТИЛЕТИЯ -->
-  <div class="section-label">Карта десятилетий: где канал сильнее, где долголетие</div>
-
-  <div class="verdict-row" style="grid-template-columns:1fr 2fr;">
-    <div class="verdict-card highlight">
-      <div class="vc-label">Как это читается</div>
-      <div class="vc-value" style="line-height:1.3;">Канал открыт<br>по десятилетиям</div>
-      <div class="vc-sub">Внешнее влияние — не постоянный фон, а окно, которое ОТКРЫВАЕТСЯ в отдельные десятилетия и закрывается, когда следующее десятилетие его «сбивает». Ниже — где оно сильнее за всю жизнь.</div>
-    </div>
-    <div class="verdict-card">
-      <div class="vc-value" style="line-height:1.35;">Пики — сейчас<br>и 2034–2043</div>
-      <div class="vc-sub" style="margin-top:8px;">Самые заряженные десятилетия — текущее (2024–2033, открыто все 10 лет) и следующее (2034–2043), когда «центр жизни» садится ровно на точку тонкого влияния и требует самой крепкой защиты ума. Десятилетия 66–75 — тихое. А 76–85 — «долгое»: защита тела удваивается.</div>
-    </div>
-  </div>
-
-  <table class="month-table">
-    <thead>
-      <tr>
-        <th style="min-width:150px">Десятилетие</th>
-        <th>Канал внешнего влияния</th>
-        <th style="min-width:150px">Итог</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="m-name">2004–2013</span><span class="m-dates">26–35 лет</span><span class="m-badge mod">Позади</span></td>
-        <td><div class="m-desc">Высокий: «центр жизни» стоял ровно на точке ума — самом чувствительном месте для этой темы.</div></td>
-        <td><div class="m-desc">Пройдено.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2014–2023</span><span class="m-dates">36–45 лет</span><span class="m-badge mod">Позади</span></td>
-        <td><div class="m-desc">Умеренный: канал смещался к линии окружения и связей.</div></td>
-        <td><div class="m-desc">Пройдено.</div></td>
-      </tr>
-      <tr class="peak-row">
-        <td><span class="m-name">2024–2033</span><span class="m-dates">46–55 лет · сейчас</span><span class="m-badge peak">Открыто</span></td>
-        <td><div class="m-desc">Высокий и активен ВСЕ 10 лет. Разбор по годам — в следующем разделе. Пиковая интенсивность — 2026-й.</div></td>
-        <td><div class="m-desc">Держать защиту ума; см. годовой разбор.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2034–2043</span><span class="m-dates">56–65 лет</span><span class="m-badge caution">Пик впереди</span></td>
-        <td><div class="m-desc">Структурно САМЫЙ заряженный: «центр жизни» садится прямо на точку, где сходятся линия связей и мотив внешнего влияния на ум.</div></td>
-        <td><div class="m-desc">Десятилетие максимальной защиты ума и границ.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2044–2053</span><span class="m-dates">66–75 лет</span><span class="m-badge mod">Тихо</span></td>
-        <td><div class="m-desc">Низкий: канал не активируется напрямую.</div></td>
-        <td><div class="m-desc">Спокойный по теме период.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2054–2063</span><span class="m-dates">76–85 лет</span><span class="m-badge gift">Долголетие</span></td>
-        <td><div class="m-desc">«Центр жизни» возвращается к телу-здоровью, а защита долголетия удваивается — это структурно «долгое» десятилетие.</div></td>
-        <td><div class="m-desc">Естественный горизонт карты — здесь, в глубокой старости.</div></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="gold-rule-full"></div>
-
-  <!-- ГОДОВОЙ РАЗБОР -->
-  <div class="section-label">Текущее десятилетие по годам · 2024–2033</div>
+  <div class="section-label">Карта десятилетий: где что сильнее</div>
 
   <div class="intro-block" style="padding:26px 40px;">
     <p class="intro-body" style="margin:0;">
-      Канал открыт весь период — поэтому важна не «есть/нет», а <strong>форма года</strong>: где именно
-      влияние касается (ум, окружение, тело), и когда оно оборачивается не риском, а <strong>вашей
-      силой</strong>. Каждый год ниже — своё, отдельное движение, без повторов. Годы указаны по восточному
+      Каждое из четырёх явлений «дышит» по десятилетиям — открывается и закрывается. Ниже — где за всю
+      жизнь сильнее РИСК (порча, встреча), а где ваша СИЛА (дар, интуиция). Годы указаны по восточному
       циклу (год начинается с китайского Нового года).
     </p>
   </div>
@@ -357,90 +330,271 @@
   <table class="month-table">
     <thead>
       <tr>
-        <th style="min-width:120px">Год</th>
-        <th>Форма года — что именно происходит</th>
-        <th style="min-width:150px">Метка</th>
+        <th style="min-width:150px">Десятилетие</th>
+        <th>Что сильнее в этом периоде</th>
+        <th style="min-width:120px">Итог</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="m-name">2024</span></td>
-        <td><div class="m-focus">Касание ума</div><p class="m-desc">Год «помечает» ум: тонкое влияние впервые за десятилетие дотягивается до линии мышления. Не пик, но начало открытого окна.</p></td>
-        <td><span class="m-badge mod">Умеренно · держать границы</span></td>
+        <td><span class="m-name">2004–2013</span><span class="m-dates">26–35 лет</span><span class="m-badge mod">Позади</span></td>
+        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag po">Сила</span> Особый период: «центр жизни» стоял ровно на линии УМА — самая чувствительная для этой темы точка. Значит, весь период был усилен И риск атаки на ум, И развитие собственного восприятия. Годы разметки — в разделе «Прошлое».</div></td>
+        <td><div class="m-desc">Пройдено — сверьте.</div></td>
       </tr>
       <tr>
-        <td><span class="m-name">2025</span></td>
-        <td><div class="m-focus">Тело и восприятие · осторожность</div><p class="m-desc">Год напрямую активирует точку тела/восприятия — самое чувствительное место карты. Здесь восприятие может обостряться, и одновременно это одно из окон телесной осторожности (см. раздел ниже).</p></td>
-        <td><span class="m-badge caution">Окно осторожности</span></td>
+        <td><span class="m-name">2014–2023</span><span class="m-dates">36–45 лет</span><span class="m-badge mod">Позади</span></td>
+        <td><div class="m-desc"><span class="tag at">Порча</span> Канал смещён к линии окружения/связей: риск шёл «через людей» и через давление на ум. Плюс одно сильное окно дара — 2019-й.</div></td>
+        <td><div class="m-desc">Пройдено — сверьте.</div></td>
       </tr>
       <tr class="peak-row">
-        <td><span class="m-name">2026</span></td>
-        <td><div class="m-focus">Пик внешнего канала</div><p class="m-desc">Годовой и десятилетний слой совпадают и УДВАИВАЮТ давление на линию близких связей — это пиковая точка внешнего влияния за всё десятилетие. Год держать ум крепким и окружение чистым.</p></td>
-        <td><span class="m-badge peak">Пик десятилетия</span></td>
+        <td><span class="m-name">2024–2033</span><span class="m-dates">46–55 лет · сейчас</span><span class="m-badge peak">Сейчас</span></td>
+        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag po">Сила</span><span class="tag gh">Духи</span> Активны все четыре: пик порчи — 2026; пик силы/дара — 2029; год встречи/интуиции — 2025. Полный разбор по годам ниже.</div></td>
+        <td><div class="m-desc">Держать защиту; развивать дар.</div></td>
       </tr>
       <tr>
-        <td><span class="m-name">2027</span></td>
-        <td><div class="m-focus">Смещение к окружению</div><p class="m-desc">Мотив меняет адрес: с близкого круга — на линию окружения и связей (влияние через сеть контактов, «через людей»). Внимательнее к тому, кто и с каким мотивом входит в круг.</p></td>
-        <td><span class="m-badge mod">Внимание к кругу</span></td>
+        <td><span class="m-name">2034–2043</span><span class="m-dates">56–65 лет</span><span class="m-badge caution">Пик риска впереди</span></td>
+        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag gh">Духи</span> Структурно САМЫЙ заряженный по внешнему риску: «центр жизни» садится прямо на точку, где сходятся линия связей и мотив влияния на ум. Годы-акценты: 2036, 2037 (встреча＋атака), 2042.</div></td>
+        <td><div class="m-desc">Десятилетие максимальной защиты ума.</div></td>
       </tr>
       <tr>
-        <td><span class="m-name">2028</span></td>
-        <td><div class="m-focus">Прямое касание близкой линии</div><p class="m-desc">Год напрямую подсвечивает линию близких/партнёрских связей — тему видно яснее, но и работать с ней проще: держать письменную ясность в договорённостях.</p></td>
-        <td><span class="m-badge mod">Ясность в связях</span></td>
-      </tr>
-      <tr class="peak-row">
-        <td><span class="m-name">2029</span></td>
-        <td><div class="m-focus">Поворот внутрь — окно ДАРА</div><p class="m-desc">Год «родного» такта: тема разворачивается с внешнего влияния на ВАШ собственный дар. Восприятие звучит громче всего за десятилетие — это лучшее окно, чтобы обучаться и развивать интуицию как навык, а не как тревогу.</p></td>
-        <td><span class="m-badge gift">Развитие дара</span></td>
+        <td><span class="m-name">2044–2053</span><span class="m-dates">66–75 лет</span><span class="m-badge mod">Тихо</span></td>
+        <td><div class="m-desc">Низкий фон по всем четырём — канал напрямую не активируется. Одно позитивное окно восприятия — 2049-й.</div></td>
+        <td><div class="m-desc">Спокойный по теме период.</div></td>
       </tr>
       <tr>
-        <td><span class="m-name">2030</span></td>
-        <td><div class="m-focus">Тихо по теме</div><p class="m-desc">Мотив внешнего влияния прямого касания не даёт — по этой теме спокойный год (энергия года уходит в другие линии жизни).</p></td>
-        <td><span class="m-badge mod">Спокойно</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2031</span></td>
-        <td><div class="m-focus">Телесная осторожность · смягчено</div><p class="m-desc">Второе окно телесной осторожности десятилетия — но структурно смягчённое (в карте есть встречная поддержка, см. раздел ниже). По каналу влияния — низко-умеренно.</p></td>
-        <td><span class="m-badge caution">Окно осторожности (мягче)</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2032</span></td>
-        <td><div class="m-focus">Давление на ум — год ума</div><p class="m-desc">Сразу несколько слоёв сходятся на линии ума одновременно. Это не про тело — про ментальную нагрузку и «шум». Год, когда защита ума (тишина, границы, отдых) важнее всего после 2026-го.</p></td>
-        <td><span class="m-badge caution">Беречь ум</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2033</span></td>
-        <td><div class="m-focus">Тихо по теме</div><p class="m-desc">По теме тонких влияний — спокойный год; энергия уходит в рабочую/имущественную линию. Десятилетие закрывается без нового пика по этой теме.</p></td>
-        <td><span class="m-badge mod">Спокойно</span></td>
+        <td><span class="m-name">2054–2063</span><span class="m-dates">76–85 лет</span><span class="m-badge gift">Сила · долголетие</span></td>
+        <td><div class="m-desc"><span class="tag po">Сила</span> «Центр жизни» возвращается к точке восприятия/здоровья, а защита долголетия удваивается — восприятие высокого, позитивного порядка на фоне долгой жизни.</div></td>
+        <td><div class="m-desc">Естественный горизонт карты — здесь.</div></td>
       </tr>
     </tbody>
   </table>
 
   <div class="gold-rule-full"></div>
 
+  <!-- ПРОШЛОЕ -->
+  <div class="section-label">Прошлое — для сверки с вашими фактами</div>
+
+  <div class="intro-block" style="padding:26px 40px;">
+    <p class="intro-body" style="margin:0;">
+      Это раздел проверки: карта <strong>помечает</strong> годы, где каждое явление структурно
+      срабатывало — а вы сверяете со своей памятью (что реально было, а что нет). Направление именно
+      такое: карта → сверка, не наоборот. Ниже — только годы и тип явления, без домыслов о событиях.
+    </p>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:110px">Год</th>
+        <th>Что карта помечает</th>
+        <th style="min-width:120px">Тип</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="m-name">~1989</span><span class="m-dates">детство</span></td>
+        <td><div class="m-desc">«Точка восприятия» зажигается ПОЗИТИВНО впервые в жизни — структурный маркер раннего, врождённого чутья («чувствую/знаю с детства»). Это семя вашего дара.</div></td>
+        <td><span class="tag po">Сила-семя</span><span class="tag in">Интуиция</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">1999</span><span class="m-dates">16–25 · «родной такт»</span></td>
+        <td><div class="m-desc">Год «родного такта»: восприятие/дар усилены позитивно. Раннее окно, где чутьё звучит громче.</div></td>
+        <td><span class="tag po">Сила</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2002 · 2006 · 2007</span><span class="m-dates">линия ума активна</span></td>
+        <td><div class="m-desc">Годы, где «тёмная звезда» зажигалась и/или удар шёл В УМ (2006 — усилено вдвойне). Период, когда риск внешнего давления на мышление был выше обычного.</div></td>
+        <td><span class="tag at">Порча/ум</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2009</span><span class="m-dates">«родной такт»</span></td>
+        <td><div class="m-desc">Сильное окно собственного восприятия/дара — «точка восприятия» зажжена позитивно (вдвойне). Хорошее окно для интуитивных решений.</div></td>
+        <td><span class="tag po">Сила</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2012</span><span class="m-dates">удар в ум</span></td>
+        <td><div class="m-desc">Год прямого давления на линию ума (мысленный «шум»/нагрузка + острый акцент на уме). Один из самых «ментально-заряженных» в том десятилетии.</div></td>
+        <td><span class="tag at">Порча/ум</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2013</span><span class="m-dates">точка восприятия</span></td>
+        <td><div class="m-desc">«Точка восприятия» активирована ветвью года — восприятие обострено; качество нейтрально-минусовое (перекос в сторону встречи/ощущений, а не чистого дара).</div></td>
+        <td><span class="tag in">Интуиция</span><span class="tag gh">Встреча</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2016 · 2017</span><span class="m-dates">линия связей/ум</span></td>
+        <td><div class="m-desc">«Тёмная звезда» другого типа зажжена (2017 — вдвойне): риск влияния через окружение/связи и давления на ум. Пик той волны — 2017-й.</div></td>
+        <td><span class="tag at">Порча/связи</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2019</span><span class="m-dates">«родной такт»</span></td>
+        <td><div class="m-desc">Сильное позитивное окно восприятия/дара (вдвойне). Год, где чутью можно было доверять.</div></td>
+        <td><span class="tag po">Сила</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2020 · 2022</span><span class="m-dates">удар в ум</span></td>
+        <td><div class="m-desc">Годы давления на линию ума (2022 — острый акцент: удар В УМ + ментальная нагрузка). Риск внешнего «шума» выше обычного.</div></td>
+        <td><span class="tag at">Порча/ум</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="bottom-note">
+    <div class="bn-icon">✎</div>
+    <div class="bn-text">
+      <strong>Как сверять.</strong> Отметьте для себя, в каких из этих годов было соответствие
+      (усиление интуиции, тяжёлое ментальное давление, ощущение чужого влияния, случаи «видеть/
+      чувствовать»), а в каких — ничего. Совпадения подтверждают, что механизм в вашей карте «живой»;
+      пропуски показывают, где канал был открыт, но без реального события (окно ≠ обязательное событие).
+      Так мы откалибруем прогноз на будущее по ВАШИМ фактам.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ГОДОВОЙ РАЗБОР -->
+  <div class="section-label">Текущее десятилетие по годам · 2024–2033</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:100px">Год</th>
+        <th>Что именно происходит</th>
+        <th style="min-width:110px">Тип</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="m-name">2024</span></td>
+        <td>
+          <div class="m-focus">Касание ума — начало окна</div>
+          <p class="m-desc">Тонкое влияние впервые за десятилетие дотягивается до линии мышления: «дверь» приоткрывается. Не пик — разгон.</p>
+          <p class="m-use"><strong>Использовать:</strong> заранее выстроить «гигиену ума» — сон, границы, чистое окружение; заложить привычки, которые понадобятся к 2026-му.</p>
+        </td>
+        <td><span class="tag at">Порча/ум · слабо</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2025</span></td>
+        <td>
+          <div class="m-focus">Точка восприятия — напрямую · и осторожность</div>
+          <p class="m-desc">Год активирует саму точку восприятия — с «минусовым» качеством. Это год, где вероятнее всего <strong>обострённые ощущения / контакт низкого порядка</strong> («присутствие», тревожные состояния), и одновременно окно телесной осторожности (см. ниже).</p>
+          <p class="m-use"><strong>Использовать:</strong> не углубляться в «тонкое»; сначала — врач и восстановление; защита ума; разрядка телом. Это проходит.</p>
+        </td>
+        <td><span class="tag gh">Духи/встреча</span><span class="tag in">Интуиция</span></td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="m-name">2026</span></td>
+        <td>
+          <div class="m-focus">ПИК внешнего давления на ум</div>
+          <p class="m-desc">Годовой и десятилетний слой совпадают и <strong>удваивают</strong> давление по линии близких связей → на ум. Это пиковая точка «порчи/атаки» за всё десятилетие: максимум чужого «шума» и влияния на мышление.</p>
+          <p class="m-use"><strong>Использовать:</strong> год строгой защиты ума — тишина, границы, чистое окружение, никакой изоляции и перегруза; не искать «кто». Тело — в движении.</p>
+        </td>
+        <td><span class="tag at">Порча/ум · ПИК</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2027</span></td>
+        <td>
+          <div class="m-focus">Смещение к окружению</div>
+          <p class="m-desc">Адрес риска меняется: с близкого круга — на линию окружения и связей. Влияние идёт «через людей» — сеть контактов, новые знакомства с неясным мотивом.</p>
+          <p class="m-use"><strong>Использовать:</strong> внимательнее к тому, кто входит в круг; меньше открытости к «случайным» контактам; договорённости — письменно.</p>
+        </td>
+        <td><span class="tag at">Порча/связи</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2028</span></td>
+        <td>
+          <div class="m-focus">Прямое касание близкой линии</div>
+          <p class="m-desc">Год прямо подсвечивает линию близких/партнёрских связей — тему видно яснее, работать с ней проще.</p>
+          <p class="m-use"><strong>Использовать:</strong> навести ясность в близких договорённостях; проговорить/зафиксировать то, что «висело» неопределённым.</p>
+        </td>
+        <td><span class="tag at">Порча/связи · слабо</span></td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="m-name">2029</span></td>
+        <td>
+          <div class="m-focus">ПИК силы — окно ДАРА</div>
+          <p class="m-desc">Год «родного такта»: тема разворачивается с внешнего риска на ВАШУ силу. Собственное восприятие звучит <strong>громче всего за десятилетие</strong> и с позитивным качеством — это «знание наперёд», точная интуиция, способность видеть за других. Это не риск, а ресурс.</p>
+          <p class="m-use"><strong>Использовать:</strong> ЛУЧШЕЕ окно, чтобы учиться и практиковать восприятие как навык — курсы, наставник, регулярная практика; ставить дар «на рельсы».</p>
+        </td>
+        <td><span class="tag po">Сила/дар · ПИК</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2030</span></td>
+        <td>
+          <div class="m-focus">Тихо по теме</div>
+          <p class="m-desc">Прямого касания по этой теме нет — спокойный год (энергия уходит в другие линии жизни).</p>
+          <p class="m-use"><strong>Использовать:</strong> закрепить практику, наработанную в 2029-м, спокойным ритмом — без нагрузки.</p>
+        </td>
+        <td><span class="tag in">Фон</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2031</span></td>
+        <td>
+          <div class="m-focus">Телесная осторожность · смягчено</div>
+          <p class="m-desc">Второе окно телесной осторожности десятилетия — но структурно смягчённое (в карте есть встречная поддержка). По каналам порчи/встречи — низко.</p>
+          <p class="m-use"><strong>Использовать:</strong> обычная профилактика и «к врачу сразу»; осторожность в движении/дороге. Тревоги не требует.</p>
+        </td>
+        <td><span class="tag gh">Осторожность (мягче)</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2032</span></td>
+        <td>
+          <div class="m-focus">Давление на ум — год ума</div>
+          <p class="m-desc">Сразу несколько слоёв сходятся на линии ума одновременно — это про ментальную нагрузку и «шум», не про тело. Второй по силе год порчи/давления на ум после 2026-го.</p>
+          <p class="m-use"><strong>Использовать:</strong> год беречь ум как приоритет — тишина, границы, отдых, меньше информационного и эмоционального перегруза.</p>
+        </td>
+        <td><span class="tag at">Порча/ум</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2033</span></td>
+        <td>
+          <div class="m-focus">Тихо по теме</div>
+          <p class="m-desc">По теме тонких влияний — спокойный год; энергия уходит в рабочую/имущественную линию. Десятилетие закрывается без нового пика.</p>
+          <p class="m-use"><strong>Использовать:</strong> подвести итог десятилетия по этой теме; сверить прогноз с тем, что реально было.</p>
+        </td>
+        <td><span class="tag in">Фон</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="bottom-note">
+    <div class="bn-icon">✦</div>
+    <div class="bn-text">
+      <strong>Коротко по десятилетию.</strong>
+      Риск «порчи/атаки на ум» — <strong>2026 (пик)</strong>, затем 2027 и 2032.
+      Ваша сила и дар — <strong>2029 (пик)</strong>: единственное такое окно за 10 лет, год обучения.
+      Обострение восприятия и возможные «встречи» — <strong>2025</strong> (там же телесная осторожность).
+      Всё остальное — тихий фон.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
   <!-- ДАР -->
-  <div class="section-label">Ваш дар восприятия — что это и как развивать</div>
+  <div class="section-label">Ваш дар: когда он сильнее и как его использовать</div>
 
   <div class="intro-block">
     <p class="intro-lead">
-      У вас в карте — <em>устойчивый</em> тип восприятия. Это важное отличие: есть «тревожащий» тип
-      (когда тонкое мешает и пугает), а есть спокойный, с сильной защитой ума — и он ваш.
+      У вас <em>врождённый</em>, устойчивый тип восприятия — не «тревожащий», а спокойный, с сильной
+      защитой ума. Это дар, который РАЗВИВАЮТ, а не подавляют.
     </p>
     <p class="intro-body">
-      <strong>Почему устойчивый.</strong> Чувствительная точка восприятия у вас поддержана «защитой ума» —
-      в линии мышления стоят опорные, оберегающие элементы. Такой ум может держать тонкий канал, не
-      ломаясь под ним. Поэтому это читается как ДАР, который можно спокойно развивать, а не как расстройство.
+      <strong>Почему устойчивый.</strong> Чувствительная точка восприятия у вас подкреплена «защитой
+      ума» — оберегающими опорами в линии мышления. Такой ум может держать тонкий канал, не ломаясь под
+      ним. Поэтому это читается как ДАР, а не как расстройство: вы — тип, который может «следовать за
+      чутьём» и даже помогать другим, а не тот, кого восприятие мучает.
     </p>
     <p class="intro-body">
-      <strong>Прямая граница (важно).</strong> Та же чувствительная точка сначала читается как ТЕЛО —
-      здоровье и его сигналы идут ПЕРВЫМИ. Дар — это второй слой, который открывается, когда телесная
-      линия в порядке и под присмотром. Поэтому развитие дара и забота о теле идут вместе, а не вместо
-      друг друга.
+      <strong>Когда сильнее.</strong> Громче всего — в годы «родного такта» (позитивное качество):
+      прошлые окна — 2009 и 2019; ближайший ПИК — <strong>2029</strong>; далее 2039. Плюс тихий фон
+      всю жизнь и всплески в «годы точки восприятия» (ближайший — 2025, но там качество минусовое, ближе
+      к встрече, чем к чистому дару).
     </p>
     <p class="intro-body">
-      <strong>Как развивать.</strong> В вашей карте этот канал нельзя «заглушить» усилием — попытка давить
-      делает хуже. Его РАЗВИВАЮТ и РАЗРЯЖАЮТ: обучение, наблюдение, регулярная практика, движение телом.
-      Самое громкое окно для этого — <strong>2029-й</strong>, когда восприятие звучит сильнее всего.
+      <strong>Как развивать (важно).</strong> В вашей карте этот канал нельзя «заглушить» усилием —
+      попытка давить делает хуже. Его РАЗВИВАЮТ и РАЗРЯЖАЮТ: обучение, наблюдение, регулярная практика,
+      движение телом. И «здоровье вперёд»: та же точка сначала читается как ТЕЛО, поэтому забота о теле и
+      развитие дара идут вместе. 2029-й — год, когда стоит вложиться в это всерьёз.
     </p>
   </div>
 
@@ -451,17 +605,13 @@
 
   <div class="intro-block">
     <p class="intro-lead">
-      Здесь — только <em>окна</em>, и ничего кроме окон. Метод не знает «года конца», и придумывать его
-      нельзя. Что карта даёт прямо: годы повышенной телесной осторожности — и очень сильную защиту,
-      которая их проходит.
+      Здесь — только <em>окна</em>, и ничего кроме окон. Метод не знает «года конца». Что карта даёт
+      прямо: годы повышенной телесной осторожности — и очень сильную защиту, которая их проходит.
     </p>
     <p class="intro-body">
-      <strong>Ваша защита.</strong> В теле заложено «долгая жизнь + вовремя приходит нужный врач»; в уме —
-      оберегающие элементы; в характере — способность пройти сквозь тяжёлое и собраться. Это и есть
-      причина, по которой заряженные окна проходятся, а не становятся обрывом.
-    </p>
-    <p class="intro-body">
-      <strong>Окна осторожности в текущем десятилетии — два, оба проходимые:</strong>
+      <strong>Ваша защита.</strong> В теле — «долгая жизнь + вовремя приходит нужный врач»; в уме —
+      оберегающие опоры; в характере — способность пройти сквозь тяжёлое и собраться. Поэтому заряженные
+      окна проходятся, а не становятся обрывом. Естественный горизонт карты — глубокая старость.
     </p>
   </div>
 
@@ -469,17 +619,17 @@
     <div class="verdict-card">
       <div class="vc-label">Окно · сильнее</div>
       <div class="vc-value">2025</div>
-      <div class="vc-sub">Год касается линии движения/перемещения и точки тела одновременно, без встречной подпорки. Рычаг — ваш собственный «нужный врач вовремя» и внимательность в дороге. Проходится защитой карты.</div>
+      <div class="vc-sub">Год касается линии перемещения и точки тела одновременно, без встречной подпорки. Рычаг — ваш «нужный врач вовремя» и внимательность в дороге. Проходится защитой карты.</div>
     </div>
     <div class="verdict-card">
       <div class="vc-label">Окно · мягче</div>
       <div class="vc-value">2031</div>
-      <div class="vc-sub">Похожая по форме точка, но структурно смягчена встречной поддержкой в линии личности. Осторожность — да, тревога — нет.</div>
+      <div class="vc-sub">Похожая точка, но структурно смягчена встречной поддержкой в линии личности. Осторожность — да, тревога — нет.</div>
     </div>
     <div class="verdict-card highlight">
       <div class="vc-label">Естественный горизонт</div>
       <div class="vc-value">Глубокая старость</div>
-      <div class="vc-sub">Структурно самое «долгое» десятилетие — 76–85 лет, когда защита тела удваивается. Это естественный горизонт карты; никакой более ранней «даты» метод не содержит.</div>
+      <div class="vc-sub">Структурно самое «долгое» десятилетие — 76–85 лет, когда защита тела удваивается. Никакой более ранней «даты» метод не содержит.</div>
     </div>
   </div>
 
@@ -505,8 +655,8 @@
     <p class="intro-body">
       Тонкие влияния, дар и долголетие — лишь одна дверь. Рядом — доход, карьера, недвижимость,
       отношения, здоровье; и каждый следующий год открывается своим отдельным разбором. Мы посмотрели
-      это десятилетие целиком и год за годом — а когда захотите заглянуть в следующую дверь или в любой
-      следующий год, карта уже готова ответить.
+      это десятилетие целиком, год за годом, и разметили прошлое для сверки — а когда захотите заглянуть
+      в следующую дверь или в любой следующий год, карта уже готова ответить.
     </p>
   </div>
 
