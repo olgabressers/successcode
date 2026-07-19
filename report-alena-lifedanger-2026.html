@@ -23,7 +23,7 @@
   <style>
     :root{
       --bg:#F4F7F4; --surface:#E7EEE8; --surface2:#DEE7DF; --gold:#2E6B4C; --gold2:#3E8A6B;
-      --goldfade:rgba(46,107,76,0.09); --text:#161F1A; --dim:#323F37; --muted:#66746C;
+      --goldfade:rgba(46,107,76,0.09); --text:#161F1A; --dim:#2C352F; --muted:#5C6A62;
       --border:rgba(46,107,76,0.24); --border2:rgba(22,31,26,0.10); --red:#7A1E1E; --green:#1A5026;
       --amber:#8A5A1E;
       --green-grad:linear-gradient(135deg,#4C8A6B 0%,#9AD4B6 42%,#2E6B4C 62%,#78C49E 100%);
@@ -31,9 +31,9 @@
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
     html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
     .win-strip{width:100%;height:7px;background:var(--green-grad);}
-    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .page{width:100%;max-width:1000px;margin:0 auto;padding:0 56px 80px;position:relative;}
     .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
       background-image:linear-gradient(100deg, rgba(12,34,24,0.82) 0%, rgba(12,34,24,0.55) 42%, rgba(12,34,24,0.22) 72%, rgba(12,34,24,0.05) 100%), url('/assets/backgrounds/bg-health-green.png?v=1');
       background-size:cover;background-position:center right;border:1px solid rgba(62,138,107,0.30);border-radius:4px;overflow:hidden;margin-top:24px;}
@@ -55,7 +55,6 @@
     .chart-print-only{display:none;}
     .header-left{flex:1;}
     .win-badge{display:inline-flex;align-items:center;gap:8px;background:var(--green-grad);color:#0E241A;padding:6px 15px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;box-shadow:0 2px 9px rgba(46,107,76,0.32);margin-bottom:18px;}
-    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
     .report-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
     .report-title em{font-style:italic;color:var(--gold2);}
     .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
@@ -66,65 +65,67 @@
     .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
     .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
     .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
-    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
     .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
-    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:34px 40px;margin-bottom:32px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
     .intro-lead em{font-style:italic;color:var(--gold2);}
-    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
-    .intro-body+.intro-body{margin-top:12px;}
-    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
-    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
-    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
-    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
-    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
-    .vc-sub strong{color:var(--dim);}
-    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
-    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
-    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
-    .clarify-box strong{color:var(--text);}
-    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
-    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
-    .dd-title.green{color:var(--green);}
-    .dd-title.red{color:var(--red);}
-    .dd-list{list-style:none;}
-    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
-    .dd-list li:last-child{border-bottom:none;}
-    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .intro-body{font-size:15px;color:var(--dim);line-height:1.85;}
+    .intro-body+.intro-body{margin-top:14px;}
+    .intro-body strong{color:var(--text);}
+    /* THREE CAUSES */
+    .cause{background:white;border:1px solid var(--border2);border-left:4px solid var(--gold2);padding:26px 30px;margin-bottom:16px;}
+    .cause.a{border-left-color:#B03A3A;}
+    .cause.b{border-left-color:#8A5A1E;}
+    .cause.c{border-left-color:#5B4A78;}
+    .cause-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+    .cause-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1;color:var(--gold2);}
+    .cause.a .cause-num{color:#B03A3A;} .cause.b .cause-num{color:#8A5A1E;} .cause.c .cause-num{color:#5B4A78;}
+    .cause-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);}
+    .cause-body{font-size:15px;color:var(--dim);line-height:1.8;margin-bottom:12px;}
+    .cause-years{font-size:14px;color:var(--dim);background:var(--surface);border:1px solid var(--border2);padding:12px 16px;line-height:1.7;}
+    .cause-years b{color:var(--text);}
+    .cause-years .hot{color:#B03A3A;font-weight:700;}
     .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
-    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table th{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:12px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
     .month-table tr{border-bottom:1px solid var(--border2);}
     .month-table tr:last-child{border-bottom:none;}
-    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
-    .month-table tr.peak-row td{background:rgba(122,30,30,0.05)!important;}
-    .m-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
-    .m-dates{font-size:13px;color:var(--muted);display:block;margin-top:4px;}
-    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
-    .m-badge.strong{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
-    .m-badge.soft{color:var(--amber);border:1px solid rgba(138,90,30,0.3);}
-    .m-badge.past{color:var(--muted);border:1px solid var(--border2);}
-    .m-badge.watch{color:var(--gold);border:1px solid var(--border);}
-    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
-    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
-    .m-use{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border2);}
-    .m-use strong{color:var(--gold);font-weight:600;}
-    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
-    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .month-table td{padding:18px;vertical-align:top;background:white;}
+    .month-table tr.hot-row td{background:rgba(176,58,58,0.05)!important;}
+    .yr{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--text);display:block;line-height:1;}
+    .yr-age{font-size:12px;color:var(--muted);display:block;margin-top:4px;}
+    .yr-tag{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:2px;}
+    .yr-tag.was{color:var(--muted);border:1px solid var(--border2);}
+    .yr-tag.hot{color:#B03A3A;border:1px solid rgba(176,58,58,0.35);background:rgba(176,58,58,0.06);}
+    .yr-tag.soft{color:var(--amber);border:1px solid rgba(138,90,30,0.3);}
+    .cell-what{font-size:15px;color:var(--dim);line-height:1.7;}
+    .cell-what b{color:var(--text);}
+    .cell-do{font-size:14px;color:var(--muted);line-height:1.65;}
+    .cell-do b{color:var(--gold);}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:20px 26px;margin-top:8px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:20px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:14.5px;color:var(--dim);line-height:1.75;}
+    .clarify-box strong{color:var(--text);}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:26px 28px;}
+    .dd-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:16px;}
+    .dd-title.green{color:var(--green);} .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:9px 0;border-bottom:1px solid var(--border2);font-size:14.5px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.6;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:2px;}
     .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
     .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
-    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:26px 32px;margin-top:8px;display:flex;gap:18px;align-items:flex-start;}
     .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
-    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text{font-size:14.5px;color:var(--dim);line-height:1.8;}
     .bn-text strong{color:var(--text);}
     .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
     .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
     .footer-note{font-size:11px;color:var(--muted);}
     @page{margin:13mm;}
     @media print{
-      html,body{background:white;}
-      body{font-size:11.5px;line-height:1.55;}
+      html,body{background:white;} body{font-size:12px;line-height:1.6;}
       .page{padding:0;max-width:100%;}
       .report-actions{display:none!important;}
       .report-header{background:none!important;border:1px solid var(--border);}
@@ -134,35 +135,29 @@
       .report-header .header-left a span{color:var(--gold)!important;}
       .gold-rule,.gold-rule-full{margin:22px 0!important;}
       .report-title{font-size:32px;}
-      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
-      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
+      .intro-block,.cause,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
       .month-table tr{break-inside:avoid;page-break-inside:avoid;}
       .section-label{break-after:avoid;page-break-after:avoid;}
-      .month-table tr.peak-row td{background:#F3EAEA!important;}
+      .month-table tr.hot-row td{background:#F3EAEA!important;}
       .chart-wrap{display:none!important;}
       .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
-      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);}
       .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
     }
     @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
     @media (max-width:900px){
       *{max-width:100vw;}
-      .page{padding:0 24px 60px;}
-      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 26px;background-position:top right;}
+      .page{padding:0 22px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 20px 26px;background-position:top right;}
       .header-right{text-align:left;}
-      .verdict-row{grid-template-columns:1fr;}
       .do-dont-grid{grid-template-columns:1fr;}
-      .report-title{font-size:32px;}
-      .intro-block{padding:26px 24px;}
-      .intro-lead{font-size:20px;}
+      .report-title{font-size:31px;}
+      .intro-block{padding:24px 22px;} .cause{padding:22px 22px;}
+      .intro-lead{font-size:21px;}
+      .month-table th:nth-child(3),.month-table td:nth-child(3){display:none;}
       .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
     }
-    .back-to-top{
-      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
-      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
-      text-decoration:none;border:1px solid var(--gold);z-index:250;
-      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
-    }
+    .back-to-top{position:fixed;bottom:32px;right:32px;width:54px;height:54px;background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--gold);z-index:250;opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;}
     .back-to-top.visible{opacity:1;pointer-events:auto;}
     .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
     .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
@@ -189,276 +184,207 @@
         <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:#AEE8CD;">SuccessCode</span></a>
         <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--green-grad);color:#0E241A;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(46,107,76,0.32);">Узнать больше · Discover more →</a>
       </div>
-      <div class="win-badge">✚ &nbsp;Здоровье · окна риска · защита</div>
-      <h1 class="report-title">Риски для жизни<br><em>и защита карты</em></h1>
-      <p class="report-subtitle">Окна телесного риска · вероятная причина · как защититься &nbsp;·&nbsp; Вся жизнь: с рождения до глубокой старости</p>
+      <div class="win-badge">✚ &nbsp;Здоровье · когда быть осторожной · как защититься</div>
+      <h1 class="report-title">Риски для жизни<br><em>и защита вашей карты</em></h1>
+      <p class="report-subtitle">Три причины опасности · годы · что делать &nbsp;·&nbsp; Вся жизнь: с рождения до глубокой старости</p>
     </div>
     <div class="header-right">
       <div class="client-label">Подготовлено для</div>
       <div class="client-name">Алёна</div>
-      <div class="client-meta">Здоровье · тело · окна риска · долголетие</div>
+      <div class="client-meta">Тело · опасные годы · защита · долголетие</div>
       <div class="report-date">Июль 2026</div>
     </div>
   </header>
 
   <div class="gold-rule" style="margin:28px 0 24px;"></div>
 
-  <!-- ГЛАВНЫЙ ВЫВОД -->
-  <div class="section-label">Главное — прочитайте первым</div>
+  <!-- ГЛАВНОЕ -->
+  <div class="section-label">Прочитайте это первым</div>
 
   <div class="intro-block">
     <p class="intro-lead">
-      Начнём с самого важного: <em>в методе НЕТ расчёта года смерти</em>. Назвать «год ухода» невозможно,
-      и я его не называю. Всё, что карта даёт в этой теме, — это <em>окна повышенного телесного риска</em>:
-      годы, когда с телом нужно быть осторожнее, с вероятной причиной и с тем, как защититься.
+      Начну с двух простых мыслей. Первая: <em>карта не называет год смерти — такого расчёта в методе
+      просто нет,</em> и я его не придумываю. Вторая: у вашей карты <em>сильная защита</em>, и она
+      рассчитана на долгую жизнь.
     </p>
     <p class="intro-body">
-      И сразу вторая половина, без которой первую читать нельзя: ваша карта — <strong>защитная и
-      долгожительская</strong>. В линии тела заложено «долгая жизнь + вовремя приходит нужный врач»; в уме —
-      оберегающие опоры; в характере — способность пройти сквозь тяжёлое и собраться. Поэтому окна риска
-      ниже — это годы <strong>усиленной профилактики</strong>, а не «приближение конца». Структурно карта
-      проводит вас сквозь них, а естественный горизонт жизни — глубокая старость.
+      Что карта действительно показывает — это <strong>годы, когда тело или жизнь могут оказаться под
+      серьёзной угрозой</strong>, и КАКОГО рода эта угроза. В вашей карте опасность приходит <strong>тремя
+      путями</strong>: (1) <strong>авария или травма</strong>; (2) <strong>острое внутреннее — кровотечение,
+      разрыв, срочная операция, тяжёлые роды</strong>; (3) <strong>тёмное внешнее влияние (порча)</strong>.
+      Это три разные вещи, и в отчёте они разведены.
     </p>
     <p class="intro-body">
-      Как устроен отчёт: сначала — постоянная картина тела (что у вас «слабое место» по жизни), затем —
-      конкретные годы-окна с вероятной причиной (авария/дорога, острое внутреннее, кровь, хроническое) и
-      рычагом защиты, затем — почему годы «тёмного давления» бьют по УМУ, а не по телу, и в конце —
-      долголетие. Всё — из карты, без домыслов о ваших личных фактах.
+      <strong>Самые опасные годы — когда две или три причины совпадают в один год.</strong> Именно так был
+      устроен 2025-й, когда совпало всё три сразу. И именно поэтому в прошлые годы, где совпадала одна-две
+      причины, вы проходили через тяжёлое — и <strong>выживали</strong>: в теле заложено «долгая жизнь и
+      вовремя находится нужный врач», в характере — способность собраться после удара. Защита в вашей карте
+      работает — это видно по тому, что все прошлые опасные годы вы прошли живой.
+    </p>
+    <p class="intro-body">
+      Дальше по порядку: сначала — три причины подробно (что это и в какие годы); потом — <strong>ваши уже
+      прожитые опасные годы</strong> (чтобы вы сами убедились, что карта совпадает с жизнью); потом — годы
+      впереди, за которыми стоит присмотреть; и в конце — про долголетие. Всё берётся только из карты и из
+      тех фактов, которые вы сами назвали.
     </p>
   </div>
 
-  <div class="verdict-row">
-    <div class="verdict-card highlight">
-      <div class="vc-label">Даты смерти</div>
-      <div class="vc-value">Их НЕТ в методе</div>
-      <div class="vc-sub">Год ухода не вычисляется — это прямая граница метода. Всё ниже — окна риска (осторожность), а не предсказание. Наивысшая ценность отчёта — знать, КОГДА усилить профилактику.</div>
+  <div class="gold-rule-full"></div>
+
+  <!-- ТРИ ПРИЧИНЫ -->
+  <div class="section-label">Три причины опасности — что это и в какие годы</div>
+
+  <div class="cause a">
+    <div class="cause-head"><span class="cause-num">1</span><span class="cause-title">Авария или травма</span></div>
+    <p class="cause-body">
+      Резкое повреждение в движении — дорога, падение, травма конечностей. В карте это включается, когда
+      «острое лезвие» года встаёт на вашу линию движения/поездок или на линию самой жизни. Это быстрые
+      события: важна не столько «судьба», сколько <b>внимательность в конкретный год</b> и осторожность за
+      рулём и в дороге.
+    </p>
+    <div class="cause-years">
+      <b>Годы этой причины:</b> 1985 · 1995 · 2005 · 2015 · <span class="hot">2025</span> · 2035 · 2045 · 2055
+      (сильная линия — «лезвие» на поездках); и более мягкая, со встроенной поддержкой:
+      1991 · 2001 · 2011 · 2021 · 2031 · 2041 · 2051.
+      <br><b>Самый сильный за жизнь — 2025-й</b> (там «лезвие» совпало ещё и с ударом по телу).
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Главная причина</div>
-      <div class="vc-value">Дорога + острое внутреннее</div>
-      <div class="vc-sub">Основной вектор вашего телесного риска — <strong>резкое</strong>: авария/травма в движении и острое внутреннее обострение. Не «медленное угасание», а именно резкие эпизоды в отдельные годы.</div>
+  </div>
+
+  <div class="cause b">
+    <div class="cause-head"><span class="cause-num">2</span><span class="cause-title">Острое внутреннее — кровотечение, разрыв, срочная операция, тяжёлые роды</span></div>
+    <p class="cause-body">
+      Это ВАШ главный и самый недооценённый канал. В вашей карте линия здоровья несёт «пару внезапного
+      разрыва и пустоты» плюс «звезду медленной болезни» — то есть склонность к состояниям, которые
+      <b>развиваются скрыто, а проявляются резко</b>: внутреннее кровотечение, разрыв, аппендицит, тяжёлые
+      роды, срочная операция. Отдельно: на «линии детей» стоит «лезвие» — это прямо указывает на
+      <b>риск тяжёлых/хирургических родов</b>. Спасает то, что рядом стоит «звезда-врач»: помощь приходит —
+      но иногда <b>с опасной задержкой</b>, поэтому тянуть нельзя.
+    </p>
+    <div class="cause-years">
+      <b>Годы этой причины</b> (когда «пара разрыва» на линии здоровья зажигается): особенно
+      <span class="hot">2008</span> и <span class="hot">2009</span> (вы их знаете — см. ниже),
+      <span class="hot">2025</span>, впереди — 2037; плюс годы планового внимания к хроническому:
+      2007 · 2017 · 2027 · 2037.
+      <br><b>Правило:</b> при первом же тревожном сигнале — сразу к врачу, не «потом». Задержка — ваш
+      главный множитель риска.
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Защита</div>
-      <div class="vc-value">Врач + движение + скрининг</div>
-      <div class="vc-sub">Три встроенных рычага: «нужный врач приходит вовремя», движение как лекарство (сидячий образ вредит), и регулярные обследования (скрытое выявляется только на проверках). Ими окна и проходятся.</div>
+  </div>
+
+  <div class="cause c">
+    <div class="cause-head"><span class="cause-num">3</span><span class="cause-title">Тёмное внешнее влияние (порча)</span></div>
+    <p class="cause-body">
+      Отдельный канал: тяжёлая чужая энергия, которая давит на ум и через это подрывает состояние — вплоть
+      до угрозы. Подробно этот канал разобран в отдельном отчёте про скрытые влияния; здесь важно одно —
+      <b>он тоже может быть причиной опасного года</b>, и его нельзя путать с медициной. Защита от него —
+      не таблетки, а <b>крепкий ум, границы и чистое окружение</b>.
+    </p>
+    <div class="cause-years">
+      <b>Годы этой причины:</b> сильнее всего — <span class="hot">2024</span> и <span class="hot">2025</span>
+      (вы их знаете), а также годы «тёмной звезды» 2026 · 2027 · 2032 и 2036 · 2037.
+      <br><b>Важно:</b> в такие годы главный рычаг — защита ума, а не только тело. Опасно, когда этот канал
+      совпадает с телесным (как в 2025-м).
     </div>
   </div>
 
   <div class="clarify-box">
     <div class="icon">◆</div>
     <p>
-      <strong>Чтобы не было тревоги.</strong> Окно риска — это НЕ обязательное событие. Это год, когда
-      вероятность телесного эпизода выше обычного и стоит быть внимательнее. Многие такие окна проходят
-      вообще без событий — именно потому, что защита сработала. Цель отчёта — снизить риск профилактикой,
-      а не напугать датой.
+      <strong>Чтобы не было тревоги.</strong> Опасный год — это НЕ обязательное событие и не окончательный вердикт.
+      Это год, когда вероятность выше обычного и стоит быть внимательнее. Многие такие годы проходят вообще
+      без беды — именно потому, что защита сработала и человек вовремя поберёгся. Цель отчёта — не напугать,
+      а показать, КОГДА усилить осторожность.
     </p>
   </div>
 
   <div class="gold-rule-full"></div>
 
-  <!-- ПОСТОЯННАЯ КАРТИНА -->
-  <div class="section-label">Постоянная картина: где ваше «слабое место» по жизни</div>
+  <!-- ПРОШЛОЕ — СВЕРКА -->
+  <div class="section-label">Ваши уже прожитые опасные годы — карта совпадает с жизнью</div>
 
-  <div class="intro-block">
-    <p class="intro-body" style="margin-top:0;">
-      <strong>Линия здоровья у вас «заряжённая» и требует ухода — это по жизни, не про один год.</strong>
-      На ней стоит редкое сочетание: с одной стороны — <strong>сильная защита</strong> (звезда-долгожитель:
-      «долгая жизнь, находится правильный врач»); с другой — кластер тревожных отметин, который означает
-      <strong>скрытые, трудно диагностируемые состояния с внезапным началом</strong> и склонность к
-      хроническому, медленно развивающемуся. Практический вывод один и тот же всю жизнь: <strong>регулярные
-      обследования обязательны</strong> — то, что «внезапно», ловится только на плановой проверке.
-    </p>
-    <p class="intro-body">
-      <strong>Движение — это лекарство именно для вас.</strong> В линии тела есть «звезда движения»:
-      подвижный образ жизни лечит, сидячий — вредит. Это не общий совет, а конкретный рычаг вашей карты.
-    </p>
-    <p class="intro-body">
-      <strong>Три органных акцента</strong> (куда чаще всего целит нагрузка, из состава карты): <strong>кровь
-      и иммунитет / кровообращение</strong> (когда зажигается «звезда крови» на линии близких связей — это
-      годы Огня, см. ниже); <strong>резкое/травма</strong> — конечности, кости, металл, дорога (когда
-      «звезда-травма» получает острый удар); и <strong>нервная система</strong> под перегрузкой ума. Знать
-      акценты полезно, чтобы прицельно проверяться.
-    </p>
-  </div>
-
-  <div class="gold-rule-full"></div>
-
-  <!-- ВСЯ ЖИЗНЬ — РИТМ -->
-  <div class="section-label">Вся жизнь: телесный риск идёт РИТМОМ, раз в 10 лет</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      Главное открытие этого раздела: ваш телесный риск — <em>не хаотичный</em>. Он <em>повторяется</em>
-      по десятилетнему ритму, потому что «включается» одними и теми же годами-стихиями. Зная ритм, вы
-      знаете КАЖДОЕ окно жизни — от детства до глубокой старости.
-    </p>
-    <p class="intro-body" style="margin-top:0;">
-      Пять повторяющихся «нот». Каждая приходит примерно раз в 10 лет со своим вектором. Годы даны за всю
-      жизнь — прошлые можно <strong>сверить с памятью</strong>, будущие — заранее прикрыть профилактикой.
-      Правило прежнее: окно ≠ событие; при защите большинство окон проходят спокойно.
-    </p>
-  </div>
-
-  <table class="month-table">
-    <thead>
-      <tr>
-        <th style="min-width:180px">Повторяющаяся «нота»</th>
-        <th>Годы за всю жизнь</th>
-        <th style="min-width:110px">Сила</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="peak-row">
-        <td><span class="m-name">Дорога + острое</span><div class="m-desc" style="margin-top:4px">Авария/травма в движении + острый внутренний эпизод. Ваш главный вектор.</div></td>
-        <td><div class="m-desc">1985 · 1995 · 2005 · 2015 · <strong>2025</strong> · 2035 · 2045 · 2055</div><div class="m-use"><strong>Пик всей жизни — 2025:</strong> единственный раз, когда эта «нота» совпадает с прямым ударом по линии тела (двойное). Остальные — сильные, но на ступень ниже.</div></td>
-        <td><span class="m-badge strong">Сильное</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">Лезвие по личности</span><div class="m-desc" style="margin-top:4px">Резкое по конечностям / линии жизни, с внутренним толчком — но со встречной поддержкой.</div></td>
-        <td><div class="m-desc">1991 · 2001 · 2011 · 2021 · <strong>2031</strong> · 2041 · 2051</div></td>
-        <td><span class="m-badge soft">Смягчено</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">Хроническая тяга</span><div class="m-desc" style="margin-top:4px">Обострение застарелого/медленного; год планового чек-апа «хвостов».</div></td>
-        <td><div class="m-desc">1987 · 1997 · 2007 · 2017 · 2027 · <strong>2037</strong> · 2047</div><div class="m-use">Сильнее всего <strong>2037</strong> — когда «тяга» совпадает с прямой активацией тела.</div></td>
-        <td><span class="m-badge soft">Среднее</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">Кровь / иммунитет</span><div class="m-desc" style="margin-top:4px">Кровь, иммунитет, воспаления, кровообращение. Это флаг здоровья, НЕ «острый» риск для жизни.</div></td>
-        <td><div class="m-desc">1986 · 1996 · 2006 · 2016 · <strong>2026</strong> · 2036</div></td>
-        <td><span class="m-badge watch">Флаг</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">Год-защита</span><div class="m-desc" style="margin-top:4px">Внимание к хроническому / возможная плановая процедура — НО в этот год «звезда-врач» включена: защищённо.</div></td>
-        <td><div class="m-desc">1989 · 1999 · 2009 · 2019 · <strong>2029</strong> · 2039 · 2049</div></td>
-        <td><span class="m-badge past">Защищено</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="bottom-note">
-    <div class="bn-icon">✎</div>
-    <div class="bn-text">
-      <strong>Сверка по всей жизни.</strong> Отметьте, в какие из ПРОШЛЫХ годов «ноты» было соответствие
-      по телу: резкие/дорожные — <strong>1985, 1995, 2005, 2015, 2025</strong>; хронические —
-      <strong>1987, 1997, 2007, 2017</strong>; кровь/иммунитет — <strong>1986, 1996, 2006, 2016</strong>;
-      «защищённые» медицинские — <strong>1989, 1999, 2009, 2019</strong>. Совпадения подтвердят ритм в
-      ВАШЕЙ карте; по нему уверенно читаются будущие окна. (Годы «года-защиты» и «крови» — не про угрозу
-      жизни, а про здоровье и профилактику.)
-    </div>
-  </div>
-
-  <div class="gold-rule-full"></div>
-
-  <!-- ОКНА РИСКА -->
-  <div class="section-label">Ближайшие окна подробно — год, причина, защита</div>
-
-  <div class="intro-block" style="padding:26px 40px;">
+  <div class="intro-block" style="padding:24px 34px;">
     <p class="intro-body" style="margin:0;">
-      Теперь ближайшие окна крупным планом — с <strong>вероятным вектором причины</strong> и рычагом
-      защиты на каждое. Это те же «ноты» из таблицы выше, но подробно и по годам.
+      Вы сами назвали эти годы. Ниже — как их <strong>видит карта</strong>. Это и есть проверка метода: если
+      карта точно попадает в то, что было, значит по ней можно доверять и будущим годам.
     </p>
   </div>
 
   <table class="month-table">
     <thead>
-      <tr>
-        <th style="min-width:120px">Год</th>
-        <th>Вероятная причина (вектор) и почему</th>
-        <th style="min-width:170px">Рычаг защиты</th>
-      </tr>
+      <tr><th style="min-width:110px">Год</th><th>Что было и как это видит карта</th><th style="min-width:150px">Что сработало</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="m-name">2025</span><span class="m-dates">позади</span><span class="m-badge past">Пройдено</span></td>
-        <td>
-          <div class="m-focus">Дорога/авария + острое внутреннее · сильнейшее окно</div>
-          <p class="m-desc">Самое заряженное окно десятилетия: «острое лезвие» встало на линию движения/дороги (риск аварии/травмы), и одновременно активировалась сама линия тела с форсированием — острый внутренний эпизод. Компенсации в тот год не было. По структуре это окно «катастрофического класса» — и по структуре же оно <strong>проходится защитой</strong> (тело оберегается).</p>
-          <p class="m-use"><strong>Для сверки:</strong> это ПРОШЛЫЙ год — отметьте, что было по телу и в дороге, чтобы откалибровать шкалу.</p>
-        </td>
-        <td><div class="m-desc">Пройдено. Retrospective — сверка.</div></td>
+      <tr class="hot-row">
+        <td><span class="yr">2008</span><span class="yr-age">роды дочери</span><span class="yr-tag was">Вы назвали</span></td>
+        <td><div class="cell-what"><b>Тяжёлые роды, риск для вас и ребёнка.</b> Карта: причина №2. На «линии детей» у вас стоит «лезвие» — это прямой знак тяжёлых/хирургических родов; а «пара внезапного разрыва» на линии здоровья в этот год была зажжена. Точное попадание в причину №2.</div></td>
+        <td><div class="cell-do"><b>Врач и медицинская помощь</b> — «звезда-врач» в карте сработала: вы обе выжили.</div></td>
       </tr>
-      <tr>
-        <td><span class="m-name">2026</span><span class="m-dates">сейчас</span><span class="m-badge watch">Здоровье-флаг</span></td>
-        <td>
-          <div class="m-focus">Кровь / иммунитет / кровообращение</div>
-          <p class="m-desc">Это НЕ окно «острого риска для жизни» (в этом году есть встречный компенсирующий механизм). Но по здоровью — год-флаг: «звезда крови/иммунитета» на линии близких связей получает двойное трение (год Огня + десятилетие Огня). Акцент — кровь, иммунитет, воспаления, кровообращение.</p>
-          <p class="m-use"><strong>Защита:</strong> проверить кровь/иммунитет планово; не запускать воспаления; отдых и восстановление.</p>
-        </td>
-        <td><div class="m-desc">Анализы крови/иммунитета; профилактика воспалений.</div></td>
+      <tr class="hot-row">
+        <td><span class="yr">2009</span><span class="yr-age">аппендицит</span><span class="yr-tag was">Вы назвали</span></td>
+        <td><div class="cell-what"><b>Аппендицит; врачи тянули почти до критического.</b> Карта: снова причина №2, и особенно точно — в этот год «звезда медленной болезни» на линии здоровья <b>удвоилась</b>. Её природа — именно «затягивание, промедление»: поэтому и помощь пришла с опасной задержкой. Карта описывает даже саму задержку.</div></td>
+        <td><div class="cell-do"><b>В итоге помощь пришла</b> — но это тот случай, который показывает: тянуть в такие годы смертельно опасно.</div></td>
       </tr>
-      <tr>
-        <td><span class="m-name">2027</span></td>
-        <td>
-          <div class="m-focus">Хроническое / медленное — обострение</div>
-          <p class="m-desc">Не острое окно, а год «хронической тяги»: «звезда медленной болезни» ложится на линию тела — то, что тлеет, может обостриться или потребовать внимания. Классический год для планового обследования «застарелого».</p>
-          <p class="m-use"><strong>Защита:</strong> полный чек-ап хронического; довести до конца отложенное лечение.</p>
-        </td>
-        <td><div class="m-desc">Плановый чек-ап; лечение «хвостов».</div></td>
+      <tr class="hot-row">
+        <td><span class="yr">2024</span><span class="yr-age">порча</span><span class="yr-tag was">Вы назвали</span></td>
+        <td><div class="cell-what"><b>Тёмное влияние, риск для жизни.</b> Карта: причина №3. В этот год «тёмная звезда» была зажжена и «абнормальное» било прямо в ум — классический рисунок внешнего влияния. Тело при этом прямой аварийной угрозы не несло — удар шёл через ум.</div></td>
+        <td><div class="cell-do"><b>Защита ума</b> — крепость сознания в вашей карте и провела вас через это.</div></td>
       </tr>
-      <tr>
-        <td><span class="m-name">2031</span><span class="m-badge soft">Окно · смягчено</span></td>
-        <td>
-          <div class="m-focus">Резкое по линии личности + внутренний толчок · смягчено</div>
-          <p class="m-desc">«Острое лезвие» встаёт на линию самой личности (риск травмы конечностей/резкого эпизода), а год «толкает» линию тела через противостояние. НО есть встречная поддержка — окно структурно <strong>смягчено</strong>. Осторожность — да, тревога — нет.</p>
-          <p class="m-use"><strong>Защита:</strong> осторожность в движении/нагрузках; профилактический осмотр; врач при первом сигнале.</p>
-        </td>
-        <td><div class="m-desc">Осторожность в нагрузках; ранний визит к врачу.</div></td>
-      </tr>
-      <tr class="peak-row">
-        <td><span class="m-name">2035</span><span class="m-badge strong">Окно · сильное</span></td>
-        <td>
-          <div class="m-focus">Дорога/авария + острое внутреннее · «близнец» 2025-го</div>
-          <p class="m-desc">Структурный «двойник» окна 2025-го в следующем десятилетии: снова «острое лезвие» на линии движения/дороги + форсирование линии тела, без прямой компенсации. Главный вектор — <strong>резкое в движении</strong> (дорога, травма) и острое внутреннее.</p>
-          <p class="m-use"><strong>Защита:</strong> в этот год — максимум внимания на дороге/в поездках; заранее пройти обследование; не откладывать тревожные сигналы.</p>
-        </td>
-        <td><div class="m-desc">Осторожность в дороге; профилактика заранее.</div></td>
-      </tr>
-      <tr class="peak-row">
-        <td><span class="m-name">2037</span><span class="m-badge strong">Окно · внутреннее + фон</span></td>
-        <td>
-          <div class="m-focus">Внутреннее/хроническое обострение + «тёмный» фон</div>
-          <p class="m-desc">Год прямо активирует линию тела (внутренний вектор), и параллельно зажигается «тёмная звезда» — то есть здесь сходятся сразу <strong>здоровье + тревожный фон + тонкое влияние</strong>. Вектор телесно — внутреннее/хроническое обострение, а не столько дорога.</p>
-          <p class="m-use"><strong>Защита:</strong> прицельное обследование внутренних систем; беречь ум (см. следующий раздел); движение и режим.</p>
-        </td>
-        <td><div class="m-desc">Обследование внутренних систем; защита ума; режим.</div></td>
+      <tr class="hot-row">
+        <td><span class="yr">2025</span><span class="yr-age">почти погибли</span><span class="yr-tag hot">Три причины сразу</span></td>
+        <td><div class="cell-what"><b>Год, когда вы почти погибли.</b> Карта: здесь совпали ВСЕ ТРИ причины в один год — авария (весной, «лезвие» на поездках), острое внутреннее (линия здоровья зажжена и форсирована), и тёмное влияние (та же точка зажгла «пару разрыва и пустоты»). Тройное совпадение = самый опасный год за десятилетие. Ровно поэтому он ощущался как край.</div></td>
+        <td><div class="cell-do"><b>Инстинкт + врач + крепкий ум</b> — все три защиты карты сработали разом. Вы прошли.</div></td>
       </tr>
     </tbody>
   </table>
 
   <div class="bottom-note">
-    <div class="bn-icon">✦</div>
+    <div class="bn-icon">✓</div>
     <div class="bn-text">
-      <strong>Коротко по окнам.</strong> Самые заряженные — «дорожно-острые» годы <strong>2025 (позади)</strong>
-      и <strong>2035</strong>: главное внимание — движение/дорога + заранее пройденное обследование.
-      <strong>2031</strong> — похожее окно, но смягчённое. <strong>2027 и 2037</strong> — про внутреннее/
-      хроническое (плановый скрининг). <strong>2026</strong> — не «острый» год, а флаг по крови/иммунитету.
-      Между ними — обычная профилактика.
+      <strong>Вывод проверки.</strong> Все четыре ваших года карта объясняет точно — включая даже задержку
+      врачей в 2009-м и тройное совпадение 2025-го. Значит механизм в вашей карте «живой», и по нему можно
+      уверенно смотреть вперёд. Раньше в моём разборе эти годы были пропущены — я смотрел только на аварии
+      и не считал два других канала. Теперь считаются все три.
     </div>
   </div>
 
   <div class="gold-rule-full"></div>
 
-  <!-- МАГИЯ vs ТЕЛО -->
-  <div class="section-label">Важно: «тёмные» годы бьют по УМУ, а не по телу</div>
+  <!-- ВПЕРЕДИ -->
+  <div class="section-label">Годы впереди — за чем присмотреть</div>
 
-  <div class="intro-block">
-    <p class="intro-lead">
-      Отдельно — чтобы не смешивать. Годы <em>внешнего тёмного давления</em> (порча/атака) — это <em>не</em>
-      годы телесного риска. Они целят в <strong>ум</strong>, а тело в них защищено.
-    </p>
-    <p class="intro-body">
-      Пиковые годы «тёмного давления» — <strong>2026 и 2032</strong> — заряжают линию УМА (ментальный «шум»,
-      чужое влияние, тревожные состояния), но НЕ дают острого телесного риска. Поэтому в отчёте они не в
-      таблице тела. Единственное пересечение здоровья и «тёмного» фона на теле — <strong>2037</strong>, где
-      линия тела и «тёмная звезда» активируются вместе; там защита — И медицинская (обследование), И
-      защита ума одновременно.
-    </p>
-    <p class="intro-body">
-      Практический смысл разделения: в «тёмные» годы главный рычаг — <strong>защита ума</strong> (тишина,
-      границы, чистое окружение), а не медицина; в «телесные» годы — наоборот, <strong>медицина и
-      осторожность в движении</strong>. Смешивать их не нужно — карта их разводит.
+  <table class="month-table">
+    <thead>
+      <tr><th style="min-width:110px">Год</th><th>Какая причина и почему</th><th style="min-width:150px">Что делать</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="yr">2031</span><span class="yr-age">причина №1</span><span class="yr-tag soft">Смягчено</span></td>
+        <td><div class="cell-what"><b>Авария/травма — но со встроенной поддержкой.</b> «Лезвие» встаёт на линию жизни, год «толкает» и тело — но в карте есть встречная опора, поэтому окно смягчённое. Осторожность нужна, тревога — нет.</div></td>
+        <td><div class="cell-do"><b>Осторожнее в нагрузках и в дороге; плановый осмотр.</b> При сигнале — сразу к врачу.</div></td>
+      </tr>
+      <tr class="hot-row">
+        <td><span class="yr">2035</span><span class="yr-age">причина №1 + №2</span><span class="yr-tag hot">Сильное окно</span></td>
+        <td><div class="cell-what"><b>«Близнец» 2025-го по телу.</b> Снова «лезвие» на поездках плюс форсирование линии здоровья — авария и острое внутреннее вместе (тёмного канала при этом сильного нет). Главный вектор — <b>дорога и резкое</b>.</div></td>
+        <td><div class="cell-do"><b>Максимум внимания на дороге; заранее пройти обследование.</b> Не откладывать тревожные сигналы.</div></td>
+      </tr>
+      <tr class="hot-row">
+        <td><span class="yr">2037</span><span class="yr-age">причина №2 + №3</span><span class="yr-tag hot">Сильное окно</span></td>
+        <td><div class="cell-what"><b>Внутреннее + тёмный фон вместе.</b> Год прямо активирует линию здоровья (внутренний вектор), и одновременно зажигается «тёмная звезда» — то есть сходятся медицина и защита ума. Вектор — <b>внутреннее/хроническое обострение</b>, а не столько дорога.</div></td>
+        <td><div class="cell-do"><b>Прицельное обследование внутренних систем; и защита ума.</b> Оба рычага сразу.</div></td>
+      </tr>
+      <tr>
+        <td><span class="yr">2045 · 2055</span><span class="yr-age">причина №1</span><span class="yr-tag soft">Тот же ритм</span></td>
+        <td><div class="cell-what"><b>Повтор «дорожного» года</b> в старшем возрасте — та же причина №1, что в 2025/2035. К 2055-му вы уже в «долгом» защищённом десятилетии (см. ниже), поэтому оно проходит мягче.</div></td>
+        <td><div class="cell-do"><b>Осторожность в дороге; обычная профилактика.</b></div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Про «тёмные» годы 2026 и 2032.</strong> Это не годы телесной опасности — они бьют по УМУ,
+      а тело в них защищено. Поэтому их нет в таблице выше. В них главный рычаг — покой ума, границы, чистое
+      окружение (подробно — в отчёте про скрытые влияния). На тело они прямой аварийной угрозы не дают.
     </p>
   </div>
 
@@ -468,21 +394,21 @@
   <div class="section-label">Как снижать риск — ваши встроенные рычаги</div>
   <div class="do-dont-grid">
     <div class="dd-card">
-      <div class="dd-title green">✓ &nbsp; Делать — это работает в вашей карте</div>
+      <div class="dd-title green">✓ &nbsp; Делайте — в вашей карте это работает</div>
       <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span><strong>Скрининг по расписанию.</strong>&nbsp;Раз в год — базовое обследование; кровь/иммунитет отдельно (это ваш органный акцент). «Внезапное» ловится только на плановой проверке</li>
-        <li><span style="color:var(--green)">●</span><strong>Движение — как лекарство.</strong>&nbsp;Регулярная физическая активность у вас лечит; сидячий образ — прямой вред. Это рычаг именно вашей карты</li>
-        <li><span style="color:var(--green)">●</span><strong>«Нужный врач» — доверяйте этому.</strong>&nbsp;В карте заложено, что в трудный момент находится правильный доктор. При первом сигнале — к врачу сразу, а не «потом»</li>
-        <li><span style="color:var(--green)">●</span><strong>В «дорожные» годы (2035, отчасти 2031)</strong>&nbsp;— максимум внимания на дороге и в поездках; заранее пройденное обследование снимает половину риска</li>
+        <li><span style="color:var(--green)">●</span><b>При первом сигнале — сразу к врачу.</b> Ваш главный риск (причина №2) убивает через ЗАДЕРЖКУ, как в 2009-м. «Звезда-врач» в карте помогает — но только если прийти вовремя</li>
+        <li><span style="color:var(--green)">●</span><b>Ежегодное обследование.</b> Ваши состояния развиваются скрыто и проявляются резко — их ловит только плановая проверка, особенно крови</li>
+        <li><span style="color:var(--green)">●</span><b>Движение — это лекарство именно для вас.</b> Регулярная активность лечит, сидячий образ прямо вредит. Это рычаг вашей карты, не общий совет</li>
+        <li><span style="color:var(--green)">●</span><b>В «дорожные» годы (2035, отчасти 2031) — беречься в пути.</b> Заранее пройденное обследование снимает половину риска</li>
       </ul>
     </div>
     <div class="dd-card">
-      <div class="dd-title red">✗ &nbsp; Не делать — это усиливает риск</div>
+      <div class="dd-title red">✗ &nbsp; Не делайте — это усиливает риск</div>
       <ul class="dd-list">
-        <li><span style="color:var(--red)">●</span>Не запускать «тлеющее»: хроническое, отложенное, «потом посмотрю» — ваш кластер именно про скрытое и внезапное. Отложенное = главный множитель</li>
-        <li><span style="color:var(--red)">●</span>Не жить сидя: для вашей карты неподвижность — прямой вред, а не нейтральность</li>
-        <li><span style="color:var(--red)">●</span>Не игнорировать резкий сигнал в «острые» годы (2035): резкое у вас — быстрое; ранняя реакция решает</li>
-        <li><span style="color:var(--red)">●</span>Не путать «тёмные» годы (2026, 2032) с телесными: там беречь надо УМ; лишняя медицинская тревога не по адресу</li>
+        <li><span style="color:var(--red)">●</span><b>Не тяните с тревожным симптомом.</b> «Само пройдёт / посмотрю позже» — это и есть тот множитель, что чуть не стоил жизни в 2009-м</li>
+        <li><span style="color:var(--red)">●</span><b>Не живите сидя.</b> Для вашей карты неподвижность — прямой вред, а не нейтральность</li>
+        <li><span style="color:var(--red)">●</span><b>Не игнорируйте резкий сигнал в «острые» годы (2035).</b> Резкое у вас — быстрое; ранняя реакция решает всё</li>
+        <li><span style="color:var(--red)">●</span><b>Не путайте «тёмные» годы с телесными.</b> В 2026 и 2032 беречь надо ум; лишняя медицинская тревога не по адресу</li>
       </ul>
     </div>
   </div>
@@ -490,31 +416,32 @@
   <div class="gold-rule-full"></div>
 
   <!-- ДОЛГОЛЕТИЕ -->
-  <div class="section-label">Долголетие — естественный горизонт</div>
+  <div class="section-label">И главное — жизнь у вас длинная</div>
 
   <div class="intro-block">
     <p class="intro-lead">
-      И финальная рамка, ради которой стоит читать всё выше: линия вашей жизни — <em>длинная</em>.
+      Ради этой мысли стоит читать всё выше: линия вашей жизни — <em>длинная</em>, и опасные годы её не
+      обрывают, а лишь требуют осторожности.
     </p>
     <p class="intro-body">
-      Структурно самое «долгое» и спокойное десятилетие — <strong>76–85 лет</strong>: там «центр жизни»
-      возвращается к линии тела, а защита-долгожитель удваивается («долгая жизнь, правильный врач» —
-      усиленно). Это указывает на <strong>долгую жизнь до глубокой старости</strong>. Признаков раннего
-      обрыва карта не показывает, и никакой более ранней «даты» метод не содержит.
+      Самое спокойное и «долгое» десятилетие в вашей карте — <strong>76–85 лет</strong>: там защита
+      здоровья удваивается («долгая жизнь, вовремя приходит врач» — с двойной силой). Это указывает на
+      <strong>долгую жизнь до глубокой старости</strong>. Признаков раннего обрыва карта не показывает, и
+      никакой более ранней «даты» в методе нет вовсе.
     </p>
     <p class="intro-body">
-      Поэтому правильное чтение всего отчёта такое: у вас длинная жизнь с несколькими окнами, где телу
-      нужна повышенная осторожность и профилактика. Пройти эти окна с врачом, движением и скринингом —
-      и есть вся практическая задача. Не дата, а забота.
+      Поэтому правильное чтение всего отчёта такое: <strong>у вас длинная жизнь с несколькими годами, где
+      телу нужна повышенная осторожность.</strong> Пройти эти годы с врачом, движением и вниманием — и есть
+      вся задача. Не дата, а забота.
     </p>
   </div>
 
   <div class="bottom-note">
     <div class="bn-icon">ℹ</div>
     <div class="bn-text">
-      <strong>Медицинская оговорка.</strong> Это разбор карты, а не медицинский диагноз или прогноз.
-      Он указывает, КОГДА усилить профилактику и НА ЧТО обратить внимание, — но любые решения по
-      здоровью принимаются с вашим врачом. Карта помогает не пропустить, врач — лечит.
+      <strong>Медицинская оговорка.</strong> Это разбор карты, а не диагноз и не медицинский прогноз. Он
+      подсказывает, КОГДА усилить внимание и НА ЧТО смотреть, — но любые решения по здоровью принимаются с
+      вашим врачом. Карта помогает не пропустить; лечит — врач.
     </div>
   </div>
 
@@ -524,14 +451,11 @@
   <div class="section-label">Что дальше</div>
 
   <div class="intro-block">
-    <p class="intro-lead">
-      Этот отчёт — про одну тему: тело, риск и защиту. Ваша карта хранит гораздо больше.
-    </p>
+    <p class="intro-lead">Этот отчёт — про тело, риск и защиту. Ваша карта хранит гораздо больше.</p>
     <p class="intro-body">
-      Здоровье и долголетие — лишь одна дверь. Рядом — доход, карьера, недвижимость, отношения, а также
-      отдельный разбор тонких влияний и дара. И каждый следующий год открывается своим разбором — с
-      конкретными окнами и рычагами. Когда захотите заглянуть в следующую дверь или в любой год, карта
-      уже готова ответить.
+      Рядом — отдельный разбор скрытых влияний и дара, а также доход, карьера, недвижимость, отношения. И
+      каждый год открывается своим разбором — с конкретными окнами и рычагами. Когда захотите заглянуть в
+      следующую дверь или в любой год, карта уже готова ответить.
     </p>
   </div>
 
@@ -541,18 +465,15 @@
   <div class="section-label">Карта Цзы Вэй Доу Шу</div>
 
   <div class="chart-wrap">
-    <iframe src="https://successcode.net/zwds-alena"
-            title="Карта Цзы Вэй Доу Шу — Алёна">
-    </iframe>
+    <iframe src="https://successcode.net/zwds-alena" title="Карта Цзы Вэй Доу Шу — Алёна"></iframe>
   </div>
 
   <div class="chart-print-only">
     <div class="bn-icon">◆</div>
     <div class="bn-text">
-      <strong>Карта печатается отдельно.</strong>
-      Интерактивная карта открывается и печатается со своей страницы:
-      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span>
-      — откройте её и нажмите «Print / PDF».
+      <strong>Карта печатается отдельно.</strong> Интерактивная карта открывается и печатается со своей
+      страницы: <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span> —
+      откройте её и нажмите «Print / PDF».
     </div>
   </div>
 
