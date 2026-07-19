@@ -23,16 +23,16 @@
   <style>
     :root{
       --bg:#F6F5F8; --surface:#ECE9F1; --surface2:#E3DFEB; --gold:#6B4C8A; --gold2:#8A6BB0;
-      --goldfade:rgba(107,76,138,0.09); --text:#1A161F; --dim:#38323F; --muted:#6E6678;
-      --border:rgba(107,76,138,0.24); --border2:rgba(26,22,31,0.10); --red:#7A1E1E; --green:#1A5026;
+      --goldfade:rgba(107,76,138,0.09); --text:#1A161F; --dim:#332C3B; --muted:#66607080;
+      --muted:#655D71; --border:rgba(107,76,138,0.24); --border2:rgba(26,22,31,0.10); --red:#7A1E1E; --green:#1A5026;
       --purple-grad:linear-gradient(135deg,#7E5CA0 0%,#B69AD4 42%,#5E4080 62%,#9E82C4 100%);
     }
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
     html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
     html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased;}
     .win-strip{width:100%;height:7px;background:var(--purple-grad);}
-    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .page{width:100%;max-width:1000px;margin:0 auto;padding:0 56px 80px;position:relative;}
     .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
       background-image:linear-gradient(100deg, rgba(30,16,48,0.82) 0%, rgba(30,16,48,0.55) 42%, rgba(30,16,48,0.22) 72%, rgba(30,16,48,0.05) 100%), url('/assets/backgrounds/bg-power-purple.png?v=1');
       background-size:cover;background-position:center right;border:1px solid rgba(138,107,176,0.30);border-radius:4px;overflow:hidden;margin-top:24px;}
@@ -54,8 +54,7 @@
     .chart-print-only{display:none;}
     .header-left{flex:1;}
     .win-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-grad);color:#20182E;padding:6px 15px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;box-shadow:0 2px 9px rgba(107,76,138,0.32);margin-bottom:18px;}
-    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
-    .report-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
     .report-title em{font-style:italic;color:var(--gold2);}
     .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
     .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
@@ -65,78 +64,67 @@
     .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
     .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
     .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
-    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
     .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
-    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
-    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:34px 40px;margin-bottom:32px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
     .intro-lead em{font-style:italic;color:var(--gold2);}
-    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
-    .intro-body+.intro-body{margin-top:12px;}
-    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
-    .verdict-row.four{grid-template-columns:repeat(2,1fr);}
-    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
-    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
-    .verdict-card.attack{border-left:3px solid var(--red);}
-    .verdict-card.power{border-left:3px solid var(--green);}
-    .verdict-card.intu{border-left:3px solid var(--gold2);}
-    .verdict-card.ghost{border-left:3px solid #4A4358;}
-    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
-    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
-    .vc-years{font-size:12px;letter-spacing:1px;color:var(--gold);font-weight:600;margin-bottom:10px;}
-    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
-    .vc-sub strong{color:var(--dim);}
-    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
-    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
-    .dd-title.green{color:var(--green);}
-    .dd-title.red{color:var(--red);}
-    .dd-list{list-style:none;}
-    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
-    .dd-list li:last-child{border-bottom:none;}
-    .dd-list li span{flex-shrink:0;margin-top:1px;}
-    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
-    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
-    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .intro-body{font-size:15px;color:var(--dim);line-height:1.85;}
+    .intro-body+.intro-body{margin-top:14px;}
+    .intro-body strong{color:var(--text);}
+    .cause{background:white;border:1px solid var(--border2);border-left:4px solid var(--gold2);padding:26px 30px;margin-bottom:16px;}
+    .cause.risk{border-left-color:#B03A3A;}
+    .cause.power{border-left-color:#1A7A4E;}
+    .cause.intu{border-left-color:#6B4C8A;}
+    .cause.ghost{border-left-color:#4A4358;}
+    .cause-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px;}
+    .cause-num{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;line-height:1;color:var(--gold2);}
+    .cause.risk .cause-num{color:#B03A3A;} .cause.power .cause-num{color:#1A7A4E;}
+    .cause.intu .cause-num{color:#6B4C8A;} .cause.ghost .cause-num{color:#4A4358;}
+    .cause-title{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:500;color:var(--text);}
+    .cause-kind{font-size:11px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:3px 9px;border-radius:3px;}
+    .cause.risk .cause-kind{color:#B03A3A;background:rgba(176,58,58,0.08);} .cause.power .cause-kind{color:#1A7A4E;background:rgba(26,122,78,0.08);}
+    .cause.intu .cause-kind{color:#6B4C8A;background:var(--goldfade);} .cause.ghost .cause-kind{color:#4A4358;background:rgba(74,67,88,0.08);}
+    .cause-body{font-size:15px;color:var(--dim);line-height:1.8;margin-bottom:12px;}
+    .cause-body b{color:var(--text);}
+    .cause-years{font-size:14px;color:var(--dim);background:var(--surface);border:1px solid var(--border2);padding:12px 16px;line-height:1.7;}
+    .cause-years b{color:var(--text);} .cause-years .hot{color:#6B4C8A;font-weight:700;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:20px 26px;margin-top:8px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:20px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:14.5px;color:var(--dim);line-height:1.75;}
     .clarify-box strong{color:var(--text);}
     .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
-    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table th{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:12px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
     .month-table tr{border-bottom:1px solid var(--border2);}
     .month-table tr:last-child{border-bottom:none;}
-    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table td{padding:18px;vertical-align:top;background:white;}
     .month-table tr.peak-row td{background:var(--goldfade)!important;}
-    .m-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
-    .m-dates{font-size:13px;color:var(--muted);display:block;margin-top:4px;}
-    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
-    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(107,76,138,0.08);}
-    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
-    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
-    .m-badge.gift{color:var(--green);border:1px solid rgba(26,80,38,0.3);}
-    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
-    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
-    .m-desc+.m-desc{margin-top:8px;}
-    .m-use{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border2);}
-    .m-use strong{color:var(--gold);font-weight:600;}
-    .tag{display:inline-block;font-size:9px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:2px 6px;margin-right:5px;border-radius:2px;}
-    .tag.at{color:var(--red);background:rgba(122,30,30,0.08);border:1px solid rgba(122,30,30,0.25);}
-    .tag.po{color:var(--green);background:rgba(26,80,38,0.07);border:1px solid rgba(26,80,38,0.25);}
-    .tag.in{color:var(--gold);background:rgba(107,76,138,0.08);border:1px solid var(--border);}
-    .tag.gh{color:#3D3750;background:rgba(74,67,88,0.08);border:1px solid rgba(74,67,88,0.3);}
-    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
-    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .yr{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--text);display:block;line-height:1;}
+    .yr-tag{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:1px;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:2px;}
+    .yr-tag.risk{color:#B03A3A;border:1px solid rgba(176,58,58,0.35);}
+    .yr-tag.power{color:#1A7A4E;border:1px solid rgba(26,122,78,0.35);}
+    .yr-tag.calm{color:var(--muted);border:1px solid var(--border2);}
+    .yr-tag.ghost{color:#4A4358;border:1px solid rgba(74,67,88,0.35);}
+    .cell-what{font-size:15px;color:var(--dim);line-height:1.7;} .cell-what b{color:var(--text);}
+    .cell-do{font-size:14px;color:var(--muted);line-height:1.65;} .cell-do b{color:var(--gold);}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:26px 28px;}
+    .dd-title{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:16px;}
+    .dd-title.green{color:var(--green);} .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:9px 0;border-bottom:1px solid var(--border2);font-size:14.5px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.6;}
+    .dd-list li:last-child{border-bottom:none;} .dd-list li span{flex-shrink:0;margin-top:2px;}
     .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
     .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
-    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
-    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:26px 32px;margin-top:8px;display:flex;gap:18px;align-items:flex-start;}
     .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
-    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
-    .bn-text strong{color:var(--text);}
+    .bn-text{font-size:14.5px;color:var(--dim);line-height:1.8;} .bn-text strong{color:var(--text);}
     .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
     .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
     .footer-note{font-size:11px;color:var(--muted);}
     @page{margin:13mm;}
     @media print{
-      html,body{background:white;}
-      body{font-size:11.5px;line-height:1.55;}
+      html,body{background:white;} body{font-size:12px;line-height:1.6;}
       .page{padding:0;max-width:100%;}
       .report-actions{display:none!important;}
       .report-header{background:none!important;border:1px solid var(--border);}
@@ -144,37 +132,26 @@
       .report-header .report-title em{color:var(--gold2)!important;}
       .report-header .report-subtitle,.report-header .client-meta,.report-header .client-label,.report-header .report-date{color:var(--muted)!important;}
       .report-header .header-left a span{color:var(--gold)!important;}
-      .gold-rule,.gold-rule-full{margin:22px 0!important;}
-      .report-title{font-size:32px;}
-      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
-      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
-      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
-      .section-label{break-after:avoid;page-break-after:avoid;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;} .report-title{font-size:32px;}
+      .intro-block,.cause,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;} .section-label{break-after:avoid;}
       .month-table tr.peak-row td{background:#EFEAF3!important;}
       .chart-wrap{display:none!important;}
       .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
-      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
-      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+      .chart-print-only .bn-icon{font-size:26px;color:var(--gold);} .chart-print-only .bn-text{font-size:12px;color:var(--dim);}
     }
     @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
     @media (max-width:900px){
       *{max-width:100vw;}
-      .page{padding:0 24px 60px;}
-      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 26px;background-position:top right;}
-      .header-right{text-align:left;}
-      .verdict-row,.verdict-row.four{grid-template-columns:1fr;}
-      .do-dont-grid{grid-template-columns:1fr;}
-      .report-title{font-size:32px;}
-      .intro-block{padding:26px 24px;}
-      .intro-lead{font-size:20px;}
+      .page{padding:0 22px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 20px 26px;background-position:top right;}
+      .header-right{text-align:left;} .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:30px;} .intro-block{padding:24px 22px;} .cause{padding:22px 22px;}
+      .intro-lead{font-size:21px;}
+      .month-table th:nth-child(3),.month-table td:nth-child(3){display:none;}
       .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
     }
-    .back-to-top{
-      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
-      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
-      text-decoration:none;border:1px solid var(--gold);z-index:250;
-      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
-    }
+    .back-to-top{position:fixed;bottom:32px;right:32px;width:54px;height:54px;background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;text-decoration:none;border:1px solid var(--gold);z-index:250;opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;}
     .back-to-top.visible{opacity:1;pointer-events:auto;}
     .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
     .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
@@ -201,358 +178,218 @@
         <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:#C9AEE8;">SuccessCode</span></a>
         <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--purple-grad);color:#20182E;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(107,76,138,0.32);">Узнать больше · Discover more →</a>
       </div>
-      <div class="win-badge">✦ &nbsp;Карта на десятилетие</div>
-      <h1 class="report-title">Скрытые влияния, дар<br><em>и долголетие</em></h1>
-      <p class="report-subtitle">Порча · сила · интуиция · духи · долголетие &nbsp;·&nbsp; Десятилетие 2024–2033 + сверка с прошлым</p>
+      <div class="win-badge">✦ &nbsp;Порча · дар · интуиция · духи</div>
+      <h1 class="report-title">Скрытые влияния<br><em>и ваш дар</em></h1>
+      <p class="report-subtitle">Порча · сила · интуиция · духи — четыре разные вещи, по годам &nbsp;·&nbsp; Десятилетие 2024–2033</p>
     </div>
     <div class="header-right">
       <div class="client-label">Подготовлено для</div>
       <div class="client-name">Алёна</div>
-      <div class="client-meta">Тёмные влияния · Дар восприятия · Долголетие</div>
+      <div class="client-meta">Тёмные влияния · дар восприятия · защита</div>
       <div class="report-date">Июль 2026</div>
     </div>
   </header>
 
   <div class="gold-rule" style="margin:28px 0 24px;"></div>
 
-  <!-- ГЛАВНЫЙ ВЫВОД -->
-  <div class="section-label">Главный вывод</div>
+  <!-- ГЛАВНОЕ -->
+  <div class="section-label">Прочитайте это первым</div>
 
   <div class="intro-block">
     <p class="intro-lead">
-      В этой теме легко всё смешать в один страх. Поэтому сразу разложим её на <em>четыре разных
-      явления</em> — у каждого свой механизм, своё время и свой способ использовать. Их нельзя путать:
-      два из них — риск, два — ваша сила.
+      В этой теме легко всё смешать в один страх. Поэтому разложим её на <em>четыре разные вещи</em> — у
+      каждой свой смысл и свои годы. Две из них — риск, две — ваша сила.
     </p>
     <p class="intro-body">
-      Ключ, которым различаются все четыре, — <strong>качество энергии</strong>. Когда точка восприятия
-      зажигается «со знаком плюс» (через признание, защиту) — это ВАША сила: ясная интуиция и дар. Когда
-      та же точка зажигается «со знаком минус» (через трение, без защиты) — это встреча низкого порядка:
-      духи, тревога, чужое давление. Один и тот же орган восприятия — но два противоположных исхода,
-      и карта показывает, какой именно в каком году.
+      Вот эти четыре, простыми словами: <strong>(1) порча</strong> — когда чужая тяжёлая энергия давит на
+      ваш ум; <strong>(2) сила/дар</strong> — когда вы сами обретаете ясное восприятие; <strong>(3)
+      интуиция</strong> — тихое чутьё, которое у вас есть всегда и в какие-то годы усиливается; <strong>(4)
+      духи</strong> — прямой контакт, когда вы что-то чувствуете или «видите». Их важно не путать, потому
+      что действовать в каждом случае надо по-разному.
     </p>
     <p class="intro-body">
-      И граница, чтобы не было тревоги: карта показывает КАНАЛ и ВРЕМЯ — где тонко и когда открыто. Она
-      <strong>не</strong> называет человека, намерение или ритуал и <strong>не</strong> содержит никакой
-      «даты конца» — такого расчёта в методе нет. Ваша карта при этом <strong>защитная</strong>: сильная
-      защита ума, «вовремя приходит нужный врач», способность пройти сквозь тяжёлое. Поэтому даже
-      заряженные окна вы проходите насквозь, а естественный горизонт — глубокая старость.
+      Как отличить силу от опасности — по <strong>«знаку» года</strong>. Если ваша чувствительная точка
+      включается «с плюсом» (через ясность, защиту) — это дар, его развивают. Если «с минусом» (через
+      давление, без защиты) — это порча или тяжёлая встреча, их проходят и не углубляют. Ниже все годы уже
+      помечены знаком, чтобы вам не гадать.
     </p>
-  </div>
-
-  <!-- ЧЕТЫРЕ ЯВЛЕНИЯ -->
-  <div class="section-label">Четыре явления — что это и по каким годам</div>
-
-  <div class="verdict-row four">
-    <div class="verdict-card attack">
-      <div class="vc-label">① Риск · внешнее</div>
-      <div class="vc-value">Порча / атака на ум</div>
-      <div class="vc-years">Годы «тёмной звезды»: 2026 (пик) · 2027 · 2032</div>
-      <div class="vc-sub">Когда чужая тяжёлая энергия целит именно в <strong>ум</strong>. В вашей карте это годы, где «тёмная звезда» зажигается и давит на линию мышления. Проявление — навязчивый «шум» в голове, чужое влияние, ощущение, что мысли не совсем ваши. <strong>Как использовать:</strong> держать ум под защитой — тишина, границы, чистое окружение; НЕ искать «кто это».</div>
-    </div>
-    <div class="verdict-card power">
-      <div class="vc-label">② Сила · ваше</div>
-      <div class="vc-value">Обретение дара</div>
-      <div class="vc-years">«Родной такт» (раз в 10 лет): …2009 · 2019 · 2029 (пик) · 2039</div>
-      <div class="vc-sub">Когда вы САМИ обретаете ясное, высокого порядка восприятие — «знание наперёд», точную интуицию, способность помогать другим видеть. Это позитивное качество энергии. <strong>Как использовать:</strong> это годы ОБУЧЕНИЯ — учиться, практиковать, ставить дар как навык; разряжать через движение, а не глушить.</div>
-    </div>
-    <div class="verdict-card intu">
-      <div class="vc-label">③ Фон + всплески</div>
-      <div class="vc-value">Интуиция сильнее</div>
-      <div class="vc-years">Годы «точки восприятия»: 2013 · 2025 · 2037 (и с детства — фон)</div>
-      <div class="vc-sub">У вас есть <strong>врождённый</strong> устойчивый тип восприятия — тихий фон всю жизнь. Он усиливается в «годы точки восприятия», когда чувствительная точка активируется напрямую. <strong>Как использовать:</strong> доверять первому сигналу, вести записи-сверки, проверять интуицию на мелком, прежде чем опираться на крупном.</div>
-    </div>
-    <div class="verdict-card ghost">
-      <div class="vc-label">④ Риск · встреча</div>
-      <div class="vc-value">Духи / призраки</div>
-      <div class="vc-years">Годы «точки восприятия» с минусом: 2025 (сильнее) · 2037</div>
-      <div class="vc-sub">Та же точка восприятия, но зажжённая «со знаком минус» — прямой контакт низкого порядка: ощущение присутствия, «видеть/слышать», тревожные состояния. Часто идёт рядом с телесной осторожностью. <strong>Как использовать:</strong> не углубляться и не романтизировать; держать защиту ума; сначала — обычный врач и отдых; это ПРОХОДИТ.</div>
-    </div>
-  </div>
-
-  <div class="clarify-box">
-    <div class="icon">◆</div>
-    <p>
-      <strong>Как отличить силу (②) от встречи (④) — они в одной точке.</strong> Смотрите на «знак» года:
-      если точка восприятия активируется через <strong>признание/защиту</strong> (годы «родного такта») —
-      это ВАШ дар, его развивают. Если через <strong>трение/зло, без защиты</strong> — это встреча
-      низкого порядка, её проходят и не углубляют. Годы ниже уже размечены по знаку, чтобы вам не гадать.
-    </p>
-  </div>
-
-  <!-- DO / DONT -->
-  <div class="section-label" style="margin-top:44px;">Как действовать — по типу года</div>
-  <div class="do-dont-grid">
-    <div class="dd-card">
-      <div class="dd-title green">✓ &nbsp; Использовать силу</div>
-      <ul class="dd-list">
-        <li><span style="color:var(--green)">●</span><strong>В годы дара (②, пик 2029):</strong>&nbsp;учиться и практиковать восприятие как навык — это лучшие годы, чтобы поставить его «на рельсы»</li>
-        <li><span style="color:var(--green)">●</span><strong>В годы интуиции (③):</strong>&nbsp;доверять первому сигналу; вести дневник-сверку (записал → проверил), чтобы отделить точное от тревожного</li>
-        <li><span style="color:var(--green)">●</span>Разряжать восприятие ТЕЛОМ — движение, дыхание, практика: в вашей карте его нельзя «заглушить» силой воли, только направить</li>
-        <li><span style="color:var(--green)">●</span>Сначала — обычное объяснение (усталость, здоровье, стресс); «тонкое» — только когда обычное исключено</li>
-      </ul>
-    </div>
-    <div class="dd-card">
-      <div class="dd-title red">✗ &nbsp; Закрыть риск</div>
-      <ul class="dd-list">
-        <li><span style="color:var(--red)">●</span><strong>В годы порчи (①: 2026, 2027, 2032):</strong>&nbsp;не оставлять ум без опоры — переутомление и изоляция и есть открытая «дверь»</li>
-        <li><span style="color:var(--red)">●</span><strong>В годы встречи (④: 2025, 2037):</strong>&nbsp;не углубляться в контакт и не романтизировать его; держать защиту ума, беречь тело</li>
-        <li><span style="color:var(--red)">●</span>Не искать виноватого-человека: карта не показывает лицо. Персонализация тратит силы впустую</li>
-        <li><span style="color:var(--red)">●</span>Не глушить восприятие силой воли — в вашей карте это «делает хуже»; его направляют, а не давят</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="clarify-box">
-    <div class="icon">◆</div>
-    <p>
-      <strong>Граница метода — чтобы не было тревоги.</strong> «Тёмная энергия» в карте — это НЕ
-      окончательный вердикт и не обвинение конкретному человеку. Это описание <strong>канала</strong>
-      (где у вас тонко) и <strong>времени</strong> (когда открыто). Метод не различает буквальный ритуал
-      и просто долгое давление чужой тяжёлой энергии на ум — читается одинаково, структурно. Поэтому
-      единственно верная работа — укреплять защиту ума и тела в помеченные годы, а не искать «кто это сделал».
+    <p class="intro-body">
+      И граница, чтобы не было тревоги: карта показывает только <strong>канал и время</strong> — где у вас
+      тонко и когда открыто. Она не называет ни человека, ни ритуал. А ваша защита сильна: крепкий ум,
+      способность держать удар. Именно поэтому тяжёлые годы вы проходите — как прошли 2024-й и 2025-й.
     </p>
   </div>
 
   <div class="gold-rule-full"></div>
 
-  <!-- ДЕСЯТИЛЕТИЯ -->
-  <div class="section-label">Карта десятилетий: где что сильнее</div>
+  <!-- ЧЕТЫРЕ ВЕЩИ -->
+  <div class="section-label">Четыре вещи — что это и в какие годы</div>
 
-  <div class="intro-block" style="padding:26px 40px;">
-    <p class="intro-body" style="margin:0;">
-      Каждое из четырёх явлений «дышит» по десятилетиям — открывается и закрывается. Ниже — где за всю
-      жизнь сильнее РИСК (порча, встреча), а где ваша СИЛА (дар, интуиция). Годы указаны по восточному
-      циклу (год начинается с китайского Нового года).
+  <div class="cause risk">
+    <div class="cause-head"><span class="cause-num">1</span><span class="cause-title">Порча — давление на ум</span><span class="cause-kind">Риск · внешнее</span></div>
+    <p class="cause-body">
+      Чужая тяжёлая энергия целит именно в <b>ум</b>. Ощущается как навязчивый «шум» в голове, чужое
+      влияние, чувство, что мысли не совсем ваши, тревожные состояния без причины. В тяжёлой форме — как в
+      2024–2025 — может подкосить и здоровье. <b>Защита здесь — не таблетки, а крепкий ум:</b> тишина,
+      границы, чистое окружение, отказ от изоляции и перегруза.
     </p>
+    <div class="cause-years">
+      <b>Годы:</b> сильнее всего было в <span class="hot">2024</span> (вы это знаете) и продолжилось в
+      <span class="hot">2025</span>; впереди пик — <span class="hot">2026</span>, затем 2027 и
+      <span class="hot">2032</span>.
+    </div>
   </div>
 
-  <table class="month-table">
-    <thead>
-      <tr>
-        <th style="min-width:150px">Десятилетие</th>
-        <th>Что сильнее в этом периоде</th>
-        <th style="min-width:120px">Итог</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="m-name">2004–2013</span><span class="m-dates">26–35 лет</span><span class="m-badge mod">Позади</span></td>
-        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag po">Сила</span> Особый период: «центр жизни» стоял ровно на линии УМА — самая чувствительная для этой темы точка. Значит, весь период был усилен И риск атаки на ум, И развитие собственного восприятия. Годы разметки — в разделе «Прошлое».</div></td>
-        <td><div class="m-desc">Пройдено — сверьте.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2014–2023</span><span class="m-dates">36–45 лет</span><span class="m-badge mod">Позади</span></td>
-        <td><div class="m-desc"><span class="tag at">Порча</span> Канал смещён к линии окружения/связей: риск шёл «через людей» и через давление на ум. Плюс одно сильное окно дара — 2019-й.</div></td>
-        <td><div class="m-desc">Пройдено — сверьте.</div></td>
-      </tr>
-      <tr class="peak-row">
-        <td><span class="m-name">2024–2033</span><span class="m-dates">46–55 лет · сейчас</span><span class="m-badge peak">Сейчас</span></td>
-        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag po">Сила</span><span class="tag gh">Духи</span> Активны все четыре: пик порчи — 2026; пик силы/дара — 2029; год встречи/интуиции — 2025. Полный разбор по годам ниже.</div></td>
-        <td><div class="m-desc">Держать защиту; развивать дар.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2034–2043</span><span class="m-dates">56–65 лет</span><span class="m-badge caution">Пик риска впереди</span></td>
-        <td><div class="m-desc"><span class="tag at">Порча</span><span class="tag gh">Духи</span> Структурно САМЫЙ заряженный по внешнему риску: «центр жизни» садится прямо на точку, где сходятся линия связей и мотив влияния на ум. Годы-акценты: 2036, 2037 (встреча＋атака), 2042.</div></td>
-        <td><div class="m-desc">Десятилетие максимальной защиты ума.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2044–2053</span><span class="m-dates">66–75 лет</span><span class="m-badge mod">Тихо</span></td>
-        <td><div class="m-desc">Низкий фон по всем четырём — канал напрямую не активируется. Одно позитивное окно восприятия — 2049-й.</div></td>
-        <td><div class="m-desc">Спокойный по теме период.</div></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2054–2063</span><span class="m-dates">76–85 лет</span><span class="m-badge gift">Сила · долголетие</span></td>
-        <td><div class="m-desc"><span class="tag po">Сила</span> «Центр жизни» возвращается к точке восприятия/здоровья, а защита долголетия удваивается — восприятие высокого, позитивного порядка на фоне долгой жизни.</div></td>
-        <td><div class="m-desc">Естественный горизонт карты — здесь.</div></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="cause power">
+    <div class="cause-head"><span class="cause-num">2</span><span class="cause-title">Сила — обретение дара</span><span class="cause-kind">Ваше · позитив</span></div>
+    <p class="cause-body">
+      Годы, когда вы <b>сами</b> обретаете ясное восприятие высокого порядка — «знание наперёд», точную
+      интуицию, способность видеть за других. Это не риск, а ресурс. Приходит примерно раз в 10 лет, в ваш
+      «родной такт». <b>Как использовать:</b> это годы обучения — учиться, практиковать, ставить дар как
+      навык; разряжать через движение, а не глушить.
+    </p>
+    <div class="cause-years">
+      <b>Годы:</b> в прошлом — 2009 и 2019 (сверьте: не было ли в эти годы всплеска чутья?); ближайший и
+      самый сильный — <span class="hot">2029</span>; далее 2039.
+    </div>
+  </div>
+
+  <div class="cause intu">
+    <div class="cause-head"><span class="cause-num">3</span><span class="cause-title">Интуиция — тихое чутьё</span><span class="cause-kind">Фон + всплески</span></div>
+    <p class="cause-body">
+      У вас есть <b>врождённое</b>, устойчивое чутьё — тихий фон всю жизнь. Оно не мучает, а помогает,
+      потому что ваш ум по природе защищён и может держать этот канал. В отдельные годы чутьё
+      <b>усиливается</b>. <b>Как использовать:</b> доверять первому сигналу; вести короткий дневник-сверку
+      (записал ощущение → проверил, сбылось ли), чтобы отделить точное от тревожного.
+    </p>
+    <div class="cause-years">
+      <b>Годы усиления:</b> 2013 · <span class="hot">2025</span> · 2037 (и ровный фон всю жизнь, с детства).
+    </div>
+  </div>
+
+  <div class="cause ghost">
+    <div class="cause-head"><span class="cause-num">4</span><span class="cause-title">Духи — прямой контакт</span><span class="cause-kind">Риск · встреча</span></div>
+    <p class="cause-body">
+      Та же чувствительная точка, но зажжённая «с минусом» — тогда чутьё превращается в прямой контакт
+      низкого порядка: ощущение присутствия, «видеть/слышать», тяжёлые состояния. Часто идёт рядом с
+      телесной опасностью (как в 2025-м). <b>Как использовать:</b> не углубляться и не романтизировать;
+      держать защиту ума; сначала — обычный врач и отдых. Это <b>проходит</b>.
+    </p>
+    <div class="cause-years">
+      <b>Годы:</b> сильнее всего — <span class="hot">2025</span> (вы это знаете); ранее — 2013; впереди —
+      2037.
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Одна точка — два исхода.</strong> Сила (№2) и духи (№4) рождаются в одном и том же месте
+      карты — разница только в «знаке» года. Плюс — это ваш дар, его развивают. Минус — это тяжёлая
+      встреча, её проходят и не углубляют. Поэтому 2029-й (плюс) — год РАЗВИТИЯ, а 2025-й (минус) был годом,
+      который надо было просто пережить.
+    </p>
+  </div>
 
   <div class="gold-rule-full"></div>
 
   <!-- ПРОШЛОЕ -->
-  <div class="section-label">Прошлое — для сверки с вашими фактами</div>
+  <div class="section-label">Ваши уже прожитые годы — карта совпадает</div>
 
-  <div class="intro-block" style="padding:26px 40px;">
+  <div class="intro-block" style="padding:24px 34px;">
     <p class="intro-body" style="margin:0;">
-      Это раздел проверки: карта <strong>помечает</strong> годы, где каждое явление структурно
-      срабатывало — а вы сверяете со своей памятью (что было, а чего нет). Направление именно
-      такое: карта → сверка, не наоборот. Ниже — только годы и тип явления, без домыслов о событиях.
+      Вы назвали 2024 и 2025 как годы тёмного влияния, когда была угроза жизни. Вот как их <strong>видит
+      карта</strong> — это и есть проверка метода.
     </p>
   </div>
 
   <table class="month-table">
     <thead>
-      <tr>
-        <th style="min-width:110px">Год</th>
-        <th>Что карта помечает</th>
-        <th style="min-width:120px">Тип</th>
-      </tr>
+      <tr><th style="min-width:110px">Год</th><th>Что было и как это видит карта</th><th style="min-width:150px">Что защитило</th></tr>
     </thead>
     <tbody>
-      <tr>
-        <td><span class="m-name">~1989</span><span class="m-dates">детство</span></td>
-        <td><div class="m-desc">«Точка восприятия» зажигается ПОЗИТИВНО впервые в жизни — структурный маркер раннего, врождённого чутья («чувствую/знаю с детства»). Это семя вашего дара.</div></td>
-        <td><span class="tag po">Сила-семя</span><span class="tag in">Интуиция</span></td>
+      <tr class="peak-row">
+        <td><span class="yr">2024</span><span class="yr-tag risk">Порча</span></td>
+        <td><div class="cell-what"><b>Тёмное влияние, угроза жизни.</b> Карта: «тёмная звезда» была зажжена, и «абнормальное» било прямо в ум — это классический рисунок порчи (причина №1). Удар шёл через ум, а не через аварию.</div></td>
+        <td><div class="cell-do"><b>Крепость ума</b> — ваша врождённая защита сознания провела вас через это.</div></td>
       </tr>
-      <tr>
-        <td><span class="m-name">1999</span><span class="m-dates">16–25 · «родной такт»</span></td>
-        <td><div class="m-desc">Год «родного такта»: восприятие/дар усилены позитивно. Раннее окно, где чутьё звучит громче.</div></td>
-        <td><span class="tag po">Сила</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2002 · 2006 · 2007</span><span class="m-dates">линия ума активна</span></td>
-        <td><div class="m-desc">Годы, где «тёмная звезда» зажигалась и/или удар шёл В УМ (2006 — усилено вдвойне). Период, когда риск внешнего давления на мышление был выше обычного.</div></td>
-        <td><span class="tag at">Порча/ум</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2009</span><span class="m-dates">«родной такт»</span></td>
-        <td><div class="m-desc">Сильное окно собственного восприятия/дара — «точка восприятия» зажжена позитивно (вдвойне). Хорошее окно для интуитивных решений.</div></td>
-        <td><span class="tag po">Сила</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2012</span><span class="m-dates">удар в ум</span></td>
-        <td><div class="m-desc">Год прямого давления на линию ума (мысленный «шум»/нагрузка + острый акцент на уме). Один из самых «ментально-заряженных» в том десятилетии.</div></td>
-        <td><span class="tag at">Порча/ум</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2013</span><span class="m-dates">точка восприятия</span></td>
-        <td><div class="m-desc">«Точка восприятия» активирована ветвью года — восприятие обострено; качество нейтрально-минусовое (перекос в сторону встречи/ощущений, а не чистого дара).</div></td>
-        <td><span class="tag in">Интуиция</span><span class="tag gh">Встреча</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2016 · 2017</span><span class="m-dates">линия связей/ум</span></td>
-        <td><div class="m-desc">«Тёмная звезда» другого типа зажжена (2017 — вдвойне): риск влияния через окружение/связи и давления на ум. Пик той волны — 2017-й.</div></td>
-        <td><span class="tag at">Порча/связи</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2019</span><span class="m-dates">«родной такт»</span></td>
-        <td><div class="m-desc">Сильное позитивное окно восприятия/дара (вдвойне). Год, где чутью можно было доверять.</div></td>
-        <td><span class="tag po">Сила</span></td>
-      </tr>
-      <tr>
-        <td><span class="m-name">2020 · 2022</span><span class="m-dates">удар в ум</span></td>
-        <td><div class="m-desc">Годы давления на линию ума (2022 — острый акцент: удар В УМ + ментальная нагрузка). Риск внешнего «шума» выше обычного.</div></td>
-        <td><span class="tag at">Порча/ум</span></td>
+      <tr class="peak-row">
+        <td><span class="yr">2025</span><span class="yr-tag ghost">Порча + духи + тело</span></td>
+        <td><div class="cell-what"><b>Год, когда вы почти погибли.</b> Карта: тёмное влияние (№1) совпало с прямым контактом низкого порядка (№4 — «пара разрыва и пустоты» на линии здоровья зажглась), и всё это — вместе с телесной опасностью того же года. Совпадение сразу нескольких каналов = почему год ощущался как край.</div></td>
+        <td><div class="cell-do"><b>Ум + инстинкт + врач</b> — все защиты сработали разом. Вы прошли.</div></td>
       </tr>
     </tbody>
   </table>
 
   <div class="bottom-note">
-    <div class="bn-icon">✎</div>
+    <div class="bn-icon">✓</div>
     <div class="bn-text">
-      <strong>Как сверять.</strong> Отметьте для себя, в каких из этих годов было соответствие
-      (усиление интуиции, тяжёлое ментальное давление, ощущение чужого влияния, случаи «видеть/
-      чувствовать»), а в каких — ничего. Совпадения подтверждают, что механизм в вашей карте «живой»;
-      пропуски показывают, где канал был открыт, но без явного события (окно ≠ обязательное событие).
-      Так мы откалибруем прогноз на будущее по ВАШИМ фактам.
+      <strong>Важная связка.</strong> 2025-й — это точка, где ЭТОТ отчёт (тёмное влияние и духи) и отчёт
+      про <em>риски для жизни</em> смыкаются: там же был телесный удар. Поэтому 2025-й стоит в обоих
+      отчётах — он был опасен сразу с нескольких сторон, и вы прошли его именно потому, что защита
+      многослойная.
     </div>
   </div>
 
   <div class="gold-rule-full"></div>
 
-  <!-- ГОДОВОЙ РАЗБОР -->
-  <div class="section-label">Текущее десятилетие по годам · 2024–2033</div>
+  <!-- ПО ГОДАМ -->
+  <div class="section-label">Ближайшие годы по порядку · 2024–2033</div>
 
   <table class="month-table">
     <thead>
-      <tr>
-        <th style="min-width:100px">Год</th>
-        <th>Что именно происходит</th>
-        <th style="min-width:110px">Тип</th>
-      </tr>
+      <tr><th style="min-width:100px">Год</th><th>Что именно и что делать</th><th style="min-width:110px">Тип</th></tr>
     </thead>
     <tbody>
       <tr>
-        <td><span class="m-name">2024</span></td>
-        <td>
-          <div class="m-focus">Касание ума — начало окна</div>
-          <p class="m-desc">Тонкое влияние впервые за десятилетие дотягивается до линии мышления: «дверь» приоткрывается. Не пик — разгон.</p>
-          <p class="m-use"><strong>Использовать:</strong> заранее выстроить «гигиену ума» — сон, границы, чистое окружение; заложить привычки, которые понадобятся к 2026-му.</p>
-        </td>
-        <td><span class="tag at">Порча/ум · слабо</span></td>
+        <td><span class="yr">2024</span></td>
+        <td><div class="cell-what"><b>Порча начинает касаться ума</b> — первый год открытого окна. Уже прожито.</div></td>
+        <td><span class="yr-tag risk">Порча</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2025</span></td>
-        <td>
-          <div class="m-focus">Точка восприятия — напрямую · и осторожность</div>
-          <p class="m-desc">Год активирует саму точку восприятия — с «минусовым» качеством. Это год, где вероятнее всего <strong>обострённые ощущения / контакт низкого порядка</strong> («присутствие», тревожные состояния), и одновременно окно телесной осторожности (см. ниже).</p>
-          <p class="m-use"><strong>Использовать:</strong> не углубляться в «тонкое»; сначала — врач и восстановление; защита ума; разрядка телом. Это проходит.</p>
-        </td>
-        <td><span class="tag gh">Духи/встреча</span><span class="tag in">Интуиция</span></td>
+        <td><span class="yr">2025</span></td>
+        <td><div class="cell-what"><b>Порча + прямой контакт + тело.</b> Самый тяжёлый год этого ряда. Уже прожито.</div></td>
+        <td><span class="yr-tag ghost">Порча + духи</span></td>
       </tr>
       <tr class="peak-row">
-        <td><span class="m-name">2026</span></td>
-        <td>
-          <div class="m-focus">ПИК внешнего давления на ум</div>
-          <p class="m-desc">Годовой и десятилетний слой совпадают и <strong>удваивают</strong> давление по линии близких связей → на ум. Это пиковая точка «порчи/атаки» за всё десятилетие: максимум чужого «шума» и влияния на мышление.</p>
-          <p class="m-use"><strong>Использовать:</strong> год строгой защиты ума — тишина, границы, чистое окружение, никакой изоляции и перегруза; не искать «кто». Тело — в движении.</p>
-        </td>
-        <td><span class="tag at">Порча/ум · ПИК</span></td>
+        <td><span class="yr">2026</span></td>
+        <td><div class="cell-what"><b>ПИК давления на ум.</b> Годовой и десятилетний слой совпадают и удваивают тёмное давление на ум. Это год строгой защиты сознания.</div><div class="cell-do"><b>Делать:</b> тишина, границы, чистое окружение; никакой изоляции и перегруза; не искать «кто это».</div></td>
+        <td><span class="yr-tag risk">Порча · ПИК</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2027</span></td>
-        <td>
-          <div class="m-focus">Смещение к окружению</div>
-          <p class="m-desc">Адрес риска меняется: с близкого круга — на линию окружения и связей. Влияние идёт «через людей» — сеть контактов, новые знакомства с неясным мотивом.</p>
-          <p class="m-use"><strong>Использовать:</strong> внимательнее к тому, кто входит в круг; меньше открытости к «случайным» контактам; договорённости — письменно.</p>
-        </td>
-        <td><span class="tag at">Порча/связи</span></td>
+        <td><span class="yr">2027</span></td>
+        <td><div class="cell-what"><b>Влияние смещается на окружение</b> — идёт «через людей», через сеть контактов.</div><div class="cell-do"><b>Делать:</b> внимательнее к тому, кто входит в круг; меньше открытости к случайным контактам.</div></td>
+        <td><span class="yr-tag risk">Порча · связи</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2028</span></td>
-        <td>
-          <div class="m-focus">Прямое касание близкой линии</div>
-          <p class="m-desc">Год прямо подсвечивает линию близких/партнёрских связей — тему видно яснее, работать с ней проще.</p>
-          <p class="m-use"><strong>Использовать:</strong> навести ясность в близких договорённостях; проговорить/зафиксировать то, что «висело» неопределённым.</p>
-        </td>
-        <td><span class="tag at">Порча/связи · слабо</span></td>
+        <td><span class="yr">2028</span></td>
+        <td><div class="cell-what"><b>Тема близких связей видна ясно</b> — и работать с ней проще.</div><div class="cell-do"><b>Делать:</b> навести ясность в близких договорённостях.</div></td>
+        <td><span class="yr-tag calm">Спокойнее</span></td>
       </tr>
       <tr class="peak-row">
-        <td><span class="m-name">2029</span></td>
-        <td>
-          <div class="m-focus">ПИК силы — окно ДАРА</div>
-          <p class="m-desc">Год «родного такта»: тема разворачивается с внешнего риска на ВАШУ силу. Собственное восприятие звучит <strong>громче всего за десятилетие</strong> и с позитивным качеством — это «знание наперёд», точная интуиция, способность видеть за других. Это не риск, а ресурс.</p>
-          <p class="m-use"><strong>Использовать:</strong> ЛУЧШЕЕ окно, чтобы учиться и практиковать восприятие как навык — курсы, наставник, регулярная практика; ставить дар «на рельсы».</p>
-        </td>
-        <td><span class="tag po">Сила/дар · ПИК</span></td>
+        <td><span class="yr">2029</span></td>
+        <td><div class="cell-what"><b>ПИК вашей силы — год дара.</b> Тема разворачивается с риска на ВАШУ силу: восприятие звучит громче всего за десятилетие и с плюсом. Это ресурс, а не угроза.</div><div class="cell-do"><b>Делать:</b> лучшее окно, чтобы учиться и практиковать восприятие как навык — курсы, наставник, регулярная практика.</div></td>
+        <td><span class="yr-tag power">Сила · ПИК</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2030</span></td>
-        <td>
-          <div class="m-focus">Тихо по теме</div>
-          <p class="m-desc">Прямого касания по этой теме нет — спокойный год (энергия уходит в другие линии жизни).</p>
-          <p class="m-use"><strong>Использовать:</strong> закрепить практику, наработанную в 2029-м, спокойным ритмом — без нагрузки.</p>
-        </td>
-        <td><span class="tag in">Фон</span></td>
+        <td><span class="yr">2030</span></td>
+        <td><div class="cell-what"><b>Тихо по теме</b> — спокойный год.</div><div class="cell-do"><b>Делать:</b> закрепить спокойным ритмом практику, наработанную в 2029-м.</div></td>
+        <td><span class="yr-tag calm">Тихо</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2031</span></td>
-        <td>
-          <div class="m-focus">Телесная осторожность · смягчено</div>
-          <p class="m-desc">Второе окно телесной осторожности десятилетия — но структурно смягчённое (в карте есть встречная поддержка). По каналам порчи/встречи — низко.</p>
-          <p class="m-use"><strong>Использовать:</strong> обычная профилактика и «к врачу сразу»; осторожность в движении/дороге. Тревоги не требует.</p>
-        </td>
-        <td><span class="tag gh">Осторожность (мягче)</span></td>
+        <td><span class="yr">2031</span></td>
+        <td><div class="cell-what"><b>Тихо по теме влияний</b> (в отчёте про тело этот год отмечен как окно телесной осторожности — но по уму/влиянию здесь спокойно).</div></td>
+        <td><span class="yr-tag calm">Тихо</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2032</span></td>
-        <td>
-          <div class="m-focus">Давление на ум — год ума</div>
-          <p class="m-desc">Сразу несколько слоёв сходятся на линии ума одновременно — это про ментальную нагрузку и «шум», не про тело. Второй по силе год порчи/давления на ум после 2026-го.</p>
-          <p class="m-use"><strong>Использовать:</strong> год беречь ум как приоритет — тишина, границы, отдых, меньше информационного и эмоционального перегруза.</p>
-        </td>
-        <td><span class="tag at">Порча/ум</span></td>
+        <td><span class="yr">2032</span></td>
+        <td><div class="cell-what"><b>Снова давление на ум</b> — второй по силе год после 2026-го. Про ментальную нагрузку и «шум», не про тело.</div><div class="cell-do"><b>Делать:</b> беречь ум как приоритет — тишина, границы, отдых, меньше перегруза.</div></td>
+        <td><span class="yr-tag risk">Порча · ум</span></td>
       </tr>
       <tr>
-        <td><span class="m-name">2033</span></td>
-        <td>
-          <div class="m-focus">Тихо по теме</div>
-          <p class="m-desc">По теме тонких влияний — спокойный год; энергия уходит в рабочую/имущественную линию. Десятилетие закрывается без нового пика.</p>
-          <p class="m-use"><strong>Использовать:</strong> подвести итог десятилетия по этой теме; сверить прогноз с тем, что было.</p>
-        </td>
-        <td><span class="tag in">Фон</span></td>
+        <td><span class="yr">2033</span></td>
+        <td><div class="cell-what"><b>Тихо по теме</b> — десятилетие закрывается без нового пика.</div></td>
+        <td><span class="yr-tag calm">Тихо</span></td>
       </tr>
     </tbody>
   </table>
@@ -560,87 +397,43 @@
   <div class="bottom-note">
     <div class="bn-icon">✦</div>
     <div class="bn-text">
-      <strong>Коротко по десятилетию.</strong>
-      Риск «порчи/атаки на ум» — <strong>2026 (пик)</strong>, затем 2027 и 2032.
-      Ваша сила и дар — <strong>2029 (пик)</strong>: единственное такое окно за 10 лет, год обучения.
-      Обострение восприятия и возможные «встречи» — <strong>2025</strong> (там же телесная осторожность).
-      Всё остальное — тихий фон.
+      <strong>Коротко по десятилетию.</strong> Порча/давление на ум — <strong>2026 (пик)</strong>, затем
+      2027 и 2032. Ваша сила и дар — <strong>2029 (пик)</strong>, единственное такое окно за 10 лет, год
+      обучения. 2024–2025 — уже прожитый тяжёлый отрезок. Всё остальное — тихий фон.
     </div>
   </div>
 
   <div class="gold-rule-full"></div>
 
-  <!-- ДАР -->
-  <div class="section-label">Ваш дар: когда он сильнее и как его использовать</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      У вас <em>врождённый</em>, устойчивый тип восприятия — не «тревожащий», а спокойный, с сильной
-      защитой ума. Это дар, который РАЗВИВАЮТ, а не подавляют.
-    </p>
-    <p class="intro-body">
-      <strong>Почему устойчивый.</strong> Чувствительная точка восприятия у вас подкреплена «защитой
-      ума» — оберегающими опорами в линии мышления. Такой ум может держать тонкий канал, не ломаясь под
-      ним. Поэтому это читается как ДАР, а не как расстройство: вы — тип, который может «следовать за
-      чутьём» и даже помогать другим, а не тот, кого восприятие мучает.
-    </p>
-    <p class="intro-body">
-      <strong>Когда сильнее.</strong> Громче всего — в годы «родного такта» (позитивное качество):
-      прошлые окна — 2009 и 2019; ближайший ПИК — <strong>2029</strong>; далее 2039. Плюс тихий фон
-      всю жизнь и всплески в «годы точки восприятия» (ближайший — 2025, но там качество минусовое, ближе
-      к встрече, чем к чистому дару).
-    </p>
-    <p class="intro-body">
-      <strong>Как развивать (важно).</strong> В вашей карте этот канал нельзя «заглушить» усилием —
-      попытка давить делает хуже. Его РАЗВИВАЮТ и РАЗРЯЖАЮТ: обучение, наблюдение, регулярная практика,
-      движение телом. И «здоровье вперёд»: та же точка сначала читается как ТЕЛО, поэтому забота о теле и
-      развитие дара идут вместе. 2029-й — год, когда стоит вложиться в это всерьёз.
-    </p>
-  </div>
-
-  <div class="gold-rule-full"></div>
-
-  <!-- ДОЛГОЛЕТИЕ И ОКНА -->
-  <div class="section-label">Долголетие и окна телесной осторожности</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      Здесь — только <em>окна</em>, и ничего кроме окон. Метод не знает «года конца». Что карта даёт
-      прямо: годы повышенной телесной осторожности — и очень сильную защиту, которая их проходит.
-    </p>
-    <p class="intro-body">
-      <strong>Ваша защита.</strong> В теле — «долгая жизнь + вовремя приходит нужный врач»; в уме —
-      оберегающие опоры; в характере — способность пройти сквозь тяжёлое и собраться. Поэтому заряженные
-      окна проходятся, а не становятся обрывом. Естественный горизонт карты — глубокая старость.
-    </p>
-  </div>
-
-  <div class="verdict-row">
-    <div class="verdict-card">
-      <div class="vc-label">Окно · сильнее</div>
-      <div class="vc-value">2025</div>
-      <div class="vc-sub">Год касается линии перемещения и точки тела одновременно, без встречной подпорки. Рычаг — ваш «нужный врач вовремя» и внимательность в дороге. Проходится защитой карты.</div>
+  <!-- ЗАЩИТА -->
+  <div class="section-label">Как действовать — коротко</div>
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Использовать силу</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span><b>В год дара (2029):</b> учиться и практиковать восприятие как навык — лучшее окно, чтобы поставить его «на рельсы»</li>
+        <li><span style="color:var(--green)">●</span><b>С интуицией (все годы):</b> доверять первому сигналу; вести дневник-сверку, чтобы отделить точное от тревожного</li>
+        <li><span style="color:var(--green)">●</span>Разряжать восприятие движением тела — его нельзя заглушить усилием, только направить</li>
+      </ul>
     </div>
-    <div class="verdict-card">
-      <div class="vc-label">Окно · мягче</div>
-      <div class="vc-value">2031</div>
-      <div class="vc-sub">Похожая точка, но структурно смягчена встречной поддержкой в линии личности. Осторожность — да, тревога — нет.</div>
-    </div>
-    <div class="verdict-card highlight">
-      <div class="vc-label">Естественный горизонт</div>
-      <div class="vc-value">Глубокая старость</div>
-      <div class="vc-sub">Структурно самое «долгое» десятилетие — 76–85 лет, когда защита тела удваивается. Никакой более ранней «даты» метод не содержит.</div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Закрыть риск</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span><b>В годы порчи (2026, 2032):</b> не оставлять ум без опоры — переутомление и изоляция и есть открытая «дверь»</li>
+        <li><span style="color:var(--red)">●</span><b>В год духов (был 2025):</b> не углубляться в контакт; беречь ум и тело; сначала — врач и отдых</li>
+        <li><span style="color:var(--red)">●</span>Не искать виноватого-человека: карта не показывает лицо — работайте с каналом, не с «кем-то»</li>
+      </ul>
     </div>
   </div>
 
-  <div class="bottom-note">
-    <div class="bn-icon">ℹ</div>
-    <div class="bn-text">
-      <strong>Как пользоваться разделом.</strong> В годы-окна (2025, 2031) — обычная профилактика и
-      «к врачу сразу, а не потом»; это ваш встроенный рычаг. Всё остальное время раздел не требует
-      действий — он существует, чтобы снять тревогу, а не добавить её: у карты сильная защита, и
-      естественный горизонт — глубокая старость.
-    </div>
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Граница метода.</strong> «Тёмная энергия» в карте — это не окончательный вердикт и не
+      обвинение человеку. Это описание канала (где у вас тонко) и времени (когда открыто). Метод не
+      различает буквальный ритуал и просто долгое давление чужой тяжёлой энергии на ум — поэтому верная
+      работа одна: укреплять защиту ума в помеченные годы, а не искать «кто это сделал».
+    </p>
   </div>
 
   <div class="gold-rule-full"></div>
@@ -649,14 +442,11 @@
   <div class="section-label">Что дальше</div>
 
   <div class="intro-block">
-    <p class="intro-lead">
-      Этот отчёт — про одну тему и одно десятилетие. Ваша карта хранит гораздо больше.
-    </p>
+    <p class="intro-lead">Этот отчёт — про скрытые влияния и дар. Ваша карта хранит гораздо больше.</p>
     <p class="intro-body">
-      Тонкие влияния, дар и долголетие — лишь одна дверь. Рядом — доход, карьера, недвижимость,
-      отношения, здоровье; и каждый следующий год открывается своим отдельным разбором. Мы посмотрели
-      это десятилетие целиком, год за годом, и разметили прошлое для сверки — а когда захотите заглянуть
-      в следующую дверь или в любой следующий год, карта уже готова ответить.
+      Рядом — отдельный отчёт про <strong>риски для жизни и защиту</strong> (тело), а также доход, карьера,
+      недвижимость, отношения. И каждый год открывается своим разбором. Когда захотите заглянуть в
+      следующую дверь или в любой год — карта уже готова ответить.
     </p>
   </div>
 
@@ -666,18 +456,15 @@
   <div class="section-label">Карта Цзы Вэй Доу Шу</div>
 
   <div class="chart-wrap">
-    <iframe src="https://successcode.net/zwds-alena"
-            title="Карта Цзы Вэй Доу Шу — Алёна">
-    </iframe>
+    <iframe src="https://successcode.net/zwds-alena" title="Карта Цзы Вэй Доу Шу — Алёна"></iframe>
   </div>
 
   <div class="chart-print-only">
     <div class="bn-icon">◆</div>
     <div class="bn-text">
-      <strong>Карта печатается отдельно.</strong>
-      Интерактивная карта открывается и печатается со своей страницы:
-      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span>
-      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
+      <strong>Карта печатается отдельно.</strong> Интерактивная карта открывается и печатается со своей
+      страницы: <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span> —
+      откройте её и нажмите «Print / PDF».
     </div>
   </div>
 
