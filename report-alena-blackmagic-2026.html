@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Скрытые влияния, дар и долголетие — карта на десятилетие — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* PURPLE "power / hidden influence" theme */
+      --bg:#F6F5F8; --surface:#ECE9F1; --surface2:#E3DFEB; --gold:#6B4C8A; --gold2:#8A6BB0;
+      --goldfade:rgba(107,76,138,0.09); --text:#1A161F; --dim:#38323F; --muted:#6E6678;
+      --border:rgba(107,76,138,0.24); --border2:rgba(26,22,31,0.10); --red:#7A1E1E; --green:#1A5026;
+      --purple-grad:linear-gradient(135deg,#7E5CA0 0%,#B69AD4 42%,#5E4080 62%,#9E82C4 100%);
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .win-strip{width:100%;height:7px;background:var(--purple-grad);}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+      background-image:linear-gradient(100deg, rgba(30,16,48,0.82) 0%, rgba(30,16,48,0.55) 42%, rgba(30,16,48,0.22) 72%, rgba(30,16,48,0.05) 100%), url('/assets/backgrounds/bg-power-purple.png?v=1');
+      background-size:cover;background-position:center right;border:1px solid rgba(138,107,176,0.30);border-radius:4px;overflow:hidden;margin-top:24px;}
+    /* light header text on dark-purple */
+    .report-header .report-title{color:#FAF7FF;}
+    .report-header .report-title em{color:#C9AEE8;}
+    .report-header .report-subtitle{color:rgba(250,247,255,0.80);}
+    .report-header .client-label{color:rgba(250,247,255,0.62);}
+    .report-header .client-name{color:#FAF7FF;}
+    .report-header .client-meta{color:rgba(250,247,255,0.80);}
+    .report-header .report-date{color:rgba(250,247,255,0.6);}
+    .report-header .header-left a span{color:#C9AEE8 !important;}
+    .report-header .win-badge{color:#20182E;}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
+    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-btn.ghost{background:transparent;color:#C9AEE8;border:1px solid rgba(138,107,176,0.45);}
+    .print-btn.ghost:hover{background:var(--goldfade);color:var(--gold2);}
+    .print-btn svg{width:14px;height:14px;fill:currentColor;}
+    .chart-print-only{display:none;}
+    .header-left{flex:1;}
+    .win-badge{display:inline-flex;align-items:center;gap:8px;background:var(--purple-grad);color:#20182E;padding:6px 15px;border-radius:20px;font-size:10px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;box-shadow:0 2px 9px rgba(107,76,138,0.32);margin-bottom:18px;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:13px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(107,76,138,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-badge.gift{color:var(--green);border:1px solid rgba(26,80,38,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @page{margin:13mm;}
+    @media print{
+      html,body{background:white;}
+      body{font-size:11.5px;line-height:1.55;}
+      .page{padding:0;max-width:100%;}
+      .report-actions{display:none!important;}
+      .report-header{background:none!important;border:1px solid var(--border);}
+      .report-header .report-title,.report-header .client-name{color:var(--text)!important;}
+      .report-header .report-title em{color:var(--gold2)!important;}
+      .report-header .report-subtitle,.report-header .client-meta,.report-header .client-label,.report-header .report-date{color:var(--muted)!important;}
+      .report-header .header-left a span{color:var(--gold)!important;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;}
+      .report-title{font-size:32px;}
+      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
+      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
+      .section-label{break-after:avoid;page-break-after:avoid;}
+      .month-table tr.peak-row td{background:#EFEAF3!important;}
+      .chart-wrap{display:none!important;}
+      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+    }
+    @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 26px;background-position:top right;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:32px;}
+      .intro-block{padding:26px 24px;}
+      .intro-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
+    }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
+  </style>
+</head>
+<body>
+<div class="win-strip"></div>
+<div class="page">
+
+  <div class="report-actions">
+    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      PDF отчёта
+    </button>
+    <a class="print-btn ghost" href="https://successcode.net/zwds-alena" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      Печать карты
+    </a>
+  </div>
+
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:20px;">
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:#C9AEE8;">SuccessCode</span></a>
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:var(--purple-grad);color:#20182E;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(107,76,138,0.32);">Узнать больше · Discover more →</a>
+      </div>
+      <div class="win-badge">✦ &nbsp;Карта на десятилетие</div>
+      <h1 class="report-title">Скрытые влияния, дар<br><em>и долголетие</em></h1>
+      <p class="report-subtitle">Внешние влияния · интуиция · долголетие &nbsp;·&nbsp; Десятилетие 2024–2033</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Алёна</div>
+      <div class="client-meta">Тёмные влияния · Дар восприятия · Долголетие</div>
+      <div class="report-date">Июль 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule" style="margin:28px 0 24px;"></div>
+
+  <!-- ГЛАВНЫЙ ВЫВОД -->
+  <div class="section-label">Главный вывод</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Три вещи в вашей карте важно не путать: <em>внешнее влияние</em> (когда чужая тяжёлая энергия
+      пытается дотянуться до вас), <em>ваш собственный дар восприятия</em> — и <em>долголетие</em>.
+      Первое — временное окно, второе можно развивать, третье у вас сильное.
+    </p>
+    <p class="intro-body">
+      Сразу о главном и с ясной границей: карта показывает КАНАЛ и ВРЕМЯ — где тонкое место и в какие
+      годы оно открыто. Она <strong>не</strong> показывает конкретного человека, намерение или ритуал, и
+      <strong>не</strong> называет никаких «дат конца» — такого расчёта в методе просто нет. Всё, что
+      прямо даёт карта в этой теме, — это ОКНА повышенного риска и ОКНА силы. Ни одной даты смерти в этом
+      отчёте нет и быть не может.
+    </p>
+    <p class="intro-body">
+      И самое важное для спокойствия: ваша карта устроена как <strong>защитная</strong>. В теле заложены
+      «долгая жизнь + вовремя приходит нужный врач», в уме — сильная защита, а в характере — способность
+      пройти сквозь тяжёлое и собраться заново. Поэтому даже в самых заряженных окнах карта проводит вас
+      насквозь. Естественный горизонт этой карты — глубокая старость, а не ранний обрыв.
+    </p>
+  </div>
+
+  <!-- 3 КАРТЫ -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Где риск выше всего</div>
+      <div class="vc-value">Текущее десятилетие · и 2034–2043</div>
+      <div class="vc-sub">Канал внешнего влияния сильнее всего в текущем десятилетии (оно открыто все 10 лет) и в следующем (2034–2043), когда «центр жизни» садится ровно на точку тонкого влияния. Между ними и после — заметно тише.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Долголетие</div>
+      <div class="vc-value">Защитная карта</div>
+      <div class="vc-sub">Отдельные годы отмечены как окна повышенной телесной осторожности — но у карты сильная встроенная защита, и она их проходит. Естественный горизонт — глубокая старость (десятилетие 76–85 лет структурно самое «долгое»).</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Ваш дар</div>
+      <div class="vc-value">Интуиция, которую можно развить</div>
+      <div class="vc-sub">Карта несёт устойчивый тип восприятия — не «тревожащий», а спокойный, с сильной защитой ума. Это дар, который РАЗВИВАЮТ практикой, а не подавляют. Самое громкое окно для этого — 2029-й.</div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Что укрепляет и защищает</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Держите ум сильным: тишина, границы, чистое окружение — ваша защита ума и есть главный «фильтр» в заряженные годы</li>
+        <li><span style="color:var(--green)">●</span>Тело — через движение: в вашей карте лишнюю тяжёлую энергию не «блокируют», а разряжают телом (движение, дыхание, практика)</li>
+        <li><span style="color:var(--green)">●</span>В годы телесной осторожности (см. ниже) — сразу к врачу: у вас в карте «нужный врач приходит вовремя», это ваш собственный рычаг</li>
+        <li><span style="color:var(--green)">●</span>Дар — развивать, а не глушить: обучение, практика, наблюдение. Пик развития — 2029-й</li>
+        <li><span style="color:var(--green)">●</span>Сначала — обычное объяснение: усталость, здоровье, стресс проверяются ПЕРВЫМИ; «тонкое» — только когда обычное исключено</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Что открывает тонкое место</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Не оставляйте ум без опоры в пиковые годы (2026, 2032): переутомление и изоляция — это и есть открытая «дверь»</li>
+        <li><span style="color:var(--red)">●</span>Не ищите виноватого-человека: карта не показывает лицо. Персонализация тратит силы впустую — работайте с каналом, не с «кем-то»</li>
+        <li><span style="color:var(--red)">●</span>Не глушите восприятие силой воли — в вашей карте это «делает хуже». Его разряжают и направляют, а не давят</li>
+        <li><span style="color:var(--red)">●</span>Не списывайте телесные сигналы на «мистику» в годы осторожности — сначала обычный врач, потом всё остальное</li>
+        <li><span style="color:var(--red)">●</span>Не оставайтесь в тяжёлом окружении: где чужая энергия давит на ум постоянно — там канал и «горит»</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Граница метода — чтобы не было тревоги.</strong>
+      «Тёмная энергия» в карте — это НЕ окончательный вердикт и не обвинение конкретному человеку. Это описание
+      <strong>канала</strong> (где у вас тонко) и <strong>времени</strong> (когда открыто). Метод не
+      различает буквальный ритуал и просто долгое давление чужой тяжёлой энергии на ум — и то, и другое
+      читается одинаково, структурно. Поэтому единственно верная работа — укреплять защиту ума и тела в
+      помеченные годы, а не искать «кто это сделал».
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ДЕСЯТИЛЕТИЯ -->
+  <div class="section-label">Карта десятилетий: где канал сильнее, где долголетие</div>
+
+  <div class="verdict-row" style="grid-template-columns:1fr 2fr;">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Как это читается</div>
+      <div class="vc-value" style="line-height:1.3;">Канал открыт<br>по десятилетиям</div>
+      <div class="vc-sub">Внешнее влияние — не постоянный фон, а окно, которое ОТКРЫВАЕТСЯ в отдельные десятилетия и закрывается, когда следующее десятилетие его «сбивает». Ниже — где оно сильнее за всю жизнь.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-value" style="line-height:1.35;">Пики — сейчас<br>и 2034–2043</div>
+      <div class="vc-sub" style="margin-top:8px;">Самые заряженные десятилетия — текущее (2024–2033, открыто все 10 лет) и следующее (2034–2043), когда «центр жизни» садится ровно на точку тонкого влияния и требует самой крепкой защиты ума. Десятилетия 66–75 — тихое. А 76–85 — «долгое»: защита тела удваивается.</div>
+    </div>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Десятилетие</th>
+        <th>Канал внешнего влияния</th>
+        <th style="min-width:150px">Итог</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="m-name">2004–2013</span><span class="m-dates">26–35 лет</span><span class="m-badge mod">Позади</span></td>
+        <td><div class="m-desc">Высокий: «центр жизни» стоял ровно на точке ума — самом чувствительном месте для этой темы.</div></td>
+        <td><div class="m-desc">Пройдено.</div></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2014–2023</span><span class="m-dates">36–45 лет</span><span class="m-badge mod">Позади</span></td>
+        <td><div class="m-desc">Умеренный: канал смещался к линии окружения и связей.</div></td>
+        <td><div class="m-desc">Пройдено.</div></td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="m-name">2024–2033</span><span class="m-dates">46–55 лет · сейчас</span><span class="m-badge peak">Открыто</span></td>
+        <td><div class="m-desc">Высокий и активен ВСЕ 10 лет. Разбор по годам — в следующем разделе. Пиковая интенсивность — 2026-й.</div></td>
+        <td><div class="m-desc">Держать защиту ума; см. годовой разбор.</div></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2034–2043</span><span class="m-dates">56–65 лет</span><span class="m-badge caution">Пик впереди</span></td>
+        <td><div class="m-desc">Структурно САМЫЙ заряженный: «центр жизни» садится прямо на точку, где сходятся линия связей и мотив внешнего влияния на ум.</div></td>
+        <td><div class="m-desc">Десятилетие максимальной защиты ума и границ.</div></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2044–2053</span><span class="m-dates">66–75 лет</span><span class="m-badge mod">Тихо</span></td>
+        <td><div class="m-desc">Низкий: канал не активируется напрямую.</div></td>
+        <td><div class="m-desc">Спокойный по теме период.</div></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2054–2063</span><span class="m-dates">76–85 лет</span><span class="m-badge gift">Долголетие</span></td>
+        <td><div class="m-desc">«Центр жизни» возвращается к телу-здоровью, а защита долголетия удваивается — это структурно «долгое» десятилетие.</div></td>
+        <td><div class="m-desc">Естественный горизонт карты — здесь, в глубокой старости.</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ГОДОВОЙ РАЗБОР -->
+  <div class="section-label">Текущее десятилетие по годам · 2024–2033</div>
+
+  <div class="intro-block" style="padding:26px 40px;">
+    <p class="intro-body" style="margin:0;">
+      Канал открыт весь период — поэтому важна не «есть/нет», а <strong>форма года</strong>: где именно
+      влияние касается (ум, окружение, тело), и когда оно оборачивается не риском, а <strong>вашей
+      силой</strong>. Каждый год ниже — своё, отдельное движение, без повторов. Годы указаны по восточному
+      циклу (год начинается с китайского Нового года).
+    </p>
+  </div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:120px">Год</th>
+        <th>Форма года — что именно происходит</th>
+        <th style="min-width:150px">Метка</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="m-name">2024</span></td>
+        <td><div class="m-focus">Касание ума</div><p class="m-desc">Год «помечает» ум: тонкое влияние впервые за десятилетие дотягивается до линии мышления. Не пик, но начало открытого окна.</p></td>
+        <td><span class="m-badge mod">Умеренно · держать границы</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2025</span></td>
+        <td><div class="m-focus">Тело и восприятие · осторожность</div><p class="m-desc">Год напрямую активирует точку тела/восприятия — самое чувствительное место карты. Здесь восприятие может обостряться, и одновременно это одно из окон телесной осторожности (см. раздел ниже).</p></td>
+        <td><span class="m-badge caution">Окно осторожности</span></td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="m-name">2026</span></td>
+        <td><div class="m-focus">Пик внешнего канала</div><p class="m-desc">Годовой и десятилетний слой совпадают и УДВАИВАЮТ давление на линию близких связей — это пиковая точка внешнего влияния за всё десятилетие. Год держать ум крепким и окружение чистым.</p></td>
+        <td><span class="m-badge peak">Пик десятилетия</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2027</span></td>
+        <td><div class="m-focus">Смещение к окружению</div><p class="m-desc">Мотив меняет адрес: с близкого круга — на линию окружения и связей (влияние через сеть контактов, «через людей»). Внимательнее к тому, кто и с каким мотивом входит в круг.</p></td>
+        <td><span class="m-badge mod">Внимание к кругу</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2028</span></td>
+        <td><div class="m-focus">Прямое касание близкой линии</div><p class="m-desc">Год напрямую подсвечивает линию близких/партнёрских связей — тему видно яснее, но и работать с ней проще: держать письменную ясность в договорённостях.</p></td>
+        <td><span class="m-badge mod">Ясность в связях</span></td>
+      </tr>
+      <tr class="peak-row">
+        <td><span class="m-name">2029</span></td>
+        <td><div class="m-focus">Поворот внутрь — окно ДАРА</div><p class="m-desc">Год «родного» такта: тема разворачивается с внешнего влияния на ВАШ собственный дар. Восприятие звучит громче всего за десятилетие — это лучшее окно, чтобы обучаться и развивать интуицию как навык, а не как тревогу.</p></td>
+        <td><span class="m-badge gift">Развитие дара</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2030</span></td>
+        <td><div class="m-focus">Тихо по теме</div><p class="m-desc">Мотив внешнего влияния прямого касания не даёт — по этой теме спокойный год (энергия года уходит в другие линии жизни).</p></td>
+        <td><span class="m-badge mod">Спокойно</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2031</span></td>
+        <td><div class="m-focus">Телесная осторожность · смягчено</div><p class="m-desc">Второе окно телесной осторожности десятилетия — но структурно смягчённое (в карте есть встречная поддержка, см. раздел ниже). По каналу влияния — низко-умеренно.</p></td>
+        <td><span class="m-badge caution">Окно осторожности (мягче)</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2032</span></td>
+        <td><div class="m-focus">Давление на ум — год ума</div><p class="m-desc">Сразу несколько слоёв сходятся на линии ума одновременно. Это не про тело — про ментальную нагрузку и «шум». Год, когда защита ума (тишина, границы, отдых) важнее всего после 2026-го.</p></td>
+        <td><span class="m-badge caution">Беречь ум</span></td>
+      </tr>
+      <tr>
+        <td><span class="m-name">2033</span></td>
+        <td><div class="m-focus">Тихо по теме</div><p class="m-desc">По теме тонких влияний — спокойный год; энергия уходит в рабочую/имущественную линию. Десятилетие закрывается без нового пика по этой теме.</p></td>
+        <td><span class="m-badge mod">Спокойно</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ДАР -->
+  <div class="section-label">Ваш дар восприятия — что это и как развивать</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      У вас в карте — <em>устойчивый</em> тип восприятия. Это важное отличие: есть «тревожащий» тип
+      (когда тонкое мешает и пугает), а есть спокойный, с сильной защитой ума — и он ваш.
+    </p>
+    <p class="intro-body">
+      <strong>Почему устойчивый.</strong> Чувствительная точка восприятия у вас поддержана «защитой ума» —
+      в линии мышления стоят опорные, оберегающие элементы. Такой ум может держать тонкий канал, не
+      ломаясь под ним. Поэтому это читается как ДАР, который можно спокойно развивать, а не как расстройство.
+    </p>
+    <p class="intro-body">
+      <strong>Прямая граница (важно).</strong> Та же чувствительная точка сначала читается как ТЕЛО —
+      здоровье и его сигналы идут ПЕРВЫМИ. Дар — это второй слой, который открывается, когда телесная
+      линия в порядке и под присмотром. Поэтому развитие дара и забота о теле идут вместе, а не вместо
+      друг друга.
+    </p>
+    <p class="intro-body">
+      <strong>Как развивать.</strong> В вашей карте этот канал нельзя «заглушить» усилием — попытка давить
+      делает хуже. Его РАЗВИВАЮТ и РАЗРЯЖАЮТ: обучение, наблюдение, регулярная практика, движение телом.
+      Самое громкое окно для этого — <strong>2029-й</strong>, когда восприятие звучит сильнее всего.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ДОЛГОЛЕТИЕ И ОКНА -->
+  <div class="section-label">Долголетие и окна телесной осторожности</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Здесь — только <em>окна</em>, и ничего кроме окон. Метод не знает «года конца», и придумывать его
+      нельзя. Что карта даёт прямо: годы повышенной телесной осторожности — и очень сильную защиту,
+      которая их проходит.
+    </p>
+    <p class="intro-body">
+      <strong>Ваша защита.</strong> В теле заложено «долгая жизнь + вовремя приходит нужный врач»; в уме —
+      оберегающие элементы; в характере — способность пройти сквозь тяжёлое и собраться. Это и есть
+      причина, по которой заряженные окна проходятся, а не становятся обрывом.
+    </p>
+    <p class="intro-body">
+      <strong>Окна осторожности в текущем десятилетии — два, оба проходимые:</strong>
+    </p>
+  </div>
+
+  <div class="verdict-row">
+    <div class="verdict-card">
+      <div class="vc-label">Окно · сильнее</div>
+      <div class="vc-value">2025</div>
+      <div class="vc-sub">Год касается линии движения/перемещения и точки тела одновременно, без встречной подпорки. Рычаг — ваш собственный «нужный врач вовремя» и внимательность в дороге. Проходится защитой карты.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Окно · мягче</div>
+      <div class="vc-value">2031</div>
+      <div class="vc-sub">Похожая по форме точка, но структурно смягчена встречной поддержкой в линии личности. Осторожность — да, тревога — нет.</div>
+    </div>
+    <div class="verdict-card highlight">
+      <div class="vc-label">Естественный горизонт</div>
+      <div class="vc-value">Глубокая старость</div>
+      <div class="vc-sub">Структурно самое «долгое» десятилетие — 76–85 лет, когда защита тела удваивается. Это естественный горизонт карты; никакой более ранней «даты» метод не содержит.</div>
+    </div>
+  </div>
+
+  <div class="bottom-note">
+    <div class="bn-icon">ℹ</div>
+    <div class="bn-text">
+      <strong>Как пользоваться разделом.</strong> В годы-окна (2025, 2031) — обычная профилактика и
+      «к врачу сразу, а не потом»; это ваш встроенный рычаг. Всё остальное время раздел не требует
+      действий — он существует, чтобы снять тревогу, а не добавить её: у карты сильная защита, и
+      естественный горизонт — глубокая старость.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ЧТО ДАЛЬШЕ -->
+  <div class="section-label">Что дальше</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      Этот отчёт — про одну тему и одно десятилетие. Ваша карта хранит гораздо больше.
+    </p>
+    <p class="intro-body">
+      Тонкие влияния, дар и долголетие — лишь одна дверь. Рядом — доход, карьера, недвижимость,
+      отношения, здоровье; и каждый следующий год открывается своим отдельным разбором. Мы посмотрели
+      это десятилетие целиком и год за годом — а когда захотите заглянуть в следующую дверь или в любой
+      следующий год, карта уже готова ответить.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- КАРТА -->
+  <div class="section-label">Карта Цзы Вэй Доу Шу</div>
+
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-alena"
+            title="Карта Цзы Вэй Доу Шу — Алёна">
+    </iframe>
+  </div>
+
+  <div class="chart-print-only">
+    <div class="bn-icon">◆</div>
+    <div class="bn-text">
+      <strong>Карта печатается отдельно.</strong>
+      Интерактивная карта открывается и печатается со своей страницы:
+      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-alena</span>
+      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
+  </footer>
+
+</div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+</body>
+</html>
