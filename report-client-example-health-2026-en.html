@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — ancient Chinese astrology">
+  <meta property="og:description" content="Zi Wei Dou Shu · destiny chart and personal strategy.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — ancient Chinese astrology">
+  <meta name="twitter:description" content="Zi Wei Dou Shu · destiny chart.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Personal Health Strategy 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
+      --goldfade:rgba(154,110,32,0.09); --text:#1A1820; --dim:#383644; --muted:#72707E;
+      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+      background-image:linear-gradient(100deg, rgba(16,42,22,0.60) 0%, rgba(16,42,22,0.32) 42%, rgba(16,42,22,0.08) 72%, rgba(16,42,22,0) 100%), url('/assets/backgrounds/bg-health-green.png?v=1');
+      background-size:cover;background-position:center right;border:1px solid rgba(230,201,126,0.28);border-radius:4px;overflow:hidden;}
+    /* health green hero — light header text on dark-green */
+    .report-header .report-title{color:#FAF7F0;}
+    .report-header .report-title em{color:#E6C97E;}
+    .report-header .report-subtitle{color:rgba(250,247,240,0.78);}
+    .report-header .client-label{color:rgba(250,247,240,0.62);}
+    .report-header .client-name{color:#FAF7F0;}
+    .report-header .client-meta{color:rgba(250,247,240,0.78);}
+    .report-header .report-date{color:rgba(250,247,240,0.6);}
+    .report-header .header-left a span{color:#E6C97E !important;}
+    .report-actions .print-btn.ghost{color:#E6C97E;border-color:rgba(230,201,126,0.45);}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:20;}
+    .print-row{display:flex;gap:10px;}
+    .lang-switch{display:inline-flex;align-items:center;border:1px solid var(--border);}
+    .lang-switch a{font-size:11px;letter-spacing:2px;font-weight:600;color:var(--muted);padding:8px 12px;font-family:'Inter',sans-serif;text-decoration:none;transition:background .2s,color .2s;}
+    .lang-switch a.active{background:var(--gold);color:#f5f1eb;}
+    .lang-switch a:not(.active):hover{color:var(--gold2);}
+    .report-actions .lang-switch{border-color:rgba(230,201,126,0.45);}
+    .report-actions .lang-switch a{color:#E6C97E;}
+    .report-actions .lang-switch a.active{background:var(--gold);color:#fff;}
+    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--border);}
+    .print-btn.ghost:hover{background:var(--goldfade);color:var(--gold2);}
+    .print-btn svg{width:14px;height:14px;fill:currentColor;}
+    .chart-print-only{display:none;}
+    .header-left{flex:1;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .weight-block{background:white;border:1px solid var(--border);border-top:3px solid var(--gold);padding:34px 44px;margin-bottom:14px;}
+    .weight-block .wb-lead{font-family:'Cormorant Garamond',serif;font-size:23px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:18px;}
+    .weight-block .wb-lead em{font-style:italic;color:var(--gold2);}
+    .weight-block p{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .weight-block p+p{margin-top:12px;}
+    .weight-block strong{color:var(--text);}
+    .wb-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px;}
+    .wb-card{background:var(--surface);border:1px solid var(--border2);padding:20px 20px;}
+    .wb-card .wc-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .wb-card .wc-value{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:var(--text);line-height:1.25;margin-bottom:6px;}
+    .wb-card.win{background:var(--goldfade);border-color:var(--border);}
+    .wb-card .wc-value.green{color:var(--green);}
+    .wb-card .wc-value.red{color:var(--red);}
+    .wb-card .wc-sub{font-size:12.5px;color:var(--muted);line-height:1.55;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .flag-list{list-style:none;margin-bottom:8px;}
+    .flag-item{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:20px 26px;margin-bottom:14px;}
+    .flag-item.red{border-left-color:var(--red);}
+    .flag-item.green{border-left-color:var(--green);}
+    .flag-head{display:flex;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap;}
+    .flag-rank{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gold);line-height:1;}
+    .flag-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);}
+    .flag-tag{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 8px;border-radius:2px;}
+    .flag-tag.pri{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .flag-tag.watch{color:var(--gold);border:1px solid var(--border);}
+    .flag-tag.good{color:var(--green);border:1px solid rgba(26,80,38,0.3);}
+    .flag-body{font-size:13px;color:var(--dim);line-height:1.75;}
+    .flag-body strong{color:var(--text);}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:14px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(154,110,32,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @page{margin:13mm;}
+    @media print{
+      html,body{background:white;}
+      body{font-size:11.5px;line-height:1.55;}
+      .page{padding:0;max-width:100%;}
+      .report-actions{display:none!important;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;}
+      .report-header{padding:6px 0 18px;background:none!important;border:none!important;border-radius:0!important;}
+      .report-header .report-title,.report-header .client-name{color:#1A1820!important;}
+      .report-header .report-title em{color:#9A6E20!important;}
+      .report-header .report-subtitle,.report-header .client-label,.report-header .client-meta,.report-header .report-date{color:#72707E!important;}
+      .report-header .header-left a span{color:#9A6E20!important;}
+      .report-title{font-size:34px;}
+      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note,.weight-block,.flag-item{break-inside:avoid;page-break-inside:avoid;}
+      .verdict-row,.do-dont-grid,.wb-cards{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
+      .section-label{break-after:avoid;page-break-after:avoid;}
+      .month-table tr.peak-row td{background:#FAF5E8!important;}
+      .chart-wrap{display:none!important;}
+      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+    }
+    @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 24px;background-position:top right;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .wb-cards{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .weight-block,.intro-block{padding:26px 24px;}
+      .report-title{font-size:34px;}
+      .intro-lead,.weight-block .wb-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
+    }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-actions">
+    <div class="print-row">
+      <button class="print-btn" onclick="window.print()" title="Save report as PDF / print">
+        <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+        Report PDF
+      </button>
+    </div>
+  </div>
+
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
+        <a href="https://successcode.net/" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span></a>
+        <a href="https://successcode.net/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Discover more →</a>
+      </div>
+      <h1 class="report-title">Personal Strategy<br><em>for Health in 2026</em></h1>
+      <p class="report-subtitle">Individual analysis &nbsp;·&nbsp; July 2026 — February 2027</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Prepared for</div>
+      <div class="client-name">Client Example</div>
+      <div class="client-meta">Personal chart · health</div>
+      <div class="report-date">July 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule" style="margin:20px 0 24px;"></div>
+
+
+  <!-- MAIN CONCLUSION -->
+  <div class="section-label">Health headline for 2026</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      2026 is <em>not a quiet "nothing to worry about" year</em> — it's a year of two concrete lines to
+      manage actively: <em>blood and immunity</em> and <em>injury risk</em>. Alongside them sits a strong
+      protection: the "star of the good doctor" — the right specialist arrives in time.
+    </p>
+    <p class="intro-body">
+      Your health sector is loaded from birth: it carries markers of <strong>hidden, slow-developing
+      conditions</strong> — things that don't hurt openly and are poorly diagnosed without a check. So for
+      you, planned screening isn't a formality but basic hygiene. This is a lifelong backdrop; 2026 simply
+      highlights two lines more than usual.
+    </p>
+    <p class="intro-body">
+      <strong>First line — blood and immunity.</strong> In 2026 the "star of blood and the immune system"
+      comes under <strong>doubled pressure</strong> (at the decade and the annual level at once). By the
+      chart's nature this is your sensitive system — so it's the one to keep under watch this year. The chart's
+      action here is direct: show this system to a doctor (your health sector holds the "star of the good
+      doctor" — the right specialist is there). Not a reason to panic — a reason to keep a calm, planned finger
+      on the pulse.
+    </p>
+    <p class="intro-body">
+      <strong>Second line — the acute: injury or a "sharp" intervention.</strong> In 2026 a "sharp" energy
+      sits on the sector tied to trauma (impacts, cuts, fractures, anything requiring a scalpel). The nature of
+      this signal is the <strong>sharp and sudden</strong>. The takeaway: be deliberate
+      with the fast and the sharp — road, sport, sharp objects — and
+      <strong>get a second opinion</strong> if surgery is ever proposed.
+    </p>
+    <p class="intro-body">
+      <strong>Straight on timing.</strong> The main window of attention to blood and immunity is
+      <strong>12 August — 9 September</strong>: that month the line is reinforced most strongly of the year,
+      the best time to show this system to a doctor and not overload yourself. The background theme of weight and "accumulation"
+      runs all year — covered in the separate weight report. Each following year is read separately.
+    </p>
+  </div>
+
+  <!-- 3 CARDS -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Line №1 · keep under control</div>
+      <div class="vc-value" style="color:var(--red)">Blood & immunity</div>
+      <div class="vc-sub">Doubled pressure on the blood/immune system all of 2026. By the chart this is your sensitive system — one to keep under watch. Chart action: show it to a doctor. Peak — 12 Aug – 9 Sep.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Line №2 · caution</div>
+      <div class="vc-value">Injury / sharp intervention</div>
+      <div class="vc-sub">"Sharp" energy on the trauma sector: road, sport, sharp objects. A signal about the sudden and the sharp. If surgery is proposed — second opinion.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Protection of the year</div>
+      <div class="vc-value" style="color:var(--green)">Star of the good doctor</div>
+      <div class="vc-sub">Your health sector holds the "right doctor arrives in time" marker. Treatment and the right specialist appear when truly needed. Trust it, and reach out.</div>
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- SPECIFIC SIGNALS -->
+  <div class="section-label">Exactly what the chart flags for 2026 — point by point</div>
+
+  <ul class="flag-list">
+    <li class="flag-item red">
+      <div class="flag-head">
+        <span class="flag-rank">1</span>
+        <span class="flag-title">Blood & immune system — doubled pressure</span>
+        <span class="flag-tag pri">Priority</span>
+      </div>
+      <p class="flag-body">
+        The main signal of the year. The "star of blood, immunity and vessels" is under pressure at two
+        levels at once — the decade and the year. By the chart's nature this is your sensitive system and the
+        <strong>key one to keep under watch in 2026</strong>. The chart's action is one: don't delay, and show
+        this system to a doctor — on a plan, not "when it hurts" (the "star of the good doctor" in your health
+        sector means the right specialist is found). Peak attention — 12 August – 9 September.
+      </p>
+    </li>
+    <li class="flag-item red">
+      <div class="flag-head">
+        <span class="flag-rank">2</span>
+        <span class="flag-title">Injury risk and "sharp" intervention</span>
+        <span class="flag-tag pri">Caution</span>
+      </div>
+      <p class="flag-body">
+        On the sector responsible for trauma (impacts, cuts, fractures, metal, surgery) a "sharp" energy
+        stands in 2026. This is a <strong>signal about the sharp and sudden</strong> — impacts, cuts, anything
+        edged. The conclusion: care with the fast and the sharp (road, active sport, sharp tools) and,
+        without fail, a <strong>second opinion</strong> if an elective operation is proposed. Not fate —
+        a zone of heightened attention.
+      </p>
+    </li>
+    <li class="flag-item">
+      <div class="flag-head">
+        <span class="flag-rank">3</span>
+        <span class="flag-title">Metabolism, weight and digestion — "stagnation"</span>
+        <span class="flag-tag watch">Backdrop of the year</span>
+      </div>
+      <p class="flag-body">
+        A "status" star in your chart carries the risk of "diseases of plenty" — excess weight, metabolism,
+        sugar, the GI tract — and in 2026 it's under a <strong>slow, dragging pressure</strong> (stasis,
+        slowdown). Together with the doubled accumulation line, this is the mechanism of weight gain
+        (detailed in the separate weight report). The lever here, per the chart, is the same single one — movement.
+      </p>
+    </li>
+    <li class="flag-item">
+      <div class="flag-head">
+        <span class="flag-rank">4</span>
+        <span class="flag-title">Hidden / slow conditions — planned screening</span>
+        <span class="flag-tag watch">Prevention</span>
+      </div>
+      <p class="flag-body">
+        From birth your health sector holds markers of <strong>hidden, slow-developing conditions</strong>
+        that are poorly visible without a check. In 2026 an annual "activation" comes onto this sector — a
+        direct invitation to <strong>do a general check-up</strong> this very year: what can be caught early,
+        gets caught early. A calm month for planned screening — 10 September – 8 October.
+      </p>
+    </li>
+    <li class="flag-item green">
+      <div class="flag-head">
+        <span class="flag-rank">5</span>
+        <span class="flag-title">Protective factor — the "star of the good doctor"</span>
+        <span class="flag-tag good">Support</span>
+      </div>
+      <p class="flag-body">
+        An important counterweight to all of the above: your health sector holds a marker of longevity and
+        the "right doctor" — <strong>the needed specialist and help arrive in time</strong>. It doesn't mean
+        "it sorts itself out"; it means that with an active approach (checks, second opinions, a doctor
+        instead of the internet) the chart is on your side — a stable, inborn marker of your health sector.
+      </p>
+    </li>
+  </ul>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Do in 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Show the blood and immune system to a doctor — on a plan; best focus 12 August – 9 September</li>
+        <li><span style="color:var(--green)">●</span>One general check-up for the year — calm window 10 September – 8 October; the hidden-conditions sector asks for a check</li>
+        <li><span style="color:var(--green)">●</span>Move every day — by the chart this is your personal "medicine" (the star of movement in your health sector)</li>
+        <li><span style="color:var(--green)">●</span>Care with the fast and the sharp: road, active sport, sharp tools — all year</li>
+        <li><span style="color:var(--green)">●</span>Need a doctor — reach out and trust it: the chart shows the right specialist arrives in time</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Avoid in 2026</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Don't put off the blood/immune doctor visit — this year it's your first line of attention</li>
+        <li><span style="color:var(--red)">●</span>Don't accept an elective operation without a second opinion — the year's "sharp" energy calls for a recheck</li>
+        <li><span style="color:var(--red)">●</span>Don't slip into a sedentary mode — by the chart stillness works directly against the body (the star of movement in your health sector)</li>
+        <li><span style="color:var(--red)">●</span>Don't self-diagnose online with unclear symptoms — you need a doctor, not the web, and one is found</li>
+        <li><span style="color:var(--red)">●</span>Don't confuse "a year of two attention lines" with "a year of illness": this is about active management, not about giving up</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>An important clarification — what here is "for life," and what is specifically about 2026.</strong>
+      The loaded health sector, the body type, the storing tendency and the "star of the good doctor" are your
+      innate body-map — always so. What shifts is the <strong>emphasis of the year</strong>: in 2026 blood/
+      immunity and the injury line are highlighted more than usual, and the body is at a doubled accumulation
+      peak. That's why exactly two things the chart points to pay off this year — <strong>showing the blood
+      system to a doctor on time</strong> and <strong>daily movement</strong>.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- MONTH-BY-MONTH -->
+  <div class="section-label">Month-by-month strategy</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Period</th>
+        <th>What happens and why</th>
+        <th style="min-width:200px">Concrete actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <span class="m-name">July — August</span>
+          <span class="m-dates">14 July — 11 August</span>
+          <span class="m-badge mod">Prep · Baseline</span>
+        </td>
+        <td>
+          <div class="m-focus">Calm window — build the base</div>
+          <p class="m-desc">A steady month with no sharp signals. The best time to start daily movement (per the chart, your medicine) and to book a blood/immune doctor visit for the next window. Preparing the ground before the August peak of blood attention.</p>
+        </td>
+        <td>
+          <div class="action-row">Introduce daily movement — even 30 minutes of walking</div>
+          <div class="action-row">Book a blood/immune doctor visit for late August</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">August — September</span>
+          <span class="m-dates">12 August — 9 September</span>
+          <span class="m-badge peak">Peak · Blood & immunity</span>
+        </td>
+        <td>
+          <div class="m-focus">Main window of attention to blood</div>
+          <p class="m-desc">The blood-and-immunity line is reinforced most strongly of the year (several chart layers coincide). This is the best month to show this system to a doctor and not overload yourself. Nothing alarming: it's a point of observation, not an event.</p>
+        </td>
+        <td>
+          <div class="action-row">Show the blood and immune system to a doctor</div>
+          <div class="action-row">Don't overload yourself this month</div>
+          <div class="action-row">Any deviation — straight to a doctor, don't wait</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">September — October</span>
+          <span class="m-dates">10 September — 8 October</span>
+          <span class="m-badge mod">Calm · Check-up</span>
+        </td>
+        <td>
+          <div class="m-focus">Window for planned screening</div>
+          <p class="m-desc">A calmer month for health — a convenient time for a general check-up and for what reveals hidden, slow conditions (basic diagnostics, imaging as prescribed). What can be caught early is best caught now.</p>
+        </td>
+        <td>
+          <div class="action-row">General planned check-up for the year</div>
+          <div class="action-row">Keep up daily movement</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">October — November</span>
+          <span class="m-dates">9 October — 6 November</span>
+          <span class="m-badge mod">Calm · Routine</span>
+        </td>
+        <td>
+          <div class="m-focus">Body in a steady phase</div>
+          <p class="m-desc">A calm health period. A good time to lock in a daily routine with movement: that's your main lever against weight. Caution on the road and in sport stays in the background.</p>
+        </td>
+        <td>
+          <div class="action-row">Lock movement into your daily routine</div>
+          <div class="action-row">Careful with the road and active sport</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">November — December</span>
+          <span class="m-dates">7 November — 5 December</span>
+          <span class="m-badge mod">Calm</span>
+        </td>
+        <td>
+          <div class="m-focus">An even month</div>
+          <p class="m-desc">No particular health signals. Keep up daily movement. The backdrop is even — the task is simply to hold the line.</p>
+        </td>
+        <td>
+          <div class="action-row">Keep up daily movement</div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span class="m-name">December — January</span>
+          <span class="m-dates">6 December — 3 January 2027</span>
+          <span class="m-badge mod">Calm</span>
+        </td>
+        <td>
+          <div class="m-focus">An even month</div>
+          <p class="m-desc">No particular health signals. The 2026 accumulation backdrop runs evenly all year — there's no separate monthly peak in the chart. The task is the same: keep movement.</p>
+        </td>
+        <td>
+          <div class="action-row">Keep up daily movement</div>
+        </td>
+      </tr>
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">January — February 2027</span>
+          <span class="m-dates">4 January — 1 February 2027</span>
+          <span class="m-badge peak">Transition · Loss window opens</span>
+        </td>
+        <td>
+          <div class="m-focus">The body starts to respond</div>
+          <p class="m-desc">Entering 2027 — the year the "star of movement" returns to the health sector and the accumulation peak releases. Here effort begins to show visible results for the first time in a long while: this is the start of your weight-loss window.</p>
+        </td>
+        <td>
+          <div class="action-row">Build up movement — now it "works"</div>
+          <div class="action-row">Plan the weight loss specifically for 2027</div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- BACKGROUND -->
+  <div class="bottom-note">
+    <div class="bn-icon">ℹ</div>
+    <div class="bn-text">
+      <strong>Two background notes for the whole year.</strong>
+      First: 2026 is not a "year of illness" but a year of two active-attention lines (blood/immunity and
+      care with the sharp) against a doubled tendency to accumulate; an early doctor visit and daily movement pay off
+      especially well this year. Second — and the main thing to lean on: your health sector holds the "star
+      of the good doctor" — a stable chart marker: with an active approach the needed help and specialist
+      arrive in time. Weight is a manageable story with a clear loss window in 2027.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- WHAT'S NEXT -->
+  <div class="section-label">What's next</div>
+  <div class="intro-block">
+    <p class="intro-lead">
+      This report is about <em>one question and one year</em>. Your chart holds far more.
+    </p>
+    <p class="intro-body">
+      Health in 2026 is just one door. With the same clarity the chart answers your other questions: work
+      and money, relationships, big decisions and relocations, the best years for major moves — and what any
+      following year will personally be for you.
+    </p>
+    <p class="intro-body">
+      When you want to look through the next door — the chart is already ready to answer.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Personal analysis &nbsp;·&nbsp; Confidential</div>
+  </footer>
+
+</div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+</body>
+</html>
