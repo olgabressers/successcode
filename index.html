@@ -682,10 +682,34 @@
       font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
       color: var(--gold); font-weight: 700;
     }
+    .levels-lead {
+      margin-top: 64px;
+      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600;
+      display: flex; align-items: center; gap: 18px;
+    }
+    .levels-lead::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
+    .levels-row {
+      margin-top: 24px; width: 100%;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .level-card {
+      border: 1px solid var(--border);
+      border-top: 2px solid var(--gold);
+      background: rgba(255,255,255,0.45);
+      padding: 30px 28px 32px;
+    }
+    .level-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px; line-height: 1.15; color: var(--white);
+    }
+    .level-note { font-size: 15px; color: var(--dim); line-height: 1.65; margin-top: 12px; }
     .example-card.soon .example-banner { filter: grayscale(0.6); }
     .example-card.soon .example-cta { color: var(--muted); }
     @media (max-width: 1180px) {
       .examples-grid { grid-template-columns: 1fr 1fr; }
+      .levels-row { grid-template-columns: 1fr; }
+
       .examples-section { padding: 80px 40px; }
     }
 
@@ -752,6 +776,10 @@
       .examples-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 28px; }
       .example-banner { height: 130px; }
       .example-banner span { font-size: 24px; }
+      .levels-lead { margin-top: 40px; font-size: 11px; letter-spacing: 3px; }
+      .levels-row { grid-template-columns: 1fr; gap: 18px; margin-top: 20px; }
+      .level-title { font-size: 24px; }
+
 
       .emperor-section {
         grid-template-columns: 1fr; min-height: auto;
@@ -898,7 +926,7 @@
           <span>Money</span>
         </div>
         <div class="example-meta">
-          <div class="example-note">Income channels, peak years and major deals.</div>
+          <div class="example-note">Income channels, strong months and major deals.</div>
           <div class="example-cta">Soon</div>
         </div>
       </div>
@@ -913,6 +941,22 @@
         </div>
       </div>
 
+    </div>
+
+    <div class="levels-lead">Analysis works on three levels</div>
+    <div class="levels-row">
+      <div class="level-card">
+        <div class="level-title">Natal chart</div>
+        <div class="level-note">The structure of a whole life: strengths, core themes and turning points.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-title">Annual trends</div>
+        <div class="level-note">What a specific year brings: where the openings are and where attention is needed.</div>
+      </div>
+      <div class="level-card">
+        <div class="level-title">Month by month</div>
+        <div class="level-note">The exact windows inside a year: when to act and when to hold.</div>
+      </div>
     </div>
   </div>
 </section>
