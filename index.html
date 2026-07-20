@@ -42,6 +42,7 @@
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "customer support",
+          "email": "successcode.tv@gmail.com",
           "availableLanguage": ["en", "ru"],
           "url": "https://successcode.net/#booking"
         }
@@ -502,6 +503,12 @@
       font-size: 16px; line-height: 1.85; color: var(--white);
       margin-top: 28px; max-width: 480px;
     }
+    .cta-email {
+      font-size: 15px; line-height: 1.6; color: var(--white);
+      margin-top: 18px;
+    }
+    .cta-email a { color: var(--gold2); text-decoration: none; border-bottom: 1px solid var(--gold); }
+    .cta-email a:hover { color: var(--gold); }
     .cta-right {}
     .cta-fields { display: flex; flex-direction: column; gap: 0; }
     .cta-field-group { display: flex; flex-direction: column; }
@@ -616,6 +623,72 @@
     .s-light .question-title { color: var(--white); }
     .s-light .question-list li { color: var(--dim); }
 
+    /* REPORT EXAMPLES */
+    .examples-section { padding: 96px 72px; }
+    .examples-body { width: 100%; max-width: none; }
+    .examples-section .side-label {
+      writing-mode: horizontal-tb; text-orientation: initial;
+      display: flex; align-items: center; gap: 18px;
+      font-size: 13px; letter-spacing: 4px; padding-top: 0;
+      margin-bottom: 26px;
+    }
+    .examples-section .side-label::before {
+      content: ''; width: 44px; height: 2px; background: var(--gold);
+    }
+    .examples-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(34px, 3.8vw, 54px);
+      font-weight: 300; line-height: 1.18; color: var(--white);
+    }
+    .examples-h2 em { font-style: italic; color: var(--gold2); }
+    .examples-grid {
+      margin-top: 44px; width: 100%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    }
+    .example-card {
+      display: flex; flex-direction: column;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: transform .25s, border-color .25s, box-shadow .25s;
+    }
+    a.example-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--gold);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    .example-banner {
+      height: 150px;
+      background-size: cover; background-position: center;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      text-align: center; padding: 16px;
+    }
+    .example-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.42));
+    }
+    .example-banner span {
+      position: relative;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px; line-height: 1.15; color: #FAF7F0;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.55);
+    }
+    .example-meta { padding: 22px 24px 24px; }
+    .example-note { font-size: 15px; color: var(--dim); margin-top: 0; line-height: 1.65; }
+    .example-cta {
+      margin-top: 16px;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--gold); font-weight: 700;
+    }
+    .example-card.soon .example-banner { filter: grayscale(0.6); }
+    .example-card.soon .example-cta { color: var(--muted); }
+    @media (max-width: 1180px) {
+      .examples-grid { grid-template-columns: 1fr 1fr; }
+      .examples-section { padding: 80px 40px; }
+    }
+
     /* BACK TO TOP */
     .back-to-top {
       position: fixed; bottom: 32px; right: 32px;
@@ -673,6 +746,12 @@
       .manifesto-h2 { font-size: 28px; }
       .manifesto-cols { grid-template-columns: 1fr; gap: 24px; margin-top: 28px; }
       .manifesto-cols p { font-size: 14px; }
+
+      .examples-section { padding: 60px 22px; }
+      .examples-h2 { font-size: 28px; }
+      .examples-grid { grid-template-columns: 1fr; gap: 20px; margin-top: 28px; }
+      .example-banner { height: 130px; }
+      .example-banner span { font-size: 24px; }
 
       .emperor-section {
         grid-template-columns: 1fr; min-height: auto;
@@ -784,6 +863,59 @@
     <span>Zi Wei Dou Shu</span><span class="dot">·</span>
   </div>
 </div>
+
+<!-- REPORT EXAMPLES -->
+<section class="examples-section s-light" id="examples">
+  <div class="side-label">Examples</div>
+  <div class="examples-body">
+    <h2 class="examples-h2">Chart analysis examples</h2>
+    <div class="examples-grid">
+
+      <a class="example-card"
+         href="https://successcode.net/report-client-example-health-2026-en.html"
+         target="_blank" rel="noopener">
+        <div class="example-banner" style="background-image:url('/assets/backgrounds/bg-health-green.png');">
+          <span>Health</span>
+        </div>
+        <div class="example-meta">
+          <div class="example-note">The body, recovery and the timing of medical decisions.</div>
+          <div class="example-cta">See the example →</div>
+        </div>
+      </a>
+
+      <div class="example-card soon">
+        <div class="example-banner" style="background-image:url('/assets/backgrounds/bg-career-coral.png');">
+          <span>Career</span>
+        </div>
+        <div class="example-meta">
+          <div class="example-note">Profession, income growth and the timing of a move.</div>
+          <div class="example-cta">Soon</div>
+        </div>
+      </div>
+
+      <div class="example-card soon">
+        <div class="example-banner" style="background-image:url('/assets/backgrounds/bg-money-gold.png');">
+          <span>Money</span>
+        </div>
+        <div class="example-meta">
+          <div class="example-note">Income channels, peak years and major deals.</div>
+          <div class="example-cta">Soon</div>
+        </div>
+      </div>
+
+      <div class="example-card soon">
+        <div class="example-banner" style="background-image:url('/assets/backgrounds/bg-relationships-blue.png');">
+          <span>Relationships</span>
+        </div>
+        <div class="example-meta">
+          <div class="example-note">A partner, marriage and the timing of a new relationship.</div>
+          <div class="example-cta">Soon</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
 
 <!-- MANIFESTO / PROBLEM -->
 <section class="manifesto" id="about">
@@ -958,8 +1090,8 @@
         That is why the system was kept in the imperial archives for centuries and passed only to a chosen few.
       </p>
       <p class="emperor-p">
-        Today SuccessCode makes this instrument available to those
-        who make responsible decisions and want to understand the structure of their own life.
+        Today SuccessCode opens this system to you as well — if you make
+        serious decisions and want to understand how your life is built.
       </p>
       <div class="emperor-stats">
         <div>
@@ -1023,8 +1155,10 @@
   <div class="cta-left">
     <h2>Get <em>the answers</em> to your questions.</h2>
     <p>
-      Leave your contact details — I'll get back to you personally as soon as I can,
-      and we'll agree on a time and how to prepare for the consultation.
+      Leave your contact details — I'll write to you myself, and we'll find a time that suits you.
+    </p>
+    <p class="cta-email">Or write to me directly:
+      <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
     </p>
   </div>
   <div class="cta-right">
@@ -1052,7 +1186,7 @@
       </div>
 
       <button class="cta-submit" type="submit">Book a consultation</button>
-      <p class="cta-note">I'll be in touch shortly.</p>
+      <p class="cta-note">I answer everyone personally.</p>
     </form>
   </div>
 </section>
@@ -1064,6 +1198,7 @@
     <div class="footer-links">
       <a href="#booking">Book</a>
       <a href="https://successcode.net/calculators?lang=en" target="_blank" rel="noopener">Calculator</a>
+      <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
     </div>
