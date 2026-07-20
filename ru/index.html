@@ -758,12 +758,22 @@
       img, iframe, video, table { max-width: 100% !important; }
       body { font-size: 15px; }
 
-      nav { padding: 10px 10px; }
-      .nav-logo { font-size: 12px; letter-spacing: 1.2px; }
-      .nav-links { gap: 6px; align-items: center; }
-      .nav-link { display: inline; font-size: 9px; letter-spacing: 0.6px; padding: 3px 2px; }
-      .nav-btn { padding: 7px 10px; font-size: 9px; letter-spacing: 0.6px; }
-      .lang-switch a { padding: 5px 6px; font-size: 9px; letter-spacing: 0.6px; }
+      /* MOBILE NAV — logo + language + booking CTA only.
+         The three section links are dropped here: at 375px the nav ran to 453px,
+         overlapping the logo and pushing the CTA off-screen. Those sections stay
+         reachable from the footer and from the page itself. */
+      nav {
+        padding: 10px 12px; gap: 10px;
+        flex-wrap: nowrap; max-width: 100vw; overflow: hidden;
+      }
+      .nav-logo {
+        font-size: 13px; letter-spacing: 2px;
+        white-space: nowrap; flex-shrink: 0;
+      }
+      .nav-links { gap: 8px; align-items: center; flex-shrink: 0; min-width: 0; }
+      .nav-link { display: none; }
+      .nav-btn { padding: 8px 12px; font-size: 10px; letter-spacing: 1px; white-space: nowrap; }
+      .lang-switch a { padding: 6px 8px; font-size: 10px; letter-spacing: 1px; }
 
       .hero {
         grid-template-columns: 1fr;
