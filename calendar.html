@@ -474,6 +474,8 @@ const I18N = {
 };
 let LANG = "ru";
 try { const s = localStorage.getItem("sc-lang"); if (s === "ru" || s === "en") LANG = s; } catch(e){}
+// ?lang=ru|en in the URL wins over the stored preference (used by the site nav links)
+try { const q = new URL(location.href).searchParams.get("lang"); if (q === "ru" || q === "en") LANG = q; } catch(e){}
 const L = () => I18N[LANG];
 
 /* Solar term names (节气) → localized */
