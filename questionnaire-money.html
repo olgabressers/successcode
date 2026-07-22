@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Деньги в 2026 — анкета · SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!--
+    ══ АНКЕТА «ДЕНЬГИ 2026» — карта полей на алгоритм ══
+    (внутренняя заметка; клиенту не видна)
+
+    money_channel_main / money_channel_extra  → 06 §C «Channel-dependent delivery»: механизм года
+                                                 умножается на открытый канал (потолок суммы)
+    income_stability                          → поток против разового события (M-коды года)
+    income_geo                                → P7 (иностранный/онлайн доход)
+    mw_* + mw_ch_*                            → UR15: как приходили деньги = проверка канала
+                                                 карты против прожитой истории (RULE #0b)
+    mlo_*                                     → провальные годы = валидация Ji-лет
+    mls_* + mls_ch_*                          → «money EVENT ≠ money KEPT» + Ji в шестёрку богатства
+    money_pattern                             → приход против удержания
+    money_failed                              → канал, который стабильно не работает (не рекомендовать)
+    assets / asset_plan                       → P10 (окна сделок по имуществу)
+    recurring_income                          → P6 «здоровье богатства» = регулярный доход
+    reserve                                   → P2 (резерв, скрытые накопления)
+    debts / obligations                       → чистый денежный поток против дохода
+    money_shared                              → внешние дворцы, вытягивающие деньги
+    fraud_history                             → UR20 (денежная линия и линия защиты — одно место)
+    risk_behaviour                            → UR13 «Лёгкие деньги» (3 условия + противопоказание)
+    money_goal / money_expected_source        → сверка ожидания клиента с каналом карты
+    birth_*                                   → построение карты (солнечное время по координатам)
+  -->
+
+  <style>
+    :root {
+      --black:    #f8f6f1;
+      --surface:  #f0ede6;
+      --surface2: #e8e5de;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #55535f;
+      --border:   rgba(154,110,32,0.22);
+      --error:    #c0392b;
+    }
+
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* НАВИГАЦИЯ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 56px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(248,246,241,0.97);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(8px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; font-weight: 700;
+      letter-spacing: 5px; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+    }
+
+    /* СТРАНИЦА */
+    .page-wrap { padding-top: 72px; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+    .page-header {
+      width: 100%; text-align: center;
+      padding: 56px 24px 44px;
+      background: linear-gradient(180deg, var(--surface) 0%, var(--black) 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-tag { font-size: 11px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 16px; }
+    .page-tag::before { content: '—'; margin-right: 10px; }
+    .page-h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 500; line-height: 1.15; margin-bottom: 16px; color: var(--white); }
+    .page-h1 em { font-style: italic; color: var(--gold2); }
+    .page-sub { font-size: 16px; line-height: 1.7; color: var(--dim); max-width: 640px; margin: 0 auto; }
+
+    /* ПРОГРЕСС */
+    .progress-wrap { width: 100%; max-width: 960px; padding: 32px 40px 0; }
+    .progress-bar { display: flex; gap: 6px; margin-bottom: 8px; }
+    .progress-seg { height: 3px; flex: 1; background: var(--border); border-radius: 2px; transition: background .4s; }
+    .progress-seg.done { background: var(--gold); }
+    .progress-seg.active { background: var(--gold2); }
+    .progress-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    /* ФОРМА */
+    .form-wrap { width: 100%; max-width: 960px; padding: 32px 40px 72px; }
+    .step { display: none; }
+    .step.active { display: block; }
+    .step-title { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 500; margin-bottom: 8px; color: var(--white); }
+    .step-desc { font-size: 15px; color: var(--white); line-height: 1.65; margin-bottom: 32px; }
+
+    /* ПОЛЯ — иерархия: вопрос (16px) > подсказка (13px) */
+    .field { margin-bottom: 30px; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label.field-label {
+      display: block; font-size: 16px; line-height: 1.4;
+      color: var(--white); font-weight: 600; margin-bottom: 6px;
+    }
+    .field-hint { font-size: 13px; color: var(--dim); line-height: 1.55; margin-bottom: 10px; }
+    input[type="text"],
+    input[type="email"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--white); padding: 13px 15px;
+      font-family: 'Inter', sans-serif; font-size: 15px;
+      outline: none; transition: border-color .2s; -webkit-appearance: none; border-radius: 0;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold2); }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    select { cursor: pointer; }
+    select option { background: var(--surface); color: var(--white); }
+    textarea { resize: vertical; min-height: 84px; line-height: 1.6; }
+    .date-selects { display: flex; gap: 10px; }
+    .date-selects select:nth-child(1) { flex: 0 0 26%; }
+    .date-selects select:nth-child(2) { flex: 1 1 auto; }
+    .date-selects select:nth-child(3) { flex: 0 0 30%; }
+
+    /* ГОРОД — подсказки */
+    .city-input-wrap { position: relative; }
+    .city-dropdown {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 100;
+      background: var(--surface2); border: 1px solid var(--gold2);
+      border-top: none; max-height: 260px; overflow-y: auto; display: none;
+    }
+    .city-dd-item { padding: 10px 14px; cursor: pointer; }
+    .city-dd-item + .city-dd-item { border-top: 1px solid var(--border); }
+    .city-dd-item:hover { background: var(--gold-dim); }
+    .city-dd-name { font-size: 15px; color: var(--white); line-height: 1.3; }
+    .city-dd-detail { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* ВАРИАНТЫ ОТВЕТА */
+    .opts { display: flex; flex-direction: column; gap: 9px; }
+    .opts.two { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+    .opt {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 13px 15px; background: var(--surface);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .opt:hover { border-color: var(--gold2); background: var(--surface2); }
+    .opt.selected { border-color: var(--gold); background: rgba(154,110,32,0.08); }
+    .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .opt-box {
+      width: 18px; height: 18px; min-width: 18px; margin-top: 3px;
+      border: 1.5px solid var(--muted); display: flex; align-items: center; justify-content: center; transition: all .2s;
+    }
+    .opt.radio .opt-box { border-radius: 50%; }
+    .opt.selected .opt-box { border-color: var(--gold); background: var(--gold); }
+    .opt.radio.selected .opt-box::after { content: ''; width: 7px; height: 7px; background: #fff; border-radius: 50%; }
+    .opt.check.selected .opt-box::after { content: '✓'; font-size: 11px; color: #fff; line-height: 1; }
+    .opt-text { display: flex; flex-direction: column; flex: 1; }
+    .opt-main { font-size: 15px; color: var(--white); line-height: 1.4; }
+    .opt-sub { font-size: 13px; color: var(--muted); margin-top: 3px; line-height: 1.45; }
+
+    /* ДИНАМИЧЕСКИЕ СТРОКИ */
+    .dyn-row {
+      display: grid;
+      grid-template-columns: 120px 150px 1fr 36px;
+      gap: 10px; align-items: start; margin-bottom: 10px;
+    }
+    .entry {
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 20px 22px 16px; margin-bottom: 12px;
+    }
+    .entry .row-top {
+      display: grid; grid-template-columns: 1fr 120px 150px 36px;
+      gap: 10px; align-items: end; margin-bottom: 16px;
+    }
+    .btn-remove {
+      width: 36px; height: 44px;
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted); cursor: pointer; font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center; transition: all .2s; padding: 0;
+    }
+    .btn-remove:hover { border-color: var(--error); color: var(--error); }
+    .btn-add {
+      background: none; border: 1px dashed var(--border);
+      color: var(--gold); font-family: 'Inter', sans-serif;
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      font-weight: 600; cursor: pointer; padding: 11px 20px;
+      width: 100%; transition: all .2s; margin-top: 6px;
+    }
+    .btn-add:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .entry-label {
+      font-size: 15px; color: var(--white); font-weight: 600;
+      margin-bottom: 9px; display: block;
+    }
+
+    .divider { height: 1px; background: var(--border); margin: 32px 0; }
+    .note { border-left: 3px solid var(--gold); background: var(--gold-dim); padding: 13px 16px; font-size: 14px; color: var(--dim); line-height: 1.6; margin-bottom: 28px; }
+
+    /* КНОПКИ */
+    .btn-row { display: flex; justify-content: space-between; align-items: center; margin-top: 36px; gap: 14px; }
+    .btn {
+      font-family: 'Inter', sans-serif; font-size: 13px; letter-spacing: 2.5px;
+      text-transform: uppercase; font-weight: 600; cursor: pointer;
+      border: none; padding: 15px 36px; transition: all .25s;
+    }
+    .btn-primary { background: var(--gold); color: #fff; }
+    .btn-primary:hover { background: var(--gold2); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-back {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); padding: 15px 0; transition: color .2s;
+    }
+    .btn-back:hover { color: var(--white); }
+
+    /* ЭКРАН ПОДТВЕРЖДЕНИЯ */
+    #confirm-screen { display: none; text-align: center; padding: 64px 24px; }
+    .confirm-icon { width: 72px; height: 72px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 28px; font-size: 28px; color: var(--gold2); }
+    .confirm-h { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 500; margin-bottom: 16px; }
+    .confirm-sub { font-size: 16px; color: var(--dim); line-height: 1.75; max-width: 480px; margin: 0 auto 24px; }
+
+    /* МОБИЛЬНЫЕ */
+    @media (max-width: 768px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      nav { padding: 15px 20px; }
+      .nav-logo { font-size: 15px; letter-spacing: 3px; }
+      .page-header { padding: 40px 20px 32px; }
+      .page-h1 { font-size: 32px; }
+      .progress-wrap, .form-wrap { padding-left: 20px; padding-right: 20px; }
+      .step-title { font-size: 26px; }
+      .field-row { grid-template-columns: 1fr; }
+      .opts.two { grid-template-columns: 1fr; }
+      .btn { padding: 14px 24px; font-size: 12px; }
+      .btn-row { flex-direction: column-reverse; align-items: stretch; }
+      .btn-back { text-align: center; }
+      .dyn-row { grid-template-columns: 1fr 1fr 36px; }
+      .dyn-row > input[type="text"] { grid-column: 1 / 3; }
+      .entry .row-top { grid-template-columns: 1fr 36px; }
+      .entry .row-top select { display: none; }
+      .confirm-h { font-size: 30px; }
+      .step { opacity: 1 !important; transform: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="https://successcode.net" class="nav-logo" target="_blank" rel="noopener">SuccessCode</a>
+</nav>
+
+<div class="page-wrap">
+
+  <div class="page-header">
+    <div class="page-tag">Анкета · деньги</div>
+    <h1 class="page-h1">Ваши <em>деньги</em> в 2026</h1>
+    <p class="page-sub">Разбор денежной линии года: откуда приходят деньги именно у вас, в какие месяцы открываются окна и что нужно сделать, чтобы сумма осталась у вас.</p>
+  </div>
+
+  <div class="progress-wrap" id="progress-wrap">
+    <div class="progress-bar">
+      <div class="progress-seg" id="seg-1"></div>
+      <div class="progress-seg" id="seg-2"></div>
+      <div class="progress-seg" id="seg-3"></div>
+      <div class="progress-seg" id="seg-4"></div>
+      <div class="progress-seg" id="seg-5"></div>
+    </div>
+    <div class="progress-label" id="progress-label">Шаг 1 из 5</div>
+  </div>
+
+  <div class="form-wrap">
+    <form id="qform">
+
+      <!-- Тема анкеты — по ней конвейер направляет разбор -->
+      <input type="hidden" name="chosen_question" value="Q3 — Деньги в 2026">
+
+      <!-- ══ ШАГ 1 — КАК УСТРОЕНЫ ДЕНЬГИ СЕЙЧАС ══
+           Главный вход алгоритма: механизм года умножается на открытый канал -->
+      <div class="step active" id="step-1">
+        <h2 class="step-title">Как устроены ваши деньги сейчас</h2>
+        <p class="step-desc">Год может дать сильное денежное движение — но приходит оно только через тот путь, который у вас открыт. Поэтому начнём с того, откуда деньги идут сегодня.</p>
+
+        <div class="field">
+          <label class="field-label">Откуда приходит основная часть ваших денег?</label>
+          <p class="field-hint">Один вариант — тот, который даёт больше всего.</p>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Зарплата — работа по найму"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Зарплата — работа по найму</span><span class="opt-sub">Фиксированный оклад, премии по правилам компании.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Найм в крупной компании — оклад плюс бонусы, акции, привилегии"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Найм в крупной компании — оклад плюс бонусы, акции, привилегии</span><span class="opt-sub">Часть дохода приходит не деньгами, а условиями: поездки, полис на лечение, доля в компании.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Своё дело — заказы, клиенты, частная практика"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Своё дело — заказы, клиенты, частная практика</span><span class="opt-sub">Сумма зависит от того, сколько вы продали и сделали.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Свой бизнес с командой и выручкой"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Свой бизнес с командой и выручкой</span><span class="opt-sub">Есть компания, сотрудники, оборот.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Сейчас дохода нет — между работами"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сейчас дохода нет — между работами</span><span class="opt-sub">Живу на накопления или на помощь близких.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Выплаты — выходное пособие, пособие, пенсия, алименты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Выплаты — выходное пособие, пособие, пенсия, алименты</span><span class="opt-sub">Деньги приходят по договору или по закону, а не за работу.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Идёт денежный спор — суд, раздел, взыскание, продажа актива"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Идёт денежный спор — суд, раздел, взыскание, продажа актива</span><span class="opt-sub">Основные деньги года зависят от того, чем закончатся переговоры.</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_channel_main')"><input type="radio" name="money_channel_main" value="Пассивный доход — аренда, проценты, дивиденды, роялти"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Пассивный доход — аренда, проценты, дивиденды, роялти</span><span class="opt-sub">Деньги идут без вашего ежедневного участия.</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Что ещё приносит вам деньги — кроме основного?</label>
+          <p class="field-hint">Можно отметить несколько или ничего.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Подработки и разовые заказы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Подработки и разовые заказы</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Аренда, проценты, дивиденды, роялти"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Аренда, проценты, дивиденды, роялти</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Вложения — акции, валюта, криптовалюта"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вложения — акции, валюта, криптовалюта</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Помощь семьи или партнёра"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Помощь семьи или партнёра</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Продажа вещей и активов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Продажа вещей и активов</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_channel_extra" value="Больше ничего"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Больше ничего</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Как деньги приходят по времени?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'income_stability')"><input type="radio" name="income_stability" value="Ровно и предсказуемо каждый месяц"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ровно и предсказуемо каждый месяц</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'income_stability')"><input type="radio" name="income_stability" value="Скачет от месяца к месяцу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Скачет от месяца к месяцу</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'income_stability')"><input type="radio" name="income_stability" value="Редко, но крупными суммами"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Редко, но крупными суммами</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'income_stability')"><input type="radio" name="income_stability" value="Сейчас не приходят совсем"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сейчас не приходят совсем</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Откуда географически идут ваши деньги?</label>
+          <p class="field-hint">Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="income_geo" value="Своя страна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Своя страна</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="income_geo" value="Другие страны — иностранные клиенты или работодатель"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другие страны — иностранные клиенты или работодатель</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="income_geo" value="Онлайн — география не важна"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Онлайн — география не важна</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="money_sphere">Чем вы зарабатываете — сфера и роль</label>
+          <input type="text" id="money_sphere" name="money_sphere" placeholder="Например: закупки в рознице, стоматология, ремонт квартир, бухгалтерия, обучение детей">
+        </div>
+
+        <div class="btn-row">
+          <span></span>
+          <button type="button" class="btn btn-primary" onclick="go(2)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 2 — ДЕНЕЖНАЯ ИСТОРИЯ ══
+           Калибровка: канал карты обязан совпасть с прожитой историей (RULE #0b) -->
+      <div class="step" id="step-2">
+        <h2 class="step-title">Ваша денежная история</h2>
+        <p class="step-desc">Это самая важная часть. По ней проверяется, какой денежный путь у вас действительно работает — а какой только кажется рабочим. Указывайте месяц везде, где помните: от него зависит точность окон в отчёте.</p>
+
+        <div class="field">
+          <label class="field-label">Когда вам приходили самые большие деньги?</label>
+          <p class="field-hint">Каждый случай отдельной строкой: год, месяц, что это было — и как именно эти деньги пришли.</p>
+          <div id="win-rows"></div>
+          <button type="button" class="btn-add" onclick="addWin()">+ Добавить денежное событие</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label class="field-label">Когда с деньгами было тяжелее всего?</label>
+          <p class="field-hint">Годы, когда дохода не было, всё уходило в ноль или приходилось занимать.</p>
+          <div id="low-rows"></div>
+          <button type="button" class="btn-add" onclick="addLow()">+ Добавить период</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label class="field-label">Когда вы теряли деньги — и как они уходили?</label>
+          <p class="field-hint">Крупные потери: обман, невозвращённый долг, неудачное вложение, раздел, суд. Это отдельная линия карты — по ней видно, где именно у вас утекает.</p>
+          <div id="loss-rows"></div>
+          <button type="button" class="btn-add" onclick="addLoss()">+ Добавить потерю</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="field">
+          <label class="field-label">Что происходит с деньгами чаще всего?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'money_pattern')"><input type="radio" name="money_pattern" value="Деньги приходят, но не задерживаются"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Деньги приходят, но не задерживаются</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_pattern')"><input type="radio" name="money_pattern" value="Приходит немного, но сохраняется"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Приходит немного, но сохраняется</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_pattern')"><input type="radio" name="money_pattern" value="Приходят редко, зато крупно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Приходят редко, зато крупно</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_pattern')"><input type="radio" name="money_pattern" value="Ровно и предсказуемо, без скачков"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ровно и предсказуемо, без скачков</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_pattern')"><input type="radio" name="money_pattern" value="По-разному — закономерности не вижу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">По-разному — закономерности не вижу</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Что за всю жизнь стабильно НЕ приносило вам денег?</label>
+          <p class="field-hint">То, что вы пробовали не один раз, а отдачи так и не было. Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Вложения и торговля"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вложения и торговля</span><span class="opt-sub">Акции, валюта, криптовалюта, чужие проекты.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Своё дело"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Своё дело</span><span class="opt-sub">Запускали, но денег это не принесло.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Разговоры о повышении зарплаты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Разговоры о повышении зарплаты</span><span class="opt-sub">Просили прибавку — не получали.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Совместные проекты и партнёрства"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Совместные проекты и партнёрства</span><span class="opt-sub">Делали вместе с кем-то — деньги не пришли.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Пассивный доход — аренда, проценты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Пассивный доход — аренда, проценты</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Продажа активов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Продажа активов</span><span class="opt-sub">Выставляли на продажу — не продаётся или уходит дёшево.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_failed" value="Ничего не проваливалось стабильно"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ничего не проваливалось стабильно</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this); showFailedOther(this.querySelector('input').checked)"><input type="checkbox" name="money_failed" value="Другое"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Другое</span><span class="opt-sub">Опишите своими словами.</span></span></label>
+          </div>
+          <div id="failed-other-wrap" style="display:none; margin-top:10px">
+            <textarea id="money_failed_other" name="money_failed_other" placeholder="Что именно пробовали и чем это заканчивалось" style="min-height:74px"></textarea>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(1)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(3)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 3 — ЧТО У ВАС ЕСТЬ И ЧТО ЗАБИРАЕТ ══
+           Имущество, резерв, регулярный доход, долги, обязательства, окружение -->
+      <div class="step" id="step-3">
+        <h2 class="step-title">Что у вас есть и что забирает деньги</h2>
+        <p class="step-desc">Доход и то, сколько денег на самом деле остаётся, — разные вещи. Здесь мы собираем вторую половину картины.</p>
+
+        <div class="field">
+          <label class="field-label">Что у вас есть из имущества и накоплений?</label>
+          <p class="field-hint">Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Жильё, в котором живу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Жильё, в котором живу</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Вторая недвижимость — сдаю или держу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вторая недвижимость — сдаю или держу</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Земля, гараж, коммерческое помещение"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Земля, гараж, коммерческое помещение</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Накопления на счетах или вкладах"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Накопления на счетах или вкладах</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Акции, фонды, криптовалюта"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Акции, фонды, криптовалюта</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Доля в бизнесе"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Доля в бизнесе</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Автомобиль, ценные вещи"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Автомобиль, ценные вещи</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="assets" value="Пока ничего из этого нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Пока ничего из этого нет</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Планируете ли вы сделку с имуществом в 2026?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'asset_plan')"><input type="radio" name="asset_plan" value="Да — актив уже выставлен на продажу"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да — актив уже выставлен на продажу</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'asset_plan')"><input type="radio" name="asset_plan" value="Думаю продать, но пока не выставил(а)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Думаю продать, но пока не выставил(а)</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'asset_plan')"><input type="radio" name="asset_plan" value="Хочу купить недвижимость"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Хочу купить недвижимость</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'asset_plan')"><input type="radio" name="asset_plan" value="Нет, сделок не планирую"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет, сделок не планирую</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Есть ли деньги, которые приходят регулярно и без вашего участия?</label>
+          <p class="field-hint">Аренда, проценты, подписки, роялти, доля от чужой работы.</p>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'recurring_income')"><input type="radio" name="recurring_income" value="Да, заметная часть дохода"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, заметная часть дохода</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'recurring_income')"><input type="radio" name="recurring_income" value="Да, но небольшая"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, но небольшая</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'recurring_income')"><input type="radio" name="recurring_income" value="Нет, но хочу такое построить"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет, но хочу такое построить</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'recurring_income')"><input type="radio" name="recurring_income" value="Нет и не планирую"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет и не планирую</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">На сколько хватит ваших накоплений, если доход прекратится?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'reserve')"><input type="radio" name="reserve" value="Накоплений нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Накоплений нет</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'reserve')"><input type="radio" name="reserve" value="До трёх месяцев"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">До трёх месяцев</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'reserve')"><input type="radio" name="reserve" value="От трёх месяцев до года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">От трёх месяцев до года</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'reserve')"><input type="radio" name="reserve" value="Больше года"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Больше года</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Какие обязательства забирают ваши деньги каждый месяц?</label>
+          <p class="field-hint">Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Ипотека"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Ипотека</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Кредиты и рассрочки"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Кредиты и рассрочки</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Долг людям — родным, друзьям, партнёру"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Долг людям — родным, друзьям, партнёру</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Долг по налогам или по суду"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Долг по налогам или по суду</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Поручительство за чужой кредит"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Поручительство за чужой кредит</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="debts" value="Долгов нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Долгов нет</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Кого вы содержите или на кого регулярно тратите?</label>
+          <p class="field-hint">Это то, что определяет, сколько денег остаётся на руках. Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Дети школьного возраста"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Дети школьного возраста</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Учёба детей — сейчас или в ближайшие годы"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Учёба детей — сейчас или в ближайшие годы</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Помогаю родителям или старшим родственникам"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Помогаю родителям или старшим родственникам</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Расходы на лечение в семье"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Расходы на лечение в семье</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Содержу нескольких человек"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Содержу нескольких человек</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="obligations" value="Крупных обязательств нет"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Крупных обязательств нет</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">С кем связаны ваши деньги?</label>
+          <p class="field-hint">Можно отметить несколько.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_shared" value="Общий бюджет с супругом или партнёром"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Общий бюджет с супругом или партнёром</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_shared" value="Совместные деньги с деловым партнёром"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Совместные деньги с деловым партнёром</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_shared" value="Общие деньги с роднёй"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Общие деньги с роднёй</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_shared" value="Моими деньгами распоряжается кто-то ещё"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Моими деньгами распоряжается кто-то ещё</span><span class="opt-sub">Например, счёт, вложения или сделки ведёт другой человек.</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this)"><input type="checkbox" name="money_shared" value="Только я — ни с кем не связаны"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Только я — ни с кем не связаны</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Пытались ли обманом забрать ваши деньги?</label>
+          <p class="field-hint">Денежная линия года и линия защиты денег читаются вместе, поэтому этот ответ важен.</p>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'fraud_history')"><input type="radio" name="fraud_history" value="Да, и деньги были потеряны"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, и деньги были потеряны</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'fraud_history')"><input type="radio" name="fraud_history" value="Да, но удалось остановить вовремя"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, но удалось остановить вовремя</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'fraud_history')"><input type="radio" name="fraud_history" value="Нет, такого не было"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет, такого не было</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'fraud_history')"><input type="radio" name="fraud_history" value="Не уверен(а)"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Не уверен(а)</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Играете ли вы на удачу — ставки, лотереи, спекулятивная торговля?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'risk_behaviour')"><input type="radio" name="risk_behaviour" value="Да, регулярно — и в целом в плюсе"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, регулярно — и в целом в плюсе</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'risk_behaviour')"><input type="radio" name="risk_behaviour" value="Да, регулярно — но в целом в минусе"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Да, регулярно — но в целом в минусе</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'risk_behaviour')"><input type="radio" name="risk_behaviour" value="Изредка, небольшими суммами"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Изредка, небольшими суммами</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'risk_behaviour')"><input type="radio" name="risk_behaviour" value="Нет, никогда"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Нет, никогда</span></span></label>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(2)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(4)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 4 — ЦЕЛЬ НА ГОД ══
+           Сверка ожидания клиента с каналом, который открывает карта -->
+      <div class="step" id="step-4">
+        <h2 class="step-title">Чего вы хотите от денег в 2026</h2>
+        <p class="step-desc">Одна и та же карта отвечает по-разному на «хочу крупную сумму разом» и «хочу ровный доход каждый месяц». Скажите, что именно вам нужно.</p>
+
+        <div class="field">
+          <label class="field-label">Главная денежная цель года</label>
+          <p class="field-hint">Не больше трёх вариантов.</p>
+          <div class="opts">
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Поднять регулярный доход"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Поднять регулярный доход</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Получить одну крупную сумму"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Получить одну крупную сумму</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Собрать накопления и сохранить их"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Собрать накопления и сохранить их</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Продать актив"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Продать актив</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Купить недвижимость"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Купить недвижимость</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Закрыть долги"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Закрыть долги</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Начать зарабатывать на своём деле"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Начать зарабатывать на своём деле</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Вернуть свои деньги — долг, спор, суд"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вернуть свои деньги — долг, спор, суд</span></span></label>
+            <label class="opt check" onclick="toggleOpt(this,3)"><input type="checkbox" name="money_goal" value="Сохранить то, что есть, и не потерять"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Сохранить то, что есть, и не потерять</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Откуда вы сами ждёте эти деньги?</label>
+          <p class="field-hint">Ваш ответ сравнивается с тем, какой путь открывает карта. Расхождение — это тоже результат разбора.</p>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Новая работа или повышение"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Новая работа или повышение</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Свои клиенты и своё дело"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Свои клиенты и своё дело</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Продажа актива"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Продажа актива</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Компенсация, суд, возврат долга"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Компенсация, суд, возврат долга</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Вложения и проценты"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вложения и проценты</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_expected_source')"><input type="radio" name="money_expected_source" value="Пока не знаю — поэтому и спрашиваю"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Пока не знаю — поэтому и спрашиваю</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Каким должен быть 2026-й, чтобы вы назвали его хорошим по деньгам?</label>
+          <div class="opts">
+            <label class="opt radio" onclick="pickOpt(this,'money_success')"><input type="radio" name="money_success" value="Вернуться к прежнему уровню дохода"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Вернуться к прежнему уровню дохода</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_success')"><input type="radio" name="money_success" value="Заметно вырасти по сравнению с прошлым годом"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Заметно вырасти по сравнению с прошлым годом</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_success')"><input type="radio" name="money_success" value="Просто стабильность без провалов"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Просто стабильность без провалов</span></span></label>
+            <label class="opt radio" onclick="pickOpt(this,'money_success')"><input type="radio" name="money_success" value="Одна крупная сумма, которая закроет вопрос"><div class="opt-box"></div><span class="opt-text"><span class="opt-main">Одна крупная сумма, которая закроет вопрос</span></span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="money_pending">Есть ли денежное решение, которое вы сейчас откладываете?</label>
+          <p class="field-hint">Сделка, продажа, суд, вложение, разговор о зарплате. Для таких решений в отчёте считаются точные окна по месяцам.</p>
+          <textarea id="money_pending" name="money_pending" placeholder="Например: жду, продавать ли квартиру; тяну с иском по долгу; думаю вкладывать ли деньги в проект знакомого"></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="money_notes">Что ещё важно знать о ваших деньгах?</label>
+          <textarea id="money_notes" name="money_notes" placeholder="Всё, что не поместилось в вопросы выше"></textarea>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(3)">← Назад</button>
+          <button type="button" class="btn btn-primary" onclick="go(5)">Продолжить →</button>
+        </div>
+      </div>
+
+      <!-- ══ ШАГ 5 — ДАННЫЕ РОЖДЕНИЯ ══ -->
+      <div class="step" id="step-5">
+        <h2 class="step-title">Данные рождения</h2>
+
+        <div class="note">Все данные конфиденциальны. Они нужны только для построения карты и никогда не передаются третьим лицам.</div>
+
+        <div class="field">
+          <div class="field-row">
+            <div>
+              <label class="field-label" for="first_name">Имя</label>
+              <input type="text" id="first_name" name="first_name" placeholder="Ваше имя" required>
+            </div>
+            <div>
+              <label class="field-label" for="last_name">Фамилия</label>
+              <input type="text" id="last_name" name="last_name" placeholder="Ваша фамилия">
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="email">Электронная почта</label>
+          <input type="email" id="email" name="email" placeholder="Адрес, на который прислать разбор" required>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Пол</label>
+          <div class="opts two">
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Женский">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Женский</span></span>
+            </label>
+            <label class="opt radio" onclick="pickOpt(this,'gender')">
+              <input type="radio" name="gender" value="Мужской">
+              <div class="opt-box"></div>
+              <span class="opt-text"><span class="opt-main">Мужской</span></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Дата рождения</label>
+          <div class="date-selects">
+            <select id="birth_day" aria-label="День" onchange="syncBirthDate()"><option value="">День</option></select>
+            <select id="birth_month" aria-label="Месяц" onchange="syncBirthDate()"><option value="">Месяц</option></select>
+            <select id="birth_year" aria-label="Год" onchange="syncBirthDate()"><option value="">Год</option></select>
+          </div>
+          <!-- Скрытое поле собирается из трёх списков; календарный виджет не используется -->
+          <input type="hidden" id="birth_date" name="birth_date">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_time">Время рождения</label>
+          <p class="field-hint">Как можно точнее — от времени зависит вся карта.</p>
+          <input type="time" id="birth_time" name="birth_time" style="max-width:220px">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="birth_location">Место рождения</label>
+          <p class="field-hint">Выберите город из списка — так подтянутся координаты для перевода в солнечное время.</p>
+          <div class="city-input-wrap">
+            <input type="text" id="birth_location" name="birth_location"
+                   placeholder="Город и страна, например: Самара, Россия"
+                   oninput="onBirthLocationInput()" autocomplete="off" required>
+            <div class="city-dropdown" id="birth-location-dd"></div>
+          </div>
+          <input type="hidden" name="birth_lat" id="birth_lat">
+          <input type="hidden" name="birth_lon" id="birth_lon">
+        </div>
+
+        <div class="field">
+          <label class="field-label" for="residence_country">Страна проживания</label>
+          <div class="city-input-wrap">
+            <input type="text" id="residence_country" name="residence_country"
+                   placeholder="Например: Германия"
+                   oninput="onResidenceInput()" autocomplete="off">
+            <div class="city-dropdown" id="residence-dd"></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+        <div class="field">
+          <label class="opt check" id="consent-opt" onclick="toggleConsent()">
+            <input type="checkbox" name="consent" id="consent-cb">
+            <div class="opt-box" style="margin-top:3px"></div>
+            <span class="opt-text" style="font-size:14px; color:var(--dim); line-height:1.55">
+              Я даю согласие на использование моих данных рождения и ответов для составления персонального разбора. Данные хранятся конфиденциально и никогда не передаются третьим лицам.
+            </span>
+          </label>
+        </div>
+
+        <input type="hidden" name="_subject" id="form_subject" value="SuccessCode 2026 — Q3 Деньги">
+        <input type="hidden" name="_replyto" id="form_replyto" value="">
+
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="go(4)">← Назад</button>
+          <button type="button" class="btn btn-primary" id="btn-submit" onclick="submitForm()">Отправить →</button>
+        </div>
+      </div>
+
+    </form>
+
+    <div id="confirm-screen">
+      <div class="confirm-icon">✦</div>
+      <h2 class="confirm-h">Готово.</h2>
+      <p class="confirm-sub">Спасибо. Ваша анкета получена.</p>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  var curStep = 1;
+  var TOTAL_STEPS = 5;
+
+  var MONTHS = ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
+  var curYear = new Date().getFullYear();
+
+  function yearSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Год</option>';
+    for (var y = curYear; y >= 1975; y--) s += '<option>' + y + '</option>';
+    return s + '</select>';
+  }
+  function monthSelect(name) {
+    var s = '<select name="' + name + '" style="width:100%"><option value="">Месяц</option><option value="0">Не помню</option>';
+    MONTHS.forEach(function(m,i){ s += '<option value="' + (i+1) + '">' + m + '</option>'; });
+    return s + '</select>';
+  }
+
+  /* КАК ПРИШЛИ ДЕНЬГИ — по одному каналу на событие.
+     Это ключевое поле: канал карты обязан совпасть с этой историей. */
+  var winChOpts = [
+    ['salary','Зарплата, повышение, премия','Деньги пришли через работу по найму.'],
+    ['deal','Крупный клиент, сделка, контракт','Одна сделка или контракт принесли основную сумму.'],
+    ['business','Выручка своего дела','Заработали через свой бизнес или практику.'],
+    ['asset','Продажа актива','Недвижимость, машина, доля, ценные вещи.'],
+    ['settlement','Компенсация, урегулирование, суд','Выходное пособие, выплата по полису, раздел, взыскание долга.'],
+    ['family','Наследство, подарок, помощь семьи','Деньги пришли от родных, а не заработаны.'],
+    ['invest','Вложения — акции, валюта, криптовалюта','Сумма выросла из вложенных денег.'],
+    ['passive','Аренда, проценты, роялти','Доход без вашего ежедневного участия.'],
+    ['luck','Выигрыш или неожиданные деньги','Пришло без плана и без вашей работы.']
+  ];
+
+  /* КАК ДЕНЬГИ УШЛИ — линия потерь читается отдельно от линии прихода */
+  var lossChOpts = [
+    ['fraud','Обман или мошенничество','Деньги забрали, вывели, обманули.'],
+    ['lend','Дал(а) в долг — не вернули','Заём знакомым, родным, партнёру.'],
+    ['invest','Неудачные вложения','Акции, валюта, криптовалюта, чужие проекты.'],
+    ['business','Провал своего дела','Бизнес или проект не окупился.'],
+    ['split','Раздел, развод, обязательства перед семьёй','Деньги ушли по семейным причинам.'],
+    ['legal','Суд, штрафы, налоги','Ушло по официальным требованиям.'],
+    ['spend','Расходы съедали всё','Доход был, но деньги не оставались.'],
+    ['health','Лечение и здоровье','Ушло на медицину — свою или близких.'],
+    ['asset','Актив подешевел или ушёл','Недвижимость, доля, накопления обесценились.']
+  ];
+
+  function radiosFor(list, group) {
+    return list.map(function(o) {
+      return '<label class="opt radio" onclick="pickOpt(this,\'' + group + '\')">' +
+        '<input type="radio" name="' + group + '" value="' + o[0] + '">' +
+        '<div class="opt-box"></div>' +
+        '<span class="opt-text"><span class="opt-main">' + o[1] + '</span><span class="opt-sub">' + o[2] + '</span></span>' +
+        '</label>';
+    }).join('');
+  }
+
+  /* ДЕНЕЖНЫЕ СОБЫТИЯ */
+  var winCount = 0;
+  function addWin() {
+    winCount++;
+    var n = winCount;
+    var div = document.createElement('div');
+    div.className = 'entry';
+    div.id = 'win-' + n;
+    div.innerHTML =
+      '<div class="row-top">' +
+        '<input type="text" name="mw_what_' + n + '" placeholder="Что это было и насколько крупно — например: премия в три оклада, продажа квартиры, первый контракт">' +
+        yearSelect('mw_year_' + n) +
+        monthSelect('mw_month_' + n) +
+        '<button type="button" class="btn-remove" onclick="removeRow(\'win-' + n + '\')">×</button>' +
+      '</div>' +
+      '<span class="entry-label">Как именно пришли эти деньги?</span>' +
+      '<div class="opts">' + radiosFor(winChOpts, 'mw_ch_' + n) + '</div>';
+    document.getElementById('win-rows').appendChild(div);
+  }
+
+  /* ТЯЖЁЛЫЕ ПЕРИОДЫ */
+  var lowCount = 0;
+  function addLow() {
+    lowCount++;
+    var n = lowCount;
+    var div = document.createElement('div');
+    div.className = 'dyn-row';
+    div.id = 'low-' + n;
+    div.innerHTML =
+      yearSelect('mlo_year_' + n) +
+      monthSelect('mlo_month_' + n) +
+      '<input type="text" name="mlo_what_' + n + '" placeholder="Что происходило — например: полгода без дохода, всё уходило на долги, клиенты не платили">' +
+      '<button type="button" class="btn-remove" onclick="removeRow(\'low-' + n + '\')">×</button>';
+    document.getElementById('low-rows').appendChild(div);
+  }
+
+  /* ПОТЕРИ */
+  var lossCount = 0;
+  function addLoss() {
+    lossCount++;
+    var n = lossCount;
+    var div = document.createElement('div');
+    div.className = 'entry';
+    div.id = 'loss-' + n;
+    div.innerHTML =
+      '<div class="row-top">' +
+        '<input type="text" name="mls_what_' + n + '" placeholder="Что потеряли — например: вложил(а) в проект и всё сгорело, дал(а) в долг и не вернули">' +
+        yearSelect('mls_year_' + n) +
+        monthSelect('mls_month_' + n) +
+        '<button type="button" class="btn-remove" onclick="removeRow(\'loss-' + n + '\')">×</button>' +
+      '</div>' +
+      '<span class="entry-label">Как эти деньги ушли?</span>' +
+      '<div class="opts">' + radiosFor(lossChOpts, 'mls_ch_' + n) + '</div>';
+    document.getElementById('loss-rows').appendChild(div);
+  }
+
+  function removeRow(id) {
+    var el = document.getElementById(id);
+    if (el) el.remove();
+  }
+
+  /* ВЫБОР ОДНОГО ВАРИАНТА */
+  function pickOpt(el, group) {
+    document.querySelectorAll('input[name="' + group + '"]').forEach(function(inp){
+      var p = inp.closest('.opt');
+      if (p) p.classList.remove('selected');
+    });
+    el.classList.add('selected');
+    var inp = el.querySelector('input');
+    if (inp) inp.checked = true;
+  }
+
+  /* ВЫБОР НЕСКОЛЬКИХ; max ограничивает число отметок */
+  function toggleOpt(el, max) {
+    var inp = el.querySelector('input');
+    if (!inp) return;
+    if (!inp.checked && max) {
+      var n = document.querySelectorAll('input[name="' + inp.name + '"]:checked').length;
+      if (n >= max) { alert('Можно выбрать не более ' + max + '.'); return; }
+    }
+    inp.checked = !inp.checked;
+    el.classList.toggle('selected', inp.checked);
+  }
+
+  function showFailedOther(show) {
+    var wrap = document.getElementById('failed-other-wrap');
+    var ta = document.getElementById('money_failed_other');
+    wrap.style.display = show ? 'block' : 'none';
+    if (!show) ta.value = '';
+  }
+
+  function toggleConsent() {
+    var cb = document.getElementById('consent-cb');
+    cb.checked = !cb.checked;
+    document.getElementById('consent-opt').classList.toggle('selected', cb.checked);
+  }
+
+  /* ПРОГРЕСС */
+  function updateProgress(n) {
+    for (var i = 1; i <= TOTAL_STEPS; i++) {
+      var seg = document.getElementById('seg-' + i);
+      seg.classList.remove('done','active');
+      if (i < n) seg.classList.add('done');
+      else if (i === n) seg.classList.add('active');
+    }
+    document.getElementById('progress-label').textContent = 'Шаг ' + n + ' из ' + TOTAL_STEPS;
+  }
+
+  /* НАВИГАЦИЯ */
+  function go(n) {
+    if (n > curStep && !validate(curStep)) return;
+    document.getElementById('step-' + curStep).classList.remove('active');
+    curStep = n;
+    document.getElementById('step-' + curStep).classList.add('active');
+    updateProgress(n);
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+
+  /* ПРОВЕРКА ОБЯЗАТЕЛЬНЫХ ОТВЕТОВ */
+  function validate(step) {
+    if (step === 1) {
+      if (!document.querySelector('input[name="money_channel_main"]:checked')) { alert('Пожалуйста, отметьте, откуда приходит основная часть денег.'); return false; }
+      if (!document.querySelector('input[name="income_stability"]:checked')) { alert('Пожалуйста, отметьте, как деньги приходят по времени.'); return false; }
+    }
+    if (step === 2) {
+      if (!document.querySelector('input[name="money_pattern"]:checked')) { alert('Пожалуйста, отметьте, что происходит с деньгами чаще всего.'); return false; }
+    }
+    if (step === 4) {
+      if (!document.querySelector('input[name="money_goal"]:checked')) { alert('Пожалуйста, отметьте вашу денежную цель на год.'); return false; }
+    }
+    if (step === 5) {
+      if (!document.getElementById('first_name').value.trim()) { alert('Пожалуйста, введите имя.'); return false; }
+      var em = document.getElementById('email').value.trim();
+      if (!em || !em.includes('@')) { alert('Пожалуйста, введите корректный адрес почты.'); return false; }
+      if (!document.querySelector('input[name="gender"]:checked')) { alert('Пожалуйста, укажите пол.'); return false; }
+      if (!document.getElementById('birth_date').value) { alert('Пожалуйста, укажите дату рождения.'); return false; }
+      if (!document.getElementById('birth_time').value) { alert('Пожалуйста, укажите время рождения — без него карту построить нельзя.'); return false; }
+      if (!document.getElementById('birth_location').value.trim()) { alert('Пожалуйста, укажите место рождения.'); return false; }
+      document.getElementById('form_replyto').value = em;
+    }
+    return true;
+  }
+
+  /* ГОРОДА — подсказки из открытой базы */
+  var _birthLocTimer, _residenceTimer;
+
+  function onBirthLocationInput() {
+    clearTimeout(_birthLocTimer);
+    var val = document.getElementById('birth_location').value.trim();
+    if (val.length < 2) { hideCityDd('birth-location-dd'); return; }
+    _birthLocTimer = setTimeout(function() { fetchCityDd(val, 'birth-location-dd', 'birth_location'); }, 380);
+  }
+
+  function onResidenceInput() {
+    clearTimeout(_residenceTimer);
+    var val = document.getElementById('residence_country').value.trim();
+    if (val.length < 2) { hideCityDd('residence-dd'); return; }
+    _residenceTimer = setTimeout(function() { fetchCityDd(val, 'residence-dd', 'residence_country'); }, 380);
+  }
+
+  function fetchCityDd(query, ddId, inputId) {
+    var dd = document.getElementById(ddId);
+    fetch(
+      'https://nominatim.openstreetmap.org/search?q=' + encodeURIComponent(query) + '&format=json&limit=6&addressdetails=1',
+      { headers: { 'Accept-Language': 'ru,en' } }
+    ).then(function(r) { return r.json(); }).then(function(data) {
+      if (!data || !data.length) { hideCityDd(ddId); return; }
+      dd._data = data;
+      dd._inputId = inputId;
+      dd.innerHTML = data.map(function(item, i) {
+        var parts = item.display_name.split(',');
+        var name = parts.slice(0, 2).join(',').trim();
+        var detail = parts.slice(2, 5).join(',').trim();
+        return '<div class="city-dd-item" onmousedown="selectCityItem(\'' + ddId + '\',' + i + ')">' +
+          '<div class="city-dd-name">' + name + '</div>' +
+          '<div class="city-dd-detail">' + detail + '</div>' +
+          '</div>';
+      }).join('');
+      dd.style.display = 'block';
+    }).catch(function() { hideCityDd(ddId); });
+  }
+
+  function selectCityItem(ddId, idx) {
+    var dd = document.getElementById(ddId);
+    var item = dd._data[idx];
+    var parts = item.display_name.split(',');
+    var displayName = parts.slice(0, 3).join(',').trim();
+    document.getElementById(dd._inputId).value = displayName;
+    /* Координаты нужны для перевода времени рождения в солнечное */
+    if (dd._inputId === 'birth_location' && item.lat != null && item.lon != null) {
+      document.getElementById('birth_lat').value = item.lat;
+      document.getElementById('birth_lon').value = item.lon;
+    }
+    hideCityDd(ddId);
+  }
+
+  function hideCityDd(ddId) {
+    var dd = document.getElementById(ddId);
+    if (dd) dd.style.display = 'none';
+  }
+
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.city-input-wrap')) {
+      hideCityDd('birth-location-dd');
+      hideCityDd('residence-dd');
+    }
+  });
+
+  /* ОТПРАВКА */
+  async function submitForm() {
+    if (!validate(5)) return;
+    if (!document.getElementById('consent-cb').checked) { alert('Пожалуйста, подтвердите согласие.'); return; }
+    var btn = document.getElementById('btn-submit');
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    var fd = new FormData(document.getElementById('qform'));
+    try {
+      var res = await fetch('https://formspree.io/f/xaqgoyyy', {
+        method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        document.getElementById('qform').style.display = 'none';
+        document.getElementById('progress-wrap').style.display = 'none';
+        document.getElementById('confirm-screen').style.display = 'block';
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      } else {
+        btn.disabled = false; btn.textContent = 'Отправить →';
+        alert('Что-то пошло не так. Попробуйте ещё раз.');
+      }
+    } catch(e) {
+      btn.disabled = false; btn.textContent = 'Отправить →';
+      alert('Ошибка сети. Проверьте соединение и попробуйте снова.');
+    }
+  }
+
+  /* ДАТА РОЖДЕНИЯ — три списка складываются в скрытое поле; календарь не используется */
+  function syncBirthDate() {
+    var d = document.getElementById('birth_day').value;
+    var m = document.getElementById('birth_month').value;
+    var y = document.getElementById('birth_year').value;
+    document.getElementById('birth_date').value = (d && m && y) ? (y + '-' + m + '-' + d) : '';
+  }
+  (function populateBirthDate() {
+    var day = document.getElementById('birth_day'), mon = document.getElementById('birth_month'), yr = document.getElementById('birth_year');
+    if (!day || !mon || !yr) return;
+    var pad = function(n){ return n < 10 ? '0' + n : '' + n; };
+    for (var i = 1; i <= 31; i++) { var o = document.createElement('option'); o.value = pad(i); o.textContent = i; day.appendChild(o); }
+    MONTHS.forEach(function(nm, idx) { var o = document.createElement('option'); o.value = pad(idx + 1); o.textContent = nm; mon.appendChild(o); });
+    for (var y = 2012; y >= 1935; y--) { var o = document.createElement('option'); o.value = '' + y; o.textContent = y; yr.appendChild(o); }
+  })();
+
+  /* СТАРТ */
+  updateProgress(1);
+  addWin(); addWin(); addWin();
+  addLow();
+  addLoss();
+</script>
+</body>
+</html>
