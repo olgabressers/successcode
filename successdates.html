@@ -704,7 +704,6 @@ const ANIMAL = {
 const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
 const stemLabel = g => `${POLARITY[LANG][STEM_YY[g]]} ${EL_NAME[LANG][STEM_EL[g]]}`;
 const animalLabel = z => ANIMAL[LANG][z] || "";
-const elName  = ch => EL_NAME[LANG][STEM_EL[ch] || BRANCH_EL[ch]] || "";
 const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
 
 /* Double-hour branches; sm = solar start minute-of-day (子 begins 23:00 = 1380) */
@@ -1270,7 +1269,7 @@ function renderHours() {
     return `<div class="hcell${info.cls ? ' ' + info.cls : ''}${isNow ? ' now' : ''}">
         <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
         <div class="h-gz">${gzHtml(g, z)}</div>
-        <div class="h-el">${elName(g)} / ${elName(z)}</div>
+        <div class="h-el">${stemLabel(g)} / ${animalLabel(z)}</div>
         <div class="h-diag">${info.tags}</div>
       </div>`;
   }).join("");
