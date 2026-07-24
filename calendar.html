@@ -261,8 +261,12 @@
   .fs-dir { position: absolute; top: 3px; left: 0; right: 0; text-align: center; font-size: 8.5px;
             letter-spacing: .5px; color: var(--text-muted); text-transform: uppercase; }
   .fs-val { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 700; line-height: 1; margin-top: 5px; }
-  .fs-1{color:#3f5f88} .fs-2{color:#222} .fs-3{color:#1a7d6b} .fs-4{color:#2e7d32} .fs-5{color:#b8882a}
-  .fs-6{color:#607d8b} .fs-7{color:#c62828} .fs-8{color:#7a5a2a} .fs-9{color:#7b1fa2}
+  /* star colours by ELEMENT: 1 water · 2·5·8 earth · 3·4 wood · 6·7 metal · 9 fire */
+  .fs-1{color:var(--el-water)}
+  .fs-2{color:var(--el-earth)} .fs-5{color:var(--el-earth)} .fs-8{color:var(--el-earth)}
+  .fs-3{color:var(--el-wood)}  .fs-4{color:var(--el-wood)}
+  .fs-6{color:var(--el-metal)} .fs-7{color:var(--el-metal)}
+  .fs-9{color:var(--el-fire)}
 
   /* ── Year pillars 1950–2050 ─────────────────────────── */
   .years { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
@@ -331,8 +335,10 @@
   .ym-term { font-size: 10px; color: var(--text-dim); line-height: 1.25; }
 
   /* Compact flying-star charts for the picked year (year + 12 solar months) */
-  .fs-mini { display: grid; grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-             gap: 8px; padding: 12px; }
+  .fs-mini { --fs-cols: 6; --fs-gap: 8px; padding: 12px; }
+  .fs-year-row { display: flex; justify-content: center; margin-bottom: var(--fs-gap); }
+  .fs-year-row .fs-block { width: calc((100% - (var(--fs-cols) - 1) * var(--fs-gap)) / var(--fs-cols)); }
+  .fs-months { display: grid; grid-template-columns: repeat(var(--fs-cols), 1fr); gap: var(--fs-gap); }
   .fs-mini .fs-block { flex: none; max-width: none; padding: 7px 7px 9px;
                        border: 1px solid var(--border); background: var(--surface); }
   .fs-mini .fs-title { font-size: 12.5px; letter-spacing: .5px; }
@@ -395,7 +401,7 @@
     .ym-gz { font-size: 22px; }
     .ym-year { font-size: 21px; }
     .ym-note { font-size: 11px; padding: 8px 12px; }
-    .fs-mini { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
+    .fs-mini { --fs-cols: 3; padding: 8px; }
     .fs-mini .fs-val { font-size: 14px; }
     .years-range { font-size: 14px; min-width: 92px; }
     .years-nav button { padding: 5px 10px; }
@@ -409,6 +415,7 @@
     .ym-grid { grid-template-columns: repeat(2, 1fr); }
     .ym-cell:nth-child(3n) { border-right: 1px solid var(--border); }
     .ym-cell:nth-child(2n) { border-right: none; }
+    .fs-mini { --fs-cols: 2; }
   }
 </style>
 </head>
@@ -1414,9 +1421,9 @@ function renderYearMonths() {
   const lunCells = lun.map((m, i) => cell(m, i >= lunLastRow, false, "")).join("");
 
   /* ── flying stars: the year + each of its 12 solar months ── */
-  let stars = fsBlock(`${L().yearWord} ${selYear}`, span(solStart, solEnd), yearCenter(selYear));
-  sol.forEach(m => stars += fsBlock(`${L().monthWord} ${m.n}`,
-    `${dt(m.start)} – ${dt(m.end)}`, monthCenter(yz, m.z)));
+  const starYear = fsBlock(`${L().yearWord} ${selYear}`, span(solStart, solEnd), yearCenter(selYear));
+  const starMonths = sol.map(m => fsBlock(`${L().monthWord} ${m.n}`,
+    `${dt(m.start)} – ${dt(m.end)}`, monthCenter(yz, m.z))).join("");
 
   box.innerHTML = `
     <div class="ym-block">
@@ -1436,7 +1443,10 @@ function renderYearMonths() {
     </div>
     <div class="ym-block">
       <div class="ym-head"><span class="ym-title">${L().starsTitle} · ${selYear}</span></div>
-      <div class="fs-mini">${stars}</div>
+      <div class="fs-mini">
+        <div class="fs-year-row">${starYear}</div>
+        <div class="fs-months">${starMonths}</div>
+      </div>
     </div>`;
   document.getElementById("ym-close").addEventListener("click", () => {
     selYear = null; renderYears(); renderYearMonths();
