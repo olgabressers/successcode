@@ -33,6 +33,12 @@
   body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
          color: var(--text); min-height: 100vh; padding: 40px 24px; }
 
+  .brand-logo { position: fixed; top: 14px; left: 16px; z-index: 50;
+                font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700;
+                letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+                text-decoration: none; line-height: 1; }
+  .brand-logo:hover { color: var(--gold-dim); }
+
   .lang-switch { position: fixed; top: 14px; right: 16px; z-index: 50; display: flex; gap: 4px; }
   .lang-switch button { background: transparent; border: 1px solid var(--border);
                         color: var(--text-muted); padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
@@ -44,7 +50,9 @@
                font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
   .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
   @media print {
-    .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav { display: none !important; }
+    .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav,
+    .brand-logo, .years, .ym-close { display: none !important; }
+    .ymonths { break-inside: avoid; }
     body { padding: 8px; background: #fff; }
     .cell { min-height: 92px; }
     .flystars { break-inside: avoid; }
@@ -256,11 +264,62 @@
   .fs-1{color:#3f5f88} .fs-2{color:#222} .fs-3{color:#1a7d6b} .fs-4{color:#2e7d32} .fs-5{color:#b8882a}
   .fs-6{color:#607d8b} .fs-7{color:#c62828} .fs-8{color:#7a5a2a} .fs-9{color:#7b1fa2}
 
+  /* ── Year pillars 1950–2050 ─────────────────────────── */
+  .years { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
+  .years-title { display: flex; justify-content: space-between; align-items: baseline; gap: 10px 16px; flex-wrap: wrap;
+                 font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                 letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 18px;
+                 border-bottom: 1px solid var(--border); }
+  .years-hint { font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: 0; text-transform: none;
+                color: var(--text-muted); font-weight: 400; }
+  .yr-grid { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); }
+  .yr-col { border-right: 1px solid var(--border); padding: 9px 3px 11px; }
+  .yr-col:last-child { border-right: none; }
+  .yr-dec { text-align: center; font-size: 10px; letter-spacing: 1px; color: var(--text-muted);
+            font-weight: 600; padding-bottom: 6px; margin-bottom: 5px; border-bottom: 1px dashed var(--border); }
+  .yr-row { display: grid; grid-template-columns: 1fr auto; gap: 4px; align-items: center;
+            font-size: 10.5px; color: var(--text-dim); padding: 2px 4px; cursor: pointer;
+            line-height: 1.25; border-radius: 2px; }
+  .yr-row:hover { background: #faf7ef; }
+  .yr-row.now { box-shadow: inset 0 0 0 1px var(--gold); }
+  .yr-row.on { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; font-weight: 700; }
+  .yr-y { color: var(--text-muted); }
+  .yr-row.on .yr-y { color: var(--gold-dim); }
+  .yr-gz { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 13px; line-height: 1; }
+
+  /* ── Month pillars of the picked year ───────────────── */
+  .ymonths:not(:empty) { max-width: 960px; margin: 14px auto 0;
+                         background: var(--surface); border: 1px solid var(--border); }
+  .ym-head { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap;
+             padding: 12px 18px; border-bottom: 1px solid var(--border); background: #faf7ef; }
+  .ym-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+              letter-spacing: 1.5px; text-transform: uppercase; }
+  .ym-year { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1;
+             display: flex; align-items: baseline; gap: 8px; }
+  .ym-year-sub { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: .3px;
+                 text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
+  .ym-close { background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+              font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1; padding: 5px 9px; cursor: pointer; }
+  .ym-close:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .ym-note { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--text-muted);
+             padding: 8px 18px; border-bottom: 1px solid var(--border); }
+  .ym-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .ym-cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+             padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+  .ym-cell:nth-child(6n) { border-right: none; }
+  .ym-cell:nth-child(n+7) { border-bottom: none; }
+  .ym-n { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .ym-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1; }
+  .ym-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; line-height: 1.25; }
+  .ym-range { font-size: 10px; color: var(--text-dim); line-height: 1.3; }
+  .ym-term { color: var(--el-fire); font-weight: 600; }
+
   @media (max-width: 768px) {
     * { max-width: 100vw; }
     img, iframe, video, table { max-width: 100% !important; }
-    body { padding: 28px 10px; }
+    body { padding: 48px 10px 28px; }
     .lang-switch { top: 10px; right: 10px; }
+    .brand-logo { top: 12px; left: 10px; font-size: 13px; letter-spacing: 2.5px; }
     header h1 { font-size: 22px; }
     .daybar-greg { font-size: 20px; }
     .daybar-head { justify-content: center; }
@@ -295,10 +354,38 @@
     .city-dd { min-width: 0; }
     .nav-selects { flex: 1; justify-content: center; }
     .nav select { flex: 1; }
+    .years-title, .ym-title { font-size: 15px; }
+    .yr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .yr-col { border-bottom: 1px solid var(--border); }
+    .yr-col:nth-child(4n) { border-right: none; }
+    .yr-col:nth-last-child(-n+3) { border-bottom: none; }
+    .yr-row { font-size: 10px; padding: 2px 2px; }
+    .yr-gz { font-size: 12px; }
+    .ym-grid { grid-template-columns: repeat(3, 1fr); }
+    .ym-cell:nth-child(6n) { border-right: 1px solid var(--border); }
+    .ym-cell:nth-child(3n) { border-right: none; }
+    .ym-cell:nth-child(n+7) { border-bottom: 1px solid var(--border); }
+    .ym-cell:nth-child(n+10) { border-bottom: none; }
+    .ym-gz { font-size: 21px; }
+    .ym-year { font-size: 21px; }
+  }
+  @media (max-width: 430px) {
+    .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .yr-col:nth-child(4n) { border-right: 1px solid var(--border); }
+    .yr-col:nth-child(3n) { border-right: none; }
+    .yr-col:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+    .yr-col:nth-last-child(-n+2) { border-bottom: none; }
+    .ym-grid { grid-template-columns: repeat(2, 1fr); }
+    .ym-cell:nth-child(3n) { border-right: 1px solid var(--border); }
+    .ym-cell:nth-child(2n) { border-right: none; }
+    .ym-cell:nth-child(n+10) { border-bottom: 1px solid var(--border); }
+    .ym-cell:nth-child(n+11) { border-bottom: none; }
   }
 </style>
 </head>
 <body>
+
+<a class="brand-logo" href="/ru/">SuccessCode</a>
 
 <div class="lang-switch">
   <button id="lang-ru" class="on" type="button">RU</button>
@@ -395,6 +482,16 @@
   <!-- Flying stars (year + solar months in view) -->
   <div class="flystars" id="flystars"></div>
 
+  <!-- Year pillars 1950–2050; click a year → its 12 month pillars below -->
+  <div class="years" id="years">
+    <div class="years-title">
+      <span id="years-title">Столпы годов</span>
+      <span class="years-hint" id="years-hint">Нажмите на год — откроются столпы всех 12 месяцев</span>
+    </div>
+    <div class="yr-grid" id="yr-grid"></div>
+  </div>
+  <div class="ymonths" id="ymonths"></div>
+
   <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
   <div class="footer-brand">SuccessCode</div>
 
@@ -435,8 +532,16 @@ const I18N = {
     shaTypes: {jie:"Ша ограбления (劫煞)", zai:"Ша несчастья (灾煞)", sui:"Ша (岁煞 / 月煞)"},
     officers: ["","Установление","Устранение","Полнота","Равновесие","Стабильность","Исполнение","Разрушение","Опасность","Достижение","Сбор","Открытие","Закрытие"],
     months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+    monthsShort: ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"],
     dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
-    dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]
+    dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"],
+    yearsTitle: "Столпы годов",
+    yearsHint: "Нажмите на год — откроются столпы всех 12 месяцев",
+    decade: d => `${d}-е`,
+    monthsTitle: "Столпы месяцев",
+    monthsNote: "Месяцы солнечные: от узла до узла (节). Год начинается с Личунь.",
+    monthWord: "Месяц",
+    closeWord: "Закрыть"
   },
   en: {
     tagline: "Chinese Calendar",
@@ -468,8 +573,16 @@ const I18N = {
     shaTypes: {jie:"Robbery Sha (劫煞)", zai:"Disaster Sha (灾煞)", sui:"Sha (岁煞 / 月煞)"},
     officers: ["","Establish","Remove","Full","Balance","Stable","Initiate","Destruction","Danger","Success","Receive","Open","Close"],
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    monthsShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
     dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-    dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+    dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    yearsTitle: "Year Pillars",
+    yearsHint: "Click a year — the pillars of all 12 months open below",
+    decade: d => `${d}s`,
+    monthsTitle: "Month Pillars",
+    monthsNote: "Solar months: node to node (节). The year starts at Lichun.",
+    monthWord: "Month",
+    closeWord: "Close"
   }
 };
 let LANG = "ru";
@@ -1125,6 +1238,81 @@ document.getElementById("opt-all").addEventListener("change", e => {
 });
 _ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", syncAllOpts));
 
+/* ===================== Year pillars (1950–2050) + month pillars of a year ===================== */
+const YR_FROM = 1950, YR_TO = 2050;
+let selYear = null;
+const _YGZ = {};   // year → [gan, zhi] cache
+
+/* Year pillar of a LiChun-based solar year (June 1 is safely inside it) */
+function yearGz(y) {
+  if (!_YGZ[y]) {
+    const ec = Solar.fromYmdHms(y, 6, 1, 12, 0, 0).getLunar().getEightChar();
+    _YGZ[y] = [ec.getYearGan(), ec.getYearZhi()];
+  }
+  return _YGZ[y];
+}
+/* The 12 solar months (节→节) of solar year y, starting at 立春 */
+function yearMonths(y) {
+  const out = []; let cur = liChun(y);
+  for (let i = 0; i < 12; i++) {
+    const rep = new Date(cur); rep.setDate(rep.getDate() + 3);   // date solidly inside the month
+    const lu = Solar.fromYmdHms(rep.getFullYear(), rep.getMonth()+1, rep.getDate(), 12, 0, 0).getLunar();
+    const ec = lu.getEightChar();
+    const ns = lu.getNextJie().getSolar();
+    const nextStart = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+    const end = new Date(nextStart); end.setDate(end.getDate() - 1);
+    out.push({ n: i+1, g: ec.getMonthGan(), z: ec.getMonthZhi(),
+               jie: lu.getPrevJie().getName(), start: new Date(cur), end });
+    cur = nextStart;
+  }
+  return out;
+}
+function renderYears() {
+  const nowY = solarYearNum(new Date());
+  let html = "";
+  for (let dec = YR_FROM; dec <= YR_TO; dec += 10) {
+    let rows = "";
+    for (let y = dec; y < dec + 10 && y <= YR_TO; y++) {
+      const [g, z] = yearGz(y);
+      rows += `<div class="yr-row${y===selYear?" on":""}${y===nowY?" now":""}" data-y="${y}"
+                    title="${y} · ${stemLabel(g)} / ${animalLabel(z)}">
+        <span class="yr-y">${y}</span><span class="yr-gz">${gzHtml(g,z)}</span></div>`;
+    }
+    html += `<div class="yr-col"><div class="yr-dec">${L().decade(dec)}</div>${rows}</div>`;
+  }
+  const grid = document.getElementById("yr-grid");
+  grid.innerHTML = html;
+  grid.querySelectorAll(".yr-row").forEach(el => el.addEventListener("click", () => {
+    const y = +el.getAttribute("data-y");
+    selYear = (selYear === y) ? null : y;
+    renderYears(); renderYearMonths();
+  }));
+}
+function renderYearMonths() {
+  const box = document.getElementById("ymonths");
+  if (!selYear) { box.innerHTML = ""; return; }
+  const [yg, yz] = yearGz(selYear), ms = L().monthsShort;
+  const dt = x => `${x.getDate()} ${ms[x.getMonth()]}`;
+  const cells = yearMonths(selYear).map(m => `
+    <div class="ym-cell">
+      <div class="ym-n">${L().monthWord} ${m.n}</div>
+      <div class="ym-gz">${gzHtml(m.g, m.z)}</div>
+      <div class="ym-el">${stemLabel(m.g)} / ${animalLabel(m.z)}</div>
+      <div class="ym-range"><span class="ym-term">${termLabel(m.jie)}</span><br>${dt(m.start)} – ${dt(m.end)}</div>
+    </div>`).join("");
+  box.innerHTML = `
+    <div class="ym-head">
+      <span class="ym-title">${L().monthsTitle} · ${selYear}</span>
+      <span class="ym-year">${gzHtml(yg, yz)}<span class="ym-year-sub">${stemLabel(yg)} / ${animalLabel(yz)}</span></span>
+      <button class="ym-close" id="ym-close" type="button" title="${L().closeWord}">✕</button>
+    </div>
+    <div class="ym-note">${L().monthsNote}</div>
+    <div class="ym-grid">${cells}</div>`;
+  document.getElementById("ym-close").addEventListener("click", () => {
+    selYear = null; renderYears(); renderYearMonths();
+  });
+}
+
 /* ===================== Language ===================== */
 function applyLang() {
   document.documentElement.lang = LANG;
@@ -1145,6 +1333,9 @@ function applyLang() {
   document.getElementById("lbl-km").textContent = L().optKillMaster;
   document.getElementById("lbl-rx").textContent = L().optRx;
   document.getElementById("lbl-ecl").textContent = L().optEclipse;
+  document.getElementById("years-title").textContent = L().yearsTitle;
+  document.getElementById("years-hint").textContent = L().yearsHint;
+  renderYears(); renderYearMonths();
   buildMonthOptions(); syncNav();
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
