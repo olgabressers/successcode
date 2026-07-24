@@ -52,10 +52,9 @@
   @media print {
     .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav,
     .brand-logo, .years, .ym-close { display: none !important; }
-    .ymonths { break-inside: avoid; }
     body { padding: 8px; background: #fff; }
     .cell { min-height: 92px; }
-    .flystars { break-inside: avoid; }
+    .ym-block, .fs-block { break-inside: avoid; }
   }
 
   header { text-align: center; margin-bottom: 28px; }
@@ -249,7 +248,6 @@
                   font-size: 13px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; }
 
   /* ── Flying stars (玄空飞星) ─────────────────────────── */
-  .flystars { max-width: 960px; margin: 20px auto 0; display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
   .fs-block { background: var(--surface); border: 1px solid var(--border); padding: 14px 16px 16px; flex: 1 1 250px; max-width: 300px; }
   .fs-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--gold);
               letter-spacing: 1px; text-align: center; }
@@ -515,10 +513,7 @@
   <!-- Day Officers legend (shown when Indicators enabled) -->
   <div class="ind-legend" id="ind-legend"></div>
 
-  <!-- Flying stars (year + solar months in view) -->
-  <div class="flystars" id="flystars"></div>
-
-  <!-- Year pillars 1950–2050; click a year → its 12 month pillars below -->
+  <!-- Year pillars; click a year → its month pillars + flying stars below -->
   <div class="years" id="years">
     <div class="years-title">
       <span id="years-title">Столпы годов</span>
@@ -563,7 +558,6 @@ const I18N = {
     noWealthTag: "Без богатства", noWealthTip: "День без богатства (甲辰 / 乙巳)",
     kmTag: "Уб. мастера", kmTip: "День, убивающий мастера (杀师日)",
     solarCaption: "Солнечный месяц", lunarCaptionWord: "Лунный месяц", gregCaption: "Календарный месяц", leapWord: "високосный",
-    fsYear: "Летящие звёзды: года", fsMonth: "Летящие звёзды: месяца",
     optSha: "Ша (三煞)",
     sha: {
       suiM:{t:"Ша мес", tip:"Ша месяца (月煞)"}, suiY:{t:"Ша год", tip:"Ша года (岁煞)"},
@@ -609,7 +603,6 @@ const I18N = {
     noWealthTag: "No wealth", noWealthTip: "Day without wealth (甲辰 / 乙巳)",
     kmTag: "Kills master", kmTip: "Day that kills the master (杀师日)",
     solarCaption: "Solar month", lunarCaptionWord: "Lunar month", gregCaption: "Calendar month", leapWord: "leap",
-    fsYear: "Flying stars: year", fsMonth: "Flying stars: month",
     optSha: "Sha (三煞)",
     sha: {
       suiM:{t:"Sha M", tip:"Month Sha (月煞)"}, suiY:{t:"Sha Y", tip:"Year Sha (岁煞)"},
@@ -1038,25 +1031,6 @@ function monthCenter(yearZhi, monthZhi) {
   const start = YEARGRP_START[yearZhi], mi = B2MI[monthZhi];
   return ((start - (mi-1) - 1) % 9 + 9) % 9 + 1;
 }
-/* distinct solar months (节→节) overlapping [a,b]; each with its month center star */
-function solarMonthsInRange(a, b) {
-  const out = [], seen = new Set(), cur = new Date(a);
-  while (cur <= b) {
-    const lu = Solar.fromYmdHms(cur.getFullYear(), cur.getMonth()+1, cur.getDate(), 12, 0, 0).getLunar();
-    const ps = lu.getPrevJie().getSolar(), ns = lu.getNextJie().getSolar();
-    const key = ps.getYear()+"-"+ps.getMonth()+"-"+ps.getDay();
-    if (!seen.has(key)) {
-      seen.add(key);
-      const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
-      const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
-      const rep = new Date(start); rep.setDate(rep.getDate()+3);   // date solidly inside the month
-      const ec = Solar.fromYmdHms(rep.getFullYear(), rep.getMonth()+1, rep.getDate(), 12, 0, 0).getLunar().getEightChar();
-      out.push({ start, end, center: monthCenter(ec.getYearZhi(), ec.getMonthZhi()) });
-    }
-    cur.setDate(cur.getDate()+1);
-  }
-  return out;
-}
 /* one 3×3 Lo Shu block given a center star */
 function fsBlock(title, range, center) {
   const cells = FS_ORDER.map(dir => {
@@ -1073,15 +1047,6 @@ function fsBlock(title, range, center) {
       <div class="fs-grid">${cells}</div>
     </div>`;
 }
-function renderFlyingStars() {
-  const { start, end } = monthRange();
-  const sy = solarYearNum(new Date(viewY, viewM, 15));
-  let blocks = fsBlock(L().fsYear, `${dmy(liChun(sy))} – ${dmy(liChun(sy+1))}`, yearCenter(sy));
-  solarMonthsInRange(start, end).forEach(mm =>
-    blocks += fsBlock(L().fsMonth, `${dmy(mm.start)} – ${dmy(mm.end)}`, mm.center));
-  document.getElementById("flystars").innerHTML = blocks;
-}
-
 function renderLegend() {
   const el = document.getElementById("ind-legend");
   if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
@@ -1175,7 +1140,6 @@ function renderGrid() {
     });
   });
   renderLegend();
-  renderFlyingStars();
 }
 
 function refreshSelection() {
@@ -1401,9 +1365,9 @@ function renderYearMonths() {
     <div class="ym-cell${m.leap ? " leap" : ""}${isLast ? " last-row" : ""}">
       <div class="ym-n">${L().monthWord} ${m.n}${m.leap ? ` <span class="leap-tag">(${L().leapWord})</span>` : ""}</div>
       <div class="ym-range">${dt(m.start)} – ${dt(m.end)}</div>
+      ${extra || ""}
       ${m.z ? `<div class="ym-gz">${gzHtml(m.g, m.z)}</div>
                <div class="ym-el">${stemLabel(m.g)} / ${animalLabel(m.z)}</div>
-               ${extra || ""}
                ${hide ? hideHtml(m.z) : ""}`
             : `<div class="ym-gz none">—</div>`}
     </div>`;
