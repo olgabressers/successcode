@@ -49,12 +49,24 @@
                border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
                font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
   .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
+  /* ── Print / PDF — exactly two pages ─────────────────
+     page 1: day pillars → calendar grid → hour pillars → day-officer legend
+     page 2: month pillars (solar + lunar) + flying stars of the picked year */
+  @page { size: A4 portrait; margin: 8mm; }
   @media print {
     .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav,
     .brand-logo, .years, .ym-close { display: none !important; }
-    body { padding: 8px; background: #fff; }
+    html, body { width: auto; max-width: none; overflow: visible; }
+    body { zoom: .7; padding: 0; background: #fff;
+           -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header { margin-bottom: 16px; }
     .cell { min-height: 92px; }
-    .ym-block, .fs-block { break-inside: avoid; }
+    /* page 2 starts at the month tables (empty when no year is open → no blank page) */
+    .ymonths:empty { display: none; }
+    .ymonths:not(:empty) { break-before: page; page-break-before: always; }
+    .ym-block:first-child { margin-top: 0; }
+    .daybar, .cal, .hours, .ind-legend, .ym-block, .fs-block { break-inside: avoid; }
+    .footer-brand { margin-top: 14px; }
   }
 
   header { text-align: center; margin-bottom: 28px; }
@@ -345,7 +357,7 @@
   .fs-mini .fs-dir { font-size: 7px; top: 2px; }
   .fs-mini .fs-val { font-size: 16px; margin-top: 4px; }
 
-  @media (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     * { max-width: 100vw; }
     img, iframe, video, table { max-width: 100% !important; }
     body { padding: 48px 10px 28px; }
@@ -404,7 +416,7 @@
     .years-range { font-size: 14px; min-width: 92px; }
     .years-nav button { padding: 5px 10px; }
   }
-  @media (max-width: 430px) {
+  @media screen and (max-width: 430px) {
     .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .yr-col:nth-child(4n) { border-right: 1px solid var(--border); }
     .yr-col:nth-child(3n) { border-right: none; }
