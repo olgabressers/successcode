@@ -441,7 +441,7 @@
 <a class="brand-logo" href="/ru/">SuccessCode</a>
 
 <div class="lang-switch">
-  <a class="brand-cal-link" href="/calendar">Success Date Calendar</a>
+  <a class="brand-cal-link" id="cal-link" href="/calendar">Календарь успешных дат</a>
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
 </div>
@@ -510,7 +510,6 @@
         <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
         <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения</span></label>
         <label><input type="checkbox" id="opt-sha"> <span id="lbl-sha">Ша (三煞)</span></label>
-        <label><input type="checkbox" id="opt-nw"> <span id="lbl-nw">День без богатства</span></label>
         <label><input type="checkbox" id="opt-km"> <span id="lbl-km">День убивающий мастера</span></label>
         <label><input type="checkbox" id="opt-rx"> <span id="lbl-rx">Ретроградный Меркурий</span></label>
         <label><input type="checkbox" id="opt-ecl"> <span id="lbl-ecl">Затмения</span></label>
@@ -560,6 +559,7 @@
 const I18N = {
   ru: {
     tagline: "Китайский календарь",
+    calLink: "Календарь успешных дат",
     today: "Сегодня", back: "← Все калькуляторы", print: "Печать",
     pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
     hoursTitle: "Столпы часов",
@@ -605,6 +605,7 @@ const I18N = {
   },
   en: {
     tagline: "Chinese Calendar",
+    calLink: "Success Date Calendar",
     today: "Today", back: "← All calculators", print: "Print",
     pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
     hoursTitle: "Hour Pillars",
@@ -786,7 +787,7 @@ const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.g
 /* ── Solar-time correction (city longitude, same method as bazi.html) ── */
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
 /* display toggles */
-let SHOW_IND = true, SHOW_CLASH = true, SHOW_NW = true, SOLAR_MONTH = true, SHOW_SHA = true;
+let SHOW_IND = true, SHOW_CLASH = true, SOLAR_MONTH = true, SHOW_SHA = true;
 let LUNAR_MONTH = false, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true;
 function tzOffsetMin(date, tz) {
   try {
@@ -875,9 +876,8 @@ function renderDayBar() {
   const ec = lunar.getEightChar();
 
   const term = lunar.getJieQi();
-  const nw = NO_WEALTH_DAYS.includes(ec.getDayGan() + ec.getDayZhi());
   document.getElementById("db-term").textContent =
-    (term ? "· " + termLabel(term) : "") + (nw ? "  · " + L().noWealthTag : "");
+    (term ? "· " + termLabel(term) : "");
 
   // SOLAR (BaZi) chart — LiChun year, 节气 month; Hour→Day→Month→Year
   renderPillars("db-solar", [
@@ -943,11 +943,6 @@ function clashHtml(p) {
   if ((di + 6) % 12 === mi) t += `<span class="cl-m" title="${L().clashMonthTip}">${L().clashMonthTag}</span>`;
   if ((di + 6) % 12 === yi) t += `<span class="cl-y" title="${L().clashYearTip}">${L().clashYearTag}</span>`;
   return t ? `<div class="c-clash">${t}</div>` : "";
-}
-/* День без богатства tag (甲辰 / 乙巳) */
-function noWealthHtml(p) {
-  if (!NO_WEALTH_DAYS.includes(p.d[0] + p.d[1])) return "";
-  return `<div class="c-clash"><span class="cl-nw" title="${L().noWealthTip}">${L().noWealthTag}</span></div>`;
 }
 /* 三煞 tags — day branch vs month-branch san-sha and year-branch san-sha (max one each) */
 function shaChip(cls, o) { return `<span class="${cls}" title="${o.tip}">${o.t}</span>`; }
@@ -1069,16 +1064,15 @@ function fsBlock(title, range, center) {
 }
 function renderLegend() {
   const el = document.getElementById("ind-legend");
-  if (!SHOW_IND && !SHOW_CLASH && !SHOW_NW && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
+  if (!SHOW_IND && !SHOW_CLASH && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
   let html = "";
   if (SHOW_IND) {
     const items = OFFICER_CHARS.map((c,i) => `<b>${i+1}</b> ${c} ${L().officers[i+1]}`).join(" · ");
     html += `<div class="lg-title">${L().legendTitle}</div>${items}`;
   }
-  if (SHOW_CLASH || SHOW_NW || SHOW_KM) {
+  if (SHOW_CLASH || SHOW_KM) {
     let ln = "";
     if (SHOW_CLASH) ln += `<span class="cl-m">${L().clashMonthTag}</span> ${L().clashMonthTip} &nbsp; <span class="cl-y">${L().clashYearTag}</span> ${L().clashYearTip}`;
-    if (SHOW_NW) ln += ` &nbsp; <span class="cl-nw">${L().noWealthTag}</span> ${L().noWealthTip}`;
     if (SHOW_KM) ln += ` &nbsp; <span class="cl-km">${L().kmTag}</span> ${L().kmTip}`;
     html += `<div class="lg-clash">${ln}</div>`;
   }
@@ -1142,7 +1136,6 @@ function renderGrid() {
           ${SHOW_IND ? indHtml(p.lunar) : ``}
           ${SHOW_SHA ? shaHtml(p) : ``}
           ${SHOW_CLASH ? clashHtml(p) : ``}
-          ${SHOW_NW ? noWealthHtml(p) : ``}
           ${SHOW_KM ? killMasterHtml(p) : ``}
         </div>`;
       cur.setDate(cur.getDate()+1);
@@ -1256,12 +1249,11 @@ document.getElementById("opt-lunar").addEventListener("change", e => {
 document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
 document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
 document.getElementById("opt-sha").addEventListener("change", e => { SHOW_SHA = e.target.checked; renderGrid(); });
-document.getElementById("opt-nw").addEventListener("change", e => { SHOW_NW = e.target.checked; renderGrid(); });
 document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
 document.getElementById("opt-rx").addEventListener("change", e => { SHOW_RX = e.target.checked; renderGrid(); });
 document.getElementById("opt-ecl").addEventListener("change", e => { SHOW_ECLIPSE = e.target.checked; renderGrid(); });
 /* Tick all / untick all */
-const _ALL_OPTS = ["opt-solar","opt-lunar","opt-ind","opt-clash","opt-sha","opt-nw","opt-km","opt-rx","opt-ecl"];
+const _ALL_OPTS = ["opt-solar","opt-lunar","opt-ind","opt-clash","opt-sha","opt-km","opt-rx","opt-ecl"];
 function syncAllOpts() {
   const cbs = _ALL_OPTS.map(id => document.getElementById(id));
   const all = cbs.every(c => c.checked), none = cbs.every(c => !c.checked);
@@ -1443,6 +1435,7 @@ document.getElementById("yr-next").addEventListener("click", () => shiftYears(1)
 function applyLang() {
   document.documentElement.lang = LANG;
   document.getElementById("tagline").textContent = L().tagline;
+  document.getElementById("cal-link").textContent = L().calLink;
   document.getElementById("today").textContent = L().today;
   document.getElementById("print-btn").textContent = "⎙ " + L().print;
   document.getElementById("backlink").textContent = L().back;
@@ -1455,7 +1448,6 @@ function applyLang() {
   document.getElementById("lbl-ind").textContent = L().optInd;
   document.getElementById("lbl-clash").textContent = L().optClash;
   document.getElementById("lbl-sha").textContent = L().optSha;
-  document.getElementById("lbl-nw").textContent = L().optNoWealth;
   document.getElementById("lbl-km").textContent = L().optKillMaster;
   document.getElementById("lbl-rx").textContent = L().optRx;
   document.getElementById("lbl-ecl").textContent = L().optEclipse;
@@ -1484,7 +1476,6 @@ document.getElementById("opt-lunar").checked = LUNAR_MONTH;
 document.getElementById("opt-ind").checked = SHOW_IND;
 document.getElementById("opt-clash").checked = SHOW_CLASH;
 document.getElementById("opt-sha").checked = SHOW_SHA;
-document.getElementById("opt-nw").checked = SHOW_NW;
 document.getElementById("opt-km").checked = SHOW_KM;
 document.getElementById("opt-rx").checked = SHOW_RX;
 document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
