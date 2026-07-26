@@ -71,32 +71,62 @@
     }
     .nav-btn:hover { background: var(--gold2); }
 
-    /* HERO */
+    /* HERO — two columns: text left, calendar card right */
     .hero {
-      padding: 110px 0 96px;
-      text-align: center;
+      padding: 96px 0;
       background:
-        radial-gradient(ellipse at 50% 0%, rgba(184,144,58,0.14), transparent 60%),
+        radial-gradient(ellipse at 20% 0%, rgba(184,144,58,0.14), transparent 60%),
         var(--black);
       border-bottom: 1px solid var(--border);
+    }
+    .hero-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center;
     }
     .hero-tag {
       display: inline-flex; align-items: center; gap: 16px;
       font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 30px; font-weight: 600;
+      color: var(--gold); margin-bottom: 28px; font-weight: 600;
     }
-    .hero-tag::before, .hero-tag::after { content: ''; width: 40px; height: 2px; background: var(--gold); }
+    .hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--gold); }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(44px, 6vw, 84px); font-weight: 300; line-height: 1.02;
+      font-size: clamp(44px, 5vw, 76px); font-weight: 300; line-height: 1.02;
       letter-spacing: -1px; color: var(--white);
     }
     .hero h1 em { font-style: italic; color: var(--gold2); }
     .hero-sub {
       font-size: 18px; line-height: 1.7; color: var(--dim);
-      max-width: 620px; margin: 30px auto 40px;
+      max-width: 480px; margin: 30px 0 40px;
     }
-    .hero-cta { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+    .hero-cta { display: flex; gap: 18px; flex-wrap: wrap; }
+
+    /* right column — the exact calculator card from /calculators */
+    .card {
+      display: flex; flex-direction: column; background: var(--surface);
+      border: 1px solid var(--border); overflow: hidden;
+      transition: background .25s, border-color .25s, transform .25s; text-decoration: none;
+    }
+    .card:hover { background: var(--surface2); border-color: var(--gold); transform: translateY(-3px); }
+    .card-header {
+      padding: 34px 32px 26px; display: flex; flex-direction: column;
+      justify-content: space-between; align-items: stretch; gap: 22px; min-height: 190px;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-names { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; width: 100%; }
+    .card-name-en {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(28px, 3vw, 40px);
+      font-weight: 400; line-height: 1.05; color: var(--white); letter-spacing: -0.5px;
+    }
+    .card-name-ru { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+    .card-cta {
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #f5f1eb;
+      background: var(--gold); font-weight: 700; padding: 12px 24px; align-self: center;
+      display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+    }
+    .card:hover .card-cta { background: var(--gold2); }
+    .card-cta::after { content: '→'; font-size: 14px; }
+    .card-screenshot { display: block; width: 100%; background: #f5f1eb; flex: 1; }
+    .card-screenshot img { display: block; width: 100%; height: auto; }
     .btn-gold {
       font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
       color: #f5f1eb; background: var(--gold); padding: 16px 40px; text-decoration: none;
@@ -125,30 +155,6 @@
     }
     .lead { font-size: 17px; line-height: 1.8; color: var(--dim); max-width: 760px; }
     .lead b { color: var(--white); font-weight: 600; }
-
-    /* Free Chinese-calendar link card */
-    .free-card {
-      display: flex; align-items: center; justify-content: space-between; gap: 24px;
-      margin-top: 34px; max-width: 760px; padding: 24px 28px;
-      background: var(--surface); border: 1px solid var(--border);
-      text-decoration: none; transition: border-color .25s, background .25s;
-    }
-    .free-card:hover { border-color: var(--gold); background: var(--surface2); }
-    .free-card-tag {
-      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
-      color: var(--gold); margin-bottom: 8px;
-    }
-    .free-card-name {
-      font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
-      color: var(--white); margin-bottom: 6px;
-    }
-    .free-card-desc { font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 520px; }
-    .free-card-cta {
-      flex: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: #f5f1eb; background: var(--gold); padding: 13px 22px; white-space: nowrap;
-      transition: background .25s;
-    }
-    .free-card:hover .free-card-cta { background: var(--gold2); }
 
     /* CATEGORY CARDS */
     .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
@@ -277,8 +283,8 @@
       .cat-grid, .adv-grid, .feat-grid, .price-grid, .req { grid-template-columns: 1fr; }
       .feat-grid { gap: 1px; }
       .tst-card { flex-basis: 82vw; }
-      .free-card { flex-direction: column; align-items: flex-start; gap: 16px; }
-      .free-card-cta { align-self: stretch; text-align: center; }
+      .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+      .card-header { min-height: 0; padding: 28px 24px 22px; }
       footer { padding: 48px 22px 40px; }
     }
   </style>
@@ -297,12 +303,28 @@
 <!-- HERO -->
 <header class="hero">
   <div class="wrap">
-    <div class="hero-tag">Код успеха</div>
-    <h1>Календарь <em>успешных дат</em></h1>
-    <p class="hero-sub">Достаточно знать энергетический потенциал дней, чтобы осуществлять свои дела успешно.</p>
-    <div class="hero-cta">
-      <a href="#request" class="btn-gold">Купить</a>
-      <a href="#about" class="btn-ghost">Подробнее</a>
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-tag">Код успеха</div>
+        <h1>Календарь <em>успешных дат</em></h1>
+        <p class="hero-sub">Достаточно знать энергетический потенциал дней, чтобы осуществлять свои дела успешно.</p>
+        <div class="hero-cta">
+          <a href="#request" class="btn-gold">Купить</a>
+          <a href="#about" class="btn-ghost">Подробнее</a>
+        </div>
+      </div>
+      <a class="card" href="/chinesecalendar?lang=ru">
+        <div class="card-header">
+          <div class="card-names">
+            <div class="card-name-en">Китайский календарь</div>
+            <div class="card-name-ru">Бесплатный инструмент</div>
+          </div>
+          <span class="card-cta">Открыть</span>
+        </div>
+        <span class="card-screenshot">
+          <img src="images/calculators/calendar.png" alt="Китайский календарь — предпросмотр" loading="lazy">
+        </span>
+      </a>
     </div>
   </div>
 </header>
@@ -319,15 +341,6 @@
       каждого периода времени. А дальше — только простые усилия: действовать в те моменты, когда
       потенциал есть. Все они отмечены в календаре.
     </p>
-
-    <a class="free-card" href="/chinesecalendar?lang=ru">
-      <div class="free-card-text">
-        <div class="free-card-tag">Бесплатно</div>
-        <div class="free-card-name">Китайский календарь</div>
-        <div class="free-card-desc">Столпы дня, часа, месяца и года, солнечные термины и летящие звёзды — открытый онлайн-инструмент.</div>
-      </div>
-      <span class="free-card-cta">Открыть →</span>
-    </a>
   </div>
 </section>
 
