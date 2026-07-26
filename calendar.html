@@ -251,11 +251,12 @@
     .feat-grid.light .feat { background: #fff; }
     .feat-grid.light .feat-name { color: #9a6e20; }
     .feat-grid.light .feat-desc { color: #3a3746; }
-    .preview-example { margin: 44px auto 0; max-width: 620px; text-align: center; }
-    .preview-example img { display: block; width: 100%; height: auto;
-      border: 1px solid var(--border); box-shadow: 0 18px 50px rgba(0,0,0,.35); }
-    .preview-example figcaption { margin-top: 16px; font-size: 13px; letter-spacing: 1px;
-      text-transform: uppercase; color: var(--gold); }
+    .preview-shots { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-top: 44px; align-items: start; }
+    .preview-shots figure { margin: 0; }
+    .preview-shots img { display: block; width: 100%; height: auto;
+      border: 1px solid var(--border); box-shadow: 0 14px 40px rgba(0,0,0,.32); }
+    .preview-shots figcaption { margin-top: 14px; font-size: 12.5px; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--gold); text-align: center; }
 
     /* PRICING */
     .price-note { font-size: 16px; color: var(--dim); max-width: 720px; margin-bottom: 40px; }
@@ -342,7 +343,7 @@
       .hero-sub { font-size: 16px; }
       section { padding: 60px 0; }
       .sec-h2 { font-size: 30px; }
-      .cat-grid, .adv-grid, .feat-grid, .price-grid, .req { grid-template-columns: 1fr; }
+      .cat-grid, .adv-grid, .feat-grid, .price-grid, .req, .preview-shots { grid-template-columns: 1fr; }
       .feat-grid { gap: 1px; }
       .tst-card { flex-basis: 82vw; }
       .hero-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -504,10 +505,16 @@
       <div class="feat"><div class="feat-name">Дни без богатства</div><div class="feat-desc">Не подходят для дел, если вы ожидаете от них прибыль.</div></div>
       <div class="feat"><div class="feat-name">Влиятельные астропериоды</div><div class="feat-desc">Периоды ретроградного Меркурия и коридоров затмений.</div></div>
     </div>
-    <figure class="preview-example">
-      <img src="images/calculators/calendar-example-july.png" alt="Пример страницы календаря — июль 2026" loading="lazy">
-      <figcaption>Пример страницы календаря — июль 2026</figcaption>
-    </figure>
+    <div class="preview-shots">
+      <figure>
+        <img src="images/calculators/calendar-example-grid.png" alt="Пример: календарная сетка месяца" loading="lazy">
+        <figcaption>Календарная сетка месяца</figcaption>
+      </figure>
+      <figure>
+        <img src="images/calculators/calendar-example-hours.png" alt="Пример: благоприятные часы по дням" loading="lazy">
+        <figcaption>Благоприятные часы по дням</figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
