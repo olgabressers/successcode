@@ -371,6 +371,75 @@
 </head>
 <body>
 
+<!-- ── Password gate (client-side, remembers this computer) ───────────── -->
+<style>
+  html.sd-locked, html.sd-locked body { overflow: hidden !important; }
+  html.sd-locked body > *:not(#sd-gate) { visibility: hidden !important; }
+  #sd-gate {
+    position: fixed; inset: 0; z-index: 999999; display: none;
+    align-items: center; justify-content: center;
+    background: #2b2c34; color: #eceef8;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  html.sd-locked #sd-gate { display: flex; }
+  .sd-box { width: 100%; max-width: 340px; padding: 34px 30px; text-align: center;
+            background: #34363f; border: 1px solid rgba(184,144,58,0.35); }
+  .sd-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; letter-spacing: 2px;
+              color: #b8903a; margin-bottom: 6px; }
+  .sd-sub { font-size: 12px; letter-spacing: 1px; color: #9a9cae; margin-bottom: 22px; }
+  #sd-pass { width: 100%; padding: 13px 14px; background: #2b2c34; color: #eceef8;
+             border: 1px solid rgba(184,144,58,0.35); font-size: 15px; letter-spacing: 1px;
+             text-align: center; outline: none; margin-bottom: 12px; }
+  #sd-pass:focus { border-color: #b8903a; }
+  #sd-go { width: 100%; padding: 13px; background: #b8903a; color: #f5f1eb; border: none;
+           font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; cursor: pointer; }
+  #sd-go:hover { background: #cfa44e; }
+  #sd-err { min-height: 16px; margin-top: 12px; font-size: 12px; color: #d98a6a; letter-spacing: .5px; }
+</style>
+<div id="sd-gate" role="dialog" aria-modal="true">
+  <div class="sd-box">
+    <div class="sd-title">SuccessCode</div>
+    <div class="sd-sub">Введите пароль для доступа</div>
+    <input id="sd-pass" type="password" autocomplete="current-password" placeholder="Пароль" autofocus>
+    <button id="sd-go" type="button">Войти</button>
+    <div id="sd-err"></div>
+  </div>
+</div>
+<script>
+(function () {
+  var H = "a89c81698b57bb5cbb7b619befb3a882772170c13eec0e52c0bef9bd755a85ae";  // SHA-256 of the password
+  var KEY = "sd_access";
+  var root = document.documentElement;
+  async function sha256(str) {
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+  }
+  function unlock() { root.classList.remove("sd-locked"); }
+  // Remembered on this computer?
+  try { if (localStorage.getItem(KEY) === H) { unlock(); return; } } catch (e) {}
+  root.classList.add("sd-locked");
+  document.addEventListener("DOMContentLoaded", function () {
+    var input = document.getElementById("sd-pass"),
+        btn = document.getElementById("sd-go"),
+        err = document.getElementById("sd-err");
+    async function attempt() {
+      var h = await sha256(input.value);
+      if (h === H) {
+        try { localStorage.setItem(KEY, H); } catch (e) {}   // remember this computer
+        unlock();
+      } else {
+        err.textContent = "Неверный пароль";
+        input.value = ""; input.focus();
+      }
+    }
+    btn.addEventListener("click", attempt);
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") attempt(); });
+    input.focus();
+  });
+})();
+</script>
+<!-- ──────────────────────────────────────────────────────────────────── -->
+
 <div class="lang-switch">
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
