@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Календарь успешных дат — SuccessCode</title>
   <meta name="description" content="Календарь успешных дат: энергетический потенциал каждого дня для денег, ресурсов и решений с начальством. Методика «Динамика Ци».">
-  <link rel="canonical" href="https://successcode.net/successcalendar">
+  <link rel="canonical" href="https://successcode.net/calendar">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SuccessCode">
   <meta property="og:locale" content="ru_RU">
-  <meta property="og:url" content="https://successcode.net/successcalendar">
+  <meta property="og:url" content="https://successcode.net/calendar">
   <meta property="og:title" content="Календарь успешных дат — SuccessCode">
   <meta property="og:description" content="Энергетический потенциал каждого дня для денег, ресурсов и решений. Методика «Динамика Ци».">
   <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
@@ -125,6 +125,30 @@
     }
     .lead { font-size: 17px; line-height: 1.8; color: var(--dim); max-width: 760px; }
     .lead b { color: var(--white); font-weight: 600; }
+
+    /* Free Chinese-calendar link card */
+    .free-card {
+      display: flex; align-items: center; justify-content: space-between; gap: 24px;
+      margin-top: 34px; max-width: 760px; padding: 24px 28px;
+      background: var(--surface); border: 1px solid var(--border);
+      text-decoration: none; transition: border-color .25s, background .25s;
+    }
+    .free-card:hover { border-color: var(--gold); background: var(--surface2); }
+    .free-card-tag {
+      font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .free-card-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
+      color: var(--white); margin-bottom: 6px;
+    }
+    .free-card-desc { font-size: 14px; color: var(--muted); line-height: 1.55; max-width: 520px; }
+    .free-card-cta {
+      flex: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      color: #f5f1eb; background: var(--gold); padding: 13px 22px; white-space: nowrap;
+      transition: background .25s;
+    }
+    .free-card:hover .free-card-cta { background: var(--gold2); }
 
     /* CATEGORY CARDS */
     .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
@@ -253,6 +277,8 @@
       .cat-grid, .adv-grid, .feat-grid, .price-grid, .req { grid-template-columns: 1fr; }
       .feat-grid { gap: 1px; }
       .tst-card { flex-basis: 82vw; }
+      .free-card { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .free-card-cta { align-self: stretch; text-align: center; }
       footer { padding: 48px 22px 40px; }
     }
   </style>
@@ -263,7 +289,6 @@
   <a href="/ru/" class="nav-logo">SuccessCode</a>
   <div class="nav-sections">
     <a href="/ru/" class="nav-link">Главная</a>
-    <a href="/successdates" class="nav-link">Календарь дат</a>
     <a href="/chinesecalendar?lang=ru" class="nav-link">Китайский календарь</a>
     <a href="#request" class="nav-btn">Оставить заявку</a>
   </div>
@@ -294,6 +319,15 @@
       каждого периода времени. А дальше — только простые усилия: действовать в те моменты, когда
       потенциал есть. Все они отмечены в календаре.
     </p>
+
+    <a class="free-card" href="/chinesecalendar?lang=ru">
+      <div class="free-card-text">
+        <div class="free-card-tag">Бесплатно</div>
+        <div class="free-card-name">Китайский календарь</div>
+        <div class="free-card-desc">Столпы дня, часа, месяца и года, солнечные термины и летящие звёзды — открытый онлайн-инструмент.</div>
+      </div>
+      <span class="free-card-cta">Открыть →</span>
+    </a>
   </div>
 </section>
 
@@ -547,7 +581,6 @@
     <div class="footer-logo">SuccessCode</div>
     <div class="footer-links">
       <a href="/ru/">Главная</a>
-      <a href="/successdates">Календарь дат</a>
       <a href="/chinesecalendar?lang=ru">Китайский календарь</a>
       <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
       <a href="privacy.html">Обработка данных</a>

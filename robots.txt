@@ -9,6 +9,7 @@ Disallow: /zwds-nelly
 Disallow: /zwds-sophia
 Disallow: /report-
 Disallow: /questionnaire
+Disallow: /successdates
 Disallow: /founderportfolio
 Disallow: /pitch-deck
 Disallow: /speedrun
