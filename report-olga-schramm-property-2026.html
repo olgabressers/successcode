@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Персональная стратегия 2026 — SuccessCode</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
+      --goldfade:rgba(154,110,32,0.09); --text:#1A1820; --dim:#383644; --muted:#72707E;
+      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+    .report-header{position:relative;padding:34px 34px 30px;display:flex;justify-content:space-between;align-items:flex-end;gap:40px;
+      background-image:linear-gradient(100deg, rgba(46,32,10,0.62) 0%, rgba(46,32,10,0.34) 42%, rgba(46,32,10,0.08) 72%, rgba(46,32,10,0) 100%), url('/assets/backgrounds/bg-money-gold.png?v=1');
+      background-size:cover;background-position:center right;border:1px solid rgba(230,201,126,0.28);border-radius:4px;overflow:hidden;}
+    .report-header .report-title{color:#FAF7F0;}
+    .report-header .report-title em{color:#E6C97E;}
+    .report-header .report-subtitle{color:rgba(250,247,240,0.78);}
+    .report-header .client-label{color:rgba(250,247,240,0.62);}
+    .report-header .client-name{color:#FAF7F0;}
+    .report-header .client-meta{color:rgba(250,247,240,0.78);}
+    .report-header .report-date{color:rgba(250,247,240,0.6);}
+    .report-header .header-left a span{color:#E6C97E !important;}
+    .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
+    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
+    .print-btn:hover{background:var(--gold2);}
+    .print-btn.ghost{background:rgba(247,245,240,0.9);color:var(--gold);border:1px solid var(--border);}
+    .print-btn.ghost:hover{background:#fff;color:var(--gold2);}
+    .print-btn svg{width:14px;height:14px;fill:currentColor;}
+    .chart-print-only{display:none;}
+    .header-left{flex:1;}
+    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
+    .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.1;color:var(--text);margin-bottom:10px;}
+    .report-title em{font-style:italic;color:var(--gold2);}
+    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+    .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent 0%,var(--gold) 30%,var(--gold) 70%,transparent 100%);margin:48px 0;}
+    .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:22px;display:flex;align-items:center;gap:14px;}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:36px 44px;margin-bottom:36px;}
+    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:20px;}
+    .intro-lead em{font-style:italic;color:var(--gold2);}
+    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
+    .intro-body+.intro-body{margin-top:12px;}
+    .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:32px;}
+    .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+    .verdict-card.highlight{background:var(--goldfade);border-color:var(--border);}
+    .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.2;}
+    .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
+    .do-dont-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+    .dd-card{background:white;border:1px solid var(--border2);padding:28px 28px;}
+    .dd-title{font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+    .dd-title.green{color:var(--green);}
+    .dd-title.red{color:var(--red);}
+    .dd-list{list-style:none;}
+    .dd-list li{padding:8px 0;border-bottom:1px solid var(--border2);font-size:13px;color:var(--dim);display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
+    .dd-list li:last-child{border-bottom:none;}
+    .dd-list li span{flex-shrink:0;margin-top:1px;}
+    .clarify-box{background:var(--surface);border:1px solid var(--border);padding:18px 24px;margin-top:18px;display:flex;gap:14px;align-items:flex-start;}
+    .clarify-box .icon{color:var(--gold);font-size:18px;flex-shrink:0;line-height:1;margin-top:2px;}
+    .clarify-box p{font-size:13px;color:var(--dim);line-height:1.65;}
+    .clarify-box strong{color:var(--text);}
+    .month-table{width:100%;border-collapse:collapse;margin-bottom:12px;}
+    .month-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:10px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+    .month-table tr{border-bottom:1px solid var(--border2);}
+    .month-table tr:last-child{border-bottom:none;}
+    .month-table td{padding:20px 18px;vertical-align:top;background:white;}
+    .month-table tr.peak-row td{background:var(--goldfade)!important;}
+    .m-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:var(--text);display:block;line-height:1.2;}
+    .m-dates{font-size:14px;color:var(--muted);display:block;margin-top:4px;}
+    .m-badge{display:inline-block;margin-top:8px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding:3px 7px;}
+    .m-badge.peak{color:var(--gold);border:1px solid var(--border);background:rgba(154,110,32,0.08);}
+    .m-badge.mod{color:var(--muted);border:1px solid var(--border2);}
+    .m-badge.caution{color:var(--red);border:1px solid rgba(122,30,30,0.3);}
+    .m-badge.calm{color:var(--green);border:1px solid rgba(26,80,38,0.3);}
+    .m-focus{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:6px;}
+    .m-desc{font-size:13px;color:var(--dim);line-height:1.7;}
+    .action-row{font-size:13px;color:var(--dim);padding:5px 0;display:flex;gap:8px;align-items:flex-start;line-height:1.45;}
+    .action-row::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:1px;}
+    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
+    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+    .bottom-note{background:white;border:1px solid var(--border2);padding:28px 32px;margin-top:40px;display:flex;gap:18px;align-items:flex-start;}
+    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--gold);flex-shrink:0;margin-top:2px;}
+    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
+    .bn-text strong{color:var(--text);}
+    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+    .footer-note{font-size:11px;color:var(--muted);}
+    @page{margin:13mm;}
+    @media print{
+      html,body{background:white;}
+      body{font-size:11.5px;line-height:1.55;}
+      .page{padding:0;max-width:100%;}
+      .report-actions{display:none!important;}
+      .gold-rule,.gold-rule-full{margin:22px 0!important;}
+      .report-header{padding:6px 0 18px;background:none!important;border:none!important;border-radius:0!important;}
+      .report-header .report-title,.report-header .client-name{color:#1A1820!important;}
+      .report-header .report-title em{color:#9A6E20!important;}
+      .report-header .report-subtitle,.report-header .client-label,.report-header .client-meta,.report-header .report-date{color:#72707E!important;}
+      .report-header .header-left a span{color:#9A6E20!important;}
+      .report-title{font-size:34px;}
+      .intro-block,.verdict-card,.dd-card,.clarify-box,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
+      .verdict-row,.do-dont-grid{break-inside:avoid;page-break-inside:avoid;}
+      .month-table tr{break-inside:avoid;page-break-inside:avoid;}
+      .section-label{break-after:avoid;page-break-after:avoid;}
+      .month-table tr.peak-row td{background:#FAF5E8!important;}
+      .chart-wrap{display:none!important;}
+      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
+      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
+      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
+    }
+    @media (max-width:900px){.report-actions{top:12px;right:16px;gap:7px;}.print-btn{padding:7px 10px;font-size:9px;gap:5px;}}
+    @media (max-width:900px){
+      *{max-width:100vw;}
+      .page{padding:0 24px 60px;}
+      .report-header{flex-direction:column;align-items:flex-start;gap:24px;padding:56px 22px 24px;background-position:top right;}
+      .header-right{text-align:left;}
+      .verdict-row{grid-template-columns:1fr;}
+      .do-dont-grid{grid-template-columns:1fr;}
+      .report-title{font-size:34px;}
+      .intro-block{padding:26px 24px;}
+      .intro-lead{font-size:20px;}
+      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
+    }
+    .back-to-top{
+      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
+      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
+      text-decoration:none;border:1px solid var(--gold);z-index:250;
+      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
+    }
+    .back-to-top.visible{opacity:1;pointer-events:auto;}
+    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
+    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <div class="report-actions">
+    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      PDF отчёта
+    </button>
+    <a class="print-btn ghost" href="https://successcode.net/zwds-olga-schramm" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
+      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+      Печать карты
+    </a>
+  </div>
+
+  <header class="report-header">
+    <div class="header-left">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span></a>
+        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше · Discover more →</a>
+      </div>
+      <h1 class="report-title">Персональная стратегия<br><em>продажи дома в 2026</em></h1>
+      <p class="report-subtitle">Индивидуальный анализ &nbsp;·&nbsp; Июль 2026 — Февраль 2027</p>
+    </div>
+    <div class="header-right">
+      <div class="client-label">Подготовлено для</div>
+      <div class="client-name">Ольга Шрамм</div>
+      <div class="client-meta">Личная карта · Продажа дома</div>
+      <div class="report-date">Июль 2026</div>
+    </div>
+  </header>
+
+  <div class="gold-rule" style="margin:20px 0 24px;"></div>
+
+  <!-- ОТВЕТ НА ВОПРОС -->
+  <div class="section-label">Ответ на ваш вопрос</div>
+
+  <div class="intro-block">
+    <p class="intro-lead">
+      <strong>Дом сам, тихо, не продаётся — но точное окно для этого в карте есть.</strong>
+      С 10 октября по 8 ноября линия дома открывается напрямую, впервые за весь год. С 9 ноября
+      по 8 декабря — то же место, но нужен нажим с вашей стороны.
+    </p>
+    <p class="intro-body">
+      <strong>Что показывает карта до октября.</strong> До 9 октября линия дома в карте не
+      открыта — ни один из ближайших месяцев не даёт объекту дополнительного хода, независимо от
+      цены и активности агентов. Это не значит, что показы бессмысленны: это значит, что закрытия
+      сделки в эти недели карта не поддерживает.
+    </p>
+    <p class="intro-body">
+      <strong>Почему дом у вас никогда не идёт лёгким ходом.</strong> Линия дома у вас устроена
+      так, что сделка всегда требует спора и твёрдой позиции — так с рождения, а не из-за этого
+      покупателя. Даже в открытое окно ждите не тихого согласия, а торга: карта отдаёт эти недели
+      под переговоры, а не под мгновенное «да». Держите цену и не уступайте первой.
+    </p>
+    <p class="intro-body">
+      <strong>Если сделка не закроется до декабря.</strong> Второе окно — 9 ноября — 8 декабря,
+      но там нужно дожимать, а не ждать. Если и это не сработает: следующий раз, когда линия дома
+      открывается не на несколько недель, а на весь год, — 2028-й. Это не значит, что раньше
+      ничего не получится — значит, что после декабря 2026-го карта не даёт дополнительного хода
+      вплоть до этого года.
+    </p>
+    <p class="intro-body">
+      <strong>Придёт ли крупная сумма одним ходом.</strong> Линии «повезло — крупная сумма
+      пришла сама» у вас в карте нет: ни одно из условий такой линии не выполнено. Отдельно от
+      дома у вас в этом году открыта своя, регулярная денежная линия — сильнее всего с 13 августа
+      по 10 сентября. Это не деньги от дома — это отдельный канал, который течёт сам по себе.
+      Деньги от самого дома, если придут, придут по линии дома — то есть в октябре — декабре, а не
+      раньше.
+    </p>
+  </div>
+
+  <!-- 3 КАРТЫ -->
+  <div class="verdict-row">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Лучшее окно</div>
+      <div class="vc-value">10 окт — 8 ноя, напрямую</div>
+      <div class="vc-sub">Единственный раз в году, когда линия дома открывается сама. 9 ноя — 8 дек — то же место, но нужен нажим. Раньше 9 октября окна нет.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Одним ходом или нет</div>
+      <div class="vc-value">Сама сумма не приходит</div>
+      <div class="vc-sub">Линии «повезло» у вас нет. Деньги от дома — только в окно октябрь — декабрь, и не без вашего участия в переговорах.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Если не в этом году</div>
+      <div class="vc-value">Следующее полное окно — 2028</div>
+      <div class="vc-sub">После 8 декабря 2026-го линия дома снова закрыта — вплоть до 2028-го, когда она открыта не на недели, а на весь год.</div>
+    </div>
+  </div>
+
+  <!-- DO / DON'T -->
+  <div class="do-dont-grid">
+    <div class="dd-card">
+      <div class="dd-title green">✓ &nbsp; Делайте</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--green)">●</span>Готовьте объект, документы и агента к 10 октября — это единственный момент года, когда линия дома открыта сама</li>
+        <li><span style="color:var(--green)">●</span>В окно 10 окт — 8 ноя ведите переговоры твёрдо — не соглашайтесь на первую цифру</li>
+        <li><span style="color:var(--green)">●</span>Если к 8 декабря сделка не закрыта — держите позицию до 2028-го, а не сбрасывайте цену бесцельно</li>
+        <li><span style="color:var(--green)">●</span>13 августа — 10 сентября используйте для решений по своим текущим деньгам, не по дому</li>
+        <li><span style="color:var(--green)">●</span>Резерв и накопления держите отдельно от ожидаемых денег с дома</li>
+      </ul>
+    </div>
+    <div class="dd-card">
+      <div class="dd-title red">✗ &nbsp; Избегайте</div>
+      <ul class="dd-list">
+        <li><span style="color:var(--red)">●</span>Не ждите, что дом продастся сам, тихо, без вашего участия — так у вас не бывает ни в один год</li>
+        <li><span style="color:var(--red)">●</span>Не снижайте цену просто чтобы что-то происходило до 9 октября — раньше окна нет, снижение сейчас не ускорит дело</li>
+        <li><span style="color:var(--red)">●</span>Не путайте открытую денежную линию (август — сентябрь) с деньгами от дома — это разные каналы</li>
+        <li><span style="color:var(--red)">●</span>В ноябре — декабре не подписывайте ничего по резерву и накоплениям без проверки</li>
+        <li><span style="color:var(--red)">●</span>Предложение вне окна октябрь — декабрь не стоит держать за серьёзное — карта не поддерживает завершение сделки в другие месяцы</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="clarify-box">
+    <div class="icon">◆</div>
+    <p>
+      <strong>Показ переходит в сделку, когда объект виден покупателям и линия дома уже открыта
+      сама по себе</strong> — тогда одно подхватывает другое. У вас это совпадение — 10 октября —
+      8 ноября: впервые за год линия дома открыта без сопротивления. До этой даты любой показ —
+      это работа на будущее, а не на закрытие.
+    </p>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ВАША ПОЗИЦИЯ -->
+  <div class="section-label">Ваша позиция по дому</div>
+
+  <div class="verdict-row" style="grid-template-columns:1fr 1fr;">
+    <div class="verdict-card highlight">
+      <div class="vc-label">Постоянное</div>
+      <div class="vc-value" style="color:var(--text)">Дом продаётся только через спор</div>
+      <div class="vc-sub">Лёгкого, само собой идущего хода у вас нет ни в одном году жизни. Сделка по дому всегда требует активной позиции и переговоров — это черта карты, не особенность этого покупателя.</div>
+    </div>
+    <div class="verdict-card highlight">
+      <div class="vc-label">Постоянное</div>
+      <div class="vc-value" style="color:var(--text)">Расставание даётся тяжелее обычного</div>
+      <div class="vc-sub">Внутренняя привязанность к дому у вас сильнее среднего — даже когда сделка технически готова, отпустить объект тяжелее, чем кажется со стороны. Так у вас с рождения, а не из-за этого дома.</div>
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ЕЩЁ О ЧЁМ СТОИТ ЗНАТЬ -->
+  <div class="section-label">Ещё о чём стоит знать в 2026-м</div>
+
+  <div class="verdict-row">
+    <div class="verdict-card">
+      <div class="vc-label">Фон десятилетия</div>
+      <div class="vc-value">Деньги — тема всего периода</div>
+      <div class="vc-sub">Не только этого года: до 2031-го денежные вопросы будут возвращаться к вам чаще, чем в среднем бывает. Это фон всего текущего периода жизни, не разовая история.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Пик текущего дохода</div>
+      <div class="vc-value">13 августа — 10 сентября</div>
+      <div class="vc-sub">Самый сильный денежный месяц года — но не про дом. Хорошее время для решений по своим текущим деньгам, не для решений по объекту.</div>
+    </div>
+    <div class="verdict-card">
+      <div class="vc-label">Резерв</div>
+      <div class="vc-value">Под трением весь год</div>
+      <div class="vc-sub">То, что откладывается в запас, в этом году легко утекает или обрастает лишними бумажными сложностями. Проверяйте документы по накоплениям внимательнее обычного.</div>
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ПОМЕСЯЧНАЯ СТРАТЕГИЯ -->
+  <div class="section-label">Помесячная карта дома и денег</div>
+
+  <table class="month-table">
+    <thead>
+      <tr>
+        <th style="min-width:150px">Период</th>
+        <th>Что происходит и почему</th>
+        <th style="min-width:200px">Конкретные действия</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>
+          <span class="m-name">Сейчас</span>
+          <span class="m-dates">14 июля — 12 августа</span>
+          <span class="m-badge mod">Привязанность на пике</span>
+        </td>
+        <td>
+          <div class="m-focus">Расставание с домом — самое тяжёлое время в году</div>
+          <p class="m-desc">Внутренняя сторона вопроса сейчас звучит громче обычного. На сам ход сделки месяц не влияет — линия дома в эти недели закрыта так же, как была закрыта всё лето.</p>
+        </td>
+        <td>
+          <div class="action-row">Решения по дому сейчас не форсируйте — рыночного хода всё равно нет</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="m-name">Август — начало сентября</span>
+          <span class="m-dates">13 августа — 10 сентября</span>
+          <span class="m-badge mod">Пик денег — не дома</span>
+        </td>
+        <td>
+          <div class="m-focus">Самый сильный денежный месяц года</div>
+          <p class="m-desc">Текущий доход открыт сильнее, чем в любой другой месяц 2026-го. К дому это отношения не имеет — сделка по нему в эти недели не сдвигается.</p>
+        </td>
+        <td>
+          <div class="action-row">Используйте месяц для решений по своим текущим деньгам</div>
+          <div class="action-row">По дому — просто продолжайте подготовку</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="m-name">Сентябрь — начало октября</span>
+          <span class="m-dates">11 сентября — 9 октября</span>
+          <span class="m-badge calm">Отпускать становится легче</span>
+        </td>
+        <td>
+          <div class="m-focus">Внутреннее сопротивление ослабевает</div>
+          <p class="m-desc">В отличие от июля, в эти недели расстаться с домом внутренне легче. Хорошее время закончить последние приготовления перед тем, как линия дома откроется.</p>
+        </td>
+        <td>
+          <div class="action-row">Завершите документы, фотографии, финальную подготовку объекта</div>
+          <div class="action-row">Рыночный ход ещё не откроется — это время на подготовку, не на закрытие</div>
+        </td>
+      </tr>
+
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Октябрь — начало ноября</span>
+          <span class="m-dates">10 октября — 8 ноября</span>
+          <span class="m-badge peak">Линия дома открыта напрямую</span>
+        </td>
+        <td>
+          <div class="m-focus">Единственное окно года на сам объект</div>
+          <p class="m-desc">Впервые за год линия дома открывается без сопротивления — объект виден покупателям яснее, разговор двигается сам. Это окно, а не тихое согласие: карта отдаёт эти недели под переговоры и торг.</p>
+        </td>
+        <td>
+          <div class="action-row">Ведите переговоры твёрдо, не уступайте первыми</div>
+          <div class="action-row">Всё, о чём договоритесь, — сразу на бумагу</div>
+        </td>
+      </tr>
+
+      <tr class="peak-row">
+        <td>
+          <span class="m-name">Ноябрь — начало декабря</span>
+          <span class="m-dates">9 ноября — 8 декабря</span>
+          <span class="m-badge peak">Та же линия, но нужен нажим</span>
+        </td>
+        <td>
+          <div class="m-focus">Второе окно — уже не идёт само</div>
+          <p class="m-desc">Дом стоит на том же месте, но самим ходом уже не движется — месяц даёт силу дожимать, а не ждать. Если сделка близка, но не закрыта, — это время её закрыть.</p>
+        </td>
+        <td>
+          <div class="action-row">Дожимайте незакрытое — нажим сейчас работает</div>
+          <div class="action-row">По резерву и накоплениям ничего не подписывайте не проверив</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="m-name">Декабрь — начало января</span>
+          <span class="m-dates">9 декабря — 7 января 2027</span>
+          <span class="m-badge caution">Деньги требуют внимания</span>
+        </td>
+        <td>
+          <div class="m-focus">Не про дом — про текущие деньги</div>
+          <p class="m-desc">На линии дома в этом месяце — только слабый, вспомогательный сигнал. На линии текущих денег риск другой: то, что уже пришло, в эти недели легче теряется или утекает.</p>
+        </td>
+        <td>
+          <div class="action-row">Не давайте новых обязательств по деньгам без проверки</div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <span class="m-name">Январь — начало февраля 2027</span>
+          <span class="m-dates">8 января — 5 февраля 2027</span>
+          <span class="m-badge mod">Тишина</span>
+        </td>
+        <td>
+          <div class="m-focus">Ни дом, ни деньги месяц не задевает</div>
+          <p class="m-desc">Ни по дому, ни по деньгам в эти недели значимого хода нет. Спокойный технический период.</p>
+        </td>
+        <td>
+          <div class="action-row">Используйте месяц для бумажной рутины, а не для новых шагов</div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- ЧТО ДАЛЬШЕ -->
+  <div class="bottom-note" style="border-left:3px solid var(--gold2);">
+    <div class="bn-icon">✦</div>
+    <div class="bn-text">
+      <strong>Что дальше.</strong>
+      Этот отчёт — про один вопрос и один год. Ваша карта хранит гораздо больше: работа и рост,
+      отношения, здоровье, силы. Дом 2026-го — лишь одна дверь из многих. Когда захотите
+      заглянуть в следующую дверь или посмотреть другой год — карта уже готова ответить.
+    </div>
+  </div>
+
+  <div class="gold-rule-full"></div>
+
+  <!-- КАРТА -->
+  <div class="section-label">Карта Цзы Вэй Доу Шу</div>
+
+  <div class="chart-wrap">
+    <iframe src="https://successcode.net/zwds-olga-schramm"
+            title="Карта Цзы Вэй Доу Шу — Ольга Шрамм">
+    </iframe>
+  </div>
+
+  <div class="chart-print-only">
+    <div class="bn-icon">◆</div>
+    <div class="bn-text">
+      <strong>Карта печатается отдельно.</strong>
+      Интерактивная карта открывается и печатается со своей страницы:
+      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-olga-schramm</span>
+      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
+    </div>
+  </div>
+
+  <div class="gold-rule"></div>
+
+  <footer class="report-footer">
+    <div class="footer-brand">SuccessCode</div>
+    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
+  </footer>
+
+</div>
+
+</div>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function(){
+    var btn=document.getElementById('backToTop');
+    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
+    window.addEventListener('scroll',check,{passive:true});
+    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+</body>
+</html>
