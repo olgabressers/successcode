@@ -117,8 +117,18 @@
     }
     .hero h1 em { font-style: italic; color: var(--gold2); }
     .hero-sub {
-      font-size: 18px; line-height: 1.6; color: #c62828; font-weight: 700;
+      font-size: 17px; line-height: 1.65; color: var(--dim);
       max-width: 460px; margin: 20px 0 28px;
+    }
+    .diff-badge {
+      display: inline-block; background: #fff; border: 1px solid var(--gold);
+      color: #a87b28; font-weight: 700; font-size: 15px; line-height: 1.5;
+      padding: 14px 18px; border-radius: 4px; max-width: 460px; margin-top: 22px;
+    }
+    .card-under {
+      background: #fff; border: 1px solid var(--gold); color: #a87b28;
+      font-weight: 700; font-size: 13px; line-height: 1.5;
+      padding: 12px 14px; border-radius: 4px; margin-top: 14px; text-align: center; width: 220px;
     }
     .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
 
@@ -148,7 +158,6 @@
     .card-cta::after { content: '→'; font-size: 12px; }
     .card-screenshot { display: block; width: 100%; height: 150px; overflow: hidden; background: #f5f1eb; }
     .card-screenshot img { display: block; width: 100%; height: auto; }
-    .card-desc { padding: 14px 18px 16px; font-size: 12.5px; line-height: 1.5; color: var(--dim); text-align: center; }
     .btn-gold {
       font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
       color: #f5f1eb; background: var(--gold); padding: 16px 40px; text-decoration: none;
@@ -364,25 +373,28 @@
       <div class="hero-left">
         <div class="hero-tag">Код успеха</div>
         <h1>Календарь <em>успешных дат</em></h1>
-        <p class="hero-sub">Уникальная методика, которая находит лучшие моменты для достижения ваших личных целей.</p>
+        <p class="hero-sub">Достаточно знать энергетический потенциал дней, чтобы осуществлять свои дела успешно.</p>
         <div class="hero-cta">
           <a href="#request" class="btn-gold">Купить</a>
           <a href="#about" class="btn-ghost">Подробнее</a>
         </div>
+        <p class="diff-badge">Уникальная методика, которая находит лучшие моменты для достижения ваших личных целей.</p>
       </div>
-      <a class="card" href="/chinesecalendar?lang=ru">
-        <div class="card-header">
-          <div class="card-names">
-            <div class="card-name-en">Китайский календарь</div>
-            <div class="card-name-ru">Бесплатный инструмент</div>
+      <div class="hero-right">
+        <a class="card" href="/chinesecalendar?lang=ru">
+          <div class="card-header">
+            <div class="card-names">
+              <div class="card-name-en">Китайский календарь</div>
+              <div class="card-name-ru">Бесплатный инструмент</div>
+            </div>
+            <span class="card-cta">Открыть</span>
           </div>
-          <span class="card-cta">Открыть</span>
-        </div>
-        <span class="card-screenshot">
-          <img src="images/calculators/calendar.png" alt="Китайский календарь — предпросмотр" loading="lazy">
-        </span>
-        <p class="card-desc">Общий китайский лунно-солнечный календарь, рекомендованный практикам фэн-шуй.</p>
-      </a>
+          <span class="card-screenshot">
+            <img src="images/calculators/calendar.png" alt="Китайский календарь — предпросмотр" loading="lazy">
+          </span>
+        </a>
+        <p class="card-under">Общий китайский лунно-солнечный календарь, рекомендованный практикам фэн-шуй.</p>
+      </div>
     </div>
   </div>
 </header>
