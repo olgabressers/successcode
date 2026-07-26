@@ -126,10 +126,12 @@
       font-weight: 500; font-size: 21px; line-height: 1.45;
       padding: 2px 0 2px 22px; max-width: 440px; margin-top: 30px;
     }
+    .hero-right { display: flex; flex-direction: column; align-items: center; }
+    .diff-white { color: #fff; }
     .card-under {
       background: none; border: none; border-top: 1px solid var(--border);
-      color: var(--dim); font-size: 12px; line-height: 1.55;
-      padding: 14px 4px 0; margin-top: 14px; text-align: center; width: 220px;
+      color: var(--dim); font-size: 12.5px; line-height: 1.55;
+      padding: 14px 4px 0; margin-top: 14px; text-align: center; width: 360px; max-width: 100%;
     }
     .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
 
@@ -408,7 +410,7 @@
           <a href="#request" class="btn-gold">Купить</a>
           <a href="#about" class="btn-ghost">Подробнее</a>
         </div>
-        <p class="diff-badge">Уникальная методика, которая находит лучшие моменты для достижения ваших личных целей.</p>
+        <p class="diff-badge">Уникальная методика, <span class="diff-white">которая находит лучшие моменты для достижения ваших личных целей.</span></p>
       </div>
       <div class="hero-right">
         <a class="card" href="/chinesecalendar?lang=ru">
