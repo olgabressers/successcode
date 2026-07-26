@@ -57,13 +57,20 @@
       letter-spacing: 5px; text-transform: uppercase;
       color: var(--white); text-decoration: none;
     }
-    .nav-right { display: flex; gap: 30px; align-items: center; }
+    .nav-sections { display: flex; gap: 32px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
     .nav-link {
       font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
       color: var(--white); font-weight: 600;
       text-decoration: none; transition: color .25s;
     }
     .nav-link:hover { color: var(--gold2); }
+    .nav-btn {
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      color: #f5f1eb; background: var(--gold); padding: 12px 24px; text-decoration: none;
+      transition: background .25s;
+    }
+    .nav-btn:hover { background: var(--gold2); }
 
     .lang-switch {
       display: inline-flex; align-items: center;
@@ -219,8 +226,11 @@
       .card-header { min-height: 180px; }
     }
     @media (max-width: 900px) {
-      nav { padding: 14px 16px; }
-      .nav-right { gap: 12px; }
+      nav { padding: 14px 16px; flex-wrap: wrap; gap: 12px 14px; }
+      .nav-sections { gap: 16px; width: 100%; order: 3; justify-content: center; flex-wrap: wrap; }
+      .nav-links { margin-left: auto; gap: 16px; }
+      .nav-link { font-size: 11px; letter-spacing: 1.5px; }
+      .nav-btn { padding: 10px 18px; }
       .page { padding: 50px 18px 60px 18px; }
       .page-h1 { font-size: 28px; margin-bottom: 30px; }
       .cards { grid-template-columns: 1fr; gap: 20px; }
@@ -248,15 +258,28 @@
 
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
-  <div class="nav-right">
-    <a href="/ru" class="nav-link home-link">
-      <span data-lang="ru">Главная</span>
-      <span data-lang="en">Home</span>
+  <div class="nav-sections">
+    <a href="/ru/#about" class="nav-link" data-home-anchor="#about">
+      <span data-lang="ru">О методе</span><span data-lang="en">About</span>
     </a>
+    <a href="/ru/#questions" class="nav-link" data-home-anchor="#questions">
+      <span data-lang="ru">Вопросы</span><span data-lang="en">Questions</span>
+    </a>
+    <a href="/calculators" class="nav-link">
+      <span data-lang="ru">Калькуляторы</span><span data-lang="en">Calculators</span>
+    </a>
+    <a href="/calendar" class="nav-link">
+      <span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span>
+    </a>
+  </div>
+  <div class="nav-links">
     <div class="lang-switch" role="group" aria-label="Language">
       <button class="lang-btn active" data-set-lang="ru" type="button">RU</button>
       <button class="lang-btn"        data-set-lang="en" type="button">EN</button>
     </div>
+    <a href="/ru/#booking" class="nav-btn" data-home-anchor="#booking">
+      <span data-lang="ru">Записаться</span><span data-lang="en">Book</span>
+    </a>
   </div>
 </nav>
 
@@ -330,24 +353,6 @@
         </a>
       </div>
 
-      <div class="card" data-href="/chinesecalendar">
-        <div class="card-header">
-          <div class="card-names">
-            <div class="card-name-en">Chinese Calendar</div>
-            <div class="card-name-ru">
-              <span data-lang="ru">Китайский календарь</span>
-              <span data-lang="en">Chinese Calendar</span>
-            </div>
-          </div>
-          <a href="/chinesecalendar" class="card-cta card-open">
-            <span data-lang="ru">Открыть</span>
-            <span data-lang="en">Open</span>
-          </a>
-        </div>
-        <a href="/chinesecalendar" class="card-screenshot card-open">
-          <img src="images/calculators/calendar.png" alt="Chinese Calendar preview" loading="lazy">
-        </a>
-      </div>
     </div>
 
     <div data-lang="ru">
@@ -379,6 +384,7 @@
     var body = document.body;
     var buttons = document.querySelectorAll('[data-set-lang]');
     var homeLinks = document.querySelectorAll('.home-link, footer a');
+    var anchorLinks = document.querySelectorAll('[data-home-anchor]');
     var cardLinks = document.querySelectorAll('.card-open');
 
     function setLang(lang) {
@@ -390,6 +396,9 @@
       });
       homeLinks.forEach(function(a) {
         a.setAttribute('href', lang === 'en' ? '/' : '/ru');
+      });
+      anchorLinks.forEach(function(a) {
+        a.setAttribute('href', (lang === 'en' ? '/' : '/ru/') + a.getAttribute('data-home-anchor'));
       });
       cardLinks.forEach(function(a) {
         var base = a.getAttribute('href').split('?')[0];

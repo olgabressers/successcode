@@ -161,6 +161,21 @@
     }
     .btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
 
+    /* light section override — alternates with dark, mirrors home page */
+    .s-light {
+      --black:    #f8f6f1;
+      --surface:  #ffffff;
+      --surface2: #f2efe8;
+      --gold:     #9a6e20;
+      --gold2:    #b8882a;
+      --gold-dim: rgba(154,110,32,0.08);
+      --white:    #1e1c28;
+      --dim:      #3a3844;
+      --muted:    #6a6878;
+      --border:   rgba(154,110,32,0.20);
+      background: #f8f6f1; color: #1e1c28;
+    }
+
     /* SECTION scaffold */
     section { padding: 92px 0; border-bottom: 1px solid var(--border); }
     .side-label {
@@ -361,7 +376,7 @@
 </header>
 
 <!-- INTRO -->
-<section id="about">
+<section id="about" class="s-light">
   <div class="wrap">
     <div class="side-label">Ваш ориентир для успеха</div>
     <h2 class="sec-h2">Задумывались, как круто делать дела в благоприятный период?</h2>
@@ -418,7 +433,7 @@
 </section>
 
 <!-- ADVANTAGES -->
-<section>
+<section class="s-light">
   <div class="wrap">
     <div class="side-label">Преимущества календаря</div>
     <h2 class="sec-h2">Общая благоприятность лучше, чем общая неблагоприятность</h2>
@@ -464,7 +479,7 @@
 </section>
 
 <!-- PRICING -->
-<section>
+<section class="s-light">
   <div class="wrap">
     <div class="side-label">Стоимость календаря</div>
     <h2 class="sec-h2">Выберите тариф</h2>
@@ -524,7 +539,7 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section>
+<section class="s-light">
   <div class="wrap">
     <div class="side-label">Отзывы о календаре</div>
     <p class="tst-hint">Листайте в бок, чтобы ознакомиться →</p>
