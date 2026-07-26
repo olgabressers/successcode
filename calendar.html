@@ -258,6 +258,25 @@
     .preview-shots figcaption { margin-top: 14px; font-size: 12.5px; letter-spacing: 1px;
       text-transform: uppercase; color: var(--gold); text-align: center; }
 
+    /* LUXURY PHOTO BANDS + STRIP */
+    .lux-band { position: relative; height: 340px; overflow: hidden; }
+    .lux-band > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .lux-band::after { content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(24,25,31,.82), rgba(24,25,31,.42) 55%, rgba(24,25,31,.74)); }
+    .lux-cap { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center; padding: 0 24px; }
+    .lux-cap .side-label { color: var(--gold2); margin-bottom: 14px; }
+    .lux-cap p { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500;
+      line-height: 1.32; color: #fff; max-width: 780px; }
+    .lux-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--gold); }
+    .lux-strip figure { position: relative; margin: 0; height: 300px; overflow: hidden; }
+    .lux-strip img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .lux-strip figure:hover img { transform: scale(1.06); }
+    .lux-strip figcaption { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+      padding: 26px 16px 16px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+      color: #fff; font-weight: 700; text-align: center;
+      background: linear-gradient(0deg, rgba(24,25,31,.92), rgba(24,25,31,0)); }
+
     /* PRICING */
     .price-note { font-size: 16px; color: var(--dim); max-width: 720px; margin-bottom: 40px; }
     .price-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 26px; max-width: 820px; }
@@ -344,6 +363,10 @@
       section { padding: 60px 0; }
       .sec-h2 { font-size: 30px; }
       .cat-grid, .adv-grid, .feat-grid, .price-grid, .req, .preview-shots { grid-template-columns: 1fr; }
+      .lux-band { height: 240px; }
+      .lux-cap p { font-size: 22px; }
+      .lux-strip { grid-template-columns: 1fr; }
+      .lux-strip figure { height: 220px; }
       .feat-grid { gap: 1px; }
       .tst-card { flex-basis: 82vw; }
       .hero-grid { grid-template-columns: 1fr; gap: 32px; }
@@ -420,6 +443,15 @@
   </div>
 </section>
 
+<!-- LUXURY BAND -->
+<div class="lux-band">
+  <img src="images/calendar/lux-interior.jpg" alt="" loading="lazy">
+  <div class="lux-cap">
+    <div class="side-label">Динамика Ци</div>
+    <p>Действуйте тогда, когда потенциал дня на вашей стороне.</p>
+  </div>
+</div>
+
 <!-- THREE CATEGORIES -->
 <section>
   <div class="wrap">
@@ -461,6 +493,13 @@
     </div>
   </div>
 </section>
+
+<!-- LUXURY STRIP (above advantages) -->
+<div class="lux-strip">
+  <figure><img src="images/calendar/lux-car.jpg" alt="" loading="lazy"><figcaption>Статус</figcaption></figure>
+  <figure><img src="images/calendar/lux-ring.jpg" alt="" loading="lazy"><figcaption>Важные события</figcaption></figure>
+  <figure><img src="images/calendar/lux-milan.jpg" alt="" loading="lazy"><figcaption>Покупки и сделки</figcaption></figure>
+</div>
 
 <!-- ADVANTAGES -->
 <section class="s-light">
@@ -517,6 +556,15 @@
     </div>
   </div>
 </section>
+
+<!-- LUXURY BAND -->
+<div class="lux-band">
+  <img src="images/calendar/lux-living.jpg" alt="" loading="lazy">
+  <div class="lux-cap">
+    <div class="side-label">Ваш ориентир</div>
+    <p>Каждый важный шаг — в свой благоприятный день.</p>
+  </div>
+</div>
 
 <!-- PRICING -->
 <section class="s-light">
