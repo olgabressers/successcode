@@ -57,6 +57,15 @@
       color: var(--gold2); text-decoration: none; font-weight: 600;
     }
     .nav-back:hover { color: #fff; }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
+    .lang-switch { display: inline-flex; align-items: center; border: 1px solid var(--border); }
+    .lang-switch a {
+      font-size: 11px; letter-spacing: 2px; font-weight: 600; color: var(--muted);
+      padding: 7px 11px; font-family: 'Inter', sans-serif; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch a.active { background: var(--gold); color: #f5f1eb; }
+    .lang-switch a:not(.active):hover { color: var(--gold2); }
 
     /* HEADER */
     .doc-header {
@@ -166,7 +175,13 @@
 
 <nav>
   <a href="index.html" class="nav-logo">SuccessCode</a>
-  <a href="index.html" class="nav-back">← Home</a>
+  <div class="nav-right">
+    <div class="lang-switch" aria-label="Language">
+      <a href="/ru/terms.html">RU</a>
+      <a href="/terms.html" class="active">EN</a>
+    </div>
+    <a href="index.html" class="nav-back">← Home</a>
+  </div>
 </nav>
 
 <header class="doc-header">

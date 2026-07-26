@@ -245,7 +245,8 @@
       line-height: 1.1; margin: 14px 0 6px;
     }
     .price-amt small { font-size: 24px; color: var(--muted); }
-    .price-alt { font-size: 15px; color: var(--muted); margin-bottom: 20px; }
+    .price-alt { font-size: 15px; color: var(--muted); margin-bottom: 4px; text-decoration: line-through; }
+    .price-save { font-size: 13px; color: var(--gold); font-weight: 600; margin-bottom: 20px; }
     .price-how { font-size: 14.5px; color: var(--dim); line-height: 1.65; margin-bottom: 26px; }
     .price-card .btn-gold { text-align: center; margin-top: auto; }
     .price-consent { font-size: 12.5px; color: var(--muted); line-height: 1.6; margin-top: 28px; max-width: 820px; }
@@ -489,22 +490,21 @@
       <div class="price-card">
         <div class="price-term">1 месяц</div>
         <div class="price-amt">€25 <small>/ ₽2500</small></div>
-        <p class="price-how">Отправьте заголовок «Календарь успешных дат на 1 необходимый месяц»
-          на почту, и я с вами свяжусь.</p>
-        <a class="btn-gold" href="mailto:successcode.tv@gmail.com?subject=Календарь%20успешных%20дат%20на%201%20необходимый%20месяц">Купить месяц</a>
+        <p class="price-how">Оставьте заявку — и я свяжусь с вами по тарифу на 1 месяц.</p>
+        <a class="btn-gold" href="#request">Купить месяц</a>
       </div>
       <div class="price-card feature">
         <div class="price-term">2026 год</div>
         <div class="price-amt">€150 <small>/ ₽15000</small></div>
-        <p class="price-alt">либо €300 / ₽30000</p>
-        <p class="price-how">Отправьте заголовок «Календарь успешных дат на 2026 год» на почту,
-          и я с вами свяжусь.</p>
-        <a class="btn-gold" href="mailto:successcode.tv@gmail.com?subject=Календарь%20успешных%20дат%20на%202026%20год">Купить на год</a>
+        <p class="price-alt">вместо €300 / ₽30000</p>
+        <p class="price-save">Экономия при покупке календаря на год.</p>
+        <p class="price-how">Оставьте заявку — и я свяжусь с вами по годовому тарифу.</p>
+        <a class="btn-gold" href="#request">Купить на год</a>
       </div>
     </div>
     <p class="price-consent">Приобретая инструменты «Код успеха», вы даёте согласие на обработку
       персональных данных и соглашаетесь с
-      <a href="terms.html" target="_blank" rel="noopener">условиями предоставления услуг</a>.</p>
+      <a href="/ru/terms.html" target="_blank" rel="noopener">условиями предоставления услуг</a>.</p>
   </div>
 </section>
 
@@ -528,8 +528,8 @@
         <input type="hidden" name="_subject" value="Календарь успешных дат — заявка">
         <div class="consent-row">
           <input type="checkbox" id="consent" name="consent" value="accepted" required>
-          <label for="consent">Принимаю <a href="terms.html" target="_blank" rel="noopener">Условия</a>
-            и <a href="privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
+          <label for="consent">Принимаю <a href="/ru/terms.html" target="_blank" rel="noopener">Условия</a>
+            и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
         </div>
         <button class="req-submit" type="submit">Отправить</button>
         <p class="req-mini">Отвечаю каждому лично.</p>
@@ -642,8 +642,8 @@
       <a href="/ru/">Главная</a>
       <a href="/chinesecalendar?lang=ru">Китайский календарь</a>
       <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
-      <a href="privacy.html">Обработка данных</a>
-      <a href="terms.html">Условия</a>
+      <a href="/ru/privacy.html">Обработка данных</a>
+      <a href="/ru/terms.html">Условия</a>
     </div>
   </div>
   <div class="footer-disclaimer">Календарь и инструменты «Код успеха» предоставляются для ориентира
