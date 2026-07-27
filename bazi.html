@@ -49,7 +49,8 @@
                 letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
                 text-decoration: none; line-height: 1; }
   .brand-logo:hover { color: var(--gold-dim); }
-  .study-link { align-self: center; margin-right: 12px; font-family: 'Cormorant Garamond', serif;
+  .study-link { position: absolute; top: 18px; right: 118px; z-index: 49;
+                font-family: 'Cormorant Garamond', serif;
                 font-size: 15px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
                 color: #8b2533; text-decoration: none; line-height: 1.15; white-space: nowrap; }
   .study-link:hover { color: #6e1d29; }
@@ -377,9 +378,9 @@
 <body>
 
 <a class="brand-logo" href="/ru/">SuccessCode</a>
+<a class="study-link" id="study-link" href="/training">Хочу пройти курс Ба Цзы</a>
 
 <div class="lang-switch">
-  <a class="study-link" id="study-link" href="/training">Хочу пройти курс Ба Цзы</a>
   <button id="lang-ru" class="on" type="button">RU</button>
   <button id="lang-en" type="button">EN</button>
 </div>
