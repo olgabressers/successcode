@@ -208,6 +208,7 @@
     .out-list li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
 
     /* REQUEST FORM */
+    #request { padding-bottom: 40px; border-bottom: none; }
     .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     .req-copy .lead { margin-bottom: 20px; }
     .req-email { font-size: 15px; color: var(--dim); }
@@ -233,13 +234,13 @@
     .req-mini { font-size: 12.5px; color: var(--muted); }
 
     /* FOOTER */
-    footer { padding: 64px 56px 48px; background: var(--surface); }
-    .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 32px; }
+    footer { padding: 38px 56px 26px; background: var(--surface); }
+    .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 18px; }
     .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--dim); }
     .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
     .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; font-weight: 500; }
     .footer-links a:hover { color: var(--gold2); }
-    .footer-disclaimer { max-width: 980px; font-size: 11px; line-height: 1.75; color: var(--muted); padding-top: 24px; border-top: 1px solid var(--border); margin-bottom: 18px; }
+    .footer-disclaimer { max-width: 980px; font-size: 11px; line-height: 1.6; color: var(--muted); padding-top: 16px; border-top: 1px solid var(--border); margin-bottom: 10px; }
     footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
 
     /* MOBILE */
@@ -260,7 +261,7 @@
       .split-img figure { height: 260px; }
       .split-img figcaption { font-size: 24px; }
       .back-to-top { width: 46px; height: 46px; bottom: 22px; right: 22px; }
-      footer { padding: 48px 22px 40px; }
+      footer { padding: 30px 22px 22px; }
     }
   </style>
 </head>
@@ -409,7 +410,6 @@
             и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
         </div>
         <button class="req-submit" type="submit">Отправить</button>
-        <p class="req-mini">Отвечаю каждому лично.</p>
       </form>
     </div>
   </div>
