@@ -44,6 +44,12 @@
                font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
   .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
 
+  .course-btn { position: fixed; top: 74px; right: 16px; z-index: 50; background: var(--gold);
+                border: 1px solid var(--gold); color: #fff; padding: 6px 12px; font-size: 11px;
+                letter-spacing: .5px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif;
+                text-decoration: none; white-space: nowrap; }
+  .course-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
+
   header { text-align: center; margin-bottom: 36px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
@@ -277,7 +283,7 @@
     :root { --bg: #fff; }
     html, body { background: #fff; width: 100%; max-width: none; overflow: visible; }
     body { padding: 0; font-size: 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .lang-switch, .print-btn, .form-panel, .error-msg, .city-dd { display: none !important; }
+    .lang-switch, .print-btn, .course-btn, .form-panel, .error-msg, .city-dd { display: none !important; }
     header { margin-bottom: 6px; }
     header h1 { font-size: 18px; }
     header p { font-size: 8px; letter-spacing: 2px; margin-top: 2px; }
@@ -324,6 +330,7 @@
     body { padding: 30px 14px; }
     .lang-switch { top: 10px; right: 10px; }
     .print-btn { top: 40px; right: 10px; }
+    .course-btn { top: 68px; right: 10px; font-size: 10px; padding: 5px 9px; }
     header h1 { font-size: 22px; }
     .form-panel { padding: 18px 18px; }
     .form-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -367,6 +374,7 @@
 </div>
 
 <button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
+<a class="course-btn" id="course-btn" href="/training#request">Хочу пройти курс Ба Цзы</a>
 
 <header>
   <h1>八字 · BaZi Calculator</h1>
@@ -465,6 +473,7 @@ const I18N = {
     hour: "Час", minute: "Минута",
     sex: "Пол", male: "Мужской", female: "Женский",
     print: "Печать",
+    course: "Хочу пройти курс Ба Цзы",
     city: "Город (для пересчёта в солнечное время)",
     cityPh: "Начните вводить город...",
     compute: "Рассчитать",
@@ -520,6 +529,7 @@ const I18N = {
     hour: "Hour", minute: "Minute",
     sex: "Sex", male: "Male", female: "Female",
     print: "Print",
+    course: "I want to take the Ba Zi course",
     city: "City (for solar-time correction)",
     cityPh: "Start typing a city...",
     compute: "Compute",
@@ -1170,6 +1180,7 @@ function applyLang(){
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
   document.getElementById("print-btn").textContent = "⎙ " + L().print;
+  document.getElementById("course-btn").textContent = L().course;
 }
 function setLang(l){
   LANG = l;
