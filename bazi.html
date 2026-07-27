@@ -331,11 +331,14 @@
   }
 
   @media (max-width: 640px) {
-    body { padding: 30px 14px; }
-    .lang-switch { top: 10px; right: 10px; }
-    .print-btn { top: 40px; right: 10px; }
-    .brand-logo { top: 12px; left: 10px; font-size: 12px; letter-spacing: 2px; }
-    .study-link { font-size: 9.5px; letter-spacing: .5px; margin-right: 8px; }
+    body { padding: 78px 14px 30px; }
+    .lang-switch { top: 12px; right: 10px; }
+    .print-btn { top: 44px; right: 10px; }
+    .brand-logo { top: 14px; left: 10px; font-size: 13px; letter-spacing: 2px; }
+    .study-link { position: fixed; top: 44px; left: 50%; transform: translateX(-50%);
+      margin: 0; z-index: 51; font-size: 12px; letter-spacing: .4px; white-space: nowrap;
+      background: rgba(139,37,51,0.07); border: 1px solid rgba(139,37,51,0.45);
+      padding: 6px 15px; border-radius: 20px; }
     header h1 { font-size: 22px; }
     .form-panel { padding: 18px 18px; }
     .form-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
