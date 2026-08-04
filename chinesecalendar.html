@@ -382,14 +382,14 @@
   .fs-tool { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .3px;
              color: var(--text-muted); cursor: pointer; user-select: none; }
   .fs-tool input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; margin: 0; }
-  .fs-tool .fs-tool-ic { font-size: 15px; line-height: 1; }
-  .fs-marks { position: absolute; left: 3px; bottom: 3px; display: flex; flex-direction: column; gap: 2px; z-index: 3; pointer-events: none; }
-  .fs-mk { display: none; width: 20px; height: 20px; align-items: center; justify-content: center;
-           font-size: 13px; line-height: 1; border-radius: 50%; background: #fff;
-           border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.16); }
+  .fs-tool .fs-tool-ic { font-size: 19px; line-height: 1; }
+  .fs-marks { position: absolute; left: 3px; bottom: 3px; display: flex; flex-direction: column; gap: 3px; z-index: 3; pointer-events: none; }
+  .fs-mk { display: none; width: 34px; height: 34px; align-items: center; justify-content: center;
+           font-size: 24px; line-height: 1; border-radius: 50%; background: #fff;
+           border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.20); }
   .fs-big-wrap.act-on  .fs-mk-fountain { display: flex; }
-  .fs-big-wrap.prot-on .fs-mk-bell { display: flex; }
-  .fs-big-wrap.prot-on .fs-mk-vase { display: flex; }
+  .fs-big-wrap.bell-on .fs-mk-bell { display: flex; }
+  .fs-big-wrap.jar-on  .fs-mk-jar { display: flex; }
   .ym-cell.ym-cell-fs { cursor: pointer; }
   .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
   .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
@@ -459,9 +459,10 @@
     .fs-big .fs-val-y { font-size: 18px; bottom: 5px; right: 6px; }
     .fs-big .fs-dir { font-size: 8.5px; }
     .fs-big-wrap { padding: 10px 8px 12px; }
-    .fs-mk { width: 17px; height: 17px; font-size: 11px; }
-    .fs-marks { left: 2px; bottom: 2px; gap: 1px; }
+    .fs-mk { width: 27px; height: 27px; font-size: 18px; }
+    .fs-marks { left: 2px; bottom: 2px; gap: 2px; }
     .fs-tool { font-size: 11px; }
+    .fs-tool .fs-tool-ic { font-size: 16px; }
   }
   @media screen and (max-width: 430px) {
     .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -642,10 +643,11 @@ const I18N = {
     starsTitle: "Летящие звёзды",
     yearWord: "Год",
     fsActivators: "Активаторы",
-    fsProtection: "Защита",
+    fsBell: "Колокольчик",
+    fsJar: "Банка с водой",
     fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
     fsBellTip: "Колокольчик — сектор с пятёркой (5)",
-    fsVaseTip: "Ваза с солью и водой — сектор с семёркой (7)",
+    fsJarTip: "Банка с водой — сектор с семёркой (7)",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -693,10 +695,11 @@ const I18N = {
     starsTitle: "Flying stars",
     yearWord: "Year",
     fsActivators: "Activators",
-    fsProtection: "Protection",
+    fsBell: "Bell",
+    fsJar: "Jar of water",
     fsActTip: "Fountain on every favourable (green) sector",
     fsBellTip: "Bell — a sector holding a five (5)",
-    fsVaseTip: "Vase with salt and water — a sector holding a seven (7)",
+    fsJarTip: "Jar of water — a sector holding a seven (7)",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1134,7 +1137,7 @@ function fsBlockCombined(title, range, yCenter, mCenter) {
     const mk = [];
     if (cls === "good")              mk.push(`<span class="fs-mk fs-mk-fountain" title="${L().fsActTip}">⛲</span>`);
     if (mv === 5 || yv === 5)        mk.push(`<span class="fs-mk fs-mk-bell" title="${L().fsBellTip}">🔔</span>`);
-    if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-vase" title="${L().fsVaseTip}">🏺</span>`);
+    if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-jar" title="${L().fsJarTip}">🫙</span>`);
     const marks = mk.length ? `<span class="fs-marks">${mk.join("")}</span>` : "";
     return `<div class="fs-cell ${cls}${dir==="C"?" c":""}">
         <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
@@ -1501,7 +1504,8 @@ function renderYearMonths() {
         <span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span>
         <span class="fs-tools">
           <label class="fs-tool" title="${L().fsActTip}"><input type="checkbox" id="fs-act"><span class="fs-tool-ic">⛲</span>${L().fsActivators}</label>
-          <label class="fs-tool" title="${L().fsBellTip} · ${L().fsVaseTip}"><input type="checkbox" id="fs-prot"><span class="fs-tool-ic">🔔🏺</span>${L().fsProtection}</label>
+          <label class="fs-tool" title="${L().fsBellTip}"><input type="checkbox" id="fs-bell"><span class="fs-tool-ic">🔔</span>${L().fsBell}</label>
+          <label class="fs-tool" title="${L().fsJarTip}"><input type="checkbox" id="fs-jar"><span class="fs-tool-ic">🫙</span>${L().fsJar}</label>
         </span>
       </div>
       <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
@@ -1545,11 +1549,12 @@ function renderYearMonths() {
   box.querySelectorAll(".fs-big .fs-cell").forEach(el => {
     el.addEventListener("click", () => el.classList.toggle("dir-sel"));
   });
-  /* Activators (fountain on green) / Protection (bell on 5, vase on 7) toggles */
+  /* Activators (fountain on green) / Bell (on 5) / Jar of water (on 7) toggles */
   const fsWrap = document.getElementById("fs-big-wrap");
-  const fsAct = document.getElementById("fs-act"), fsProt = document.getElementById("fs-prot");
+  const fsAct = document.getElementById("fs-act"), fsBell = document.getElementById("fs-bell"), fsJar = document.getElementById("fs-jar");
   if (fsWrap && fsAct)  fsAct.addEventListener("change",  () => fsWrap.classList.toggle("act-on",  fsAct.checked));
-  if (fsWrap && fsProt) fsProt.addEventListener("change", () => fsWrap.classList.toggle("prot-on", fsProt.checked));
+  if (fsWrap && fsBell) fsBell.addEventListener("change", () => fsWrap.classList.toggle("bell-on", fsBell.checked));
+  if (fsWrap && fsJar)  fsJar.addEventListener("change",  () => fsWrap.classList.toggle("jar-on",  fsJar.checked));
 }
 document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
 document.getElementById("yr-next").addEventListener("click", () => shiftYears(1));
