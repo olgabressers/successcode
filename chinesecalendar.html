@@ -362,6 +362,23 @@
   .fs-mini .fs-dir { font-size: 7px; top: 2px; }
   .fs-mini .fs-val { font-size: 16px; margin-top: 4px; }
 
+  /* Big combined chart for ONE clicked month: monthly number large centre, annual number small bottom-right */
+  .fs-big-wrap { padding: 18px 16px 20px; display: flex; justify-content: center; }
+  .fs-block.fs-big { max-width: 460px; width: 100%; padding: 18px 20px 22px; }
+  .fs-big .fs-grid { gap: 10px; }
+  .fs-big .fs-cell { border: 1px solid var(--border); }
+  .fs-big .fs-dir { font-size: 11px; top: 8px; letter-spacing: 1px; }
+  .fs-big .fs-val-m { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 46px; line-height: 1; }
+  .fs-big .fs-val-y { position: absolute; bottom: 8px; right: 10px; font-family: 'Cormorant Garamond', serif;
+                       font-weight: 600; font-size: 15px; line-height: 1; opacity: .82; }
+  /* combo colouring: good = any of 1,6,8,9 together · mixed = one of 1,6,8,9 with 3 or 4 · bad = everything else */
+  .fs-cell.good  { background: #dcefdc; border-color: #a9d3ab; }
+  .fs-cell.mixed { background: #fae3c2; border-color: #e0b374; }
+  .fs-cell.bad   { background: #f6d6d6; border-color: #e3a3a3; }
+  .ym-cell.ym-cell-fs { cursor: pointer; }
+  .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
+  .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
+
   @media screen and (max-width: 768px) {
     * { max-width: 100vw; }
     img, iframe, video, table { max-width: 100% !important; }
@@ -422,6 +439,11 @@
     .fs-mini .fs-val { font-size: 14px; }
     .years-range { font-size: 14px; min-width: 92px; }
     .years-nav button { padding: 5px 10px; }
+    .fs-block.fs-big { max-width: 100%; padding: 14px 12px 16px; }
+    .fs-big .fs-val-m { font-size: 32px; }
+    .fs-big .fs-val-y { font-size: 12px; bottom: 5px; right: 7px; }
+    .fs-big .fs-dir { font-size: 9.5px; }
+    .fs-big-wrap { padding: 12px 8px 14px; }
   }
   @media screen and (max-width: 430px) {
     .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1062,6 +1084,34 @@ function fsBlock(title, range, center) {
       <div class="fs-grid">${cells}</div>
     </div>`;
 }
+/* Combined chart for ONE clicked month: monthly star (big, centre) + annual star (small, bottom-right)
+   in the same 9 cells. Colour: good = both stars in {1,6,8,9} · mixed = one of {1,6,8,9} with 3 or 4 · bad = everything else. */
+const FS_GOOD = [1,6,8,9], FS_MIX = [3,4];
+function fsComboClass(a, m) {
+  const gA = FS_GOOD.includes(a), gM = FS_GOOD.includes(m);
+  if (gA && gM) return "good";
+  const mxA = FS_MIX.includes(a), mxM = FS_MIX.includes(m);
+  if ((gA && mxM) || (gM && mxA)) return "mixed";
+  return "bad";
+}
+function fsBlockCombined(title, range, yCenter, mCenter) {
+  const cells = FS_ORDER.map(dir => {
+    const base = LOSHU[dir];
+    const yv = ((base - 1 + (yCenter - 5)) % 9 + 9) % 9 + 1;
+    const mv = ((base - 1 + (mCenter - 5)) % 9 + 9) % 9 + 1;
+    const cls = fsComboClass(yv, mv);
+    return `<div class="fs-cell ${cls}${dir==="C"?" c":""}">
+        <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
+        <span class="fs-val-m fs-${mv}">${mv}</span>
+        <span class="fs-val-y fs-${yv}">${yv}</span>
+      </div>`;
+  }).join("");
+  return `<div class="fs-block fs-big">
+      ${title ? `<div class="fs-title">${title}</div>` : ""}
+      ${range ? `<div class="fs-range">${range}</div>` : ""}
+      <div class="fs-grid">${cells}</div>
+    </div>`;
+}
 function renderLegend() {
   const el = document.getElementById("ind-legend");
   if (!SHOW_IND && !SHOW_CLASH && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
@@ -1272,6 +1322,7 @@ _ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", s
 const YR_MIN = 1900, YR_MAX = 2100, YR_COLS = 11;
 let yrStart = 1950;                       // first decade of the visible window
 let selYear = solarYearNum(new Date());   // default: the current solar year is open
+let selFsMonth = null;                    // 1–12: solar month clicked for the big combined flying-star chart
 const _YGZ = {};                          // year → [gan, zhi] cache
 const GAN10 = "甲乙丙丁戊己庚辛壬癸";
 const LUNAR_MONTH_ZHI = ["寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"];  // lunar month 1 = 寅
@@ -1372,9 +1423,10 @@ function renderYearMonths() {
     return `<div class="ym-hide"><div class="ym-hide-l">${L().hiddenLabel}</div>
       <div class="ym-hide-g">${h.map(g => `<span class="${elClass(g)}">${g}</span>`).join("")}</div></div>`;
   };
-  /* one month cell — `hide` adds the hidden stems, `extra` the solar term */
-  const cell = (m, isLast, hide, extra) => `
-    <div class="ym-cell${m.leap ? " leap" : ""}${isLast ? " last-row" : ""}">
+  /* one month cell — `hide` adds the hidden stems, `extra` the solar term, `mi` makes it clickable
+     (solar months only) for the big combined flying-star chart above */
+  const cell = (m, isLast, hide, extra, mi) => `
+    <div class="ym-cell${m.leap ? " leap" : ""}${isLast ? " last-row" : ""}${mi ? " ym-cell-fs" : ""}${mi && mi===selFsMonth ? " fs-sel" : ""}"${mi ? ` data-mi="${mi}"` : ""}>
       <div class="ym-n">${L().monthWord} ${m.n}${m.leap ? ` <span class="leap-tag">(${L().leapWord})</span>` : ""}</div>
       <div class="ym-range">${dt(m.start)} – ${dt(m.end)}</div>
       ${extra || ""}
@@ -1388,7 +1440,7 @@ function renderYearMonths() {
   const sol = yearMonths(selYear);
   const solStart = liChun(selYear), solEnd = liChun(selYear+1); solEnd.setDate(solEnd.getDate()-1);
   const solCells = sol.map((m, i) =>
-    cell(m, i >= 6, true, `<div class="ym-term">${termLabel(m.jie)}</div>`)).join("");
+    cell(m, i >= 6, true, `<div class="ym-term">${termLabel(m.jie)}</div>`, m.n)).join("");
 
   /* ── lunar months (new moon → new moon) — no hidden stems, no term names ── */
   const lun = lunarMonths(selYear);
@@ -1400,6 +1452,18 @@ function renderYearMonths() {
   const starYear = fsBlock(`${L().yearWord} ${selYear}`, span(solStart, solEnd), yearCenter(selYear));
   const starMonths = sol.map(m => fsBlock(`${L().monthWord} ${m.n}`,
     `${dt(m.start)} – ${dt(m.end)}`, monthCenter(yz, m.z))).join("");
+
+  /* ── big combined chart (annual + monthly together) for the clicked solar month ── */
+  let fsBigHtml = "";
+  const fsMonthObj = selFsMonth ? sol.find(m => m.n === selFsMonth) : null;
+  if (fsMonthObj) {
+    const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
+    fsBigHtml = `
+    <div class="ym-block">
+      <div class="ym-head"><span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span></div>
+      <div class="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
+    </div>`;
+  }
 
   box.innerHTML = `
     <div class="ym-block">
@@ -1416,7 +1480,7 @@ function renderYearMonths() {
       </div>
       <div class="ym-grid">${lunCells}</div>
       ${lun.some(m => m.leap) ? `<div class="ym-note">${L().leapNote}</div>` : ""}
-    </div>
+    </div>${fsBigHtml}
     <div class="ym-block">
       <div class="ym-head"><span class="ym-title">${L().starsTitle} · ${selYear}</span></div>
       <div class="fs-mini">
@@ -1426,6 +1490,13 @@ function renderYearMonths() {
     </div>`;
   document.getElementById("ym-close").addEventListener("click", () => {
     selYear = null; renderYears(); renderYearMonths();
+  });
+  box.querySelectorAll(".ym-cell-fs").forEach(el => {
+    el.addEventListener("click", () => {
+      const mi = +el.getAttribute("data-mi");
+      selFsMonth = (selFsMonth === mi) ? null : mi;
+      renderYearMonths();
+    });
   });
 }
 document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
