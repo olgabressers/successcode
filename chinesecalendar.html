@@ -366,7 +366,8 @@
   .fs-big-wrap { padding: 14px 16px 16px; display: flex; justify-content: center; }
   .fs-block.fs-big { max-width: 320px; width: 100%; padding: 12px 14px 16px; }
   .fs-big .fs-grid { gap: 6px; }
-  .fs-big .fs-cell { border: 1px solid var(--border); }
+  .fs-big .fs-cell { border: 1px solid var(--border); cursor: pointer; }
+  .fs-big .fs-cell.dir-sel { border-width: 4px; border-color: var(--gold); }
   .fs-big .fs-dir { font-size: 9.5px; top: 6px; letter-spacing: 1px; }
   .fs-big .fs-val-m { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 32px; line-height: 1; }
   .fs-big .fs-val-y { position: absolute; bottom: 6px; right: 8px; font-family: 'Cormorant Garamond', serif;
@@ -1501,6 +1502,10 @@ function renderYearMonths() {
       selFsMonth = (selFsMonth === mi) ? null : mi;
       renderYearMonths();
     });
+  });
+  /* click a direction box in the big combined chart -> thick gold frame, to spotlight the direction being discussed */
+  box.querySelectorAll(".fs-big .fs-cell").forEach(el => {
+    el.addEventListener("click", () => el.classList.toggle("dir-sel"));
   });
 }
 document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
