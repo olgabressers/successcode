@@ -1,0 +1,1493 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>八字 · BaZi · Qu Dynamics</title>
+<link rel="canonical" href="https://successcode.net/baziQuDynamics">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+    --el-wood: #2e7d32; --el-fire: #c62828; --el-earth: #8d6e2b;
+    --el-metal: #607d8b; --el-water: #1565c0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { max-width: 100vw; overflow-x: hidden; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+
+  .lang-switch { position: fixed; top: 14px; right: 16px; z-index: 50; display: flex; align-items: center; gap: 4px; }
+  .lang-switch button { background: transparent; border: 1px solid var(--border);
+                        color: var(--text-muted); padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
+                        cursor: pointer; font-family: 'Inter', sans-serif; }
+  .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+  .print-btn { position: fixed; top: 44px; right: 16px; z-index: 50; background: var(--gold);
+               border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
+               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
+
+  .brand-logo { position: fixed; top: 14px; left: 16px; z-index: 50;
+                font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700;
+                letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+                text-decoration: none; line-height: 1; }
+  .brand-logo:hover { color: var(--gold-dim); }
+  .study-link { position: absolute; top: 18px; right: 118px; z-index: 49;
+                font-family: 'Cormorant Garamond', serif;
+                font-size: 15px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+                color: #8b2533; text-decoration: none; line-height: 1.15; white-space: nowrap; }
+  .study-link:hover { color: #6e1d29; }
+
+  header { text-align: center; margin-bottom: 36px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+             color: var(--text-muted); margin-top: 6px; }
+
+  .form-panel { max-width: 820px; margin: 0 auto 24px; background: var(--surface);
+                border: 1px solid var(--border); padding: 24px 28px; }
+  .section-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                   color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
+  .form-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; position: relative; }
+  .form-group.wide2 { grid-column: span 2; }
+  .form-group.full  { grid-column: 1 / -1; }
+  label { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  input, select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+                  padding: 10px 12px; font-size: 14px; font-family: 'Inter', sans-serif;
+                  outline: none; width: 100%; transition: border-color .2s; }
+  input:focus, select:focus { border-color: var(--gold); }
+  .form-actions { margin-top: 18px; }
+  .btn-compute { width: 100%; background: var(--gold); border: 1px solid var(--gold); color: #fff;
+                 padding: 12px 14px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
+                 font-family: 'Inter', sans-serif; cursor: pointer; transition: background .2s; }
+  .btn-compute:hover { background: var(--gold-dim); }
+
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto; display: none; }
+  .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
+  .city-opt:hover { background: #faf7ef; }
+  .solar-info { font-size: 11px; color: var(--gold-dim); margin-top: 6px; min-height: 14px; grid-column: 1 / -1; }
+  .check-group { grid-column: 1 / -1; }
+  .check-label { display: flex; align-items: center; gap: 9px; font-size: 12px;
+                 letter-spacing: 0.3px; text-transform: none; color: var(--text-dim); cursor: pointer; }
+  .check-label input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0;
+                 accent-color: var(--gold); cursor: pointer; flex: 0 0 auto; }
+  .solar-birth { display: none; max-width: 900px; margin: 0 auto 16px; text-align: center;
+                 font-size: 13px; font-weight: 600; letter-spacing: 0.4px; color: var(--gold-dim); }
+  .solar-birth.show { display: block; }
+  .error-msg { max-width: 820px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
+               color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
+
+  .result { max-width: 900px; margin: 0 auto; display: none; }
+  .chart-name { display: none; text-align: center; font-family: 'Cormorant Garamond', serif;
+                font-size: 22px; font-weight: 600; color: var(--gold); letter-spacing: 1px;
+                margin-bottom: 14px; }
+  .chart-name.show { display: block; }
+
+  .hour-boundary { display: none; max-width: 900px; margin: 0 auto 16px; background: #fdf5df;
+                   border: 1px solid var(--gold); color: var(--gold-dim);
+                   padding: 12px 18px; text-align: center; }
+  .hour-boundary.show { display: block; }
+  .hour-boundary .hb-head { font-size: 13px; font-weight: 700; letter-spacing: 0.6px; margin-bottom: 5px; }
+  .hour-boundary .hb-row { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.5; }
+  .hour-boundary .hb-lab { color: var(--text-muted); text-transform: uppercase;
+                           font-size: 10px; letter-spacing: 1px; margin: 0 3px; }
+  .hour-boundary .hb-sep { color: var(--border); margin: 0 8px; }
+  .hour-boundary .cn { font-family: 'Cormorant Garamond', serif; font-size: 18px;
+                       font-weight: 600; vertical-align: middle; }
+  .hour-boundary .hb-pol { color: var(--text-dim); font-size: 11px; }
+
+  /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
+  .chart-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+    gap: 18px;
+    margin-bottom: 18px;
+  }
+
+  /* ── Four Pillars (per-column layout) ─────────────────── */
+  .pillars {
+    background: var(--surface); border: 1px solid var(--border);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .pillar {
+    display: flex; flex-direction: column;
+    border-right: 1px solid var(--border);
+    padding: 14px 10px 16px;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar-h {
+    background: #faf7ef; color: var(--text-muted);
+    font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600;
+    padding: 6px 10px; margin: -14px -10px 6px; width: calc(100% + 20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .pillar-stem, .pillar-branch {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 600; line-height: 1;
+  }
+  .pillar-el {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px; letter-spacing: 0.3px;
+    color: var(--text-muted); line-height: 1.2;
+    text-transform: uppercase;
+    white-space: normal; word-break: break-word; hyphens: auto;
+  }
+  .pillar-qi {
+    font-family: 'Inter', sans-serif;
+    font-size: 9.5px; letter-spacing: 0.2px;
+    color: var(--gold-dim); font-weight: 600;
+    line-height: 1.2;
+    text-transform: uppercase;
+    white-space: normal; word-break: break-word; hyphens: auto;
+  }
+  .pillar-god {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px; line-height: 1.2;
+    color: var(--text-dim); letter-spacing: 0.1px;
+    padding: 0 2px;
+    white-space: normal; word-break: break-word; hyphens: auto;
+  }
+  .pillar-god.hidden-slot { visibility: hidden; height: 12px; }
+  .pillar-hide {
+    margin-top: 4px; padding-top: 10px;
+    width: 100%;
+    border-top: 1px dashed var(--border);
+    display: flex; flex-direction: column; gap: 5px;
+  }
+  .hide-row {
+    display: grid; grid-template-columns: 22px 1fr; gap: 6px;
+    align-items: center; text-align: left;
+    font-family: 'Inter', sans-serif;
+  }
+  .hide-row .hg { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; text-align: center; }
+  .hide-row .hs { font-size: 10.5px; color: var(--text-muted); line-height: 1.3; }
+  .pil-void { opacity: .32; }
+  .pil-void-tag { display: block; font-size: 8px; letter-spacing: 1.5px;
+                  color: var(--text-muted); text-transform: uppercase; margin-top: 3px; font-weight: 600; }
+
+  .el-wood  { color: var(--el-wood); }
+  .el-fire  { color: var(--el-fire); }
+  .el-earth { color: var(--el-earth); }
+  .el-metal { color: var(--el-metal); }
+  .el-water { color: var(--el-water); }
+
+  /* Auxiliary Stars (right column, Shen Sha + Void Branches) */
+  .aux {
+    background: var(--surface); border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .aux-title {
+    padding: 10px 16px; background: #faf7ef;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-dim); font-weight: 700;
+    border-bottom: 1px solid var(--border);
+  }
+  .aux-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .aux-item:last-child { border-bottom: none; }
+  .aux-item.void { background: rgba(184,136,42,0.05); }
+  .aux-name {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px; font-weight: 600;
+    color: var(--gold-dim); letter-spacing: 0.3px;
+    margin-bottom: 4px;
+  }
+  .aux-name .cn { font-family: 'Cormorant Garamond', serif; font-size: 14px; margin-left: 6px; color: var(--gold); font-weight: 500; }
+  .aux-pos {
+    font-size: 12px; color: var(--text-dim);
+    display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap;
+  }
+  .aux-pos .cn { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; }
+  .aux-hit {
+    font-size: 11px; color: var(--gold); font-weight: 600;
+    margin-top: 3px; letter-spacing: 0.2px;
+  }
+  .aux-hit .cn { font-family: 'Cormorant Garamond', serif; font-weight: 600; margin: 0 2px; }
+
+  /* ── Ming Gua + Eight Mansions directions (八宅) ── */
+  .bagua { background: var(--surface); border: 1px solid var(--border);
+           padding: 14px 18px; margin-bottom: 18px; display: none; }
+  .bagua.show { display: block; }
+  .bagua-title { font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+                 color: var(--gold-dim); font-weight: 700; margin-bottom: 10px; }
+  .bagua-title b { color: var(--gold); font-size: 17px; font-family: 'Cormorant Garamond', serif; }
+  .bagua-tbl { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .bagua-tbl th { text-align: left; font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase;
+                  color: var(--text-muted); font-weight: 700; padding: 4px 8px; border-bottom: 1px solid var(--border); }
+  .bagua-tbl td { padding: 5px 8px; border-bottom: 1px solid #f0ede4; }
+  .bagua-tbl tr:last-child td { border-bottom: none; }
+  .bagua-tbl .bg-k { color: var(--text-dim); }
+  .bagua-tbl .bg-d { font-weight: 700; }
+  .bagua-tbl .bg-d.good { color: var(--el-wood); }
+  .bagua-tbl .bg-d.bad  { color: var(--el-fire); }
+  .aux-sub { font-size: 9.5px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+
+  /* ── Luck Pillars (大运) ────────────────── */
+  .dayun {
+    background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px;
+  }
+  .dayun-title { padding: 12px 20px; background: #faf7ef; font-size: 11px; letter-spacing: 2px;
+                 text-transform: uppercase; color: var(--gold-dim); font-weight: 700;
+                 border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .dayun-grid { display: grid; grid-template-columns: repeat(10, 1fr); }
+  .dayun-cell { padding: 12px 6px; text-align: center; border-right: 1px solid var(--border); font-size: 12px; }
+  .dayun-cell:last-child { border-right: none; }
+  .dayun-cell.current { background: #fdf5df; }
+  .dayun-cell.void    { opacity: .32; }
+  .dayun-age { color: var(--text-muted); font-size: 10px; letter-spacing: 1px; margin-bottom: 4px; }
+  .dayun-gz { font-family: 'Cormorant Garamond', serif; font-size: 22px; line-height: 1.15; font-weight: 600; }
+  .dayun-year { color: var(--text-muted); font-size: 10px; margin-top: 4px; }
+  .dayun-shen { color: var(--text-dim); font-size: 10px; margin-top: 3px; line-height: 1.3; }
+  .dayun-liu {
+    margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border);
+    display: flex; flex-direction: column; gap: 3px;
+  }
+  .dayun-liu-row {
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 4px; font-size: 9.5px; color: var(--text-dim); text-align: left;
+    line-height: 1.15; padding: 1px 4px;
+  }
+  .dayun-liu-row.current { background: #fdf5df; outline: 1.5px solid var(--gold);
+                           outline-offset: -1px; border-radius: 2px; font-weight: 700; }
+  .dayun-liu-row.void    { opacity: .35; }
+  .dayun-liu-y { color: var(--text-muted); }
+  .dayun-liu-row.current .dayun-liu-y { color: var(--gold-dim); }
+  .dayun-liu-gz { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 11px; }
+
+  footer-note { display: block; text-align: center; font-size: 10px; letter-spacing: 2px;
+                text-transform: uppercase; color: var(--text-muted); margin-top: 20px; }
+
+  /* ── Print / A4 ─────────────────────────── */
+  @page { size: A4 portrait; margin: 10mm; }
+  @media print {
+    :root { --bg: #fff; }
+    html, body { background: #fff; width: 100%; max-width: none; overflow: visible; }
+    body { padding: 0; font-size: 10px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .lang-switch, .print-btn, .brand-logo, .form-panel, .error-msg, .city-dd { display: none !important; }
+    header { margin-bottom: 6px; }
+    header h1 { font-size: 18px; }
+    header p { font-size: 8px; letter-spacing: 2px; margin-top: 2px; }
+    .result { display: block !important; max-width: 100%; margin: 0; }
+
+    /* Whole page onto one A4: keep blocks intact and compress */
+    .chart-layout, .pillars, .aux, .dayun, .bagua, .hour-boundary { break-inside: avoid; }
+    .chart-layout { gap: 8px; margin-bottom: 8px; }
+    .pillar { padding: 8px 5px 10px; gap: 4px; }
+    .pillar-h { font-size: 8px; padding: 4px 5px; margin: -8px -5px 3px; width: calc(100% + 10px); }
+    .pillar-stem, .pillar-branch { font-size: 23px; }
+    .pillar-god { font-size: 8px; }
+    .pillar-el { font-size: 7.5px; }
+    .pillar-qi { font-size: 7.5px; }
+    .hide-row .hg { font-size: 14px; }
+    .hide-row .hs { font-size: 8px; }
+    .aux-item { padding: 5px 10px; }
+    .aux-pos { font-size: 11px; }
+    .aux-pos .cn { font-size: 15px; }
+    .aux-title { padding: 6px 10px; }
+
+    .hour-boundary { padding: 7px 12px; margin-bottom: 8px; }
+    .hour-boundary .hb-head { font-size: 11px; margin-bottom: 2px; }
+    .hour-boundary .hb-row { font-size: 11px; }
+    .hour-boundary .cn { font-size: 15px; }
+
+    .bagua { padding: 8px 12px; margin-bottom: 8px; }
+    .bagua-title { font-size: 10px; margin-bottom: 5px; }
+    .bagua-tbl { font-size: 10px; }
+    .bagua-tbl td { padding: 2px 6px; }
+
+    /* Luck pillars: 10 columns must fit A4 width */
+    .dayun { margin-bottom: 0; }
+    .dayun-title { padding: 5px 10px; font-size: 9px; }
+    .dayun-cell { padding: 6px 2px; font-size: 9px; break-inside: avoid; }
+    .dayun-gz { font-size: 15px; }
+    .dayun-age, .dayun-year, .dayun-shen { font-size: 8px; }
+    .dayun-liu { margin-top: 6px; padding-top: 5px; gap: 1px; }
+    .dayun-liu-row { font-size: 7.5px; padding: 0 3px; }
+    .dayun-liu-gz { font-size: 9px; }
+  }
+
+  @media (max-width: 640px) {
+    body { padding: 52px 14px 30px; }
+    .lang-switch { top: 12px; right: 10px; }
+    .print-btn { top: 44px; right: 10px; }
+    .brand-logo { top: 14px; left: 10px; font-size: 13px; letter-spacing: 2px; }
+    .study-link { position: static; display: block; width: max-content; max-width: 92%;
+      transform: none; margin: 4px auto 16px; font-size: 12px; letter-spacing: .4px;
+      white-space: nowrap; text-align: center;
+      background: rgba(139,37,51,0.07); border: 1px solid rgba(139,37,51,0.45);
+      padding: 7px 16px; border-radius: 20px; }
+    header h1 { font-size: 22px; }
+    .form-panel { padding: 18px 18px; }
+    .form-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-group.wide2 { grid-column: 1 / -1; }
+
+    .chart-layout { grid-template-columns: 1fr; gap: 12px; }
+    .pillars { grid-template-columns: repeat(4, 1fr); }
+    .pillar { padding: 10px 4px 12px; gap: 6px; }
+    .pillar-h { font-size: 9px; letter-spacing: 1px; padding: 5px 4px; margin: -10px -4px 4px; width: calc(100% + 8px); }
+    .pillar-stem, .pillar-branch { font-size: 24px; }
+    .pillar-god { font-size: 10px; padding: 0 2px; }
+    .hide-row { grid-template-columns: 18px 1fr; gap: 4px; }
+    .hide-row .hg { font-size: 14px; }
+    .hide-row .hs { font-size: 9.5px; }
+    .aux-item { padding: 10px 12px; }
+    .aux-pos .cn { font-size: 18px; }
+
+    .dayun-grid { grid-template-columns: repeat(5, 1fr); }
+    .dayun-cell { border-bottom: 1px solid var(--border); }
+    .dayun-cell:nth-child(5) { border-right: none; }
+    .dayun-cell:nth-child(n+6) { border-bottom: none; }
+    .dayun-gz { font-size: 18px; }
+
+    /* Ming Gua table + boundary readable and contained on phones */
+    .bagua { padding: 12px 14px; }
+    .bagua-tbl { font-size: 12px; }
+    .bagua-tbl th { font-size: 9px; padding: 4px 5px; }
+    .bagua-tbl td { padding: 5px 5px; }
+    .hour-boundary { padding: 11px 14px; }
+    .hour-boundary .hb-row { font-size: 12px; }
+    .hour-boundary .hb-sep { display: block; height: 0; margin: 3px 0; color: transparent; }
+    .hour-boundary .cn { font-size: 16px; }
+  }
+
+  /* ── Qu Dynamics: what leaves ─────────────────────────── */
+  .qd {
+    background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px;
+  }
+  .qd-title { padding: 12px 20px; background: #faf7ef; font-size: 11px; letter-spacing: 2px;
+              text-transform: uppercase; color: var(--gold-dim); font-weight: 700;
+              border-bottom: 1px solid var(--border); }
+  .qd-sub { padding: 10px 20px 2px; font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+  .qd-toggles { display: flex; flex-wrap: wrap; gap: 10px 22px; padding: 14px 20px 4px; }
+  .qd-toggle { display: flex; align-items: center; gap: 8px; cursor: pointer;
+               font-size: 12.5px; color: var(--text-dim); }
+  .qd-toggle input { width: 16px; height: 16px; cursor: pointer; accent-color: var(--gold); }
+  .qd-toggle .qd-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .qd-toggle .qd-gz { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 15px; color: var(--text); }
+  .qd-toggle .qd-gz .void-gz { color: var(--text-muted); }
+  .qd-luck-dot  { background: #7b4397; }
+  .qd-year-dot  { background: var(--gold); }
+  .qd-month-dot { background: #c2185b; }
+
+  .qd-wheels { display: flex; flex-wrap: wrap; gap: 26px; justify-content: center; padding: 22px 20px 26px; }
+  .qd-wheel-block { text-align: center; }
+  .qd-wheel-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+                     color: var(--text-muted); font-weight: 700; margin-bottom: 12px; }
+  .qd-wheel { position: relative; margin: 0 auto; }
+  .qd-wheel.stems  { width: 300px; height: 300px; }
+  .qd-wheel.branches { width: 340px; height: 340px; }
+  .qd-node {
+    position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px;
+    border-radius: 50%; background: #faf8f3; border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700;
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .qd-node.natal { background: #fdf5df; border-color: var(--gold); border-width: 2px; }
+  .qd-node.leaves span.qd-ch { color: var(--text-muted) !important; }
+  .qd-node.leaves::after {
+    content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px;
+    background: #b23b3b; transform: rotate(-18deg); border-radius: 1px;
+  }
+  .qd-node.trig-luck  { box-shadow: 0 0 0 3px #7b4397; }
+  .qd-node.trig-year  { box-shadow: 0 0 0 3px var(--gold); }
+  .qd-node.trig-month { box-shadow: 0 0 0 3px #c2185b; }
+  .qd-node.trig-luck.trig-year   { box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px var(--gold); }
+  .qd-node.trig-luck.trig-month  { box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px #c2185b; }
+  .qd-node.trig-year.trig-month  { box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px #c2185b; }
+  .qd-node.trig-luck.trig-year.trig-month {
+    box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px var(--gold), 0 0 0 9px #c2185b;
+  }
+  .qd-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; justify-content: center;
+               padding: 0 20px 20px; font-size: 11px; color: var(--text-muted); }
+  .qd-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .qd-legend .lg-swatch { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+  .lg-natal  { background: #fdf5df; border: 2px solid var(--gold); }
+  .lg-leaves { background: #faf8f3; border: 1.5px solid var(--border); position: relative; }
+  .lg-leaves::after { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; height: 1.5px;
+                       background: #b23b3b; transform: rotate(-18deg); }
+  .lg-trig   { background: #faf8f3; box-shadow: 0 0 0 2px var(--gold); }
+
+  @media screen and (max-width: 900px) {
+    .qd-wheel.stems { width: 260px; height: 260px; }
+    .qd-wheel.branches { width: 290px; height: 290px; }
+    .qd-node { width: 40px; height: 40px; margin: -20px 0 0 -20px; font-size: 19px; }
+  }
+  @media screen and (max-width: 480px) {
+    .qd-wheel.stems { width: 220px; height: 220px; }
+    .qd-wheel.branches { width: 250px; height: 250px; }
+    .qd-node { width: 34px; height: 34px; margin: -17px 0 0 -17px; font-size: 16px; }
+  }
+  @media print {
+    .qd { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<a class="brand-logo" href="/ru/">SuccessCode</a>
+<a class="study-link" id="study-link" href="/training">Хочу пройти курс Ба Цзы</a>
+
+<div class="lang-switch">
+  <button id="lang-ru" class="on" type="button">RU</button>
+  <button id="lang-en" type="button">EN</button>
+</div>
+
+<button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
+
+<header>
+  <h1>八字 · BaZi · Qu Dynamics</h1>
+  <p data-i18n="tagline">Ба Цзы · Четыре столпа судьбы · Солнечный календарь</p>
+</header>
+
+<div class="error-msg" id="error-display"></div>
+
+<div class="form-panel">
+  <div class="section-label" data-i18n="birthTitle">Дата, время и город рождения</div>
+  <div class="form-grid">
+    <div class="form-group full">
+      <label data-i18n="name">Имя</label>
+      <input type="text" id="f-name" autocomplete="off">
+    </div>
+    <div class="form-group">
+      <label data-i18n="year">Год</label>
+      <input type="number" id="f-year" value="1990" min="1900" max="2100">
+    </div>
+    <div class="form-group">
+      <label data-i18n="month">Месяц</label>
+      <input type="number" id="f-month" value="1" min="1" max="12">
+    </div>
+    <div class="form-group">
+      <label data-i18n="day">День</label>
+      <input type="number" id="f-day" value="1" min="1" max="31">
+    </div>
+    <div class="form-group">
+      <label data-i18n="sex">Пол</label>
+      <select id="f-sex">
+        <option value="1" data-i18n="male">Мужской</option>
+        <option value="0" data-i18n="female">Женский</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label data-i18n="hour">Час</label>
+      <input type="number" id="f-hour" value="12" min="0" max="23">
+    </div>
+    <div class="form-group">
+      <label data-i18n="minute">Минута</label>
+      <input type="number" id="f-min" value="0" min="0" max="59">
+    </div>
+    <div class="form-group wide2">
+      <label data-i18n="city">Город (для пересчёта в солнечное время)</label>
+      <input type="text" id="f-city" value="Amsterdam" autocomplete="off">
+      <div class="city-dd" id="city-dd"></div>
+    </div>
+    <div class="solar-info" id="solar-info"></div>
+    <div class="form-group check-group">
+      <label class="check-label"><input type="checkbox" id="f-solar" checked><span data-i18n="solarTimeLabel">Солнечное время</span></label>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn-compute" id="btn-compute" data-i18n="compute">Рассчитать</button>
+  </div>
+</div>
+
+<div class="result" id="result">
+
+  <!-- Person's name (shown when provided) -->
+  <div class="chart-name" id="chart-name"></div>
+
+  <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
+  <div class="hour-boundary" id="hour-boundary"></div>
+
+  <!-- Chart: 4 pillars on the left, Auxiliary Stars + Void on the right -->
+  <div class="chart-layout">
+    <div class="pillars" id="pillars"></div>
+    <div class="aux" id="aux"></div>
+  </div>
+
+  <!-- Luck pillars -->
+  <div class="dayun">
+    <div class="dayun-title">
+      <span data-i18n="dayunTitle">Большие циклы (大运)</span>
+      <span class="dayun-start" id="dayun-start"></span>
+    </div>
+    <div class="dayun-grid" id="dayun-grid"></div>
+  </div>
+
+  <!-- Ming Gua + Eight Mansions favourable / unfavourable directions -->
+  <div class="bagua" id="bagua"></div>
+
+  <!-- Qu Dynamics: which stems/branches leave, per Luck/Year/Month pillar -->
+  <div class="qd" id="qd">
+    <div class="qd-title" data-i18n="qdTitle">Qu Dynamics — что уходит</div>
+    <div class="qd-sub" data-i18n="qdSub">Отметьте столп(ы) — ниже подсветится, какие стволы и ветви натальной карты уходят под их влиянием.</div>
+    <div class="qd-toggles" id="qd-toggles"></div>
+    <div class="qd-wheels">
+      <div class="qd-wheel-block">
+        <div class="qd-wheel-label" data-i18n="qdStemsLabel">Небесные Стволы</div>
+        <div class="qd-wheel stems" id="qd-wheel-stems"></div>
+      </div>
+      <div class="qd-wheel-block">
+        <div class="qd-wheel-label" data-i18n="qdBranchesLabel">Земные Ветви</div>
+        <div class="qd-wheel branches" id="qd-wheel-branches"></div>
+      </div>
+    </div>
+    <div class="qd-legend">
+      <span><span class="lg-swatch lg-natal"></span><span data-i18n="qdLgNatal">Ваш натальный столп</span></span>
+      <span><span class="lg-swatch lg-trig"></span><span data-i18n="qdLgTrig">Столп-триггер (Удача / Год / Месяц)</span></span>
+      <span><span class="lg-swatch lg-leaves"></span><span data-i18n="qdLgLeaves">Уходит</span></span>
+    </div>
+  </div>
+
+</div>
+
+<script src="/tz.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+<script>
+/* ===== i18n ===== */
+const I18N = {
+  ru: {
+    tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный календарь",
+    birthTitle: "Дата, время и город рождения",
+    name: "Имя",
+    year: "Год", month: "Месяц", day: "День",
+    hour: "Час", minute: "Минута",
+    sex: "Пол", male: "Мужской", female: "Женский",
+    print: "Печать",
+    course: "Хочу пройти курс Ба Цзы",
+    city: "Город (для пересчёта в солнечное время)",
+    cityPh: "Начните вводить город...",
+    compute: "Рассчитать",
+    hourP: "Час", dayP: "День", monthP: "Месяц", yearP: "Год",
+    tenGodStem: "Десять богов (ствол)",
+    tenGodBranch: "Десять богов (ветвь)",
+    voidTag: "Пустая",
+    stem: "Ствол", branch: "Ветвь",
+    hidden: "Скрытые стволы",
+    nayin: "На Инь",
+    dayMaster: "Хозяин дня",
+    dayMasterEl: "Стихия хозяина дня",
+    season: "Сезон",
+    voidBranches: "Пустые ветви (空亡)",
+    lunarDate: "Лунная дата",
+    dayunTitle: "Большие циклы (大运)",
+    dayunStart: "Начало: возраст",
+    age: "возраст",
+    starsTitle: "Дополнительные звёзды",
+    starNoble: "Благородных",
+    starAcademic: "Звезда академика",
+    starTravel: "Путешествующая лошадь",
+    starPeach: "Цветок персика",
+    forDay: "для Дня", forYear: "для Год",
+    guaTitle: "Гуа человека",
+    guaGood: "Благоприятные направления",
+    guaBad: "Неблагоприятные направления",
+    starPosition: "Позиции",
+    starInPillar: "В столпе",
+    starAbsent: "Отсутствует в чарте",
+    starPillarHour: "Час", starPillarDay: "День", starPillarMonth: "Месяц", starPillarYear: "Год",
+    liunianTitle: "Текущий год (流年)",
+    computeFirst: "Введите данные и нажмите «Рассчитать».",
+    invalidDate: "Такой даты не существует.",
+    checkDT: "Проверьте дату и время.",
+    calcErr: "Ошибка расчёта: ",
+    mm: "мин",
+    hourBoundary: "Граница часа",
+    hbBefore: "До", hbAfter: "После",
+    solarTimeLabel: "Солнечное время",
+    solarBirth: "Солнечное время рождения",
+    clockBirth: "Время рождения (по часам)",
+    solarShort: "солнечное время", clockShort: "по часам",
+    minsAfter: "Минут после начала часа",
+    yang: "Ян", yin: "Инь",
+    spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима",
+    qdTitle: "Qu Dynamics — что уходит",
+    qdSub: "Отметьте столп(ы) — ниже подсветится, какие стволы и ветви натальной карты уходят под их влиянием.",
+    qdStemsLabel: "Небесные Стволы", qdBranchesLabel: "Земные Ветви",
+    qdLgNatal: "Ваш натальный столп", qdLgTrig: "Столп-триггер (Удача / Год / Месяц)", qdLgLeaves: "Уходит",
+    qdLuck: "Стоп Удачи", qdYear: "Год", qdMonth: "Месяц", qdVoid: "—"
+  },
+  en: {
+    tagline: "Ba Zi · Four Pillars of Destiny · Solar Calendar",
+    birthTitle: "Birth date, time and city",
+    name: "Name",
+    year: "Year", month: "Month", day: "Day",
+    hour: "Hour", minute: "Minute",
+    sex: "Sex", male: "Male", female: "Female",
+    print: "Print",
+    course: "I want to take the Ba Zi course",
+    city: "City (for solar-time correction)",
+    cityPh: "Start typing a city...",
+    compute: "Compute",
+    hourP: "Hour", dayP: "Day", monthP: "Month", yearP: "Year",
+    tenGodStem: "Ten Gods (Stem)",
+    tenGodBranch: "Ten Gods (Branch)",
+    voidTag: "Void",
+    stem: "Stem", branch: "Branch",
+    hidden: "Hidden Stems",
+    nayin: "Na Yin",
+    dayMaster: "Day Master",
+    dayMasterEl: "Day Master Element",
+    season: "Season",
+    voidBranches: "Void (Kong Wang)",
+    lunarDate: "Lunar date",
+    dayunTitle: "Luck Pillars (大运)",
+    dayunStart: "Start age",
+    age: "age",
+    starsTitle: "Auxiliary Stars",
+    starNoble: "Nobleman",
+    starAcademic: "Academic Star",
+    starTravel: "Travelling Horse",
+    starPeach: "Peach Blossom",
+    forDay: "for Day", forYear: "for Year",
+    guaTitle: "Life Gua",
+    guaGood: "Auspicious directions",
+    guaBad: "Inauspicious directions",
+    starPosition: "Positions",
+    starInPillar: "In pillar",
+    starAbsent: "Not present in the chart",
+    starPillarHour: "Hour", starPillarDay: "Day", starPillarMonth: "Month", starPillarYear: "Year",
+    liunianTitle: "Current Year (流年)",
+    computeFirst: "Enter data and press Compute.",
+    invalidDate: "This date does not exist.",
+    checkDT: "Check date and time.",
+    calcErr: "Calculation error: ",
+    mm: "min",
+    hourBoundary: "Hour boundary",
+    hbBefore: "Before", hbAfter: "After",
+    solarTimeLabel: "Solar time",
+    solarBirth: "Solar birth time",
+    clockBirth: "Birth time (clock)",
+    solarShort: "solar time", clockShort: "clock time",
+    minsAfter: "Minutes after hour start",
+    yang: "Yang", yin: "Yin",
+    spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter",
+    qdTitle: "Qu Dynamics — what leaves",
+    qdSub: "Tick the pillar(s) — the stems and branches of the natal chart that leave under their influence light up below.",
+    qdStemsLabel: "Heavenly Stems", qdBranchesLabel: "Earthly Branches",
+    qdLgNatal: "Your natal pillar", qdLgTrig: "Trigger pillar (Luck / Year / Month)", qdLgLeaves: "Leaves",
+    qdLuck: "Luck Pillar", qdYear: "Year", qdMonth: "Month", qdVoid: "—"
+  }
+};
+/* Language: URL ?lang= > localStorage sc-lang > default 'ru' */
+function initLang(){
+  var q = null;
+  try { q = new URL(location.href).searchParams.get("lang"); } catch(e){}
+  if (q === "ru" || q === "en") { try { localStorage.setItem("sc-lang", q); } catch(e){} return q; }
+  var s = null;
+  try { s = localStorage.getItem("sc-lang"); } catch(e){}
+  return (s === "en" || s === "ru") ? s : "ru";
+}
+let LANG = initLang();
+const L = () => I18N[LANG];
+
+/* ===== Element / stem-branch tables ===== */
+const STEM_EL = {甲:"wood",乙:"wood",丙:"fire",丁:"fire",戊:"earth",己:"earth",庚:"metal",辛:"metal",壬:"water",癸:"water"};
+const BRANCH_EL = {子:"water",丑:"earth",寅:"wood",卯:"wood",辰:"earth",巳:"fire",午:"fire",未:"earth",申:"metal",酉:"metal",戌:"earth",亥:"water"};
+const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
+const EL_NAME_RU = {wood:"Дерево",fire:"Огонь",earth:"Земля",metal:"Металл",water:"Вода"};
+const EL_NAME_EN = {wood:"Wood",fire:"Fire",earth:"Earth",metal:"Metal",water:"Water"};
+const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
+const elName  = ch => (LANG === "ru" ? EL_NAME_RU : EL_NAME_EN)[STEM_EL[ch] || BRANCH_EL[ch]] || "";
+
+/* Ten God translations (drop Chinese chars in display) */
+const TEN_GOD = {
+  ru: {"比肩":"Братство","劫财":"Грабитель богатства","食神":"Дух наслаждения","伤官":"Вызов власти","偏财":"Непрямое богатство","正财":"Прямое богатство","七杀":"7 Убийца","正官":"Правильная власть","偏印":"Непрямые ресурсы","正印":"Прямые ресурсы"},
+  en: {"比肩":"Companion","劫财":"Rob Wealth","食神":"Eating God","伤官":"Hurting Officer","偏财":"Indirect Wealth","正财":"Direct Wealth","七杀":"Seven Killings","正官":"Direct Officer","偏印":"Indirect Resource","正印":"Direct Resource"}
+};
+const tg = s => (TEN_GOD[LANG] && TEN_GOD[LANG][s]) || s || "";
+
+/* Na Yin translations (30 pairs) */
+const NAYIN = {
+  ru: {"海中金":"Металл в море","炉中火":"Огонь в печи","大林木":"Дерево леса","路旁土":"Земля у дороги","剑锋金":"Металл клинка","山头火":"Огонь вершины","涧下水":"Вода в ущелье","城头土":"Земля крепости","白蜡金":"Восковой металл","杨柳木":"Ива","泉中水":"Родниковая вода","屋上土":"Земля крыши","霹雳火":"Гром-огонь","松柏木":"Сосна","长流水":"Проточная вода","沙中金":"Металл в песке","山下火":"Огонь у горы","平地木":"Дерево равнины","壁上土":"Земля стены","金箔金":"Сусальный металл","覆灯火":"Огонь лампы","天河水":"Небесная река","大驿土":"Земля тракта","钗钏金":"Металл заколки","桑柘木":"Тутовое дерево","大溪水":"Ручей","沙中土":"Земля песка","天上火":"Небесный огонь","石榴木":"Гранат","大海水":"Океан"},
+  en: {"海中金":"Sea Metal","炉中火":"Furnace Fire","大林木":"Forest Wood","路旁土":"Roadside Earth","剑锋金":"Blade Metal","山头火":"Peak Fire","涧下水":"Ravine Water","城头土":"Rampart Earth","白蜡金":"Wax Metal","杨柳木":"Willow","泉中水":"Spring Water","屋上土":"Roof Earth","霹雳火":"Thunder Fire","松柏木":"Pine","长流水":"Flowing Water","沙中金":"Sand Metal","山下火":"Foothill Fire","平地木":"Plain Wood","壁上土":"Wall Earth","金箔金":"Gilded Metal","覆灯火":"Lamp Fire","天河水":"River Water","大驿土":"Highway Earth","钗钏金":"Ornament Metal","桑柘木":"Mulberry","大溪水":"Stream","沙中土":"Sand Earth","天上火":"Sky Fire","石榴木":"Pomegranate","大海水":"Ocean"}
+};
+const ny = s => (NAYIN[LANG] && NAYIN[LANG][s]) || s || "";
+
+/* Element polarity labels for each stem and branch (external polarity for branches) */
+const STEM_POLARITY = {
+  ru: {甲:"Дерево Ян",乙:"Дерево Инь",丙:"Огонь Ян",丁:"Огонь Инь",戊:"Земля Ян",己:"Земля Инь",庚:"Металл Ян",辛:"Металл Инь",壬:"Вода Ян",癸:"Вода Инь"},
+  en: {甲:"Wood Yang",乙:"Wood Yin",丙:"Fire Yang",丁:"Fire Yin",戊:"Earth Yang",己:"Earth Yin",庚:"Metal Yang",辛:"Metal Yin",壬:"Water Yang",癸:"Water Yin"}
+};
+const BRANCH_POLARITY = {
+  ru: {子:"Вода Ян",丑:"Земля Инь",寅:"Дерево Ян",卯:"Дерево Инь",辰:"Земля Ян",巳:"Огонь Инь",午:"Огонь Ян",未:"Земля Инь",申:"Металл Ян",酉:"Металл Инь",戌:"Земля Ян",亥:"Вода Инь"},
+  en: {子:"Water Yang",丑:"Earth Yin",寅:"Wood Yang",卯:"Wood Yin",辰:"Earth Yang",巳:"Fire Yin",午:"Fire Yang",未:"Earth Yin",申:"Metal Yang",酉:"Metal Yin",戌:"Earth Yang",亥:"Water Yin"}
+};
+const polarity = ch => (STEM_POLARITY[LANG] && STEM_POLARITY[LANG][ch])
+                    || (BRANCH_POLARITY[LANG] && BRANCH_POLARITY[LANG][ch]) || "";
+
+/* Qi Phases (十二长生) from Day Master + branch. Yang stems forward, Yin stems backward. */
+const BRANCH_ORDER = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+const QI_PHASE_RU = ["Рождение","Ванна","Шапка и пояс","Поступление на службу","Императорский светильник","Ослабление","Болезнь","Смерть","Могила","Разложение","Эмбрион","Питание"];
+const QI_PHASE_EN = ["Birth","Bath","Cap & Belt","Officialdom","Prosperity","Weakening","Illness","Death","Tomb","Extinction","Embryo","Nourishment"];
+const QI_START = {
+  甲:{start:11,dir:+1}, 乙:{start:6,dir:-1},
+  丙:{start:2, dir:+1}, 丁:{start:9,dir:-1},
+  戊:{start:2, dir:+1}, 己:{start:9,dir:-1},
+  庚:{start:5, dir:+1}, 辛:{start:0,dir:-1},
+  壬:{start:8, dir:+1}, 癸:{start:3,dir:-1}
+};
+function qiPhase(dayStem, branch) {
+  const c = QI_START[dayStem]; if (!c) return "";
+  const bi = BRANCH_ORDER.indexOf(branch); if (bi < 0) return "";
+  const idx = c.dir === 1 ? (bi - c.start + 12) % 12 : (c.start - bi + 12) % 12;
+  return (LANG === "ru" ? QI_PHASE_RU : QI_PHASE_EN)[idx];
+}
+
+/* Ten Gods table: index by (DM index, target index) — computed via lunar-js */
+
+/* Hour-branch (时辰) by the odd hour at which the 2-hour block STARTS */
+const BRANCH_BY_START_HOUR = {23:"子",1:"丑",3:"寅",5:"卯",7:"辰",9:"巳",11:"午",13:"未",15:"申",17:"酉",19:"戌",21:"亥"};
+
+/* Season from month branch (BaZi solar month) */
+const SEASON_BY_BRANCH = {
+  寅:"spring",卯:"spring",辰:"spring",
+  巳:"summer",午:"summer",未:"summer",
+  申:"autumn",酉:"autumn",戌:"autumn",
+  亥:"winter",子:"winter",丑:"winter"
+};
+
+/* ===== City + solar time ===== */
+let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", _cityTimer = null;
+const v = id => document.getElementById(id).value;
+const pad = n => String(n).padStart(2, "0");
+
+function showError(m){ const e=document.getElementById("error-display"); e.textContent=m; e.style.display="block"; }
+function hideError(){ document.getElementById("error-display").style.display="none"; }
+
+function tzOffsetMin(date, tz){
+  try{
+    const f=new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p={}; f.formatToParts(date).forEach(x=>p[x.type]=x.value);
+    const hh=p.hour==="24"?"00":p.hour;
+    return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second)-date.getTime())/60000);
+  }catch(e){ return Math.round(LON/15)*60; }
+}
+function corrMin(d){ return Math.round((LON-15*(tzOffsetMin(d,TZNAME)/60))*4); }
+
+function onCityInput(){
+  clearTimeout(_cityTimer);
+  const q=v("f-city").trim();
+  if(q.length<2){document.getElementById("city-dd").style.display="none";return;}
+  _cityTimer=setTimeout(()=>fetchCities(q),350);
+}
+async function fetchCities(q){
+  const dd=document.getElementById("city-dd");
+  try{
+    const r=await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language="+LANG+"&limit=6&q="+encodeURIComponent(q));
+    const arr=await r.json();
+    if(!arr||!arr.length){dd.style.display="none";return;}
+    dd._data=arr;
+    dd.innerHTML=arr.map((c,i)=>`<div class="city-opt" data-i="${i}">${c.display_name}</div>`).join("");
+    dd.style.display="block";
+    dd.querySelectorAll(".city-opt").forEach(el=>el.addEventListener("click", e=>selectCity(+el.getAttribute("data-i"))));
+  }catch(e){ dd.style.display="none"; }
+}
+function selectCity(i){
+  const dd=document.getElementById("city-dd"), c=dd._data[i];
+  LON=parseFloat(c.lon); CITYNAME=c.display_name.split(",")[0];
+  try{ TZNAME=tzlookup(parseFloat(c.lat),LON); }catch(e){}
+  document.getElementById("f-city").value=CITYNAME; dd.style.display="none";
+  updateSolarInfo();
+}
+function updateSolarInfo(){
+  const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
+  if(!y||!mo||!d) return;
+  const clock=new Date(y,mo-1,d,h,mi,0);
+  if(isNaN(clock.getTime())) return;
+  const useSolar = document.getElementById("f-solar").checked;
+  const cm = useSolar ? corrMin(clock) : 0;
+  const sign=cm>=0?"+":"-";
+  document.getElementById("solar-info").textContent =
+    `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
+}
+
+/* ===== Persist last calculation for 1 hour across reloads ===== */
+const LAST_KEY = "bazi-last", LAST_TTL = 3600000; // 1 hour
+function saveState(){
+  try {
+    localStorage.setItem(LAST_KEY, JSON.stringify({
+      name:v("f-name"),
+      y:v("f-year"), mo:v("f-month"), d:v("f-day"),
+      h:v("f-hour"), mi:v("f-min"), sex:v("f-sex"),
+      solar: document.getElementById("f-solar").checked,
+      city:v("f-city"), lon:LON, tz:TZNAME, cityName:CITYNAME,
+      ts: Date.now()
+    }));
+  } catch(e){}
+}
+function loadState(){
+  try {
+    const raw = localStorage.getItem(LAST_KEY);
+    if(!raw) return false;
+    const st = JSON.parse(raw);
+    if(!st || !st.ts || (Date.now() - st.ts > LAST_TTL)){ localStorage.removeItem(LAST_KEY); return false; }
+    if(st.name != null) document.getElementById("f-name").value = st.name;
+    document.getElementById("f-year").value  = st.y;
+    document.getElementById("f-month").value = st.mo;
+    document.getElementById("f-day").value   = st.d;
+    document.getElementById("f-hour").value  = st.h;
+    document.getElementById("f-min").value   = st.mi;
+    document.getElementById("f-sex").value   = st.sex;
+    document.getElementById("f-solar").checked = !!st.solar;
+    document.getElementById("f-city").value  = st.city;
+    if(st.lon != null && !isNaN(parseFloat(st.lon))) LON = parseFloat(st.lon);
+    if(st.tz)       TZNAME   = st.tz;
+    if(st.cityName) CITYNAME = st.cityName;
+    return true;
+  } catch(e){ return false; }
+}
+
+/* ===== Compute ===== */
+function compute(){
+  hideError();
+  try{
+    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
+    const sex=+v("f-sex"); // 1=male, 0=female
+    if(!y||!mo||!d){ showError(L().checkDT); return; }
+    const clock=new Date(y,mo-1,d,h,mi,0);
+    if(clock.getFullYear()!==y||clock.getMonth()!==mo-1||clock.getDate()!==d){
+      showError(L().invalidDate); return;
+    }
+    const useSolar = document.getElementById("f-solar").checked;
+    const cm = useSolar ? corrMin(clock) : 0;
+    const solar=new Date(clock.getTime()+cm*60000);
+    const sy=solar.getFullYear(), smo=solar.getMonth()+1, sd=solar.getDate(),
+          sh=solar.getHours(), smi=solar.getMinutes();
+
+    const S = Solar.fromYmdHms(sy,smo,sd,sh,smi,0);
+    const lunar = S.getLunar();
+    const ec = lunar.getEightChar();
+
+    // BaZi solar year for the Ming Gua (Li Chun ≈ Feb 4; earlier births use the previous year)
+    const baziYear = (smo > 2 || (smo === 2 && sd >= 4)) ? sy : sy - 1;
+
+    render(ec, lunar, sex, cm, baziYear);
+
+    // Person's name (optional) at the top of the chart
+    const nm = v("f-name").trim();
+    const cn = document.getElementById("chart-name");
+    cn.textContent = nm;
+    cn.classList.toggle("show", nm.length > 0);
+
+    // Hour-branch (时辰) boundary check. Branches begin at solar 23:00/01:00/03:00…, but the grid
+    // is DISPLAYED in the user's clock time = shifted by the solar correction (clock = solar − cm).
+    // With Solar-time ticked the boundaries move off the round hours (e.g. 01:49, 03:49, 05:49…);
+    // unticked cm = 0 so they stay on the round hours. Warn within ±15 min of a switch.
+    const solMin = sh*60 + smi;
+    const r = ((((solMin - 60) % 120) + 120) % 120);   // minutes into the current branch
+    const distToBoundary = Math.min(r, 120 - r);
+    const hb = document.getElementById("hour-boundary");
+    if (distToBoundary <= 15) {
+      const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary (calc frame)
+      const bH   = ((Math.round(bMin / 60)) % 24 + 24) % 24;      // boundary hour (odd)
+      const beforeBr = BRANCH_BY_START_HOUR[(bH - 2 + 24) % 24];  // branch before the boundary
+      const afterBr  = BRANCH_BY_START_HOUR[bH];                  // branch after the boundary
+      const fmt = m => { const x = ((Math.round(m)) % 1440 + 1440) % 1440; return `${pad(Math.floor(x/60))}:${pad(x%60)}`; };
+      const bClock  = bH*60 - cm;         // the switch, in clock time
+      const startCl = (bH-2)*60 - cm;     // start of the earlier branch, clock time
+      const endCl   = (bH+2)*60 - cm;     // end of the later branch, clock time
+      hb.innerHTML =
+        `<div class="hb-head">${L().hourBoundary} · ${fmt(bClock)}</div>` +
+        `<div class="hb-row">` +
+          `<span class="hb-lab">${L().hbBefore}</span> ${fmt(startCl)}–${fmt(bClock)} → ` +
+          `<span class="cn ${elClass(beforeBr)}">${beforeBr}</span> <span class="hb-pol">${polarity(beforeBr)}</span>` +
+          `<span class="hb-sep">·</span>` +
+          `<span class="hb-lab">${L().hbAfter}</span> ${fmt(bClock)}–${fmt(endCl)} → ` +
+          `<span class="cn ${elClass(afterBr)}">${afterBr}</span> <span class="hb-pol">${polarity(afterBr)}</span>` +
+        `</div>`;
+      hb.classList.add("show");
+    } else { hb.classList.remove("show"); hb.innerHTML = ""; }
+
+    saveState();
+    document.getElementById("result").style.display="block";
+  }catch(err){
+    console.error(err);
+    showError(L().calcErr + err.message);
+  }
+}
+
+/* ===== Render ===== */
+function pillarsCells(ec){
+  // Order columns: Hour, Day, Month, Year (traditional right-to-left; we display L->R)
+  const yZ=ec.getYearZhi(),  yStem=ec.getYearGan();
+  const mZ=ec.getMonthZhi(), mStem=ec.getMonthGan();
+  const dZ=ec.getDayZhi(),   dStem=ec.getDayGan();
+  const tZ=ec.getTimeZhi(),  tStem=ec.getTimeGan();
+
+  // Ten Gods (stem) relative to Day Master. Day stem's Ten God relative to itself = 比肩.
+  const yShen = ec.getYearShiShenGan();
+  const mShen = ec.getMonthShiShenGan();
+  const tShen = ec.getTimeShiShenGan();
+  const dShen = "比肩";
+
+  // Hidden stems + ten gods
+  const yHide = ec.getYearHideGan(),  yHideShen = ec.getYearShiShenZhi();
+  const mHide = ec.getMonthHideGan(), mHideShen = ec.getMonthShiShenZhi();
+  const dHide = ec.getDayHideGan(),   dHideShen = ec.getDayShiShenZhi();
+  const tHide = ec.getTimeHideGan(),  tHideShen = ec.getTimeShiShenZhi();
+
+  // Nayin
+  const yNy = ec.getYearNaYin();
+  const mNy = ec.getMonthNaYin();
+  const dNy = ec.getDayNaYin();
+  const tNy = ec.getTimeNaYin();
+
+  // Void branches (空亡) — grey any pillar whose BRANCH is in this set
+  const kong = ec.getDayXunKong ? (ec.getDayXunKong()||"") : "";
+  const voidSet = new Set(kong.split(""));
+  const isVoid = [voidSet.has(tZ), voidSet.has(dZ), voidSet.has(mZ), voidSet.has(yZ)];
+
+  return {
+    labels:   [L().hourP, L().dayP, L().monthP, L().yearP],
+    shenStem: [tShen, dShen, mShen, yShen],                          // Ten Gods for stems (day = 比肩)
+    shenBranch: [tHideShen && tHideShen[0], dHideShen && dHideShen[0], mHideShen && mHideShen[0], yHideShen && yHideShen[0]], // primary hidden-stem Ten God
+    stem:     [tStem, dStem, mStem, yStem],
+    zhi:      [tZ, dZ, mZ, yZ],
+    hide:     [tHide, dHide, mHide, yHide],
+    hideShen: [tHideShen, dHideShen, mHideShen, yHideShen],
+    nayin:    [tNy, dNy, mNy, yNy],
+    isVoid:   isVoid
+  };
+}
+
+function renderPillars(ec){
+  const p = pillarsCells(ec);
+  const dm = ec.getDayGan();
+  const cols = [];
+  const isDayCol = i => i === 1;
+
+  for (let i = 0; i < 4; i++) {
+    const voidCls = p.isVoid[i] ? " pil-void" : "";
+    const voidTagHtml = p.isVoid[i] ? `<span class="pil-void-tag">${L().voidTag}</span>` : "";
+    const hideArr = p.hide[i] || [];
+    const hideShen = p.hideShen[i] || [];
+    const hideRows = hideArr.map((g,j) =>
+      `<div class="hide-row"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg(hideShen[j]||"")}</span></div>`
+    ).join("");
+
+    // Stem Ten God — hidden entirely under the Day Master (per user rule)
+    const stemGodHtml = isDayCol(i)
+      ? `<div class="pillar-god hidden-slot">·</div>`
+      : `<div class="pillar-god">${tg(p.shenStem[i])}</div>`;
+
+    // Element polarity under stem AND branch
+    const stemEl = polarity(p.stem[i]);
+    const branchEl = polarity(p.zhi[i]);
+
+    // Qi Phase under the branch (calculated from Day Master)
+    const qi = qiPhase(dm, p.zhi[i]);
+
+    cols.push(`<div class="pillar${voidCls}">
+      <div class="pillar-h">${p.labels[i]}${voidTagHtml}</div>
+      <div class="pillar-stem ${elClass(p.stem[i])}">${p.stem[i]}</div>
+      <div class="pillar-el">${stemEl}</div>
+      ${stemGodHtml}
+      <div class="pillar-branch ${elClass(p.zhi[i])}">${p.zhi[i]}</div>
+      <div class="pillar-el">${branchEl}</div>
+      <div class="pillar-qi">${qi}</div>
+      ${hideRows ? `<div class="pillar-hide">${hideRows}</div>` : ""}
+    </div>`);
+  }
+
+  document.getElementById("pillars").innerHTML = cols.join("");
+}
+
+function renderSummary(ec, lunar){
+  const dmStem = ec.getDayGan();
+  const dmEl = STEM_EL[dmStem];
+  const dmYY = STEM_YY[dmStem];
+  const dmYYName = dmYY === "yang" ? L().yang : L().yin;
+
+  const monthZhi = ec.getMonthZhi();
+  const season = SEASON_BY_BRANCH[monthZhi];
+  const seasonName = L()[season] || "";
+
+  // Void branches: use day-pillar-based Xun Kong
+  const kong = ec.getDayXunKong ? ec.getDayXunKong() : "";
+  const kongStr = kong ? kong.split("").map(z=>`<span class="cn ${elClass(z)}">${z}</span>`).join(" ") : "—";
+
+  // Lunar date
+  const lunarStr = `${lunar.getYearInChinese()} · ${lunar.getMonthInChinese()}月 · ${lunar.getDayInChinese()}`;
+
+  document.getElementById("summary").innerHTML = `
+    <div class="sum-item">
+      <div class="sum-label">${L().dayMaster}</div>
+      <div class="sum-value"><span class="cn ${elClass(dmStem)}">${dmStem}</span></div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-label">${L().dayMasterEl}</div>
+      <div class="sum-value"><span class="${elClass(dmStem)}">${elName(dmStem)} · ${dmYYName}</span></div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-label">${L().season}</div>
+      <div class="sum-value"><span class="cn ${elClass(monthZhi)}">${monthZhi}</span> ${seasonName}</div>
+    </div>
+    <div class="sum-item">
+      <div class="sum-label">${L().voidBranches}</div>
+      <div class="sum-value">${kongStr}</div>
+    </div>
+  `;
+}
+
+/* ===== Auxiliary Stars (神煞) ===== */
+const NOBLE_BY_DAY_STEM = {
+  甲:["丑","未"], 戊:["丑","未"], 庚:["丑","未"],
+  乙:["子","申"], 己:["子","申"],
+  丙:["亥","酉"], 丁:["亥","酉"],
+  辛:["午","寅"],
+  壬:["巳","卯"], 癸:["巳","卯"]
+};
+const ACADEMIC_BY_DAY_STEM = {
+  甲:"巳", 乙:"午", 丙:"申", 戊:"申", 丁:"酉", 己:"酉",
+  庚:"亥", 辛:"子", 壬:"寅", 癸:"卯"
+};
+const TRAVEL_HORSE_BY_BRANCH = {
+  申:"寅", 子:"寅", 辰:"寅",
+  巳:"亥", 酉:"亥", 丑:"亥",
+  寅:"申", 午:"申", 戌:"申",
+  亥:"巳", 卯:"巳", 未:"巳"
+};
+const PEACH_BY_BRANCH = {
+  申:"酉", 子:"酉", 辰:"酉",
+  巳:"午", 酉:"午", 丑:"午",
+  寅:"卯", 午:"卯", 戌:"卯",
+  亥:"子", 卯:"子", 未:"子"
+};
+
+function renderStars(ec){
+  const dm = ec.getDayGan();
+  const dayZhi = ec.getDayZhi();
+  const yearZhi = ec.getYearZhi();
+
+  const noble     = NOBLE_BY_DAY_STEM[dm] || [];
+  const academic  = [ACADEMIC_BY_DAY_STEM[dm]].filter(Boolean);
+  const travel    = [TRAVEL_HORSE_BY_BRANCH[dayZhi]].filter(Boolean);
+  const peachDay  = [PEACH_BY_BRANCH[dayZhi]].filter(Boolean);
+  const peachYear = [PEACH_BY_BRANCH[yearZhi]].filter(Boolean);
+  const voidDay   = ec.getDayXunKong  ? (ec.getDayXunKong()||"")  : "";
+  const voidYear  = ec.getYearXunKong ? (ec.getYearXunKong()||"") : "";
+
+  const z   = ch => `<span class="cn ${elClass(ch)}">${ch}</span>`;
+  const pos = arr => arr.length ? arr.map(z).join(" ") : "—";
+  const kong = k => k ? k.split("").map(z).join(" ") : "—";
+  const dual = (d, y) => `<span class="aux-sub">${L().forDay}:</span> ${d} &nbsp; <span class="aux-sub">${L().forYear}:</span> ${y}`;
+  const item = (name, body, cls) => `<div class="aux-item${cls?" "+cls:""}">
+      <div class="aux-name">${name}</div><div class="aux-pos">${body}</div></div>`;
+
+  document.getElementById("aux").innerHTML =
+    `<div class="aux-title">${L().starsTitle}</div>` +
+    item(L().starNoble,    pos(noble)) +
+    item(L().starAcademic, pos(academic)) +
+    item(L().starTravel,   pos(travel)) +
+    item(L().starPeach,    dual(pos(peachDay),  pos(peachYear))) +
+    item(L().voidBranches, dual(kong(voidDay),  kong(voidYear)), "void");
+}
+
+/* ===== Ming Gua (命卦) + Eight Mansions directions (八宅) =====
+   Kua formula: BaZi solar (Li-Chun) year, standard pre/post-2000 male/female rule.
+   Direction table derived algorithmically (trigram line-change / XOR method),
+   calibrated to the validated Gua-7 chart. */
+const DIR_RU = {N:"С",S:"Ю",E:"В",W:"З",NE:"СВ",NW:"СЗ",SE:"ЮВ",SW:"ЮЗ"};
+const DIR_EN = {N:"N",S:"S",E:"E",W:"W",NE:"NE",NW:"NW",SE:"SE",SW:"SW"};
+const TRIGRAM_DIR = {"010":"N","000":"SW","001":"E","110":"SE","111":"NW","011":"W","100":"NE","101":"S"};
+const GUA_BITS = {1:"010",2:"000",3:"001",4:"110",6:"111",7:"011",8:"100",9:"101"};
+const STAR_BY_XOR = {"000":"fuwei","100":"shengqi","011":"tianyi","111":"yannian",
+                     "001":"huohai","101":"liusha","110":"wugui","010":"jueming"};
+const STAR_NAME = {
+  ru:{shengqi:"Шень-Ци",tianyi:"Тянь-И",yannian:"Янь-Нянь",fuwei:"Фу-Вэй",huohai:"Хо-Хай",wugui:"У-Гуй",liusha:"Лю-Ша",jueming:"Дзюэ-Минг"},
+  en:{shengqi:"Sheng Qi",tianyi:"Tian Yi",yannian:"Yan Nian",fuwei:"Fu Wei",huohai:"Huo Hai",wugui:"Wu Gui",liusha:"Liu Sha",jueming:"Jue Ming"}
+};
+function mingGua(year, sex){ // sex: 1=male, 0=female
+  let s = (Math.floor(year/10)%10) + (year%10);
+  while (s > 9) s = Math.floor(s/10) + (s%10);
+  let g = (year < 2000) ? (sex===1 ? 10-s : 5+s) : (sex===1 ? 9-s : 6+s);
+  while (g > 9) g = Math.floor(g/10) + (g%10);
+  if (g === 0) g = 9;
+  if (g === 5) g = (sex===1) ? 2 : 8;
+  return g;
+}
+function baguaDirections(gua){
+  const bits = GUA_BITS[gua]; if(!bits) return null;
+  const out = {};
+  Object.keys(TRIGRAM_DIR).forEach(tb => {
+    let xor = "";
+    for (let i=0;i<3;i++) xor += (bits[i]===tb[i] ? "0" : "1");
+    out[STAR_BY_XOR[xor]] = TRIGRAM_DIR[tb];
+  });
+  return out;
+}
+function renderBagua(baziYear, sex){
+  const gua = mingGua(baziYear, sex);
+  const d   = baguaDirections(gua);
+  const nm  = LANG==="ru" ? STAR_NAME.ru : STAR_NAME.en;
+  const dir = LANG==="ru" ? DIR_RU : DIR_EN;
+  const good = ["shengqi","tianyi","yannian","fuwei"];
+  const bad  = ["huohai","wugui","liusha","jueming"];
+  const rows = good.map((g,i) => {
+    const b = bad[i];
+    return `<tr>
+      <td class="bg-k">${nm[g]}:</td><td class="bg-d good">${dir[d[g]]}</td>
+      <td class="bg-k">${nm[b]}:</td><td class="bg-d bad">${dir[d[b]]}</td></tr>`;
+  }).join("");
+  const el = document.getElementById("bagua");
+  el.innerHTML =
+    `<div class="bagua-title">${L().guaTitle}: <b>${gua}</b></div>
+     <table class="bagua-tbl">
+       <thead><tr><th colspan="2">${L().guaGood}</th><th colspan="2">${L().guaBad}</th></tr></thead>
+       <tbody>${rows}</tbody></table>`;
+  el.classList.add("show");
+}
+
+function renderDayun(ec, sex){
+  // sex: 1=male, 0=female per lunar-js. sect=2 for modern-common calculation.
+  const yun = ec.getYun(sex, 2);
+  const arr = yun.getDaYun(11); // [childhood(index 0), luck1..luck10]
+  const firstLuck = arr[1];
+  const startYear = firstLuck ? firstLuck.getStartYear() : "";
+  const startAge = firstLuck ? firstLuck.getStartAge() : "";
+  const currentYear = (new Date()).getFullYear();
+  const dm = ec.getDayGan();
+
+  const cells = [];
+  for (let i = 1; i <= 10; i++) {
+    const d = arr[i];
+    if (!d) break;
+    const gz = d.getGanZhi();
+    const startY = d.getStartYear();
+    const endY = d.getEndYear();
+    const startA = d.getStartAge();
+    const endA = d.getEndAge();
+    const isCurrent = currentYear >= startY && currentYear <= endY;
+
+    const gan = gz.charAt(0), zhi = gz.charAt(1);
+    const shenCn = tenGodStem(dm, gan);
+
+    // Annual (流年) list — 10 rows per luck pillar. NO void styling here — only natal pillars can be void.
+    let liuRows = "";
+    try {
+      const liu = d.getLiuNian ? d.getLiuNian(10) : null;
+      if (liu && liu.length) {
+        liuRows = liu.map(ln => {
+          const lgz = ln.getGanZhi();
+          const lg = lgz.charAt(0), lz = lgz.charAt(1);
+          const lYear = ln.getYear();
+          const lAge = ln.getAge();
+          const lCurr = lYear === currentYear;
+          const lShen = tg(tenGodStem(dm, lg));
+          return `<div class="dayun-liu-row ${lCurr ? "current" : ""}" title="${L().age} ${lAge} · ${lShen}">
+            <span class="dayun-liu-y">${lYear}</span>
+            <span class="dayun-liu-gz"><span class="${elClass(lg)}">${lg}</span><span class="${elClass(lz)}">${lz}</span></span>
+          </div>`;
+        }).join("");
+      }
+    } catch(e) { liuRows = ""; }
+
+    cells.push(`<div class="dayun-cell ${isCurrent ? "current" : ""}">
+      <div class="dayun-age">${startA}–${endA}</div>
+      <div class="dayun-gz">
+        <span class="${elClass(gan)}">${gan}</span><br>
+        <span class="${elClass(zhi)}">${zhi}</span>
+      </div>
+      <div class="dayun-shen">${tg(shenCn)}</div>
+      <div class="dayun-year">${startY}–${endY}</div>
+      ${liuRows ? `<div class="dayun-liu">${liuRows}</div>` : ""}
+    </div>`);
+  }
+
+  document.getElementById("dayun-grid").innerHTML = cells.join("");
+  document.getElementById("dayun-start").textContent =
+    `${L().dayunStart}: ${startAge} · ${startYear}`;
+}
+
+/* Ten Gods relative to Day Master */
+const STEM_IDX = {甲:0,乙:1,丙:2,丁:3,戊:4,己:5,庚:6,辛:7,壬:8,癸:9};
+const TEN_GODS_RU = ["比肩","劫财","食神","伤官","偏财","正财","七杀","正官","偏印","正印"];
+// Map: (target_el rel to DM_el, target_polarity rel to DM_polarity) → ten god
+function tenGodStem(dm, target){
+  if (!dm || !target) return "";
+  const dmEl = STEM_EL[dm], tEl = STEM_EL[target];
+  const dmY = STEM_YY[dm], tY = STEM_YY[target];
+  const rel = elRelation(dmEl, tEl); // "self","gen_out","overc_out","overc_in","gen_in"
+  const same = (dmY === tY);
+  const map = {
+    self:     same ? "比肩" : "劫财",
+    gen_out:  same ? "食神" : "伤官",
+    overc_out:same ? "七杀" : "正官",   // note: overc_out from DM's perspective is DM overcoming target
+    // reversed
+  };
+  // Simpler: use standard 10-gods matrix by (dm_idx, target_idx)
+  const M = [
+    // 甲  乙  丙  丁  戊  己  庚  辛  壬  癸
+    ["比肩","劫财","食神","伤官","偏财","正财","七杀","正官","偏印","正印"], // 甲
+    ["劫财","比肩","伤官","食神","正财","偏财","正官","七杀","正印","偏印"], // 乙
+    ["偏印","正印","比肩","劫财","食神","伤官","偏财","正财","七杀","正官"], // 丙
+    ["正印","偏印","劫财","比肩","伤官","食神","正财","偏财","正官","七杀"], // 丁
+    ["七杀","正官","偏印","正印","比肩","劫财","食神","伤官","偏财","正财"], // 戊
+    ["正官","七杀","正印","偏印","劫财","比肩","伤官","食神","正财","偏财"], // 己
+    ["偏财","正财","七杀","正官","偏印","正印","比肩","劫财","食神","伤官"], // 庚
+    ["正财","偏财","正官","七杀","正印","偏印","劫财","比肩","伤官","食神"], // 辛
+    ["食神","伤官","偏财","正财","七杀","正官","偏印","正印","比肩","劫财"], // 壬
+    ["伤官","食神","正财","偏财","正官","七杀","正印","偏印","劫财","比肩"]  // 癸
+  ];
+  return M[STEM_IDX[dm]][STEM_IDX[target]];
+}
+function elRelation(){ return ""; } // placeholder; not used
+
+function renderLiunian(ec){
+  const dm = ec.getDayGan();
+  const y = (new Date()).getFullYear();
+  const S = Solar.fromYmdHms(y, 6, 1, 12, 0, 0); // any mid-year date
+  const lu = S.getLunar();
+  const yStem = lu.getYearGanByLiChun();
+  const yZhi = lu.getYearZhiByLiChun();
+  const shen = tenGodStem(dm, yStem);
+  document.getElementById("liunian").innerHTML = `
+    <div class="liunian-label">${y} · ${L().liunianTitle}</div>
+    <div class="liunian-gz">
+      <span class="${elClass(yStem)}">${yStem}</span><span class="${elClass(yZhi)}">${yZhi}</span>
+    </div>
+    <div class="liunian-meta">${tg(shen)} · ${elName(yStem)} / ${elName(yZhi)}</div>
+  `;
+}
+
+/* ===== Qu Dynamics — "what leaves" tables =====
+   Source: Date Selection Tool/Study material Qu Dynamics (5 photographed pages,
+   read in full, char-by-char, cross-verified via zoomed crops — none of this is
+   derived/guessed). НС = Heavenly Stem, ЗВ = Earthly Branch.
+   Three separate rule sets, one per pillar layer: Luck (大运), Year (流年), Month (流月). */
+const QD_STEM_ORDER   = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+const QD_BRANCH_ORDER = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+
+const QD_LUCK_STEM_LEAVES = {
+  甲:["己","戊"], 乙:["庚","己"], 丙:["辛","庚"], 丁:["壬","辛"], 戊:["癸","壬"],
+  己:["甲","癸"], 庚:["乙","甲"], 辛:["丙","乙"], 壬:["丁","丙"], 癸:["戊","丁"]
+};
+const QD_LUCK_BRANCH_LEAVES = {
+  寅:["丑","亥","申","未"], 卯:["戌","酉","申"],       辰:["子","戌","酉"],
+  巳:["酉","申","亥"],      午:["未","亥","子"],       未:["午","寅","丑"],
+  申:["巳","卯","寅"],      酉:["辰","巳","卯"],       戌:["卯","子","辰"],
+  亥:["寅","午","巳"],      子:["丑","戌","辰","午"],  丑:["子","寅","未"]
+};
+const QD_YEAR_STEM_LEAVES = {
+  甲:["己","戊","壬","癸"],      乙:["庚","己","壬","癸","甲"], 丙:["辛","庚","甲","乙"],
+  丁:["壬","辛","丙","甲","乙"], 戊:["癸","壬","丙","丁"],      己:["甲","癸","丙","丁","戊"],
+  庚:["乙","甲","戊","己"],      辛:["丙","乙","庚","戊","己"], 壬:["丁","丙","庚","辛"],
+  癸:["戊","丁","壬","庚","辛"]
+};
+const QD_YEAR_BRANCH_LEAVES = {
+  寅:["丑","子","亥","戌","酉","申","未"],
+  卯:["寅","丑","子","亥","戌","酉","申"],
+  辰:["卯","寅","丑","子","亥","戌","酉"],
+  巳:["辰","卯","寅","丑","子","亥","酉","申"],
+  午:["未","巳","辰","卯","寅","丑","子","亥"],
+  未:["午","巳","辰","卯","寅","丑"],
+  申:["未","午","巳","辰","卯","寅"],
+  酉:["申","未","午","巳","辰","卯"],
+  戌:["酉","申","未","午","巳","辰","卯","子"],
+  亥:["戌","酉","申","未","午","巳","寅"],
+  子:["亥","戌","酉","申","未","午","辰","丑"],
+  丑:["子","亥","戌","酉","申","未","寅"]
+};
+const QD_MONTH_STEM_LEAVES = {
+  甲:["己","戊","乙","丙","丁"], 乙:["庚","己","丙","丁"],      丙:["辛","庚","丁","戊","己"],
+  丁:["壬","辛","戊","己"],      戊:["癸","壬","己","庚","辛"], 己:["甲","癸","庚","辛"],
+  庚:["乙","甲","辛","壬","癸"], 辛:["丙","乙","壬","癸"],      壬:["丁","丙","癸","甲","乙"],
+  癸:["戊","丁","甲","乙"]
+};
+const QD_MONTH_BRANCH_LEAVES = {
+  寅:["卯","辰","巳","午","未","申","亥","丑"],
+  卯:["辰","巳","午","未","申","酉","戌"],
+  辰:["巳","午","未","申","酉","戌","子"],
+  巳:["午","未","申","酉","戌","亥"],
+  午:["未","申","酉","戌","亥","子"],
+  未:["申","酉","戌","亥","子","丑","寅","午"],
+  申:["酉","戌","亥","子","丑","寅","卯","巳"],
+  酉:["戌","亥","子","丑","寅","卯","辰","巳"],
+  戌:["亥","子","丑","寅","卯","辰"],
+  亥:["子","丑","寅","卯","辰","巳","午"],
+  子:["丑","寅","卯","辰","巳","午","戌"],
+  丑:["子","寅","卯","辰","巳","午","未"]
+};
+
+const QD_STATE = { luck:false, year:false, month:false };
+let QD_PERIODS = [];
+let QD_NATAL_STEMS = [];
+let QD_NATAL_BRANCHES = [];
+
+function qdWheelPositions(n, radiusPct){
+  const pts = [];
+  for(let i=0;i<n;i++){
+    const a = (Math.PI*2*i/n) - Math.PI/2;   // start at 12 o'clock, clockwise
+    pts.push({ x: 50 + radiusPct*Math.cos(a), y: 50 + radiusPct*Math.sin(a) });
+  }
+  return pts;
+}
+
+function renderQdWheels(){
+  const leaveStems = new Set(), leaveBranches = new Set();
+  const stemTables   = { luck: QD_LUCK_STEM_LEAVES,   year: QD_YEAR_STEM_LEAVES,   month: QD_MONTH_STEM_LEAVES };
+  const branchTables = { luck: QD_LUCK_BRANCH_LEAVES, year: QD_YEAR_BRANCH_LEAVES, month: QD_MONTH_BRANCH_LEAVES };
+  const trigStemOf = {}, trigBranchOf = {};
+
+  QD_PERIODS.forEach(p => {
+    if(!QD_STATE[p.key] || !p.gz) return;
+    const g = p.gz[0], z = p.gz[1];
+    (stemTables[p.key][g] || []).forEach(s => leaveStems.add(s));
+    (branchTables[p.key][z] || []).forEach(b => leaveBranches.add(b));
+    (trigStemOf[g] = trigStemOf[g] || []).push(p.trigClass);
+    (trigBranchOf[z] = trigBranchOf[z] || []).push(p.trigClass);
+  });
+
+  const stemPts = qdWheelPositions(10, 40);
+  document.getElementById("qd-wheel-stems").innerHTML = QD_STEM_ORDER.map((ch,i) => {
+    const cls = ["qd-node"];
+    if(QD_NATAL_STEMS.includes(ch)) cls.push("natal");
+    if(leaveStems.has(ch)) cls.push("leaves");
+    (trigStemOf[ch]||[]).forEach(t => cls.push(t));
+    const pt = stemPts[i];
+    return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${ch}">
+      <span class="qd-ch ${elClass(ch)}">${ch}</span>
+    </div>`;
+  }).join("");
+
+  const branchPts = qdWheelPositions(12, 41);
+  document.getElementById("qd-wheel-branches").innerHTML = QD_BRANCH_ORDER.map((ch,i) => {
+    const cls = ["qd-node"];
+    if(QD_NATAL_BRANCHES.includes(ch)) cls.push("natal");
+    if(leaveBranches.has(ch)) cls.push("leaves");
+    (trigBranchOf[ch]||[]).forEach(t => cls.push(t));
+    const pt = branchPts[i];
+    return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${ch}">
+      <span class="qd-ch ${elClass(ch)}">${ch}</span>
+    </div>`;
+  }).join("");
+}
+
+function renderQuDynamics(ec, sex){
+  QD_NATAL_STEMS = [ec.getYearGan(), ec.getMonthGan(), ec.getDayGan(), ec.getTimeGan()];
+  QD_NATAL_BRANCHES = [ec.getYearZhi(), ec.getMonthZhi(), ec.getDayZhi(), ec.getTimeZhi()];
+
+  // Current Luck Pillar (今 大运) — same age-bucket lookup as renderDayun()
+  let luckGz = null;
+  try{
+    const yun = ec.getYun(sex, 2);
+    const arr = yun.getDaYun(11);
+    const currentYear = (new Date()).getFullYear();
+    for(let i=1;i<=10;i++){
+      const d = arr[i]; if(!d) break;
+      if(currentYear >= d.getStartYear() && currentYear <= d.getEndYear()){ luckGz = d.getGanZhi(); break; }
+    }
+  }catch(e){}
+
+  // Current Year pillar — LiChun-based (project calendar-boundary rule for BaZi)
+  const now = new Date();
+  const yLunar = Solar.fromYmdHms(now.getFullYear(), 6, 1, 12, 0, 0).getLunar();
+  const yearGz = yLunar.getYearGanByLiChun() + yLunar.getYearZhiByLiChun();
+
+  // Current Month pillar — solar-term based (same method used for the natal month pillar)
+  const mEc = Solar.fromYmdHms(now.getFullYear(), now.getMonth()+1, now.getDate(), 12, 0, 0).getLunar().getEightChar();
+  const monthGz = mEc.getMonthGan() + mEc.getMonthZhi();
+
+  QD_PERIODS = [
+    { key:"luck",  label:L().qdLuck,  dotClass:"qd-luck-dot",  trigClass:"trig-luck",  gz: luckGz },
+    { key:"year",  label:L().qdYear,  dotClass:"qd-year-dot",  trigClass:"trig-year",  gz: yearGz },
+    { key:"month", label:L().qdMonth, dotClass:"qd-month-dot", trigClass:"trig-month", gz: monthGz }
+  ];
+
+  document.getElementById("qd-toggles").innerHTML = QD_PERIODS.map(p => {
+    const gzHtml = p.gz
+      ? `<span class="qd-gz"><span class="${elClass(p.gz[0])}">${p.gz[0]}</span><span class="${elClass(p.gz[1])}">${p.gz[1]}</span></span>`
+      : `<span class="qd-gz"><span class="void-gz">${L().qdVoid}</span></span>`;
+    return `<label class="qd-toggle">
+      <input type="checkbox" data-qd="${p.key}" ${QD_STATE[p.key] ? "checked" : ""} ${p.gz ? "" : "disabled"}>
+      <span class="qd-dot ${p.dotClass}"></span>${p.label} ${gzHtml}
+    </label>`;
+  }).join("");
+
+  document.querySelectorAll("#qd-toggles input[data-qd]").forEach(cb => {
+    cb.addEventListener("change", e => {
+      QD_STATE[e.target.getAttribute("data-qd")] = e.target.checked;
+      renderQdWheels();
+    });
+  });
+
+  renderQdWheels();
+}
+
+function render(ec, lunar, sex, cm, baziYear){
+  renderPillars(ec);
+  renderStars(ec);
+  renderBagua(baziYear, sex);
+  renderDayun(ec, sex);
+  renderQuDynamics(ec, sex);
+  const sign=cm>=0?"+":"-";
+  document.getElementById("solar-info").textContent =
+    `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
+}
+
+/* ===== i18n apply + wiring ===== */
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const k = el.getAttribute("data-i18n");
+    if (L()[k]) el.textContent = L()[k];
+  });
+  document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
+  document.getElementById("lang-en").classList.toggle("on", LANG==="en");
+  document.getElementById("print-btn").textContent = "⎙ " + L().print;
+  document.getElementById("study-link").textContent = L().course;
+}
+function setLang(l){
+  LANG = l;
+  try { localStorage.setItem("sc-lang", l); } catch(e){}
+  applyLang();
+  if(document.getElementById("result").style.display==="block") compute();
+}
+
+document.getElementById("lang-ru").addEventListener("click", ()=>setLang("ru"));
+document.getElementById("lang-en").addEventListener("click", ()=>setLang("en"));
+document.getElementById("btn-compute").addEventListener("click", compute);
+document.getElementById("print-btn").addEventListener("click", ()=>window.print());
+document.getElementById("f-city").addEventListener("input", onCityInput);
+["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
+  document.getElementById(id).addEventListener("input", updateSolarInfo));
+document.getElementById("f-solar").addEventListener("change", updateSolarInfo);
+document.addEventListener("click", e=>{
+  if(!e.target.closest(".form-group")) document.getElementById("city-dd").style.display="none";
+});
+
+applyLang();
+loadState(); // restore last calculation if it is less than 1 hour old
+updateSolarInfo();
+// Auto-compute on load (restored inputs if available, otherwise defaults)
+try { compute(); } catch(e) {}
+</script>
+</body>
+</html>
