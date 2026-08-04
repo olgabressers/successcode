@@ -375,6 +375,7 @@
   .fs-cell.good  { background: #dcefdc; border-color: #a9d3ab; }
   .fs-cell.mixed { background: #fae3c2; border-color: #e0b374; }
   .fs-cell.bad   { background: #f6d6d6; border-color: #e3a3a3; }
+  .fs-big .fs-cell.c { background: #fff; border-color: var(--border); }
   .ym-cell.ym-cell-fs { cursor: pointer; }
   .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
   .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
@@ -1089,6 +1090,7 @@ function fsBlock(title, range, center) {
 const FS_GOOD = [1,6,8,9], FS_MIX = [3,4];
 function fsComboClass(a, m) {
   if ((a===7 && m===8) || (a===8 && m===7)) return "mixed";   // 7↔8 is always orange, overrides everything else
+  if ((a===7 && m===6) || (a===6 && m===7)) return "mixed";   // 6↔7 is always orange, overrides everything else
   const gA = FS_GOOD.includes(a), gM = FS_GOOD.includes(m);
   if (gA && gM) return "good";
   const mxA = FS_MIX.includes(a), mxM = FS_MIX.includes(m);
