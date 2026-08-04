@@ -642,12 +642,12 @@ const I18N = {
     lunarMonthsTitle: "Лунные месяцы",
     starsTitle: "Летящие звёзды",
     yearWord: "Год",
-    fsActivators: "Активаторы",
+    fsActivators: "Фонтан",
     fsBell: "Колокольчик",
-    fsJar: "Банка с водой",
+    fsJar: "Соляной раствор",
     fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
     fsBellTip: "Колокольчик — сектор с пятёркой (5)",
-    fsJarTip: "Банка с водой — сектор с семёркой (7)",
+    fsJarTip: "Соляной раствор — сектор с семёркой (7)",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -694,12 +694,12 @@ const I18N = {
     lunarMonthsTitle: "Lunar months",
     starsTitle: "Flying stars",
     yearWord: "Year",
-    fsActivators: "Activators",
+    fsActivators: "Fountain",
     fsBell: "Bell",
-    fsJar: "Jar of water",
+    fsJar: "Salt solution",
     fsActTip: "Fountain on every favourable (green) sector",
     fsBellTip: "Bell — a sector holding a five (5)",
-    fsJarTip: "Jar of water — a sector holding a seven (7)",
+    fsJarTip: "Salt solution — a sector holding a seven (7)",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1135,9 +1135,12 @@ function fsBlockCombined(title, range, yCenter, mCenter) {
     const mv = ((base - 1 + (mCenter - 5)) % 9 + 9) % 9 + 1;
     const cls = fsComboClass(yv, mv);
     const mk = [];
-    if (cls === "good")              mk.push(`<span class="fs-mk fs-mk-fountain" title="${L().fsActTip}">⛲</span>`);
-    if (mv === 5 || yv === 5)        mk.push(`<span class="fs-mk fs-mk-bell" title="${L().fsBellTip}">🔔</span>`);
-    if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-jar" title="${L().fsJarTip}">🫙</span>`);
+    // The centre palace never takes an activator or a cure — markers apply to the 8 directions only.
+    if (dir !== "C") {
+      if (cls === "good")              mk.push(`<span class="fs-mk fs-mk-fountain" title="${L().fsActTip}">⛲</span>`);
+      if (mv === 5 || yv === 5)        mk.push(`<span class="fs-mk fs-mk-bell" title="${L().fsBellTip}">🔔</span>`);
+      if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-jar" title="${L().fsJarTip}">🫙</span>`);
+    }
     const marks = mk.length ? `<span class="fs-marks">${mk.join("")}</span>` : "";
     return `<div class="fs-cell ${cls}${dir==="C"?" c":""}">
         <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
