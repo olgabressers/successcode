@@ -377,6 +377,19 @@
   .fs-cell.mixed { background: #fae3c2; border-color: #e0b374; }
   .fs-cell.bad   { background: #f6d6d6; border-color: #e3a3a3; }
   .fs-big .fs-cell.c { background: #fff; border-color: var(--border); }
+  /* Activator / protection tools for the clicked-month chart */
+  .fs-tools { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .fs-tool { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .3px;
+             color: var(--text-muted); cursor: pointer; user-select: none; }
+  .fs-tool input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; margin: 0; }
+  .fs-tool .fs-tool-ic { font-size: 15px; line-height: 1; }
+  .fs-marks { position: absolute; left: 3px; bottom: 3px; display: flex; flex-direction: column; gap: 2px; z-index: 3; pointer-events: none; }
+  .fs-mk { display: none; width: 20px; height: 20px; align-items: center; justify-content: center;
+           font-size: 13px; line-height: 1; border-radius: 50%; background: #fff;
+           border: 1px solid var(--border); box-shadow: 0 1px 2px rgba(0,0,0,.16); }
+  .fs-big-wrap.act-on  .fs-mk-fountain { display: flex; }
+  .fs-big-wrap.prot-on .fs-mk-bell { display: flex; }
+  .fs-big-wrap.prot-on .fs-mk-vase { display: flex; }
   .ym-cell.ym-cell-fs { cursor: pointer; }
   .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
   .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
@@ -446,6 +459,9 @@
     .fs-big .fs-val-y { font-size: 18px; bottom: 5px; right: 6px; }
     .fs-big .fs-dir { font-size: 8.5px; }
     .fs-big-wrap { padding: 10px 8px 12px; }
+    .fs-mk { width: 17px; height: 17px; font-size: 11px; }
+    .fs-marks { left: 2px; bottom: 2px; gap: 1px; }
+    .fs-tool { font-size: 11px; }
   }
   @media screen and (max-width: 430px) {
     .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -625,6 +641,11 @@ const I18N = {
     lunarMonthsTitle: "Лунные месяцы",
     starsTitle: "Летящие звёзды",
     yearWord: "Год",
+    fsActivators: "Активаторы",
+    fsProtection: "Защита",
+    fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
+    fsBellTip: "Колокольчик — сектор с пятёркой (5)",
+    fsVaseTip: "Ваза с солью и водой — сектор с семёркой (7)",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -671,6 +692,11 @@ const I18N = {
     lunarMonthsTitle: "Lunar months",
     starsTitle: "Flying stars",
     yearWord: "Year",
+    fsActivators: "Activators",
+    fsProtection: "Protection",
+    fsActTip: "Fountain on every favourable (green) sector",
+    fsBellTip: "Bell — a sector holding a five (5)",
+    fsVaseTip: "Vase with salt and water — a sector holding a seven (7)",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1105,10 +1131,16 @@ function fsBlockCombined(title, range, yCenter, mCenter) {
     const yv = ((base - 1 + (yCenter - 5)) % 9 + 9) % 9 + 1;
     const mv = ((base - 1 + (mCenter - 5)) % 9 + 9) % 9 + 1;
     const cls = fsComboClass(yv, mv);
+    const mk = [];
+    if (cls === "good")              mk.push(`<span class="fs-mk fs-mk-fountain" title="${L().fsActTip}">⛲</span>`);
+    if (mv === 5 || yv === 5)        mk.push(`<span class="fs-mk fs-mk-bell" title="${L().fsBellTip}">🔔</span>`);
+    if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-vase" title="${L().fsVaseTip}">🏺</span>`);
+    const marks = mk.length ? `<span class="fs-marks">${mk.join("")}</span>` : "";
     return `<div class="fs-cell ${cls}${dir==="C"?" c":""}">
         <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
         <span class="fs-val-m fs-${mv}">${mv}</span>
         <span class="fs-val-y fs-${yv}">${yv}</span>
+        ${marks}
       </div>`;
   }).join("");
   return `<div class="fs-block fs-big">
@@ -1465,8 +1497,14 @@ function renderYearMonths() {
     const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
     fsBigHtml = `
     <div class="ym-block">
-      <div class="ym-head"><span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span></div>
-      <div class="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
+      <div class="ym-head">
+        <span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span>
+        <span class="fs-tools">
+          <label class="fs-tool" title="${L().fsActTip}"><input type="checkbox" id="fs-act"><span class="fs-tool-ic">⛲</span>${L().fsActivators}</label>
+          <label class="fs-tool" title="${L().fsBellTip} · ${L().fsVaseTip}"><input type="checkbox" id="fs-prot"><span class="fs-tool-ic">🔔🏺</span>${L().fsProtection}</label>
+        </span>
+      </div>
+      <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
     </div>`;
   }
 
@@ -1507,6 +1545,11 @@ function renderYearMonths() {
   box.querySelectorAll(".fs-big .fs-cell").forEach(el => {
     el.addEventListener("click", () => el.classList.toggle("dir-sel"));
   });
+  /* Activators (fountain on green) / Protection (bell on 5, vase on 7) toggles */
+  const fsWrap = document.getElementById("fs-big-wrap");
+  const fsAct = document.getElementById("fs-act"), fsProt = document.getElementById("fs-prot");
+  if (fsWrap && fsAct)  fsAct.addEventListener("change",  () => fsWrap.classList.toggle("act-on",  fsAct.checked));
+  if (fsWrap && fsProt) fsProt.addEventListener("change", () => fsWrap.classList.toggle("prot-on", fsProt.checked));
 }
 document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
 document.getElementById("yr-next").addEventListener("click", () => shiftYears(1));
