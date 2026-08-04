@@ -1520,16 +1520,16 @@ function renderYearMonths() {
   const fsMonthObj = selFsMonth ? sol.find(m => m.n === selFsMonth) : null;
   if (fsMonthObj) {
     const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
-    const goldFold = sub => `
+    const goldFold = (brand, sub) => `
     <div class="gold-fold">
       <div class="gold-fold-bar"><span class="gf-chev">▾</span> SuccessCode</div>
       <div class="gold-fold-body"><div class="gold-banner">
-        <div class="gb-brand">SuccessCode</div>
+        <div class="gb-brand">${brand}</div>
         <div class="gb-sub">${sub}</div>
       </div></div>
     </div>`;
     fsBigHtml = `
-    ${goldFold(L().calLink)}
+    ${goldFold("SuccessCode", "successcode.net/ru")}
     <div class="ym-block">
       <div class="ym-head">
         <span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span>
@@ -1541,7 +1541,7 @@ function renderYearMonths() {
       </div>
       <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
     </div>
-    ${goldFold("successcode.net")}`;
+    ${goldFold(L().calLink, "successcode.net/calendar")}`;
   }
 
   box.innerHTML = `
