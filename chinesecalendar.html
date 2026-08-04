@@ -390,6 +390,22 @@
   .fs-big-wrap.act-on  .fs-mk-fountain { display: flex; }
   .fs-big-wrap.bell-on .fs-mk-bell { display: flex; }
   .fs-big-wrap.jar-on  .fs-mk-jar { display: flex; }
+  /* Foldable golden brand banners (for phone screen recordings) — collapsed by default */
+  .gold-fold { margin: 8px 0; }
+  .gold-fold-bar { display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer;
+    background: linear-gradient(90deg, #b8903a, #cfa44e, #b8903a); color: #fff6e4;
+    padding: 6px 14px; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
+    border: 1px solid var(--gold); user-select: none; }
+  .gold-fold-bar .gf-chev { font-size: 11px; transition: transform .25s; }
+  .gold-fold.open .gold-fold-bar .gf-chev { transform: rotate(180deg); }
+  .gold-fold-body { display: none; }
+  .gold-fold.open .gold-fold-body { display: block; }
+  .gold-banner { background: linear-gradient(135deg, #a67c26 0%, #cfa44e 42%, #ecd28a 52%, #cfa44e 62%, #a67c26 100%);
+    border: 1px solid var(--gold); border-top: none; padding: 30px 20px; text-align: center; }
+  .gold-banner .gb-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
+    letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(80,52,8,.45); }
+  .gold-banner .gb-sub { margin-top: 7px; font-size: 12.5px; letter-spacing: 3px; text-transform: uppercase;
+    color: #fff8ec; font-weight: 600; text-shadow: 0 1px 2px rgba(80,52,8,.35); }
   .ym-cell.ym-cell-fs { cursor: pointer; }
   .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
   .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
@@ -463,6 +479,9 @@
     .fs-marks { left: 2px; bottom: 2px; gap: 2px; }
     .fs-tool { font-size: 11px; }
     .fs-tool .fs-tool-ic { font-size: 16px; }
+    .gold-banner { padding: 24px 16px; }
+    .gold-banner .gb-brand { font-size: 22px; letter-spacing: 6px; }
+    .gold-banner .gb-sub { font-size: 11px; letter-spacing: 2px; }
   }
   @media screen and (max-width: 430px) {
     .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1501,7 +1520,16 @@ function renderYearMonths() {
   const fsMonthObj = selFsMonth ? sol.find(m => m.n === selFsMonth) : null;
   if (fsMonthObj) {
     const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
+    const goldFold = sub => `
+    <div class="gold-fold">
+      <div class="gold-fold-bar"><span class="gf-chev">▾</span> SuccessCode</div>
+      <div class="gold-fold-body"><div class="gold-banner">
+        <div class="gb-brand">SuccessCode</div>
+        <div class="gb-sub">${sub}</div>
+      </div></div>
+    </div>`;
     fsBigHtml = `
+    ${goldFold(L().calLink)}
     <div class="ym-block">
       <div class="ym-head">
         <span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span>
@@ -1512,7 +1540,8 @@ function renderYearMonths() {
         </span>
       </div>
       <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
-    </div>`;
+    </div>
+    ${goldFold("successcode.net")}`;
   }
 
   box.innerHTML = `
@@ -1558,6 +1587,10 @@ function renderYearMonths() {
   if (fsWrap && fsAct)  fsAct.addEventListener("change",  () => fsWrap.classList.toggle("act-on",  fsAct.checked));
   if (fsWrap && fsBell) fsBell.addEventListener("change", () => fsWrap.classList.toggle("bell-on", fsBell.checked));
   if (fsWrap && fsJar)  fsJar.addEventListener("change",  () => fsWrap.classList.toggle("jar-on",  fsJar.checked));
+  /* Foldable golden brand banners — collapsed by default, opened for phone screen recordings */
+  box.querySelectorAll(".gold-fold-bar").forEach(bar => {
+    bar.addEventListener("click", () => bar.closest(".gold-fold").classList.toggle("open"));
+  });
 }
 document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
 document.getElementById("yr-next").addEventListener("click", () => shiftYears(1));
