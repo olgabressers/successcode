@@ -28,15 +28,14 @@
     // Correct bureau (from P1, canonical rule, confirmed by iztro fiveElementsClass) = Water 2
     // → getFiveBureau override below.
     //
-    // UTC OFFSET IS HARDCODED, NOT AUTO-DETECTED: Buguruslan (52.4325°E) sits almost exactly
-    // on the historical Soviet timezone boundary between Samara/Kuibyshev time (decree UTC+4)
-    // and Sverdlovsk/Yekaterinburg time (decree UTC+5, which covered most of Orenburg Oblast).
-    // At UTC+4 solar time lands cleanly at 18:00 (mid-酉 Rooster). At UTC+5 solar time lands
-    // EXACTLY on 17:00, the boundary between 申 Monkey and 酉 Rooster. Per the user's explicit
-    // instruction ("if the time is on the border, use the earlier time") and given genuine
-    // administrative uncertainty for this border town, UTC+5 was chosen (resolving to the
-    // earlier 申 hour). See the Chart Card for full reasoning. Do not let __computeUtcOffset's
-    // auto-detection silently override this documented decision.
+    // UTC OFFSET IS HARDCODED, NOT AUTO-DETECTED. REVISED 2026-08-04: the first build of this
+    // chart used 申 Monkey hour (a UTC+5 border-resolution) and appeared to match a Mingli PDF —
+    // but the user clarified she had adjusted the input time on mingli.ru herself, so that was
+    // NOT independent confirmation. Instruction: build with 酉 Rooster hour, clock 18:30, and
+    // validate against real life events instead. UTC+4 (Samara/Kuibyshev decree time) is used
+    // here because it produces a clean, unambiguous 酉 Rooster hour (solar 18:00, 60min from
+    // either boundary) from clock 18:30. See the Chart Card for full reasoning. Do not let
+    // __computeUtcOffset's auto-detection silently override this documented decision.
     function __loadHusbandDefaults() {
       var d = document.getElementById('birth-date');   if (d) d.value = '1973-07-16';
       var t = document.getElementById('birth-time');   if (t) t.value = '18:30';
@@ -45,7 +44,7 @@
       var c = document.getElementById('birth-city');   if (c) c.value = 'Buguruslan, Russia';
       var lonEl = document.getElementById('birth-longitude'); if (lonEl) lonEl.value = '52.4325';
 
-      var offset = 5; // hardcoded — see comment block above
+      var offset = 4; // hardcoded — see comment block above (gives 酉 Rooster hour)
       var offStr = offset % 1 !== 0 ? offset.toFixed(1) : String(offset);
       var u = document.getElementById('utc-offset'); if (u) u.value = offStr;
       var cr = document.getElementById('city-result');
@@ -828,7 +827,7 @@
   (P1) ganzhi*'s NaYin instead. For Oksana's husband (1973-07-16) the two diverge:
 
       Year ganzhi   癸丑  → NaYin 桑柘木 → Wood  → Bureau 3  (engine — WRONG)
-      P1   ganzhi   癸亥  → NaYin 大海水 → Water → Bureau 2  (correct — iztro)
+      P1   ganzhi   壬戌  → NaYin 大海水 → Water → Bureau 2  (correct — iztro, 酉 Rooster hour)
 
   Wrong bureau cascades into wrong Zi Wei placement, wrong star layout, and
   wrong decade ages (Bureau N → first decade starts at age N).
