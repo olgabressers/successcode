@@ -404,6 +404,7 @@
     border: 1px solid var(--gold); border-top: none; padding: 30px 20px; text-align: center; }
   .gold-banner .gb-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
     letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(80,52,8,.45); }
+  .gold-banner .gb-brand.gb-brand-long { font-size: 24px; letter-spacing: 4.5px; line-height: 1.22; }
   .gold-banner .gb-sub { margin-top: 7px; font-size: 12.5px; letter-spacing: 3px; text-transform: uppercase;
     color: #fff8ec; font-weight: 600; text-shadow: 0 1px 2px rgba(80,52,8,.35); }
   .ym-cell.ym-cell-fs { cursor: pointer; }
@@ -481,6 +482,7 @@
     .fs-tool .fs-tool-ic { font-size: 16px; }
     .gold-banner { padding: 24px 16px; }
     .gold-banner .gb-brand { font-size: 22px; letter-spacing: 6px; }
+    .gold-banner .gb-brand.gb-brand-long { font-size: 18px; letter-spacing: 3px; }
     .gold-banner .gb-sub { font-size: 11px; letter-spacing: 2px; }
   }
   @media screen and (max-width: 430px) {
@@ -667,6 +669,7 @@ const I18N = {
     fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
     fsBellTip: "Колокольчик — сектор с пятёркой (5)",
     fsJarTip: "Соляной раствор — сектор с семёркой (7)",
+    fsBrandTop: "Код успеха в вашей карте рождения",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -719,6 +722,7 @@ const I18N = {
     fsActTip: "Fountain on every favourable (green) sector",
     fsBellTip: "Bell — a sector holding a five (5)",
     fsJarTip: "Salt solution — a sector holding a seven (7)",
+    fsBrandTop: "Success code in your birth chart",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1520,19 +1524,19 @@ function renderYearMonths() {
   const fsMonthObj = selFsMonth ? sol.find(m => m.n === selFsMonth) : null;
   if (fsMonthObj) {
     const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
-    const goldFold = (brand, sub) => `
+    const goldFold = (brand, sub, cls="") => `
     <div class="gold-fold">
       <div class="gold-fold-bar"><span class="gf-chev">▾</span> SuccessCode</div>
       <div class="gold-fold-body"><div class="gold-banner">
-        <div class="gb-brand">${brand}</div>
+        <div class="gb-brand ${cls}">${brand}</div>
         <div class="gb-sub">${sub}</div>
       </div></div>
     </div>`;
     fsBigHtml = `
-    ${goldFold("SuccessCode", "successcode.net/ru")}
+    ${goldFold(L().fsBrandTop, "successcode.net/ru", "gb-brand-long")}
     <div class="ym-block">
       <div class="ym-head">
-        <span class="ym-title">${L().starsTitle} · ${L().monthWord} ${fsMonthObj.n}</span>
+        <span class="ym-title">${L().starsTitle} · ${L().months[fsMonthObj.n % 12]}</span>
         <span class="fs-tools">
           <label class="fs-tool" title="${L().fsActTip}"><input type="checkbox" id="fs-act"><span class="fs-tool-ic">⛲</span>${L().fsActivators}</label>
           <label class="fs-tool" title="${L().fsBellTip}"><input type="checkbox" id="fs-bell"><span class="fs-tool-ic">🔔</span>${L().fsBell}</label>
