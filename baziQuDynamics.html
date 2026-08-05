@@ -408,32 +408,23 @@
   .qd-arrow-ke-head    { fill: #8b2b2b; }
   .qd-node {
     position: absolute; width: 58px; height: 58px; margin: -29px 0 0 -29px;
-    border-radius: 50%; background: var(--surface); border: 1.5px dashed var(--border);
+    border-radius: 50%; background: transparent; border: none;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    font-family: 'Cormorant Garamond', serif; font-weight: 700; opacity: .5;
-    transition: border-color .15s, box-shadow .15s, opacity .15s;
+    font-family: 'Cormorant Garamond', serif; font-weight: 700;
+    transition: border-color .15s, box-shadow .15s, background .15s;
   }
-  .qd-node .qd-el-label { font-size: 20px; line-height: 1; }
+  .qd-node .qd-el-label { font-size: 20px; line-height: 1; color: var(--text-muted); }
   .qd-node .qd-el-name  { display: block; font-family: 'Inter', sans-serif; font-size: 7px;
                            letter-spacing: .3px; font-weight: 600; text-transform: uppercase;
                            color: var(--text-muted); margin-top: 2px; }
-  .qd-node.present { border-style: solid; border-width: 2px; opacity: 1; background: #faf8f3; }
-  .qd-node.dm-el    { background: #fdf5df; }
-  .qd-node.absent span { color: var(--text-muted) !important; }
-  .qd-node.leaves   { opacity: 1; border-style: solid; border-color: var(--border); background: #faf8f3; }
+  /* absent = bare text, no circle at all (matches the reference tool exactly) */
+  .qd-node.present { border: 1.5px solid var(--border); background: #faf8f3; }
+  .qd-node.dm-el.present { background: #fdf5df; border-color: var(--gold); }
+  .qd-node.leaves   { border-color: var(--border); background: #faf8f3; }
   .qd-node.leaves span { color: var(--text-muted) !important; }
   .qd-node.leaves::after {
     content: ""; position: absolute; left: 8px; right: 8px; top: 46%; height: 2px;
     background: #b23b3b; transform: rotate(-18deg); border-radius: 1px;
-  }
-  .qd-node.trig-luck  { box-shadow: 0 0 0 3px #7b4397; }
-  .qd-node.trig-year  { box-shadow: 0 0 0 3px var(--gold); }
-  .qd-node.trig-month { box-shadow: 0 0 0 3px #c2185b; }
-  .qd-node.trig-luck.trig-year   { box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px var(--gold); }
-  .qd-node.trig-luck.trig-month  { box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px #c2185b; }
-  .qd-node.trig-year.trig-month  { box-shadow: 0 0 0 3px var(--gold), 0 0 0 6px #c2185b; }
-  .qd-node.trig-luck.trig-year.trig-month {
-    box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px var(--gold), 0 0 0 9px #c2185b;
   }
   .qd-wheel-detail { list-style: none; margin: 14px auto 0; padding: 0; max-width: 260px;
                       text-align: left; font-size: 10.5px; line-height: 1.7; color: var(--text-dim); }
@@ -455,7 +446,6 @@
   .lg-leaves  { background: #faf8f3; border: 1.5px solid var(--border); position: relative; }
   .lg-leaves::after { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; height: 1.5px;
                        background: #b23b3b; transform: rotate(-18deg); }
-  .lg-trig    { background: #faf8f3; box-shadow: 0 0 0 2px var(--gold); }
   .lg-sheng, .lg-ke { width: 22px; height: 2px; display: inline-block; border-radius: 1px; }
   .lg-sheng { background: #8f9a80; }
   .lg-ke    { background: #8b2b2b; height: 3px; }
@@ -592,7 +582,6 @@
       <span><span class="lg-swatch lg-dm"></span><span data-i18n="qdLgDm">Хозяин дня</span></span>
       <span><span class="lg-swatch lg-present"></span><span data-i18n="qdLgPresent">Стихия есть в карте</span></span>
       <span><span class="lg-swatch lg-absent"></span><span data-i18n="qdLgAbsent">Стихии нет в карте</span></span>
-      <span><span class="lg-swatch lg-trig"></span><span data-i18n="qdLgTrig">Столп-триггер (Удача / Год / Месяц)</span></span>
       <span><span class="lg-swatch lg-leaves"></span><span data-i18n="qdLgLeaves">Уходит</span></span>
       <span><span class="lg-sheng"></span><span data-i18n="qdLgSheng">Усиливает (生)</span></span>
       <span><span class="lg-ke"></span><span data-i18n="qdLgKe">Подавляет (克)</span></span>
@@ -1391,12 +1380,30 @@ function qdWheelPositions(n, radiusPct){
 }
 
 /* ===== Elements pentagon =====
-   The Sheng (generating) cycle is the fixed reference order: Wood→Fire→Earth→Metal→Water→Wood.
-   Ke (controlling): element i controls element i+2 in that same order (Wood controls Earth, etc.) —
-   this is standard Wu Xing theory, not derived from the study material photos.
-   Layout: Day Master's own element is pinned to the top (12 o'clock); the rest follow clockwise
-   in Sheng order, per the user's spec ("top is element of day master"). */
-const EL_LIST = ["wood","fire","earth","metal","water"];
+   Reverse-engineered against the 6 reference PDFs in "Qu Dynamics_circles" (3 generic examples
+   for Detleff Schramm b.1963 + 3 for Oksana Balandina b.1975, one pair per Luck/Year/Month pillar) —
+   read at full resolution, cross-checked character-by-character against our own verified leave
+   tables above. Confirmed rules, not guesses:
+   1. All 5 elements are ALWAYS drawn (fixed pentagon, Day Master's element pinned to the top,
+      the rest following clockwise in the Sheng generating order Wood→Fire→Earth→Metal→Water→Wood).
+      An element with zero relevance this round renders as bare text, no circle at all.
+   2. An element is CROSSED if one of the person's own natal stems/branches of that element has its
+      exact character in the ticked trigger's leave-list (per our existing tables) — OR, stems-only,
+      if the Year trigger is ticked and the Day Master's Sheng-CHILD element's characters are in
+      the Year table's list (the source subtitle documents Year НС explicitly adding the full
+      "previous [mother] element" — confirmed on Detleff, whose chart has zero natal Wood, yet
+      the Year-НС diagram (trigger 丙, mother-of-Fire = Wood) shows Wood crossed anyway). The
+      identical Month "future [child] element" addition does NOT force a cross in the two clean
+      test cases available — Month is left as plain natal-instance matching, same as Luck.
+   3. Arrows connect only ACTIVE (present, non-crossed) nodes, walking the Sheng ring OUTWARD from
+      the trigger's own element in both directions simultaneously: a direct Sheng edge to an active
+      neighbour, or — if the neighbour is inactive — a single-gap Ke "bridge" over it to the next
+      ring position (Ke is defined as the skip-1 relation, so this bridge is not an approximation).
+      A 2+ gap stops that direction. If both directions would reach the SAME node (the ring is
+      fully closed among the active set), whichever direction gets there second stops one edge
+      short, so the pentagon never draws a closed loop — confirmed on both a 2-hop open chain
+      (Detleff) and a 3-node closed ring cut to 2 edges (Oksana). */
+const EL_LIST = ["wood","fire","earth","metal","water"]; // fixed Sheng ring, index = position
 const EL_ABBR = {
   ru: { wood:"Д", fire:"О", earth:"З", metal:"М", water:"В" },
   en: { wood:"Wo", fire:"Fi", earth:"Ea", metal:"Me", water:"Wa" }
@@ -1404,34 +1411,11 @@ const EL_ABBR = {
 const elOfCh = ch => STEM_EL[ch] || BRANCH_EL[ch];
 const elClassByKey = el => "el-" + el;
 const elGenerates = el => EL_LIST[(EL_LIST.indexOf(el)+1) % 5];
-const elControls  = el => EL_LIST[(EL_LIST.indexOf(el)+2) % 5];
+const charsOfStemEl = el => QD_STEM_ORDER.filter(ch => STEM_EL[ch] === el);
 function qdRotatedOrder(dmEl){
   const i = EL_LIST.indexOf(dmEl);
   if(i < 0) return EL_LIST.slice();
   return EL_LIST.slice(i).concat(EL_LIST.slice(0,i));
-}
-
-/* Per-element aggregation for one channel (stems or branches): which natal chars map to each
-   element, and whether any of them is in the currently-active "leaves" set. */
-function qdElementData(natalArr, pillarLabels, leaveSet){
-  const data = {};
-  EL_LIST.forEach(el => data[el] = { chars: [], leaving: false });
-  natalArr.forEach((ch,i) => {
-    const el = elOfCh(ch); if(!el) return;
-    data[el].chars.push({ ch, label: pillarLabels[i] });
-    if(leaveSet.has(ch)) data[el].leaving = true;
-  });
-  return data;
-}
-/* Which element(s) the currently-ticked periods' own stem/branch belongs to, per trigger class. */
-function qdElementTriggers(idx){
-  const trig = {};
-  QD_PERIODS.forEach(p => {
-    if(!QD_STATE[p.key] || !p.gz) return;
-    const el = elOfCh(p.gz[idx]); if(!el) return;
-    (trig[el] = trig[el] || []).push(p.trigClass);
-  });
-  return trig;
 }
 
 function svgArrow(a, b, cls){
@@ -1445,38 +1429,139 @@ function svgArrow(a, b, cls){
          `<polygon class="${cls}-head" points="${x2.toFixed(2)},${y2.toFixed(2)} ${lx.toFixed(2)},${ly.toFixed(2)} ${rx.toFixed(2)},${ry.toFixed(2)}"/>`;
 }
 
+/* Leave-list (array of raw stem/branch chars) for ONE ticked period on ONE channel. */
+function qdTriggerLeaveChars(period, channel){
+  const stemTables   = { luck: QD_LUCK_STEM_LEAVES,   year: QD_YEAR_STEM_LEAVES,   month: QD_MONTH_STEM_LEAVES };
+  const branchTables = { luck: QD_LUCK_BRANCH_LEAVES, year: QD_YEAR_BRANCH_LEAVES, month: QD_MONTH_BRANCH_LEAVES };
+  const g = period.gz[0], z = period.gz[1];
+  return channel === "stem" ? (stemTables[period.key][g] || []) : (branchTables[period.key][z] || []);
+}
+
+/* Computes, for one channel (stems or branches), the per-element node status (present / leaving /
+   trigger / underlying chars for the trace list) merged across every ticked period, plus the
+   arrow-edge list walked independently per ticked period and unioned. */
+function qdComputeChannel(natalArr, pillarLabels, dmEl, channel){
+  const status = {};
+  EL_LIST.forEach(el => status[el] = { present:false, leaving:false, trigger:false, chars:[] });
+  natalArr.forEach((ch,i) => {
+    const el = elOfCh(ch); if(!el) return;
+    status[el].present = true;
+    status[el].chars.push({ ch, label: pillarLabels[i] });
+  });
+
+  const dmChild = elGenerates(dmEl);
+  const ticked = QD_PERIODS.filter(p => QD_STATE[p.key] && p.gz);
+  const edgeSeen = new Set();
+  const edges = [];
+
+  ticked.forEach(period => {
+    const leaveChars = qdTriggerLeaveChars(period, channel);
+    const leaveSet = new Set(leaveChars);
+    const triggerCh = channel === "stem" ? period.gz[0] : period.gz[1];
+    const triggerEl = elOfCh(triggerCh);
+    if(!triggerEl) return;
+    status[triggerEl].trigger = true;
+    status[triggerEl].present = true;
+
+    // Stems-only: the Day Master's Sheng-child ALWAYS gets a node (present), for any trigger —
+    // confirmed on Detleff (zero natal Wood, DM=Water/child=Wood): Luck (Wood = the trigger,
+    // active), Year (Wood crossed — its chars 甲/乙 are in Year-НС's list for trigger 丙), Month
+    // (Wood stays active — its chars are NOT in Month-НС's list for trigger 丙).
+    const dmChildLeaving = channel === "stem" && charsOfStemEl(dmChild).some(c => leaveSet.has(c));
+    if(channel === "stem") status[dmChild].present = true;
+
+    // Branches-only, Month trigger only: the element that CONTROLS (Ke) the trigger's element is
+    // always forced present+active, overriding any natal instance that would otherwise cross it —
+    // confirmed independently on both Detleff and Oksana's Month-ЗВ diagrams (trigger 申/Metal in
+    // both; Fire — which controls Metal — stays active though Detleff has zero natal Fire and
+    // Oksana's natal 巳 IS in Month-ЗВ's own leave-list). Not observed for Luck or Year branches.
+    const guardEl = (channel === "branch" && period.key === "month")
+      ? EL_LIST[(EL_LIST.indexOf(triggerEl) - 2 + 5) % 5] : null;
+    if(guardEl) status[guardEl].present = true;
+
+    // Global (merged) crossing: any natal instance of this element whose char is in this trigger's list.
+    EL_LIST.forEach(el => {
+      if(el === triggerEl || el === guardEl) return;
+      if(status[el].chars.some(c => leaveSet.has(c.ch))) status[el].leaving = true;
+    });
+    if(dmChildLeaving && dmChild !== triggerEl) status[dmChild].leaving = true;
+
+    // Local active-view for THIS trigger's walk only (must match the merged view above 1:1).
+    const localLeaving = el => {
+      if(el === triggerEl || el === guardEl) return false;
+      if(status[el].chars.some(c => leaveSet.has(c.ch))) return true;
+      if(dmChildLeaving && el === dmChild) return true;
+      return false;
+    };
+    const localPresent = el => el === triggerEl || el === guardEl || status[el].present
+      || (channel === "stem" && el === dmChild);
+    const localActive  = el => el === triggerEl || (localPresent(el) && !localLeaving(el));
+
+    const idx = EL_LIST.indexOf(triggerEl);
+    const backSeen = new Set([triggerEl]), fwdSeen = new Set([triggerEl]);
+    let backCur = idx, backAlive = true;
+    let fwdCur = idx, fwdAlive = true;
+
+    while(backAlive || fwdAlive){
+      if(backAlive){
+        const prevIdx = (backCur - 1 + 5) % 5, prevEl = EL_LIST[prevIdx];
+        if(localActive(prevEl) && !fwdSeen.has(prevEl)){
+          const key = "sheng:" + prevEl + ">" + EL_LIST[backCur];
+          if(!edgeSeen.has(key)){ edgeSeen.add(key); edges.push({ a: prevEl, b: EL_LIST[backCur], type: "sheng" }); }
+          backSeen.add(prevEl); backCur = prevIdx;
+        } else {
+          const bridgeIdx = (backCur - 2 + 5) % 5, bridgeEl = EL_LIST[bridgeIdx];
+          if(!localActive(prevEl) && localActive(bridgeEl) && !fwdSeen.has(bridgeEl)){
+            const key = "ke:" + bridgeEl + ">" + EL_LIST[backCur];
+            if(!edgeSeen.has(key)){ edgeSeen.add(key); edges.push({ a: bridgeEl, b: EL_LIST[backCur], type: "ke" }); }
+            backSeen.add(bridgeEl); backCur = bridgeIdx;
+          } else backAlive = false;
+        }
+      }
+      if(fwdAlive){
+        const nextIdx = (fwdCur + 1) % 5, nextEl = EL_LIST[nextIdx];
+        if(localActive(nextEl) && !backSeen.has(nextEl)){
+          const key = "sheng:" + EL_LIST[fwdCur] + ">" + nextEl;
+          if(!edgeSeen.has(key)){ edgeSeen.add(key); edges.push({ a: EL_LIST[fwdCur], b: nextEl, type: "sheng" }); }
+          fwdSeen.add(nextEl); fwdCur = nextIdx;
+        } else {
+          const bridgeIdx = (fwdCur + 2) % 5, bridgeEl = EL_LIST[bridgeIdx];
+          if(!localActive(nextEl) && localActive(bridgeEl) && !backSeen.has(bridgeEl)){
+            const key = "ke:" + EL_LIST[fwdCur] + ">" + bridgeEl;
+            if(!edgeSeen.has(key)){ edgeSeen.add(key); edges.push({ a: EL_LIST[fwdCur], b: bridgeEl, type: "ke" }); }
+            fwdSeen.add(bridgeEl); fwdCur = bridgeIdx;
+          } else fwdAlive = false;
+        }
+      }
+    }
+  });
+
+  return { status, edges };
+}
+
 /* Renders one 5-element pentagon (stems channel or branches channel) into #wheelId,
    and its supporting per-element trace list into #detailId (full auditability of the
    stem/branch → element reduction — nothing is asserted without the underlying chars shown). */
-function renderElementWheel(wheelId, detailId, dmEl, elData, elTrig){
+function renderElementWheel(wheelId, detailId, dmEl, channel, natalArr, pillarLabels){
+  const { status, edges } = qdComputeChannel(natalArr, pillarLabels, dmEl, channel);
   const order = qdRotatedOrder(dmEl);
   const pts = qdWheelPositions(5, 39);
   const posOf = {}; order.forEach((el,i) => posOf[el] = pts[i]);
   const abbr = EL_ABBR[LANG] || EL_ABBR.en;
   const elName = LANG === "ru" ? EL_NAME_RU : EL_NAME_EN;
 
-  const isActive = el => elData[el].chars.length > 0 && !elData[el].leaving;
-
-  let arrows = "";
-  order.forEach(el => {
-    if(!isActive(el)) return;
-    const g = elGenerates(el); if(isActive(g)) arrows += svgArrow(posOf[el], posOf[g], "qd-arrow-sheng");
-    const k = elControls(el);  if(isActive(k)) arrows += svgArrow(posOf[el], posOf[k], "qd-arrow-ke");
-  });
+  const arrows = edges.map(e => svgArrow(posOf[e.a], posOf[e.b], e.type === "ke" ? "qd-arrow-ke" : "qd-arrow-sheng")).join("");
 
   const nodes = order.map((el,i) => {
-    const d = elData[el];
-    const present = d.chars.length > 0;
+    const d = status[el];
     const cls = ["qd-node"];
-    if(present) cls.push("present");
-    if(!present) cls.push("absent");
-    if(d.leaving) cls.push("leaves");
+    if(d.present) cls.push("present"); else cls.push("absent");
+    if(d.leaving && !d.trigger) cls.push("leaves");
     if(el === dmEl) cls.push("dm-el");
-    (elTrig[el]||[]).forEach(t => cls.push(t));
     const pt = pts[i];
     const tip = d.chars.map(c => `${c.ch} (${c.label})`).join(", ") || L().qdAbsentTag;
     return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${elName[el]}${el===dmEl? " — "+L().qdLgDm : ""}: ${tip}">
-      <span class="qd-el-label ${present && !d.leaving ? elClassByKey(el) : ""}">${abbr[el]}</span>
+      <span class="qd-el-label ${d.present && !(d.leaving && !d.trigger) ? elClassByKey(el) : ""}">${abbr[el]}</span>
       <span class="qd-el-name">${elName[el]}</span>
     </div>`;
   }).join("");
@@ -1485,10 +1570,10 @@ function renderElementWheel(wheelId, detailId, dmEl, elData, elTrig){
     `<svg class="qd-arrows" viewBox="0 0 100 100" preserveAspectRatio="none">${arrows}</svg>${nodes}`;
 
   document.getElementById(detailId).innerHTML = order.map(el => {
-    const d = elData[el];
-    const present = d.chars.length > 0;
-    const tag = !present ? "absent" : (d.leaving ? "leaving" : "active");
-    const tagText = !present ? L().qdAbsentTag : (d.leaving ? L().qdLeavesTag : L().qdActiveTag);
+    const d = status[el];
+    const leaving = d.leaving && !d.trigger;
+    const tag = !d.present ? "absent" : (leaving ? "leaving" : "active");
+    const tagText = !d.present ? L().qdAbsentTag : (leaving ? L().qdLeavesTag : L().qdActiveTag);
     const chars = d.chars.map(c => `${c.ch}(${c.label})`).join(" ") || "—";
     return `<li><span class="qdd-el ${elClassByKey(el)}">${elName[el]}${el===dmEl?" ★":""}</span>
       <span class="qdd-chars">${chars}</span>
@@ -1497,25 +1582,10 @@ function renderElementWheel(wheelId, detailId, dmEl, elData, elTrig){
 }
 
 function renderQdWheels(){
-  const leaveStems = new Set(), leaveBranches = new Set();
-  const stemTables   = { luck: QD_LUCK_STEM_LEAVES,   year: QD_YEAR_STEM_LEAVES,   month: QD_MONTH_STEM_LEAVES };
-  const branchTables = { luck: QD_LUCK_BRANCH_LEAVES, year: QD_YEAR_BRANCH_LEAVES, month: QD_MONTH_BRANCH_LEAVES };
-
-  QD_PERIODS.forEach(p => {
-    if(!QD_STATE[p.key] || !p.gz) return;
-    const g = p.gz[0], z = p.gz[1];
-    (stemTables[p.key][g] || []).forEach(s => leaveStems.add(s));
-    (branchTables[p.key][z] || []).forEach(b => leaveBranches.add(b));
-  });
-
   const dmEl = STEM_EL[QD_NATAL_STEMS[2]]; // Day pillar stem = Day Master
   const pillarLabels = [L().yearP, L().monthP, L().dayP, L().hourP];
-
-  const stemData   = qdElementData(QD_NATAL_STEMS,   pillarLabels, leaveStems);
-  const branchData = qdElementData(QD_NATAL_BRANCHES, pillarLabels, leaveBranches);
-
-  renderElementWheel("qd-wheel-stems",    "qd-detail-stems",    dmEl, stemData,   qdElementTriggers(0));
-  renderElementWheel("qd-wheel-branches", "qd-detail-branches", dmEl, branchData, qdElementTriggers(1));
+  renderElementWheel("qd-wheel-stems",    "qd-detail-stems",    dmEl, "stem",   QD_NATAL_STEMS,    pillarLabels);
+  renderElementWheel("qd-wheel-branches", "qd-detail-branches", dmEl, "branch", QD_NATAL_BRANCHES, pillarLabels);
 }
 
 function renderQuDynamics(ec, sex){
