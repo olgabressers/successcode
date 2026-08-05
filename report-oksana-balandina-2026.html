@@ -142,6 +142,14 @@
     .overlap-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--green);padding:20px 24px;margin-top:18px;}
     .overlap-box .ov-t{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--green);margin-bottom:10px;}
     .overlap-box p{font-size:13.5px;color:var(--dim);line-height:1.75;}
+    .lead-box{background:var(--surface);border:1px solid var(--border2);border-top:3px solid var(--red);padding:24px 26px;margin-top:18px;}
+    .lead-src{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px;}
+    .lead-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--red);margin-bottom:6px;line-height:1.2;}
+    .lead-sub{font-size:13.5px;color:var(--dim);line-height:1.7;margin-bottom:14px;}
+    .lead-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;}
+    .lead-list li{font-size:13.5px;color:var(--dim);line-height:1.55;padding:5px 0 5px 18px;position:relative;}
+    .lead-list li::before{content:'▸';position:absolute;left:0;color:var(--red);font-weight:700;}
+    .lead-list li.wide{grid-column:1 / -1;}
     .tbl-note strong{color:var(--text);}
     .verdict-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);
       padding:22px 26px;margin:0 0 30px;font-size:13.5px;color:var(--dim);line-height:1.75;}
@@ -198,6 +206,7 @@
       .short-grid{grid-template-columns:1fr;}
       .pillar-grid{grid-template-columns:1fr;}
       .ind-grid{grid-template-columns:1fr;}
+      .lead-list{grid-template-columns:1fr;}
       .tl-item{flex-direction:column;gap:8px;}
       .tl-left{width:100%;}
       .intro-block{padding:24px 22px;}
@@ -550,6 +559,24 @@
           </ul>
           <div class="ind-note">Это список из другого метода — Ба Цзы. Он приведён отдельно и не смешивается со списком звезды.</div>
         </div>
+      </div>
+
+      <div class="lead-box">
+        <div class="lead-src">Ба Цзы · ваш тип силы</div>
+        <div class="lead-title">СИЛА — лидеры должны лидировать</div>
+        <p class="lead-sub">Списки выше отвечают на вопрос <strong>где</strong>. Это отвечает на вопрос <strong>как</strong>.
+        Ваш тип силы — лидерский, а лидер реализуется только тогда, когда ведёт. В любой из названных сфер
+        ищите ту роль, где вы ведёте людей, а не обслуживаете процесс.</p>
+        <ul class="lead-list">
+          <li>Создание связей через лидерство</li>
+          <li>Мотивация, вдохновение людей</li>
+          <li>Произведение впечатления на людей</li>
+          <li>Объединение и направление групп людей на основе идеи (любой)</li>
+          <li>Создавать своих последователей (соцсети)</li>
+          <li>Коучинг</li>
+          <li>Соединение ресурсов и людей</li>
+          <li class="wide">Идейный лидер — тот, кто способен сдвинуть и повести за собой целую индустрию</li>
+        </ul>
       </div>
 
       <div class="overlap-box">
