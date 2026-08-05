@@ -395,24 +395,35 @@
   .qd-year-dot  { background: var(--gold); }
   .qd-month-dot { background: #c2185b; }
 
-  .qd-wheels { display: flex; flex-wrap: wrap; gap: 26px; justify-content: center; padding: 22px 20px 26px; }
-  .qd-wheel-block { text-align: center; }
+  .qd-wheels { display: flex; flex-wrap: wrap; gap: 26px; justify-content: center; padding: 22px 20px 8px; }
+  .qd-wheel-block { text-align: center; width: 300px; max-width: 100%; }
   .qd-wheel-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
                      color: var(--text-muted); font-weight: 700; margin-bottom: 12px; }
   .qd-wheel { position: relative; margin: 0 auto; }
-  .qd-wheel.stems  { width: 300px; height: 300px; }
-  .qd-wheel.branches { width: 340px; height: 340px; }
+  .qd-wheel.stems, .qd-wheel.branches { width: 270px; height: 270px; }
+  .qd-arrows { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .qd-arrow-sheng      { stroke: #8f9a80; stroke-width: 0.9; stroke-linecap: round; }
+  .qd-arrow-sheng-head { fill: #8f9a80; }
+  .qd-arrow-ke         { stroke: #8b2b2b; stroke-width: 1.6; stroke-linecap: round; }
+  .qd-arrow-ke-head    { fill: #8b2b2b; }
   .qd-node {
-    position: absolute; width: 46px; height: 46px; margin: -23px 0 0 -23px;
-    border-radius: 50%; background: #faf8f3; border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700;
-    transition: border-color .15s, box-shadow .15s;
+    position: absolute; width: 58px; height: 58px; margin: -29px 0 0 -29px;
+    border-radius: 50%; background: var(--surface); border: 1.5px dashed var(--border);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-weight: 700; opacity: .5;
+    transition: border-color .15s, box-shadow .15s, opacity .15s;
   }
-  .qd-node.natal { background: #fdf5df; border-color: var(--gold); border-width: 2px; }
-  .qd-node.leaves span.qd-ch { color: var(--text-muted) !important; }
+  .qd-node .qd-el-label { font-size: 20px; line-height: 1; }
+  .qd-node .qd-el-name  { display: block; font-family: 'Inter', sans-serif; font-size: 7px;
+                           letter-spacing: .3px; font-weight: 600; text-transform: uppercase;
+                           color: var(--text-muted); margin-top: 2px; }
+  .qd-node.present { border-style: solid; border-width: 2px; opacity: 1; background: #faf8f3; }
+  .qd-node.dm-el    { background: #fdf5df; }
+  .qd-node.absent span { color: var(--text-muted) !important; }
+  .qd-node.leaves   { opacity: 1; border-style: solid; border-color: var(--border); background: #faf8f3; }
+  .qd-node.leaves span { color: var(--text-muted) !important; }
   .qd-node.leaves::after {
-    content: ""; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px;
+    content: ""; position: absolute; left: 8px; right: 8px; top: 46%; height: 2px;
     background: #b23b3b; transform: rotate(-18deg); border-radius: 1px;
   }
   .qd-node.trig-luck  { box-shadow: 0 0 0 3px #7b4397; }
@@ -424,25 +435,42 @@
   .qd-node.trig-luck.trig-year.trig-month {
     box-shadow: 0 0 0 3px #7b4397, 0 0 0 6px var(--gold), 0 0 0 9px #c2185b;
   }
+  .qd-wheel-detail { list-style: none; margin: 14px auto 0; padding: 0; max-width: 260px;
+                      text-align: left; font-size: 10.5px; line-height: 1.7; color: var(--text-dim); }
+  .qd-wheel-detail li { display: flex; justify-content: space-between; gap: 8px; }
+  .qd-wheel-detail .qdd-el { font-weight: 700; }
+  .qd-wheel-detail .qdd-chars { color: var(--text-muted); flex: 1; text-align: left; padding-left: 6px; }
+  .qd-wheel-detail .qdd-tag { font-size: 9px; letter-spacing: .5px; text-transform: uppercase; font-weight: 700; }
+  .qd-wheel-detail .qdd-tag.active { color: var(--el-wood); }
+  .qd-wheel-detail .qdd-tag.leaving { color: #b23b3b; }
+  .qd-wheel-detail .qdd-tag.absent { color: var(--text-muted); }
+
   .qd-legend { display: flex; flex-wrap: wrap; gap: 10px 18px; justify-content: center;
-               padding: 0 20px 20px; font-size: 11px; color: var(--text-muted); }
+               padding: 6px 20px 20px; font-size: 11px; color: var(--text-muted); }
   .qd-legend span { display: inline-flex; align-items: center; gap: 6px; }
   .qd-legend .lg-swatch { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
-  .lg-natal  { background: #fdf5df; border: 2px solid var(--gold); }
-  .lg-leaves { background: #faf8f3; border: 1.5px solid var(--border); position: relative; }
+  .lg-dm      { background: #fdf5df; border: 2px solid var(--gold); }
+  .lg-present { background: #faf8f3; border: 2px solid #8d6e2b; }
+  .lg-absent  { background: var(--surface); border: 1.5px dashed var(--border); }
+  .lg-leaves  { background: #faf8f3; border: 1.5px solid var(--border); position: relative; }
   .lg-leaves::after { content: ""; position: absolute; left: 2px; right: 2px; top: 50%; height: 1.5px;
                        background: #b23b3b; transform: rotate(-18deg); }
-  .lg-trig   { background: #faf8f3; box-shadow: 0 0 0 2px var(--gold); }
+  .lg-trig    { background: #faf8f3; box-shadow: 0 0 0 2px var(--gold); }
+  .lg-sheng, .lg-ke { width: 22px; height: 2px; display: inline-block; border-radius: 1px; }
+  .lg-sheng { background: #8f9a80; }
+  .lg-ke    { background: #8b2b2b; height: 3px; }
 
   @media screen and (max-width: 900px) {
-    .qd-wheel.stems { width: 260px; height: 260px; }
-    .qd-wheel.branches { width: 290px; height: 290px; }
-    .qd-node { width: 40px; height: 40px; margin: -20px 0 0 -20px; font-size: 19px; }
+    .qd-wheel.stems, .qd-wheel.branches { width: 240px; height: 240px; }
+    .qd-node { width: 50px; height: 50px; margin: -25px 0 0 -25px; }
+    .qd-node .qd-el-label { font-size: 17px; }
   }
   @media screen and (max-width: 480px) {
-    .qd-wheel.stems { width: 220px; height: 220px; }
-    .qd-wheel.branches { width: 250px; height: 250px; }
-    .qd-node { width: 34px; height: 34px; margin: -17px 0 0 -17px; font-size: 16px; }
+    .qd-wheel-block { width: 100%; }
+    .qd-wheel.stems, .qd-wheel.branches { width: 210px; height: 210px; }
+    .qd-node { width: 42px; height: 42px; margin: -21px 0 0 -21px; }
+    .qd-node .qd-el-label { font-size: 14px; }
+    .qd-node .qd-el-name { font-size: 6px; }
   }
   @media print {
     .qd { break-inside: avoid; }
@@ -552,16 +580,22 @@
       <div class="qd-wheel-block">
         <div class="qd-wheel-label" data-i18n="qdStemsLabel">Небесные Стволы</div>
         <div class="qd-wheel stems" id="qd-wheel-stems"></div>
+        <ul class="qd-wheel-detail" id="qd-detail-stems"></ul>
       </div>
       <div class="qd-wheel-block">
         <div class="qd-wheel-label" data-i18n="qdBranchesLabel">Земные Ветви</div>
         <div class="qd-wheel branches" id="qd-wheel-branches"></div>
+        <ul class="qd-wheel-detail" id="qd-detail-branches"></ul>
       </div>
     </div>
     <div class="qd-legend">
-      <span><span class="lg-swatch lg-natal"></span><span data-i18n="qdLgNatal">Ваш натальный столп</span></span>
+      <span><span class="lg-swatch lg-dm"></span><span data-i18n="qdLgDm">Хозяин дня</span></span>
+      <span><span class="lg-swatch lg-present"></span><span data-i18n="qdLgPresent">Стихия есть в карте</span></span>
+      <span><span class="lg-swatch lg-absent"></span><span data-i18n="qdLgAbsent">Стихии нет в карте</span></span>
       <span><span class="lg-swatch lg-trig"></span><span data-i18n="qdLgTrig">Столп-триггер (Удача / Год / Месяц)</span></span>
       <span><span class="lg-swatch lg-leaves"></span><span data-i18n="qdLgLeaves">Уходит</span></span>
+      <span><span class="lg-sheng"></span><span data-i18n="qdLgSheng">Усиливает (生)</span></span>
+      <span><span class="lg-ke"></span><span data-i18n="qdLgKe">Подавляет (克)</span></span>
     </div>
   </div>
 
@@ -628,9 +662,12 @@ const I18N = {
     yang: "Ян", yin: "Инь",
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима",
     qdTitle: "Qu Dynamics — что уходит",
-    qdSub: "Отметьте столп(ы) — ниже подсветится, какие стволы и ветви натальной карты уходят под их влиянием.",
+    qdSub: "Отметьте столп(ы). Стволы и ветви натальной карты переведены в стихии — хозяин дня всегда наверху. Тонкая стрелка — стихия усиливает соседнюю (生), толстая — подавляет (克).",
     qdStemsLabel: "Небесные Стволы", qdBranchesLabel: "Земные Ветви",
-    qdLgNatal: "Ваш натальный столп", qdLgTrig: "Столп-триггер (Удача / Год / Месяц)", qdLgLeaves: "Уходит",
+    qdLgDm: "Хозяин дня", qdLgPresent: "Стихия есть в карте", qdLgAbsent: "Стихии нет в карте",
+    qdLgTrig: "Столп-триггер (Удача / Год / Месяц)", qdLgLeaves: "Уходит",
+    qdLgSheng: "Усиливает (生)", qdLgKe: "Подавляет (克)",
+    qdActiveTag: "активна", qdLeavesTag: "уходит", qdAbsentTag: "нет в карте",
     qdLuck: "Стоп Удачи", qdYear: "Год", qdMonth: "Месяц", qdVoid: "—"
   },
   en: {
@@ -689,9 +726,12 @@ const I18N = {
     yang: "Yang", yin: "Yin",
     spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter",
     qdTitle: "Qu Dynamics — what leaves",
-    qdSub: "Tick the pillar(s) — the stems and branches of the natal chart that leave under their influence light up below.",
+    qdSub: "Tick the pillar(s). Natal stems and branches are translated into Elements — the Day Master's element always sits at the top. A thin arrow means one element strengthens its neighbour (生); a thick arrow means it controls/attacks it (克).",
     qdStemsLabel: "Heavenly Stems", qdBranchesLabel: "Earthly Branches",
-    qdLgNatal: "Your natal pillar", qdLgTrig: "Trigger pillar (Luck / Year / Month)", qdLgLeaves: "Leaves",
+    qdLgDm: "Day Master", qdLgPresent: "Element present in chart", qdLgAbsent: "Element absent from chart",
+    qdLgTrig: "Trigger pillar (Luck / Year / Month)", qdLgLeaves: "Leaves",
+    qdLgSheng: "Generates (生)", qdLgKe: "Controls (克)",
+    qdActiveTag: "active", qdLeavesTag: "leaves", qdAbsentTag: "not in chart",
     qdLuck: "Luck Pillar", qdYear: "Year", qdMonth: "Month", qdVoid: "—"
   }
 };
@@ -1350,44 +1390,132 @@ function qdWheelPositions(n, radiusPct){
   return pts;
 }
 
+/* ===== Elements pentagon =====
+   The Sheng (generating) cycle is the fixed reference order: Wood→Fire→Earth→Metal→Water→Wood.
+   Ke (controlling): element i controls element i+2 in that same order (Wood controls Earth, etc.) —
+   this is standard Wu Xing theory, not derived from the study material photos.
+   Layout: Day Master's own element is pinned to the top (12 o'clock); the rest follow clockwise
+   in Sheng order, per the user's spec ("top is element of day master"). */
+const EL_LIST = ["wood","fire","earth","metal","water"];
+const EL_ABBR = {
+  ru: { wood:"Д", fire:"О", earth:"З", metal:"М", water:"В" },
+  en: { wood:"Wo", fire:"Fi", earth:"Ea", metal:"Me", water:"Wa" }
+};
+const elOfCh = ch => STEM_EL[ch] || BRANCH_EL[ch];
+const elClassByKey = el => "el-" + el;
+const elGenerates = el => EL_LIST[(EL_LIST.indexOf(el)+1) % 5];
+const elControls  = el => EL_LIST[(EL_LIST.indexOf(el)+2) % 5];
+function qdRotatedOrder(dmEl){
+  const i = EL_LIST.indexOf(dmEl);
+  if(i < 0) return EL_LIST.slice();
+  return EL_LIST.slice(i).concat(EL_LIST.slice(0,i));
+}
+
+/* Per-element aggregation for one channel (stems or branches): which natal chars map to each
+   element, and whether any of them is in the currently-active "leaves" set. */
+function qdElementData(natalArr, pillarLabels, leaveSet){
+  const data = {};
+  EL_LIST.forEach(el => data[el] = { chars: [], leaving: false });
+  natalArr.forEach((ch,i) => {
+    const el = elOfCh(ch); if(!el) return;
+    data[el].chars.push({ ch, label: pillarLabels[i] });
+    if(leaveSet.has(ch)) data[el].leaving = true;
+  });
+  return data;
+}
+/* Which element(s) the currently-ticked periods' own stem/branch belongs to, per trigger class. */
+function qdElementTriggers(idx){
+  const trig = {};
+  QD_PERIODS.forEach(p => {
+    if(!QD_STATE[p.key] || !p.gz) return;
+    const el = elOfCh(p.gz[idx]); if(!el) return;
+    (trig[el] = trig[el] || []).push(p.trigClass);
+  });
+  return trig;
+}
+
+function svgArrow(a, b, cls){
+  const dx=b.x-a.x, dy=b.y-a.y, len=Math.sqrt(dx*dx+dy*dy) || 1;
+  const ux=dx/len, uy=dy/len, pad=11;
+  const x1=a.x+ux*pad, y1=a.y+uy*pad;
+  const x2=b.x-ux*pad, y2=b.y-uy*pad;
+  const ah=3, aw=2, bx=x2-ux*ah, by=y2-uy*ah, px=-uy, py=ux;
+  const lx=bx+px*aw, ly=by+py*aw, rx=bx-px*aw, ry=by-py*aw;
+  return `<line class="${cls}" x1="${x1.toFixed(2)}" y1="${y1.toFixed(2)}" x2="${bx.toFixed(2)}" y2="${by.toFixed(2)}"/>`+
+         `<polygon class="${cls}-head" points="${x2.toFixed(2)},${y2.toFixed(2)} ${lx.toFixed(2)},${ly.toFixed(2)} ${rx.toFixed(2)},${ry.toFixed(2)}"/>`;
+}
+
+/* Renders one 5-element pentagon (stems channel or branches channel) into #wheelId,
+   and its supporting per-element trace list into #detailId (full auditability of the
+   stem/branch → element reduction — nothing is asserted without the underlying chars shown). */
+function renderElementWheel(wheelId, detailId, dmEl, elData, elTrig){
+  const order = qdRotatedOrder(dmEl);
+  const pts = qdWheelPositions(5, 39);
+  const posOf = {}; order.forEach((el,i) => posOf[el] = pts[i]);
+  const abbr = EL_ABBR[LANG] || EL_ABBR.en;
+  const elName = LANG === "ru" ? EL_NAME_RU : EL_NAME_EN;
+
+  const isActive = el => elData[el].chars.length > 0 && !elData[el].leaving;
+
+  let arrows = "";
+  order.forEach(el => {
+    if(!isActive(el)) return;
+    const g = elGenerates(el); if(isActive(g)) arrows += svgArrow(posOf[el], posOf[g], "qd-arrow-sheng");
+    const k = elControls(el);  if(isActive(k)) arrows += svgArrow(posOf[el], posOf[k], "qd-arrow-ke");
+  });
+
+  const nodes = order.map((el,i) => {
+    const d = elData[el];
+    const present = d.chars.length > 0;
+    const cls = ["qd-node"];
+    if(present) cls.push("present");
+    if(!present) cls.push("absent");
+    if(d.leaving) cls.push("leaves");
+    if(el === dmEl) cls.push("dm-el");
+    (elTrig[el]||[]).forEach(t => cls.push(t));
+    const pt = pts[i];
+    const tip = d.chars.map(c => `${c.ch} (${c.label})`).join(", ") || L().qdAbsentTag;
+    return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${elName[el]}${el===dmEl? " — "+L().qdLgDm : ""}: ${tip}">
+      <span class="qd-el-label ${present && !d.leaving ? elClassByKey(el) : ""}">${abbr[el]}</span>
+      <span class="qd-el-name">${elName[el]}</span>
+    </div>`;
+  }).join("");
+
+  document.getElementById(wheelId).innerHTML =
+    `<svg class="qd-arrows" viewBox="0 0 100 100" preserveAspectRatio="none">${arrows}</svg>${nodes}`;
+
+  document.getElementById(detailId).innerHTML = order.map(el => {
+    const d = elData[el];
+    const present = d.chars.length > 0;
+    const tag = !present ? "absent" : (d.leaving ? "leaving" : "active");
+    const tagText = !present ? L().qdAbsentTag : (d.leaving ? L().qdLeavesTag : L().qdActiveTag);
+    const chars = d.chars.map(c => `${c.ch}(${c.label})`).join(" ") || "—";
+    return `<li><span class="qdd-el ${elClassByKey(el)}">${elName[el]}${el===dmEl?" ★":""}</span>
+      <span class="qdd-chars">${chars}</span>
+      <span class="qdd-tag ${tag}">${tagText}</span></li>`;
+  }).join("");
+}
+
 function renderQdWheels(){
   const leaveStems = new Set(), leaveBranches = new Set();
   const stemTables   = { luck: QD_LUCK_STEM_LEAVES,   year: QD_YEAR_STEM_LEAVES,   month: QD_MONTH_STEM_LEAVES };
   const branchTables = { luck: QD_LUCK_BRANCH_LEAVES, year: QD_YEAR_BRANCH_LEAVES, month: QD_MONTH_BRANCH_LEAVES };
-  const trigStemOf = {}, trigBranchOf = {};
 
   QD_PERIODS.forEach(p => {
     if(!QD_STATE[p.key] || !p.gz) return;
     const g = p.gz[0], z = p.gz[1];
     (stemTables[p.key][g] || []).forEach(s => leaveStems.add(s));
     (branchTables[p.key][z] || []).forEach(b => leaveBranches.add(b));
-    (trigStemOf[g] = trigStemOf[g] || []).push(p.trigClass);
-    (trigBranchOf[z] = trigBranchOf[z] || []).push(p.trigClass);
   });
 
-  const stemPts = qdWheelPositions(10, 40);
-  document.getElementById("qd-wheel-stems").innerHTML = QD_STEM_ORDER.map((ch,i) => {
-    const cls = ["qd-node"];
-    if(QD_NATAL_STEMS.includes(ch)) cls.push("natal");
-    if(leaveStems.has(ch)) cls.push("leaves");
-    (trigStemOf[ch]||[]).forEach(t => cls.push(t));
-    const pt = stemPts[i];
-    return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${ch}">
-      <span class="qd-ch ${elClass(ch)}">${ch}</span>
-    </div>`;
-  }).join("");
+  const dmEl = STEM_EL[QD_NATAL_STEMS[2]]; // Day pillar stem = Day Master
+  const pillarLabels = [L().yearP, L().monthP, L().dayP, L().hourP];
 
-  const branchPts = qdWheelPositions(12, 41);
-  document.getElementById("qd-wheel-branches").innerHTML = QD_BRANCH_ORDER.map((ch,i) => {
-    const cls = ["qd-node"];
-    if(QD_NATAL_BRANCHES.includes(ch)) cls.push("natal");
-    if(leaveBranches.has(ch)) cls.push("leaves");
-    (trigBranchOf[ch]||[]).forEach(t => cls.push(t));
-    const pt = branchPts[i];
-    return `<div class="${cls.join(" ")}" style="left:${pt.x.toFixed(2)}%;top:${pt.y.toFixed(2)}%" title="${ch}">
-      <span class="qd-ch ${elClass(ch)}">${ch}</span>
-    </div>`;
-  }).join("");
+  const stemData   = qdElementData(QD_NATAL_STEMS,   pillarLabels, leaveStems);
+  const branchData = qdElementData(QD_NATAL_BRANCHES, pillarLabels, leaveBranches);
+
+  renderElementWheel("qd-wheel-stems",    "qd-detail-stems",    dmEl, stemData,   qdElementTriggers(0));
+  renderElementWheel("qd-wheel-branches", "qd-detail-branches", dmEl, branchData, qdElementTriggers(1));
 }
 
 function renderQuDynamics(ec, sex){
