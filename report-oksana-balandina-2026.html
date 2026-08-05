@@ -127,6 +127,21 @@
     table.ztable td strong{color:var(--text);}
     table.ztable tr.none td{background:#faf7f1;}
     .tbl-note{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 30px;}
+    .ind-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0 0;}
+    .ind-box{background:var(--surface);border:1px solid var(--border2);padding:20px 22px;}
+    .ind-box.zwds{border-top:3px solid var(--gold2);}
+    .ind-box.bazi{border-top:3px solid var(--blue);}
+    .ind-src{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:6px;}
+    .ind-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:12px;line-height:1.2;}
+    .ind-box.zwds .ind-title{color:var(--gold2);}
+    .ind-box.bazi .ind-title{color:var(--blue);}
+    .ind-list{list-style:none;padding:0;margin:0;}
+    .ind-list li{font-size:13.5px;color:var(--dim);line-height:1.55;padding:4px 0 4px 15px;position:relative;}
+    .ind-list li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700;}
+    .ind-note{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:12px;padding-top:10px;border-top:1px solid var(--border2);}
+    .overlap-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--green);padding:20px 24px;margin-top:18px;}
+    .overlap-box .ov-t{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--green);margin-bottom:10px;}
+    .overlap-box p{font-size:13.5px;color:var(--dim);line-height:1.75;}
     .tbl-note strong{color:var(--text);}
     .verdict-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);
       padding:22px 26px;margin:0 0 30px;font-size:13.5px;color:var(--dim);line-height:1.75;}
@@ -182,6 +197,7 @@
       .report-title{font-size:32px;}
       .short-grid{grid-template-columns:1fr;}
       .pillar-grid{grid-template-columns:1fr;}
+      .ind-grid{grid-template-columns:1fr;}
       .tl-item{flex-direction:column;gap:8px;}
       .tl-left{width:100%;}
       .intro-block{padding:24px 22px;}
@@ -480,12 +496,71 @@
   <div class="q-card c-a">
     <div class="q-tag">Вопрос а · Профессия и самореализация</div>
     <div class="quote-q">«Какое у меня предназначение (профессия), которое мне бы приносило хороший доход и удовлетворение? На данный момент я работаю бухгалтером. Работа стабильная, но удовольствия не доставляет и хорошего дохода не приносит.»</div>
-    <div class="q-verdict">Бухгалтерия — не ваше направление по карте. Ваше — рядом: обучение, творчество, публичная экспертиза.</div>
+    <div class="q-verdict">Ваша звезда карьеры — Tan Lang: обучение, творчество и публичность, реклама и пиар, всё, что связано с ростом и быстрым результатом. Бухгалтерия стоит на другой линии вашей карты — на линии партнёрства, а не самореализации.</div>
     <div class="q-body">
       <p>В карте есть отдельная линия, отвечающая именно за самореализацию, и она однозначно указывает на другую область, чем цифры и отчётность: обучение и наставничество, творческая или премиальная экспертная работа, публичное слово, консультирование.</p>
       <p>Бухгалтерская профессия по своей природе ближе к другой линии вашей карты — линии партнёрства и системности, а не к линии личной реализации. Вы много лет успешно работаете «не своей» линией — отсюда и стабильность есть, а удовлетворения нет.</p>
       <p>Причина, по которой вы держитесь за эту работу — хорошее отношение руководства и коллектива, — тоже видна в карте: там заложен лёгкий, комфортный поток именно через отношения с людьми, а не через интерес к самому делу. Комфорт настоящий, но именно он и держит вас в стороне от того, где вы могли бы раскрыться по-настоящему.</p>
       <p><strong>Хорошая новость:</strong> именно сейчас, примерно до 2028 года, линия самореализации в вашей карте максимально «включена» как главная тема этого периода жизни. Окно уже открыто. Но само оно не сдвинет вас с комфортного места — этот шаг за вами.</p>
+
+      <div class="ind-grid">
+        <div class="ind-box zwds">
+          <div class="ind-src">Цзы Вэй Доу Шу · звезда Tan Lang</div>
+          <div class="ind-title">Сферы вашей звезды карьеры</div>
+          <ul class="ind-list">
+            <li>Обучение</li>
+            <li>Искусства · артистическая работа</li>
+            <li>Сфера развлечений</li>
+            <li>Пиар</li>
+            <li>Маркетинг</li>
+            <li>Приглашение спикеров · карьерные спикеры</li>
+            <li>Люксовые продукты</li>
+            <li>Лёгкие деньги</li>
+            <li>Спорт</li>
+            <li>Религия</li>
+            <li>Открытие филиалов</li>
+            <li>Сырьё</li>
+            <li>Индустрия металла</li>
+            <li>Бумажная промышленность</li>
+            <li>Кладбище</li>
+            <li>Всё, что связано с ростом и достижениями</li>
+          </ul>
+          <div class="ind-note">Условие успеха по этой звезде — человеку сначала необходимо что-то поменять в жизни.</div>
+        </div>
+
+        <div class="ind-box bazi">
+          <div class="ind-src">Ба Цзы · стихия Огня</div>
+          <div class="ind-title">Сферы стихии Огня</div>
+          <ul class="ind-list">
+            <li>Праздники, представления, тусовка, дискотека, кафе, рестораны (как веселье), еда (быстрые закуски); всё яркое, красное, весёлое</li>
+            <li>Юмор · шоу-бизнес · танцы</li>
+            <li>PR, медиа, кино (+YouTube)</li>
+            <li>Реклама · маркетинг (как реклама) · интернет</li>
+            <li>Фотография</li>
+            <li>Красота и косметика</li>
+            <li>Китайская метафизика (гадательная и предсказательная — Ба Цзы, И Цзин), астрология</li>
+            <li>Религиозные практики</li>
+            <li>Свет (люстры, лампочки), электрика, энергия, нефть и газ</li>
+            <li>Солнце · цветы</li>
+            <li>Ракеты, космос, авиация</li>
+            <li>Ядерная энергия</li>
+            <li>Пожар, пожарная и любая другая сигнализация</li>
+            <li>Риск</li>
+            <li>Всё, что имеет быстрый результат</li>
+          </ul>
+          <div class="ind-note">Это список из другого метода — Ба Цзы. Он приведён отдельно и не смешивается со списком звезды.</div>
+        </div>
+      </div>
+
+      <div class="overlap-box">
+        <div class="ov-t">Где два метода говорят одно и то же</div>
+        <p>Два независимых списка пересекаются в одном и том же наборе — и это самое надёжное, что здесь есть:
+        <strong>развлечения, шоу, танцы, юмор</strong> · <strong>пиар, реклама, маркетинг, медиа, кино, YouTube</strong> ·
+        <strong>фотография</strong> · <strong>китайская метафизика и астрология, религиозные практики</strong> ·
+        <strong>красота и премиальные продукты</strong> · <strong>всё, что даёт быстрый результат</strong>.
+        Обучение и наставничество есть только в первом списке, но именно оно у вас стоит первым в звезде — поэтому оно остаётся в основе.</p>
+      </div>
+
     </div>
   </div>
 
@@ -621,7 +696,7 @@
   <div class="short-grid">
     <div class="short-card">
       <div class="short-q">Профессия</div>
-      <div class="short-verdict">Не бухгалтерия — рядом</div>
+      <div class="short-verdict">Обучение, творчество, публичность</div>
     </div>
     <div class="short-card">
       <div class="short-q">Брак</div>
