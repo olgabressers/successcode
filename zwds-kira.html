@@ -863,14 +863,15 @@
      ──────────────────────────────────────────────────────────────────────────── -->
 <script>
 (function () {
-  function cny(lunarYear) {
+  var busy = false, obs = null;
+
+  function cny(y) {
     try {
-      var s = Lunar.fromYmd(lunarYear, 1, 1).getSolar();
+      var s = Lunar.fromYmd(y, 1, 1).getSolar();
       return s.getYear() + '.' + String(s.getMonth()).padStart(2, '0') + '.' +
              String(s.getDay()).padStart(2, '0');
     } catch (e) { return null; }
   }
-
   function chartLunarYear() {
     var el = document.getElementById('birth-date');
     if (!el || !el.value) return null;
@@ -878,50 +879,47 @@
     if (p.length !== 3) return null;
     try { return Solar.fromYmd(p[0], p[1], p[2]).getLunar().getYear(); } catch (e) { return null; }
   }
-
-  function mk(text) {
+  function mk(text, mt) {
     var s = document.createElement('span');
     s.className = 'cny-line';
-    s.style.cssText = 'font-size:9px;color:#8a6410;display:block;margin-bottom:4px;';
+    s.style.cssText = 'font-size:9px;color:#8a6410;display:block;margin-' +
+                      (mt ? 'top:6px' : 'bottom:4px') + ';';
     s.textContent = text;
     return s;
   }
 
   function apply() {
+    if (busy) return;                      // re-entry guard
+    var out = document.getElementById('chart-output');
     var centre = document.querySelector('.center-content');
     if (!centre) return;
-    // wipe previous injection so re-renders don't stack duplicates
-    centre.querySelectorAll('.cny-line').forEach(function (n) { n.remove(); });
+    busy = true;
+    if (obs) obs.disconnect();             // never observe our own writes
+    try {
+      var old = centre.querySelectorAll('.cny-line');
+      for (var i = 0; i < old.length; i++) old[i].remove();
 
-    var ly = chartLunarYear();
-    if (ly) {
-      var d = cny(ly);
+      var ly = chartLunarYear(), d = ly && cny(ly);
       var sec = centre.querySelector('.bazi-section');
-      if (d && sec) {
-        var lbl = sec.querySelector('.bazi-section-label');
-        var line = mk('年始 · lunar year ' + ly + ' began ' + d);
-        if (lbl && lbl.nextSibling) sec.insertBefore(line, lbl.nextSibling.nextSibling);
-        else sec.appendChild(line);
-      }
-    }
+      if (d && sec) sec.appendChild(mk('年始 · lunar year ' + ly + ' began ' + d, false));
 
-    var yv = document.querySelector('.annual-year-val');
-    var ay = yv && parseInt((yv.textContent || '').replace(/\D/g, ''), 10);
-    if (ay) {
-      var ad = cny(ay);
+      var yv = document.querySelector('.annual-year-val');
+      var ay = yv && parseInt((yv.textContent || '').replace(/[^0-9]/g, ''), 10);
+      var ad = ay && cny(ay);
       var val = centre.querySelector('.cc-value');
       if (ad && val && val.parentNode) {
-        var l2 = mk('流年 ' + ay + ' · began ' + ad);
-        l2.style.marginTop = '6px';
-        val.parentNode.appendChild(l2);
+        val.parentNode.appendChild(mk('流年 ' + ay + ' · began ' + ad, true));
       }
-    }
+    } catch (e) { /* never break the chart */ }
+    if (obs && out) obs.observe(out, { childList: true, subtree: true });
+    busy = false;
   }
 
   function watch() {
     var out = document.getElementById('chart-output');
-    if (!out) return setTimeout(watch, 200);
-    new MutationObserver(function () { apply(); }).observe(out, { childList: true, subtree: true });
+    if (!out) return setTimeout(watch, 300);
+    obs = new MutationObserver(function () { if (!busy) setTimeout(apply, 0); });
+    obs.observe(out, { childList: true, subtree: true });
     apply();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
