@@ -1,543 +1,472 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="SuccessCode">
-  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
-  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
-  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
-  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
-  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex, nofollow">
-  <meta name="googlebot" content="noindex, nofollow">
-  <title>Персональная стратегия — Кира · 2026</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8; --gold:#9A6E20; --gold2:#B8882A;
-      --goldfade:rgba(154,110,32,0.09); --text:#1A1820; --dim:#383644; --muted:#72707E;
-      --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10); --red:#7A1E1E; --green:#1A5026; --blue:#1A3060; --amber:#8a6000;
-    }
-    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
-    html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
-    html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
-    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased;}
-    .page{width:100%;max-width:1060px;margin:0 auto;padding:0 56px 80px;position:relative;}
+ <meta charset="UTF-8">
+ <link rel="icon" href="/favicon.ico" sizes="any">
+ <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+ <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+ <meta property="og:type" content="website">
+ <meta property="og:site_name" content="SuccessCode">
+ <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+ <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+ <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+ <meta property="og:image:width" content="1200">
+ <meta property="og:image:height" content="630">
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+ <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+ <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <meta name="robots" content="noindex, nofollow">
+ <meta name="googlebot" content="noindex, nofollow">
+ <title>Персональная стратегия — Кира · 2026</title>
+ <link rel="preconnect" href="https://fonts.googleapis.com">
+ <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+ <style>
+ :root{
+ --bg:#F7F5F0; --surface:#EDEBE4; --surface2:#E5E2D8;
+ --gold:#9A6E20; --gold2:#B8882A; --goldfade:rgba(154,110,32,0.09);
+ --text:#1A1820; --dim:#383644; --muted:#72707E;
+ --border:rgba(154,110,32,0.22); --border2:rgba(30,28,40,0.10);
+ --red:#7A1E1E; --green:#1A5026; --redfade:rgba(122,30,30,0.06); --greenfade:rgba(26,80,38,0.06);
+ }
+ html,body{max-width:100vw;width:100%;overflow-x:hidden;position:relative;}
+ *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+ html{scroll-behavior:smooth;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.7;}
+ .page{width:100%;max-width:1080px;margin:0 auto;padding:0 52px 80px;}
 
-    .report-actions{position:absolute;top:22px;right:56px;display:flex;gap:10px;z-index:20;}
-    .print-btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#fff;border:none;padding:9px 16px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .15s;text-decoration:none;}
-    .print-btn:hover{background:var(--gold2);}
-    .print-btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--border);}
-    .print-btn.ghost:hover{background:var(--goldfade);color:var(--gold2);}
-    .print-btn svg{width:14px;height:14px;fill:currentColor;}
-    .chart-print-only{display:none;}
+ .topnav{display:flex;flex-wrap:wrap;gap:18px;padding-top:24px;font-size:12px;align-items:center;}
+ .topnav a{color:var(--muted);text-decoration:none;letter-spacing:1px;text-transform:uppercase;font-weight:500;}
+ .topnav a:hover{color:var(--gold);}
 
-    .report-header{padding:52px 0 44px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;background-image:linear-gradient(100deg, rgba(247,245,240,0.88) 0%, rgba(247,245,240,0.60) 40%, rgba(247,245,240,0.18) 70%, rgba(247,245,240,0.04) 100%), url('/assets/backgrounds/bg-career-coral.png?v=2');background-size:cover;background-position:center right;overflow:hidden;}
-    .header-left{flex:1;}
-    .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:24px;display:block;}
-    .report-title{font-family:'Cormorant Garamond',serif;font-size:46px;font-weight:400;line-height:1.15;color:var(--text);margin-bottom:10px;}
-    .report-title em{font-style:italic;color:var(--gold2);}
-    .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
-    .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
-    .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-    .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
-    .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
-    .report-date{font-size:11px;color:var(--muted);margin-top:12px;letter-spacing:1px;}
+ .report-header{padding:34px 0 40px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;}
+ .header-left{flex:1;}
+ .brand{font-family:'Cormorant Garamond',serif;font-size:12px;font-weight:600;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:22px;display:block;}
+ .report-title{font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:400;line-height:1.08;color:var(--text);margin-bottom:10px;}
+ .report-title em{font-style:italic;color:var(--gold2);}
+ .report-subtitle{font-size:13px;color:var(--muted);margin-top:8px;}
+ .header-right{text-align:right;flex-shrink:0;padding-bottom:4px;}
+ .client-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+ .client-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:500;color:var(--text);margin-bottom:4px;}
+ .client-meta{font-size:12px;color:var(--muted);line-height:1.6;}
+ .cn{font-family:'Cormorant Garamond',serif;color:var(--gold);font-size:22px;letter-spacing:4px;margin-top:10px;}
 
-    .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
-    .sec-label{font-size:15px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:20px;display:flex;align-items:center;gap:14px;}
-    .sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+ .gold-rule{height:1px;background:linear-gradient(90deg,var(--gold) 0%,transparent 70%);margin:44px 0;}
+ .gold-rule-full{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold) 70%,transparent);margin:50px 0;}
 
-    .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:32px 38px;margin-bottom:36px;}
-    .intro-lead{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:16px;}
-    .intro-lead em{font-style:italic;color:var(--gold2);}
-    .intro-body{font-size:13.5px;color:var(--dim);line-height:1.8;}
-    .intro-body+.intro-body{margin-top:12px;}
+ .section-label{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);font-weight:600;margin:46px 0 20px;display:flex;align-items:center;gap:14px;}
+ .section-label::after{content:'';flex:1;height:1px;background:var(--border);}
+ .section-title{font-family:'Cormorant Garamond',serif;font-size:33px;font-weight:400;color:var(--text);margin-bottom:14px;line-height:1.2;}
+ .section-intro{font-size:14.5px;color:var(--dim);margin-bottom:26px;max-width:760px;}
 
-    .q-card{background:white;border:1px solid var(--border2);padding:30px 34px;margin-bottom:20px;}
-    .q-card.c-a{border-top:4px solid var(--blue);}
-    .q-card.c-b{border-top:4px solid var(--amber);}
-    .q-card.c-v{border-top:4px solid var(--blue);}
-    .q-card.c-g{border-top:4px solid var(--gold2);}
-    .q-card.c-d{border-top:4px solid var(--green);}
-    .quote-q{font-style:italic;color:var(--muted);font-size:13.5px;line-height:1.7;border-left:2px solid var(--border);padding-left:16px;margin-bottom:20px;}
-    .q-verdict{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:600;line-height:1.25;margin-bottom:16px;color:var(--text);}
-    .q-body{font-size:14px;color:var(--dim);line-height:1.8;}
-    .q-body p+p{margin-top:13px;}
-    .q-body strong{color:var(--text);}
+ .intro-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:34px 42px;margin-bottom:32px;}
+ .intro-lead{font-family:'Cormorant Garamond',serif;font-size:25px;font-weight:400;line-height:1.5;color:var(--text);margin-bottom:18px;}
+ .intro-lead em{font-style:italic;color:var(--gold2);}
+ .intro-body{font-size:14.5px;color:var(--dim);line-height:1.85;}
+ .intro-body+.intro-body{margin-top:12px;}
 
-    .short-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-    .short-card{background:white;border:1px solid var(--border2);padding:22px 22px;}
-    .short-verdict{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;line-height:1.25;color:var(--gold2);}
-    .tl-left{flex-shrink:0;width:190px;}
-    .tl-period{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--gold2);line-height:1.2;}
-    .tl-body{background:white;border:1px solid var(--border2);padding:18px 22px;flex:1;margin-bottom:12px;}
-    .tl-body.peak{border-left:4px solid var(--green);}
-    .tl-body.neutral{border-left:4px solid var(--amber);}
-    .tl-text{font-size:13.5px;color:var(--dim);line-height:1.65;}
-    .tl-text strong{color:var(--text);}
+ .verdict-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:10px;}
+ .verdict-card{background:white;border:1px solid var(--border2);padding:26px 24px;}
+ .verdict-card.hl{background:var(--goldfade);border-color:var(--border);}
+ .vc-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+ .vc-value{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500;color:var(--text);margin-bottom:8px;line-height:1.25;}
+ .vc-sub{font-size:13px;color:var(--muted);line-height:1.6;}
 
-    .pillar-intro{font-size:13.5px;color:var(--dim);line-height:1.7;margin-bottom:22px;}
-    .pillar-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
-    .pillar{background:white;border:1px solid var(--border2);padding:24px 26px;}
-    .pillar.p-prof{border-top:4px solid var(--blue);}
-    .pillar.p-marriage{border-top:4px solid var(--amber);}
-    .pillar.p-home{border-top:4px solid var(--green);}
-    .pillar.p-health{border-top:4px solid var(--gold2);}
-    .pillar-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;margin-bottom:16px;line-height:1.2;}
-    .pillar.p-prof .pillar-title{color:var(--blue);}
-    .pillar.p-marriage .pillar-title{color:var(--amber);}
-    .pillar.p-home .pillar-title{color:var(--green);}
-    .pillar.p-health .pillar-title{color:var(--gold2);}
-    .action-list{list-style:none;}
-    .action-list li{font-size:13px;color:var(--dim);padding:9px 0;border-bottom:1px solid var(--border2);line-height:1.55;}
-    .action-list li:last-child{border-bottom:none;}
+ .star-table{width:100%;border-collapse:collapse;table-layout:fixed;margin-bottom:8px;}
+ .star-table th{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);font-weight:600;padding:11px 18px;text-align:left;border-bottom:2px solid var(--border2);background:var(--surface2);}
+ .star-table th:first-child{width:30%;}
+ .star-table tr{border-bottom:1px solid var(--border2);}
+ .star-table td{padding:20px 18px;vertical-align:top;background:white;word-break:break-word;}
+ .star-table tr:nth-child(even) td{background:#FCFBF8;}
+ .palace{display:block;font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--text);line-height:1.2;margin-bottom:5px;}
+ .star{display:block;font-size:13px;color:var(--gold);font-weight:500;line-height:1.5;}
+ .star .cnx{color:var(--muted);font-weight:400;}
+ .star-cell .tag{display:inline-block;margin-top:7px;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:3px 7px;border:1px solid;}
+ .tag.s{color:var(--green);border-color:rgba(26,80,38,0.3);background:var(--greenfade);}
+ .tag.w{color:var(--red);border-color:rgba(122,30,30,0.3);background:var(--redfade);}
+ .reading{font-size:14px;color:var(--dim);line-height:1.72;}
+ .reading strong{color:var(--text);font-weight:600;}
+ .reading b{color:var(--text);font-weight:600;}
+ .star b{color:var(--text);font-weight:600;}
 
-    .tbl-intro{font-size:13.5px;color:var(--dim);line-height:1.7;margin-bottom:18px;}
-    .tbl-intro strong{color:var(--text);}
-    .tbl-wrap{overflow-x:auto;background:white;border:1px solid var(--border2);margin-bottom:14px;}
-    table.ztable{width:100%;border-collapse:collapse;font-size:13px;min-width:560px;}
-    table.ztable th{background:#f4f1ea;text-align:left;padding:11px 14px;font-size:13px;letter-spacing:1.5px;
-      text-transform:uppercase;color:var(--muted);font-weight:700;border-bottom:1px solid var(--border2);white-space:nowrap;}
-    table.ztable td{padding:11px 14px;border-bottom:1px solid var(--border2);color:var(--dim);line-height:1.6;vertical-align:top;}
-    table.ztable tr:last-child td{border-bottom:none;}
-    table.ztable td.k{color:var(--text);font-weight:600;white-space:nowrap;}
-    table.ztable td strong{color:var(--text);}
-    table.ztable tr.none td{background:#faf7f1;}
-    .tbl-note{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 30px;}
-    .ind-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:18px 0 0;}
-    .ind-box{background:var(--surface);border:1px solid var(--border2);padding:20px 22px;}
-    .ind-box.zwds{border-top:3px solid var(--gold2);}
-    .ind-box.bazi{border-top:3px solid var(--blue);}
-    .ind-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:12px;line-height:1.2;}
-    .ind-box.zwds .ind-title{color:var(--gold2);}
-    .ind-box.bazi .ind-title{color:var(--blue);}
-    .ind-list{list-style:none;padding:0;margin:0;}
-    .ind-list li{font-size:13.5px;color:var(--dim);line-height:1.55;padding:4px 0 4px 15px;position:relative;}
-    .ind-list li::before{content:'·';position:absolute;left:2px;color:var(--gold);font-weight:700;}
-    .ind-note{font-size:12.5px;color:var(--muted);line-height:1.6;margin-top:12px;padding-top:10px;border-top:1px solid var(--border2);}
-    .overlap-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--green);padding:20px 24px;margin-top:18px;}
-    .overlap-box .ov-t{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--green);margin-bottom:10px;}
-    .overlap-box p{font-size:13.5px;color:var(--dim);line-height:1.75;}
-    .lead-box{background:var(--surface);border:1px solid var(--border2);border-top:3px solid var(--red);padding:24px 26px;margin-top:18px;}
-    .lead-title{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--red);margin-bottom:6px;line-height:1.2;}
-    .lead-sub{font-size:13.5px;color:var(--dim);line-height:1.7;margin-bottom:14px;}
-    .lead-list{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;}
-    .lead-list li{font-size:13.5px;color:var(--dim);line-height:1.55;padding:5px 0 5px 18px;position:relative;}
-    .lead-list li::before{content:'▸';position:absolute;left:0;color:var(--red);font-weight:700;}
-    .lead-list li.wide{grid-column:1 / -1;}
-    .tbl-note strong{color:var(--text);}
-    .verdict-box{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);
-      padding:22px 26px;margin:0 0 30px;font-size:13.5px;color:var(--dim);line-height:1.75;}
-    .verdict-box strong{color:var(--text);}
-    .tbl-h{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:600;color:var(--text);margin:0 0 12px;}
-    .q-body p.risk-h{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--gold2);
-      margin:26px 0 4px;padding-top:14px;border-top:1px solid var(--border2);}
+ .tech-block{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:24px 28px;margin-bottom:16px;}
+ .tech-block h4{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--text);margin-bottom:8px;}
+ .tech-block p{font-size:13.5px;color:var(--dim);line-height:1.72;margin-bottom:8px;}
+ .tech-block p:last-child{margin-bottom:0;}
+ .tech-block b{color:var(--text);}
+ .tech-table{width:100%;border-collapse:collapse;table-layout:fixed;margin:6px 0 16px;}
+ .tech-table th{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:left;padding:8px 12px;background:var(--surface2);border-bottom:2px solid var(--border2);}
+ .tech-table td{padding:9px 12px;border-bottom:1px solid var(--border2);color:var(--dim);word-break:break-word;vertical-align:top;font-size:13px;}
+ .tech-table td b{color:var(--text);}
 
-    .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
-    .chart-wrap iframe{width:100%;height:960px;border:none;display:block;}
-    .chart-note{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.6;}
+ .timeline{list-style:none;}
+ .timeline li{position:relative;padding:14px 0 14px 22px;border-bottom:1px solid var(--border2);font-size:14px;color:var(--dim);line-height:1.6;}
+ .timeline li:last-child{border-bottom:none;}
+ .timeline li::before{content:'';position:absolute;left:2px;top:20px;width:8px;height:8px;border-radius:50%;background:var(--gold2);}
+ .timeline li.peak::before{background:var(--green);box-shadow:0 0 0 3px var(--greenfade);}
+ .timeline li.warn::before{background:var(--red);box-shadow:0 0 0 3px var(--redfade);}
+ .timeline li b{color:var(--text);}
+ .timeline .yr{display:inline-block;min-width:104px;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--gold);}
 
-    .bottom-note{background:white;border:1px solid var(--border2);padding:26px 30px;margin-top:36px;display:flex;gap:18px;align-items:flex-start;}
-    .bn-icon{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--gold);flex-shrink:0;margin-top:2px;}
-    .bn-text{font-size:13px;color:var(--dim);line-height:1.75;}
-    .bn-text strong{color:var(--text);}
+ .sw-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+ .sw-card{background:white;border:1px solid var(--border2);padding:28px 30px;}
+ .sw-card.green{border-top:3px solid var(--green);}
+ .sw-card.red{border-top:3px solid var(--red);}
+ .sw-title{font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:18px;}
+ .sw-title.green{color:var(--green);}
+ .sw-title.red{color:var(--red);}
+ .sw-list{list-style:none;}
+ .sw-list li{padding:12px 0;border-bottom:1px solid var(--border2);font-size:13.5px;color:var(--dim);line-height:1.55;}
+ .sw-list li:last-child{border-bottom:none;}
+ .sw-list li b{color:var(--text);display:block;margin-bottom:2px;font-size:14px;}
 
-    .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
-    .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
-    .footer-note{font-size:11px;color:var(--muted);}
+ .qa{background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:26px 32px;margin-bottom:18px;}
+ .qa-q{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--text);line-height:1.35;margin-bottom:6px;}
+ .qa-q::before{content:'?';color:var(--gold);font-weight:600;margin-right:10px;}
+ .qa-a{font-size:14px;color:var(--dim);line-height:1.78;}
+ .qa-a strong{color:var(--text);font-weight:600;}
+ .qa-a+.qa-a{margin-top:10px;}
+ .qa-tag{display:inline-block;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:12px;}
 
-    @page{margin:13mm;}
-    @media print{
-      html,body{background:white;}
-      body{font-size:11.5px;line-height:1.55;}
-      .page{padding:0;max-width:100%;}
-      .report-actions{display:none!important;}
-      .gold-rule{margin:22px 0!important;}
-      .report-title{font-size:32px;}
-      .q-card,.short-card,.pillar,.intro-block,.bottom-note{break-inside:avoid;page-break-inside:avoid;}
-      .short-grid,.pillar-grid{break-inside:avoid;page-break-inside:avoid;}
-      .tbl-wrap{overflow:visible;break-inside:auto;}
-      table.ztable{min-width:0;font-size:10.5px;}
-      table.ztable th,table.ztable td{padding:6px 8px;}
-      table.ztable tr{break-inside:avoid;page-break-inside:avoid;}
-      .verdict-box,.tbl-h{break-inside:avoid;page-break-inside:avoid;}
-      .tbl-h{break-after:avoid;page-break-after:avoid;}
-      .sec-label{break-after:avoid;page-break-after:avoid;}
-      .chart-wrap{display:none!important;}
-      .chart-print-only{display:flex!important;gap:18px;align-items:flex-start;background:white;border:1px solid var(--border2);border-left:3px solid var(--gold2);padding:22px 26px;break-inside:avoid;}
-      .chart-print-only .bn-icon{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--gold);flex-shrink:0;}
-      .chart-print-only .bn-text{font-size:12px;color:var(--dim);line-height:1.7;}
-    }
-    @media (max-width:900px){
-      *{max-width:100vw;}
-      img,iframe,video,table{max-width:100%!important;}
-      .report-actions{top:12px;right:16px;gap:7px;}
-      .print-btn{padding:7px 10px;font-size:9px;gap:5px;}
-      .page{padding:0 20px 60px;}
-      .report-header{flex-direction:column;align-items:flex-start;gap:20px;padding:64px 0 28px;}
-      .header-right{text-align:left;}
-      .report-title{font-size:32px;}
-      .short-grid{grid-template-columns:1fr;}
-      .pillar-grid{grid-template-columns:1fr;}
-      .ind-grid{grid-template-columns:1fr;}
-      .lead-list{grid-template-columns:1fr;}
-      .tl-left{width:100%;}
-      .intro-block{padding:24px 22px;}
-      .intro-lead{font-size:19px;}
-      table.ztable{min-width:520px;}
-      table.ztable th,table.ztable td{padding:9px 11px;}
-      .verdict-box{padding:20px 20px;}
-      .tbl-h{font-size:19px;}
-      .back-to-top{width:46px;height:46px;bottom:22px;right:22px;}
-    }
-    .back-to-top{
-      position:fixed;bottom:32px;right:32px;width:54px;height:54px;
-      background:var(--gold);color:#f5f1eb;display:flex;align-items:center;justify-content:center;
-      text-decoration:none;border:1px solid var(--gold);z-index:250;
-      opacity:0;pointer-events:none;transition:opacity .3s,background .25s,transform .25s;cursor:pointer;
-    }
-    .back-to-top.visible{opacity:1;pointer-events:auto;}
-    .back-to-top:hover{background:var(--gold2);transform:translateY(-2px);}
-    .back-to-top svg{width:18px;height:18px;stroke:#f5f1eb;fill:none;stroke-width:2.5;}
-    @media print{.report-header{background:none!important;background-image:none!important;}}
-  </style>
+ .pull{background:var(--surface);border:1px solid var(--border);padding:20px 26px;margin:20px 0;font-size:14.5px;color:var(--dim);line-height:1.7;}
+ .pull strong{color:var(--gold);}
+
+ .chart-wrap{border:1px solid var(--border2);overflow:hidden;background:white;}
+ .chart-wrap iframe{width:100%;height:1000px;border:none;display:block;}
+ .chart-note{font-size:13px;color:var(--muted);margin-top:10px;line-height:1.6;}
+
+ .report-footer{margin-top:52px;padding-top:22px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+ .footer-brand{font-family:'Cormorant Garamond',serif;font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--muted);}
+ .footer-note{font-size:11px;color:var(--muted);}
+
+ .print-btn{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#fff;background:var(--gold);border:none;padding:9px 18px;cursor:pointer;border-radius:2px;}
+ .print-btn:hover{background:var(--gold2);}
+ .print-only{display:none;}
+
+ @media print{
+ html,body{background:#fff;}
+ .page{max-width:100%;padding:0 14px 20px;}
+ .topnav,.print-btn{display:none!important;}
+ .gold-rule,.gold-rule-full{margin:26px 0;}
+ .section-label{margin:26px 0 14px;}
+ .report-header{padding-top:6px;}
+ .intro-block,.verdict-card,.qa,.sw-card,.star-table tr,.pull,.report-header{break-inside:avoid;page-break-inside:avoid;}
+ .section-title,.qa-q{break-after:avoid;}
+ .chart-wrap{display:none!important;}
+ .print-only{display:block;background:var(--surface);border:1px solid var(--border);padding:18px 22px;font-size:13px;color:var(--dim);line-height:1.6;}
+ .print-only b{color:var(--gold);}
+ .verdict-row{break-inside:avoid;}
+ }
+
+ @media (max-width:900px){
+ *{max-width:100vw;}
+ img,iframe,video,table{max-width:100%!important;}
+ .page{padding:0 20px 56px;}
+ .report-header{flex-direction:column;align-items:flex-start;gap:22px;}
+ .header-right{text-align:left;}
+ .report-title{font-size:34px;}
+ .section-title{font-size:26px;}
+ .verdict-row{grid-template-columns:1fr;}
+ .sw-grid{grid-template-columns:1fr;}
+ .intro-block{padding:26px 22px;}
+ .intro-lead{font-size:20px;}
+ .star-table th:first-child{width:38%;}
+ .star-table td{padding:14px 12px;}
+ .palace{font-size:16px;}
+ .reading{font-size:13.5px;}
+ .chart-wrap iframe{height:760px;}
+ }
+ </style>
 </head>
 <body>
 <div class="page">
 
-  <div class="report-actions">
-    <button class="print-btn" onclick="window.print()" title="Сохранить отчёт в PDF / печать">
-      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      PDF отчёта
-    </button>
-    <a class="print-btn ghost" href="https://successcode.net/zwds-kira" target="_blank" rel="noopener" title="Открыть карту на отдельной странице и распечатать её">
-      <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-      Печать карты
-    </a>
-  </div>
+ <nav class="topnav">
+ <a href="#story">Ваша история</a>
+ <a href="#property">Недвижимость</a>
+ <a href="#finance">Финансы</a>
+ <a href="#love">Личная жизнь</a>
+ <a href="#risks2026">Риски 2026</a>
+ <a href="#health">Здоровье</a>
+ <a href="#chart">Карта</a>
+ <a href="#tech">Методология</a>
+ <button class="print-btn" onclick="window.print">🖨 Печать / PDF</button>
+ </nav>
 
-  <header class="report-header">
-    <div class="header-left">
-      <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
-        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span></a>
-        <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше →</a>
-      </div>
-      <h1 class="report-title">Персональная стратегия<br><em>характер и год, 2026</em></h1>
-      <p class="report-subtitle">Индивидуальный анализ · Август 2026</p>
-    </div>
-    <div class="header-right">
-      <div class="client-label">Подготовлено для</div>
-      <div class="client-name">Кира</div>
-      <div class="client-meta">Характер, карьера, дом,<br>отношения</div>
-      <div class="report-date">Август 2026</div>
-    </div>
-  </header>
+ <header class="report-header">
+ <div class="header-left">
+ <div style="display:flex;align-items:center;flex-wrap:wrap;gap:14px 18px;margin-bottom:24px;">
+ <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="text-decoration:none;line-height:1;"><span style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;letter-spacing:5px;text-transform:uppercase;color:var(--gold,#9A6E20);">SuccessCode</span></a>
+ <a href="https://successcode.net/ru" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;background:linear-gradient(135deg,var(--gold2,#B8882A),var(--gold,#9A6E20));color:#fff;padding:10px 20px;border-radius:3px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;text-decoration:none;white-space:nowrap;box-shadow:0 2px 10px rgba(154,110,32,0.28);">Узнать больше · Discover more →</a>
+ </div>
+ <h1 class="report-title">Персональная стратегия<br><em>характер и год, 2026</em></h1>
+ <p class="report-subtitle">Индивидуальный анализ · Август 2026</p>
+ </div>
+ <div class="header-right">
+ <div class="client-label">Подготовлено для</div>
+ <div class="client-name">Кира</div>
+ <div class="client-meta">Характер · карьера · дом<br>отношения</div>
+ <div class="client-meta">Характер · карьера · дом<br>отношения</div>
+ <div class="cn"></div>
+ </div>
+ </header>
 
-  <div class="gold-rule" style="margin:20px 0 24px;"></div>
+ <!-- ГЛАВНЫЙ ВЫВОД -->
+ 
+ <div class="section-label">Главный вывод</div>
+ <div class="verdict-card">
+ <div class="vc-label">Про карьеру — ваш вопрос</div>
+ <div class="vc-value">Её нечем включить снаружи</div>
+ <div class="vc-sub">Дворец Карьеры — единственный в вашей карте, куда не приходит ни один Усилитель:
+ ни от года, ни от десятилетия, ни от ствола любого другого дворца. Ни один год не может её
+ поднять и ни один не может придавить. Карьера двигается ровно настолько, насколько вы берёте
+ её сами — и двигается рывками, а не плавным приростом по стажу.</div>
+ </div>
+ <div class="verdict-card">
+ <div class="vc-label">Про то, почему работа занимает столько места</div>
+ <div class="vc-value">Дворец Тела стоит на Дворце Карьеры</div>
+ <div class="vc-sub">Дворец Тела — это то, куда ложится вес жизни. У вас он стоит именно на работе,
+ и стоит там всю жизнь. Это не следствие обстоятельств и не перекос, который надо выправлять:
+ так собрана карта.</div>
+ </div>
+ <div class="pull"><strong>Коротко.</strong> Сильная, разносторонняя личность, вся тяга которой уходит
+ в дело; тихий дворец друзей и очень живой дворец семьи; поздний брак, записанный в структуре;
+ защищённый дворец недвижимости, где сейчас открыто окно; и поездки как способ восстановиться —
+ тоже записанный.</div>
 
-  <!-- РАЗБОР КАРТЫ -->
-  <div class="sec-label">Разбор карты</div>
+ <div class="section-label">Ваша история в карте</div>
+ <h2 class="section-title">Что вы рассказали — и что за этим стоит</h2>
+ <p class="section-intro">Прежде чем отвечать на вопрос, покажу, что карта построена верно: то, что вы описали о себе, ложится на её структуру без натяжек. Ничего из вашего письма не превратилось в вывод — письмо здесь только сверка.</p>
+ <table class="star-table">
+ <thead><tr><th>Что вы написали</th><th>Что за этим стоит в карте</th></tr></thead>
+ <tbody>
+ <tr><td class="star-cell"><span class="palace">Гимнастика, золотая медаль, музыкальная школа, три языка</span></td>
+ <td class="reading">В Дворце Личности стоит <b>Tan Lang</b> в самом сильном блеске — звезда
+ широкого таланта: способности сразу в нескольких не связанных между собой областях.
+ Такой набор достижений — её подпись, а не совпадение.</td></tr>
+ <tr><td class="star-cell"><span class="palace">«Работа занимает 90% времени. Это главный фокус»</span></td>
+ <td class="reading">Дворец Тела стоит на Дворце Карьеры. Вес жизни ложится туда по устройству карты.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Врач в государственной больнице</span></td>
+ <td class="reading">В Дворце Карьеры стоит <b>Qi Sha</b>. Сферы этой звезды по материалу:
+ военная сфера, полиция, <strong>хирургия</strong>, тяжёлая промышленность. Работа, где входят
+ и решают.</td></tr>
+ <tr><td class="star-cell"><span class="palace">«Очень общительный человек» — но круг общения только коллеги и семья</span></td>
+ <td class="reading">Дворец Личности сильный и живой, а Дворец Друзей — одна звезда в слабом
+ блеске. Живость есть, но она уходит туда, где стоит Дворец Тела: в работу. Отсюда и то,
+ что круг совпал с местом работы.</td></tr>
+ <tr><td class="star-cell"><span class="palace">«Мой дом — моя крепость», гостей не зову</span></td>
+ <td class="reading">В Ментальном дворце — <b>Lian Zhen</b> и <b>Tian Xiang</b>: порядок, дисциплина
+ и образ колодца с чистой водой. Внутренняя жизнь не выносится наружу, и этого достаточно.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Отношения пять лет, закончились хорошо четыре года назад</span></td>
+ <td class="reading">В Дворце Супругов <b>Tian Fu</b>: всё складывается правильно и постепенно —
+ без бурной страсти и без громких разрывов. Ровно так вы это и описали.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Семью хочу, но «сильно позже»</span></td>
+ <td class="reading">Там же <b>Zi Wei</b> — в Дворце Супругов эта звезда означает поздний брак.
+ Ваше «позже» совпало со структурой.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Поездки по 4–6 дней, после них заметно легче</span></td>
+ <td class="reading">В Дворце Путешествий стоит <b>Tian Xi</b> — звезда радости. При этом текущее
+ десятилетие даёт на этот же дворец трение — отсюда и короткая форма поездок.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Переезд; документы ещё не подписаны</span></td>
+ <td class="reading">В Дворце Недвижимости стоит <b>Tian Xing</b> — звезда бумаг и формальностей.
+ Именно та часть, которая у вас и осталась.</td></tr>
+ <tr><td class="star-cell"><span class="palace">Круг — коллеги и семья</span></td>
+ <td class="reading">Дворец Родителей стоит на «лошадиной» ветви (двойная сила) и несёт
+ самоусилитель потока. Линия семьи держится сама, без усилий по её поддержанию.</td></tr>
+ </tbody>
+ </table>
+ <div class="pull"><strong>Зачем этот раздел:</strong> он показывает, что разбор опирается на структуру
+ вашей карты, а не на общие слова. Десять названных вами вещей читаются в ней прямо. Значит,
+ и ответу на ваш вопрос можно доверять.</div>
 
-  <div class="tbl-h">1. Двенадцать дворцов: звёзды и характер</div>
-  <p class="tbl-intro">
-    Когда во дворце нет Усилителя, звезда задаёт <strong>характер и «окрас» дворца</strong>, а не событие.
-    Событие включается, когда на звезду приходит Усилитель — от года, от десятилетия или от ствола
-    другого дворца.
-  </p>
+ <div class="section-label">Звёзды вашей карты</div>
+ <h2 class="section-title">Характер по сферам жизни</h2>
+ <p class="section-intro">Слева — сфера жизни и звёзды, которые ею управляют. Справа — что это значит для вас. Зона отмечена как <b style="color:var(--green)">сильная</b> или <b style="color:var(--red)">требующая внимания</b>.</p>
+ <table class="star-table">
+ <thead><tr><th>Дворец · звёзды (англ.)</th><th>Что это значит для вас</th></tr></thead>
+ <tbody>
+ <tr>
+ <td class="star-cell"><span class="palace">1 · Личность</span><span class="star"><b>Tan Lang</b> · Qing Yang · Hong Luan</span><span class="tag s">Сильная</span></td>
+ <td class="reading"><b>Tan Lang</b> в самом сильном блеске: активность, движение, напор. Сильная, настойчивая, энергичная, упрямая; своё вы доказываете энергией, а не выжиданием. Это же звезда широкого таланта. Рядом <b>Qing Yang</b> — резкость и способность отрезать, когда решение принято. На этот дворец постоянно приходят четыре положительных Усилителя из четырёх разных дворцов — самая насыщенная точка карты.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">2 · Ресурсы, близкий круг</span><span class="star"><b>Tai Yin</b> · Lu Cun · Di Kong</span><span class="tag w">Точка трения</span></td>
+ <td class="reading"><b>Tai Yin</b> — Луна: накопление, тихие деньги, резерв. На ней стоит врождённое трение: резерв не копится сам собой. <b>Lu Cun</b> даёт финансовый пол, <b>Di Kong</b> рядом — то, что отложено, легко уходит. Копить приходится отдельно и осознанно.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">3 · Отношения, брак</span><span class="star"><b>Zi Wei</b> · <b>Tian Fu</b> · Zuo Fu · Wen Chang · Tuo Luo</span><span class="tag s">Сильная</span></td>
+ <td class="reading">Пара <b>Zi Wei + Tian Fu</b> — Император и Сокровищница вместе: высокий, устойчивый дворец. Брак традиционный, складывается правильно и постепенно. <b>Zi Wei</b> здесь означает поздний брак; партнёр самостоятельный, с положением. Врождённый Усилитель признания стоит на <b>Zi Wei</b>: партнёрство даёт вес и положение. <b>Tuo Luo</b> — медленно.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">4 · Дети, младшие</span><span class="star"><b>Tian Ji</b> </span><span class="tag s">Сильная</span></td>
+ <td class="reading"><b>Tian Ji</b> — подвижность, анализ, стратегия — с врождённым Усилителем потока. Линия младших и всего, что строится на движении и перемене, открыта без усилия.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">5 · Деньги</span><span class="star"><b>Po Jun</b> · You Bi · Wen Qu · Tian Kui</span><span class="tag w">Требует внимания</span></td>
+ <td class="reading"><b>Po Jun</b> — снести и пересобрать. Деньги не идут ровной линией: структуру дохода приходится переделывать целиком, и только после этого возможен рост. Это не бедность, это форма движения.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">6 · Здоровье</span><span class="star"><b>Tai Yang</b> · Tian Yao</span><span class="tag s">Спокойная</span></td>
+ <td class="reading"><b>Tai Yang</b> в слабом блеске. В 2026 году на этот дворец не приходит ничего — ни от года, ни от десятилетия, ни от подвижных звёзд. Тишина здесь — это вывод, а не пробел.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">7 · Поездки, внешняя среда</span><span class="star"><b>Wu Qu</b> <span class="cnx">( декады)</span> · Tian Xi</span><span class="tag s">Сильная</span></td>
+ <td class="reading"><b>Wu Qu</b> в самом сильном блеске, рядом <b>Tian Xi</b> — звезда радости. Поездки восстанавливают, и это записано в карте. Но десятилетие 2019–2028 даёт на <b>Wu Qu</b> трение — поэтому поездки работают короткими отрезками, а не длинными.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">8 · Друзья, окружение</span><span class="star"><b>Tian Tong</b> </span><span class="tag w">Тихая</span></td>
+ <td class="reading">Одна звезда, в слабом блеске: мягкость и ровный фон. Дворец тихий по устройству — не потому, что что-то не сложилось.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">9 · Карьера · <b>Дворец Тела</b></span><span class="star"><b>Qi Sha</b> · Tian Yue</span><span class="tag s">Центр карты</span></td>
+ <td class="reading"><b>Qi Sha</b> — образ вулкана: тот, кто появляется внезапно и берёт ситуацию под контроль. Секрет успеха по материалу — ставить цель и быстро её брать. <b>Tian Yue</b> — благородный помощник: старший человек, который появляется и помогает. Здесь же стоит <b>Дворец Тела</b>. Ни одна из двух звёзд не принимает Усилителей — подробнее ниже.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">10 · Недвижимость, дом</span><span class="star"><b>Tian Liang</b> · Di Jie · Tian Xing</span><span class="tag s">Защищённая</span></td>
+ <td class="reading"><b>Tian Liang</b> — образ пожилого мудрого человека: принципиальность, дисциплина, старшая роль, с врождённым Усилителем силы. Решения по жилью принимаете вы. <b>Tian Xing</b> — бумаги и формальности. <b>Di Jie</b> — внезапная убыль: деньги в этом дворце не задерживаются. Трение сюда не приходит никогда, ни от одного ствола.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">11 · Внутренняя жизнь</span><span class="star"><b>Lian Zhen</b> · <b>Tian Xiang</b> · Ling Xing</span><span class="tag s">Сильная</span></td>
+ <td class="reading">Пара <b>Lian Zhen + Tian Xiang</b>: система, порядок, дисциплина — и образ колодца, вода в котором чистая. Прямота, мягкость, готовность помочь и умение довольствоваться меньшим. Этот дворец — дворец жизни текущего десятилетия, то есть центр тяжести 2019–2028 годов.</td>
+ </tr>
+ <tr>
+ <td class="star-cell"><span class="palace">12 · Семья, старшие</span><span class="star"><b>Ju Men</b> · Tian Ma · Huo Xing</span><span class="tag s">Сильная</span></td>
+ <td class="reading"><b>Ju Men</b> — звезда слова: связь держится разговором. Дворец стоит на «лошадиной» ветви — двойная сила — и несёт самоусилитель потока: включён постоянно, сбить его нельзя.</td>
+ </tr>
+ </tbody>
+ </table>
 
-  <div class="tbl-wrap">
-  <table class="ztable">
-    <thead><tr><th>Дворец</th><th>Звёзды</th><th>Характер по материалу</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Дворец Судьбы</td><td>Tan Lang, Qing Yang,<br>Hong Luan</td>
-        <td>Tan Lang в природе — дерево: активность, движение, напор. Человек сильный, настойчивый,
-        энергичный, упрямый; своё доказывает бурной энергией, а не выжиданием. Звезда стоит в самом
-        сильном блеске. Qing Yang рядом — резкость и способность отрезать, когда решение принято.</td></tr>
-      <tr><td class="k">Дворец Братьев<br>и Сестёр</td><td>Tai Yin, Lu Cun,<br>Di Kong</td>
-        <td>Tai Yin — Луна: мягкость, накопление, тихие деньги. Люди этой линии мягкие по характеру.
-        Lu Cun даёт финансовый пол; Di Kong рядом — то, что накоплено, легко уходит.</td></tr>
-      <tr><td class="k">Дворец Супругов</td><td>Zi Wei, Tian Fu,<br>Zuo Fu, Wen Chang,<br>Tuo Luo</td>
-        <td>Пара Zi Wei + Tian Fu — Император и Сокровищница вместе. Брак традиционный: складывается
-        правильно и постепенно, без бурной страсти и без громких разрывов. Zi Wei здесь означает
-        поздний брак; партнёр самостоятельный, с положением. Tuo Luo — медленно.</td></tr>
-      <tr><td class="k">Дворец Детей</td><td>Tian Ji</td>
-        <td>Tian Ji — подвижность, анализ, стратегия. Дворец несёт натальный Усилитель потока.</td></tr>
-      <tr><td class="k">Дворец Богатства</td><td>Po Jun, You Bi,<br>Wen Qu, Tian Kui</td>
-        <td>Po Jun — разрушение и пересборка. Деньги не идут ровной линией: структуру дохода
-        приходится переделывать целиком, и только после этого возможен рост.</td></tr>
-      <tr><td class="k">Дворец Здоровья</td><td>Tai Yang, Tian Yao</td>
-        <td>Tai Yang в слабом блеске. Дворец в 2026-м не получает ни одного сигнала — ни от года,
-        ни от десятилетия, ни от подвижных звёзд.</td></tr>
-      <tr><td class="k">Дворец Путешествий</td><td>Wu Qu, Tian Xi</td>
-        <td>Wu Qu в самом сильном блеске. Рядом Tian Xi — звезда радости. Поездки — то, что
-        восстанавливает; это стоит в карте, а не в предпочтениях.</td></tr>
-      <tr><td class="k">Дворец Друзей</td><td>Tian Tong</td>
-        <td>Одна звезда, в слабом блеске. Tian Tong — мягкость, ровность, спокойный фон.
-        Дворец тихий по устройству.</td></tr>
-      <tr class="none"><td class="k">Дворец Карьеры<br><span>Дворец Тела</span></td><td>Qi Sha, Tian Yue</td>
-        <td>Qi Sha — образ вулкана: тот, кто появляется внезапно и берёт ситуацию под контроль.
-        Секрет успеха по материалу — умение ставить цель и быстро её брать. Здесь же стоит
-        <strong>Дворец Тела</strong>: вес жизни ложится именно сюда.</td></tr>
-      <tr><td class="k">Дворец<br>Недвижимости</td><td>Tian Liang, Di Jie,<br>Tian Xing</td>
-        <td>Tian Liang — образ пожилого мудрого человека: принципиальность, дисциплина, старшая роль.
-        Tian Xing — бумаги и формальности. Di Jie — внезапная убыль: деньги в этом дворце
-        не задерживаются.</td></tr>
-      <tr><td class="k">Ментальный Дворец</td><td>Lian Zhen, Tian Xiang,<br>Ling Xing</td>
-        <td>Пара Lian Zhen + Tian Xiang: система, порядок, дисциплина — и образ колодца, вода в котором
-        чистая. Внутренняя установка — «у меня есть всё нужное»: умение довольствоваться меньшим
-        и ценить то, что уже есть.</td></tr>
-      <tr><td class="k">Дворец Родителей</td><td>Ju Men, Tian Ma,<br>Huo Xing</td>
-        <td>Ju Men — много слов, разговор как способ связи. Дворец стоит на лошадиной ветви (двойная
-        сила) и несёт <strong>самоусилитель потока</strong>: линия семьи включена сама по себе
-        и постоянно.</td></tr>
-    </tbody>
-  </table>
-  </div>
+ <div class="section-label">Карьера</div>
+ <h2 class="section-title">Как она будет развиваться</h2>
+ <p class="section-intro">Ваш вопрос. Отвечаю по структуре — включая то, почему рост здесь никогда не выглядит как продвижение по стажу.</p>
+ <div class="qa">
+ <div class="qa-tag">Главное</div>
+ <div class="qa-q">Как будет развиваться карьера?</div>
+ <p class="qa-a"><strong>Рывками, и только вашим собственным действием.</strong> В карте двенадцать дворцов, у каждого свой ствол — сорок восемь постоянных полётов. Мы проверили все. <b>Qi Sha</b> и <b>Tian Yue</b>, две звезды вашего Дворца Карьеры, <strong>не принимают ни одного из четырёх Усилителей — ни от одного ствола, ни в один год</strong>. Это значит, что снаружи карьеру нечем ни поднять, ни придавить: удачный год её не включит, тяжёлый не остановит. При этом ось Личность—Деньги—Карьера собрана в формацию, которая двигается тем же образом: снести и пересобрать, а не наращивать понемногу. Отсюда форма роста — не ступенька за ступенькой, а момент, когда вы входите и берёте.</p>
+ </div>
+ <div class="qa">
+ <div class="qa-tag">2026</div>
+ <div class="qa-q">Что этот год даёт по работе?</div>
+ <p class="qa-a">Подвижная звезда <b>Tian Ma</b> — конь — приходит в 2026 году в Дворец Карьеры. Это год перемещения: смена места, поездки по работе, расширение зоны. <b>Tian Ma</b> даёт скорость, но не направление — он ускоряет то, что уже запущено, и сам ничего не начинает. Усилитель потока в этом году идёт на <b>Tian Tong</b> в Дворец Друзей — то есть по линии коллег, а это ровно тот круг, в котором вы проводите день. И отдельно: Усилитель признания приходит на <b>Wen Chang</b>, звезду письменного слова — написанное и опубликованное в этом году читают.</p>
+ </div>
+ <div class="qa">
+ <div class="qa-tag">Сроки</div>
+ <div class="qa-q">Когда карьера становится главной темой периода?</div>
+ <p class="qa-a">Сейчас идёт десятилетие 2019–2028, его дворец жизни стоит в Ментальном дворце. Следующее, 2029–2038, встаёт на Дворец Недвижимости. На сам Дворец Карьеры десятилетие приходит только с 2039 года. Это не значит, что до тех пор ничего не происходит: Дворец Тела стоит там всю жизнь. Это значит другое — рост даёт ваше действие, а не наступивший период.</p>
+ </div>
 
-  <div class="tbl-h">2. Дворец Карьеры: почему он ничего не принимает</div>
-  <p class="tbl-intro">
-    В карте двенадцать дворцов, и у каждого свой ствол — всего сорок восемь постоянных полётов.
-    Мы проверили все сорок восемь. Дворец Карьеры — единственный, в который
-    <strong>не приходит ничего</strong>.
-  </p>
+ <div class="section-label">Дом и переезд</div>
+ <h2 class="section-title">Подписывать ли — и когда</h2>
+ <p class="section-intro">Вы написали, что ждали и что документы ещё не подписаны.</p>
+ <div class="qa">
+ <div class="qa-tag">Дворец</div>
+ <div class="qa-q">Насколько это безопасная тема?</div>
+ <p class="qa-a">Дворец Недвижимости — один из двух самых защищённых дворцов вашей карты: <strong>трение сюда не приходит никогда</strong>, ни от одного ствола и ни в один год. В нём стоит <b>Tian Liang</b> с врождённым Усилителем силы — старшая, решающая роль в вопросах жилья принадлежит вам. Ожидание не стоило вам ничего: этот дворец не портится от времени.</p>
+ </div>
+ <div class="qa">
+ <div class="qa-tag">Сроки</div>
+ <div class="qa-q">Когда окно?</div>
+ <p class="qa-a">Десятилетие 2019–2028 всё это время даёт в Дворец Недвижимости Усилитель потока. <strong>Окно открыто до конца 2028 года</strong> — и закрывается вместе с десятилетием. Рядом с <b>Tian Liang</b> стоит <b>Di Jie</b>, звезда внезапной убыли: деньги в этом дворце не задерживаются, поэтому расходы по переезду стоит посчитать заранее и целиком. <b>Tian Xing</b> — бумаги: это та часть темы, которая требует вашего личного внимания, а не делегирования.</p>
+ </div>
 
-  <div class="tbl-wrap">
-  <table class="ztable">
-    <thead><tr><th>Дворец</th><th>Звезда</th><th>Что на неё приходит</th><th>Что это значит</th></tr></thead>
-    <tbody>
-      <tr class="none"><td class="k">Дворец Карьеры</td><td class="k">Qi Sha</td>
-        <td><strong>Ничего и никогда.</strong> Эта звезда по своей природе не принимает ни один
-        из четырёх Усилителей — ни от одного ствола, ни в один год.</td>
-        <td>Военная сфера · полиция · <strong>хирургия</strong> · тяжёлая промышленность.
-        Секрет успеха по материалу: ставить цель и быстро её брать.</td></tr>
-      <tr class="none"><td class="k">Дворец Карьеры</td><td class="k">Tian Yue</td>
-        <td><strong>Ничего и никогда.</strong> Вторая звезда дворца тоже не принимает Усилителей.</td>
-        <td>Благородный помощник: старший человек, который появляется и помогает — не по договорённости,
-        а потому что оказался рядом.</td></tr>
-      <tr><td class="k">Дворец Судьбы</td><td class="k">Tan Lang</td>
-        <td>Четыре постоянных положительных Усилителя приходят из четырёх разных дворцов.</td>
-        <td>Самый насыщенный дворец карты. Личность получает поддержку с четырёх сторон.</td></tr>
-      <tr><td class="k">Дворец<br>Недвижимости</td><td class="k">Tian Liang</td>
-        <td>Четыре положительных Усилителя. <strong>Трение сюда не приходит никогда</strong> —
-        ни от одного ствола.</td>
-        <td>Дворец защищён по устройству карты.</td></tr>
-    </tbody>
-  </table>
-  </div>
+ <div class="section-label">Личная жизнь</div>
+ <h2 class="section-title">Семья и дети «сильно позже»</h2>
+ <p class="section-intro">Вы написали, что сейчас вам лучше одной, но семью хотите.</p>
+ <div class="qa">
+ <div class="qa-tag">Структура</div>
+ <div class="qa-q">«Позже» — это отсрочка или устройство карты?</div>
+ <p class="qa-a">Устройство. <b>Zi Wei</b> в Дворце Супругов означает <strong>поздний брак</strong> — это постоянная характеристика, а не следствие обстоятельств. Рядом <b>Tian Fu</b>: брак традиционный, складывается правильно и постепенно, без бурной страсти и без громких разрывов — так же, как закончились предыдущие отношения. Партнёр самостоятельный, с положением. <b>Tuo Luo</b> в том же дворце добавляет медленности: этот дворец не работает в режиме быстрого знакомства.</p>
+ </div>
+ <div class="qa">
+ <div class="qa-tag">2026</div>
+ <div class="qa-q">Что происходит в этом году?</div>
+ <p class="qa-a">На Дворец Супругов в 2026-м приходят сразу три Усилителя — один от года и два от десятилетия, — и стоит он на «лошадиной» ветви, то есть с двойной силой. Это самый заметный дворец вашего года. Что именно из этого получится, зависит от вас: Усилители открывают дворец, а не назначают событие. Дворец Детей при этом несёт врождённый Усилитель потока.</p>
+ </div>
 
-  <div class="verdict-box">
-    <strong>Что из этого следует.</strong> Карьера не включается удачным годом и не приходит за выслугу —
-    её нечем «включить» снаружи. Она двигается ровно настолько, насколько человек берёт её сам.
-    При этом Дворец Тела стоит именно здесь: работа занимает столько места не потому, что так сложилось,
-    а потому, что так собрана карта.
-  </div>
+ <div class="section-label">Сводный вывод</div>
+ <h2 class="section-title">Коротко и по шагам</h2>
+ <p class="section-intro">Синтез всей карты по вашим темам.</p>
+ <div class="sw-list">
+ <ol>
+ <li><strong>Карьеру не ждите — берите.</strong> Дворец Карьеры не принимает Усилителей,
+ поэтому «подходящего года» не будет ни разу. Любое продвижение здесь начинается с вашего шага.</li>
+ <li><strong>2026 — год движения по работе, а не год закрепления.</strong> <b>Tian Ma</b> в Дворце
+ Карьеры ускоряет то, что уже запущено. Если есть что двигать — двигайте в этом году.</li>
+ <li><strong>Публикуйте.</strong> Усилитель признания в 2026-м стоит на звезде письменного слова.</li>
+ <li><strong>Квартиру доводите до подписи в это десятилетие.</strong> Окно потока в Дворце
+ Недвижимости открыто до конца 2028 года; сам дворец защищён от трения.</li>
+ <li><strong>Расходы по переезду посчитайте целиком заранее</strong> — <b>Di Jie</b> в этом дворце
+ означает, что деньги в нём не задерживаются.</li>
+ <li><strong>Поездки — не отдых, а рабочий инструмент восстановления.</strong> Короткая форма
+ выбрана верно: десятилетие даёт трение на тот же дворец до 2028 года.</li>
+ <li><strong>Тихий круг общения — это устройство карты, а не то, что нужно исправлять.</strong>
+ Живость уходит в работу, потому что там стоит Дворец Тела.</li>
+ <li><strong>Про семью:</strong> поздний брак записан в структуре. Ваше собственное «сильно позже»
+ совпадает с картой.</li>
+ </ol>
+ </div>
 
-  <div class="gold-rule"></div>
+ <div class="section-label">Методология</div>
+ <h2 class="section-title">Как выведены эти заключения</h2>
+ <p class="section-intro">Технический разбор: из чего построена карта и почему следуют выводы. Имена звёзд — на английском, как в расчётной карте внизу.</p>
+ <div class="tech-block">
+ <h4>1. Построение карты</h4>
+ <p>Дата/время: <b>3 января 1996, 17:25</b> (часы) → перевод в истинное солнечное время.
+ Москва, UTC+3; поправка на долготу −30 минут → <b>солнечное время 16:55 → час Обезьяны </b>.
+ Это принципиально: по часам 17:25 час получился бы Петухом и карта была бы другой.
+ Рождение <b>до китайского Нового года 1996</b> (он наступил 19 февраля), поэтому лунный год —
+ <b></b>, а не ; год-ствол <b> (Yi)</b> — именно он задаёт врождённые Усилители.
+ Бюро пяти элементов — <b>Металл-4 </b>, выведено по ганьчжи Дворца Судьбы ,
+ а не по ганьчжи года. Сверено с расчётным движком (iztro) и с независимым калькулятором —
+ совпадение полное: четыре столпа, лунная дата, бюро, все двенадцать дворцов, Дворец Тела
+ и все десятилетия.</p>
+ </div>
+ <div class="tech-block">
+ <h4>2. Тип карты</h4>
+ <p><b>Формация SPL есть:</b> три звезды трансформации (<b>Qi Sha</b>, <b>Po Jun</b>, <b>Tan Lang</b>)
+ стоят в дворцах 9, 5 и 1 — то есть точно на оси «Личность–Деньги–Карьера» (1-5-9).
+ <b>Полярность при этом обычная:</b> врождённое трение (Ji) уходит на <b>Tai Yin</b> во 2-й дворец,
+ за пределы этой оси, поэтому условие перевёрнутого чтения не выполняется. Для чтения карты это означает, что Усилитель потока на оси 1-5-9 читается как благоприятный, а трение — как трение;
+ правило «наоборот», которое применяется к перевёрнутым картам, к вашей не относится.</p>
+ </div>
+ <div class="tech-block">
+ <h4>3. Почему Дворец Карьеры ничего не принимает</h4>
+ <p>У каждого из двенадцати дворцов свой ствол, и каждый ствол отправляет четыре Усилителя —
+ сорок восемь постоянных полётов, работающих всю жизнь. Полная выборка показывает, что
+ <b>Qi Sha</b> и <b>Tian Yue</b> не входят ни в один из четырёх списков ни одного из десяти
+ стволов. Отсюда следует сильное утверждение: в этот дворец не может прийти ни поток, ни сила,
+ ни признание, ни трение — ни от какого года, ни от какого десятилетия, никогда.
+ Для сравнения: в Дворец Личности приходят четыре постоянных положительных Усилителя из четырёх
+ разных дворцов, а Дворец Недвижимости не может получить трение ни от одного ствола.</p>
+ </div>
+ <div class="tech-block">
+ <h4>4. Слои 2026 года</h4>
+ <p>Год <b></b>: поток → <b>Tian Tong</b> (8-й дворец), сила → <b>Tian Ji</b> (4-й),
+ признание → <b>Wen Chang</b> (3-й), трение → <b>Lian Zhen</b> (11-й).
+ Десятилетие <b></b> (2019–2028, дворец жизни — 11-й): поток → <b>Tian Liang</b> (10-й),
+ сила → <b>Zi Wei</b> (3-й), признание → <b>Zuo Fu</b> (3-й), трение → <b>Wu Qu</b> (7-й).
+ Ветвь года приходит в 11-й дворец. Подвижные звёзды: <b>Tian Ma</b> → 9-й,
+ <b>Qing Yang</b> → 11-й, <b>Tuo Luo</b> → 1-й, <b>Lu Cun</b> → 12-й,
+ <b>Hong Luan</b> → 8-й, <b>Tian Xi</b> → 2-й. Дворец Богатства и Дворец Здоровья
+ в 2026 году не получают ничего ни на одном слое.</p>
+ </div>
+<!-- КАРТА -->
+ <div class="gold-rule-full"></div>
+ <div class="section-label" id="chart">Карта Цзы Вэй Доу Шу</div>
+ <h2 class="section-title">Натальная карта · Кира</h2>
+ <div class="chart-wrap">
+ <iframe src="https://successcode.net/zwds-kira" title="Карта Цзы Вэй Доу Шу — Кира" loading="lazy"></iframe>
+ </div>
+ <div class="print-only">Интерактивная карта не печатается. Откройте её онлайн: <b>successcode.net/zwds-kira</b> — и при необходимости вставьте скриншот карты в этот PDF.</div>
+ <p class="chart-note">Интерактивная карта рождения. Переключайте слои «Декада» и «Годовой», чтобы видеть активные периоды.
+ &nbsp;·&nbsp; Все выводы выше выведены из расположения звёзд на этой карте.</p>
 
-  <!-- ГЛАВНЫЙ ВЫВОД -->
-  <div class="sec-label">Главный вывод</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      Вы спросили, как будет развиваться карьера. Прямой ответ: она развивается рывками и только
-      вашим собственным действием — снаружи её включить нечем.
-    </p>
-    <p class="intro-body">
-      Дворец Карьеры несёт Qi Sha — звезду, которая появляется внезапно и берёт ситуацию под контроль.
-      Ни она, ни вторая звезда дворца не принимают Усилителей: ни один год и ни одно десятилетие
-      не может ни поднять этот дворец, ни придавить его. Поэтому рост здесь никогда не выглядит
-      как плавное продвижение по стажу. Он выглядит как момент, когда вы входите и берёте.
-      Ось Судьба—Богатство—Карьера собрана в формацию, которая двигается тем же образом:
-      снести и пересобрать, а не наращивать понемногу.
-    </p>
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <!-- ХАРАКТЕР -->
-  <div class="sec-label">Характер</div>
-
-  <div class="tbl-h">Разносторонность — это звезда, а не совпадение</div>
-  <p class="tbl-intro">
-    Tan Lang в Дворце Судьбы стоит в самом сильном блеске. По материалу это дерево: активность,
-    движение, напор; человек сильный, настойчивый, энергичный и упрямый. Это же звезда широкого
-    таланта — способности сразу в нескольких не связанных между собой областях. Рядом Qing Yang:
-    резкость и умение отрезать, когда решение принято.
-  </p>
-
-  <div class="tbl-h">Общительность, которая уходит в работу</div>
-  <p class="tbl-intro">
-    Дворец Судьбы сильный и социальный, а Дворец Друзей — одна звезда в слабом блеске, Tian Tong:
-    мягкость и ровный фон. Два эти дворца рассказывают одно и то же с двух сторон: живость есть,
-    но она не расходится по кругу знакомых — она уходит туда, где стоит Дворец Тела, то есть в работу.
-    Отсюда и то, что круг общения совпадает с местом работы.
-  </p>
-
-  <div class="tbl-h">Внутри — порядок и довольство малым</div>
-  <p class="tbl-intro">
-    В Ментальном дворце стоят Lian Zhen и Tian Xiang вместе. Lian Zhen — система, дисциплина,
-    порядок. Tian Xiang — образ колодца: вода чистая, её можно пить; человек прямой, мягкий,
-    всегда готовый помочь, умеющий довольствоваться меньшим и ценить то, что уже есть.
-    Дом как крепость и нежелание звать гостей — про этот же дворец: внутренняя жизнь не выносится наружу.
-  </p>
-
-  <div class="tbl-h">Семья — линия, которая работает сама</div>
-  <p class="tbl-intro">
-    Дворец Родителей стоит на лошадиной ветви — двойная сила — и несёт самоусилитель потока
-    на звезде Ju Men, звезде слова. Такой Усилитель включён постоянно и его нельзя сбить.
-    Связь с семьёй держится сама, без усилий по её поддержанию.
-  </p>
-
-  <div class="gold-rule"></div>
-
-  <!-- КАРЬЕРА -->
-  <div class="sec-label">Карьера</div>
-
-  <div class="tbl-h">Что стоит в 2026 году</div>
-  <div class="tbl-wrap">
-  <table class="ztable">
-    <thead><tr><th>Что приходит</th><th>Куда</th><th>Что это значит</th></tr></thead>
-    <tbody>
-      <tr><td class="k">Tian Ma<br><span>подвижная звезда года</span></td><td>Дворец Карьеры</td>
-        <td>Конь: движение и скорость. Год перемещения по работе — смена места, поездки,
-        расширение зоны. Tian Ma даёт скорость, но не направление: ускоряет то, что уже запущено,
-        и сам ничего не начинает.</td></tr>
-      <tr><td class="k">Lu — поток</td><td>Tian Tong,<br>Дворец Друзей</td>
-        <td>Поток идёт по линии коллег. Дворец Друзей — это ровно тот круг, в котором вы проводите
-        рабочий день.</td></tr>
-      <tr><td class="k">Ke — признание</td><td>Wen Chang</td>
-        <td>Усилитель признания приходит на звезду письменного слова. Написанное и опубликованное
-        в этом году читают.</td></tr>
-      <tr><td class="k">Quan — сила</td><td>Tian Ji,<br>Дворец Детей</td>
-        <td>Звезда анализа и стратегии получает Усилитель силы.</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <div class="verdict-box">
-    <strong>Когда Дворец Карьеры становится центром десятилетия.</strong>
-    Сейчас идёт десятилетие 2019–2028 — его дворец жизни стоит в Ментальном дворце.
-    Следующее, 2029–2038, встаёт на Дворец Недвижимости. На сам Дворец Карьеры десятилетие
-    приходит только с 2039 года. Это не значит, что до тех пор ничего не происходит:
-    Дворец Тела стоит там всю жизнь. Это значит, что карьера растёт вашим действием,
-    а не тем, что «подошёл период».
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <!-- ДОМ -->
-  <div class="sec-label">Дом и переезд</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      Дворец Недвижимости — один из двух самых защищённых дворцов вашей карты:
-      трение сюда не приходит никогда, ни от одного ствола, ни в один год.
-    </p>
-    <p class="intro-body">
-      В нём стоит Tian Liang с натальным Усилителем силы — старшая, решающая роль в вопросах жилья
-      принадлежит вам, а не кому-то за вас. Рядом Tian Xing — звезда бумаг и формальностей:
-      именно та часть, которая у вас сейчас и осталась. Di Jie — внезапная убыль: деньги
-      в этом дворце не задерживаются, поэтому расходы по переезду стоит считать заранее.
-      Десятилетие 2019–2028 всё это время даёт в Дворец Недвижимости Усилитель потока —
-      окно открыто до конца 2028 года.
-    </p>
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <!-- ОТНОШЕНИЯ -->
-  <div class="sec-label">Отношения и семья</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      «Сильно позже» — это не отсрочка, а то, как дворец собран. Zi Wei в Дворце Супругов
-      означает поздний брак.
-    </p>
-    <p class="intro-body">
-      Zi Wei и Tian Fu стоят там вместе — Император и Сокровищница. По материалу это традиционный
-      брак: всё складывается правильно и постепенно, без бурной страсти и без громких разрывов.
-      Партнёр самостоятельный, с положением. Натальный Усилитель признания стоит на Zi Wei:
-      партнёрство даёт положение и вес, а не поток. Tuo Luo в том же дворце — медленно.
-      В 2026-м на этот дворец приходят сразу три Усилителя (один от года и два от десятилетия),
-      и стоит он на лошадиной ветви — двойная сила. Дворец Детей несёт натальный Усилитель потока.
-    </p>
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <!-- ВОССТАНОВЛЕНИЕ -->
-  <div class="sec-label">Что восстанавливает</div>
-
-  <div class="intro-block">
-    <p class="intro-lead">
-      В Дворце Путешествий стоит Tian Xi — звезда радости. То, что после поездок становится
-      заметно легче, записано в карте.
-    </p>
-    <p class="intro-body">
-      Там же Wu Qu в самом сильном блеске. При этом десятилетие 2019–2028 даёт на Wu Qu трение —
-      на тот же самый дворец. Отсюда и форма: поездки работают, но идут короткими отрезками,
-      а не длинными. Это десятилетие заканчивается в 2028 году.
-    </p>
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <!-- КАРТА -->
-  <div class="sec-label">Карта Цзы Вэй Доу Шу</div>
-
-  <div class="chart-wrap">
-    <iframe src="https://successcode.net/zwds-kira"
-            title="Карта Цзы Вэй Доу Шу — Кира">
-    </iframe>
-  </div>
-
-  <div class="chart-print-only">
-    <div class="bn-icon">◆</div>
-    <div class="bn-text">
-      <strong>Карта печатается отдельно.</strong>
-      Интерактивная карта открывается и печатается со своей страницы:
-      <span style="color:var(--gold);white-space:nowrap;">successcode.net/zwds-kira</span>
-      — откройте её и нажмите «Print / PDF». Так карта выходит в полном качестве и на всю страницу.
-    </div>
-  </div>
-
-<div class="bottom-note">
-    <div class="bn-icon">ℹ</div>
-    <div class="bn-text">
-      Этот отчёт — про характер и один год. Ваша карта хранит гораздо больше: каждый следующий год и каждая новая тема — отдельный разбор. Когда захотите заглянуть в следующую дверь — карта уже готова ответить.
-    </div>
-  </div>
-
-  <div class="gold-rule"></div>
-
-  <footer class="report-footer">
-    <div class="footer-brand">SuccessCode</div>
-    <div class="footer-note">Персональный анализ &nbsp;·&nbsp; Конфиденциально</div>
-  </footer>
+ <div class="gold-rule"></div>
+ <footer class="report-footer">
+ <div class="footer-brand">SuccessCode</div>
+ <div class="footer-note"> · Персональный анализ</div>
+ </footer>
 
 </div>
-<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
-  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-</a>
-<script>
-  (function(){
-    var btn=document.getElementById('backToTop');
-    function check(){ if(window.scrollY>400) btn.classList.add('visible'); else btn.classList.remove('visible'); }
-    window.addEventListener('scroll',check,{passive:true});
-    btn.addEventListener('click',function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
-    check();
-  })();
-</script>
 </body>
 </html>
