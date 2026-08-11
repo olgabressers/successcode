@@ -846,5 +846,88 @@
 </script>
 <script>function getFiveBureau(i,m){return 4;}</script>
 <script src="/tz.js"></script>
+
+<!-- ────────────────────────────────────────────────────────────────────────────
+     Chart-centre CNY lines (post-render DOM patch)
+
+     Adds two gold lines to the centre cell:
+       年始 · lunar year YYYY began YYYY.MM.DD   — the boundary that decides the year
+                                                   stem, and therefore every natal enhancer
+       流年 YYYY · began YYYY.MM.DD              — same for the annual year on screen
+
+     Why it matters: a birth between 1 Jan and CNY belongs to the PREVIOUS lunar year.
+     Kira (1996-01-03) is inside 乙亥 1995 because CNY 1996 only fell on 19 Feb.
+
+     Source of truth = Calculators/Calculator ZWDS/calculator.html, where the same two lines
+     are rendered inline. This patch mirrors it onto the obfuscated build.
+     ──────────────────────────────────────────────────────────────────────────── -->
+<script>
+(function () {
+  function cny(lunarYear) {
+    try {
+      var s = Lunar.fromYmd(lunarYear, 1, 1).getSolar();
+      return s.getYear() + '.' + String(s.getMonth()).padStart(2, '0') + '.' +
+             String(s.getDay()).padStart(2, '0');
+    } catch (e) { return null; }
+  }
+
+  function chartLunarYear() {
+    var el = document.getElementById('birth-date');
+    if (!el || !el.value) return null;
+    var p = el.value.split('-').map(Number);
+    if (p.length !== 3) return null;
+    try { return Solar.fromYmd(p[0], p[1], p[2]).getLunar().getYear(); } catch (e) { return null; }
+  }
+
+  function mk(text) {
+    var s = document.createElement('span');
+    s.className = 'cny-line';
+    s.style.cssText = 'font-size:9px;color:#8a6410;display:block;margin-bottom:4px;';
+    s.textContent = text;
+    return s;
+  }
+
+  function apply() {
+    var centre = document.querySelector('.center-content');
+    if (!centre) return;
+    // wipe previous injection so re-renders don't stack duplicates
+    centre.querySelectorAll('.cny-line').forEach(function (n) { n.remove(); });
+
+    var ly = chartLunarYear();
+    if (ly) {
+      var d = cny(ly);
+      var sec = centre.querySelector('.bazi-section');
+      if (d && sec) {
+        var lbl = sec.querySelector('.bazi-section-label');
+        var line = mk('年始 · lunar year ' + ly + ' began ' + d);
+        if (lbl && lbl.nextSibling) sec.insertBefore(line, lbl.nextSibling.nextSibling);
+        else sec.appendChild(line);
+      }
+    }
+
+    var yv = document.querySelector('.annual-year-val');
+    var ay = yv && parseInt((yv.textContent || '').replace(/\D/g, ''), 10);
+    if (ay) {
+      var ad = cny(ay);
+      var val = centre.querySelector('.cc-value');
+      if (ad && val && val.parentNode) {
+        var l2 = mk('流年 ' + ay + ' · began ' + ad);
+        l2.style.marginTop = '6px';
+        val.parentNode.appendChild(l2);
+      }
+    }
+  }
+
+  function watch() {
+    var out = document.getElementById('chart-output');
+    if (!out) return setTimeout(watch, 200);
+    new MutationObserver(function () { apply(); }).observe(out, { childList: true, subtree: true });
+    apply();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', watch);
+  else watch();
+})();
+</script>
+
 </body>
 </html>
