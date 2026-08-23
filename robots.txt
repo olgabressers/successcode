@@ -11,6 +11,7 @@ Disallow: /report-
 Disallow: /questionnaire
 Disallow: /successdates
 Disallow: /yoursuccessdates2026
+Disallow: /2026firehorseyear
 Disallow: /founderportfolio
 Disallow: /pitch-deck
 Disallow: /speedrun
