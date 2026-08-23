@@ -135,7 +135,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       padding: 22px 56px;
       display: flex; justify-content: space-between; align-items: center;
-      gap: 36px;
+      gap: 16px;
       background: rgba(52,54,64,0.98);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(8px);
@@ -146,10 +146,10 @@
       letter-spacing: 5px; text-transform: uppercase;
       color: var(--white); text-decoration: none;
     }
-    .nav-sections { display: flex; gap: 36px; align-items: center; margin-left: auto; }
-    .nav-links { display: flex; gap: 36px; align-items: center; }
+    .nav-sections { display: flex; gap: 18px; align-items: center; margin-left: auto; flex-wrap: nowrap; }
+    .nav-links { display: flex; gap: 12px; align-items: center; }
     .nav-link {
-      font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase;
+      font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap;
       color: var(--white); font-weight: 600;
       text-decoration: none; transition: color .25s;
     }
@@ -900,7 +900,7 @@
     <a href="/calendar" class="nav-link">Календарь</a>
     <a href="/walks" class="nav-link">Прогулки</a>
     <a href="/training" class="nav-link">Обучение</a>
-    <a href="/2027" class="nav-link">Событие 2027</a>
+    <a href="/2027" class="nav-link">Подготовка к 2027</a>
   </div>
   <div class="nav-links">
     <div class="lang-switch" aria-label="Язык">

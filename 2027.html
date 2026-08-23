@@ -248,9 +248,6 @@
     }
     .feat-desc { font-size: 14.5px; color: var(--dim); line-height: 1.65; }
 
-    /* AUTHOR */
-    .author-lead { font-size: 17px; line-height: 1.85; color: var(--dim); max-width: 780px; }
-    .author-lead b { color: var(--white); font-weight: 600; }
 
     /* REQUEST FORM */
     .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
@@ -285,6 +282,12 @@
     }
     .special-cta:hover { background: var(--gold2); }
 
+    /* REVIEWS */
+    .tst-hint { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 6px 0 30px; }
+    .tst-scroll { display: flex; gap: 22px; overflow-x: auto; padding-bottom: 18px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .tst-card { flex: 0 0 380px; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--border); padding: 30px 28px; }
+    .tst-text { font-size: 14.5px; color: var(--dim); line-height: 1.75; }
+
     /* FOOTER */
     footer { padding: 38px 56px 26px; background: var(--surface); }
     .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 18px; }
@@ -311,6 +314,7 @@
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
       .q-grid, .feat-grid, .req { grid-template-columns: 1fr; }
+      .tst-card { flex-basis: 82vw; }
       .prog-item { gap: 18px; padding: 22px 22px; }
       .prog-num { font-size: 28px; min-width: 40px; }
       .prog-title { font-size: 21px; }
@@ -330,7 +334,7 @@
     <a href="/calendar" class="nav-link">Календарь</a>
     <a href="/walks" class="nav-link">Прогулки</a>
     <a href="/training" class="nav-link">Обучение</a>
-    <a href="/2027" class="nav-link">Событие 2027</a>
+    <a href="/2027" class="nav-link">Подготовка к 2027</a>
   </div>
   <div class="nav-links">
     <a href="#request" class="nav-btn">Регистрация</a>
@@ -447,12 +451,19 @@
   </div>
 </section>
 
-<!-- AUTHOR -->
+<!-- REVIEWS -->
 <section>
   <div class="wrap">
-    <div class="side-label">Кто проводит</div>
-    <h2 class="sec-h2">Практика, а не общий гороскоп</h2>
-    <p class="author-lead">За плечами — <b>20 лет корпоративной карьеры на топ-позициях</b> и более <b>10 лет практики китайской метафизики</b>. Я читаю год не как общий прогноз для всех, а как структуру: где возможности, где риски и как именно ими распорядиться. На этой встрече вы получите такой разбор для года Огненной Козы.</p>
+    <div class="side-label">Отзывы</div>
+    <h2 class="sec-h2">Отзывы о прошлых встречах</h2>
+    <p class="tst-hint">Листайте в бок, чтобы ознакомиться →</p>
+    <div class="tst-scroll">
+      <div class="tst-card"><p class="tst-text">Алёна, благодарю тебя за семинар «Код Успеха». Благодаря твоему семинару, ты подготовила нас всех ещё в январе. Мне лично было как-то спокойнее пережить этот год. Ко всем шоковым новостям я относилась с принятием и пониманием. Много знаний осталось, и я периодически возвращаюсь к ним даже в конце года. Благодарю тебя от всей души и жду новых прогнозов и продуктов от тебя!</p></div>
+      <div class="tst-card"><p class="tst-text">Моя подруга настоятельно рекомендовала пойти на эту встречу и привела несколько примеров, как она воспользовалась советами Алены. На встрече я записывала всё, что рассказывали, и удивлялась — неужели всё может быть до такой степени. Все рекомендации Алены я учла и оказалась подготовленной. Имея заранее информацию, я смогла подготовиться и была спокойна. В этом году собираюсь опять идти на встречу, и вам рекомендую!</p></div>
+      <div class="tst-card"><p class="tst-text">В начале года мне посчастливилось попасть на живое мероприятие «Код успеха», проводившееся в Нидерландах. Год уже заканчивается, и я могу с полным правом сказать, что поражена точностью прогноза, который был озвучен. Очень ценной оказалась информация, которую я могла применить на практике — относительно собственной жизни и собственного жилья: какие секторы дома благоприятны, а какие нет, в какие дни лучше не совершать крупные покупки. Обязательно пойду снова!</p></div>
+      <div class="tst-card"><p class="tst-text">В это сложно поверить, но ровно год назад нам было сказано о том, чем «отличится» этот год. Мы слушали о том, что уходит огонь и приходит вода, что есть тенденции к заболеваниям лёгких. Но даже тогда никто из нас не мог себе представить, насколько сильно это воплотится в реальность. Календарь благоприятных и неблагоприятных дней я сохранила на весь год и всегда открывала перед принятием важных решений. Алена, спасибо тебе огромное!</p></div>
+      <div class="tst-card"><p class="tst-text">За несколько последних лет я участвовала во многих очных и заочных мероприятиях, организованных Аленой, и с уверенностью могу сказать, что вся информация подаётся конструктивно, чётко и ясно. После каждой встречи я приобретаю частичку знаний, которые использую как действующий инструмент для своих действий в разных аспектах жизни. Кто владеет информацией, тот владеет миром — почему не воспользоваться и этим шансом?</p></div>
+    </div>
   </div>
 </section>
 
