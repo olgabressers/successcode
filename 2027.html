@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Код успеха 2027 — Год Огненной Козы — SuccessCode</title>
-  <meta name="description" content="Онлайн-событие «Код успеха 2027»: тренды года Огненной Козы, астрология, важные даты и фэн-шуй 2027. Воскресенье, 29 ноября 2027.">
+  <meta name="description" content="Событие «Код успеха 2027»: тренды года Огненной Козы, астрология, важные даты и фэн-шуй 2027. Воскресенье, 29 ноября 2027.">
   <link rel="canonical" href="https://successcode.net/2027">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -14,11 +14,11 @@
   <meta property="og:locale" content="ru_RU">
   <meta property="og:url" content="https://successcode.net/2027">
   <meta property="og:title" content="Код успеха 2027 — Год Огненной Козы">
-  <meta property="og:description" content="Онлайн-событие о наступающем годе Огненной Козы. Воскресенье, 29 ноября 2027.">
+  <meta property="og:description" content="Событие о наступающем годе Огненной Козы. Воскресенье, 29 ноября 2027.">
   <meta property="og:image" content="https://successcode.net/assets/year-of-goat-2027.png">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Код успеха 2027 — Год Огненной Козы">
-  <meta name="twitter:description" content="Онлайн-событие о наступающем годе Огненной Козы. Воскресенье, 29 ноября 2027.">
+  <meta name="twitter:description" content="Событие о наступающем годе Огненной Козы. Воскресенье, 29 ноября 2027.">
   <meta name="twitter:image" content="https://successcode.net/assets/year-of-goat-2027.png">
   <link rel="stylesheet" href="/assets/fonts/fonts.css">
   <style>
@@ -84,58 +84,74 @@
     .back-to-top:hover { background: var(--gold2); transform: translateY(-2px); }
     .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
 
-    /* HERO */
+    /* HERO — full-bleed image, title overlaid */
     .hero {
-      padding: 44px 0 52px;
-      background:
-        radial-gradient(ellipse at 20% 0%, rgba(184,144,58,0.14), transparent 60%),
-        var(--black);
+      position: relative; min-height: 88vh;
+      display: flex; align-items: flex-end;
+      background: #1c0a0b; overflow: hidden;
       border-bottom: 1px solid var(--border);
     }
-    .hero-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+    .hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center; z-index: 0;
     }
-    .hero-tag {
+    .hero::after {
+      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg,
+        rgba(20,8,9,0.30) 0%, rgba(20,8,9,0) 26%,
+        rgba(20,8,9,0.52) 60%, rgba(20,8,9,0.94) 100%);
+    }
+    .hero-inner {
+      position: relative; z-index: 2; width: 100%;
+      max-width: 1180px; margin: 0 auto; padding: 0 56px 64px;
+    }
+    .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 16px;
       font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 20px; font-weight: 600;
+      color: var(--gold2); margin-bottom: 18px; font-weight: 700;
+      text-shadow: 0 2px 12px rgba(0,0,0,.6);
     }
-    .hero-tag::before { content: ''; width: 40px; height: 2px; background: var(--gold); }
+    .hero-eyebrow::before { content: ''; width: 40px; height: 2px; background: var(--gold2); }
     .hero h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(44px, 5vw, 76px); font-weight: 300; line-height: 1.02;
-      letter-spacing: -1px; color: var(--white);
+      font-size: clamp(48px, 6vw, 94px); font-weight: 300; line-height: 1.0;
+      letter-spacing: -1px; color: #fff; text-shadow: 0 3px 24px rgba(0,0,0,.55);
     }
     .hero h1 em { font-style: italic; color: var(--gold2); }
-    .hero-year-sub {
-      font-family: 'Cormorant Garamond', serif; font-style: italic;
-      font-size: clamp(22px, 2.4vw, 30px); color: var(--gold2); margin-top: 6px;
-    }
-    .hero-sub {
-      font-size: 17px; line-height: 1.7; color: var(--dim);
-      max-width: 480px; margin: 22px 0 26px;
-    }
     .date-badge {
-      display: inline-flex; align-items: center; gap: 14px;
-      border: 1px solid var(--border); border-left: 3px solid var(--gold);
-      background: var(--gold-dim);
-      padding: 14px 20px; margin-bottom: 28px;
+      display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+      border: 1px solid rgba(255,255,255,0.25); border-left: 3px solid var(--gold2);
+      background: rgba(20,8,9,0.55); backdrop-filter: blur(4px);
+      padding: 13px 20px;
     }
     .date-badge .db-day {
       font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600;
-      color: var(--white); line-height: 1;
+      color: #fff; line-height: 1;
     }
     .date-badge .db-meta { display: flex; flex-direction: column; gap: 3px; }
     .date-badge .db-dow {
       font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold2); font-weight: 700;
     }
-    .date-badge .db-when { font-size: 13px; color: var(--dim); letter-spacing: .5px; }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
-    .hero-media { position: relative; }
-    .hero-media img {
-      display: block; width: 100%; height: auto;
-      border: 1px solid var(--border); box-shadow: 0 20px 60px rgba(0,0,0,.4);
+    .date-badge .db-when { font-size: 13px; color: #e8e0d6; letter-spacing: .5px; }
+    .special-note {
+      display: block; width: max-content; max-width: 100%; margin-top: 24px;
+      background: var(--gold); color: #2a0f10;
+      font-weight: 700; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase;
+      padding: 13px 22px; box-shadow: 0 8px 26px rgba(0,0,0,.4);
     }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 26px; }
+    .btn-white {
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      color: #2a0f10; background: #fff; padding: 16px 40px; text-decoration: none;
+      transition: background .25s, color .25s;
+    }
+    .btn-white:hover { background: var(--gold2); }
+    .btn-outline {
+      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
+      color: #fff; border: 1px solid rgba(255,255,255,0.5); padding: 16px 40px;
+      text-decoration: none; transition: border-color .25s, color .25s;
+    }
+    .btn-outline:hover { border-color: var(--gold2); color: var(--gold2); }
 
     .btn-gold {
       font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
@@ -248,6 +264,13 @@
     }
     .req-submit:hover { background: var(--gold2); }
     .req-mini { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+    .special-banner {
+      display: flex; align-items: center; gap: 14px;
+      background: var(--gold-dim); border: 1px solid var(--gold); border-left: 4px solid var(--gold);
+      color: var(--white); font-weight: 700; font-size: 16px; line-height: 1.4;
+      padding: 16px 22px; margin-bottom: 30px;
+    }
+    .special-banner::before { content: '★'; color: var(--gold); font-size: 18px; flex-shrink: 0; }
 
     /* FOOTER */
     footer { padding: 38px 56px 26px; background: var(--surface); }
@@ -267,10 +290,11 @@
       nav { padding: 14px 22px; flex-wrap: wrap; gap: 12px 14px; }
       .nav-sections { gap: 14px; width: 100%; order: 3; justify-content: center; flex-wrap: wrap; }
       .nav-links { margin-left: auto; }
-      .hero { padding: 32px 0 40px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .hero h1 { font-size: 40px; }
-      .hero-sub { font-size: 16px; }
+      .hero { min-height: 80vh; }
+      .hero-inner { padding: 0 22px 42px; }
+      .hero h1 { font-size: 46px; }
+      .special-note { font-size: 12px; letter-spacing: .6px; padding: 12px 16px; white-space: normal; }
+      .btn-white, .btn-outline { padding: 14px 26px; }
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
       .q-grid, .feat-grid, .req { grid-template-columns: 1fr; }
@@ -291,6 +315,9 @@
     <a href="/ru/#questions" class="nav-link">Вопросы</a>
     <a href="/calculators?lang=ru" class="nav-link">Калькуляторы</a>
     <a href="/calendar" class="nav-link">Календарь</a>
+    <a href="/walks" class="nav-link">Прогулки</a>
+    <a href="/training" class="nav-link">Обучение</a>
+    <a href="/2027" class="nav-link">Событие 2027</a>
   </div>
   <div class="nav-links">
     <a href="#request" class="nav-btn">Регистрация</a>
@@ -299,28 +326,21 @@
 
 <!-- HERO -->
 <header class="hero">
-  <div class="wrap">
-    <div class="hero-grid">
-      <div class="hero-left">
-        <div class="hero-tag">Онлайн-событие</div>
-        <h1>Код успеха <em>2027</em></h1>
-        <div class="hero-year-sub">Год Огненной Козы</div>
-        <div class="date-badge">
-          <div class="db-day">29</div>
-          <div class="db-meta">
-            <div class="db-dow">Воскресенье</div>
-            <div class="db-when">29 ноября 2027 · онлайн</div>
-          </div>
-        </div>
-        <p class="hero-sub">В новом году — новые возможности. На этой встрече я раскрою секреты наступающего года Огненной Козы: куда идут тренды, как ими воспользоваться и на что опереться в своих решениях.</p>
-        <div class="hero-cta">
-          <a href="#request" class="btn-gold">Зарегистрироваться</a>
-          <a href="#program" class="btn-ghost">Программа</a>
-        </div>
+  <img class="hero-bg" src="/assets/year-of-goat-2027.png" alt="Код успеха 2027 — Год Огненной Козы">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Год Огненной Козы</div>
+    <h1>Код успеха <em>2027</em></h1>
+    <div class="date-badge">
+      <div class="db-day">29</div>
+      <div class="db-meta">
+        <div class="db-dow">Воскресенье</div>
+        <div class="db-when">29 ноября 2027</div>
       </div>
-      <div class="hero-media">
-        <img src="/assets/year-of-goat-2027.png" alt="Код успеха 2027 — Год Огненной Козы">
-      </div>
+    </div>
+    <div class="special-note">Успейте зарегистрироваться на специальных условиях</div>
+    <div class="hero-cta">
+      <a href="#request" class="btn-white">Зарегистрироваться</a>
+      <a href="#program" class="btn-outline">Программа</a>
     </div>
   </div>
 </header>
@@ -330,7 +350,7 @@
   <div class="wrap">
     <div class="side-label">О чём это событие</div>
     <h2 class="sec-h2">Год начинается заранее — с понимания его энергии</h2>
-    <p class="lead">Каждый год несёт свой характер и свои тренды. Зная их заранее, вы принимаете важные решения точнее и мягче проходите сложные периоды. На встрече мы разберём, каким будет год Огненной Козы — и как выстроить в нём свой личный путь к результату.</p>
+    <p class="lead">В новом году — новые возможности. На этой встрече я раскрою секреты наступающего года Огненной Козы: куда идут тренды, как ими воспользоваться и на что опереться в своих решениях. Зная характер года заранее, вы принимаете важные решения точнее и мягче проходите сложные периоды.</p>
     <div class="q-grid">
       <div class="q-card">
         <div class="q-mark">?</div>
@@ -405,7 +425,7 @@
       </div>
       <div class="feat">
         <div class="feat-name">Ответы на ваши вопросы</div>
-        <div class="feat-desc">Живой эфир в воскресенье, где вы задаёте свои вопросы о наступающем годе.</div>
+        <div class="feat-desc">Ответы на ваши личные вопросы о том, каким будет для вас наступающий год.</div>
       </div>
       <div class="feat">
         <div class="feat-name">Стратегия на 2027 год</div>
@@ -427,11 +447,12 @@
 <!-- REQUEST -->
 <section id="request" class="s-light">
   <div class="wrap">
+    <div class="special-banner">Успейте зарегистрироваться на специальных условиях</div>
     <div class="req">
       <div class="req-copy">
         <div class="side-label">Регистрация</div>
         <h2 class="sec-h2">Оставьте заявку на участие</h2>
-        <p class="lead">Оставьте контакты — я напишу вам сама и пришлю все детали участия и ссылку на эфир.</p>
+        <p class="lead">Оставьте контакты — я напишу вам сама и пришлю все детали участия.</p>
         <p class="req-email">Или напишите напрямую:
           <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a></p>
       </div>
@@ -448,7 +469,7 @@
             и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
         </div>
         <button class="req-submit" type="submit">Зарегистрироваться</button>
-        <p class="req-mini">Стоимость и детали участия пришлю в ответ на заявку.</p>
+        <p class="req-mini">Детали будут объявлены позже.</p>
       </form>
     </div>
   </div>
