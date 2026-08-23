@@ -51,6 +51,14 @@
     .part-list li::before { content:'—'; position:absolute; left:0; color:var(--gold); }
     .video-embed { position:relative; width:100%; padding-top:56.25%; background:#000; border:1px solid var(--border); }
     .video-embed iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+    /* Fast YouTube: show the real video thumbnail + play button; load the player only on click */
+    .lyt { cursor:pointer; }
+    .lyt .lyt-thumb { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .lyt::after { content:''; position:absolute; inset:0; background:rgba(20,8,9,.18); transition:background .2s; }
+    .lyt:hover::after { background:rgba(20,8,9,.04); }
+    .lyt-play { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:74px; height:52px; border-radius:13px; background:rgba(20,8,9,.72); transition:background .2s; pointer-events:none; }
+    .lyt-play::before { content:''; position:absolute; top:50%; left:50%; transform:translate(-38%,-50%); border-style:solid; border-width:11px 0 11px 19px; border-color:transparent transparent transparent #fff; }
+    .lyt:hover .lyt-play { background:#c00; }
 
     /* service rows: image + copy */
     .svc-row { display:grid; grid-template-columns:1fr 1fr; gap:44px; align-items:center; }
@@ -127,7 +135,7 @@
           <li>Тенденции периода Огня 2024–2044</li>
         </ul>
       </div>
-      <div class="video-embed"><iframe src="https://www.youtube.com/embed/o6aOwJrKOWo?rel=0&showinfo=0" title="Код Успеха 2026 — Часть 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="video-embed lyt" data-id="o6aOwJrKOWo" role="button" tabindex="0" aria-label="Смотреть видео — Код Успеха 2026, Часть 1"><img class="lyt-thumb" src="https://i.ytimg.com/vi/o6aOwJrKOWo/hqdefault.jpg" alt="Код Успеха 2026 — Часть 1" loading="lazy"><span class="lyt-play" aria-hidden="true"></span></div>
     </div>
   </div>
 </section>
@@ -159,7 +167,7 @@
           <li>Лучшее время — даты 2026</li>
         </ul>
       </div>
-      <div class="video-embed"><iframe src="https://www.youtube.com/embed/r_4tlC3c_Lc?rel=0&showinfo=0" title="Код Успеха 2026 — Часть 2" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="video-embed lyt" data-id="r_4tlC3c_Lc" role="button" tabindex="0" aria-label="Смотреть видео — Код Успеха 2026, Часть 2"><img class="lyt-thumb" src="https://i.ytimg.com/vi/r_4tlC3c_Lc/hqdefault.jpg" alt="Код Успеха 2026 — Часть 2" loading="lazy"><span class="lyt-play" aria-hidden="true"></span></div>
     </div>
   </div>
 </section>
@@ -208,7 +216,7 @@
           <li>Ваш Код Успеха 2026</li>
         </ul>
       </div>
-      <div class="video-embed"><iframe src="https://www.youtube.com/embed/lFKmXOZ47eA?rel=0&showinfo=0" title="Код Успеха 2026 — Часть 3" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe></div>
+      <div class="video-embed lyt" data-id="lFKmXOZ47eA" role="button" tabindex="0" aria-label="Смотреть видео — Код Успеха 2026, Часть 3"><img class="lyt-thumb" src="https://i.ytimg.com/vi/lFKmXOZ47eA/hqdefault.jpg" alt="Код Успеха 2026 — Часть 3" loading="lazy"><span class="lyt-play" aria-hidden="true"></span></div>
     </div>
   </div>
 </section>
@@ -325,6 +333,16 @@
     btn.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
     check();
   })();
+
+  /* Click-to-load YouTube — the heavy player loads only when the viewer presses play */
+  document.querySelectorAll('.lyt').forEach(function(el){
+    function load(){
+      var id = el.getAttribute('data-id');
+      el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&showinfo=0" title="Код Успеха 2026" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    }
+    el.addEventListener('click', load, { once:true });
+    el.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); load(); } }, { once:true });
+  });
 </script>
 
 </body>
