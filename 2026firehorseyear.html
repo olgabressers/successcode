@@ -23,6 +23,19 @@
 
     header.top { padding:20px 40px; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); background:rgba(52,54,64,0.98); }
     .brand { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    /* top site navigation — /2027 benchmark */
+    nav { position:sticky; top:0; z-index:40; padding:16px 34px; display:flex; justify-content:space-between; align-items:center; gap:16px; background:rgba(52,54,64,0.98); border-bottom:1px solid var(--border); backdrop-filter:blur(8px); flex-wrap:wrap; }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav-sections { display:flex; gap:18px; align-items:center; margin-left:auto; flex-wrap:wrap; }
+    .nav-link { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; color:var(--white); font-weight:600; text-decoration:none; transition:color .25s; }
+    .nav-link:hover { color:var(--gold2); }
+    .nav-links { display:flex; gap:12px; align-items:center; }
+    .nav-btn { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:600; white-space:nowrap; color:#f5f1eb; background:var(--gold); padding:10px 16px; text-decoration:none; transition:background .25s; }
+    .nav-btn:hover { background:var(--gold2); }
+    .lang-switch { display:inline-flex; align-items:center; border:1px solid var(--border); }
+    .lang-switch a { font-size:11px; letter-spacing:2px; font-weight:600; color:var(--muted); padding:8px 12px; font-family:'Inter',sans-serif; text-decoration:none; transition:background .2s, color .2s; }
+    .lang-switch a.active { background:var(--gold); color:#f5f1eb; }
+    .lang-switch a:not(.active):hover { color:var(--gold2); }
 
     .hero { text-align:center; padding:66px 0 46px;
       background:radial-gradient(ellipse at 50% 0%, rgba(184,144,58,0.16), transparent 62%), var(--black); border-bottom:1px solid var(--border); }
@@ -106,14 +119,35 @@
       .sem-row, .svc-row { grid-template-columns:1fr; gap:24px; }
       .svc-row.rev .svc-img { order:0; }
       .back-to-top { width:46px; height:46px; bottom:22px; right:22px; }
+      nav { justify-content:center; gap:10px 14px; padding:12px 16px; }
+      .nav-logo { width:100%; text-align:center; }
+      .nav-links { order:2; width:100%; justify-content:center; flex-wrap:wrap; }
+      .nav-sections { order:3; width:100%; margin-left:0; justify-content:center; gap:10px 14px; }
+      .nav-link { font-size:10px; letter-spacing:0.8px; }
     }
   </style>
 </head>
 <body>
 
-<header class="top">
-  <a href="/ru/" class="brand">SuccessCode</a>
-</header>
+<nav>
+  <a href="/ru/" class="nav-logo">SuccessCode</a>
+  <div class="nav-sections">
+    <a href="/ru/#about" class="nav-link">О методе</a>
+    <a href="/calculators" class="nav-link">Калькуляторы</a>
+    <a href="/calendar" class="nav-link">Календарь</a>
+    <a href="/walks" class="nav-link">Прогулки</a>
+    <a href="/training" class="nav-link">Обучение</a>
+    <a href="/2027" class="nav-link">Подготовка к 2027</a>
+    <a href="/businessastrology" class="nav-link">Достижение цели</a>
+  </div>
+  <div class="nav-links">
+    <div class="lang-switch" aria-label="Язык">
+      <a href="/2026firehorseyear" class="active">RU</a>
+      <a href="/">EN</a>
+    </div>
+    <a href="/ru/#booking" class="nav-btn">Записаться</a>
+  </div>
+</nav>
 
 <div class="hero">
   <div class="wrap">
