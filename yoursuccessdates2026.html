@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Успешные даты 2026 — SuccessCode</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <style>
+    :root {
+      --black:#3a3c48; --surface:#42444e; --surface2:#4a4c58;
+      --gold:#b8903a; --gold2:#cfa44e; --gold-dim:rgba(184,144,58,0.10);
+      --white:#eceef8; --dim:#d4d6e8; --muted:#c0c2d4; --border:rgba(184,144,58,0.25);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html, body { max-width:100vw; width:100%; overflow-x:hidden; position:relative; }
+    body { font-family:'Inter',system-ui,sans-serif; background:var(--black); color:var(--white); line-height:1.6; -webkit-font-smoothing:antialiased; }
+    a { color:inherit; }
+    .wrap { max-width:1000px; margin:0 auto; padding:0 40px; }
+
+    header.top {
+      padding:20px 40px; display:flex; align-items:center; justify-content:center;
+      border-bottom:1px solid var(--border); background:rgba(52,54,64,0.98);
+    }
+    .brand { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+
+    .hero { text-align:center; padding:64px 0 40px;
+      background:radial-gradient(ellipse at 50% 0%, rgba(184,144,58,0.16), transparent 60%), var(--black); }
+    .hero .eyebrow { font-size:13px; letter-spacing:5px; text-transform:uppercase; color:var(--gold2); font-weight:700; margin-bottom:14px; }
+    .hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(38px,5.4vw,66px); font-weight:300; line-height:1.04; color:var(--white); }
+    .hero h1 em { font-style:italic; color:var(--gold2); }
+
+    section { padding:56px 0; border-top:1px solid var(--border); }
+    .intro { font-size:17px; color:var(--dim); text-align:center; max-width:640px; margin:0 auto 36px; }
+
+    .months { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .month {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      background:var(--surface); border:1px solid var(--border); padding:20px 22px;
+      text-decoration:none; color:var(--white); transition:background .2s, border-color .2s, transform .2s;
+    }
+    .month:hover { background:var(--surface2); border-color:var(--gold); transform:translateY(-2px); }
+    .month-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; letter-spacing:.5px; }
+    .month-cta { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold2); font-weight:700; white-space:nowrap; }
+    .month-cta::after { content:' →'; }
+
+    .consult { text-align:center; }
+    .consult h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,3.4vw,40px); font-weight:300; color:var(--white); margin-bottom:16px; }
+    .consult p { font-size:16px; color:var(--dim); max-width:600px; margin:0 auto 26px; }
+    .btn-gold { display:inline-block; font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600;
+      color:#f5f1eb; background:var(--gold); padding:16px 40px; text-decoration:none; transition:background .25s; }
+    .btn-gold:hover { background:var(--gold2); }
+
+    .tools { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
+    .tool { background:var(--surface); border:1px solid var(--border); padding:28px 26px; text-decoration:none; color:var(--white);
+      display:flex; flex-direction:column; gap:10px; transition:background .2s, border-color .2s; }
+    .tool:hover { background:var(--surface2); border-color:var(--gold); }
+    .tool-name { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--gold2); }
+    .tool-desc { font-size:14.5px; color:var(--dim); line-height:1.6; }
+    .tool-cta { margin-top:auto; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:700; }
+
+    .contacts { text-align:center; }
+    .contacts h2 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--white); margin-bottom:12px; }
+    .contacts p { font-size:15px; color:var(--dim); max-width:560px; margin:0 auto 22px; }
+    .contact-links { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; }
+    .contact-links a { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--gold2); text-decoration:none; font-weight:600; }
+    .contact-links a:hover { color:var(--gold); }
+
+    footer { padding:30px 40px; border-top:1px solid var(--border); background:var(--surface); text-align:center; }
+    footer .flinks { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
+    footer .flinks a { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-decoration:none; }
+    footer .flinks a:hover { color:var(--gold2); }
+    footer small { font-size:11px; color:var(--muted); letter-spacing:.5px; line-height:1.6; }
+
+    .back-to-top { position:fixed; bottom:32px; right:32px; width:54px; height:54px; background:var(--gold); color:#f5f1eb;
+      display:flex; align-items:center; justify-content:center; text-decoration:none; border:1px solid var(--gold); z-index:250;
+      opacity:0; pointer-events:none; cursor:pointer; transition:opacity .3s, background .25s, transform .25s; }
+    .back-to-top.visible { opacity:1; pointer-events:auto; }
+    .back-to-top:hover { background:var(--gold2); transform:translateY(-2px); }
+    .back-to-top svg { width:18px; height:18px; stroke:#f5f1eb; fill:none; stroke-width:2.5; }
+
+    @media (max-width:768px) {
+      * { max-width:100vw; }
+      .wrap { padding:0 22px; }
+      .months { grid-template-columns:1fr 1fr; }
+      .tools { grid-template-columns:1fr; }
+      section { padding:44px 0; }
+      .back-to-top { width:46px; height:46px; bottom:22px; right:22px; }
+    }
+    @media (max-width:460px) { .months { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+<header class="top">
+  <a href="/ru/" class="brand">SuccessCode</a>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Код успеха 2026</div>
+    <h1>Успешные <em>даты 2026</em></h1>
+  </div>
+</div>
+
+<!-- MONTHS -->
+<section>
+  <div class="wrap">
+    <p class="intro">Даты на каждый месяц солнечного 2026 года доступны по ссылке:</p>
+    <div class="months">
+      <a class="month" href="https://disk.yandex.ru/i/vM5D1-d8vKIZ8Q" target="_blank" rel="noopener"><span class="month-name">Февраль 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/FVk8ipx-9mz9sg" target="_blank" rel="noopener"><span class="month-name">Март 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/FMXVK4qLCR0TMw" target="_blank" rel="noopener"><span class="month-name">Апрель 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/Xmah7nso2yJP_w" target="_blank" rel="noopener"><span class="month-name">Май 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/IIAo8oWbL5Xl4g" target="_blank" rel="noopener"><span class="month-name">Июнь 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/ARMdZGgeYnflsw" target="_blank" rel="noopener"><span class="month-name">Июль 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/Jn84eX3LZP3NkA" target="_blank" rel="noopener"><span class="month-name">Август 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/TcBKvTlp6anHKQ" target="_blank" rel="noopener"><span class="month-name">Сентябрь 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/8z1urk2TL_IHeQ" target="_blank" rel="noopener"><span class="month-name">Октябрь 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/iCoevvNEutLpyw" target="_blank" rel="noopener"><span class="month-name">Ноябрь 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/5v-kdRrZbPbQtQ" target="_blank" rel="noopener"><span class="month-name">Декабрь 2026</span><span class="month-cta">Открыть</span></a>
+      <a class="month" href="https://disk.yandex.ru/i/LdqqO2VLBKdwzQ" target="_blank" rel="noopener"><span class="month-name">Январь 2027</span><span class="month-cta">Открыть</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULT -->
+<section>
+  <div class="wrap consult">
+    <h2>Личная астрологическая консультация</h2>
+    <p>Вы можете заказать личный разбор своей карты. Стоимость консультации — €250–€350, зависит от запроса.</p>
+    <a class="btn-gold" href="/ru/#booking">Заказать консультацию</a>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section>
+  <div class="wrap">
+    <div class="tools">
+      <a class="tool" href="/walks">
+        <div class="tool-name">Волшебные прогулки</div>
+        <div class="tool-desc">Оказаться в нужное время в нужном месте — это половина успеха. Так вы обеспечиваете себе больше возможностей.</div>
+        <div class="tool-cta">Подробнее →</div>
+      </a>
+      <a class="tool" href="/calendar">
+        <div class="tool-name">Календарь успешных дат</div>
+        <div class="tool-desc">Энергетический потенциал каждого дня — для денег, ресурсов и решений с начальством.</div>
+        <div class="tool-cta">Подробнее →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTS -->
+<section>
+  <div class="wrap contacts">
+    <h2>Контакты для связи</h2>
+    <p>В социальных сетях — ещё больше о моих продуктах. По вопросам покупки и применения инструментов пишите в личные сообщения.</p>
+    <div class="contact-links">
+      <a href="https://t.me/Alena_Success_Code" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://www.instagram.com/fengshui_balance/" target="_blank" rel="noopener">Instagram</a>
+      <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="flinks">
+    <a href="/ru/privacy.html">Обработка данных</a>
+    <a href="/ru/terms.html">Условия</a>
+  </div>
+  <small>© 2026 Код успеха. Все права защищены. Копирование, в т.ч. системами ИИ, запрещено. Часть изображений создана с помощью ИИ.</small>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+<script>
+  (function () {
+    var btn = document.getElementById('backToTop');
+    function check(){ btn.classList.toggle('visible', window.scrollY > 400); }
+    window.addEventListener('scroll', check, { passive:true });
+    btn.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
+    check();
+  })();
+</script>
+
+</body>
+</html>
