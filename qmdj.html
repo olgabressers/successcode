@@ -30,11 +30,25 @@
   html, body { max-width: 100vw; overflow-x: hidden; }
   body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
          color: var(--text); min-height: 100vh; padding: 40px 24px; }
-  .lang-switch { position: fixed; top: 14px; right: 16px; z-index: 50; display: flex; gap: 4px; }
+  .lang-switch { display: flex; gap: 4px; }
   .lang-switch button { width: auto; background: transparent; border: 1px solid var(--border);
                         color: var(--text-muted); padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+  /* top site navigation */
+  .site-nav { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 16px;
+    padding: 12px 20px; margin: -40px -24px 34px; background: rgba(255,255,255,0.97);
+    border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); flex-wrap: wrap; }
+  .nl-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--text); text-decoration: none; }
+  .nl-sections { display: flex; gap: 16px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+  .nl-link { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text);
+    font-weight: 600; text-decoration: none; white-space: nowrap; }
+  .nl-link:hover { color: var(--gold); }
+  .nl-right { display: flex; gap: 10px; align-items: center; }
+  .nl-btn { width: auto; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600;
+    color: #fff; background: var(--gold); padding: 8px 14px; text-decoration: none; border: 0; }
+  .nl-btn:hover { background: var(--gold-dim); }
   header { text-align: center; margin-bottom: 36px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
@@ -177,7 +191,7 @@
     .print-btn { top: 36px; right: 8px; padding: 4px 9px; font-size: 9px; }
   }
   /* PDF / Print button */
-  .print-btn { position: fixed; top: 46px; right: 16px; z-index: 50; width: auto;
+  .print-btn { width: auto;
                background: transparent; border: 1px solid var(--border); color: var(--text-muted);
                padding: 6px 12px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
                font-family: 'Inter', sans-serif; cursor: pointer; }
@@ -187,7 +201,7 @@
     @page { size: A4 portrait; margin: 10mm; }
     body { padding: 0; background: #fff; color: #000;
            -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    .lang-switch, .print-btn, .form-panel, .hour-row, #error-display, header p,
+    .site-nav, .lang-switch, .print-btn, .form-panel, .hour-row, #error-display, header p,
     .city-dd, .solar-info { display: none !important; }
     header { margin-bottom: 8px; }
     header h1 { font-size: 20px; }
@@ -201,11 +215,25 @@
 </style>
 </head>
 <body>
-<div class="lang-switch">
-  <button id="lang-ru" class="on" onclick="setLang('ru')">RU</button>
-  <button id="lang-en" onclick="setLang('en')">EN</button>
-</div>
-<button class="print-btn" onclick="window.print()">PDF / Печать</button>
+<nav class="site-nav">
+  <a href="/ru/" class="nl-logo">SuccessCode</a>
+  <div class="nl-sections">
+    <a href="/ru/#about" class="nl-link"><span data-lang="ru">О методе</span><span data-lang="en">About</span></a>
+    <a href="/calculators" class="nl-link"><span data-lang="ru">Калькуляторы</span><span data-lang="en">Calculators</span></a>
+    <a href="/calendar" class="nl-link"><span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span></a>
+    <a href="/walks" class="nl-link"><span data-lang="ru">Прогулки</span><span data-lang="en">Walks</span></a>
+    <a href="/training" class="nl-link"><span data-lang="ru">Обучение</span><span data-lang="en">Training</span></a>
+    <a href="/businessastrology#register" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
+  </div>
+  <div class="nl-right">
+    <div class="lang-switch">
+      <button id="lang-ru" class="on" onclick="setLang('ru')">RU</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">PDF / Печать</button>
+    <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
+  </div>
+</nav>
 <header>
   <h1>奇門遁甲 · QMDJ Calculator</h1>
   <p id="sub" data-i18n="sub"></p>
@@ -368,6 +396,7 @@ function hideError(){document.getElementById("error-display").style.display="non
 
 function applyLang(){
   document.documentElement.lang=LANG;
+  document.querySelectorAll("[data-lang]").forEach(function(el){ el.style.display = el.getAttribute("data-lang")===LANG?"":"none"; });
   document.querySelectorAll("[data-i18n]").forEach(el=>el.textContent=L()[el.getAttribute("data-i18n")]||"");
   document.getElementById("f-city").placeholder=L().cityPh;
   document.getElementById("lang-ru").classList.toggle("on",LANG==="ru");
