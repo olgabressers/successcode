@@ -37,7 +37,7 @@
   .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
   /* top site navigation */
   .site-nav { position: sticky; top: 0; z-index: 60; display: flex; align-items: center; gap: 16px;
-    padding: 12px 20px; margin: -40px -24px 34px; background: rgba(255,255,255,0.97);
+    padding: 12px 20px; margin: -40px -24px 0; background: rgba(255,255,255,0.97);
     border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); flex-wrap: wrap; }
   .nl-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700;
     letter-spacing: 4px; text-transform: uppercase; color: var(--text); text-decoration: none; }
@@ -49,7 +49,7 @@
   .nl-btn { width: auto; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600;
     color: #fff; background: var(--gold); padding: 8px 14px; text-decoration: none; border: 0; }
   .nl-btn:hover { background: var(--gold-dim); }
-  header { text-align: center; margin-bottom: 36px; }
+  header { text-align: center; margin-bottom: 36px; padding-top: 48px; }
   header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
               letter-spacing: 2px; color: var(--gold); }
   header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
@@ -159,7 +159,8 @@
   .d-combo { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-top: 4px; }
   .d-note { margin-top: 12px; font-size: 11px; color: var(--text-muted); font-style: italic; }
   @media (max-width: 560px) {
-    body { padding: 44px 12px 24px; }
+    body { padding: 40px 12px 24px; }
+    header { padding-top: 26px; }
     header h1 { font-size: 20px; letter-spacing: 1px; line-height: 1.25; word-break: keep-all; }
     header p { font-size: 9px; letter-spacing: 1.5px; }
     .form-panel { padding: 16px 14px; }
@@ -223,7 +224,7 @@
     <a href="/calendar" class="nl-link"><span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span></a>
     <a href="/walks" class="nl-link"><span data-lang="ru">Прогулки</span><span data-lang="en">Walks</span></a>
     <a href="/training" class="nl-link"><span data-lang="ru">Обучение</span><span data-lang="en">Training</span></a>
-    <a href="/businessastrology#register" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
+    <a href="/businessastrology" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
   </div>
   <div class="nl-right">
     <div class="lang-switch">

@@ -85,6 +85,7 @@
     header {
       text-align: center;
       margin-bottom: 40px;
+      padding-top: 40px;
     }
 
     header h1 {
@@ -710,11 +711,39 @@
       .palace-cell { min-height: 120px; padding: 8px 6px; }
     }
 
+    /* top site navigation */
+    .site-nav { position: sticky; top: 0; z-index: 300; display: flex; align-items: center; gap: 16px;
+      padding: 12px 20px; margin: -40px -24px 0; background: rgba(245,243,238,0.97);
+      border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); flex-wrap: wrap; }
+    .nl-logo { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 700;
+      letter-spacing: 4px; text-transform: uppercase; color: var(--text); text-decoration: none; }
+    .nl-sections { display: flex; gap: 16px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+    .nl-link { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: var(--text);
+      font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .nl-link:hover { color: var(--gold); }
+    .nl-right { display: flex; gap: 10px; align-items: center; }
+    .nl-lang { display: inline-flex; align-items: center; border: 1px solid var(--border); }
+    .nl-lang button { background: transparent; border: none; cursor: pointer; font-size: 11px;
+      letter-spacing: 1px; font-weight: 600; color: var(--text-muted); padding: 6px 12px; font-family: 'Inter', sans-serif; }
+    .nl-lang button.on { background: var(--gold); color: #fff; }
+    .nl-btn { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600;
+      color: #fff; background: var(--gold); padding: 8px 14px; text-decoration: none; border: 0; }
+    .nl-btn:hover { background: var(--gold-dim); }
+    [data-lang] { display: none; }
+    html[lang="ru"] [data-lang="ru"] { display: inline; }
+    html[lang="en"] [data-lang="en"] { display: inline; }
+    @media (max-width: 700px) {
+      .site-nav { gap: 10px 12px; padding: 10px 14px; margin: -40px -24px 0; }
+      .nl-sections { gap: 10px 12px; width: 100%; order: 3; justify-content: center; }
+      .nl-link { font-size: 10px; letter-spacing: 0.8px; }
+      .nl-right { margin-left: auto; }
+    }
+
     @media print {
       @page { size: A4 portrait; margin: 5mm; }
       * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       body { padding: 0 !important; margin: 0 !important; background: white; }
-      .form-panel, header, .layer-controls, .legend, .note { display: none !important; }
+      .site-nav, .form-panel, header, .layer-controls, .legend, .note { display: none !important; }
       .chart-panel {
         display: block !important;
         width: 1080px !important;
@@ -730,6 +759,25 @@
   </style>
 </head>
 <body>
+
+<nav class="site-nav">
+  <a href="/ru/" class="nl-logo">SuccessCode</a>
+  <div class="nl-sections">
+    <a href="/ru/#about" class="nl-link"><span data-lang="ru">О методе</span><span data-lang="en">About</span></a>
+    <a href="/calculators" class="nl-link"><span data-lang="ru">Калькуляторы</span><span data-lang="en">Calculators</span></a>
+    <a href="/calendar" class="nl-link"><span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span></a>
+    <a href="/walks" class="nl-link"><span data-lang="ru">Прогулки</span><span data-lang="en">Walks</span></a>
+    <a href="/training" class="nl-link"><span data-lang="ru">Обучение</span><span data-lang="en">Training</span></a>
+    <a href="/businessastrology" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
+  </div>
+  <div class="nl-right">
+    <div class="nl-lang" role="group" aria-label="Language">
+      <button id="nl-ru" class="on" type="button" onclick="scSetLang('ru')">RU</button>
+      <button id="nl-en" type="button" onclick="scSetLang('en')">EN</button>
+    </div>
+    <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
+  </div>
+</nav>
 
 <header>
   <h1>紫微斗数 · ZWDS Calculator</h1>
@@ -878,5 +926,22 @@
 })();
 </script>
 
+<script>
+  /* Top-nav language toggle (nav chrome only; calculator UI stays in EN) */
+  function scSetLang(l){
+    if(l!=='ru'&&l!=='en') l='ru';
+    document.documentElement.setAttribute('lang', l);
+    var r=document.getElementById('nl-ru'), e=document.getElementById('nl-en');
+    if(r) r.classList.toggle('on', l==='ru');
+    if(e) e.classList.toggle('on', l==='en');
+    try{ localStorage.setItem('sc-lang', l); }catch(_){}
+  }
+  (function(){
+    var init=null;
+    try{ init=new URL(location.href).searchParams.get('lang'); }catch(_){}
+    if(init!=='ru'&&init!=='en'){ try{ init=localStorage.getItem('sc-lang'); }catch(_){} }
+    scSetLang(init||'ru');
+  })();
+</script>
 </body>
 </html>
