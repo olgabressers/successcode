@@ -21,11 +21,18 @@
     a { color:inherit; }
     .wrap { max-width:1000px; margin:0 auto; padding:0 40px; }
 
-    header.top {
-      padding:20px 40px; display:flex; align-items:center; justify-content:center;
-      border-bottom:1px solid var(--border); background:rgba(52,54,64,0.98);
+    nav {
+      position:sticky; top:0; z-index:40; padding:16px 34px;
+      display:flex; justify-content:space-between; align-items:center; gap:16px;
+      background:rgba(52,54,64,0.98); border-bottom:1px solid var(--border); backdrop-filter:blur(8px);
     }
-    .brand { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+    .nav-sections { display:flex; gap:18px; align-items:center; margin-left:auto; flex-wrap:nowrap; }
+    .nav-link { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; color:var(--white); font-weight:600; text-decoration:none; transition:color .25s; }
+    .nav-link:hover { color:var(--gold2); }
+    .nav-links { display:flex; gap:12px; align-items:center; }
+    .nav-btn { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:600; white-space:nowrap; color:#f5f1eb; background:var(--gold); padding:10px 16px; text-decoration:none; transition:background .25s; }
+    .nav-btn:hover { background:var(--gold2); }
 
     .hero { text-align:center; padding:64px 0 40px;
       background:radial-gradient(ellipse at 50% 0%, rgba(184,144,58,0.16), transparent 60%), var(--black); }
@@ -65,9 +72,12 @@
     .contacts { text-align:center; }
     .contacts h2 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--white); margin-bottom:12px; }
     .contacts p { font-size:15px; color:var(--dim); max-width:560px; margin:0 auto 22px; }
-    .contact-links { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; }
-    .contact-links a { font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--gold2); text-decoration:none; font-weight:600; }
-    .contact-links a:hover { color:var(--gold); }
+    .contact-icons { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
+    .contact-icons a { width:52px; height:52px; border:1px solid var(--border); border-radius:50%;
+      display:flex; align-items:center; justify-content:center; color:var(--gold2);
+      transition:background .2s, border-color .2s, color .2s, transform .2s; }
+    .contact-icons a:hover { background:var(--gold); border-color:var(--gold); color:#2a0f10; transform:translateY(-2px); }
+    .contact-icons svg { width:24px; height:24px; fill:currentColor; }
 
     footer { padding:30px 40px; border-top:1px solid var(--border); background:var(--surface); text-align:center; }
     footer .flinks { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
@@ -84,6 +94,9 @@
 
     @media (max-width:768px) {
       * { max-width:100vw; }
+      nav { padding:14px 22px; flex-wrap:wrap; gap:12px 14px; }
+      .nav-sections { gap:14px; width:100%; order:3; justify-content:center; flex-wrap:wrap; }
+      .nav-links { margin-left:auto; }
       .wrap { padding:0 22px; }
       .months { grid-template-columns:1fr 1fr; }
       .tools { grid-template-columns:1fr; }
@@ -95,9 +108,21 @@
 </head>
 <body>
 
-<header class="top">
-  <a href="/ru/" class="brand">SuccessCode</a>
-</header>
+<nav>
+  <a href="/ru/" class="nav-logo">SuccessCode</a>
+  <div class="nav-sections">
+    <a href="/ru/#about" class="nav-link">О методе</a>
+    <a href="/ru/#questions" class="nav-link">Вопросы</a>
+    <a href="/calculators?lang=ru" class="nav-link">Калькуляторы</a>
+    <a href="/calendar" class="nav-link">Календарь</a>
+    <a href="/walks" class="nav-link">Прогулки</a>
+    <a href="/training" class="nav-link">Обучение</a>
+    <a href="/2027" class="nav-link">Подготовка к 2027</a>
+  </div>
+  <div class="nav-links">
+    <a href="#consult" class="nav-btn">Консультация</a>
+  </div>
+</nav>
 
 <div class="hero">
   <div class="wrap">
@@ -128,7 +153,7 @@
 </section>
 
 <!-- CONSULT -->
-<section>
+<section id="consult">
   <div class="wrap consult">
     <h2>Личная астрологическая консультация</h2>
     <p>Вы можете заказать личный разбор своей карты. Стоимость консультации — €250–€350, зависит от запроса.</p>
@@ -159,10 +184,16 @@
   <div class="wrap contacts">
     <h2>Контакты для связи</h2>
     <p>В социальных сетях — ещё больше о моих продуктах. По вопросам покупки и применения инструментов пишите в личные сообщения.</p>
-    <div class="contact-links">
-      <a href="https://t.me/Alena_Success_Code" target="_blank" rel="noopener">Telegram</a>
-      <a href="https://www.instagram.com/fengshui_balance/" target="_blank" rel="noopener">Instagram</a>
-      <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
+    <div class="contact-icons">
+      <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
+        <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+      </a>
+      <a href="mailto:successcode.tv@gmail.com" aria-label="Email">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      </a>
     </div>
   </div>
 </section>
