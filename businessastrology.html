@@ -45,6 +45,11 @@
     .nav-links { display:flex; gap:12px; align-items:center; }
     .nav-btn { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:600; white-space:nowrap; color:#f5f1eb; background:var(--gold); padding:10px 16px; text-decoration:none; transition:background .25s; }
     .nav-btn:hover { background:var(--gold2); }
+    .lang-switch { display:inline-flex; align-items:center; border:1px solid var(--border); }
+    .lang-switch a { font-size:11px; letter-spacing:2px; font-weight:600; color:var(--muted);
+      padding:8px 12px; font-family:'Inter',sans-serif; text-decoration:none; transition:background .2s, color .2s; }
+    .lang-switch a.active { background:var(--gold); color:#f5f1eb; }
+    .lang-switch a:not(.active):hover { color:var(--gold2); }
 
     .back-to-top { position:fixed; bottom:32px; right:32px; width:54px; height:54px; background:var(--gold); color:#f5f1eb;
       display:flex; align-items:center; justify-content:center; text-decoration:none; border:1px solid var(--gold); z-index:250;
@@ -186,6 +191,10 @@
     <a href="/businessastrology" class="nav-link">Достижение цели</a>
   </div>
   <div class="nav-links">
+    <div class="lang-switch" aria-label="Язык">
+      <a href="/businessastrology" class="active">RU</a>
+      <a href="/">EN</a>
+    </div>
     <a href="#register" class="nav-btn">Записаться</a>
   </div>
 </nav>

@@ -71,6 +71,14 @@
       transition: background .25s;
     }
     .nav-btn:hover { background: var(--gold2); }
+    .lang-switch { display: inline-flex; align-items: center; border: 1px solid var(--border); }
+    .lang-switch a {
+      font-size: 11px; letter-spacing: 2px; font-weight: 600; color: var(--muted);
+      padding: 8px 12px; font-family: 'Inter', sans-serif; text-decoration: none;
+      transition: background .2s, color .2s;
+    }
+    .lang-switch a.active { background: var(--gold); color: #f5f1eb; }
+    .lang-switch a:not(.active):hover { color: var(--gold2); }
 
     /* back-to-top arrow (site-wide rule) */
     .back-to-top {
@@ -345,6 +353,10 @@
     <a href="/businessastrology" class="nav-link">Достижение цели</a>
   </div>
   <div class="nav-links">
+    <div class="lang-switch" aria-label="Язык">
+      <a href="/2027" class="active">RU</a>
+      <a href="/">EN</a>
+    </div>
     <a href="#request" class="nav-btn">Регистрация</a>
   </div>
 </nav>
