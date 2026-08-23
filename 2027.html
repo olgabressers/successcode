@@ -118,8 +118,12 @@
       letter-spacing: -1px; color: #fff; text-shadow: 0 3px 24px rgba(0,0,0,.55);
     }
     .hero h1 em { font-style: italic; color: var(--gold2); }
+    .hero-bottom {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      gap: 24px; flex-wrap: wrap; margin-top: 36px;
+    }
     .date-badge {
-      display: inline-flex; align-items: center; gap: 14px; margin-top: 26px;
+      display: inline-flex; align-items: center; gap: 14px;
       border: 1px solid rgba(255,255,255,0.25); border-left: 3px solid var(--gold2);
       background: rgba(20,8,9,0.55); backdrop-filter: blur(4px);
       padding: 13px 20px;
@@ -139,7 +143,7 @@
       font-weight: 700; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase;
       padding: 13px 22px; box-shadow: 0 8px 26px rgba(0,0,0,.4);
     }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 26px; }
+    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 0; }
     .btn-white {
       font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
       color: #2a0f10; background: #fff; padding: 16px 40px; text-decoration: none;
@@ -200,13 +204,21 @@
     /* KEY QUESTIONS — 3 cards */
     .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
     .q-card {
+      position: relative; overflow: hidden;
       background: var(--surface); border: 1px solid var(--border); padding: 34px 30px;
+      min-height: 220px; display: flex; align-items: flex-end;
     }
-    .q-mark {
-      font-family: 'Cormorant Garamond', serif; font-size: 44px; color: var(--gold2);
-      line-height: 1; margin-bottom: 16px;
+    .q-card::before {
+      content: ''; position: absolute; inset: 0; z-index: 0;
+      background-image: url('/assets/year-of-goat-2027.png');
+      background-size: cover; background-position: center;
     }
+    /* goat image behind each box — transparency graduates from bigger (faint) to smaller (stronger) */
+    .q-card:nth-child(1)::before { opacity: 0.10; }
+    .q-card:nth-child(2)::before { opacity: 0.20; }
+    .q-card:nth-child(3)::before { opacity: 0.30; }
     .q-text {
+      position: relative; z-index: 1;
       font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 500;
       color: var(--white); line-height: 1.35;
     }
@@ -264,13 +276,14 @@
     }
     .req-submit:hover { background: var(--gold2); }
     .req-mini { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
-    .special-banner {
-      display: flex; align-items: center; gap: 14px;
-      background: var(--gold-dim); border: 1px solid var(--gold); border-left: 4px solid var(--gold);
-      color: var(--white); font-weight: 700; font-size: 16px; line-height: 1.4;
-      padding: 16px 22px; margin-bottom: 30px;
+    .special-cta {
+      display: block; width: max-content; max-width: 100%; margin: 48px auto 0;
+      text-align: center; background: var(--gold); color: #2a0f10;
+      font-weight: 700; font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
+      padding: 18px 34px; text-decoration: none;
+      box-shadow: 0 10px 30px rgba(154,110,32,0.28); transition: background .25s;
     }
-    .special-banner::before { content: '★'; color: var(--gold); font-size: 18px; flex-shrink: 0; }
+    .special-cta:hover { background: var(--gold2); }
 
     /* FOOTER */
     footer { padding: 38px 56px 26px; background: var(--surface); }
@@ -330,17 +343,18 @@
   <div class="hero-inner">
     <div class="hero-eyebrow">Год Огненной Козы</div>
     <h1>Код успеха <em>2027</em></h1>
-    <div class="date-badge">
-      <div class="db-day">29</div>
-      <div class="db-meta">
-        <div class="db-dow">Воскресенье</div>
-        <div class="db-when">29 ноября 2027</div>
+    <div class="hero-bottom">
+      <div class="hero-cta">
+        <a href="#request" class="btn-white">Зарегистрироваться</a>
+        <a href="#program" class="btn-outline">Программа</a>
       </div>
-    </div>
-    <div class="special-note">Успейте зарегистрироваться на специальных условиях</div>
-    <div class="hero-cta">
-      <a href="#request" class="btn-white">Зарегистрироваться</a>
-      <a href="#program" class="btn-outline">Программа</a>
+      <div class="date-badge">
+        <div class="db-day">29</div>
+        <div class="db-meta">
+          <div class="db-dow">Воскресенье</div>
+          <div class="db-when">29 ноября 2027</div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
@@ -353,15 +367,12 @@
     <p class="lead">В новом году — новые возможности. На этой встрече я раскрою секреты наступающего года Огненной Козы: куда идут тренды, как ими воспользоваться и на что опереться в своих решениях. Зная характер года заранее, вы принимаете важные решения точнее и мягче проходите сложные периоды.</p>
     <div class="q-grid">
       <div class="q-card">
-        <div class="q-mark">?</div>
         <div class="q-text">Как достигнуть желаемого в наступающем 2027 году?</div>
       </div>
       <div class="q-card">
-        <div class="q-mark">?</div>
         <div class="q-text">Какие тенденции ждут мир в год Огненной Козы?</div>
       </div>
       <div class="q-card">
-        <div class="q-mark">?</div>
         <div class="q-text">Как воспользоваться трендами времени с наибольшей пользой для себя?</div>
       </div>
     </div>
@@ -432,6 +443,7 @@
         <div class="feat-desc">Личный ориентир: когда действовать, а когда выдержать паузу.</div>
       </div>
     </div>
+    <a href="#request" class="special-cta">Успейте зарегистрироваться на специальных условиях</a>
   </div>
 </section>
 
@@ -447,7 +459,6 @@
 <!-- REQUEST -->
 <section id="request" class="s-light">
   <div class="wrap">
-    <div class="special-banner">Успейте зарегистрироваться на специальных условиях</div>
     <div class="req">
       <div class="req-copy">
         <div class="side-label">Регистрация</div>
@@ -482,7 +493,6 @@
     <div class="footer-links">
       <a href="/ru/">Главная</a>
       <a href="/calendar">Календарь</a>
-      <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
       <a href="/ru/privacy.html">Обработка данных</a>
       <a href="/ru/terms.html">Условия</a>
     </div>
