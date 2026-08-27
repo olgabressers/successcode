@@ -636,7 +636,7 @@ function showDetail(pal){
   document.getElementById("f-min").value=n.getMinutes();
   document.getElementById("f-city").value=CITYNAME;
   applyLang();
-  if(window.QMDJ) compute();
+  compute(); // chart is fetched from the server-side engine API
 })();
 </script>
 </body>
