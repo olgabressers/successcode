@@ -288,7 +288,7 @@
         <button class="tool-btn on" id="btn-osm"  onclick="setLayer('osm')"  data-i18n="layOsm"></button>
         <button class="tool-btn"    id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
         <button class="tool-btn on" id="btn-r24" onclick="setRing('m24')"    data-i18n="ring24"></button>
-        <button class="tool-btn"    id="btn-r12" onclick="setRing('a12')"    data-i18n="ring12"></button>
+        <button class="tool-btn on" id="btn-r12" onclick="setRing('a12')"    data-i18n="ring12"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
       </div>
     </div>
@@ -541,7 +541,7 @@ function renderTable(hit) {
 let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
-let RING = "m24";   // 'm24' = 24 mountains ring, 'a12' = 12 animals ring
+let SHOW_M24 = true, SHOW_A12 = true;   // concentric rings, both on by default
 let RADIUS = 130;         // px, half-length of the facade line
 const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
                   "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
@@ -581,9 +581,10 @@ function setLayer(k) {
   $("btn-osm").classList.toggle("on", k === "osm");
 }
 function setRing(k) {
-  RING = k;
-  $("btn-r24").classList.toggle("on", k === "m24");
-  $("btn-r12").classList.toggle("on", k === "a12");
+  if (k === "m24") SHOW_M24 = !SHOW_M24; else SHOW_A12 = !SHOW_A12;
+  if (!SHOW_M24 && !SHOW_A12) { if (k === "m24") SHOW_A12 = true; else SHOW_M24 = true; }
+  $("btn-r24").classList.toggle("on", SHOW_M24);
+  $("btn-r12").classList.toggle("on", SHOW_A12);
   drawOverlay(); updateReadout();
 }
 /* The 12-animal ring is the same circle at 30° per branch: each earthly branch
@@ -630,28 +631,34 @@ function drawOverlay() {
   const fd = facingDeg();
 
   {
-    const R = RADIUS + 46, RI = RADIUS + 14;
+    // Concentric rings, read outward like a luopan:
+    // inner = 12 earthly branches (30° each), outer = 24 mountains (15° each).
     const cdg = useDecl() ? norm(fd - declValue()) : fd;   // compass frame
-    const sectors = RING === "a12"
-      ? BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) }))
-      : M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg) }));
-    for (const sc of sectors) {
-      const a0 = sc.s, a1 = sc.s + sc.span;
-      const o0 = ptAt(cx, cy, R, a0),  o1 = ptAt(cx, cy, R, a1);
-      const i0 = ptAt(cx, cy, RI, a0), i1 = ptAt(cx, cy, RI, a1);
-      svg.appendChild(el("path", {
-        d: "M" + i0[0] + " " + i0[1] + " L" + o0[0] + " " + o0[1] +
-           " A" + R + " " + R + " 0 0 1 " + o1[0] + " " + o1[1] +
-           " L" + i1[0] + " " + i1[1] +
-           " A" + RI + " " + RI + " 0 0 0 " + i0[0] + " " + i0[1] + " Z",
-        fill: sc.on ? "rgba(244,227,186,.94)" : "rgba(255,255,255,.80)",
-        stroke: "rgba(120,110,90,.5)", "stroke-width": 1 }));
-      const lp = ptAt(cx, cy, (R + RI) / 2, a0 + sc.span / 2);
-      const t = el("text", { x: lp[0], y: lp[1], "text-anchor": "middle",
-        "dominant-baseline": "central", "font-family": "Cormorant Garamond, serif",
-        "font-size": sc.on ? 21 : 17, "font-weight": sc.on ? 700 : 400,
-        fill: sc.on ? "#8a6410" : "#3a3a3a" });
-      t.textContent = sc.n; svg.appendChild(t);
+    const bands = [];
+    if (SHOW_A12) bands.push({ ri: RADIUS + 8, ro: RADIUS + 34, size: 15,
+      cells: BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) })) });
+    if (SHOW_M24) bands.push({ ri: RADIUS + (SHOW_A12 ? 34 : 8), ro: RADIUS + (SHOW_A12 ? 62 : 40), size: 16,
+      cells: M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg) })) });
+    for (const band of bands) {
+      for (const sc of band.cells) {
+        const a0 = sc.s, a1 = sc.s + sc.span;
+        const o0 = ptAt(cx, cy, band.ro, a0),  o1 = ptAt(cx, cy, band.ro, a1);
+        const i0 = ptAt(cx, cy, band.ri, a0), i1 = ptAt(cx, cy, band.ri, a1);
+        svg.appendChild(el("path", {
+          d: "M" + i0[0] + " " + i0[1] + " L" + o0[0] + " " + o0[1] +
+             " A" + band.ro + " " + band.ro + " 0 0 1 " + o1[0] + " " + o1[1] +
+             " L" + i1[0] + " " + i1[1] +
+             " A" + band.ri + " " + band.ri + " 0 0 0 " + i0[0] + " " + i0[1] + " Z",
+          fill: sc.on ? "rgba(244,227,186,.94)" : "rgba(255,255,255,.82)",
+          stroke: "rgba(120,110,90,.5)", "stroke-width": 1 }));
+        const lp = ptAt(cx, cy, (band.ro + band.ri) / 2, a0 + sc.span / 2);
+        const t = el("text", { x: lp[0], y: lp[1], "text-anchor": "middle",
+          "dominant-baseline": "central", "font-family": "Cormorant Garamond, serif",
+          "font-size": sc.on ? band.size + 4 : band.size,
+          "font-weight": sc.on ? 700 : 400,
+          fill: sc.on ? "#8a6410" : "#3a3a3a" });
+        t.textContent = sc.n; svg.appendChild(t);
+      }
     }
   }
 
@@ -733,11 +740,11 @@ function updateReadout() {
   const t = L(), fd = facingDeg();
   const cd = useDecl() ? norm(fd - declValue()) : fd;
   const m = mountainAt(cd), b = branchAt(cd);
-  const shown = RING === "a12"
-    ? "<span class='mtn'>" + b.n + "</span> " + ANIMAL[LANG][b.n]
-    : "<span class='mtn'>" + m.n + "</span> " + (LANG === "ru" ? m.ru : m.py);
+  const parts = [];
+  if (SHOW_M24) parts.push("<span class='mtn'>" + m.n + "</span> " + (LANG === "ru" ? m.ru : m.py));
+  if (SHOW_A12) parts.push("<span class='mtn'>" + b.n + "</span> " + ANIMAL[LANG][b.n]);
   $("readout").innerHTML =
-    t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;" + shown +
+    t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;" + parts.join(" · ") +
     "<br>" + t.roTrue + ": " + r1(fd) + "° · " + t.roWall + ": " + r1(WALL_DEG) + "°";
 }
 
