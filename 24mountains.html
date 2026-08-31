@@ -289,8 +289,7 @@
         <button class="tool-btn"    id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
         <button class="tool-btn on" id="btn-r24" onclick="setRing('m24')"    data-i18n="ring24"></button>
         <button class="tool-btn on" id="btn-r12" onclick="setRing('a12')"    data-i18n="ring12"></button>
-        <button class="tool-btn"    id="btn-ren" onclick="setRing('ren')"   data-i18n="ringRen"></button>
-        <button class="tool-btn"    id="btn-feng" onclick="setRing('feng')" data-i18n="ringFeng"></button>
+        <button class="tool-btn"    id="btn-sanhe" onclick="setRing('sanhe')" data-i18n="ringSanHe"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
       </div>
     </div>
@@ -397,7 +396,7 @@ const I18N = {
     mapTitle: "Карта",
     laySat: "Спутник", layOsm: "Схема",
     ring24: "24 горы", ring12: "12 животных",
-    ringRen: "人盤 Сань Хэ · сяо ша", ringFeng: "天盤 Сань Хэ · на шуй",
+    ringSanHe: "Сань Хэ", plateHuman: "Человек", plateHeaven: "Небо",
     flipBtn: "Развернуть на 180°",
     mapHint: "Найдите дом в поиске выше. <b>Синюю линию поставьте вдоль фасада</b> — тяните за круглые ручки на её концах. <b>Золотая стрелка</b> идёт под 90° к фасаду: это и есть направление дома. Если она смотрит внутрь здания — нажмите «Развернуть на 180°». Маркер можно перетаскивать.",
     roFacing: "Компас", roTrue: "Истинное", roWall: "Фасад",
@@ -430,7 +429,7 @@ const I18N = {
     mapTitle: "Map",
     laySat: "Satellite", layOsm: "Map",
     ring24: "24 mountains", ring12: "12 animals",
-    ringRen: "人盤 San He · xiao sha", ringFeng: "天盤 San He · na shui",
+    ringSanHe: "San He", plateHuman: "Human", plateHeaven: "Heaven",
     flipBtn: "Flip 180°",
     mapHint: "Find the house with the search above. <b>Lay the blue line along the facade</b> — drag the round handles at its ends. The <b>gold arrow</b> sits at 90° to the facade: that is the house's facing. If it points into the building, press &quot;Flip 180°&quot;. The marker can be dragged.",
     roFacing: "Compass", roTrue: "True", roWall: "Facade",
@@ -548,7 +547,7 @@ let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
 let SHOW_M24 = true, SHOW_A12 = true;          // concentric rings, both on by default
-let SHOW_REN = false, SHOW_FENG = false;       // San He plates, off by default
+let SHOW_SANHE = false;                        // San He plates (Human + Heaven), off by default
 
 /* ── San He (三合) plates ──────────────────────────────────────────────────
    The San He luopan carries the same 24 names in the same order on three
@@ -605,15 +604,13 @@ function setLayer(k) {
   $("btn-osm").classList.toggle("on", k === "osm");
 }
 function setRing(k) {
-  if (k === "m24")  SHOW_M24  = !SHOW_M24;
-  if (k === "a12")  SHOW_A12  = !SHOW_A12;
-  if (k === "ren")  SHOW_REN  = !SHOW_REN;
-  if (k === "feng") SHOW_FENG = !SHOW_FENG;
-  if (!SHOW_M24 && !SHOW_A12 && !SHOW_REN && !SHOW_FENG) SHOW_M24 = true;
+  if (k === "m24")   SHOW_M24   = !SHOW_M24;
+  if (k === "a12")   SHOW_A12   = !SHOW_A12;
+  if (k === "sanhe") SHOW_SANHE = !SHOW_SANHE;
+  if (!SHOW_M24 && !SHOW_A12 && !SHOW_SANHE) SHOW_M24 = true;
   $("btn-r24").classList.toggle("on", SHOW_M24);
   $("btn-r12").classList.toggle("on", SHOW_A12);
-  $("btn-ren").classList.toggle("on", SHOW_REN);
-  $("btn-feng").classList.toggle("on", SHOW_FENG);
+  $("btn-sanhe").classList.toggle("on", SHOW_SANHE);
   drawOverlay(); updateReadout();
 }
 /* a bearing read on a shifted plate — the sign is the inverse of the rotation */
@@ -668,10 +665,14 @@ function drawOverlay() {
     const defs = [];
     if (SHOW_A12)  defs.push({ cells: BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) })) });
     if (SHOW_M24)  defs.push({ cells: M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg) })) });
-    if (SHOW_REN)  defs.push({ tint: "rgba(232,240,248,.86)",
-                               cells: M24.map(m => ({ n: m.n, s: norm(m.s + PLATE.ren),  span: 15, on: m === plateMountain(cdg, "ren") })) });
-    if (SHOW_FENG) defs.push({ tint: "rgba(236,246,236,.86)",
-                               cells: M24.map(m => ({ n: m.n, s: norm(m.s + PLATE.feng), span: 15, on: m === plateMountain(cdg, "feng") })) });
+    if (SHOW_SANHE) {
+      // San He shows the two shifted plates alongside the Earth plate, giving
+      // the three staggered 24-rings a San He luopan carries.
+      defs.push({ tint: "rgba(232,240,248,.86)",
+                  cells: M24.map(m => ({ n: m.n, s: norm(m.s + PLATE.ren),  span: 15, on: m === plateMountain(cdg, "ren") })) });
+      defs.push({ tint: "rgba(236,246,236,.86)",
+                  cells: M24.map(m => ({ n: m.n, s: norm(m.s + PLATE.feng), span: 15, on: m === plateMountain(cdg, "feng") })) });
+    }
 
     const box2 = $("map").getBoundingClientRect();
     const maxOuter = Math.max(90, Math.min(box2.width, box2.height) / 2 - 12);
@@ -782,8 +783,10 @@ function updateReadout() {
   const parts = [];
   if (SHOW_M24) parts.push("<span class='mtn'>" + m.n + "</span> " + (LANG === "ru" ? m.ru : m.py));
   if (SHOW_A12) parts.push("<span class='mtn'>" + b.n + "</span> " + ANIMAL[LANG][b.n]);
-  if (SHOW_REN)  parts.push("人盤 <span class='mtn'>" + plateMountain(cd, "ren").n  + "</span>");
-  if (SHOW_FENG) parts.push("天盤 <span class='mtn'>" + plateMountain(cd, "feng").n + "</span>");
+  if (SHOW_SANHE) {
+    parts.push(t.plateHuman  + " <span class='mtn'>" + plateMountain(cd, "ren").n  + "</span>");
+    parts.push(t.plateHeaven + " <span class='mtn'>" + plateMountain(cd, "feng").n + "</span>");
+  }
   $("readout").innerHTML =
     t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;" + parts.join(" · ") +
     "<br>" + t.roTrue + ": " + r1(fd) + "° · " + t.roWall + ": " + r1(WALL_DEG) + "°";
