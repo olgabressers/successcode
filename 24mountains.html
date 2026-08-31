@@ -249,12 +249,10 @@
           <input type="number" id="f-deg" step="0.1" min="0" max="360" value="0" oninput="compute()">
           <button class="step-btn" onclick="stepMountain(1)" title="+1">&rsaquo;</button>
         </div>
-        <div class="hint" data-i18n="degHint"></div>
       </div>
       <div class="form-group">
         <label data-i18n="declLabel"></label>
         <input type="number" id="f-decl" step="0.001" value="0" oninput="onDeclEdit()">
-        <div class="hint" id="decl-hint"></div>
       </div>
       <div class="form-group">
         <label data-i18n="declUseLabel"></label>
@@ -343,11 +341,10 @@ const I18N = {
     sub: "Определение направления фасада",
     inputTitle: "Направление",
     degLabel: "Градус направления (фасад)",
-    degHint: "0–360°. Стрелками ‹ › — на предыдущую или следующую гору.",
     cityLabel: "Город (для магнитного склонения)",
     cityPh: "Начните вводить город…",
     declLabel: "Магнитное склонение, °",
-    useDecl: "Учитывать склонение: карта — истинный север, компас — магнитный",
+    useDecl: "Учитывать магнитное склонение",
     tblTitle: "Все 24 горы",
     back: "← Все калькуляторы",
     facing: "Фасад · 向",
@@ -363,8 +360,6 @@ const I18N = {
     frameOff: "Склонение выключено: карта и компас считаются совпадающими, гора определяется по <b>{c}°</b>.",
     east: "восточное склонение", west: "западное склонение",
     coordHint: "Широта {lat}, долгота {lon}",
-    declAuto: "Рассчитано по модели WMM2025 для этой точки.",
-    declManual: "Введено вручную.",
     els: { wood:"Дерево", fire:"Огонь", earth:"Земля", metal:"Металл", water:"Вода" },
     thNum:"№", thM:"Гора", thPy:"Пиньинь", thRu:"Чтение", thFrom:"От°", thTo:"До°", thYY:"Инь/Ян",
     thGua:"Триграмма", thSec:"Сектор", thEl:"Стихия",
@@ -383,11 +378,10 @@ const I18N = {
     sub: "Finding a building's facing direction",
     inputTitle: "Direction",
     degLabel: "Facing degree (facade)",
-    degHint: "0–360°. Use ‹ › to step to the previous or next mountain.",
     cityLabel: "City (for magnetic declination)",
     cityPh: "Start typing a city…",
     declLabel: "Magnetic declination, °",
-    useDecl: "Apply declination: the map is true north, the compass is magnetic",
+    useDecl: "Apply magnetic declination",
     tblTitle: "All 24 mountains",
     back: "← All calculators",
     facing: "Facing · 向",
@@ -403,8 +397,6 @@ const I18N = {
     frameOff: "Declination is off: map and compass are treated as the same, and the mountain is read from <b>{c}°</b>.",
     east: "east", west: "west",
     coordHint: "Latitude {lat}, longitude {lon}",
-    declAuto: "Computed from the WMM2025 model for this point.",
-    declManual: "Entered manually.",
     els: { wood:"Wood", fire:"Fire", earth:"Earth", metal:"Metal", water:"Water" },
     thNum:"#", thM:"Mtn", thPy:"Pinyin", thRu:"Reading", thFrom:"From°", thTo:"To°", thYY:"Yin/Yang",
     thGua:"Trigram", thSec:"Sector", thEl:"Element",
@@ -737,7 +729,6 @@ function compute() {
         .replace("{dir}", d >= 0 ? t.east : t.west).replace("{t}", r1(td))
     : t.frameOff.replace("{c}", r1(cd));
 
-  $("decl-hint").textContent  = DECL_AUTO ? t.declAuto : t.declManual;
   $("coord-hint").textContent = t.coordHint.replace("{lat}", LAT.toFixed(4)).replace("{lon}", LON.toFixed(4));
 
   renderCompass(cd);
