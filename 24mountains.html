@@ -139,7 +139,8 @@
   /* reference table */
   .tbl-wrap { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; overflow-x: auto; max-width: 100%; }
   .tbl-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
-  .gua-sym { font-size: 15px; color: var(--gold-dim); line-height: 1; }
+  .gua-sym { font-size: 22px; color: var(--gold-dim); line-height: 1; vertical-align: -3px; letter-spacing: 1px; }
+  .m-row .gua-sym { font-size: 25px; vertical-align: -4px; }
   table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
   th { text-align: left; font-size: 9.5px; letter-spacing: .8px; text-transform: uppercase;
        color: var(--text-muted); font-weight: 600; padding: 6px 5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
@@ -154,12 +155,19 @@
   .backnav a:hover { color: var(--gold); }
   .footer-brand { text-align: center; margin-top: 22px; margin-bottom: 10px;
                   font-family: 'Cormorant Garamond', serif; color: var(--text-muted); letter-spacing: 3px; font-size: 13px; }
-  .page-footer { max-width: 980px; margin: 34px auto 0; padding: 22px 4px 6px;
-                 border-top: 1px solid var(--border);
-                 display: flex; justify-content: space-between; align-items: center;
-                 font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
-  .page-footer a { color: var(--text-muted); text-decoration: none; transition: color .25s; }
-  .page-footer a:hover { color: var(--gold); }
+  .site-footer { max-width: 980px; margin: 40px auto 0; padding: 40px 4px 30px;
+                 border-top: 1px solid var(--border); }
+  .footer-top { display: flex; justify-content: space-between; align-items: center;
+                margin-bottom: 30px; gap: 32px; flex-wrap: wrap; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600;
+                 letter-spacing: 5px; text-transform: uppercase; color: var(--text-dim); }
+  .footer-links span { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+                    color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-disclaimer { font-size: 11px; line-height: 1.75; color: var(--text-muted);
+                       padding-top: 22px; border-top: 1px solid var(--border); margin-bottom: 16px; }
+  .site-footer small { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; line-height: 1.7; }
   .src-note { text-align: center; font-size: 10.5px; color: var(--text-muted); line-height: 1.7; margin-top: 14px; }
 
   .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 54px; height: 54px; z-index: 400;
@@ -193,7 +201,11 @@
     .tbl-wrap { padding: 14px 12px; }
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
     #map { height: 400px; }
-    .page-footer { flex-direction: column; gap: 10px; text-align: center; }
+    .site-footer { padding: 30px 4px 24px; }
+    .footer-top { flex-direction: column; gap: 18px; text-align: center; }
+    .footer-links span { justify-content: center; gap: 16px; }
+    .footer-links a { font-size: 10px; letter-spacing: 1.5px; }
+    .footer-disclaimer { font-size: 10px; line-height: 1.7; }
     .map-head { padding: 12px 12px; }
     .map-tools { margin-left: 0; width: 100%; }
     .tool-btn { flex: 1; padding: 7px 8px; font-size: 10px; }
@@ -203,7 +215,7 @@
     body { padding: 0; background: #fff; color: #000;
            -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .site-nav, .lang-switch, .print-btn, .form-panel, .city-dd, .backnav, .back-to-top,
-    .map-tools, .map-hint { display: none !important; }
+    .map-tools, .map-hint, .footer-links { display: none !important; }
     header { margin-bottom: 10px; padding-top: 0; }
     .card, .tbl-wrap { break-inside: avoid; }
   }
@@ -275,7 +287,8 @@
       <div class="map-tools">
         <button class="tool-btn on" id="btn-osm"  onclick="setLayer('osm')"  data-i18n="layOsm"></button>
         <button class="tool-btn"    id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
-        <button class="tool-btn on" id="btn-ring" onclick="toggleRing()"     data-i18n="ringBtn"></button>
+        <button class="tool-btn on" id="btn-r24" onclick="setRing('m24')"    data-i18n="ring24"></button>
+        <button class="tool-btn"    id="btn-r12" onclick="setRing('a12')"    data-i18n="ring12"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
       </div>
     </div>
@@ -301,9 +314,22 @@
   <div class="src-note" data-i18n="srcNote"></div>
 </div>
 
-<footer class="page-footer">
-  <div>&copy; SuccessCode</div>
-  <div><a href="/ru/" id="footer-home" data-i18n="home"></a></div>
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-logo">SuccessCode</div>
+    <div class="footer-links">
+      <span data-lang="ru"><a href="/ru/privacy.html">Обработка данных</a><a href="/ru/terms.html">Условия</a></span>
+      <span data-lang="en"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></span>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    <span data-lang="ru">Материалы носят ориентировочный характер и не заменяют профессиональную помощь.</span>
+    <span data-lang="en">Content is for guidance only and does not replace professional advice.</span>
+  </div>
+  <small>
+    <span data-lang="ru">© 2026 Код успеха. Все права защищены. Копирование, в т.ч. системами ИИ, запрещено. Часть изображений создана с помощью ИИ.</span>
+    <span data-lang="en">© 2026 SuccessCode. All rights reserved. Copying, incl. by AI systems, prohibited. Some images are AI-generated.</span>
+  </small>
 </footer>
 
 <a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
@@ -351,7 +377,7 @@ const I18N = {
     declLabel: "Магнитное склонение, °",
     useDecl: "Учитывать магнитное склонение",
     tblTitle: "Все 24 горы",
-    back: "← Все калькуляторы", home: "Главная",
+    back: "← Все калькуляторы",
     facing: "Фасад · 向",
     sitting: "Тыл · 坐",
     range: "Сектор горы",
@@ -368,7 +394,7 @@ const I18N = {
     searching: "Поиск…", noHits: "Ничего не найдено",
     mapTitle: "Карта",
     laySat: "Спутник", layOsm: "Схема",
-    ringBtn: "Кольцо 24 гор", flipBtn: "Развернуть на 180°",
+    ring24: "24 горы", ring12: "12 животных", flipBtn: "Развернуть на 180°",
     mapHint: "Найдите дом в поиске выше. <b>Синюю линию поставьте вдоль фасада</b> — тяните за круглые ручки на её концах. <b>Золотая стрелка</b> идёт под 90° к фасаду: это и есть направление дома. Если она смотрит внутрь здания — нажмите «Развернуть на 180°». Маркер можно перетаскивать.",
     roFacing: "Компас", roTrue: "Истинное", roWall: "Фасад",
     srcNote: "Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
@@ -382,7 +408,7 @@ const I18N = {
     declLabel: "Magnetic declination, °",
     useDecl: "Apply magnetic declination",
     tblTitle: "All 24 mountains",
-    back: "← All calculators", home: "Home",
+    back: "← All calculators",
     facing: "Facing · 向",
     sitting: "Sitting · 坐",
     range: "Mountain span",
@@ -399,7 +425,7 @@ const I18N = {
     searching: "Searching…", noHits: "Nothing found",
     mapTitle: "Map",
     laySat: "Satellite", layOsm: "Map",
-    ringBtn: "24-mountain ring", flipBtn: "Flip 180°",
+    ring24: "24 mountains", ring12: "12 animals", flipBtn: "Flip 180°",
     mapHint: "Find the house with the search above. <b>Lay the blue line along the facade</b> — drag the round handles at its ends. The <b>gold arrow</b> sits at 90° to the facade: that is the house's facing. If it points into the building, press &quot;Flip 180°&quot;. The marker can be dragged.",
     roFacing: "Compass", roTrue: "True", roWall: "Facade",
     srcNote: "The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
@@ -515,7 +541,7 @@ function renderTable(hit) {
 let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
-let SHOW_RING = true;
+let RING = "m24";   // 'm24' = 24 mountains ring, 'a12' = 12 animals ring
 let RADIUS = 130;         // px, half-length of the facade line
 const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
                   "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
@@ -554,7 +580,31 @@ function setLayer(k) {
   $("btn-sat").classList.toggle("on", k === "sat");
   $("btn-osm").classList.toggle("on", k === "osm");
 }
-function toggleRing() { SHOW_RING = !SHOW_RING; $("btn-ring").classList.toggle("on", SHOW_RING); drawOverlay(); }
+function setRing(k) {
+  RING = k;
+  $("btn-r24").classList.toggle("on", k === "m24");
+  $("btn-r12").classList.toggle("on", k === "a12");
+  drawOverlay(); updateReadout();
+}
+/* The 12-animal ring is the same circle at 30° per branch: each earthly branch
+   sits on its own 15° mountain widened by 7.5° either side. Derived from the
+   cited M24 table, so there is no second source of truth. */
+const BRANCH12 = M24.filter(m => m.k === "branch")
+  .map(m => ({ n: m.n, el: m.el, s: norm(m.s - 7.5), c: norm(m.s + 7.5) }));
+const ANIMAL = {
+  ru: {"子":"Крыса","丑":"Бык","寅":"Тигр","卯":"Кролик","辰":"Дракон","巳":"Змея",
+       "午":"Лошадь","未":"Коза","申":"Обезьяна","酉":"Петух","戌":"Собака","亥":"Свинья"},
+  en: {"子":"Rat","丑":"Ox","寅":"Tiger","卯":"Rabbit","辰":"Dragon","巳":"Snake",
+       "午":"Horse","未":"Goat","申":"Monkey","酉":"Rooster","戌":"Dog","亥":"Pig"}
+};
+function branchAt(deg) {
+  const d = norm(deg);
+  for (const b of BRANCH12) {
+    const e = norm(b.s + 30);
+    if (b.s <= e ? (d >= b.s && d < e) : (d >= b.s || d < e)) return b;
+  }
+  return BRANCH12[0];
+}
 function flipFacing() { FLIP = FLIP ? 0 : 180; syncFromMap(); }
 
 /* map angle -> screen point. 0° = true north = up, clockwise. */
@@ -579,27 +629,29 @@ function drawOverlay() {
   const cx = p.x, cy = p.y;
   const fd = facingDeg();
 
-  if (SHOW_RING) {
+  {
     const R = RADIUS + 46, RI = RADIUS + 14;
-    const hit = mountainAt(useDecl() ? norm(fd - declValue()) : fd);
-    for (const m of M24) {
-      const a0 = m.s, a1 = m.s + 15;
+    const cdg = useDecl() ? norm(fd - declValue()) : fd;   // compass frame
+    const sectors = RING === "a12"
+      ? BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) }))
+      : M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg) }));
+    for (const sc of sectors) {
+      const a0 = sc.s, a1 = sc.s + sc.span;
       const o0 = ptAt(cx, cy, R, a0),  o1 = ptAt(cx, cy, R, a1);
       const i0 = ptAt(cx, cy, RI, a0), i1 = ptAt(cx, cy, RI, a1);
-      const on = m === hit;
       svg.appendChild(el("path", {
         d: "M" + i0[0] + " " + i0[1] + " L" + o0[0] + " " + o0[1] +
            " A" + R + " " + R + " 0 0 1 " + o1[0] + " " + o1[1] +
            " L" + i1[0] + " " + i1[1] +
            " A" + RI + " " + RI + " 0 0 0 " + i0[0] + " " + i0[1] + " Z",
-        fill: on ? "rgba(244,227,186,.94)" : "rgba(255,255,255,.80)",
+        fill: sc.on ? "rgba(244,227,186,.94)" : "rgba(255,255,255,.80)",
         stroke: "rgba(120,110,90,.5)", "stroke-width": 1 }));
-      const lp = ptAt(cx, cy, (R + RI) / 2, a0 + 7.5);
+      const lp = ptAt(cx, cy, (R + RI) / 2, a0 + sc.span / 2);
       const t = el("text", { x: lp[0], y: lp[1], "text-anchor": "middle",
         "dominant-baseline": "central", "font-family": "Cormorant Garamond, serif",
-        "font-size": on ? 19 : 15, "font-weight": on ? 700 : 400,
-        fill: on ? "#8a6410" : "#3a3a3a" });
-      t.textContent = m.n; svg.appendChild(t);
+        "font-size": sc.on ? 21 : 17, "font-weight": sc.on ? 700 : 400,
+        fill: sc.on ? "#8a6410" : "#3a3a3a" });
+      t.textContent = sc.n; svg.appendChild(t);
     }
   }
 
@@ -680,10 +732,12 @@ function syncFromInputs() {
 function updateReadout() {
   const t = L(), fd = facingDeg();
   const cd = useDecl() ? norm(fd - declValue()) : fd;
-  const m = mountainAt(cd);
+  const m = mountainAt(cd), b = branchAt(cd);
+  const shown = RING === "a12"
+    ? "<span class='mtn'>" + b.n + "</span> " + ANIMAL[LANG][b.n]
+    : "<span class='mtn'>" + m.n + "</span> " + (LANG === "ru" ? m.ru : m.py);
   $("readout").innerHTML =
-    t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;<span class='mtn'>" + m.n + "</span> " +
-    (LANG === "ru" ? m.ru : m.py) +
+    t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;" + shown +
     "<br>" + t.roTrue + ": " + r1(fd) + "° · " + t.roWall + ": " + r1(WALL_DEG) + "°";
 }
 
@@ -715,7 +769,6 @@ function applyLang() {
   $("lang-ru").classList.toggle("on", LANG === "ru");
   $("lang-en").classList.toggle("on", LANG === "en");
   $("backToTop").setAttribute("aria-label", LANG === "ru" ? "Наверх" : "Back to top");
-  const fh = $("footer-home"); if (fh) fh.setAttribute("href", LANG === "en" ? "/" : "/ru/");
   const pb = document.querySelector(".print-btn");
   if (pb) pb.textContent = LANG === "ru" ? "PDF / Печать" : "PDF / Print";
 }
