@@ -75,7 +75,11 @@
   input:focus { border-color: var(--gold); }
   .city-dd { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: #fff;
              border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto; display: none; }
-  .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
+  .city-opt { padding: 9px 12px; font-size: 12.5px; cursor: pointer; border-bottom: 1px solid #eee; line-height: 1.45; }
+  .city-opt b { display: block; color: var(--text); font-weight: 600; }
+  .city-opt span { color: var(--text-muted); font-size: 11.5px; }
+  .city-dd { max-height: 300px; }
+  .searching { padding: 9px 12px; font-size: 12px; color: var(--text-muted); }
   .city-opt:hover { background: #faf7ef; }
   .hint { font-size: 11px; color: var(--gold-dim); margin-top: 4px; min-height: 14px; line-height: 1.5; }
   .chk { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
@@ -232,27 +236,28 @@
   <div class="form-panel">
     <div class="section-label" data-i18n="inputTitle"></div>
     <div class="form-grid">
+      <div class="form-group full">
+        <label data-i18n="addrLabel"></label>
+        <input type="text" id="f-city" autocomplete="off" oninput="onCityInput()" onfocus="onCityInput()">
+        <div class="city-dd" id="city-dd"></div>
+        <div class="hint" id="coord-hint"></div>
+      </div>
       <div class="form-group">
         <label data-i18n="degLabel"></label>
         <div class="step-row">
-          <button class="step-btn" onclick="stepMountain(-1)" title="−1">‹</button>
+          <button class="step-btn" onclick="stepMountain(-1)" title="-1">&lsaquo;</button>
           <input type="number" id="f-deg" step="0.1" min="0" max="360" value="0" oninput="compute()">
-          <button class="step-btn" onclick="stepMountain(1)" title="+1">›</button>
+          <button class="step-btn" onclick="stepMountain(1)" title="+1">&rsaquo;</button>
         </div>
         <div class="hint" data-i18n="degHint"></div>
-      </div>
-      <div class="form-group">
-        <label data-i18n="cityLabel"></label>
-        <input type="text" id="f-city" autocomplete="off" oninput="onCityInput()">
-        <div class="city-dd" id="city-dd"></div>
-        <div class="hint" id="coord-hint"></div>
       </div>
       <div class="form-group">
         <label data-i18n="declLabel"></label>
         <input type="number" id="f-decl" step="0.001" value="0" oninput="onDeclEdit()">
         <div class="hint" id="decl-hint"></div>
       </div>
-      <div class="form-group full">
+      <div class="form-group">
+        <label data-i18n="declUseLabel"></label>
         <div class="chk">
           <input type="checkbox" id="f-usedecl" checked onchange="compute()">
           <label for="f-usedecl" data-i18n="useDecl"></label>
@@ -261,13 +266,12 @@
     </div>
   </div>
 
-
   <div class="map-panel">
     <div class="map-head">
       <div class="section-label" data-i18n="mapTitle"></div>
       <div class="map-tools">
-        <button class="tool-btn on" id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
-        <button class="tool-btn"    id="btn-osm"  onclick="setLayer('osm')"  data-i18n="layOsm"></button>
+        <button class="tool-btn on" id="btn-osm"  onclick="setLayer('osm')"  data-i18n="layOsm"></button>
+        <button class="tool-btn"    id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
         <button class="tool-btn on" id="btn-ring" onclick="toggleRing()"     data-i18n="ringBtn"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
       </div>
@@ -364,6 +368,10 @@ const I18N = {
     els: { wood:"Дерево", fire:"Огонь", earth:"Земля", metal:"Металл", water:"Вода" },
     thNum:"№", thM:"Гора", thPy:"Пиньинь", thRu:"Чтение", thFrom:"От°", thTo:"До°", thYY:"Инь/Ян",
     thGua:"Триграмма", thSec:"Сектор", thEl:"Стихия",
+    addrLabel: "Адрес дома",
+    addrPh: "Улица, дом, город — например: Домплейн 29, Утрехт",
+    searching: "Поиск…", noHits: "Ничего не найдено",
+    declUseLabel: "Пересчёт",
     mapTitle: "Карта",
     laySat: "Спутник", layOsm: "Схема",
     ringBtn: "Кольцо 24 гор", flipBtn: "Развернуть на 180°",
@@ -400,6 +408,10 @@ const I18N = {
     els: { wood:"Wood", fire:"Fire", earth:"Earth", metal:"Metal", water:"Water" },
     thNum:"#", thM:"Mtn", thPy:"Pinyin", thRu:"Reading", thFrom:"From°", thTo:"To°", thYY:"Yin/Yang",
     thGua:"Trigram", thSec:"Sector", thEl:"Element",
+    addrLabel: "Address",
+    addrPh: "Street, number, city — e.g. Domplein 29, Utrecht",
+    searching: "Searching…", noHits: "Nothing found",
+    declUseLabel: "Conversion",
     mapTitle: "Map",
     laySat: "Satellite", layOsm: "Map",
     ringBtn: "24-mountain ring", flipBtn: "Flip 180°",
@@ -548,7 +560,7 @@ function renderTable(hit) {
    bearing. The degree box shows the compass reading
    (true − declination), matching what a luopan reads on site.
    ============================================================ */
-let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "sat";
+let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
 let SHOW_RING = true;
@@ -567,7 +579,7 @@ function initMap() {
     { maxZoom: 21, maxNativeZoom: 19, attribution: "Esri, Maxar, Earthstar Geographics" });
   LAYERS.osm = LEAF.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",
     { maxZoom: 21, maxNativeZoom: 19, attribution: "© OpenStreetMap" });
-  LAYERS.sat.addTo(MAP);
+  LAYERS.osm.addTo(MAP);
 
   MARKER = LEAF.marker([LAT, LON], { draggable: true }).addTo(MAP);
   MARKER.on("drag", drawOverlay);
@@ -736,7 +748,7 @@ function applyLang() {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     el.innerHTML = L()[el.getAttribute("data-i18n")] || "";
   });
-  $("f-city").placeholder = L().cityPh;
+  $("f-city").placeholder = L().addrPh;
   $("lang-ru").classList.toggle("on", LANG === "ru");
   $("lang-en").classList.toggle("on", LANG === "en");
   $("backToTop").setAttribute("aria-label", LANG === "ru" ? "Наверх" : "Back to top");
@@ -752,33 +764,73 @@ function setLang(l) {
 function onCityInput() {
   clearTimeout(_cityTimer);
   const q = $("f-city").value.trim();
-  if (q.length < 2) { $("city-dd").style.display = "none"; return; }
-  _cityTimer = setTimeout(() => fetchCities(q), 350);
+  if (q.length < 3) { $("city-dd").style.display = "none"; return; }
+  _cityTimer = setTimeout(() => fetchCities(q), 300);
 }
+
+/* Nominatim, house-number level. addressdetails lets us show a readable
+   two-line suggestion instead of one long comma-run. */
 async function fetchCities(q) {
   const dd = $("city-dd");
+  dd.innerHTML = '<div class="searching">' + L().searching + '</div>';
+  dd.style.display = "block";
   try {
-    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=" +
-                          LANG + "&limit=6&q=" + encodeURIComponent(q));
+    const url = "https://nominatim.openstreetmap.org/search" +
+                "?format=jsonv2&addressdetails=1&limit=8" +
+                "&accept-language=" + LANG +
+                "&q=" + encodeURIComponent(q);
+    const r = await fetch(url, { headers: { "Accept": "application/json" } });
     const arr = await r.json();
-    if (!arr || !arr.length) { dd.style.display = "none"; return; }
+    if (!arr || !arr.length) {
+      dd.innerHTML = '<div class="searching">' + L().noHits + '</div>';
+      return;
+    }
     dd._data = arr;
-    dd.innerHTML = arr.map((c, i) => '<div class="city-opt" onclick="selectCity(' + i + ')">' +
-                                     c.display_name + '</div>').join("");
-    dd.style.display = "block";
-  } catch (e) { dd.style.display = "none"; }
+    dd.innerHTML = arr.map(function (c, i) {
+      const a = c.address || {};
+      const house = [a.road, a.house_number].filter(Boolean).join(" ");
+      const head  = house || a.village || a.town || a.city || a.suburb ||
+                    (c.display_name || "").split(",")[0];
+      const rest  = (c.display_name || "").split(",").slice(house ? 2 : 1)
+                    .join(",").trim();
+      return '<div class="city-opt" onclick="selectCity(' + i + ')">' +
+             '<b>' + esc(head) + '</b><span>' + esc(rest) + '</span></div>';
+    }).join("");
+  } catch (e) {
+    dd.innerHTML = '<div class="searching">' + L().noHits + '</div>';
+  }
 }
+function esc(t) {
+  return String(t || "").replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+  });
+}
+
 function selectCity(i) {
   const dd = $("city-dd"), c = dd._data[i];
-  LAT = parseFloat(c.lat); LON = parseFloat(c.lon);   // lat is kept — the other calculators discard it
-  CITYNAME = c.display_name.split(",")[0];
-  $("f-city").value = CITYNAME;
+  LAT = parseFloat(c.lat); LON = parseFloat(c.lon);
+  const a = c.address || {};
+  const house = [a.road, a.house_number].filter(Boolean).join(" ");
+  CITYNAME = house || (c.display_name || "").split(",")[0];
+  $("f-city").value = c.display_name || CITYNAME;
   dd.style.display = "none";
+  try { TZNAME = tzlookup(LAT, LON); } catch (e) {}
   DECL_AUTO = true;
   refreshDeclination();
-  if (MAP) { MAP.setView([LAT, LON], 19); MARKER.setLatLng([LAT, LON]); }
+  if (MAP) {
+    // a house-level hit deserves building zoom; a town gets a wider view
+    const z = (a.house_number || a.road) ? 20 : (a.city || a.town || a.village ? 16 : 13);
+    MAP.setView([LAT, LON], z);
+    MARKER.setLatLng([LAT, LON]);
+  }
   compute();
 }
+
+document.addEventListener("click", function (e) {
+  if (!e.target.closest("#city-dd") && e.target.id !== "f-city") {
+    $("city-dd").style.display = "none";
+  }
+});
 
 (function () {
   const bt = $("backToTop");
