@@ -8,7 +8,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SuccessCode">
   <meta property="og:title" content="SuccessCode — древнекитайская астрология">
-  <meta property="og:description" content="24 горы · определение направления и сектора по градусу.">
+  <meta property="og:description" content="24 горы · определение направления фасада.">
   <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -340,14 +340,14 @@ const M24=[
 
 const I18N = {
   ru: {
-    sub: "Определение направления по градусу",
+    sub: "Определение направления фасада",
     inputTitle: "Направление",
     degLabel: "Градус направления (фасад)",
     degHint: "0–360°. Стрелками ‹ › — на предыдущую или следующую гору.",
     cityLabel: "Город (для магнитного склонения)",
     cityPh: "Начните вводить город…",
     declLabel: "Магнитное склонение, °",
-    useDecl: "Учитывать магнитное склонение (пересчитать показание компаса в истинное направление)",
+    useDecl: "Учитывать склонение: карта — истинный север, компас — магнитный",
     tblTitle: "Все 24 горы",
     back: "← Все калькуляторы",
     facing: "Фасад · 向",
@@ -359,9 +359,9 @@ const I18N = {
     yy: "Инь / Ян",
     kind: "Тип",
     yang: "Ян", yin: "Инь",
-    frameOn: "Вы ввели <b>{c}°</b> — показание компаса. Склонение <b>{d}°</b> ({dir}). Истинное направление: <b>{t}°</b>. Гора определяется по истинному направлению.",
-    frameOff: "Склонение не учитывается: <b>{c}°</b> используется как истинное направление. Если это показание компаса — включите пересчёт выше.",
-    east: "восточное", west: "западное",
+    frameOn: "Гора определяется по показанию компаса: <b>{c}°</b> — как на луопане. На карте линия стоит по истинному направлению <b>{t}°</b>; разница в {d}° ({dir}) — это магнитное склонение.",
+    frameOff: "Склонение выключено: карта и компас считаются совпадающими, гора определяется по <b>{c}°</b>.",
+    east: "восточное склонение", west: "западное склонение",
     coordHint: "Широта {lat}, долгота {lon}",
     declAuto: "Рассчитано по модели WMM2025 для этой точки.",
     declManual: "Введено вручную.",
@@ -369,25 +369,25 @@ const I18N = {
     thNum:"№", thM:"Гора", thPy:"Пиньинь", thRu:"Чтение", thFrom:"От°", thTo:"До°", thYY:"Инь/Ян",
     thGua:"Триграмма", thSec:"Сектор", thEl:"Стихия",
     addrLabel: "Адрес дома",
-    addrPh: "Улица, дом, город — например: Домплейн 29, Утрехт",
+    addrPh: "Улица, дом, город — например: Дам 1, Амстердам",
     searching: "Поиск…", noHits: "Ничего не найдено",
     declUseLabel: "Пересчёт",
     mapTitle: "Карта",
     laySat: "Спутник", layOsm: "Схема",
     ringBtn: "Кольцо 24 гор", flipBtn: "Развернуть на 180°",
     mapHint: "Найдите дом в поиске выше. <b>Синюю линию поставьте вдоль фасада</b> — тяните за круглые ручки на её концах. <b>Золотая стрелка</b> идёт под 90° к фасаду: это и есть направление дома. Если она смотрит внутрь здания — нажмите «Развернуть на 180°». Маркер можно перетаскивать.",
-    roFacing: "Направление", roWall: "Фасад",
+    roFacing: "Компас", roTrue: "Истинное", roWall: "Фасад",
     srcNote: "Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
   },
   en: {
-    sub: "Find the direction from a degree",
+    sub: "Finding a building's facing direction",
     inputTitle: "Direction",
     degLabel: "Facing degree (facade)",
     degHint: "0–360°. Use ‹ › to step to the previous or next mountain.",
     cityLabel: "City (for magnetic declination)",
     cityPh: "Start typing a city…",
     declLabel: "Magnetic declination, °",
-    useDecl: "Apply magnetic declination (convert a compass reading to true bearing)",
+    useDecl: "Apply declination: the map is true north, the compass is magnetic",
     tblTitle: "All 24 mountains",
     back: "← All calculators",
     facing: "Facing · 向",
@@ -399,8 +399,8 @@ const I18N = {
     yy: "Yin / Yang",
     kind: "Type",
     yang: "Yang", yin: "Yin",
-    frameOn: "You entered <b>{c}°</b> — a compass reading. Declination <b>{d}°</b> ({dir}). True bearing: <b>{t}°</b>. The mountain is read from the true bearing.",
-    frameOff: "Declination is not applied: <b>{c}°</b> is used as the true bearing. If that was a compass reading, switch the conversion on above.",
+    frameOn: "The mountain is read from the compass reading <b>{c}°</b> — as on a luopan. On the map the line sits at the true bearing <b>{t}°</b>; the {d}° ({dir}) difference is magnetic declination.",
+    frameOff: "Declination is off: map and compass are treated as the same, and the mountain is read from <b>{c}°</b>.",
     east: "east", west: "west",
     coordHint: "Latitude {lat}, longitude {lon}",
     declAuto: "Computed from the WMM2025 model for this point.",
@@ -409,14 +409,14 @@ const I18N = {
     thNum:"#", thM:"Mtn", thPy:"Pinyin", thRu:"Reading", thFrom:"From°", thTo:"To°", thYY:"Yin/Yang",
     thGua:"Trigram", thSec:"Sector", thEl:"Element",
     addrLabel: "Address",
-    addrPh: "Street, number, city — e.g. Domplein 29, Utrecht",
+    addrPh: "Street, number, city — e.g. Dam 1, Amsterdam",
     searching: "Searching…", noHits: "Nothing found",
     declUseLabel: "Conversion",
     mapTitle: "Map",
     laySat: "Satellite", layOsm: "Map",
     ringBtn: "24-mountain ring", flipBtn: "Flip 180°",
     mapHint: "Find the house with the search above. <b>Lay the blue line along the facade</b> — drag the round handles at its ends. The <b>gold arrow</b> sits at 90° to the facade: that is the house's facing. If it points into the building, press &quot;Flip 180°&quot;. The marker can be dragged.",
-    roFacing: "Facing", roWall: "Facade",
+    roFacing: "Compass", roTrue: "True", roWall: "Facade",
     srcNote: "The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
   }
 };
@@ -425,7 +425,7 @@ let LANG = "ru";
 try { const s = localStorage.getItem("sc-lang"); if (s === "ru" || s === "en") LANG = s; } catch (e) {}
 try { const q = new URL(location.href).searchParams.get("lang"); if (q === "ru" || q === "en") LANG = q; } catch (e) {}
 
-let LAT = 52.0907, LON = 5.1214, CITYNAME = "Utrecht";
+let LAT = 52.3676, LON = 4.9041, CITYNAME = "Amsterdam";
 let DECL_AUTO = true;
 let _cityTimer = null;
 
@@ -449,20 +449,22 @@ const opposite = m => M24[(mIndex(m) + 12) % 24];
 const centreOf = m => norm(m.s + 7.5);
 
 function stepMountain(dir) {
-  const cur = mountainAt(trueBearing());
+  const cur = mountainAt(compassDeg());
   const nxt = M24[(mIndex(cur) + dir + 24) % 24];
-  let t = centreOf(nxt);
-  // convert the true bearing back into the displayed (compass) frame
-  if ($("f-usedecl").checked) t = norm(t - declValue());
-  $("f-deg").value = r1(t);
+  $("f-deg").value = r1(centreOf(nxt));   // the box is already the compass frame
   compute();
 }
 
-const declValue = () => parseFloat($("f-decl").value) || 0;
-const inputDeg  = () => norm(parseFloat($("f-deg").value) || 0);
-function trueBearing() {
-  return $("f-usedecl").checked ? norm(inputDeg() + declValue()) : inputDeg();
-}
+/* Two frames, and it matters which one the ring is read in.
+   A luopan needle points to MAGNETIC north; a map is TRUE-north-up.
+     true = compass + declination        (declination east-positive)
+   The 24 mountains are read straight off the luopan ring, so the COMPASS
+   reading is what determines the mountain. The true bearing exists only to
+   draw the facade line correctly on the map. */
+const declValue  = () => parseFloat($("f-decl").value) || 0;
+const useDecl    = () => $("f-usedecl").checked;
+const compassDeg = () => norm(parseFloat($("f-deg").value) || 0);
+const trueDeg    = () => useDecl() ? norm(compassDeg() + declValue()) : compassDeg();
 
 function refreshDeclination() {
   if (!DECL_AUTO) return;
@@ -626,7 +628,7 @@ function drawOverlay() {
 
   if (SHOW_RING) {
     const R = RADIUS + 46, RI = RADIUS + 14;
-    const hit = mountainAt(fd);
+    const hit = mountainAt(useDecl() ? norm(fd - declValue()) : fd);
     for (const m of M24) {
       const a0 = m.s, a1 = m.s + 15;
       const o0 = ptAt(cx, cy, R, a0),  o1 = ptAt(cx, cy, R, a1);
@@ -700,42 +702,45 @@ function startRotate(ev) {
 
 /* map -> inputs. The arrow's angle is the TRUE bearing; the box shows the compass reading. */
 function syncFromMap() {
-  let shown = facingDeg();
-  if ($("f-usedecl").checked) shown = norm(shown - declValue());
-  $("f-deg").value = r1(shown);
+  // the arrow's angle on the map is a TRUE bearing -> show it as a compass reading
+  const tru = facingDeg();
+  $("f-deg").value = r1(useDecl() ? norm(tru - declValue()) : tru);
   compute();
 }
 /* inputs -> map, without fighting the user mid-drag */
 function syncFromInputs() {
-  WALL_DEG = norm(trueBearing() + 90 - FLIP);
+  WALL_DEG = norm(trueDeg() + 90 - FLIP);   // the map is true-north-up
   drawOverlay();
 }
 function updateReadout() {
-  const t = L(), fd = facingDeg(), m = mountainAt(fd);
+  const t = L(), fd = facingDeg();
+  const cd = useDecl() ? norm(fd - declValue()) : fd;
+  const m = mountainAt(cd);
   $("readout").innerHTML =
-    t.roFacing + ": <b>" + r1(fd) + "°</b> &nbsp;<span class='mtn'>" + m.n + "</span> " +
-    (LANG === "ru" ? m.ru : m.py) + "<br>" + t.roWall + ": " + r1(WALL_DEG) + "°";
+    t.roFacing + ": <b>" + r1(cd) + "°</b> &nbsp;<span class='mtn'>" + m.n + "</span> " +
+    (LANG === "ru" ? m.ru : m.py) +
+    "<br>" + t.roTrue + ": " + r1(fd) + "° · " + t.roWall + ": " + r1(WALL_DEG) + "°";
 }
 
 function compute() {
   const t = L();
-  const tb = trueBearing();
-  const face = mountainAt(tb);
+  const cd = compassDeg(), td = trueDeg();
+  const face = mountainAt(cd);          // read off the luopan ring
   const sit  = opposite(face);
 
   renderCard($("card-facing"),  face, "facing");
   renderCard($("card-sitting"), sit,  "sitting");
 
   const d = declValue();
-  $("frame-note").innerHTML = $("f-usedecl").checked
-    ? t.frameOn.replace("{c}", r1(inputDeg())).replace("{d}", d.toFixed(3))
-        .replace("{dir}", d >= 0 ? t.east : t.west).replace("{t}", r1(tb))
-    : t.frameOff.replace("{c}", r1(inputDeg()));
+  $("frame-note").innerHTML = useDecl()
+    ? t.frameOn.replace("{c}", r1(cd)).replace("{d}", Math.abs(d).toFixed(3))
+        .replace("{dir}", d >= 0 ? t.east : t.west).replace("{t}", r1(td))
+    : t.frameOff.replace("{c}", r1(cd));
 
   $("decl-hint").textContent  = DECL_AUTO ? t.declAuto : t.declManual;
   $("coord-hint").textContent = t.coordHint.replace("{lat}", LAT.toFixed(4)).replace("{lon}", LON.toFixed(4));
 
-  renderCompass(tb);
+  renderCompass(cd);
   renderTable(face);
   if (MAP) { syncFromInputs(); updateReadout(); }
 }
