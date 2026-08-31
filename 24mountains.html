@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="24 горы · определение направления и сектора по градусу.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="24 горы · направление и сектор.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>二十四山 · 24 Mountains</title>
+<link rel="canonical" href="https://successcode.net/24mountains">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+    --el-wood:#2e7d32; --el-fire:#c62828; --el-earth:#8d6e2b; --el-metal:#607d8b; --el-water:#1565c0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+  .lang-switch { display: flex; gap: 4px; }
+  .lang-switch button { width: auto; background: transparent; border: 1px solid rgba(184,144,58,0.45);
+                        color: #c0c2d4; padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
+                        cursor: pointer; font-family: 'Inter', sans-serif; }
+  .lang-switch button.on { background: #b8903a; border-color: #b8903a; color: #f5f1eb; }
+  .site-nav { position: sticky; top: 0; z-index: 300; display: flex; align-items: center; gap: 16px;
+    padding: 16px 24px; margin: -40px -24px 0; background: rgba(52,54,64,0.98);
+    border-bottom: 1px solid rgba(184,144,58,0.25); backdrop-filter: blur(8px); flex-wrap: wrap; }
+  .nl-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700;
+    letter-spacing: 5px; text-transform: uppercase; color: #eceef8; text-decoration: none; }
+  .nl-sections { display: flex; gap: 18px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+  .nl-link { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #eceef8;
+    font-weight: 600; text-decoration: none; white-space: nowrap; transition: color .25s; }
+  .nl-link:hover { color: #cfa44e; }
+  .nl-right { display: flex; gap: 10px; align-items: center; }
+  .nl-btn { width: auto; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600;
+    color: #f5f1eb; background: #b8903a; padding: 9px 16px; text-decoration: none; border: 0; transition: background .25s; }
+  .nl-btn:hover { background: #cfa44e; }
+  .print-btn { width: auto; background: transparent; border: 1px solid rgba(184,144,58,0.45); color: #c0c2d4;
+               padding: 6px 12px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+               font-family: 'Inter', sans-serif; cursor: pointer; }
+  .print-btn:hover { border-color: #cfa44e; color: #cfa44e; }
+
+  header { text-align: center; margin-bottom: 30px; padding-top: 44px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+             color: var(--text-muted); margin-top: 6px; }
+
+  .wrap { max-width: 980px; margin: 0 auto; width: 100%; }
+  .form-panel { background: var(--surface); border: 1px solid var(--border); padding: 24px 28px; margin-bottom: 28px; }
+  .section-label { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                   color: var(--gold); letter-spacing: 2px; margin-bottom: 14px; text-transform: uppercase; }
+  .form-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; position: relative; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  input, select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+                  padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
+                  outline: none; width: 100%; transition: border-color .2s; }
+  input:focus { border-color: var(--gold); }
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; z-index: 20; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto; display: none; }
+  .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
+  .city-opt:hover { background: #faf7ef; }
+  .hint { font-size: 11px; color: var(--gold-dim); margin-top: 4px; min-height: 14px; line-height: 1.5; }
+  .chk { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+  .chk input { width: auto; }
+  .chk label { text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text-dim); cursor: pointer; }
+  .step-row { display: flex; gap: 6px; }
+  .step-btn { width: 40px; flex: none; background: #f8f6f2; border: 1px solid var(--border);
+              color: var(--gold-dim); font-size: 15px; cursor: pointer; padding: 0; }
+  .step-btn:hover { border-color: var(--gold); }
+
+  /* results */
+  .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; }
+  .card.facing { border-color: var(--gold); border-width: 2px; }
+  .card-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
+              color: var(--gold); font-weight: 600; margin-bottom: 12px; }
+  .m-char { font-family: 'Cormorant Garamond', serif; font-size: 62px; line-height: 1; font-weight: 400; }
+  .m-names { font-size: 15px; color: var(--text-dim); margin-top: 6px; }
+  .m-names b { color: var(--text); font-weight: 600; }
+  .m-rows { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
+  .m-row { display: flex; justify-content: space-between; gap: 14px; font-size: 13px;
+           color: var(--text-dim); line-height: 1.9; }
+  .m-row span:first-child { color: var(--text-muted); }
+  .m-row b { color: var(--text); font-weight: 600; }
+  .el-wood{color:var(--el-wood)} .el-fire{color:var(--el-fire)} .el-earth{color:var(--el-earth)}
+  .el-metal{color:var(--el-metal)} .el-water{color:var(--el-water)}
+
+  .frame-note { background: #fbf8f1; border: 1px solid var(--border); border-left: 3px solid var(--gold);
+                padding: 14px 18px; font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 24px; }
+  .frame-note b { color: var(--text); }
+
+  /* compass */
+  .compass-wrap { background: var(--surface); border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; text-align: center; }
+  .compass-wrap svg { max-width: 100%; height: auto; }
+
+  /* reference table */
+  .tbl-wrap { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; overflow-x: auto; max-width: 100%; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+  th { text-align: left; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
+       color: var(--text-muted); font-weight: 600; padding: 8px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 7px 8px; border-bottom: 1px solid #eee; color: var(--text-dim); white-space: nowrap; }
+  td.ch { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--text); }
+  tr.hit td { background: #fdf8ec; color: var(--text); font-weight: 600; }
+  tr.hit td.ch { color: var(--gold-dim); }
+
+  .backnav { text-align: center; margin-top: 30px; }
+  .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+  .backnav a:hover { color: var(--gold); }
+  .footer-brand { text-align: center; margin-top: 22px; margin-bottom: 10px;
+                  font-family: 'Cormorant Garamond', serif; color: var(--text-muted); letter-spacing: 3px; font-size: 13px; }
+  .src-note { text-align: center; font-size: 10.5px; color: var(--text-muted); line-height: 1.7; margin-top: 14px; }
+
+  .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 54px; height: 54px; z-index: 400;
+                 background: var(--gold); display: none; align-items: center; justify-content: center;
+                 text-decoration: none; opacity: .92; transition: opacity .25s, background .25s; }
+  .back-to-top:hover { opacity: 1; background: var(--gold-dim); }
+  .back-to-top svg { width: 22px; height: 22px; stroke: #fff; }
+
+  @media (max-width: 700px) {
+    * { max-width: 100vw; }
+    img, svg, table { max-width: 100% !important; }
+    body { padding: 40px 12px 24px; }
+    .m-row { flex-wrap: wrap; gap: 2px 10px; line-height: 1.6; }
+    .m-row b { text-align: right; }
+    .frame-note { padding: 12px 14px; font-size: 12.5px; }
+    .tbl-wrap { padding: 14px 10px; }
+    .tbl-wrap table { min-width: 620px; }
+    .step-row input { min-width: 0; }
+    .site-nav { justify-content: center; gap: 9px 12px; padding: 10px 12px; margin: -40px -12px 0; }
+    .nl-logo { width: 100%; text-align: center; }
+    .nl-right { order: 2; width: 100%; justify-content: center; flex-wrap: wrap; }
+    .nl-sections { order: 3; width: 100%; margin-left: 0; justify-content: center; gap: 10px 12px; }
+    .nl-link { font-size: 10px; letter-spacing: 0.8px; }
+    header h1 { font-size: 20px; letter-spacing: 1px; }
+    header p { font-size: 9px; letter-spacing: 1.5px; }
+    .form-panel { padding: 16px 14px; }
+    .form-grid { grid-template-columns: 1fr; gap: 12px; }
+    .res-grid { grid-template-columns: 1fr; gap: 14px; }
+    .card { padding: 18px 16px; }
+    .m-char { font-size: 50px; }
+    .tbl-wrap { padding: 14px 12px; }
+    .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
+  }
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body { padding: 0; background: #fff; color: #000;
+           -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .site-nav, .lang-switch, .print-btn, .form-panel, .city-dd, .backnav, .back-to-top { display: none !important; }
+    header { margin-bottom: 10px; padding-top: 0; }
+    .card, .compass-wrap, .tbl-wrap { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<nav class="site-nav">
+  <a href="/ru/" class="nl-logo">SuccessCode</a>
+  <div class="nl-sections">
+    <a href="/ru/#about" class="nl-link"><span data-lang="ru">О методе</span><span data-lang="en">About</span></a>
+    <a href="/calculators" class="nl-link"><span data-lang="ru">Калькуляторы</span><span data-lang="en">Calculators</span></a>
+    <a href="/calendar" class="nl-link"><span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span></a>
+    <a href="/walks" class="nl-link"><span data-lang="ru">Прогулки</span><span data-lang="en">Walks</span></a>
+    <a href="/training" class="nl-link"><span data-lang="ru">Обучение</span><span data-lang="en">Training</span></a>
+    <a href="/2027" class="nl-link"><span data-lang="ru">Подготовка к 2027</span><span data-lang="en">Prepare for 2027</span></a>
+    <a href="/businessastrology" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
+  </div>
+  <div class="nl-right">
+    <div class="lang-switch">
+      <button id="lang-ru" class="on" onclick="setLang('ru')">RU</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">PDF / Печать</button>
+    <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
+  </div>
+</nav>
+
+<header>
+  <h1>二十四山 · 24 Mountains</h1>
+  <p data-i18n="sub"></p>
+</header>
+
+<div class="wrap">
+
+  <div class="form-panel">
+    <div class="section-label" data-i18n="inputTitle"></div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label data-i18n="degLabel"></label>
+        <div class="step-row">
+          <button class="step-btn" onclick="stepMountain(-1)" title="−1">‹</button>
+          <input type="number" id="f-deg" step="0.1" min="0" max="360" value="0" oninput="compute()">
+          <button class="step-btn" onclick="stepMountain(1)" title="+1">›</button>
+        </div>
+        <div class="hint" data-i18n="degHint"></div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="cityLabel"></label>
+        <input type="text" id="f-city" autocomplete="off" oninput="onCityInput()">
+        <div class="city-dd" id="city-dd"></div>
+        <div class="hint" id="coord-hint"></div>
+      </div>
+      <div class="form-group">
+        <label data-i18n="declLabel"></label>
+        <input type="number" id="f-decl" step="0.001" value="0" oninput="onDeclEdit()">
+        <div class="hint" id="decl-hint"></div>
+      </div>
+      <div class="form-group full">
+        <div class="chk">
+          <input type="checkbox" id="f-usedecl" checked onchange="compute()">
+          <label for="f-usedecl" data-i18n="useDecl"></label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="frame-note" id="frame-note"></div>
+
+  <div class="res-grid">
+    <div class="card facing" id="card-facing"></div>
+    <div class="card" id="card-sitting"></div>
+  </div>
+
+  <div class="compass-wrap"><div id="compass"></div></div>
+
+  <div class="tbl-wrap">
+    <div class="section-label" data-i18n="tblTitle"></div>
+    <table id="m24-table"></table>
+  </div>
+
+  <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
+  <div class="footer-brand">SuccessCode</div>
+  <div class="src-note" data-i18n="srcNote"></div>
+</div>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+
+<script src="/tz.js"></script>
+<script src="/magvar.js"></script>
+<script>
+const M24=[
+  {n:"壬",s:337.5,e:352.5,yy:"阳",g:"坎",ge:"Kǎn",i:1,el:"water",k:"stem",py:"Rén",ru:"Жэнь",secRu:"С",secEn:"N",secFullRu:"Север",secFullEn:"North",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"子",s:352.5,e:7.5,yy:"阴",g:"坎",ge:"Kǎn",i:2,el:"water",k:"branch",py:"Zǐ",ru:"Цзы",secRu:"С",secEn:"N",secFullRu:"Север",secFullEn:"North",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"癸",s:7.5,e:22.5,yy:"阴",g:"坎",ge:"Kǎn",i:3,el:"water",k:"stem",py:"Guǐ",ru:"Гуй",secRu:"С",secEn:"N",secFullRu:"Север",secFullEn:"North",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"丑",s:22.5,e:37.5,yy:"阴",g:"艮",ge:"Gèn",i:1,el:"earth",k:"branch",py:"Chǒu",ru:"Чоу",secRu:"СВ",secEn:"NE",secFullRu:"Северо-восток",secFullEn:"Northeast",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"艮",s:37.5,e:52.5,yy:"阳",g:"艮",ge:"Gèn",i:2,el:"earth",k:"trigram",py:"Gèn",ru:"Гэнь",secRu:"СВ",secEn:"NE",secFullRu:"Северо-восток",secFullEn:"Northeast",kRu:"триграмма",kEn:"trigram"},
+  {n:"寅",s:52.5,e:67.5,yy:"阳",g:"艮",ge:"Gèn",i:3,el:"wood",k:"branch",py:"Yín",ru:"Инь",secRu:"СВ",secEn:"NE",secFullRu:"Северо-восток",secFullEn:"Northeast",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"甲",s:67.5,e:82.5,yy:"阳",g:"震",ge:"Zhèn",i:1,el:"wood",k:"stem",py:"Jiǎ",ru:"Цзя",secRu:"В",secEn:"E",secFullRu:"Восток",secFullEn:"East",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"卯",s:82.5,e:97.5,yy:"阴",g:"震",ge:"Zhèn",i:2,el:"wood",k:"branch",py:"Mǎo",ru:"Мао",secRu:"В",secEn:"E",secFullRu:"Восток",secFullEn:"East",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"乙",s:97.5,e:112.5,yy:"阴",g:"震",ge:"Zhèn",i:3,el:"wood",k:"stem",py:"Yǐ",ru:"И",secRu:"В",secEn:"E",secFullRu:"Восток",secFullEn:"East",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"辰",s:112.5,e:127.5,yy:"阴",g:"巽",ge:"Xùn",i:1,el:"earth",k:"branch",py:"Chén",ru:"Чэнь",secRu:"ЮВ",secEn:"SE",secFullRu:"Юго-восток",secFullEn:"Southeast",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"巽",s:127.5,e:142.5,yy:"阳",g:"巽",ge:"Xùn",i:2,el:"wood",k:"trigram",py:"Xùn",ru:"Сюнь",secRu:"ЮВ",secEn:"SE",secFullRu:"Юго-восток",secFullEn:"Southeast",kRu:"триграмма",kEn:"trigram"},
+  {n:"巳",s:142.5,e:157.5,yy:"阳",g:"巽",ge:"Xùn",i:3,el:"fire",k:"branch",py:"Sì",ru:"Сы",secRu:"ЮВ",secEn:"SE",secFullRu:"Юго-восток",secFullEn:"Southeast",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"丙",s:157.5,e:172.5,yy:"阳",g:"离",ge:"Lí",i:1,el:"fire",k:"stem",py:"Bǐng",ru:"Бин",secRu:"Ю",secEn:"S",secFullRu:"Юг",secFullEn:"South",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"午",s:172.5,e:187.5,yy:"阴",g:"离",ge:"Lí",i:2,el:"fire",k:"branch",py:"Wǔ",ru:"У",secRu:"Ю",secEn:"S",secFullRu:"Юг",secFullEn:"South",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"丁",s:187.5,e:202.5,yy:"阴",g:"离",ge:"Lí",i:3,el:"fire",k:"stem",py:"Dīng",ru:"Дин",secRu:"Ю",secEn:"S",secFullRu:"Юг",secFullEn:"South",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"未",s:202.5,e:217.5,yy:"阴",g:"坤",ge:"Kūn",i:1,el:"earth",k:"branch",py:"Wèi",ru:"Вэй",secRu:"ЮЗ",secEn:"SW",secFullRu:"Юго-запад",secFullEn:"Southwest",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"坤",s:217.5,e:232.5,yy:"阳",g:"坤",ge:"Kūn",i:2,el:"earth",k:"trigram",py:"Kūn",ru:"Кунь",secRu:"ЮЗ",secEn:"SW",secFullRu:"Юго-запад",secFullEn:"Southwest",kRu:"триграмма",kEn:"trigram"},
+  {n:"申",s:232.5,e:247.5,yy:"阳",g:"坤",ge:"Kūn",i:3,el:"metal",k:"branch",py:"Shēn",ru:"Шэнь",secRu:"ЮЗ",secEn:"SW",secFullRu:"Юго-запад",secFullEn:"Southwest",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"庚",s:247.5,e:262.5,yy:"阳",g:"兑",ge:"Duì",i:1,el:"metal",k:"stem",py:"Gēng",ru:"Гэн",secRu:"З",secEn:"W",secFullRu:"Запад",secFullEn:"West",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"酉",s:262.5,e:277.5,yy:"阴",g:"兑",ge:"Duì",i:2,el:"metal",k:"branch",py:"Yǒu",ru:"Ю",secRu:"З",secEn:"W",secFullRu:"Запад",secFullEn:"West",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"辛",s:277.5,e:292.5,yy:"阴",g:"兑",ge:"Duì",i:3,el:"metal",k:"stem",py:"Xīn",ru:"Синь",secRu:"З",secEn:"W",secFullRu:"Запад",secFullEn:"West",kRu:"небесный ствол",kEn:"heavenly stem"},
+  {n:"戌",s:292.5,e:307.5,yy:"阴",g:"乾",ge:"Qián",i:1,el:"earth",k:"branch",py:"Xū",ru:"Сюй",secRu:"СЗ",secEn:"NW",secFullRu:"Северо-запад",secFullEn:"Northwest",kRu:"земная ветвь",kEn:"earthly branch"},
+  {n:"乾",s:307.5,e:322.5,yy:"阳",g:"乾",ge:"Qián",i:2,el:"metal",k:"trigram",py:"Qián",ru:"Цянь",secRu:"СЗ",secEn:"NW",secFullRu:"Северо-запад",secFullEn:"Northwest",kRu:"триграмма",kEn:"trigram"},
+  {n:"亥",s:322.5,e:337.5,yy:"阳",g:"乾",ge:"Qián",i:3,el:"water",k:"branch",py:"Hài",ru:"Хай",secRu:"СЗ",secEn:"NW",secFullRu:"Северо-запад",secFullEn:"Northwest",kRu:"земная ветвь",kEn:"earthly branch"}
+];
+
+const I18N = {
+  ru: {
+    sub: "Определение направления по градусу",
+    inputTitle: "Направление",
+    degLabel: "Градус направления (фасад)",
+    degHint: "0–360°. Стрелками ‹ › — на предыдущую или следующую гору.",
+    cityLabel: "Город (для магнитного склонения)",
+    cityPh: "Начните вводить город…",
+    declLabel: "Магнитное склонение, °",
+    useDecl: "Учитывать магнитное склонение (пересчитать показание компаса в истинное направление)",
+    tblTitle: "Все 24 горы",
+    back: "← Все калькуляторы",
+    facing: "Фасад · 向",
+    sitting: "Тыл · 坐",
+    range: "Сектор горы",
+    sector: "Сектор 45°",
+    trigram: "Триграмма",
+    element: "Стихия",
+    yy: "Инь / Ян",
+    kind: "Тип",
+    yang: "Ян", yin: "Инь",
+    frameOn: "Вы ввели <b>{c}°</b> — показание компаса. Склонение <b>{d}°</b> ({dir}). Истинное направление: <b>{t}°</b>. Гора определяется по истинному направлению.",
+    frameOff: "Склонение не учитывается: <b>{c}°</b> используется как истинное направление. Если это показание компаса — включите пересчёт выше.",
+    east: "восточное", west: "западное",
+    coordHint: "Широта {lat}, долгота {lon}",
+    declAuto: "Рассчитано по модели WMM2025 для этой точки.",
+    declManual: "Введено вручную.",
+    els: { wood:"Дерево", fire:"Огонь", earth:"Земля", metal:"Металл", water:"Вода" },
+    thNum:"№", thM:"Гора", thPy:"Пиньинь", thRu:"Чтение", thFrom:"От°", thTo:"До°", thYY:"Инь/Ян",
+    thGua:"Триграмма", thSec:"Сектор", thEl:"Стихия",
+    srcNote: "Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
+  },
+  en: {
+    sub: "Find the direction from a degree",
+    inputTitle: "Direction",
+    degLabel: "Facing degree (facade)",
+    degHint: "0–360°. Use ‹ › to step to the previous or next mountain.",
+    cityLabel: "City (for magnetic declination)",
+    cityPh: "Start typing a city…",
+    declLabel: "Magnetic declination, °",
+    useDecl: "Apply magnetic declination (convert a compass reading to true bearing)",
+    tblTitle: "All 24 mountains",
+    back: "← All calculators",
+    facing: "Facing · 向",
+    sitting: "Sitting · 坐",
+    range: "Mountain span",
+    sector: "45° sector",
+    trigram: "Trigram",
+    element: "Element",
+    yy: "Yin / Yang",
+    kind: "Type",
+    yang: "Yang", yin: "Yin",
+    frameOn: "You entered <b>{c}°</b> — a compass reading. Declination <b>{d}°</b> ({dir}). True bearing: <b>{t}°</b>. The mountain is read from the true bearing.",
+    frameOff: "Declination is not applied: <b>{c}°</b> is used as the true bearing. If that was a compass reading, switch the conversion on above.",
+    east: "east", west: "west",
+    coordHint: "Latitude {lat}, longitude {lon}",
+    declAuto: "Computed from the WMM2025 model for this point.",
+    declManual: "Entered manually.",
+    els: { wood:"Wood", fire:"Fire", earth:"Earth", metal:"Metal", water:"Water" },
+    thNum:"#", thM:"Mtn", thPy:"Pinyin", thRu:"Reading", thFrom:"From°", thTo:"To°", thYY:"Yin/Yang",
+    thGua:"Trigram", thSec:"Sector", thEl:"Element",
+    srcNote: "The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
+  }
+};
+
+let LANG = "ru";
+try { const s = localStorage.getItem("sc-lang"); if (s === "ru" || s === "en") LANG = s; } catch (e) {}
+try { const q = new URL(location.href).searchParams.get("lang"); if (q === "ru" || q === "en") LANG = q; } catch (e) {}
+
+let LAT = 52.0907, LON = 5.1214, CITYNAME = "Utrecht";
+let DECL_AUTO = true;
+let _cityTimer = null;
+
+const L = () => I18N[LANG];
+const $ = id => document.getElementById(id);
+const norm = d => ((d % 360) + 360) % 360;
+const r1 = n => Math.round(n * 10) / 10;
+
+/* Mountain lookup — explicit degree ranges, never an index formula.
+   子 is the only mountain whose span wraps through 0°. */
+function mountainAt(deg) {
+  const d = norm(deg);
+  for (const m of M24) {
+    if (m.s <= m.e) { if (d >= m.s && d < m.e) return m; }
+    else { if (d >= m.s || d < m.e) return m; }
+  }
+  return M24[0];
+}
+const mIndex = m => M24.indexOf(m);
+const opposite = m => M24[(mIndex(m) + 12) % 24];
+const centreOf = m => norm(m.s + 7.5);
+
+function stepMountain(dir) {
+  const cur = mountainAt(trueBearing());
+  const nxt = M24[(mIndex(cur) + dir + 24) % 24];
+  let t = centreOf(nxt);
+  // convert the true bearing back into the displayed (compass) frame
+  if ($("f-usedecl").checked) t = norm(t - declValue());
+  $("f-deg").value = r1(t);
+  compute();
+}
+
+const declValue = () => parseFloat($("f-decl").value) || 0;
+const inputDeg  = () => norm(parseFloat($("f-deg").value) || 0);
+function trueBearing() {
+  return $("f-usedecl").checked ? norm(inputDeg() + declValue()) : inputDeg();
+}
+
+function refreshDeclination() {
+  if (!DECL_AUTO) return;
+  try {
+    const d = window.magvar(LAT, LON, 0);
+    if (typeof d === "number" && isFinite(d)) $("f-decl").value = Math.round(d * 1000) / 1000;
+  } catch (e) {}
+}
+function onDeclEdit() { DECL_AUTO = false; compute(); }
+
+function elClass(el) { return "el-" + el; }
+
+function renderCard(box, m, tagKey) {
+  const t = L();
+  const secFull = LANG === "ru" ? m.secFullRu : m.secFullEn;
+  const sec     = LANG === "ru" ? m.secRu     : m.secEn;
+  const kind    = LANG === "ru" ? m.kRu       : m.kEn;
+  const read    = LANG === "ru" ? m.ru        : m.py;
+  box.innerHTML =
+    '<div class="card-tag">' + t[tagKey] + '</div>' +
+    '<div class="m-char ' + elClass(m.el) + '">' + m.n + '</div>' +
+    '<div class="m-names"><b>' + read + '</b>' + (LANG === "ru" ? ' · ' + m.py : '') + '</div>' +
+    '<div class="m-rows">' +
+      row(t.range,    m.s + '° – ' + m.e + '°') +
+      row(t.sector,   sec + ' · ' + secFull) +
+      row(t.trigram,  m.g + ' ' + m.ge) +
+      row(t.element,  '<span class="' + elClass(m.el) + '">' + t.els[m.el] + '</span>') +
+      row(t.yy,       m.yy + ' ' + (m.yy === "阳" ? t.yang : t.yin)) +
+      row(t.kind,     kind) +
+    '</div>';
+  function row(k, v) { return '<div class="m-row"><span>' + k + '</span><b>' + v + '</b></div>'; }
+}
+
+function renderCompass(trueDeg) {
+  const R = 168, cx = 190, cy = 190;
+  const hit = mountainAt(trueDeg);
+  let s = '<svg viewBox="0 0 380 380" role="img" aria-label="24 mountains compass">';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="#fff" stroke="#d8d4c8"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R - 42) + '" fill="none" stroke="#e8e4d8"/>';
+  for (const m of M24) {
+    const a0 = m.s, a1 = m.s + 15;
+    const p0 = pt(cx, cy, R, a0), p1 = pt(cx, cy, R, a1);
+    const q0 = pt(cx, cy, R - 42, a0), q1 = pt(cx, cy, R - 42, a1);
+    const isHit = m === hit;
+    s += '<path d="M' + q0.x + ' ' + q0.y + ' L' + p0.x + ' ' + p0.y +
+         ' A' + R + ' ' + R + ' 0 0 1 ' + p1.x + ' ' + p1.y +
+         ' L' + q1.x + ' ' + q1.y +
+         ' A' + (R - 42) + ' ' + (R - 42) + ' 0 0 0 ' + q0.x + ' ' + q0.y + ' Z" ' +
+         'fill="' + (isHit ? "#f4e3ba" : "#fdfcf9") + '" stroke="#e0dccf"/>';
+    const lp = pt(cx, cy, R - 21, a0 + 7.5);
+    s += '<text x="' + lp.x + '" y="' + lp.y + '" text-anchor="middle" dominant-baseline="central" ' +
+         'font-family="Cormorant Garamond, serif" font-size="' + (isHit ? 21 : 17) + '" ' +
+         'fill="' + (isHit ? "#8a6410" : "#555") + '" font-weight="' + (isHit ? 700 : 400) + '">' + m.n + '</text>';
+  }
+  // needle at the true bearing
+  const np = pt(cx, cy, R - 4, trueDeg);
+  s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + np.x + '" y2="' + np.y + '" stroke="#b8882a" stroke-width="2.5"/>';
+  s += '<circle cx="' + cx + '" cy="' + cy + '" r="5" fill="#b8882a"/>';
+  s += '<text x="' + cx + '" y="' + (cy + 52) + '" text-anchor="middle" font-family="Inter,sans-serif" ' +
+       'font-size="20" font-weight="600" fill="#1a1a1a">' + r1(trueDeg) + '°</text>';
+  s += '</svg>';
+  $("compass").innerHTML = s;
+
+  function pt(x, y, r, deg) {          // 0° = North = up, clockwise
+    const a = (deg - 90) * Math.PI / 180;
+    return { x: Math.round((x + r * Math.cos(a)) * 100) / 100,
+             y: Math.round((y + r * Math.sin(a)) * 100) / 100 };
+  }
+}
+
+function renderTable(hit) {
+  const t = L();
+  const showRu = LANG === "ru";
+  let h = '<tr><th>' + t.thNum + '</th><th>' + t.thM + '</th><th>' + t.thPy + '</th>' +
+          (showRu ? '<th>' + t.thRu + '</th>' : '') +
+          '<th>' + t.thFrom + '</th><th>' + t.thTo + '</th><th>' + t.thYY + '</th><th>' +
+          t.thGua + '</th><th>' + t.thSec + '</th><th>' + t.thEl + '</th></tr>';
+  M24.forEach((m, i) => {
+    const sec = LANG === "ru" ? m.secRu : m.secEn;
+    h += '<tr class="' + (m === hit ? "hit" : "") + '">' +
+         '<td>' + (i + 1) + '</td><td class="ch">' + m.n + '</td><td>' + m.py + '</td>' +
+         (showRu ? '<td>' + m.ru + '</td>' : '') +
+         '<td>' + m.s + '</td><td>' + m.e + '</td><td>' + m.yy + '</td>' +
+         '<td>' + m.g + ' ' + m.ge + '</td><td>' + sec + '</td>' +
+         '<td class="' + elClass(m.el) + '">' + t.els[m.el] + '</td></tr>';
+  });
+  $("m24-table").innerHTML = h;
+}
+
+function compute() {
+  const t = L();
+  const tb = trueBearing();
+  const face = mountainAt(tb);
+  const sit  = opposite(face);
+
+  renderCard($("card-facing"),  face, "facing");
+  renderCard($("card-sitting"), sit,  "sitting");
+
+  const d = declValue();
+  $("frame-note").innerHTML = $("f-usedecl").checked
+    ? t.frameOn.replace("{c}", r1(inputDeg())).replace("{d}", d.toFixed(3))
+        .replace("{dir}", d >= 0 ? t.east : t.west).replace("{t}", r1(tb))
+    : t.frameOff.replace("{c}", r1(inputDeg()));
+
+  $("decl-hint").textContent  = DECL_AUTO ? t.declAuto : t.declManual;
+  $("coord-hint").textContent = t.coordHint.replace("{lat}", LAT.toFixed(4)).replace("{lon}", LON.toFixed(4));
+
+  renderCompass(tb);
+  renderTable(face);
+}
+
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-lang]").forEach(el => {
+    el.style.display = el.getAttribute("data-lang") === LANG ? "" : "none";
+  });
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    el.innerHTML = L()[el.getAttribute("data-i18n")] || "";
+  });
+  $("f-city").placeholder = L().cityPh;
+  $("lang-ru").classList.toggle("on", LANG === "ru");
+  $("lang-en").classList.toggle("on", LANG === "en");
+  $("backToTop").setAttribute("aria-label", LANG === "ru" ? "Наверх" : "Back to top");
+  const pb = document.querySelector(".print-btn");
+  if (pb) pb.textContent = LANG === "ru" ? "PDF / Печать" : "PDF / Print";
+}
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem("sc-lang", l); } catch (e) {}
+  applyLang(); compute();
+}
+
+function onCityInput() {
+  clearTimeout(_cityTimer);
+  const q = $("f-city").value.trim();
+  if (q.length < 2) { $("city-dd").style.display = "none"; return; }
+  _cityTimer = setTimeout(() => fetchCities(q), 350);
+}
+async function fetchCities(q) {
+  const dd = $("city-dd");
+  try {
+    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=" +
+                          LANG + "&limit=6&q=" + encodeURIComponent(q));
+    const arr = await r.json();
+    if (!arr || !arr.length) { dd.style.display = "none"; return; }
+    dd._data = arr;
+    dd.innerHTML = arr.map((c, i) => '<div class="city-opt" onclick="selectCity(' + i + ')">' +
+                                     c.display_name + '</div>').join("");
+    dd.style.display = "block";
+  } catch (e) { dd.style.display = "none"; }
+}
+function selectCity(i) {
+  const dd = $("city-dd"), c = dd._data[i];
+  LAT = parseFloat(c.lat); LON = parseFloat(c.lon);   // lat is kept — the other calculators discard it
+  CITYNAME = c.display_name.split(",")[0];
+  $("f-city").value = CITYNAME;
+  dd.style.display = "none";
+  DECL_AUTO = true;
+  refreshDeclination();
+  compute();
+}
+
+(function () {
+  const bt = $("backToTop");
+  window.addEventListener("scroll", function () {
+    bt.style.display = window.scrollY > 400 ? "flex" : "none";
+  });
+  bt.addEventListener("click", function (e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
+
+(function () {
+  $("f-city").value = CITYNAME;
+  refreshDeclination();
+  applyLang();
+  compute();
+})();
+</script>
+</body>
+</html>
