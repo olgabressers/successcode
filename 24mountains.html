@@ -133,21 +133,19 @@
   .el-wood{color:var(--el-wood)} .el-fire{color:var(--el-fire)} .el-earth{color:var(--el-earth)}
   .el-metal{color:var(--el-metal)} .el-water{color:var(--el-water)}
 
-  .frame-note { background: #fbf8f1; border: 1px solid var(--border); border-left: 3px solid var(--gold);
-                padding: 14px 18px; font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 24px; }
-  .frame-note b { color: var(--text); }
 
   /* compass */
-  .compass-wrap { background: var(--surface); border: 1px solid var(--border); padding: 24px; margin-bottom: 24px; text-align: center; }
-  .compass-wrap svg { max-width: 100%; height: auto; }
 
   /* reference table */
   .tbl-wrap { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; overflow-x: auto; max-width: 100%; }
+  .tbl-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
+  .gua-sym { font-size: 15px; color: var(--gold-dim); line-height: 1; }
   table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
-  th { text-align: left; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase;
-       color: var(--text-muted); font-weight: 600; padding: 8px 8px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  td { padding: 7px 8px; border-bottom: 1px solid #eee; color: var(--text-dim); white-space: nowrap; }
-  td.ch { font-family: 'Cormorant Garamond', serif; font-size: 19px; color: var(--text); }
+  th { text-align: left; font-size: 9.5px; letter-spacing: .8px; text-transform: uppercase;
+       color: var(--text-muted); font-weight: 600; padding: 6px 5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  td { padding: 5px 5px; border-bottom: 1px solid #eee; color: var(--text-dim); white-space: nowrap; font-size: 12px; }
+  td.ch { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text); }
+  td.num { color: var(--text-muted); }
   tr.hit td { background: #fdf8ec; color: var(--text); font-weight: 600; }
   tr.hit td.ch { color: var(--gold-dim); }
 
@@ -156,6 +154,12 @@
   .backnav a:hover { color: var(--gold); }
   .footer-brand { text-align: center; margin-top: 22px; margin-bottom: 10px;
                   font-family: 'Cormorant Garamond', serif; color: var(--text-muted); letter-spacing: 3px; font-size: 13px; }
+  .page-footer { max-width: 980px; margin: 34px auto 0; padding: 22px 4px 6px;
+                 border-top: 1px solid var(--border);
+                 display: flex; justify-content: space-between; align-items: center;
+                 font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .page-footer a { color: var(--text-muted); text-decoration: none; transition: color .25s; }
+  .page-footer a:hover { color: var(--gold); }
   .src-note { text-align: center; font-size: 10.5px; color: var(--text-muted); line-height: 1.7; margin-top: 14px; }
 
   .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 54px; height: 54px; z-index: 400;
@@ -170,9 +174,9 @@
     body { padding: 40px 12px 24px; }
     .m-row { flex-wrap: wrap; gap: 2px 10px; line-height: 1.6; }
     .m-row b { text-align: right; }
-    .frame-note { padding: 12px 14px; font-size: 12.5px; }
     .tbl-wrap { padding: 14px 10px; }
-    .tbl-wrap table { min-width: 620px; }
+    .tbl-split { grid-template-columns: 1fr; gap: 0; }
+    .tbl-wrap table { min-width: 420px; }
     .step-row input { min-width: 0; }
     .site-nav { justify-content: center; gap: 9px 12px; padding: 10px 12px; margin: -40px -12px 0; }
     .nl-logo { width: 100%; text-align: center; }
@@ -189,6 +193,7 @@
     .tbl-wrap { padding: 14px 12px; }
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
     #map { height: 400px; }
+    .page-footer { flex-direction: column; gap: 10px; text-align: center; }
     .map-head { padding: 12px 12px; }
     .map-tools { margin-left: 0; width: 100%; }
     .tool-btn { flex: 1; padding: 7px 8px; font-size: 10px; }
@@ -200,7 +205,7 @@
     .site-nav, .lang-switch, .print-btn, .form-panel, .city-dd, .backnav, .back-to-top,
     .map-tools, .map-hint { display: none !important; }
     header { margin-bottom: 10px; padding-top: 0; }
-    .card, .compass-wrap, .tbl-wrap { break-inside: avoid; }
+    .card, .tbl-wrap { break-inside: avoid; }
   }
 </style>
 </head>
@@ -282,24 +287,24 @@
     <div class="map-hint" data-i18n="mapHint"></div>
   </div>
 
-  <div class="frame-note" id="frame-note"></div>
-
   <div class="res-grid">
     <div class="card facing" id="card-facing"></div>
     <div class="card" id="card-sitting"></div>
   </div>
 
-  <div class="compass-wrap"><div id="compass"></div></div>
-
   <div class="tbl-wrap">
     <div class="section-label" data-i18n="tblTitle"></div>
-    <table id="m24-table"></table>
+    <div class="tbl-split"><table id="m24-table-a"></table><table id="m24-table-b"></table></div>
   </div>
 
   <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
-  <div class="footer-brand">SuccessCode</div>
   <div class="src-note" data-i18n="srcNote"></div>
 </div>
+
+<footer class="page-footer">
+  <div>&copy; SuccessCode</div>
+  <div><a href="/ru/" id="footer-home" data-i18n="home"></a></div>
+</footer>
 
 <a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
@@ -346,18 +351,13 @@ const I18N = {
     declLabel: "Магнитное склонение, °",
     useDecl: "Учитывать магнитное склонение",
     tblTitle: "Все 24 горы",
-    back: "← Все калькуляторы",
+    back: "← Все калькуляторы", home: "Главная",
     facing: "Фасад · 向",
     sitting: "Тыл · 坐",
     range: "Сектор горы",
     sector: "Сектор 45°",
     trigram: "Триграмма",
     element: "Стихия",
-    yy: "Инь / Ян",
-    kind: "Тип",
-    yang: "Ян", yin: "Инь",
-    frameOn: "Гора определяется по показанию компаса: <b>{c}°</b> — как на луопане. На карте линия стоит по истинному направлению <b>{t}°</b>; разница в {d}° ({dir}) — это магнитное склонение.",
-    frameOff: "Склонение выключено: карта и компас считаются совпадающими, гора определяется по <b>{c}°</b>.",
     east: "восточное склонение", west: "западное склонение",
     coordHint: "Широта {lat}, долгота {lon}",
     els: { wood:"Дерево", fire:"Огонь", earth:"Земля", metal:"Металл", water:"Вода" },
@@ -366,7 +366,6 @@ const I18N = {
     addrLabel: "Адрес дома",
     addrPh: "Улица, дом, город — например: Дам 1, Амстердам",
     searching: "Поиск…", noHits: "Ничего не найдено",
-    declUseLabel: "Пересчёт",
     mapTitle: "Карта",
     laySat: "Спутник", layOsm: "Схема",
     ringBtn: "Кольцо 24 гор", flipBtn: "Развернуть на 180°",
@@ -383,18 +382,13 @@ const I18N = {
     declLabel: "Magnetic declination, °",
     useDecl: "Apply magnetic declination",
     tblTitle: "All 24 mountains",
-    back: "← All calculators",
+    back: "← All calculators", home: "Home",
     facing: "Facing · 向",
     sitting: "Sitting · 坐",
     range: "Mountain span",
     sector: "45° sector",
     trigram: "Trigram",
     element: "Element",
-    yy: "Yin / Yang",
-    kind: "Type",
-    yang: "Yang", yin: "Yin",
-    frameOn: "The mountain is read from the compass reading <b>{c}°</b> — as on a luopan. On the map the line sits at the true bearing <b>{t}°</b>; the {d}° ({dir}) difference is magnetic declination.",
-    frameOff: "Declination is off: map and compass are treated as the same, and the mountain is read from <b>{c}°</b>.",
     east: "east", west: "west",
     coordHint: "Latitude {lat}, longitude {lon}",
     els: { wood:"Wood", fire:"Fire", earth:"Earth", metal:"Metal", water:"Water" },
@@ -403,7 +397,6 @@ const I18N = {
     addrLabel: "Address",
     addrPh: "Street, number, city — e.g. Dam 1, Amsterdam",
     searching: "Searching…", noHits: "Nothing found",
-    declUseLabel: "Conversion",
     mapTitle: "Map",
     laySat: "Satellite", layOsm: "Map",
     ringBtn: "24-mountain ring", flipBtn: "Flip 180°",
@@ -473,7 +466,6 @@ function renderCard(box, m, tagKey) {
   const t = L();
   const secFull = LANG === "ru" ? m.secFullRu : m.secFullEn;
   const sec     = LANG === "ru" ? m.secRu     : m.secEn;
-  const kind    = LANG === "ru" ? m.kRu       : m.kEn;
   const read    = LANG === "ru" ? m.ru        : m.py;
   box.innerHTML =
     '<div class="card-tag">' + t[tagKey] + '</div>' +
@@ -482,68 +474,34 @@ function renderCard(box, m, tagKey) {
     '<div class="m-rows">' +
       row(t.range,    m.s + '° – ' + m.e + '°') +
       row(t.sector,   sec + ' · ' + secFull) +
-      row(t.trigram,  m.g + ' ' + m.ge) +
+      row(t.trigram,  '<span class="gua-sym">' + GUA_SYM[m.g] + '</span> ' + m.g + ' ' + m.ge) +
       row(t.element,  '<span class="' + elClass(m.el) + '">' + t.els[m.el] + '</span>') +
-      row(t.yy,       m.yy + ' ' + (m.yy === "阳" ? t.yang : t.yin)) +
-      row(t.kind,     kind) +
     '</div>';
   function row(k, v) { return '<div class="m-row"><span>' + k + '</span><b>' + v + '</b></div>'; }
 }
 
-function renderCompass(trueDeg) {
-  const R = 168, cx = 190, cy = 190;
-  const hit = mountainAt(trueDeg);
-  let s = '<svg viewBox="0 0 380 380" role="img" aria-label="24 mountains compass">';
-  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + R + '" fill="#fff" stroke="#d8d4c8"/>';
-  s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (R - 42) + '" fill="none" stroke="#e8e4d8"/>';
-  for (const m of M24) {
-    const a0 = m.s, a1 = m.s + 15;
-    const p0 = pt(cx, cy, R, a0), p1 = pt(cx, cy, R, a1);
-    const q0 = pt(cx, cy, R - 42, a0), q1 = pt(cx, cy, R - 42, a1);
-    const isHit = m === hit;
-    s += '<path d="M' + q0.x + ' ' + q0.y + ' L' + p0.x + ' ' + p0.y +
-         ' A' + R + ' ' + R + ' 0 0 1 ' + p1.x + ' ' + p1.y +
-         ' L' + q1.x + ' ' + q1.y +
-         ' A' + (R - 42) + ' ' + (R - 42) + ' 0 0 0 ' + q0.x + ' ' + q0.y + ' Z" ' +
-         'fill="' + (isHit ? "#f4e3ba" : "#fdfcf9") + '" stroke="#e0dccf"/>';
-    const lp = pt(cx, cy, R - 21, a0 + 7.5);
-    s += '<text x="' + lp.x + '" y="' + lp.y + '" text-anchor="middle" dominant-baseline="central" ' +
-         'font-family="Cormorant Garamond, serif" font-size="' + (isHit ? 21 : 17) + '" ' +
-         'fill="' + (isHit ? "#8a6410" : "#555") + '" font-weight="' + (isHit ? 700 : 400) + '">' + m.n + '</text>';
-  }
-  // needle at the true bearing
-  const np = pt(cx, cy, R - 4, trueDeg);
-  s += '<line x1="' + cx + '" y1="' + cy + '" x2="' + np.x + '" y2="' + np.y + '" stroke="#b8882a" stroke-width="2.5"/>';
-  s += '<circle cx="' + cx + '" cy="' + cy + '" r="5" fill="#b8882a"/>';
-  s += '<text x="' + cx + '" y="' + (cy + 52) + '" text-anchor="middle" font-family="Inter,sans-serif" ' +
-       'font-size="20" font-weight="600" fill="#1a1a1a">' + r1(trueDeg) + '°</text>';
-  s += '</svg>';
-  $("compass").innerHTML = s;
-
-  function pt(x, y, r, deg) {          // 0° = North = up, clockwise
-    const a = (deg - 90) * Math.PI / 180;
-    return { x: Math.round((x + r * Math.cos(a)) * 100) / 100,
-             y: Math.round((y + r * Math.sin(a)) * 100) / 100 };
-  }
-}
-
 function renderTable(hit) {
   const t = L();
-  const showRu = LANG === "ru";
-  let h = '<tr><th>' + t.thNum + '</th><th>' + t.thM + '</th><th>' + t.thPy + '</th>' +
-          (showRu ? '<th>' + t.thRu + '</th>' : '') +
-          '<th>' + t.thFrom + '</th><th>' + t.thTo + '</th><th>' + t.thYY + '</th><th>' +
-          t.thGua + '</th><th>' + t.thSec + '</th><th>' + t.thEl + '</th></tr>';
-  M24.forEach((m, i) => {
-    const sec = LANG === "ru" ? m.secRu : m.secEn;
-    h += '<tr class="' + (m === hit ? "hit" : "") + '">' +
-         '<td>' + (i + 1) + '</td><td class="ch">' + m.n + '</td><td>' + m.py + '</td>' +
-         (showRu ? '<td>' + m.ru + '</td>' : '') +
-         '<td>' + m.s + '</td><td>' + m.e + '</td><td>' + m.yy + '</td>' +
-         '<td>' + m.g + ' ' + m.ge + '</td><td>' + sec + '</td>' +
-         '<td class="' + elClass(m.el) + '">' + t.els[m.el] + '</td></tr>';
-  });
-  $("m24-table").innerHTML = h;
+  const head = '<tr><th>' + t.thNum + '</th><th>' + t.thM + '</th><th>' + t.thFrom +
+               '</th><th>' + t.thTo + '</th><th>' + t.thGua + '</th><th>' +
+               t.thSec + '</th><th>' + t.thEl + '</th></tr>';
+  function rows(from, to) {
+    let h = head;
+    for (let i = from; i < to; i++) {
+      const m = M24[i];
+      const sec = LANG === "ru" ? m.secRu : m.secEn;
+      h += '<tr class="' + (m === hit ? "hit" : "") + '">' +
+           '<td class="num">' + (i + 1) + '</td>' +
+           '<td class="ch">' + m.n + '</td>' +
+           '<td>' + m.s + '</td><td>' + m.e + '</td>' +
+           '<td><span class="gua-sym">' + GUA_SYM[m.g] + '</span> ' + m.g + '</td>' +
+           '<td>' + sec + '</td>' +
+           '<td class="' + elClass(m.el) + '">' + t.els[m.el] + '</td></tr>';
+    }
+    return h;
+  }
+  $("m24-table-a").innerHTML = rows(0, 12);
+  $("m24-table-b").innerHTML = rows(12, 24);
 }
 
 
@@ -559,6 +517,8 @@ let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
 let SHOW_RING = true;
 let RADIUS = 130;         // px, half-length of the facade line
+const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
+                  "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
 const SVGNS = "http://www.w3.org/2000/svg";
 /* NB: this page already uses L() as the i18n getter, which shadows Leaflet's
    global L in lexical scope. Bind Leaflet explicitly via window. */
@@ -568,6 +528,7 @@ const facingDeg = () => norm(WALL_DEG - 90 + FLIP);
 
 function initMap() {
   MAP = LEAF.map("map", { center: [LAT, LON], zoom: 19, zoomControl: true, attributionControl: true });
+  MAP.attributionControl.setPrefix(false);   // drop the Leaflet badge and its flag glyph
   LAYERS.sat = LEAF.tileLayer(
     "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
     { maxZoom: 21, maxNativeZoom: 19, attribution: "Esri, Maxar, Earthstar Geographics" });
@@ -671,6 +632,18 @@ function drawOverlay() {
        ptAt(cx, cy, 34, WALL_DEG)[0] + " " + ptAt(cx, cy, 34, WALL_DEG)[1],
     fill: "none", stroke: "#b8882a", "stroke-width": 1.5, "stroke-dasharray": "3 3", opacity: .8 }));
   svg.appendChild(el("circle", { cx: cx, cy: cy, r: 4, fill: "#b8882a" }));
+
+  // the facing degree, printed on the arrow (compass frame — same number as the box)
+  const cdeg = useDecl() ? norm(fd - declValue()) : fd;
+  const lp = ptAt(cx, cy, RADIUS * 0.60, fd);
+  const label = r1(cdeg) + "\u00B0";
+  const lw = label.length * 8.4 + 16;
+  svg.appendChild(el("rect", { x: lp[0] - lw / 2, y: lp[1] - 12, width: lw, height: 24,
+    rx: 3, fill: "rgba(255,255,255,.94)", stroke: "#b8882a", "stroke-width": 1.2 }));
+  const tx = el("text", { x: lp[0], y: lp[1], "text-anchor": "middle",
+    "dominant-baseline": "central", "font-family": "Inter, sans-serif",
+    "font-size": 14, "font-weight": 700, fill: "#8a6410" });
+  tx.textContent = label; svg.appendChild(tx);
 }
 
 function startRotate(ev) {
@@ -723,15 +696,9 @@ function compute() {
   renderCard($("card-facing"),  face, "facing");
   renderCard($("card-sitting"), sit,  "sitting");
 
-  const d = declValue();
-  $("frame-note").innerHTML = useDecl()
-    ? t.frameOn.replace("{c}", r1(cd)).replace("{d}", Math.abs(d).toFixed(3))
-        .replace("{dir}", d >= 0 ? t.east : t.west).replace("{t}", r1(td))
-    : t.frameOff.replace("{c}", r1(cd));
 
   $("coord-hint").textContent = t.coordHint.replace("{lat}", LAT.toFixed(4)).replace("{lon}", LON.toFixed(4));
 
-  renderCompass(cd);
   renderTable(face);
   if (MAP) { syncFromInputs(); updateReadout(); }
 }
@@ -748,6 +715,7 @@ function applyLang() {
   $("lang-ru").classList.toggle("on", LANG === "ru");
   $("lang-en").classList.toggle("on", LANG === "en");
   $("backToTop").setAttribute("aria-label", LANG === "ru" ? "Наверх" : "Back to top");
+  const fh = $("footer-home"); if (fh) fh.setAttribute("href", LANG === "en" ? "/" : "/ru/");
   const pb = document.querySelector(".print-btn");
   if (pb) pb.textContent = LANG === "ru" ? "PDF / Печать" : "PDF / Print";
 }
