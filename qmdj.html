@@ -453,8 +453,10 @@ function selectCity(i){
 // The chart is computed server-side (engine + readings are private). The browser
 // sends the timezone-corrected solar date/time and renders the returned view-model.
 const QMDJ_API="https://qmdj-api-plum.vercel.app/api/qmdj";
+let COMPUTE_SEQ=0;
 async function compute(){
   hideError();
+  const myseq=++COMPUTE_SEQ;
   try{
     const {y,mo,d}=getYMD(),h=+v("f-hour")||0,mi=+v("f-min")||0;
     if(!y||!mo||!d){showError(LANG==="ru"?"Введите дату.":"Enter a date.");return;}
@@ -470,14 +472,17 @@ async function compute(){
     const solar=new Date(clock.getTime()+cm*60000);
     const qs=new URLSearchParams({y:solar.getFullYear(),mo:solar.getMonth()+1,d:solar.getDate(),h:solar.getHours(),mi:solar.getMinutes()});
     const resp=await fetch(`${QMDJ_API}?${qs}`);
+    if(myseq!==COMPUTE_SEQ) return; // a newer request started — don't let this stale one overwrite it
     if(!resp.ok){ throw new Error("HTTP "+resp.status); }
-    CUR_PAN=await resp.json(); CUR_PAL=null;
+    const pan=await resp.json();
+    if(myseq!==COMPUTE_SEQ) return; // superseded while reading the response body
+    CUR_PAN=pan; CUR_PAL=null;
     CUR_CLOCK=clock; CUR_CM=cm;
     render(CUR_PAN);
     renderSolar(cm); renderHourRow(clock,cm);
     document.getElementById("cell-detail").style.display="none";
     document.getElementById("result").style.display="block";
-  }catch(err){ showError((LANG==="ru"?"Ошибка расчёта: ":"Calculation error: ")+err.message); }
+  }catch(err){ if(myseq!==COMPUTE_SEQ) return; showError((LANG==="ru"?"Ошибка расчёта: ":"Calculation error: ")+err.message); }
 }
 function render(pan){
   VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PAL=jiaPalace(pan);
