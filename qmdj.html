@@ -67,6 +67,10 @@
                   padding: 10px 14px; font-size: 14px; font-family: 'Inter', sans-serif;
                   outline: none; width: 100%; transition: border-color .2s; }
   input:focus { border-color: var(--gold); }
+  .datepick { cursor: pointer; background: #fff; }
+  .flatpickr-day.selected, .flatpickr-day.selected:hover, .flatpickr-day.selected:focus { background: var(--gold); border-color: var(--gold); }
+  .flatpickr-day.today { border-color: var(--gold); }
+  .flatpickr-day:hover { background: #f3ecd9; }
   .form-actions { margin-top: 18px; }
   button { width: 100%; background: var(--gold); border: 1px solid var(--gold); color: #fff;
            padding: 12px 14px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase;
@@ -251,9 +255,7 @@
 <div class="form-panel">
   <div class="section-label" data-i18n="secDate"></div>
   <div class="form-grid">
-    <div class="form-group"><label data-i18n="lYear"></label><input type="number" id="f-year" min="1900" max="2100"></div>
-    <div class="form-group"><label data-i18n="lMonth"></label><input type="number" id="f-month" min="1" max="12"></div>
-    <div class="form-group"><label data-i18n="lDay"></label><input type="number" id="f-day" min="1" max="31"></div>
+    <div class="form-group full"><label data-i18n="lDate"></label><input type="text" id="f-date" class="datepick" readonly autocomplete="off"></div>
     <div class="form-group"><label data-i18n="lHour"></label><input type="number" id="f-hour" min="0" max="23"></div>
     <div class="form-group"><label data-i18n="lMin"></label><input type="number" id="f-min" min="0" max="59"></div>
     <div class="form-group" style="justify-content:flex-end">
@@ -291,12 +293,15 @@
   <div class="cell-detail" id="cell-detail"></div>
 </div>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/ru.js"></script>
 <script src="/tz.js"></script>
 <script>
 let LANG=(function(){var q=null;try{q=new URL(location.href).searchParams.get("lang");}catch(e){}if(q==="ru"||q==="en"){try{localStorage.setItem("sc-lang",q);}catch(e){}return q;}var s=null;try{s=localStorage.getItem("sc-lang");}catch(e){}return (s==="en"||s==="ru")?s:"ru";})();
 const T={
   ru:{ sub:"Qi Men Dun Jia · Чай Бу", secDate:"Дата, время и город",
-    lYear:"Год",lMonth:"Месяц",lDay:"День",lHour:"Час",lMin:"Минута",calc:"Рассчитать",
+    lYear:"Год",lMonth:"Месяц",lDay:"День",lHour:"Час",lMin:"Минута",lDate:"Дата",calc:"Рассчитать",
     lCity:"Город (для пересчёта в солнечное время)", cityPh:"например, Амстердам",
     baziLabel:"Ба Цзы · солнечный календарь",
     season:"Сезон",ju:"Цзюй",yin:"Иньский цикл",yang:"Янский цикл",juW:"цзюй",yuanW:"юань",
@@ -305,7 +310,7 @@ const T={
     toPalace:"Фаза Ци к дворцу",toSeason:"Фаза Ци к сезону",
     vfu:"Главная звезда (направляющая матрица)",vsh:"Главные ворота (направляющий посланец)" },
   en:{ sub:"Qi Men Dun Jia · Chai Bu", secDate:"Date, time & city",
-    lYear:"Year",lMonth:"Month",lDay:"Day",lHour:"Hour",lMin:"Minute",calc:"Calculate",
+    lYear:"Year",lMonth:"Month",lDay:"Day",lHour:"Hour",lMin:"Minute",lDate:"Date",calc:"Calculate",
     lCity:"City (for true solar time)", cityPh:"e.g. Amsterdam",
     baziLabel:"Ba Zi · solar calendar",
     season:"Season",ju:"Ju",yin:"Yin Dun",yang:"Yang Dun",juW:"ju",yuanW:"yuan",
@@ -394,6 +399,10 @@ const YUANK={上元:"upper",中元:"mid",下元:"lower"};
 let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PAL=null, CUR_CLOCK=null, CUR_CM=0;
 
 const v=id=>document.getElementById(id).value;
+function getYMD(){
+  const m=/^(\d{4})-(\d{1,2})-(\d{1,2})$/.exec(document.getElementById("f-date").value.trim());
+  return m?{y:+m[1],mo:+m[2],d:+m[3]}:{y:0,mo:0,d:0};
+}
 const pad=n=>String(n).padStart(2,"0");
 const fmtMin=m=>{m=((m%1440)+1440)%1440;return pad(Math.floor(m/60))+":"+pad(m%60);};
 function showError(m){const e=document.getElementById("error-display");e.textContent=m;e.style.display="block";}
@@ -447,7 +456,7 @@ const QMDJ_API="https://qmdj-api-plum.vercel.app/api/qmdj";
 async function compute(){
   hideError();
   try{
-    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
+    const {y,mo,d}=getYMD(),h=+v("f-hour")||0,mi=+v("f-min")||0;
     if(!y||!mo||!d){showError(LANG==="ru"?"Введите дату.":"Enter a date.");return;}
     if(mo<1||mo>12||d<1||d>31||h<0||h>23||mi<0||mi>59){
       document.getElementById("result").style.display="none";
@@ -532,7 +541,7 @@ function renderHourRow(clock,cm){
 }
 function pickHour(i){
   const SS=[23,1,3,5,7,9,11,13,15,17,19,21];
-  const clock=new Date(+v("f-year"),+v("f-month")-1,+v("f-day"),0,0,0), cm=corrMin(clock);
+  const {y,mo,d}=getYMD(), clock=new Date(y,mo-1,d,0,0,0), cm=corrMin(clock);
   const clockMid=((SS[i]*60+60-cm)%1440+1440)%1440;
   document.getElementById("f-hour").value=Math.floor(clockMid/60);
   document.getElementById("f-min").value=clockMid%60; compute();
@@ -629,9 +638,15 @@ function showDetail(pal){
 
 (function(){
   const n=new Date();
-  document.getElementById("f-year").value=n.getFullYear();
-  document.getElementById("f-month").value=n.getMonth()+1;
-  document.getElementById("f-day").value=n.getDate();
+  const pad=x=>String(x).padStart(2,"0");
+  const dEl=document.getElementById("f-date");
+  dEl.value=n.getFullYear()+"-"+pad(n.getMonth()+1)+"-"+pad(n.getDate());
+  if(window.flatpickr){
+    if(LANG==="ru" && flatpickr.l10ns && flatpickr.l10ns.ru) flatpickr.localize(flatpickr.l10ns.ru);
+    flatpickr(dEl,{ dateFormat:"Y-m-d", defaultDate:n, disableMobile:true, onChange:compute });
+  }else{
+    dEl.removeAttribute("readonly"); // fallback if the calendar library fails to load
+  }
   document.getElementById("f-hour").value=n.getHours();
   document.getElementById("f-min").value=n.getMinutes();
   document.getElementById("f-city").value=CITYNAME;
