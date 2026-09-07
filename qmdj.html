@@ -150,6 +150,24 @@
   .dunjia-ref b { color: var(--gold-dim); font-weight: 600; margin-right: 10px; font-size: 16px; }
   .dunjia-ref .jia-head { color: var(--gold); font-weight: 700; border: 1px solid var(--gold);
                           border-radius: 3px; padding: 0 4px; }
+  /* 先天 / 後天 八卦 reference, below the chart */
+  .bagua-wrap { max-width: 760px; margin: 34px auto 0; display: grid;
+                grid-template-columns: 1fr 1fr; gap: 22px; }
+  .bagua-panel { background: var(--surface); border: 1px solid var(--border); padding: 18px 18px 16px; }
+  .bagua-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500;
+                 letter-spacing: 2px; color: var(--gold); text-align: center; line-height: 1.2; }
+  .bagua-sub { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase;
+               color: var(--text-muted); text-align: center; margin: 4px 0 14px; }
+  .bagua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+  .bg-cell { background: #faf7ef; border: 1px solid var(--border); aspect-ratio: 1/1; padding: 4px 2px;
+             display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+  .bg-cell.empty { background: transparent; border-style: dashed; }
+  .bg-cell.center-cell { background: var(--surface); }
+  .bg-sym { font-size: 21px; line-height: 1; }
+  .bg-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; line-height: 1; }
+  .bg-ru { font-size: 9px; color: var(--text-dim); line-height: 1.1; text-align: center; }
+  .bg-dir { font-size: 9px; color: var(--text-muted); letter-spacing: .5px; }
+  .bg-dir b { color: var(--gold-dim); font-weight: 700; }
   .cell-detail { display: none; background: var(--surface); border: 1px solid var(--border);
                  margin-top: 16px; padding: 18px 22px; }
   .d-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text);
@@ -196,6 +214,12 @@
     .chart-date { font-size: 13px; }
     .dunjia-ref { font-size: 11px; padding: 8px 10px; letter-spacing: 0; }
     .dunjia-ref b { font-size: 12px; }
+    .bagua-wrap { grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
+    .bagua-panel { padding: 14px 12px 12px; }
+    .bagua-title { font-size: 17px; letter-spacing: 1px; }
+    .bagua-sub { font-size: 9px; letter-spacing: 1px; margin-bottom: 10px; }
+    .bg-sym { font-size: 18px; }
+    .bg-name { font-size: 16px; }
     .lang-switch { top: 8px; right: 8px; }
     .lang-switch button { padding: 3px 8px; font-size: 10px; }
     .print-btn { top: 36px; right: 8px; padding: 4px 9px; font-size: 9px; }
@@ -221,6 +245,7 @@
     .chart-wrap { max-width: 152mm; page-break-inside: avoid; }
     .cell:hover { box-shadow: none; }
     .cell-detail { page-break-before: always; margin-top: 0; }
+    .bagua-wrap { display: none !important; }
   }
 </style>
 </head>
@@ -293,6 +318,19 @@
   <div class="cell-detail" id="cell-detail"></div>
 </div>
 
+<div class="bagua-wrap">
+  <div class="bagua-panel">
+    <div class="bagua-title">先天八卦</div>
+    <div class="bagua-sub" data-i18n="baguaEarly"></div>
+    <div class="bagua-grid" id="bagua-early"></div>
+  </div>
+  <div class="bagua-panel">
+    <div class="bagua-title">後天八卦</div>
+    <div class="bagua-sub" data-i18n="baguaLate"></div>
+    <div class="bagua-grid" id="bagua-late"></div>
+  </div>
+</div>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/ru.js"></script>
@@ -308,7 +346,8 @@ const T={
     upper:"верхний",mid:"средний",lower:"нижний",decade:"Глава декады",voidDay:"Пустота по дню",voidHour:"Пустота по часу",
     palace:"Дворец",heaven:"Небесная тарелка",earth:"Земная тарелка",gate:"Ворота",star:"Звезда",deity:"Божество",
     toPalace:"Фаза Ци к дворцу",toSeason:"Фаза Ци к сезону",
-    vfu:"Главная звезда (направляющая матрица)",vsh:"Главные ворота (направляющий посланец)" },
+    vfu:"Главная звезда (направляющая матрица)",vsh:"Главные ворота (направляющий посланец)",
+    baguaEarly:"Прежденебесная · Фу Си",baguaLate:"Посленебесная · Вэнь-ван" },
   en:{ sub:"Qi Men Dun Jia · Chai Bu", secDate:"Date, time & city",
     lYear:"Year",lMonth:"Month",lDay:"Day",lHour:"Hour",lMin:"Minute",lDate:"Date",calc:"Calculate",
     lCity:"City (for true solar time)", cityPh:"e.g. Amsterdam",
@@ -317,7 +356,8 @@ const T={
     upper:"upper",mid:"middle",lower:"lower",decade:"Decade head",voidDay:"Void (day)",voidHour:"Void (hour)",
     palace:"Palace",heaven:"Heaven plate",earth:"Earth plate",gate:"Gate",star:"Star",deity:"Deity",
     toPalace:"Qi phase to palace",toSeason:"Qi phase to season",
-    vfu:"Chief Star (directing matrix)",vsh:"Chief Gate (directing envoy)" }
+    vfu:"Chief Star (directing matrix)",vsh:"Chief Gate (directing envoy)",
+    baguaEarly:"Early Heaven · Fu Xi",baguaLate:"Later Heaven · King Wen" }
 };
 const L=()=>T[LANG];
 
@@ -379,6 +419,34 @@ function seasonPhase(elem,wxList){ const i=(wxList||[]).indexOf(elem); return i>
 // five-element strength of an element relative to the palace element (五行 生克),
 // giving 旺相休囚死. 伏吟 (gate/star in its native palace) = same element = 旺.
 const PAL_ELEM={坎:"水",坤:"土",震:"木",巽:"木",中:"土",乾:"金",兌:"金",艮:"土",離:"火"};
+const WX_COLOR={木:"#00b050",火:"#ff0000",土:"#984806",金:"#7f7f7f",水:"#0070c0"};
+// 八卦 reference below the chart. Both squares are drawn south-up, in the same
+// orientation as the palace grid: top row SE-S-SW, middle E-centre-W, bottom NE-N-NW.
+const GUA_SYM={乾:"☰",兌:"☱",離:"☲",震:"☳",巽:"☴",坎:"☵",艮:"☶",坤:"☷"};
+const GUA_NAME={乾:["Цянь","Qian"],兌:["Дуй","Dui"],離:["Ли","Li"],震:["Чжэнь","Zhen"],
+                巽:["Сюнь","Xun"],坎:["Кань","Kan"],艮:["Гэнь","Gen"],坤:["Кунь","Kun"]};
+const BAGUA_EARLY=[["兌","乾","巽"],["離","","坎"],["震","坤","艮"]];
+const BAGUA_LATE =[["巽","離","坤"],["震","中","兌"],["艮","坎","乾"]];
+const GUA_NUM_EARLY={乾:1,兌:2,離:3,震:4,巽:5,坎:6,艮:7,坤:8};
+const GUA_NUM_LATE ={坎:1,坤:2,震:3,巽:4,中:5,乾:6,兌:7,艮:8,離:9};
+// dir comes from the cell's POSITION on the square, not from the trigram — the two
+// arrangements put different trigrams in the same compass seat.
+function baguaCell(g,num,dirGua){
+  if(!g) return '<div class="bg-cell empty"></div>';
+  const col=WX_COLOR[PAL_ELEM[g]]||"var(--text)";
+  const sym=GUA_SYM[g]?`<span class="bg-sym" style="color:${col}">${GUA_SYM[g]}</span>`:'<span class="bg-sym">&nbsp;</span>';
+  const dir=(DIRI[LANG]||{})[dirGua]||"";
+  return `<div class="bg-cell${g==="中"?" center-cell":""}">${sym}
+    <span class="bg-name" style="color:${col}">${g}</span>
+    <span class="bg-ru">${(GUA_NAME[g]||["",""])[LANG==="ru"?0:1]}</span>
+    <span class="bg-dir">${dir}${num?" · <b>"+num+"</b>":""}</span></div>`;
+}
+function renderBagua(){
+  const draw=(sq,nums)=>sq.map((row,r)=>row.map((g,c)=>
+    baguaCell(g,nums[g],BAGUA_LATE[r][c])).join("")).join("");
+  document.getElementById("bagua-early").innerHTML=draw(BAGUA_EARLY,GUA_NUM_EARLY);
+  document.getElementById("bagua-late").innerHTML=draw(BAGUA_LATE,GUA_NUM_LATE);
+}
 const _GEN={木:"火",火:"土",土:"金",金:"水",水:"木"};
 const _GENP={火:"木",土:"火",金:"土",水:"金",木:"水"};
 const _KE={木:"土",火:"金",土:"水",金:"木",水:"火"};
@@ -416,6 +484,7 @@ function applyLang(){
   document.getElementById("lang-ru").classList.toggle("on",LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on",LANG==="en");
   var pb=document.querySelector(".print-btn"); if(pb) pb.textContent=LANG==="ru"?"PDF / Печать":"PDF / Print";
+  renderBagua();
 }
 function setLang(l){ LANG=l; try{localStorage.setItem("sc-lang",l);}catch(e){} applyLang(); if(CUR_PAN){ render(CUR_PAN); if(CUR_PAL) showDetail(CUR_PAL); } }
 
