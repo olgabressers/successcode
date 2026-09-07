@@ -151,23 +151,20 @@
   .dunjia-ref .jia-head { color: var(--gold); font-weight: 700; border: 1px solid var(--gold);
                           border-radius: 3px; padding: 0 4px; }
   /* 先天 / 後天 八卦 reference, below the chart */
-  .bagua-wrap { max-width: 760px; margin: 34px auto 0; display: grid;
-                grid-template-columns: 1fr 1fr; gap: 22px; }
-  .bagua-panel { background: var(--surface); border: 1px solid var(--border); padding: 18px 18px 16px; }
-  .bagua-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500;
-                 letter-spacing: 2px; color: var(--gold); text-align: center; line-height: 1.2; }
-  .bagua-sub { font-size: 10px; letter-spacing: 1.6px; text-transform: uppercase;
-               color: var(--text-muted); text-align: center; margin: 4px 0 14px; }
-  .bagua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  .bg-cell { background: #faf7ef; border: 1px solid var(--border); aspect-ratio: 1/1; padding: 4px 2px;
+  .bagua-wrap { max-width: 500px; margin: 26px auto 0; display: grid;
+                grid-template-columns: 1fr 1fr; gap: 16px; }
+  .bagua-panel { background: var(--surface); border: 1px solid var(--border); padding: 12px 12px 11px; }
+  .bagua-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                 letter-spacing: 1.5px; color: var(--gold); text-align: center; line-height: 1.2; }
+  .bagua-sub { font-size: 8.5px; letter-spacing: 1.2px; text-transform: uppercase;
+               color: var(--text-muted); text-align: center; margin: 3px 0 9px; }
+  .bagua-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  .bg-cell { background: #faf7ef; border: 1px solid var(--border); padding: 5px 1px 4px;
              display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
   .bg-cell.empty { background: transparent; border-style: dashed; }
-  .bg-cell.center-cell { background: var(--surface); }
-  .bg-sym { font-size: 21px; line-height: 1; }
-  .bg-name { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; line-height: 1; }
+  .bg-sym { font-size: 30px; line-height: 1; }
   .bg-ru { font-size: 9px; color: var(--text-dim); line-height: 1.1; text-align: center; }
-  .bg-dir { font-size: 9px; color: var(--text-muted); letter-spacing: .5px; }
-  .bg-dir b { color: var(--gold-dim); font-weight: 700; }
+  .bg-dir { font-size: 8.5px; color: var(--text-muted); letter-spacing: .5px; }
   .cell-detail { display: none; background: var(--surface); border: 1px solid var(--border);
                  margin-top: 16px; padding: 18px 22px; }
   .d-title { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text);
@@ -214,12 +211,13 @@
     .chart-date { font-size: 13px; }
     .dunjia-ref { font-size: 11px; padding: 8px 10px; letter-spacing: 0; }
     .dunjia-ref b { font-size: 12px; }
-    .bagua-wrap { grid-template-columns: 1fr; gap: 16px; margin-top: 22px; }
-    .bagua-panel { padding: 14px 12px 12px; }
-    .bagua-title { font-size: 17px; letter-spacing: 1px; }
-    .bagua-sub { font-size: 9px; letter-spacing: 1px; margin-bottom: 10px; }
-    .bg-sym { font-size: 18px; }
-    .bg-name { font-size: 16px; }
+    .bagua-wrap { grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; }
+    .bagua-panel { padding: 10px 8px 9px; }
+    .bagua-title { font-size: 15px; letter-spacing: 1px; }
+    .bagua-sub { font-size: 7.5px; letter-spacing: .6px; margin-bottom: 7px; }
+    .bg-sym { font-size: 23px; }
+    .bg-ru { font-size: 8px; }
+    .bg-dir { font-size: 7.5px; }
     .lang-switch { top: 8px; right: 8px; }
     .lang-switch button { padding: 3px 8px; font-size: 10px; }
     .print-btn { top: 36px; right: 8px; padding: 4px 9px; font-size: 9px; }
@@ -426,26 +424,21 @@ const GUA_SYM={乾:"☰",兌:"☱",離:"☲",震:"☳",巽:"☴",坎:"☵",艮:"
 const GUA_NAME={乾:["Цянь","Qian"],兌:["Дуй","Dui"],離:["Ли","Li"],震:["Чжэнь","Zhen"],
                 巽:["Сюнь","Xun"],坎:["Кань","Kan"],艮:["Гэнь","Gen"],坤:["Кунь","Kun"]};
 const BAGUA_EARLY=[["兌","乾","巽"],["離","","坎"],["震","坤","艮"]];
-const BAGUA_LATE =[["巽","離","坤"],["震","中","兌"],["艮","坎","乾"]];
-const GUA_NUM_EARLY={乾:1,兌:2,離:3,震:4,巽:5,坎:6,艮:7,坤:8};
-const GUA_NUM_LATE ={坎:1,坤:2,震:3,巽:4,中:5,乾:6,兌:7,艮:8,離:9};
+const BAGUA_LATE =[["巽","離","坤"],["震","","兌"],["艮","坎","乾"]];
 // dir comes from the cell's POSITION on the square, not from the trigram — the two
 // arrangements put different trigrams in the same compass seat.
-function baguaCell(g,num,dirGua){
+const BAGUA_SEAT=[["巽","離","坤"],["震","","兌"],["艮","坎","乾"]];
+function baguaCell(g,dirGua){
   if(!g) return '<div class="bg-cell empty"></div>';
   const col=WX_COLOR[PAL_ELEM[g]]||"var(--text)";
-  const sym=GUA_SYM[g]?`<span class="bg-sym" style="color:${col}">${GUA_SYM[g]}</span>`:'<span class="bg-sym">&nbsp;</span>';
-  const dir=(DIRI[LANG]||{})[dirGua]||"";
-  return `<div class="bg-cell${g==="中"?" center-cell":""}">${sym}
-    <span class="bg-name" style="color:${col}">${g}</span>
+  return `<div class="bg-cell"><span class="bg-sym" style="color:${col}">${GUA_SYM[g]}</span>
     <span class="bg-ru">${(GUA_NAME[g]||["",""])[LANG==="ru"?0:1]}</span>
-    <span class="bg-dir">${dir}${num?" · <b>"+num+"</b>":""}</span></div>`;
+    <span class="bg-dir">${(DIRI[LANG]||{})[dirGua]||""}</span></div>`;
 }
 function renderBagua(){
-  const draw=(sq,nums)=>sq.map((row,r)=>row.map((g,c)=>
-    baguaCell(g,nums[g],BAGUA_LATE[r][c])).join("")).join("");
-  document.getElementById("bagua-early").innerHTML=draw(BAGUA_EARLY,GUA_NUM_EARLY);
-  document.getElementById("bagua-late").innerHTML=draw(BAGUA_LATE,GUA_NUM_LATE);
+  const draw=sq=>sq.map((row,r)=>row.map((g,c)=>baguaCell(g,BAGUA_SEAT[r][c])).join("")).join("");
+  document.getElementById("bagua-early").innerHTML=draw(BAGUA_EARLY);
+  document.getElementById("bagua-late").innerHTML=draw(BAGUA_LATE);
 }
 const _GEN={木:"火",火:"土",土:"金",金:"水",水:"木"};
 const _GENP={火:"木",土:"火",金:"土",水:"金",木:"水"};
