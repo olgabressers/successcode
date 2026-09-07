@@ -529,13 +529,17 @@ function heavenPalaceOfStem(pan,stem){
   for(let i=0;i<9;i++){ if((pan.九宮[i].天盤干||[]).includes(stem)) return IDX2GUA[i]; }
   return "";
 }
-// palace where the governing 甲 (旬首) sits: it hides under its 儀 on the heaven plate.
+// the 甲 to locate is the head of the DAY pillar's decade (the one shown as "Глава декады"):
+// 甲子→戊 甲戌→己 甲申→庚 甲午→辛 甲辰→壬 甲寅→癸 — each 甲 carries its own branch, so the
+// decade head must be read off the day pillar, never assumed to be 甲子.
+function dunjiaHead(pan){ return pan.day旬首||pan.旬首; }
+// palace where that 甲 sits: it hides under its 儀 on the heaven plate.
 function jiaPalace(pan){
-  const pair=JIA_YI.find(([jia])=>jia===pan.旬首);
+  const pair=JIA_YI.find(([jia])=>jia===dunjiaHead(pan));
   return pair?heavenPalaceOfStem(pan,pair[1]):"";
 }
 function renderDunjia(pan){
-  const head=pan.旬首;
+  const head=dunjiaHead(pan);
   const html=JIA_YI.map(([jia,yi])=>{
     const pal=heavenPalaceOfStem(pan,yi);
     const cls=(jia===head)?' class="jia-head"':'';
