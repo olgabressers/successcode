@@ -271,6 +271,21 @@
     .req-input::placeholder, .req-textarea::placeholder { color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
     .req-input:focus, .req-textarea:focus { outline: none; border-color: var(--gold); }
     .req-textarea { min-height: 96px; resize: vertical; }
+    .req-choice { display: flex; flex-direction: column; gap: 10px; }
+    .req-choice-label {
+      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--muted); font-weight: 600;
+    }
+    .req-opt {
+      display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      padding: 14px 16px; transition: border-color .25s;
+    }
+    .req-opt:hover { border-color: var(--gold); }
+    .req-opt input { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; }
+    .req-opt-text { display: flex; flex-direction: column; gap: 3px; }
+    .req-opt-name { font-size: 14.5px; color: var(--white); line-height: 1.4; }
+    .req-opt-note { font-size: 13px; color: var(--dim); line-height: 1.5; }
     .consent-row { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
     .consent-row input { margin-top: 3px; accent-color: var(--gold); }
     .consent-row a { color: var(--gold2); }
@@ -520,6 +535,23 @@
         <input class="req-input" type="email" name="email" placeholder="Email" required>
         <input class="req-input" type="tel"   name="phone" placeholder="Телефон">
         <textarea class="req-textarea" name="message" placeholder="Что вам важно узнать о 2027 годе" maxlength="1000"></textarea>
+        <div class="req-choice">
+          <span class="req-choice-label">Формат участия</span>
+          <label class="req-opt">
+            <input type="radio" name="format" value="Очно — Утрехт" required>
+            <span class="req-opt-text">
+              <span class="req-opt-name">Очно в Утрехте</span>
+              <span class="req-opt-note">Живая встреча — можно задать вопросы и разобрать свою ситуацию на месте.</span>
+            </span>
+          </label>
+          <label class="req-opt">
+            <input type="radio" name="format" value="Онлайн — видеозапись">
+            <span class="req-opt-text">
+              <span class="req-opt-name">Онлайн — видеозапись</span>
+              <span class="req-opt-note">Запись встречи: смотрите в удобное время, из любой страны.</span>
+            </span>
+          </label>
+        </div>
         <input type="hidden" name="source" value="event-2027">
         <input type="hidden" name="_subject" value="Код успеха 2027 — регистрация">
         <div class="consent-row">
