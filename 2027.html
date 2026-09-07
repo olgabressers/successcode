@@ -569,6 +569,27 @@
         </div>
         <button class="req-submit" type="submit">Зарегистрироваться</button>
       </form>
+      <script>
+      // Одна регистрация — два независимых получателя.
+      // Копия уходит в CRM в тот же момент, что и отправка в Formspree.
+      // keepalive: запрос переживает переход страницы, поэтому форма ведёт
+      // себя ровно как раньше. Если CRM недоступна — Formspree всё равно
+      // получит заявку; если у Formspree закончился лимит — заявка уже в CRM.
+      document.querySelector('.req-form').addEventListener('submit', function () {
+        try {
+          var d = {};
+          new FormData(this).forEach(function (v, k) { d[k] = v; });
+          fetch('https://astrocrm-rho.vercel.app/api/leads', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(d),
+            keepalive: true,
+            mode: 'cors'
+          }).catch(function () {});
+        } catch (e) {}
+        // ничего не отменяем — обычная отправка в Formspree продолжается
+      });
+      </script>
     </div>
   </div>
 </section>
