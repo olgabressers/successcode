@@ -396,7 +396,7 @@ const JIE={立春:["Начало весны","Start of Spring"],雨水:["Дож�
   大雪:["Большие снега","Major Snow"],冬至:["Зимнее солнцестояние","Winter Solstice"],小寒:["Малые холода","Minor Cold"],大寒:["Большие холода","Major Cold"]};
 const YUANK={上元:"upper",中元:"mid",下元:"lower"};
 
-let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PAL=null, CUR_CLOCK=null, CUR_CM=0;
+let LON=4.9041, TZNAME="Europe/Amsterdam", CITYNAME="Amsterdam", _cityTimer=null, CUR_PAN=null, CUR_PAL=null, VFU_PAL=null, VSH_PAL=null, JIA_PALS=[], CUR_CLOCK=null, CUR_CM=0;
 
 const v=id=>document.getElementById(id).value;
 function getYMD(){
@@ -499,7 +499,7 @@ async function compute(){
   }catch(err){ if(myseq!==COMPUTE_SEQ) return; showError((LANG==="ru"?"Ошибка расчёта: ":"Calculation error: ")+err.message); }
 }
 function render(pan){
-  VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PAL=jiaPalace(pan);
+  VFU_PAL=(pan.值符落宮||"")[0]; VSH_PAL=(pan.值使落宮||"")[0]; JIA_PALS=jiaPalaces(pan);
   renderBazi(pan); renderMeta(pan); renderGrid(pan); renderDunjia(pan); renderDirs();
   if(CUR_CLOCK) renderChartDate(CUR_CLOCK,CUR_CM);
 }
@@ -529,20 +529,28 @@ function heavenPalaceOfStem(pan,stem){
   for(let i=0;i<9;i++){ if((pan.九宮[i].天盤干||[]).includes(stem)) return IDX2GUA[i]; }
   return "";
 }
-// the 甲 to locate is the head of the DAY pillar's decade (the one shown as "Глава декады"):
-// 甲子→戊 甲戌→己 甲申→庚 甲午→辛 甲辰→壬 甲寅→癸 — each 甲 carries its own branch, so the
-// decade head must be read off the day pillar, never assumed to be 甲子.
-function dunjiaHead(pan){ return pan.day旬首||pan.旬首; }
-// palace where that 甲 sits: it hides under its 儀 on the heaven plate.
-function jiaPalace(pan){
-  const pair=JIA_YI.find(([jia])=>jia===dunjiaHead(pan));
-  return pair?heavenPalaceOfStem(pan,pair[1]):"";
+// A 甲 is located by the branch sitting under it: 甲子→戊 甲戌→己 甲申→庚 甲午→辛 甲辰→壬 甲寅→癸.
+// Applies to the day pillar and the hour pillar alike, each one only when its stem is actually 甲 —
+// if both are 甲 there are two of them, and both palaces get marked.
+function jiaPillars(pan){
+  const bz=pan.八字||[];
+  return [bz[2],bz[3]].filter(p=>p&&p[0]==="甲");
+}
+// palaces where those 甲 sit: each hides under its own 儀 on the heaven plate.
+function jiaPalaces(pan){
+  const out=[];
+  jiaPillars(pan).forEach(jia=>{
+    const pair=JIA_YI.find(([j])=>j===jia); if(!pair) return;
+    const pal=heavenPalaceOfStem(pan,pair[1]);
+    if(pal&&out.indexOf(pal)<0) out.push(pal);
+  });
+  return out;
 }
 function renderDunjia(pan){
-  const head=dunjiaHead(pan);
+  const heads=jiaPillars(pan);
   const html=JIA_YI.map(([jia,yi])=>{
     const pal=heavenPalaceOfStem(pan,yi);
-    const cls=(jia===head)?' class="jia-head"':'';
+    const cls=(heads.indexOf(jia)>=0)?' class="jia-head"':'';
     return `<span${cls}>${jia}→${yi}${pal?"→"+pal:""}</span>`;
   }).join("　");
   document.getElementById("dunjia-ref").innerHTML=`<b>遁甲</b> ${html}`;
@@ -617,9 +625,9 @@ function cellHTML(pan,pal){
       <div class="c-mid-stem">${stemSpans(st)}</div></div>`;
   }
   const c=pan.九宮[PIDX[pal]], g=gateD(c.八門), s=starD(c.九星), d=deityD(c.八神);
-  const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL, jb=JIA_PAL==="中"?"坤":JIA_PAL;
+  const vfb=VFU_PAL==="中"?"坤":VFU_PAL, vsb=VSH_PAL==="中"?"坤":VSH_PAL, jbs=JIA_PALS.map(p=>p==="中"?"坤":p);
   const vd=c.是否空亡?" void-cell":"", sb=pal===vfb?" boxed":"", gb=pal===vsb?" boxed":"";
-  const jc=pal===jb?" jia-cell":"";
+  const jc=jbs.indexOf(pal)>=0?" jia-cell":"";
   return `<div class="cell${vd}${jc}" onclick="showDetail('${pal}')">
     <div class="c-deity" style="color:${d[2]}">${d[0]}神<span class="ru">${nm(d)}</span></div>
     <div class="c-gate${gb}" style="color:${g[2]}">${g[0]}<span class="ru">${nm(g)}</span></div>
