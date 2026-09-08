@@ -287,6 +287,13 @@
     .req-opt-head { display: flex; align-items: baseline; gap: 0; flex-wrap: wrap; }
     .req-opt-name { font-size: 14.5px; color: var(--white); line-height: 1.4; }
     .req-opt-price { font-size: 14.5px; color: var(--white); line-height: 1.4; white-space: nowrap; }
+    .req-terms {
+      display: flex; flex-direction: column; gap: 7px; margin-top: 4px;
+      padding: 14px 16px; border-left: 2px solid var(--gold);
+      background: var(--gold-dim);
+    }
+    .req-terms p { font-size: 13.5px; color: var(--dim); line-height: 1.55; }
+    .req-terms b { color: var(--white); font-weight: 600; }
     .req-opt-note { font-size: 13px; color: var(--dim); line-height: 1.5; }
     .consent-row { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
     .consent-row input { margin-top: 3px; accent-color: var(--gold); }
@@ -559,6 +566,12 @@
               <span class="req-opt-note">Запись встречи: смотрите в удобное время, из любой страны.</span>
             </span>
           </label>
+
+          <div class="req-terms">
+            <p>Мест в Утрехте — <b>20</b>.</p>
+            <p>Очно: при регистрации после 1 ноября — <b>€70</b>.</p>
+            <p>Онлайн: с 1 по 20 ноября — <b>€30 (3000 ₽)</b>, после 20 ноября — <b>€35 (3500 ₽)</b>.</p>
+          </div>
         </div>
         <input type="hidden" name="source" value="event-2027">
         <input type="hidden" name="_subject" value="Код успеха 2027 — регистрация">
