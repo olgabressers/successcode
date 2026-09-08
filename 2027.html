@@ -268,6 +268,18 @@
     .feat-desc { font-size: 14.5px; color: var(--dim); line-height: 1.65; }
 
 
+    /* AUTHOR */
+    .auth-body p.auth-lead { font-size: 20px; color: var(--gold2); margin-bottom: 20px; font-weight: 600; }
+    .auth-body { max-width: 760px; }
+    .auth-body p { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
+    .auth-body p:last-child { margin-bottom: 0; }
+    .auth-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+                  background: var(--border); border: 1px solid var(--border); margin-top: 36px; }
+    .auth-stat { background: var(--surface); padding: 24px 26px; }
+    .auth-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600;
+                color: var(--gold2); line-height: 1; margin-bottom: 8px; }
+    .auth-cap { font-size: 14px; color: var(--dim); line-height: 1.5; }
+
     /* REQUEST FORM */
     .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
     .req-copy .lead { margin-bottom: 20px; }
@@ -363,7 +375,9 @@
       .btn-white, .btn-outline { padding: 14px 26px; }
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
-      .q-grid, .feat-grid, .req { grid-template-columns: 1fr; }
+      .q-grid, .feat-grid, .req, .auth-stats { grid-template-columns: 1fr; }
+      .auth-body p.auth-lead { font-size: 18px; }
+      .auth-body p { font-size: 15px; }
       .sec-head { flex-direction: column; gap: 20px; }
       .sec-head-copy { flex: 0 0 auto; width: 100%; }
       .sec-head .date-badge { align-self: flex-start; }
@@ -423,6 +437,34 @@
     </div>
   </div>
 </header>
+
+<!-- AUTHOR -->
+<section id="author">
+  <div class="wrap">
+    <div class="side-label">Кто ведёт</div>
+    <h2 class="sec-h2">Алёна Брессерс</h2>
+    <div class="auth-body">
+      <p class="auth-lead">Мастер китайской метафизики</p>
+      <p>Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
+      <p>Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
+      <p>Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
+    </div>
+    <div class="auth-stats">
+      <div class="auth-stat">
+        <div class="auth-num">10 лет</div>
+        <div class="auth-cap">ежедневной практики</div>
+      </div>
+      <div class="auth-stat">
+        <div class="auth-num">Сотни</div>
+        <div class="auth-cap">личных консультаций</div>
+      </div>
+      <div class="auth-stat">
+        <div class="auth-num">6 стран</div>
+        <div class="auth-cap">обучения у мастеров</div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- KEY QUESTIONS -->
 <section id="about" class="s-light">
@@ -559,7 +601,7 @@
       <div class="req-copy">
         <div class="side-label">Регистрация</div>
         <h2 class="sec-h2">Оставьте заявку на участие</h2>
-        <p class="lead">Оставьте контакты — я напишу вам сама и пришлю все детали участия.</p>
+        <p class="lead">Оставьте контакты — я напишу вам и пришлю все детали участия.</p>
         <p class="req-email">Или напишите напрямую:
           <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a></p>
         <div class="contact-icons">
@@ -588,7 +630,18 @@
         <div class="req-choice">
           <span class="req-choice-label">Формат участия</span>
           <label class="req-opt">
-            <input type="radio" name="format" value="Очно — Утрехт 29 ноября, €60" required>
+            <input type="radio" name="format" value="Онлайн — видеозапись, €27 (2700 ₽)" required>
+            <span class="req-opt-text">
+              <span class="req-opt-head">
+                <span class="req-opt-name">Онлайн — видеозапись</span>
+                <span class="req-opt-price">, €27 (2700 ₽)</span>
+              </span>
+              <span class="req-opt-note">Запись встречи: смотрите в удобное время, из любой страны.</span>
+              <span class="req-opt-fine">Стоимость при регистрации с 1 по 20 ноября — €30 (3000 ₽), после 20 ноября — €35 (3500 ₽).</span>
+            </span>
+          </label>
+          <label class="req-opt">
+            <input type="radio" name="format" value="Очно — Утрехт 29 ноября, €60">
             <span class="req-opt-text">
               <span class="req-opt-head">
                 <span class="req-opt-name">Очно в Утрехте 29 ноября</span>
@@ -597,17 +650,6 @@
               <span class="req-opt-note">Живая встреча с закусками и напитками — можно задать вопросы в реальном времени и наслаждаться прекрасной компанией.</span>
               <span class="req-opt-seats">Успейте забронировать своё место, их всего 20.</span>
               <span class="req-opt-fine">Стоимость при регистрации с 1 по 20 ноября — €65, после 20 ноября — €70.</span>
-            </span>
-          </label>
-          <label class="req-opt">
-            <input type="radio" name="format" value="Онлайн — видеозапись, €27 (2700 ₽)">
-            <span class="req-opt-text">
-              <span class="req-opt-head">
-                <span class="req-opt-name">Онлайн — видеозапись</span>
-                <span class="req-opt-price">, €27 (2700 ₽)</span>
-              </span>
-              <span class="req-opt-note">Запись встречи: смотрите в удобное время, из любой страны.</span>
-              <span class="req-opt-fine">Стоимость при регистрации с 1 по 20 ноября — €30 (3000 ₽), после 20 ноября — €35 (3500 ₽).</span>
             </span>
           </label>
         </div>
