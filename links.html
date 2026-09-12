@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ссылки — Код успеха</title>
-  <meta name="description" content="Все ссылки Код успеха на одной странице: подготовка к 2027 году, консультации по карте рождения, обучение и калькуляторы, Календарь успешных дат, прогулки, Телеграм-канал.">
+  <meta name="description" content="Все ссылки Код успеха на одной странице: подготовка к 2027 году, консультации по карте рождения, Календарь успешных дат, прогулки, калькуляторы, обучение, Телеграм-канал.">
   <link rel="canonical" href="https://successcode.net/links">
 
   <meta property="og:type" content="website">
@@ -26,14 +26,15 @@
 
   <style>
     :root {
-      --bg:       #431519;
-      --surface:  #521d21;
-      --surface2: #632529;
-      --gold:     #c9a24a;
-      --gold2:    #dbb767;
-      --white:    #f6ecec;
-      --muted:    #dcc4c4;
-      --border:   rgba(201,162,74,0.30);
+      --bg:         #3a3c48;
+      --card:       #5c1f24;
+      --card-hover: #6d272c;
+      --gold:       #b8903a;
+      --gold2:      #cfa44e;
+      --white:      #eceef8;
+      --muted:      #c0c2d4;
+      --border:     rgba(184,144,58,0.25);
+      --card-border:rgba(207,164,78,0.40);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -64,7 +65,7 @@
       display: inline-block;
       font-family: 'Cormorant Garamond', serif;
       font-size: 38px;
-      letter-spacing: 5px;
+      letter-spacing: 6px;
       color: var(--white);
       text-decoration: none;
       transition: color .25s;
@@ -88,16 +89,16 @@
       display: flex;
       align-items: center;
       gap: 16px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--card);
+      border: 1px solid var(--card-border);
       padding: 20px 22px;
       text-decoration: none;
       color: var(--white);
       transition: background .25s, border-color .25s, transform .25s;
     }
     .lk:hover {
-      background: var(--surface2);
-      border-color: var(--gold);
+      background: var(--card-hover);
+      border-color: var(--gold2);
       transform: translateY(-2px);
     }
     .lk-body { flex: 1; min-width: 0; }
@@ -119,7 +120,7 @@
     .lk-arrow {
       flex-shrink: 0;
       width: 18px; height: 18px;
-      stroke: var(--gold); fill: none; stroke-width: 2;
+      stroke: var(--gold2); fill: none; stroke-width: 2;
       transition: transform .25s;
     }
     .lk:hover .lk-arrow { transform: translateX(3px); }
@@ -147,7 +148,7 @@
     .back-to-top {
       position: fixed; bottom: 32px; right: 32px;
       width: 54px; height: 54px;
-      background: var(--gold); color: #3a1113;
+      background: var(--gold); color: #f5f1eb;
       display: flex; align-items: center; justify-content: center;
       text-decoration: none;
       border: 1px solid var(--gold);
@@ -158,14 +159,14 @@
     }
     .back-to-top.visible { opacity: 1; pointer-events: auto; }
     .back-to-top:hover { background: var(--gold2); transform: translateY(-2px); }
-    .back-to-top svg { width: 18px; height: 18px; stroke: #3a1113; fill: none; stroke-width: 2.5; }
+    .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
 
     /* MOBILE */
     @media (max-width: 900px) {
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
       .bio { padding: 46px 18px 32px; }
-      .brand { font-size: 30px; letter-spacing: 4px; }
+      .brand { font-size: 28px; letter-spacing: 4px; }
       .tagline { font-size: 14px; letter-spacing: 1px; }
       .lk { padding: 18px 18px; gap: 12px; }
       .lk-title { font-size: 15px; }
@@ -178,9 +179,9 @@
 <main class="bio">
 
   <div class="bio-head">
-    <a href="/ru/" class="brand">Код успеха</a>
+    <a href="/ru/" class="brand">КОД УСПЕХА</a>
     <div class="brand-rule"></div>
-    <div class="tagline">Все о тебе и ТВОЕЙ удачи</div>
+    <div class="tagline">Все о тебе и ТВОЕЙ удаче</div>
   </div>
 
   <nav class="links" aria-label="Ссылки">
@@ -201,14 +202,6 @@
       <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
     </a>
 
-    <a class="lk" href="/training">
-      <span class="lk-body">
-        <span class="lk-title">Обучение и Калькуляторы Ба Цзы, Фен-Шуй, Ци Мень, Цзы Вэй</span>
-        <span class="lk-url">successcode.net/training</span>
-      </span>
-      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
-    </a>
-
     <a class="lk" href="/calendar">
       <span class="lk-body">
         <span class="lk-title">Календарь Успешных Дат</span>
@@ -221,6 +214,22 @@
       <span class="lk-body">
         <span class="lk-title">Волшебные прогулки за удачей</span>
         <span class="lk-url">successcode.net/walks</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="/calculators?lang=ru">
+      <span class="lk-body">
+        <span class="lk-title">Калькуляторы Ба Цзы, Фен-Шуй, Ци Мень, Цзы Вэй</span>
+        <span class="lk-url">successcode.net/calculators</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="/training">
+      <span class="lk-body">
+        <span class="lk-title">Обучение Фэн-шуй и Ба-Цзы</span>
+        <span class="lk-url">successcode.net/training</span>
       </span>
       <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
     </a>
