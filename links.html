@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ссылки — SuccessCode</title>
+  <meta name="description" content="Все ссылки Код успеха на одной странице: консультации, обучение и калькуляторы, Календарь успешных дат, подготовка к 2027 году, Телеграм-канал.">
+  <link rel="canonical" href="https://successcode.net/links">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:url" content="https://successcode.net/links">
+  <meta property="og:title" content="Ссылки — SuccessCode">
+  <meta property="og:description" content="Все ссылки Код успеха на одной странице.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ссылки — SuccessCode">
+  <meta name="twitter:description" content="Все ссылки Код успеха на одной странице.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --surface2: #4a4c58;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { max-width: 100vw; overflow-x: hidden; position: relative; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .bio {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 64px 24px 40px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    .bio-head { text-align: center; margin-bottom: 40px; }
+    .brand {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      letter-spacing: 6px;
+      color: var(--white);
+      text-decoration: none;
+      transition: color .25s;
+    }
+    .brand:hover { color: var(--gold2); }
+    .brand-rule {
+      width: 54px; height: 1px;
+      background: var(--gold);
+      margin: 18px auto 16px;
+    }
+    .tagline {
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--gold2);
+    }
+
+    /* LINKS */
+    .links { display: flex; flex-direction: column; gap: 14px; }
+    .lk {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px 22px;
+      text-decoration: none;
+      color: var(--white);
+      transition: background .25s, border-color .25s, transform .25s;
+    }
+    .lk:hover {
+      background: var(--surface2);
+      border-color: var(--gold);
+      transform: translateY(-2px);
+    }
+    .lk-body { flex: 1; min-width: 0; }
+    .lk-title {
+      display: block;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: var(--white);
+    }
+    .lk-url {
+      display: block;
+      margin-top: 7px;
+      font-size: 12px;
+      letter-spacing: 1.4px;
+      color: var(--gold2);
+      word-break: break-word;
+    }
+    .lk-arrow {
+      flex-shrink: 0;
+      width: 18px; height: 18px;
+      stroke: var(--gold); fill: none; stroke-width: 2;
+      transition: transform .25s;
+    }
+    .lk:hover .lk-arrow { transform: translateX(3px); }
+
+    /* FOOTER */
+    .bio-foot {
+      margin-top: 48px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .foot-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 16px; flex-wrap: wrap; }
+    .foot-links a {
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .25s;
+    }
+    .foot-links a:hover { color: var(--gold2); }
+    .foot-copy { font-size: 12px; line-height: 1.8; color: var(--muted); }
+
+    /* BACK TO TOP */
+    .back-to-top {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 54px; height: 54px;
+      background: var(--gold); color: #f5f1eb;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      z-index: 250;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s, background .25s, transform .25s;
+      cursor: pointer;
+    }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top:hover { background: var(--gold2); transform: translateY(-2px); }
+    .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      * { max-width: 100vw; }
+      img, iframe, video, table { max-width: 100% !important; }
+      .bio { padding: 46px 18px 32px; }
+      .brand { font-size: 28px; letter-spacing: 5px; }
+      .tagline { font-size: 11px; letter-spacing: 2.2px; }
+      .lk { padding: 18px 18px; gap: 12px; }
+      .lk-title { font-size: 15px; }
+      .back-to-top { width: 46px; height: 46px; bottom: 22px; right: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="bio">
+
+  <div class="bio-head">
+    <a href="/ru/" class="brand">SuccessCode</a>
+    <div class="brand-rule"></div>
+    <div class="tagline">Карта судьбы · Цзы Вэй Доу Шу</div>
+  </div>
+
+  <nav class="links" aria-label="Ссылки">
+
+    <a class="lk" href="/ru/">
+      <span class="lk-body">
+        <span class="lk-title">Все о тебе и твоей удаче</span>
+        <span class="lk-url">www.successcode.net/ru</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="/training">
+      <span class="lk-body">
+        <span class="lk-title">Обучение и Калькуляторы Ба Цзы, Фен-Шуй, Ци Мень, Цзы Вэй</span>
+        <span class="lk-url">successcode.net/training</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener">
+      <span class="lk-body">
+        <span class="lk-title">Телеграмм</span>
+        <span class="lk-url">t.me/AlenaSuccessCode</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="/calendar">
+      <span class="lk-body">
+        <span class="lk-title">Календарь Успешных Дат</span>
+        <span class="lk-url">successcode.net/calendar</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+    <a class="lk" href="/2027">
+      <span class="lk-body">
+        <span class="lk-title">Важно! Готовимся к 2027</span>
+        <span class="lk-url">successcode.net/2027</span>
+      </span>
+      <svg class="lk-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+    </a>
+
+  </nav>
+
+  <div class="bio-foot">
+    <div class="foot-links">
+      <a href="/ru/privacy.html">Обработка данных</a>
+      <a href="/ru/terms.html">Условия</a>
+    </div>
+    <div class="foot-copy">© 2026 Код успеха. Все права защищены.</div>
+  </div>
+
+</main>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+
+<script>
+  (function() {
+    var btn = document.getElementById('backToTop');
+    function check() {
+      if (window.scrollY > 400) btn.classList.add('visible');
+      else btn.classList.remove('visible');
+    }
+    window.addEventListener('scroll', check, { passive: true });
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    check();
+  })();
+</script>
+
+</body>
+</html>
