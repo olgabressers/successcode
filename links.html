@@ -27,15 +27,19 @@
   <style>
     :root {
       --bg:         #3a3c48;
-      --card:       #8a0f1b;
-      --card-hover: #a31320;
-      --card-url:   #f0d5a2;
+      --card:        #5c1f24;
+      --card-hover:  #6d272c;
+      --card-url:    #cfa44e;
+      --accent:      #8a0f1b;
+      --accent-hover:#a31320;
+      --accent-url:  #f0d5a2;
       --gold:       #b8903a;
       --gold2:      #cfa44e;
       --white:      #eceef8;
       --muted:      #c0c2d4;
       --border:     rgba(184,144,58,0.25);
-      --card-border:rgba(207,164,78,0.55);
+      --card-border:rgba(207,164,78,0.40);
+      --accent-border:rgba(207,164,78,0.55);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -126,6 +130,12 @@
     }
     .lk:hover .lk-arrow { transform: translateX(3px); }
 
+    /* accent button — 2027 */
+    .lk--accent { background: var(--accent); border-color: var(--accent-border); }
+    .lk--accent:hover { background: var(--accent-hover); }
+    .lk--accent .lk-url { color: var(--accent-url); }
+    .lk--accent .lk-arrow { stroke: var(--accent-url); }
+
     /* FOOTER */
     .bio-foot {
       margin-top: 48px;
@@ -187,7 +197,7 @@
 
   <nav class="links" aria-label="Ссылки">
 
-    <a class="lk" href="/2027">
+    <a class="lk lk--accent" href="/2027">
       <span class="lk-body">
         <span class="lk-title">Важно! Готовимся к 2027</span>
         <span class="lk-url">successcode.net/2027</span>
