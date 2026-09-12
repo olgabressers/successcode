@@ -273,6 +273,29 @@
     .auth-body { max-width: 760px; }
     .auth-body p { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
     .auth-body p:last-child { margin-bottom: 0; }
+    .auth-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+    .auth-grid .auth-body { max-width: 100%; }
+    .auth-video-title {
+      font-size: 15px; font-weight: 600; color: var(--gold2); line-height: 1.4;
+      margin-bottom: 14px;
+    }
+    .video-embed { position: relative; width: 100%; padding-top: 56.25%; background: #000; border: 1px solid var(--border); }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .lyt { cursor: pointer; }
+    .lyt-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .lyt::after { content: ''; position: absolute; inset: 0; background: rgba(20,8,9,.18); transition: background .2s; }
+    .lyt:hover::after { background: rgba(20,8,9,.04); }
+    .lyt-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 2;
+      width: 74px; height: 52px; border-radius: 13px; background: rgba(20,8,9,.72);
+      transition: background .2s; pointer-events: none;
+    }
+    .lyt:hover .lyt-play { background: #c00; }
+    .lyt-play::before {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-38%,-50%);
+      border-style: solid; border-width: 11px 0 11px 19px;
+      border-color: transparent transparent transparent #fff;
+    }
     .auth-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
                   background: var(--border); border: 1px solid var(--border); margin-top: 36px; }
     .auth-stat { background: var(--surface); padding: 24px 26px; }
@@ -375,7 +398,9 @@
       .btn-white, .btn-outline { padding: 14px 26px; }
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
-      .q-grid, .feat-grid, .req, .auth-stats { grid-template-columns: 1fr; }
+      .q-grid, .feat-grid, .req, .auth-stats, .auth-grid { grid-template-columns: 1fr; }
+      .auth-grid { gap: 32px; }
+      .lyt-play { width: 62px; height: 44px; }
       .auth-body p.auth-lead { font-size: 18px; }
       .auth-body p { font-size: 15px; }
       .sec-head { flex-direction: column; gap: 20px; }
@@ -443,11 +468,17 @@
   <div class="wrap">
     <div class="side-label">Кто ведёт</div>
     <h2 class="sec-h2">Алёна Брессерс</h2>
-    <div class="auth-body">
-      <p class="auth-lead">Мастер китайской метафизики</p>
-      <p>Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
-      <p>Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
-      <p>Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
+    <div class="auth-grid">
+      <div class="auth-body">
+        <p class="auth-lead">Мастер китайской метафизики</p>
+        <p>Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
+        <p>Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
+        <p>Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
+      </div>
+      <div class="auth-video">
+        <p class="auth-video-title">Код Успеха 2026. Тренды года. Часть 1</p>
+        <div class="video-embed lyt" data-id="o6aOwJrKOWo" role="button" tabindex="0" aria-label="Смотреть видео — Код Успеха 2026. Тренды года. Часть 1"><img class="lyt-thumb" src="https://i.ytimg.com/vi/o6aOwJrKOWo/hqdefault.jpg" alt="Код Успеха 2026. Тренды года. Часть 1" loading="lazy"><span class="lyt-play" aria-hidden="true"></span></div>
+      </div>
     </div>
     <div class="auth-stats">
       <div class="auth-stat">
@@ -711,6 +742,16 @@
     btn.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     check();
   })();
+
+  /* Click-to-load YouTube — the heavy player loads only when the viewer presses play */
+  document.querySelectorAll('.lyt').forEach(function (el) {
+    function load() {
+      var id = el.getAttribute('data-id');
+      el.innerHTML = '<iframe src="https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&showinfo=0" title="Код Успеха 2026. Тренды года. Часть 1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    }
+    el.addEventListener('click', load, { once: true });
+    el.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); load(); } }, { once: true });
+  });
 </script>
 
 </body>
