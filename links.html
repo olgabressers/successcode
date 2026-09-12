@@ -26,20 +26,22 @@
 
   <style>
     :root {
-      --bg:         #3a3c48;
+      /* light palette — lifted verbatim from the site's own light sections (2027.html .s-light) */
+      --bg:          #f8f6f1;
+      --ink:         #1e1c28;
+      --gold:        #9a6e20;
+      --gold2:       #b8882a;
+      --muted:       #6a6878;
+      --border:      rgba(154,110,32,0.20);
       --card:        #5c1f24;
       --card-hover:  #6d272c;
       --card-url:    #cfa44e;
+      --card-text:   #f5f1eb;
       --accent:      #8a0f1b;
       --accent-hover:#a31320;
       --accent-url:  #f0d5a2;
-      --gold:       #b8903a;
-      --gold2:      #cfa44e;
-      --white:      #eceef8;
-      --muted:      #c0c2d4;
-      --border:     rgba(184,144,58,0.25);
-      --card-border:rgba(207,164,78,0.40);
-      --accent-border:rgba(207,164,78,0.55);
+      --card-border: rgba(92,31,36,0.35);
+      --accent-border:rgba(138,15,27,0.45);
     }
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -47,7 +49,7 @@
     body {
       font-family: 'Inter', sans-serif;
       background: var(--bg);
-      color: var(--white);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
       min-height: 100vh;
       display: flex;
@@ -71,7 +73,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 38px;
       letter-spacing: 6px;
-      color: var(--white);
+      color: var(--ink);
       text-decoration: none;
       transition: color .25s;
     }
@@ -83,8 +85,9 @@
     }
     .tagline {
       font-size: 15px;
+      font-weight: 600;
       letter-spacing: 1.2px;
-      color: var(--gold2);
+      color: var(--gold);
       line-height: 1.6;
     }
 
@@ -98,12 +101,12 @@
       border: 1px solid var(--card-border);
       padding: 20px 22px;
       text-decoration: none;
-      color: var(--white);
+      color: var(--card-text);
       transition: background .25s, border-color .25s, transform .25s;
     }
     .lk:hover {
       background: var(--card-hover);
-      border-color: var(--gold2);
+      border-color: var(--card-hover);
       transform: translateY(-2px);
     }
     .lk-body { flex: 1; min-width: 0; }
@@ -112,7 +115,7 @@
       font-size: 16px;
       font-weight: 500;
       line-height: 1.45;
-      color: var(--white);
+      color: var(--card-text);
     }
     .lk-url {
       display: block;
@@ -159,7 +162,7 @@
     .back-to-top {
       position: fixed; bottom: 32px; right: 32px;
       width: 54px; height: 54px;
-      background: var(--gold); color: #f5f1eb;
+      background: var(--gold); color: var(--card-text);
       display: flex; align-items: center; justify-content: center;
       text-decoration: none;
       border: 1px solid var(--gold);
