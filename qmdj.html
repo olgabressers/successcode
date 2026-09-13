@@ -246,8 +246,104 @@
     .bagua-wrap { display: none !important; }
   }
 </style>
+
+<style id="ev27-style">
+/* EVENT BANNER — Код успеха 2027 · shared component, identical on every page.
+   Self-contained: no page variables, unique .ev27 prefix. */
+.ev27 { background: #b8903a; color: #2a0f10; font-family: 'Inter', sans-serif; }
+.ev27-in {
+  max-width: 1180px; margin: 0 auto; padding: 9px 22px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px 18px; flex-wrap: wrap; text-align: center;
+}
+.ev27-main {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 10px; flex-wrap: wrap; text-decoration: none; color: #2a0f10;
+}
+.ev27-main b { font-size: 14px; font-weight: 700; letter-spacing: .6px; }
+.ev27-main i { font-style: normal; font-size: 13px; font-weight: 500; }
+.ev27-main:hover b { text-decoration: underline; }
+.ev27-btn {
+  display: inline-block; background: #2a0f10; color: #f5f1eb;
+  text-decoration: none; font-size: 11px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  padding: 8px 16px; transition: background .25s;
+}
+.ev27-btn:hover { background: #4a1a1c; color: #f5f1eb; }
+@media (max-width: 700px) {
+  .ev27-in { padding: 8px 14px; gap: 7px 12px; }
+  .ev27-main { flex-direction: column; gap: 3px; }
+  .ev27-main b { font-size: 13px; }
+  .ev27-main i { font-size: 12px; line-height: 1.4; }
+  .ev27-btn { font-size: 10px; padding: 7px 14px; letter-spacing: 1.2px; }
+}
+@media print { .ev27 { display: none !important; } }
+</style>
+<style id="ev27-inflow">
+/* This page's body carries its own padding and the header cancels it with a
+   negative margin. The banner sits in normal flow, breaks out of that padding
+   (negative margins measured from the page itself), and the header's own pull-up
+   is neutralised so it lands directly underneath. */
+body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
+@media print { body.ev27-on .site-nav, body.ev27-on nav { margin-top: -40px; } }
+</style>
+<script>
+(function(){
+  function size(){
+    var b = document.querySelector('.ev27');
+    if (!b) return;
+    var cs = getComputedStyle(document.body);
+    b.style.marginTop   = '-' + cs.paddingTop + '';
+    b.style.marginLeft  = '-' + cs.paddingLeft + '';
+    b.style.marginRight = '-' + cs.paddingRight + '';
+    document.body.classList.add('ev27-on');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', size);
+  else size();
+  window.addEventListener('resize', size, { passive: true });
+})();
+</script>
 </head>
 <body>
+<!-- EVENT BANNER — Код успеха 2027 (shared component; follows the page language) -->
+<div class="ev27">
+  <div class="ev27-in">
+    <a class="ev27-main" href="/2027">
+      <b data-ev27="ru">Код успеха 2027</b><b data-ev27="en" style="display:none">SuccessCode 2027</b>
+      <i data-ev27="ru">Воскресенье, 29 ноября, 11:30 · Утрехт и онлайн</i><i data-ev27="en" style="display:none">Sunday, 29 November, 11:30 · Utrecht and online</i>
+    </a>
+    <a class="ev27-btn" href="/2027#request"><span data-ev27="ru">Регистрация</span><span data-ev27="en" style="display:none">Register</span></a>
+  </div>
+</div>
+<script>
+(function(){
+  function cur(){
+    var q = null;
+    try { q = new URL(location.href).searchParams.get('lang'); } catch(e){}
+    if (q !== 'ru' && q !== 'en') { try { q = localStorage.getItem('sc-lang'); } catch(e){} }
+    if (q !== 'ru' && q !== 'en') { q = document.body.getAttribute('data-current-lang'); }
+    return q === 'en' ? 'en' : 'ru';
+  }
+  function paint(){
+    var lang = cur();
+    var nodes = document.querySelectorAll('[data-ev27]');
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].style.display = (nodes[i].getAttribute('data-ev27') === lang) ? '' : 'none';
+    }
+  }
+  paint();
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    while (t && t !== document.body) {
+      if (t.hasAttribute && (t.hasAttribute('data-set-lang') || (t.parentNode && t.parentNode.className && String(t.parentNode.className).indexOf('lang-switch') > -1))) {
+        setTimeout(paint, 0); return;
+      }
+      t = t.parentNode;
+    }
+  });
+})();
+</script>
+
 <nav class="site-nav">
   <a href="/ru/" class="nl-logo">SuccessCode</a>
   <div class="nl-sections">

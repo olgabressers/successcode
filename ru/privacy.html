@@ -148,8 +148,86 @@
       .footer-links { justify-content: center; gap: 14px; }
     }
   </style>
+
+<style id="ev27-style">
+/* EVENT BANNER — Код успеха 2027 · shared component, identical on every page.
+   Self-contained: no page variables, unique .ev27 prefix. */
+.ev27 { background: #b8903a; color: #2a0f10; font-family: 'Inter', sans-serif; }
+.ev27-in {
+  max-width: 1180px; margin: 0 auto; padding: 9px 22px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px 18px; flex-wrap: wrap; text-align: center;
+}
+.ev27-main {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 10px; flex-wrap: wrap; text-decoration: none; color: #2a0f10;
+}
+.ev27-main b { font-size: 14px; font-weight: 700; letter-spacing: .6px; }
+.ev27-main i { font-style: normal; font-size: 13px; font-weight: 500; }
+.ev27-main:hover b { text-decoration: underline; }
+.ev27-btn {
+  display: inline-block; background: #2a0f10; color: #f5f1eb;
+  text-decoration: none; font-size: 11px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  padding: 8px 16px; transition: background .25s;
+}
+.ev27-btn:hover { background: #4a1a1c; color: #f5f1eb; }
+@media (max-width: 700px) {
+  .ev27-in { padding: 8px 14px; gap: 7px 12px; }
+  .ev27-main { flex-direction: column; gap: 3px; }
+  .ev27-main b { font-size: 13px; }
+  .ev27-main i { font-size: 12px; line-height: 1.4; }
+  .ev27-btn { font-size: 10px; padding: 7px 14px; letter-spacing: 1.2px; }
+}
+@media print { .ev27 { display: none !important; } }
+</style>
+
+<style id="ev27-fixed">
+/* This page's header is fixed (or the body carries top padding that the header
+   cancels with a negative margin), so the banner is pinned above it and
+   everything below is offset by the banner's measured height (--ev27-h). */
+.ev27 { position: fixed; top: 0; left: 0; right: 0; z-index: 400; }
+body.ev27-on { padding-top: var(--ev27-h, 42px); }
+body.ev27-on nav, body.ev27-on .site-nav { top: var(--ev27-h, 42px); }
+@media print {
+  body.ev27-on { padding-top: 0 !important; }
+  body.ev27-on nav, body.ev27-on .site-nav { top: 0 !important; }
+}
+</style>
+<script>
+(function(){
+  function size(){
+    var b = document.querySelector('.ev27');
+    if (!b) return;
+    var body = document.body;
+    /* measure the page's own top padding with our offset taken back out,
+       so this stays correct across breakpoints */
+    body.classList.remove('ev27-on');
+    body.style.paddingTop = '';
+    var base = parseFloat(getComputedStyle(body).paddingTop) || 0;
+    var h = b.offsetHeight;
+    body.classList.add('ev27-on');
+    body.style.setProperty('--ev27-h', h + 'px');
+    body.style.paddingTop = (base + h) + 'px';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', size);
+  else size();
+  window.addEventListener('resize', size, { passive: true });
+})();
+</script>
 </head>
 <body>
+<!-- EVENT BANNER — Код успеха 2027 (shared component) -->
+<div class="ev27">
+  <div class="ev27-in">
+    <a class="ev27-main" href="/2027">
+      <b>Код успеха 2027</b>
+      <i>Воскресенье, 29 ноября, 11:30 · Утрехт и онлайн</i>
+    </a>
+    <a class="ev27-btn" href="/2027#request">Регистрация</a>
+  </div>
+</div>
+
 
 <nav>
   <a href="index.html" class="nav-logo">SuccessCode</a>
