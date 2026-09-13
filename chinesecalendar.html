@@ -392,6 +392,11 @@
   .fs-big-wrap.jar-on  .fs-mk-jar { display: flex; }
   /* Foldable golden brand banners (for phone screen recordings) — collapsed by default */
   .gold-fold { margin: 8px 0; }
+  /* the fold-out cards are screen/recording props — never printed (the page must stay 2 A4 pages) */
+  @media print { .gold-fold { display: none !important; } }
+  /* the per-month flying-star chart is open by default on screen; it stays off the
+     printout so the page keeps its fixed two A4 pages */
+  @media print { .ym-block-fs { display: none !important; } }
   .gold-fold-bar { display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer;
     background: linear-gradient(90deg, #2a0f10, #4a1a1c, #2a0f10); color: #f0d5a2;
     padding: 6px 14px; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
@@ -401,7 +406,15 @@
   .gold-fold-body { display: none; }
   .gold-fold.open .gold-fold-body { display: block; }
   .gold-banner { background: linear-gradient(135deg, #200b0c 0%, #4a1a1c 42%, #6d272c 52%, #4a1a1c 62%, #200b0c 100%);
-    border: 1px solid var(--gold); border-top: none; padding: 30px 20px; text-align: center; }
+    border: 1px solid var(--gold); border-top: none; padding: 26px 20px; text-align: center;
+    display: flex; align-items: center; gap: 18px; }
+  .gold-banner .gb-text { flex: 1; min-width: 0; }
+  .gold-banner .gb-btn { flex-shrink: 0; align-self: flex-start; background: var(--gold); color: #f5f1eb;
+    text-decoration: none; font-size: 11px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase;
+    padding: 10px 18px; border: 1px solid #cfa44e; transition: background .25s; }
+  .gold-banner .gb-btn:hover { background: #cfa44e; }
+  .gold-banner .gb-brand.gb-sentence { font-size: 19px; letter-spacing: .6px; text-transform: none;
+    line-height: 1.36; font-weight: 600; }
   .gold-banner .gb-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
     letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
   .gold-banner .gb-brand.gb-brand-long { font-size: 24px; letter-spacing: 4.5px; line-height: 1.22; }
@@ -481,7 +494,10 @@
     .fs-tool { font-size: 11px; }
     .fs-tool .fs-tool-ic { font-size: 16px; }
     .gold-banner { padding: 24px 16px; }
+    .gold-banner { gap: 10px; padding: 18px 12px; }
+    .gold-banner .gb-btn { font-size: 9.5px; letter-spacing: 1.1px; padding: 8px 11px; }
     .gold-banner .gb-brand { font-size: 22px; letter-spacing: 6px; }
+    .gold-banner .gb-brand.gb-sentence { font-size: 16px; letter-spacing: .4px; }
     .gold-banner .gb-brand.gb-brand-long { font-size: 18px; letter-spacing: 3px; }
     .gold-banner .gb-sub { font-size: 11px; letter-spacing: 2px; }
   }
@@ -776,6 +792,8 @@ const I18N = {
     fsBellTip: "Колокольчик — сектор с пятёркой (5)",
     fsJarTip: "Соляной раствор — сектор с семёркой (7)",
     fsBrandTop: "Код успеха 2027",
+    foldReg: "Регистрация",
+    foldTrends: "Тренды и тенденции 2027, которые обязательно нужно знать, чтобы Ваш 2027 прошёл успешно",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -829,6 +847,8 @@ const I18N = {
     fsBellTip: "Bell — a sector holding a five (5)",
     fsJarTip: "Salt solution — a sector holding a seven (7)",
     fsBrandTop: "SuccessCode 2027",
+    foldReg: "Register",
+    foldTrends: "The 2027 trends and tendencies you need to know to make your 2027 a success",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1494,7 +1514,13 @@ _ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", s
 const YR_MIN = 1900, YR_MAX = 2100, YR_COLS = 11;
 let yrStart = 1950;                       // first decade of the visible window
 let selYear = solarYearNum(new Date());   // default: the current solar year is open
-let selFsMonth = null;                    // 1–12: solar month clicked for the big combined flying-star chart
+let selFsMonth = (function () {            // 1–12: defaults to the solar month we are in
+  try {
+    const t = new Date(); t.setHours(12, 0, 0, 0);
+    const hit = yearMonths(solarYearNum(t)).find(m => t >= m.start && t <= new Date(m.end.getFullYear(), m.end.getMonth(), m.end.getDate(), 23, 59, 59));
+    return hit ? hit.n : null;
+  } catch (e) { return null; }
+})();
 const _YGZ = {};                          // year → [gan, zhi] cache
 const GAN10 = "甲乙丙丁戊己庚辛壬癸";
 const LUNAR_MONTH_ZHI = ["寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"];  // lunar month 1 = 寅
@@ -1631,16 +1657,19 @@ function renderYearMonths() {
   if (fsMonthObj) {
     const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
     const goldFold = (brand, sub, cls="") => `
-    <div class="gold-fold">
+    <div class="gold-fold open">
       <div class="gold-fold-bar"><span class="gf-chev">▾</span> SuccessCode</div>
       <div class="gold-fold-body"><div class="gold-banner">
-        <div class="gb-brand ${cls}">${brand}</div>
-        <div class="gb-sub">${sub}</div>
+        <div class="gb-text">
+          <div class="gb-brand ${cls}">${brand}</div>
+          ${sub ? `<div class="gb-sub">${sub}</div>` : ""}
+        </div>
+        <a class="gb-btn" href="/2027">${L().foldReg}</a>
       </div></div>
     </div>`;
     fsBigHtml = `
     ${goldFold(L().fsBrandTop, "successcode.net/2027")}
-    <div class="ym-block">
+    <div class="ym-block ym-block-fs">
       <div class="ym-head">
         <span class="ym-title">${L().starsTitle} · ${L().months[fsMonthObj.n % 12]}</span>
         <span class="fs-tools">
@@ -1651,7 +1680,7 @@ function renderYearMonths() {
       </div>
       <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
     </div>
-    ${goldFold(L().fsBrandTop, "successcode.net/2027")}`;
+    ${goldFold(L().foldTrends, "", "gb-sentence")}`;
   }
 
   box.innerHTML = `
