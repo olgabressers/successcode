@@ -223,8 +223,9 @@
 
 <style id="ev27-style">
 /* EVENT BANNER — Код успеха 2027 · shared component, identical on every page.
-   Self-contained: no page variables, unique .ev27 prefix. */
-.ev27 { background: #b8903a; color: #2a0f10; font-family: 'Inter', sans-serif; }
+   Colours taken from the event page itself: its deep red #2a0f10 with gold. */
+.ev27 { background: #2a0f10; color: #e8e0d6; font-family: 'Inter', sans-serif;
+        border-bottom: 1px solid rgba(184,144,58,0.35); }
 .ev27-in {
   max-width: 1180px; margin: 0 auto; padding: 9px 22px;
   display: flex; align-items: center; justify-content: center;
@@ -232,18 +233,18 @@
 }
 .ev27-main {
   display: flex; align-items: baseline; justify-content: center;
-  gap: 10px; flex-wrap: wrap; text-decoration: none; color: #2a0f10;
+  gap: 10px; flex-wrap: wrap; text-decoration: none; color: #e8e0d6;
 }
-.ev27-main b { font-size: 14px; font-weight: 700; letter-spacing: .6px; }
-.ev27-main i { font-style: normal; font-size: 13px; font-weight: 500; }
+.ev27-main b { font-size: 14px; font-weight: 700; letter-spacing: .6px; color: #cfa44e; }
+.ev27-main i { font-style: normal; font-size: 13px; font-weight: 500; color: #e8e0d6; }
 .ev27-main:hover b { text-decoration: underline; }
 .ev27-btn {
-  display: inline-block; background: #2a0f10; color: #f5f1eb;
+  display: inline-block; background: #b8903a; color: #f5f1eb;
   text-decoration: none; font-size: 11px; font-weight: 600;
   letter-spacing: 1.4px; text-transform: uppercase;
   padding: 8px 16px; transition: background .25s;
 }
-.ev27-btn:hover { background: #4a1a1c; color: #f5f1eb; }
+.ev27-btn:hover { background: #cfa44e; color: #f5f1eb; }
 @media (max-width: 700px) {
   .ev27-in { padding: 8px 14px; gap: 7px 12px; }
   .ev27-main { flex-direction: column; gap: 3px; }
