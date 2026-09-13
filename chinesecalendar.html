@@ -393,20 +393,20 @@
   /* Foldable golden brand banners (for phone screen recordings) — collapsed by default */
   .gold-fold { margin: 8px 0; }
   .gold-fold-bar { display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer;
-    background: linear-gradient(90deg, #b8903a, #cfa44e, #b8903a); color: #fff6e4;
+    background: linear-gradient(90deg, #2a0f10, #4a1a1c, #2a0f10); color: #f0d5a2;
     padding: 6px 14px; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
     border: 1px solid var(--gold); user-select: none; }
   .gold-fold-bar .gf-chev { font-size: 11px; transition: transform .25s; }
   .gold-fold.open .gold-fold-bar .gf-chev { transform: rotate(180deg); }
   .gold-fold-body { display: none; }
   .gold-fold.open .gold-fold-body { display: block; }
-  .gold-banner { background: linear-gradient(135deg, #a67c26 0%, #cfa44e 42%, #ecd28a 52%, #cfa44e 62%, #a67c26 100%);
+  .gold-banner { background: linear-gradient(135deg, #200b0c 0%, #4a1a1c 42%, #6d272c 52%, #4a1a1c 62%, #200b0c 100%);
     border: 1px solid var(--gold); border-top: none; padding: 30px 20px; text-align: center; }
   .gold-banner .gb-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
-    letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(80,52,8,.45); }
+    letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.5); }
   .gold-banner .gb-brand.gb-brand-long { font-size: 24px; letter-spacing: 4.5px; line-height: 1.22; }
   .gold-banner .gb-sub { margin-top: 7px; font-size: 12.5px; letter-spacing: 3px; text-transform: uppercase;
-    color: #fff8ec; font-weight: 600; text-shadow: 0 1px 2px rgba(80,52,8,.35); }
+    color: #f0d5a2; font-weight: 600; text-shadow: 0 1px 2px rgba(0,0,0,.4); }
   .ym-cell.ym-cell-fs { cursor: pointer; }
   .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
   .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
@@ -775,7 +775,7 @@ const I18N = {
     fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
     fsBellTip: "Колокольчик — сектор с пятёркой (5)",
     fsJarTip: "Соляной раствор — сектор с семёркой (7)",
-    fsBrandTop: "Код успеха в вашей карте рождения",
+    fsBrandTop: "Код успеха 2027",
     leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
   },
   en: {
@@ -828,7 +828,7 @@ const I18N = {
     fsActTip: "Fountain on every favourable (green) sector",
     fsBellTip: "Bell — a sector holding a five (5)",
     fsJarTip: "Salt solution — a sector holding a seven (7)",
-    fsBrandTop: "Success code in your birth chart",
+    fsBrandTop: "SuccessCode 2027",
     leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
   }
 };
@@ -1639,7 +1639,7 @@ function renderYearMonths() {
       </div></div>
     </div>`;
     fsBigHtml = `
-    ${goldFold(L().fsBrandTop, "successcode.net/ru", "gb-brand-long")}
+    ${goldFold(L().fsBrandTop, "successcode.net/2027")}
     <div class="ym-block">
       <div class="ym-head">
         <span class="ym-title">${L().starsTitle} · ${L().months[fsMonthObj.n % 12]}</span>
@@ -1651,7 +1651,7 @@ function renderYearMonths() {
       </div>
       <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
     </div>
-    ${goldFold(L().calLink, "successcode.net/calendar")}`;
+    ${goldFold(L().fsBrandTop, "successcode.net/2027")}`;
   }
 
   box.innerHTML = `
