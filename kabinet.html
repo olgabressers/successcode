@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Личный кабинет · SuccessCode</title>
+<title>Your account · SuccessCode</title>
 <link rel="alternate" hreflang="en" href="https://successcode.net/kabinet">
 <link rel="alternate" hreflang="ru" href="https://successcode.net/ru/kabinet">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -115,22 +115,22 @@
 </head>
 <body>
 <nav>
-  <a href="/ru/" class="nav-logo">SuccessCode</a>
+  <a href="/" class="nav-logo">SuccessCode</a>
   <div class="nav-sections">
-    <a href="/calculators?lang=ru" class="nav-link">Калькуляторы</a>
-    <a href="/calendar" class="nav-link">Календарь</a>
-    <a href="/walks" class="nav-link">Прогулки</a>
-    <a href="/training" class="nav-link">Обучение</a>
-    <a href="/2027" class="nav-link">Подготовка к 2027</a>
-    <a href="/businessastrology" class="nav-link">Достижение цели</a>
-    <a href="/ru/kabinet" class="nav-link on">Войти</a>
+    <a href="/calculators?lang=en" class="nav-link">Calculators</a>
+    <a href="/calendar" class="nav-link">Calendar</a>
+    <a href="/walks" class="nav-link">Walks</a>
+    <a href="/training" class="nav-link">Training</a>
+    <a href="/2027" class="nav-link">Prepare for 2027</a>
+    <a href="/businessastrology" class="nav-link">Goals</a>
+    <a href="/kabinet" class="nav-link on">Log in</a>
   </div>
   <div class="nav-links">
-    <div class="lang-switch" aria-label="Язык">
-      <a href="/ru/kabinet" class="active">RU</a>
-      <a href="/kabinet">EN</a>
+    <div class="lang-switch" aria-label="Language">
+      <a href="/kabinet" class="active">EN</a>
+      <a href="/ru/kabinet">RU</a>
     </div>
-    <a href="/ru/#booking" class="nav-btn">Записаться</a>
+    <a href="/#booking" class="nav-btn">Book</a>
   </div>
 </nav>
 
@@ -138,29 +138,29 @@
   <div class="page-head">
     <div>
       <p class="eyebrow">SuccessCode</p>
-      <h1 class="disp">Личный кабинет</h1>
-      <p class="lead" id="lead">Ваши материалы в одном месте. Открытые доступны сразу, остальные — после оплаты.</p>
+      <h1 class="disp">Your account</h1>
+      <p class="lead" id="lead">Everything you have, in one place. Open items are available at once; the rest unlock after payment.</p>
     </div>
     <div class="acct" id="who" hidden>
       <span id="who-email"></span>
-      <button id="logout">Выйти</button>
+      <button id="logout">Log out</button>
     </div>
   </div>
 
   <!-- AUTH -->
   <section id="auth" class="auth" hidden>
     <div class="tabs">
-      <button id="tab-login" class="on" type="button">Вход</button>
-      <button id="tab-reg" type="button">Регистрация</button>
+      <button id="tab-login" class="on" type="button">Sign in</button>
+      <button id="tab-reg" type="button">Register</button>
     </div>
     <form id="form">
-      <label>Почта</label>
+      <label>Email</label>
       <input id="email" type="email" autocomplete="email" required>
-      <label>Пароль</label>
+      <label>Password</label>
       <input id="password" type="password" autocomplete="current-password" minlength="6" required>
-      <button class="btn" id="submit" type="submit">Войти</button>
+      <button class="btn" id="submit" type="submit">Sign in</button>
       <div class="msg" id="msg"></div>
-      <div class="hint" id="hint">Введите почту и пароль, чтобы войти в личный кабинет.</div>
+      <div class="hint" id="hint">Enter your email and password to open your account.</div>
     </form>
   </section>
 
@@ -171,17 +171,17 @@
 
   <!-- ITEM -->
   <section id="item" hidden>
-    <button class="back" id="item-back" type="button">← Назад в кабинет</button>
+    <button class="back" id="item-back" type="button">← Back to account</button>
     <div class="item">
       <h2 id="item-title"></h2>
       <div class="content" id="item-content"></div>
     </div>
   </section>
 
-  <div id="loading" class="spin">Загрузка…</div>
+  <div id="loading" class="spin">Loading…</div>
 </main>
 
-<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>
+<a href="#" class="back-to-top" id="backToTop" aria-label="Top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>
 
 <script>
 const API="https://kabinet-api.vercel.app";
@@ -207,11 +207,11 @@ function setMode(m){
   MODE=m;
   $("tab-login").classList.toggle("on", m==="login");
   $("tab-reg").classList.toggle("on", m==="reg");
-  $("submit").textContent = m==="login" ? "Войти" : "Создать аккаунт";
+  $("submit").textContent = m==="login" ? "Sign in" : "Create account";
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
   $("hint").textContent = m==="login"
-    ? "Введите почту и пароль, чтобы войти в личный кабинет."
-    : "Придумайте пароль (минимум 6 символов). Доступ к аккаунту откроется сразу.";
+    ? "Enter your email and password to open your account."
+    : "Choose a password (at least 6 characters). Your account opens right away.";
   $("msg").textContent="";
 }
 $("tab-login").onclick=()=>setMode("login");
@@ -227,8 +227,8 @@ $("form").addEventListener("submit", async (e)=>{
   $("submit").disabled=false;
   if(ok && data.access_token){ setTokens(data); route(); }
   else {
-    const err = data.error_description || data.msg || data.error || "Не получилось. Проверьте почту и пароль.";
-    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Неверная почта или пароль." : err;
+    const err = data.error_description || data.msg || data.error || "That didn't work. Check your email and password.";
+    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Wrong email or password." : err;
   }
 });
 
@@ -242,21 +242,22 @@ async function loadCabinet(){
   show("loading",false);
   if(!ok){ show("auth",true); return; }
   $("who-email").textContent=data.email||""; show("who",true);
-  $("lead").textContent="Ваши материалы в одном месте. Открытые доступны сразу, остальные — после оплаты.";
+  $("lead").textContent="Everything you have, in one place. Open items are available at once; the rest unlock after payment.";
   const grid=$("grid"); grid.innerHTML="";
   (data.products||[]).forEach(p=>{
+    const nm = p.name_en || p.name_ru;
     const el=document.createElement("div");
     if(p.unlocked){
       el.className="tile open";
       const art = p.tile_image
         ? `<div class="art"><img src="${p.tile_image}" alt=""></div>`
         : `<div class="art"><span class="mono">${p.is_free?"◇":"✦"}</span></div>`;
-      const foot = `<div class="meta"><span class="open-tag">${p.is_free?"Бесплатно":"Доступно"}</span><span>Открыть →</span></div>`;
-      el.innerHTML = art + `<div class="body"><div class="name">${p.name_ru}</div>${foot}</div>`;
+      const foot = `<div class="meta"><span class="open-tag">${p.is_free?"Free":"Available"}</span><span>Open →</span></div>`;
+      el.innerHTML = art + `<div class="body"><div class="name">${nm}</div>${foot}</div>`;
       el.onclick=()=>openItem(p.code);
     } else {
       el.className="tile locked";
-      el.innerHTML = `<div class="lockcard"><div class="ln">${p.name_ru}</div><div class="li">🔒</div><div class="lp">€${p.price_eur}</div><div class="ls">Доступ по запросу</div></div>`;
+      el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div><div class="li">🔒</div><div class="lp">€${p.price_eur}</div><div class="ls">Access on request</div></div>`;
     }
     grid.appendChild(el);
   });
@@ -269,10 +270,10 @@ async function openItem(code){
   show("loading",false);
   if(!ok) return loadCabinet();
   if((!data.content_html || !data.content_html.trim()) && data.target_url){ window.location.href=data.target_url; return; }
-  $("item-title").textContent=data.name_ru||"";
+  $("item-title").textContent=data.name_en||data.name_ru||"";
   $("item-content").innerHTML = (data.content_html && data.content_html.trim())
     ? data.content_html
-    : '<p class="empty">Материал скоро появится здесь.</p>';
+    : '<p class="empty">The material will appear here soon.</p>';
   show("item",true);
 }
 $("item-back").onclick=loadCabinet;
@@ -282,7 +283,7 @@ function route(){
   if(token()){ loadCabinet(); }
   else {
     show("loading",false); show("who",false); show("cabinet",false); show("item",false);
-    $("lead").textContent="Войдите или зарегистрируйтесь, чтобы открыть свои материалы.";
+    $("lead").textContent="Sign in or register to open your materials.";
     setMode("login"); show("auth",true);
   }
 }
