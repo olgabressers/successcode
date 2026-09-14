@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Кабинет · Управление</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+  :root{ --navy:#20242f; --gold:#c9a24a; --bg:#f2f0ea; --card:#fff; --ink:#26262b; --muted:#7b7b83; --line:#e2ddd1; }
+  html,body{ max-width:100vw; overflow-x:hidden; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:14px; }
+  header.top{ background:var(--navy); color:#fff; padding:14px 20px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .brand{ font-weight:700; letter-spacing:2px; font-size:14px; color:#fff; text-decoration:none; }
+  .brand b{ color:var(--gold); }
+  .who{ font-size:12px; color:#cfd0d6; display:flex; gap:10px; align-items:center; }
+  .who button{ background:transparent; border:1px solid #55596a; color:#e7e7ea; padding:6px 11px; border-radius:7px; cursor:pointer; font-size:12px; }
+  main{ max-width:940px; margin:0 auto; padding:26px 18px 80px; }
+  h1{ font-size:22px; margin:0 0 4px; } h2{ font-size:17px; margin:34px 0 12px; border-bottom:2px solid var(--gold); padding-bottom:6px; display:inline-block; }
+  .sub{ color:var(--muted); margin:0 0 8px; }
+  a.hub{ font-size:12px; color:var(--muted); }
+
+  .auth{ max-width:380px; margin:50px auto; background:var(--card); border:1px solid var(--line); border-radius:14px; padding:24px; }
+  label{ display:block; font-size:11px; letter-spacing:.4px; color:var(--muted); margin:12px 0 5px; text-transform:uppercase; }
+  input,select,textarea{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:9px; font-size:14px; background:#fbfaf7; outline:none; font-family:inherit; }
+  input:focus,select:focus,textarea:focus{ border-color:var(--gold); }
+  textarea{ min-height:150px; resize:vertical; font-family:ui-monospace,Menlo,monospace; font-size:13px; line-height:1.5; }
+  .btn{ background:var(--gold); color:#fff; border:1px solid var(--gold); padding:10px 16px; border-radius:9px; font-size:13px; cursor:pointer; font-weight:600; }
+  .btn:hover{ background:#b8912f; } .btn.sm{ padding:7px 12px; font-size:12px; }
+  .btn.ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .msg{ font-size:12px; color:#b23b3b; min-height:16px; margin-top:8px; }
+
+  table{ width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  th,td{ text-align:left; padding:11px 13px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle; }
+  th{ background:#faf8f3; font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--muted); }
+  tr:last-child td{ border-bottom:0; }
+  .chip{ display:inline-flex; align-items:center; gap:6px; background:#eef3ee; color:#2e7d55; border:1px solid #cfe2d3; border-radius:20px; padding:3px 10px; font-size:12px; margin:2px 4px 2px 0; }
+  .chip button{ background:transparent; border:0; color:#7a8a7d; cursor:pointer; font-size:13px; line-height:1; padding:0; }
+  .row-grant{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .row-grant select{ width:auto; min-width:140px; padding:6px 9px; font-size:12px; }
+  .prod{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px; margin-bottom:16px; }
+  .prod .code{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--muted); }
+  .prod .fields{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:10px 0; }
+  .prod .full{ grid-column:1/-1; }
+  .flags{ display:flex; gap:18px; align-items:center; font-size:13px; }
+  .flags label{ display:flex; align-items:center; gap:7px; margin:0; text-transform:none; letter-spacing:0; font-size:13px; color:var(--ink); }
+  .flags input{ width:auto; }
+  .ok{ color:#2e7d55; }
+  @media (max-width:700px){ *{max-width:100vw;} .prod .fields{ grid-template-columns:1fr; } main{ padding:20px 13px 70px; } th,td{ padding:9px; font-size:12px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/admin/delisted.html">SUCCESS<b>CODE</b> · Кабинет</a>
+  <div class="who" id="who" hidden><span id="who-email"></span><button id="logout">Выйти</button></div>
+</header>
+<main>
+  <section id="auth" class="auth" hidden>
+    <h1 style="font-size:18px;margin:0 0 14px">Вход для управления</h1>
+    <form id="lform">
+      <label>Почта</label><input id="email" type="email" autocomplete="email" required>
+      <label>Пароль</label><input id="password" type="password" autocomplete="current-password" required>
+      <button class="btn" id="lsubmit" type="submit" style="width:100%;margin-top:16px">Войти</button>
+      <div class="msg" id="lmsg"></div>
+    </form>
+  </section>
+
+  <section id="panel" hidden>
+    <h1>Управление кабинетом</h1>
+    <p class="sub">Открывайте доступ клиентам вручную и загружайте материалы. <a class="hub" href="/admin/delisted.html">← админ-хаб</a></p>
+
+    <h2>Клиенты и доступы</h2>
+    <div id="users-wrap"><table id="users"><thead><tr><th>Клиент</th><th>Регистрация</th><th>Доступы</th><th>Открыть доступ</th></tr></thead><tbody></tbody></table></div>
+
+    <h2>Продукты и материалы</h2>
+    <div id="prods"></div>
+  </section>
+
+  <div id="loading" class="sub" style="text-align:center;padding:40px">Загрузка…</div>
+</main>
+
+<script>
+const API="https://kabinet-api.vercel.app";
+const AT="sc_kab_at";
+const $=id=>document.getElementById(id);
+const show=(id,on)=>{ $(id).hidden=!on; };
+let PRODUCTS=[];
+
+function token(){ try{return localStorage.getItem(AT);}catch(e){return null;} }
+async function api(path,opts){ opts=opts||{}; opts.headers=Object.assign({"content-type":"application/json"},opts.headers||{}); const t=token(); if(t)opts.headers.authorization="Bearer "+t; const r=await fetch(API+path,opts); let d={}; try{d=await r.json();}catch(e){} return {ok:r.ok,status:r.status,data:d}; }
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fdate=s=>{ try{ return new Date(s).toLocaleDateString("ru-RU"); }catch(e){ return ""; } };
+
+$("lform").addEventListener("submit", async e=>{
+  e.preventDefault();
+  $("lsubmit").disabled=true; $("lmsg").textContent="";
+  const { ok, data } = await api("/api/login",{method:"POST",body:JSON.stringify({email:$("email").value.trim(),password:$("password").value})});
+  $("lsubmit").disabled=false;
+  if(ok&&data.access_token){ try{localStorage.setItem(AT,data.access_token);}catch(e){} boot(); }
+  else $("lmsg").textContent="Неверная почта или пароль.";
+});
+$("logout").onclick=()=>{ try{localStorage.removeItem(AT);}catch(e){} location.reload(); };
+
+async function boot(){
+  show("auth",false); show("panel",false); show("loading",true);
+  if(!token()){ show("loading",false); show("auth",true); return; }
+  const p=await api("/api/admin/products");
+  if(p.status===401||p.status===403){ show("loading",false); if(p.status===401){ show("auth",true); } else { $("loading").textContent="Этот аккаунт не имеет прав администратора."; } return; }
+  PRODUCTS=p.data.products||[];
+  await loadUsers();
+  renderProducts();
+  show("loading",false); show("panel",true);
+  $("who-email").textContent=""; show("who",true);
+}
+
+async function loadUsers(){
+  const { data }=await api("/api/admin/users");
+  const tb=$("users").querySelector("tbody"); tb.innerHTML="";
+  const opts=PRODUCTS.map(p=>`<option value="${p.code}">${esc(p.name_ru)}</option>`).join("");
+  (data.users||[]).forEach(u=>{
+    const active=(u.entitlements||[]).filter(e=>e.status==="active");
+    const chips=active.map(e=>`<span class="chip">${esc(e.product_code)}<button title="Закрыть доступ" onclick="revoke('${u.id}','${e.product_code}')">✕</button></span>`).join("")||'<span class="sub" style="font-size:12px">—</span>';
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${chips}</td>
+      <td><div class="row-grant"><select id="sel-${u.id}">${opts}</select><button class="btn sm" onclick="grant('${u.id}')">Открыть</button></div></td>`;
+    tb.appendChild(tr);
+  });
+}
+window.grant=async(uid)=>{ const code=$("sel-"+uid).value; await api("/api/admin/grant",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code,note:"выдано вручную"})}); loadUsers(); };
+window.revoke=async(uid,code)=>{ await api("/api/admin/revoke",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code})}); loadUsers(); };
+
+function renderProducts(){
+  const box=$("prods"); box.innerHTML="";
+  PRODUCTS.forEach(p=>{
+    const d=document.createElement("div"); d.className="prod";
+    d.innerHTML=`
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><strong>${esc(p.name_ru)}</strong><span class="code">${esc(p.code)}</span></div>
+      <div class="fields">
+        <div><label>Название</label><input id="n-${p.code}" value="${esc(p.name_ru)}"></div>
+        <div><label>Цена, €</label><input id="pr-${p.code}" type="number" step="0.01" value="${p.price_eur??""}"></div>
+        <div class="full"><label>Ссылка (если материал — внешняя страница)</label><input id="u-${p.code}" value="${esc(p.target_url)}"></div>
+        <div class="full"><label>Материал (текст, ссылки, код видео — показывается тем, у кого есть доступ)</label><textarea id="c-${p.code}">${esc(p.content_html)}</textarea></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap">
+        <div class="flags">
+          <label><input type="checkbox" id="f-${p.code}" ${p.is_free?"checked":""}> Бесплатный</label>
+          <label><input type="checkbox" id="a-${p.code}" ${p.is_active?"checked":""}> Показывать</label>
+        </div>
+        <div style="display:flex;gap:10px;align-items:center"><span class="ok" id="s-${p.code}"></span><button class="btn sm" onclick="saveProd('${p.code}')">Сохранить</button></div>
+      </div>`;
+    box.appendChild(d);
+  });
+}
+window.saveProd=async(code)=>{
+  const body={ code,
+    name_ru:$("n-"+code).value, price_eur:$("pr-"+code).value, target_url:$("u-"+code).value,
+    content_html:$("c-"+code).value, is_free:$("f-"+code).checked, is_active:$("a-"+code).checked };
+  const { ok }=await api("/api/admin/product-update",{method:"POST",body:JSON.stringify(body)});
+  $("s-"+code).textContent = ok ? "сохранено ✓" : "ошибка";
+  setTimeout(()=>{ $("s-"+code).textContent=""; }, 2500);
+};
+boot();
+</script>
+</body>
+</html>

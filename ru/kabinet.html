@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Личный кабинет · SuccessCode</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+  :root{ --navy:#20242f; --navy2:#2b3040; --gold:#c9a24a; --gold2:#e0c07a; --bg:#f5f3ee; --card:#ffffff; --ink:#26262b; --muted:#7b7b83; --line:#e3ddd0; }
+  html,body{ max-width:100vw; width:100%; overflow-x:hidden; position:relative; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+  a{ color:inherit; }
+  header.top{ background:var(--navy); color:#fff; padding:16px 22px; display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+  .brand{ font-weight:700; letter-spacing:3px; font-size:15px; color:#fff; text-decoration:none; }
+  .brand b{ color:var(--gold2); font-weight:700; }
+  .who{ display:flex; align-items:center; gap:12px; font-size:13px; color:#cfd0d6; }
+  .who button{ background:transparent; border:1px solid #55596a; color:#e7e7ea; padding:7px 12px; border-radius:8px; cursor:pointer; font-size:12px; }
+  .who button:hover{ border-color:var(--gold); color:#fff; }
+  main{ max-width:1000px; margin:0 auto; padding:34px 20px 80px; }
+  h1{ font-size:26px; font-weight:600; margin:0 0 6px; }
+  .sub{ color:var(--muted); font-size:14px; margin:0 0 28px; }
+
+  /* auth */
+  .auth{ max-width:400px; margin:40px auto; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 24px; box-shadow:0 8px 30px rgba(30,30,40,.06); }
+  .tabs{ display:flex; gap:6px; margin-bottom:20px; background:#efece4; padding:5px; border-radius:11px; }
+  .tabs button{ flex:1; border:0; background:transparent; padding:10px; border-radius:8px; font-size:14px; cursor:pointer; color:var(--muted); font-weight:500; }
+  .tabs button.on{ background:#fff; color:var(--ink); box-shadow:0 1px 4px rgba(0,0,0,.08); }
+  label{ display:block; font-size:12px; letter-spacing:.4px; color:var(--muted); margin:14px 0 6px; text-transform:uppercase; }
+  input{ width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-size:15px; background:#fbfaf7; outline:none; font-family:inherit; }
+  input:focus{ border-color:var(--gold); }
+  .btn{ width:100%; margin-top:20px; background:var(--gold); color:#fff; border:1px solid var(--gold); padding:13px; border-radius:10px; font-size:14px; letter-spacing:.6px; cursor:pointer; font-weight:600; }
+  .btn:hover{ background:#b8912f; }
+  .msg{ margin-top:14px; font-size:13px; color:#b23b3b; min-height:18px; text-align:center; }
+  .hint{ font-size:12px; color:var(--muted); text-align:center; margin-top:14px; line-height:1.5; }
+
+  /* grid */
+  .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:18px; }
+  .tile{ position:relative; background:var(--card); border:1px solid var(--line); border-radius:16px; overflow:hidden; display:flex; flex-direction:column; min-height:200px; transition:transform .15s, box-shadow .15s; }
+  .tile.open{ cursor:pointer; }
+  .tile.open:hover{ transform:translateY(-3px); box-shadow:0 12px 30px rgba(30,30,40,.12); }
+  .tile .art{ height:118px; background:linear-gradient(135deg,var(--navy),var(--navy2)); display:flex; align-items:center; justify-content:center; }
+  .tile .art img{ width:100%; height:100%; object-fit:cover; }
+  .tile .art .mono{ font-size:34px; color:var(--gold2); }
+  .tile .body{ padding:15px 16px 18px; flex:1; display:flex; flex-direction:column; }
+  .tile .name{ font-size:15px; font-weight:600; line-height:1.35; margin-bottom:6px; }
+  .tile .meta{ margin-top:auto; font-size:13px; color:var(--muted); display:flex; align-items:center; justify-content:space-between; }
+  .price{ color:var(--ink); font-weight:600; }
+  .open-tag{ color:#2e7d55; font-weight:600; font-size:12px; }
+  .lock{ position:absolute; inset:0; background:rgba(32,36,47,.62); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#fff; text-align:center; padding:16px; }
+  .lock .ico{ font-size:26px; }
+  .lock .p{ font-size:16px; font-weight:600; }
+  .lock .s{ font-size:12px; color:#d9dae0; }
+
+  /* item view */
+  .back{ background:transparent; border:0; color:var(--gold); font-size:14px; cursor:pointer; padding:0; margin-bottom:18px; }
+  .item{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:26px 24px; }
+  .item h2{ margin:0 0 18px; font-size:22px; }
+  .item .content img,.item .content iframe{ max-width:100%; }
+  .empty{ color:var(--muted); font-size:14px; }
+
+  .spin{ text-align:center; color:var(--muted); padding:50px; font-size:14px; }
+
+  .back-to-top{ position:fixed; right:22px; bottom:22px; width:52px; height:52px; border-radius:50%; background:var(--gold); color:#fff; display:none; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.2); z-index:50; }
+  .back-to-top svg{ width:22px; height:22px; }
+  @media (max-width:768px){
+    *{ max-width:100vw; } img,iframe{ max-width:100% !important; }
+    main{ padding:24px 15px 70px; } h1{ font-size:22px; }
+    .grid{ grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:13px; }
+    .back-to-top{ width:46px; height:46px; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/ru/">SUCCESS<b>CODE</b></a>
+  <div class="who" id="who" hidden>
+    <span id="who-email"></span>
+    <button id="logout">Выйти</button>
+  </div>
+</header>
+
+<main>
+  <!-- AUTH -->
+  <section id="auth" class="auth" hidden>
+    <div class="tabs">
+      <button id="tab-login" class="on" type="button">Вход</button>
+      <button id="tab-reg" type="button">Регистрация</button>
+    </div>
+    <form id="form">
+      <label>Почта</label>
+      <input id="email" type="email" autocomplete="email" required>
+      <label>Пароль</label>
+      <input id="password" type="password" autocomplete="current-password" minlength="6" required>
+      <button class="btn" id="submit" type="submit">Войти</button>
+      <div class="msg" id="msg"></div>
+      <div class="hint" id="hint">Введите почту и пароль, чтобы войти в личный кабинет.</div>
+    </form>
+  </section>
+
+  <!-- CABINET -->
+  <section id="cabinet" hidden>
+    <h1>Личный кабинет</h1>
+    <p class="sub">Здесь собраны ваши материалы. Открытые доступны сразу, остальные — после оплаты.</p>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <!-- ITEM -->
+  <section id="item" hidden>
+    <button class="back" id="item-back" type="button">← Назад в кабинет</button>
+    <div class="item">
+      <h2 id="item-title"></h2>
+      <div class="content" id="item-content"></div>
+    </div>
+  </section>
+
+  <div id="loading" class="spin">Загрузка…</div>
+</main>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>
+
+<script>
+const API="https://kabinet-api.vercel.app";
+const AT="sc_kab_at", RT="sc_kab_rt";
+const $=id=>document.getElementById(id);
+const show=(id,on)=>{ $(id).hidden=!on; };
+let MODE="login";
+
+function token(){ try{ return localStorage.getItem(AT); }catch(e){ return null; } }
+function setTokens(j){ try{ if(j.access_token) localStorage.setItem(AT,j.access_token); if(j.refresh_token) localStorage.setItem(RT,j.refresh_token); }catch(e){} }
+function clearTokens(){ try{ localStorage.removeItem(AT); localStorage.removeItem(RT); }catch(e){} }
+
+async function api(path, opts){
+  opts=opts||{}; opts.headers=Object.assign({"content-type":"application/json"}, opts.headers||{});
+  const t=token(); if(t) opts.headers.authorization="Bearer "+t;
+  const r=await fetch(API+path, opts);
+  let data={}; try{ data=await r.json(); }catch(e){}
+  return { ok:r.ok, status:r.status, data };
+}
+
+// ---- auth screen ----
+function setMode(m){
+  MODE=m;
+  $("tab-login").classList.toggle("on", m==="login");
+  $("tab-reg").classList.toggle("on", m==="reg");
+  $("submit").textContent = m==="login" ? "Войти" : "Создать аккаунт";
+  $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
+  $("hint").textContent = m==="login"
+    ? "Введите почту и пароль, чтобы войти в личный кабинет."
+    : "Придумайте пароль (минимум 6 символов). Доступ к аккаунту откроется сразу.";
+  $("msg").textContent="";
+}
+$("tab-login").onclick=()=>setMode("login");
+$("tab-reg").onclick=()=>setMode("reg");
+
+$("form").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const email=$("email").value.trim(), password=$("password").value;
+  if(!email||!password) return;
+  $("submit").disabled=true; $("msg").textContent="";
+  const path = MODE==="login" ? "/api/login" : "/api/register";
+  const { ok, data } = await api(path, { method:"POST", body:JSON.stringify({email,password}) });
+  $("submit").disabled=false;
+  if(ok && data.access_token){ setTokens(data); route(); }
+  else {
+    const err = data.error_description || data.msg || data.error || "Не получилось. Проверьте почту и пароль.";
+    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Неверная почта или пароль." : err;
+  }
+});
+
+$("logout").onclick=()=>{ clearTokens(); route(); };
+
+// ---- cabinet ----
+async function loadCabinet(){
+  show("auth",false); show("item",false); show("cabinet",false); show("loading",true);
+  const { ok, status, data } = await api("/api/cabinet");
+  if(status===401){ clearTokens(); return route(); }
+  show("loading",false);
+  if(!ok){ show("auth",true); return; }
+  $("who-email").textContent=data.email||""; show("who",true);
+  const grid=$("grid"); grid.innerHTML="";
+  (data.products||[]).forEach(p=>{
+    const el=document.createElement("div");
+    el.className="tile"+(p.unlocked?" open":"");
+    const art = p.tile_image
+      ? `<div class="art"><img src="${p.tile_image}" alt=""></div>`
+      : `<div class="art"><span class="mono">${p.is_free?"◇":"✦"}</span></div>`;
+    const foot = p.unlocked
+      ? `<div class="meta"><span class="open-tag">${p.is_free?"Бесплатно":"Доступно"}</span><span>Открыть →</span></div>`
+      : `<div class="meta"><span class="price">€${p.price_eur}</span></div>`;
+    const lock = p.unlocked ? "" :
+      `<div class="lock"><div class="ico">🔒</div><div class="p">€${p.price_eur}</div><div class="s">Доступ по запросу</div></div>`;
+    el.innerHTML = art + `<div class="body"><div class="name">${p.name_ru}</div>${foot}</div>` + lock;
+    if(p.unlocked) el.onclick=()=>openItem(p.code);
+    grid.appendChild(el);
+  });
+  show("cabinet",true);
+}
+
+async function openItem(code){
+  show("cabinet",false); show("loading",true);
+  const { ok, data } = await api("/api/content?code="+encodeURIComponent(code));
+  show("loading",false);
+  if(!ok) return loadCabinet();
+  if((!data.content_html || !data.content_html.trim()) && data.target_url){ window.location.href=data.target_url; return; }
+  $("item-title").textContent=data.name_ru||"";
+  $("item-content").innerHTML = (data.content_html && data.content_html.trim())
+    ? data.content_html
+    : '<p class="empty">Материал скоро появится здесь.</p>';
+  show("item",true);
+}
+$("item-back").onclick=loadCabinet;
+
+// ---- routing ----
+function route(){
+  if(token()){ loadCabinet(); }
+  else { show("loading",false); show("who",false); show("cabinet",false); show("item",false); setMode("login"); show("auth",true); }
+}
+route();
+
+// back-to-top
+(function(){ const b=$("backToTop"); window.addEventListener("scroll",()=>{ b.style.display = window.scrollY>400 ? "flex":"none"; }); b.onclick=(e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); }; })();
+</script>
+</body>
+</html>
