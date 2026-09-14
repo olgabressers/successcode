@@ -1,0 +1,1655 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>历 · Chinese Calendar</title>
+<link rel="canonical" href="https://successcode.net/chinesecalendar">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+    --el-wood: #2e7d32; --el-fire: #c62828; --el-earth: #8d6e2b;
+    --el-metal: #607d8b; --el-water: #1565c0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+
+  .brand-logo { position: absolute; top: 14px; left: 16px; z-index: 50;
+                font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 700;
+                letter-spacing: 4px; text-transform: uppercase; color: var(--gold);
+                text-decoration: none; line-height: 1; }
+  .brand-logo:hover { color: var(--gold-dim); }
+
+  .brand-cal-link { align-self: center; margin-right: 12px; font-family: 'Cormorant Garamond', serif;
+                    font-size: 15px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase;
+                    color: var(--gold); text-decoration: none; line-height: 1; white-space: nowrap; }
+  .brand-cal-link:hover { color: var(--gold-dim); }
+
+  .lang-switch { position: absolute; top: 14px; right: 16px; z-index: 50; display: flex; align-items: center; gap: 4px; }
+  .lang-switch button { background: transparent; border: 1px solid var(--border);
+                        color: var(--text-muted); padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
+                        cursor: pointer; font-family: 'Inter', sans-serif; }
+  .lang-switch button.on { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+  .print-btn { position: absolute; top: 44px; right: 16px; z-index: 50; background: var(--gold);
+               border: 1px solid var(--gold); color: #fff; padding: 5px 11px;
+               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .print-btn:hover { background: var(--gold-dim); border-color: var(--gold-dim); color: #fff; }
+  /* ── Print / PDF — exactly two pages ─────────────────
+     page 1: day pillars → calendar grid → hour pillars → day-officer legend
+     page 2: month pillars (solar + lunar) + flying stars of the picked year */
+  @page { size: A4 portrait; margin: 8mm; }
+  @media print {
+    .lang-switch, .print-btn, .nav, .disp-row, #db-controls, .backnav,
+    .brand-logo, .years, .ym-close { display: none !important; }
+    html, body { width: auto; max-width: none; overflow: visible; }
+    body { zoom: .7; padding: 0; background: #fff;
+           -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    header { margin-bottom: 16px; }
+    .cell { min-height: 92px; }
+    /* page 2 starts at the month tables (empty when no year is open → no blank page) */
+    .ymonths:empty { display: none; }
+    .ymonths:not(:empty) { break-before: page; page-break-before: always; }
+    .ym-block:first-child { margin-top: 0; }
+    .daybar, .cal, .hours, .ind-legend, .ym-block, .fs-block { break-inside: avoid; }
+    .footer-brand { margin-top: 14px; }
+  }
+
+  header { text-align: center; margin-bottom: 28px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+             color: var(--text-muted); margin-top: 6px; }
+
+  .wrap { max-width: 960px; margin: 0 auto; }
+
+  /* ── Top: date + dual charts ─────────────────── */
+  .daybar { background: var(--surface); border: 1px solid var(--border); margin-bottom: 18px; }
+  .daybar-head { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+                 flex-wrap: wrap; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .db-datewrap { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .daybar-greg { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--text); }
+  .daybar-dow  { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-dim); }
+  .daybar-term { font-size: 12px; color: var(--el-fire); font-weight: 600; letter-spacing: .5px; }
+
+  .db-charts { display: flex; gap: 18px; padding: 18px; }
+  .db-chart { flex: 1; border: 1px solid var(--border); display: flex; flex-direction: column; }
+  .db-cap { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: .3px; color: var(--gold-dim);
+            text-align: center; padding: 8px 8px 10px; border-top: 1px solid var(--border); line-height: 1.35; }
+
+  .pillars { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .pillar { display: flex; flex-direction: column; align-items: center; text-align: center;
+            gap: 5px; padding: 12px 4px 14px; border-right: 1px solid var(--border); }
+  .pillar:last-child { border-right: none; }
+  .pillar-h { background: #faf7ef; color: var(--text-muted); font-size: 9px; letter-spacing: 1px;
+              text-transform: uppercase; font-weight: 600; padding: 5px 4px; margin: -12px -4px 5px;
+              width: calc(100% + 8px); border-bottom: 1px solid var(--border); }
+  .pillar-gz { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; line-height: 1; }
+  .pillar-el { font-size: 8.5px; letter-spacing: .3px; color: var(--text-muted);
+               text-transform: uppercase; line-height: 1.2; }
+
+  /* ── Month navigation ───────────────────────────────── */
+  .nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 14px; }
+  .nav button { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+                font-family: 'Inter', sans-serif; font-size: 14px; padding: 8px 14px; cursor: pointer;
+                transition: background .2s, color .2s; line-height: 1; }
+  .nav button:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .nav .title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500;
+                color: var(--gold); letter-spacing: 1px; min-width: 220px; text-align: center; }
+  .nav .today-btn { font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 8px 12px; }
+  .nav select { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+                padding: 6px 8px; font-family: 'Inter', sans-serif; font-size: 13px; cursor: pointer; }
+
+  /* ── Calendar grid ──────────────────────────────────── */
+  .cal { background: var(--surface); border: 1px solid var(--border); border-bottom: none; }
+  .cal-dow, .cal-week { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .cal-dow div { text-align: center; font-size: 10.5px; letter-spacing: 1.5px; text-transform: uppercase;
+                 color: var(--text-muted); font-weight: 600; padding: 10px 2px; background: #faf7ef;
+                 border-bottom: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .cal-dow div:last-child { border-right: none; }
+  .cal-dow div.we { color: var(--gold-dim); }
+
+  .cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+          min-height: 104px; padding: 6px 5px 8px; cursor: pointer; position: relative;
+          display: flex; flex-direction: column; align-items: center; gap: 2px; transition: background .12s; }
+  .cell:nth-child(7n) { border-right: none; }
+  .cell:hover { background: #faf7ef; }
+  .cell.out { background: #faf9f5; cursor: default; }
+  .cell.out:hover { background: #faf9f5; }
+  .cell.out .c-num, .cell.out .c-gz, .cell.out .c-lunar { opacity: .34; }
+  .cell.today { box-shadow: inset 0 0 0 2px var(--gold); }
+  .cell.sel { background: #fbf3e0; }
+  .cell.sel:hover { background: #fbf3e0; }
+
+  .c-num { position: absolute; top: 4px; right: 6px; font-family: 'Cormorant Garamond', serif;
+           font-size: 17px; font-weight: 600; line-height: 1; }
+  /* top-left icons: Mercury retrograde (black), solar/lunar eclipse (half black / half yellow) */
+  .c-icons { position: absolute; top: 5px; left: 5px; display: flex; gap: 2px; }
+  .ic-merc, .ic-esol, .ic-elun { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+  .ic-merc { background: #111; }
+  .ic-esol { background: linear-gradient(90deg, #111 0 50%, #f1c40f 50% 100%); box-shadow: 0 0 0 .5px #b7791f; }
+  .ic-elun { background: linear-gradient(90deg, #060f26 0 50%, #33507d 50% 100%); box-shadow: 0 0 0 .5px #060f26; }
+  /* day pillar horizontal: stem + branch side by side */
+  .c-gz { margin-top: 15px; font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600; line-height: 1; }
+  .c-term { font-size: 9.5px; color: var(--el-fire); font-weight: 600; line-height: 1.15; }
+  .c-term-t { font-weight: 400; color: var(--text-muted); font-size: 8.5px; }
+  .c-evt-t { display: block; font-weight: 600; font-size: 8px; color: var(--text-dim); line-height: 1.1; margin-top: 1px; letter-spacing: .2px; }
+  .c-ind { font-size: 10px; line-height: 1.15; color: var(--gold-dim); font-weight: 600; margin-top: 3px; }
+  .c-clash { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
+  .cl-m, .cl-y { font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; color: #fff; }
+  .cl-m { background: #c0392b; }   /* clash with month (月破) */
+  .cl-y { background: #7b4397; }   /* clash with year (岁破) */
+  .cl-nw { color: #fff; background: #4a4a4a; font-size: 9.5px; font-weight: 700; padding: 0 4px; border-radius: 2px; line-height: 1.35; }  /* День без богатства */
+  /* 三煞 chips */
+  .sha-jie, .sha-zai, .sha-sui { color: #fff; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
+  .sha-jie { background: #a93226; }  /* 劫煞 robbery */
+  .sha-zai { background: #ca6f1e; }  /* 灾煞 disaster */
+  .sha-sui { background: #7d6608; }  /* 岁煞 / 月煞 */
+
+  .cl-km { color: #fff; background: #5b2c6f; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }  /* убивающий мастера */
+  .cl-rx, .cl-esol, .cl-elun { color: #fff; font-size: 9px; font-weight: 700; padding: 0 3px; border-radius: 2px; line-height: 1.35; }
+  .cl-rx { background: #16846e; }    /* Mercury retrograde */
+  .cl-esol { background: #b7791f; }  /* solar eclipse */
+  .cl-elun { background: #34495e; }  /* lunar eclipse */
+
+  /* Header: Solar month (left) + Lunar month (right) */
+  .cal-header { display: flex; gap: 12px; max-width: 760px; margin: 0 auto 14px; }
+  .hdr-side { flex: 1; border: 1px solid var(--border); background: var(--surface);
+              padding: 8px 8px 10px; display: flex; flex-direction: column; align-items: center; gap: 7px; }
+  .hdr-side.active { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+  .hdr-cap { font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: .3px;
+             color: var(--gold-dim); text-align: center; line-height: 1.35; }
+  .month-pillars { display: flex; width: 100%; }
+  .mp { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px;
+        padding: 4px 6px; border-right: 1px solid var(--border); }
+  .mp:last-child { border-right: none; }
+  .mp-h { font-size: 9.5px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .mp-gz { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1; }
+  .mp-num { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1; color: var(--gold); }
+  .mp-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; text-align: center; }
+
+  /* Display-options dropdown */
+  .disp-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+  .disp { position: relative; }
+  #disp-btn { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
+              padding: 8px 14px; cursor: pointer; transition: background .2s, color .2s; }
+  #disp-btn:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .disp-menu { position: absolute; top: 100%; right: 0; margin-top: 4px; z-index: 40; background: #fff;
+               border: 1px solid var(--border); min-width: 220px; display: none; padding: 6px 0;
+               box-shadow: 0 4px 14px rgba(0,0,0,.08); }
+  .disp-menu.open { display: block; }
+  .disp-menu label { display: flex; align-items: center; gap: 8px; padding: 8px 14px;
+                     font-family: 'Inter', sans-serif; font-size: 13px; color: var(--text-dim); cursor: pointer; }
+  .disp-menu label:hover { background: #faf7ef; }
+  .disp-menu label.disp-all { font-weight: 600; color: var(--gold); border-bottom: 1px solid var(--border); }
+  .disp-menu input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; }
+
+  /* Officers legend */
+  .ind-legend { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border);
+                padding: 12px 18px; font-family: 'Inter', sans-serif; font-size: 12.5px; color: var(--text-dim);
+                line-height: 2; display: none; }
+  .ind-legend.show { display: block; }
+  .ind-legend .lg-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                          letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px; }
+  .ind-legend b { color: var(--gold-dim); }
+  .ind-legend .lg-clash { margin-top: 8px; }
+  .ind-legend .cl-m, .ind-legend .cl-y { font-size: 10px; }
+
+  /* ── Hour pillars table ─────────────────────────────── */
+  .hours { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
+  .hours-title { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px;
+                 flex-wrap: wrap; font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500;
+                 color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase;
+                 padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .hours-controls { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .city-wrap { position: relative; }
+  #cal-city { background: #f8f6f2; border: 1px solid var(--border); color: var(--text);
+              font-family: 'Inter', sans-serif; font-size: 12px; letter-spacing: 0; text-transform: none;
+              padding: 7px 10px; width: 170px; outline: none; }
+  #cal-city:focus { border-color: var(--gold); }
+  .solar-toggle { display: flex; align-items: center; gap: 6px; font-family: 'Inter', sans-serif;
+                  font-size: 12px; letter-spacing: .5px; text-transform: none; color: var(--text-dim);
+                  cursor: pointer; white-space: nowrap; }
+  .solar-toggle input { cursor: pointer; accent-color: var(--gold); width: 15px; height: 15px; }
+  .solar-info { font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0; text-transform: none;
+                color: var(--gold-dim); font-weight: 400; white-space: nowrap; }
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; min-width: 240px; z-index: 30; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 220px; overflow-y: auto;
+             display: none; text-transform: none; letter-spacing: 0; }
+  .city-opt { padding: 8px 10px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 400;
+              color: var(--text); cursor: pointer; border-bottom: 1px solid #eee; letter-spacing: 0; }
+  .city-opt:hover { background: #faf7ef; }
+  .nav-selects { display: flex; gap: 8px; }
+  .hours-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .hcell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+           padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
+  .hcell:nth-child(6n) { border-right: none; }
+  .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: none; }
+  .hcell.now { background: #fbf3e0; }
+  .h-range { font-size: 10px; color: var(--text-muted); letter-spacing: .3px; }
+  .h-gz { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1; }
+  .h-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; }
+
+  .el-wood  { color: var(--el-wood); }
+  .el-fire  { color: var(--el-fire); }
+  .el-earth { color: var(--el-earth); }
+  .el-metal { color: var(--el-metal); }
+  .el-water { color: var(--el-water); }
+
+  .backnav { text-align: center; margin-top: 30px; }
+  .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase;
+               text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; }
+  .backnav a:hover { color: var(--gold); }
+
+  .footer-brand { text-align: center; margin-top: 22px; font-family: 'Cormorant Garamond', serif;
+                  font-size: 13px; letter-spacing: 3px; color: var(--text-muted); text-transform: uppercase; }
+
+  /* ── Flying stars (玄空飞星) ─────────────────────────── */
+  .fs-block { background: var(--surface); border: 1px solid var(--border); padding: 14px 16px 16px; flex: 1 1 250px; max-width: 300px; }
+  .fs-title { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500; color: var(--gold);
+              letter-spacing: 1px; text-align: center; }
+  .fs-range { font-size: 11.5px; color: var(--text-muted); text-align: center; margin: 3px 0 12px; letter-spacing: .3px; }
+  .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+  .fs-cell { aspect-ratio: 1 / 1; border: 1px solid var(--border); background: #faf8f3; position: relative;
+             display: flex; align-items: center; justify-content: center; }
+  .fs-cell.c { background: #fbf3e0; }
+  .fs-dir { position: absolute; top: 3px; left: 0; right: 0; text-align: center; font-size: 8.5px;
+            letter-spacing: .5px; color: var(--text-muted); text-transform: uppercase; }
+  .fs-val { font-family: 'Cormorant Garamond', serif; font-size: 27px; font-weight: 700; line-height: 1; margin-top: 5px; }
+  /* star colours by ELEMENT: 1 water · 2·5·8 earth · 3·4 wood · 6·7 metal · 9 fire */
+  .fs-1{color:var(--el-water)}
+  .fs-2{color:var(--el-earth)} .fs-5{color:var(--el-earth)} .fs-8{color:var(--el-earth)}
+  .fs-3{color:var(--el-wood)}  .fs-4{color:var(--el-wood)}
+  .fs-6{color:var(--el-metal)} .fs-7{color:var(--el-metal)}
+  .fs-9{color:var(--el-fire)}
+
+  /* ── Year pillars 1950–2050 ─────────────────────────── */
+  .years { max-width: 960px; margin: 20px auto 0; background: var(--surface); border: 1px solid var(--border); }
+  .years-title { display: flex; justify-content: space-between; align-items: baseline; gap: 10px 16px; flex-wrap: wrap;
+                 font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+                 letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 18px;
+                 border-bottom: 1px solid var(--border); }
+  .years-hint { font-family: 'Inter', sans-serif; font-size: 11.5px; letter-spacing: 0; text-transform: none;
+                color: var(--text-muted); font-weight: 400; }
+  .years-nav { display: flex; align-items: center; gap: 8px; }
+  .years-nav button { background: var(--surface); border: 1px solid var(--border); color: var(--gold-dim);
+                      font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1; padding: 6px 12px;
+                      cursor: pointer; transition: background .2s, color .2s; }
+  .years-nav button:hover:not(:disabled) { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .years-nav button:disabled { opacity: .3; cursor: default; }
+  .years-range { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 500;
+                 color: var(--text-dim); letter-spacing: 1px; min-width: 108px; text-align: center; }
+  .yr-grid { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); }
+  .yr-col { border-right: 1px solid var(--border); padding: 9px 3px 11px; }
+  .yr-col:last-child { border-right: none; }
+  .yr-dec { text-align: center; font-size: 10px; letter-spacing: 1px; color: var(--text-muted);
+            font-weight: 600; padding-bottom: 6px; margin-bottom: 5px; border-bottom: 1px dashed var(--border); }
+  .yr-row { display: grid; grid-template-columns: 1fr auto; gap: 4px; align-items: center;
+            font-size: 10.5px; color: var(--text-dim); padding: 2px 4px; cursor: pointer;
+            line-height: 1.25; border-radius: 2px; }
+  .yr-row:hover { background: #faf7ef; }
+  .yr-row.now { box-shadow: inset 0 0 0 1px var(--gold); }
+  .yr-row.on { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; font-weight: 700; }
+  .yr-y { color: var(--text-muted); }
+  .yr-row.on .yr-y { color: var(--gold-dim); }
+  .yr-gz { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 13px; line-height: 1; }
+
+  /* ── Month pillars of the picked year ───────────────── */
+  .ymonths { max-width: 960px; margin: 0 auto; }
+  .ym-block { margin-top: 14px; background: var(--surface); border: 1px solid var(--border); }
+  .ym-head { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap;
+             padding: 12px 18px; border-bottom: 1px solid var(--border); background: #faf7ef; }
+  .ym-title { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 500; color: var(--gold);
+              letter-spacing: 1.5px; text-transform: uppercase; }
+  .ym-year { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1;
+             display: flex; align-items: baseline; gap: 8px; }
+  .ym-year-sub { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: .3px;
+                 text-transform: uppercase; color: var(--text-muted); font-weight: 400; }
+  .ym-close { background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+              font-family: 'Inter', sans-serif; font-size: 13px; line-height: 1; padding: 5px 9px; cursor: pointer; }
+  .ym-close:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+  .ym-note { font-family: 'Inter', sans-serif; font-size: 11.5px; color: var(--text-muted);
+             padding: 8px 18px; border-top: 1px solid var(--border); }
+  .ym-grid { display: grid; grid-template-columns: repeat(6, 1fr); }
+  .ym-cell { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border);
+             padding: 10px 6px 12px; text-align: center; display: flex; flex-direction: column;
+             align-items: center; gap: 4px; }
+  .ym-cell:nth-child(6n) { border-right: none; }
+  .ym-cell.last-row { border-bottom: none; }
+  .ym-cell.leap { background: #faf9f5; }
+  .ym-n { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+  .ym-n .leap-tag { color: var(--gold-dim); }
+  .ym-range { font-size: 10.5px; color: var(--text-dim); line-height: 1.3; }
+  .ym-gz { font-family: 'Cormorant Garamond', serif; font-size: 25px; font-weight: 600; line-height: 1; margin-top: 2px; }
+  .ym-gz.none { color: var(--text-muted); font-size: 20px; }
+  .ym-el { font-size: 9px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .3px; line-height: 1.25; }
+  .ym-hide { margin-top: 3px; padding-top: 5px; border-top: 1px dashed var(--border); width: 100%; }
+  .ym-hide-l { font-size: 8.5px; letter-spacing: .6px; text-transform: uppercase; color: var(--text-muted); }
+  .ym-hide-g { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600;
+               line-height: 1.15; display: flex; justify-content: center; gap: 5px; }
+  .ym-term { font-size: 10px; color: var(--text-dim); line-height: 1.25; }
+
+  /* Compact flying-star charts for the picked year (year + 12 solar months) */
+  .fs-mini { --fs-cols: 6; --fs-gap: 8px; padding: 12px; }
+  .fs-year-row { display: flex; justify-content: center; margin-bottom: var(--fs-gap); }
+  .fs-year-row .fs-block { width: calc((100% - (var(--fs-cols) - 1) * var(--fs-gap)) / var(--fs-cols)); }
+  .fs-months { display: grid; grid-template-columns: repeat(var(--fs-cols), 1fr); gap: var(--fs-gap); }
+  .fs-mini .fs-block { flex: none; max-width: none; padding: 7px 7px 9px;
+                       border: 1px solid var(--border); background: var(--surface); }
+  .fs-mini .fs-title { font-size: 12.5px; letter-spacing: .5px; }
+  .fs-mini .fs-range { font-size: 9.5px; margin: 2px 0 6px; }
+  .fs-mini .fs-grid { gap: 2px; }
+  .fs-mini .fs-dir { font-size: 7px; top: 2px; }
+  .fs-mini .fs-val { font-size: 16px; margin-top: 4px; }
+
+  /* Big combined chart for ONE clicked month: monthly number large centre, annual number small bottom-right */
+  .fs-big-wrap { padding: 14px 16px 16px; display: flex; justify-content: center; }
+  .fs-block.fs-big { max-width: 320px; width: 100%; padding: 12px 14px 16px; }
+  .fs-big .fs-grid { gap: 6px; }
+  .fs-big .fs-cell { border: 1px solid var(--border); cursor: pointer; }
+  .fs-big .fs-cell.dir-sel { border-width: 4px; border-color: var(--gold); }
+  .fs-big .fs-dir { font-size: 9.5px; top: 6px; letter-spacing: 1px; }
+  .fs-big .fs-val-m { font-family: 'Cormorant Garamond', serif; font-weight: 700; font-size: 32px; line-height: 1; }
+  .fs-big .fs-val-y { position: absolute; bottom: 6px; right: 8px; font-family: 'Cormorant Garamond', serif;
+                       font-weight: 700; font-size: 22px; line-height: 1; opacity: .92; }
+  /* combo colouring: good = any of 1,6,8,9 together · mixed = one of 1,6,8,9 with 3 or 4 · bad = everything else */
+  .fs-cell.good  { background: #dcefdc; border-color: #a9d3ab; }
+  .fs-cell.mixed { background: #fae3c2; border-color: #e0b374; }
+  .fs-cell.bad   { background: #f6d6d6; border-color: #e3a3a3; }
+  .fs-big .fs-cell.c { background: #fff; border-color: var(--border); }
+  /* Activator / protection tools for the clicked-month chart */
+  .fs-tools { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .fs-tool { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; letter-spacing: .3px;
+             color: var(--text-muted); cursor: pointer; user-select: none; }
+  .fs-tool input { accent-color: var(--gold); width: 15px; height: 15px; cursor: pointer; margin: 0; }
+  .fs-tool .fs-tool-ic { font-size: 19px; line-height: 1; }
+  .fs-marks { position: absolute; left: 3px; bottom: 3px; display: flex; flex-direction: column; gap: 3px; z-index: 3; pointer-events: none; }
+  .fs-mk { display: none; width: 34px; height: 34px; align-items: center; justify-content: center;
+           font-size: 24px; line-height: 1; border-radius: 50%; background: #fff;
+           border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(0,0,0,.20); }
+  .fs-big-wrap.act-on  .fs-mk-fountain { display: flex; }
+  .fs-big-wrap.bell-on .fs-mk-bell { display: flex; }
+  .fs-big-wrap.jar-on  .fs-mk-jar { display: flex; }
+  /* Foldable golden brand banners (for phone screen recordings) — collapsed by default */
+  .gold-fold { margin: 8px 0; }
+  .gold-fold-bar { display: flex; align-items: center; justify-content: center; gap: 9px; cursor: pointer;
+    background: linear-gradient(90deg, #b8903a, #cfa44e, #b8903a); color: #fff6e4;
+    padding: 6px 14px; font-size: 10.5px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700;
+    border: 1px solid var(--gold); user-select: none; }
+  .gold-fold-bar .gf-chev { font-size: 11px; transition: transform .25s; }
+  .gold-fold.open .gold-fold-bar .gf-chev { transform: rotate(180deg); }
+  .gold-fold-body { display: none; }
+  .gold-fold.open .gold-fold-body { display: block; }
+  .gold-banner { background: linear-gradient(135deg, #a67c26 0%, #cfa44e 42%, #ecd28a 52%, #cfa44e 62%, #a67c26 100%);
+    border: 1px solid var(--gold); border-top: none; padding: 30px 20px; text-align: center; }
+  .gold-banner .gb-brand { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700;
+    letter-spacing: 9px; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(80,52,8,.45); }
+  .gold-banner .gb-sub { margin-top: 7px; font-size: 12.5px; letter-spacing: 3px; text-transform: uppercase;
+    color: #fff8ec; font-weight: 600; text-shadow: 0 1px 2px rgba(80,52,8,.35); }
+  .ym-cell.ym-cell-fs { cursor: pointer; }
+  .ym-cell.ym-cell-fs:hover { background: #faf7ef; }
+  .ym-cell.ym-cell-fs.fs-sel { background: #fbf3e0; outline: 1.5px solid var(--gold); outline-offset: -1px; }
+
+  @media screen and (max-width: 768px) {
+    * { max-width: 100vw; }
+    img, iframe, video, table { max-width: 100% !important; }
+    body { padding: 48px 10px 28px; }
+    .lang-switch { top: 10px; right: 10px; flex-wrap: wrap; justify-content: flex-end; max-width: 66vw; }
+    .brand-logo { top: 12px; left: 10px; font-size: 13px; letter-spacing: 2.5px; }
+    .brand-cal-link { font-size: 10px; letter-spacing: .8px; margin-right: 0; margin-bottom: 4px;
+                      flex-basis: 100%; text-align: right; }
+    header h1 { font-size: 22px; }
+    .daybar-greg { font-size: 20px; }
+    .daybar-head { justify-content: center; }
+    .db-charts { flex-direction: column; gap: 12px; padding: 12px; }
+    .pillar-gz { font-size: 28px; }
+    .pillar { padding: 12px 4px 14px; }
+    .pillar-h { font-size: 9px; letter-spacing: 1px; padding: 5px 4px; margin: -12px -4px 5px; width: calc(100% + 8px); }
+    .nav { gap: 7px; flex-wrap: wrap; }
+    .nav .title { font-size: 18px; min-width: 0; order: -1; width: 100%; }
+    .nav button { padding: 7px 11px; }
+    .cell { min-height: 88px; padding: 4px 2px 6px; gap: 2px; }
+    .c-num { font-size: 13px; top: 3px; right: 4px; }
+    .c-gz { font-size: 17px; margin-top: 12px; }
+    .c-term { font-size: 8px; }
+    .c-ind { font-size: 8.5px; margin-top: 2px; }
+    .cl-m, .cl-y, .cl-nw, .sha-jie, .sha-zai, .sha-sui, .cl-km, .cl-rx, .cl-esol, .cl-elun { font-size: 7.5px; padding: 0 2px; }
+    .disp-menu { min-width: 190px; }
+    .ind-legend { font-size: 11.5px; line-height: 1.9; }
+    .cal-header { flex-direction: column; gap: 8px; }
+    .mp-gz, .mp-num { font-size: 22px; }
+    .cl-km { font-size: 7.5px; padding: 0 2px; }
+    .cal-dow div { font-size: 9px; letter-spacing: .5px; padding: 8px 1px; }
+    .hours-grid { grid-template-columns: repeat(4, 1fr); }
+    .hcell:nth-child(6n) { border-right: 1px solid var(--border); }
+    .hcell:nth-child(4n) { border-right: none; }
+    .hcell:nth-child(n+7):nth-child(-n+12) { border-bottom: 1px solid var(--border); }
+    .hcell:nth-child(n+9) { border-bottom: none; }
+    .h-gz { font-size: 20px; }
+    .hours-title { font-size: 15px; }
+    .hours-controls { width: 100%; }
+    #cal-city { flex: 1; width: auto; min-width: 120px; }
+    .city-dd { min-width: 0; }
+    .nav-selects { flex: 1; justify-content: center; }
+    .nav select { flex: 1; }
+    .years-title, .ym-title { font-size: 15px; }
+    .yr-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .yr-col { border-bottom: 1px solid var(--border); }
+    .yr-col:nth-child(4n) { border-right: none; }
+    .yr-col:nth-last-child(-n+3) { border-bottom: none; }
+    .yr-row { font-size: 10px; padding: 2px 2px; }
+    .yr-gz { font-size: 12px; }
+    .ym-grid { grid-template-columns: repeat(3, 1fr); border-bottom: none; }
+    .ym-cell:nth-child(6n) { border-right: 1px solid var(--border); }
+    .ym-cell:nth-child(3n) { border-right: none; }
+    .ym-cell.last-row { border-bottom: 1px solid var(--border); }
+    .ym-gz { font-size: 22px; }
+    .ym-year { font-size: 21px; }
+    .ym-note { font-size: 11px; padding: 8px 12px; }
+    .fs-mini { --fs-cols: 3; padding: 8px; }
+    .fs-mini .fs-val { font-size: 14px; }
+    .years-range { font-size: 14px; min-width: 92px; }
+    .years-nav button { padding: 5px 10px; }
+    .fs-block.fs-big { max-width: 260px; padding: 10px 10px 12px; }
+    .fs-big .fs-val-m { font-size: 26px; }
+    .fs-big .fs-val-y { font-size: 18px; bottom: 5px; right: 6px; }
+    .fs-big .fs-dir { font-size: 8.5px; }
+    .fs-big-wrap { padding: 10px 8px 12px; }
+    .fs-mk { width: 27px; height: 27px; font-size: 18px; }
+    .fs-marks { left: 2px; bottom: 2px; gap: 2px; }
+    .fs-tool { font-size: 11px; }
+    .fs-tool .fs-tool-ic { font-size: 16px; }
+    .gold-banner { padding: 24px 16px; }
+    .gold-banner .gb-brand { font-size: 22px; letter-spacing: 6px; }
+    .gold-banner .gb-sub { font-size: 11px; letter-spacing: 2px; }
+  }
+  @media screen and (max-width: 430px) {
+    .yr-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .yr-col:nth-child(4n) { border-right: 1px solid var(--border); }
+    .yr-col:nth-child(3n) { border-right: none; }
+    .yr-col:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+    .yr-col:nth-last-child(-n+2) { border-bottom: none; }
+    .ym-grid { grid-template-columns: repeat(2, 1fr); }
+    .ym-cell:nth-child(3n) { border-right: 1px solid var(--border); }
+    .ym-cell:nth-child(2n) { border-right: none; }
+    .fs-mini { --fs-cols: 2; }
+  }
+</style>
+</head>
+<body>
+
+<a class="brand-logo" href="/ru/">SuccessCode</a>
+
+<div class="lang-switch">
+  <a class="brand-cal-link" id="cal-link" href="/calendar">Календарь успешных дат</a>
+  <button id="lang-ru" class="on" type="button">RU</button>
+  <button id="lang-en" type="button">EN</button>
+</div>
+<button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
+
+<header>
+  <h1>历 · Chinese Calendar</h1>
+  <p id="tagline">Китайский календарь</p>
+</header>
+
+<div class="wrap">
+
+  <!-- Selected-day: date + controls, then Solar chart (left) + Lunar chart (right) -->
+  <div class="daybar">
+    <div class="daybar-head">
+      <div class="db-datewrap">
+        <span class="daybar-greg" id="db-greg"></span>
+        <span class="daybar-dow"  id="db-dow"></span>
+        <span class="daybar-term" id="db-term"></span>
+      </div>
+      <div class="hours-controls" id="db-controls">
+        <div class="city-wrap">
+          <input type="text" id="cal-city" autocomplete="off" placeholder="Город">
+          <div class="city-dd" id="cal-city-dd"></div>
+        </div>
+        <label class="solar-toggle">
+          <input type="checkbox" id="cal-solar">
+          <span id="solar-label">Солнечное время</span>
+        </label>
+        <span class="solar-info" id="cal-solar-info"></span>
+      </div>
+    </div>
+    <div class="db-charts">
+      <div class="db-chart">
+        <div class="pillars" id="db-solar"></div>
+        <div class="db-cap" id="db-solar-cap"></div>
+      </div>
+      <div class="db-chart">
+        <div class="pillars" id="db-lunar"></div>
+        <div class="db-cap" id="db-lunar-cap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Month navigation -->
+  <div class="nav">
+    <button id="prev" type="button" aria-label="prev">‹</button>
+    <div class="nav-selects">
+      <select id="sel-hour" aria-label="hour"></select>
+      <select id="sel-day" aria-label="day"></select>
+      <select id="sel-month" aria-label="month"></select>
+      <select id="sel-year" aria-label="year"></select>
+    </div>
+    <button id="next" type="button" aria-label="next">›</button>
+    <button class="today-btn" id="today" type="button">Today</button>
+  </div>
+
+  <!-- Display options -->
+  <div class="disp-row">
+    <div class="disp">
+      <button id="disp-btn" type="button">Настройки календаря ▾</button>
+      <div class="disp-menu" id="disp-menu">
+        <label class="disp-all"><input type="checkbox" id="opt-all"> <span id="lbl-all">Выбрать всё</span></label>
+        <label><input type="checkbox" id="opt-solar"> <span id="lbl-solar">Солнечный месяц</span></label>
+        <label><input type="checkbox" id="opt-lunar"> <span id="lbl-lunar">Лунный месяц</span></label>
+        <label><input type="checkbox" id="opt-ind"> <span id="lbl-ind">Индикаторы (1–12)</span></label>
+        <label><input type="checkbox" id="opt-clash"> <span id="lbl-clash">Столкновения</span></label>
+        <label><input type="checkbox" id="opt-sha"> <span id="lbl-sha">Ша (三煞)</span></label>
+        <label><input type="checkbox" id="opt-km"> <span id="lbl-km">День убивающий мастера</span></label>
+        <label><input type="checkbox" id="opt-rx"> <span id="lbl-rx">Ретроградный Меркурий</span></label>
+        <label><input type="checkbox" id="opt-ecl"> <span id="lbl-ecl">Затмения</span></label>
+      </div>
+    </div>
+  </div>
+
+  <!-- Calendar grid -->
+  <div class="cal">
+    <div class="cal-dow" id="cal-dow"></div>
+    <div id="cal-body"></div>
+  </div>
+
+  <!-- Hour pillars for the selected day -->
+  <div class="hours">
+    <div class="hours-title"><span id="hours-title"></span></div>
+    <div class="hours-grid" id="hours-grid"></div>
+  </div>
+
+  <!-- Day Officers legend (shown when Indicators enabled) -->
+  <div class="ind-legend" id="ind-legend"></div>
+
+  <!-- Year pillars; click a year → its month pillars + flying stars below -->
+  <div class="years" id="years">
+    <div class="years-title">
+      <span id="years-title">Столпы годов</span>
+      <div class="years-nav">
+        <button id="yr-prev" type="button" aria-label="prev">‹</button>
+        <span class="years-range" id="yr-range"></span>
+        <button id="yr-next" type="button" aria-label="next">›</button>
+      </div>
+      <span class="years-hint" id="years-hint">Нажмите на год — откроются столпы всех 12 месяцев</span>
+    </div>
+    <div class="yr-grid" id="yr-grid"></div>
+  </div>
+  <div class="ymonths" id="ymonths"></div>
+
+  <div class="backnav"><a href="/calculators" id="backlink">← All calculators</a></div>
+  <div class="footer-brand">SuccessCode</div>
+
+</div>
+
+<script src="/tz.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+<script>
+/* ===================== i18n ===================== */
+const I18N = {
+  ru: {
+    tagline: "Китайский календарь",
+    calLink: "Календарь успешных дат",
+    today: "Сегодня", back: "← Все калькуляторы", print: "Печать",
+    pYear: "Год", pMonth: "Месяц", pDay: "День", pHour: "Час",
+    hoursTitle: "Столпы часов",
+    solar: "Солнечное время", cityPh: "Город", min: "мин",
+    show: "Настройки календаря", optAll: "Выбрать всё", optInd: "Индикаторы (1–12)", optClash: "Столкновения",
+    optSolarMonth: "Солнечный месяц", optLunarMonth: "Лунный месяц", optNoWealth: "День без богатства",
+    optKillMaster: "День убивающий мастера",
+    optRx: "Ретроградный Меркурий", optEclipse: "Затмения",
+    rxTag: "☿ ретро", rxTip: "Ретроградный Меркурий",
+    eclSolar: "Солнечное затмение", eclLunar: "Лунное затмение", eclShort: "затм.",
+    eclKinds: {total:"полное", partial:"частное", annular:"кольцеобразное", penumbral:"полутеневое"},
+    astroNote: "Ретроградный Меркурий и затмения — данные 2025–2028",
+    legendTitle: "Индикаторы дня (建除)",
+    clashMonthTag: "День–Месяц", clashYearTag: "День–Год",
+    clashMonthTip: "Столкновение День–Месяц (月破)", clashYearTip: "Столкновение День–Год (岁破)",
+    noWealthTag: "Без богатства", noWealthTip: "День без богатства (甲辰 / 乙巳)",
+    kmTag: "Уб. мастера", kmTip: "День, убивающий мастера (杀师日)",
+    solarCaption: "Солнечный месяц", lunarCaptionWord: "Лунный месяц", gregCaption: "Календарный месяц", leapWord: "високосный",
+    optSha: "Ша (三煞)",
+    sha: {
+      suiM:{t:"Ша мес", tip:"Ша месяца (月煞)"}, suiY:{t:"Ша год", tip:"Ша года (岁煞)"},
+      zaiM:{t:"Несч мес", tip:"Ша несчастья месяца (灾煞)"}, zaiY:{t:"Несч год", tip:"Ша несчастья года (灾煞)"},
+      jieM:{t:"Ограб мес", tip:"Ша ограбления месяца (劫煞)"}, jieY:{t:"Ограб год", tip:"Ша ограбления года (劫煞)"}
+    },
+    shaTypes: {jie:"Ша ограбления (劫煞)", zai:"Ша несчастья (灾煞)", sui:"Ша (岁煞 / 月煞)"},
+    officers: ["","Установление","Устранение","Полнота","Равновесие","Стабильность","Исполнение","Разрушение","Опасность","Достижение","Сбор","Открытие","Закрытие"],
+    months: ["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],
+    monthsShort: ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"],
+    dow: ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],
+    dowFull: ["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"],
+    yearsTitle: "Столпы годов",
+    yearsHint: "Нажмите на год — откроются столпы всех 12 месяцев",
+    decade: d => `${d}-е`,
+    prevYears: "Раньше", nextYears: "Позже",
+    monthsTitle: "Столпы месяцев",
+    monthWord: "Месяц",
+    closeWord: "Закрыть",
+    hiddenLabel: "Скрытые стволы",
+    lunarMonthsTitle: "Лунные месяцы",
+    starsTitle: "Летящие звёзды",
+    yearWord: "Год",
+    fsActivators: "Фонтан",
+    fsBell: "Колокольчик",
+    fsJar: "Соляной раствор",
+    fsActTip: "Фонтан на все благоприятные (зелёные) сектора",
+    fsBellTip: "Колокольчик — сектор с пятёркой (5)",
+    fsJarTip: "Соляной раствор — сектор с семёркой (7)",
+    fsBrandTop: "Код успеха в вашей карте рождения",
+    leapNote: "Високосный месяц повторяет номер предыдущего и собственного столпа не имеет."
+  },
+  en: {
+    tagline: "Chinese Calendar",
+    calLink: "Success Date Calendar",
+    today: "Today", back: "← All calculators", print: "Print",
+    pYear: "Year", pMonth: "Month", pDay: "Day", pHour: "Hour",
+    hoursTitle: "Hour Pillars",
+    solar: "Solar time", cityPh: "City", min: "min",
+    show: "Calendar settings", optAll: "Select all", optInd: "Day Officers (1–12)", optClash: "Clashes",
+    optSolarMonth: "Solar month", optLunarMonth: "Lunar month", optNoWealth: "Day without wealth",
+    optKillMaster: "Day that kills the master",
+    optRx: "Mercury retrograde", optEclipse: "Eclipses",
+    rxTag: "☿ Rx", rxTip: "Mercury retrograde",
+    eclSolar: "Solar eclipse", eclLunar: "Lunar eclipse", eclShort: "ecl.",
+    eclKinds: {total:"total", partial:"partial", annular:"annular", penumbral:"penumbral"},
+    astroNote: "Mercury retrograde and eclipses — 2025–2028 data",
+    legendTitle: "Day Officers (建除)",
+    clashMonthTag: "Day–Month", clashYearTag: "Day–Year",
+    clashMonthTip: "Day–Month clash (月破)", clashYearTip: "Day–Year clash (岁破)",
+    noWealthTag: "No wealth", noWealthTip: "Day without wealth (甲辰 / 乙巳)",
+    kmTag: "Kills master", kmTip: "Day that kills the master (杀师日)",
+    solarCaption: "Solar month", lunarCaptionWord: "Lunar month", gregCaption: "Calendar month", leapWord: "leap",
+    optSha: "Sha (三煞)",
+    sha: {
+      suiM:{t:"Sha M", tip:"Month Sha (月煞)"}, suiY:{t:"Sha Y", tip:"Year Sha (岁煞)"},
+      zaiM:{t:"Dis M", tip:"Disaster Sha, month (灾煞)"}, zaiY:{t:"Dis Y", tip:"Disaster Sha, year (灾煞)"},
+      jieM:{t:"Rob M", tip:"Robbery Sha, month (劫煞)"}, jieY:{t:"Rob Y", tip:"Robbery Sha, year (劫煞)"}
+    },
+    shaTypes: {jie:"Robbery Sha (劫煞)", zai:"Disaster Sha (灾煞)", sui:"Sha (岁煞 / 月煞)"},
+    officers: ["","Establish","Remove","Full","Balance","Stable","Initiate","Destruction","Danger","Success","Receive","Open","Close"],
+    months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
+    monthsShort: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    dow: ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
+    dowFull: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    yearsTitle: "Year Pillars",
+    yearsHint: "Click a year — the pillars of all 12 months open below",
+    decade: d => `${d}s`,
+    prevYears: "Earlier", nextYears: "Later",
+    monthsTitle: "Month Pillars",
+    monthWord: "Month",
+    closeWord: "Close",
+    hiddenLabel: "Hidden stems",
+    lunarMonthsTitle: "Lunar months",
+    starsTitle: "Flying stars",
+    yearWord: "Year",
+    fsActivators: "Fountain",
+    fsBell: "Bell",
+    fsJar: "Salt solution",
+    fsActTip: "Fountain on every favourable (green) sector",
+    fsBellTip: "Bell — a sector holding a five (5)",
+    fsJarTip: "Salt solution — a sector holding a seven (7)",
+    fsBrandTop: "Success code in your birth chart",
+    leapNote: "A leap month repeats the previous month's number and has no pillar of its own."
+  }
+};
+let LANG = "ru";
+try { const s = localStorage.getItem("sc-lang"); if (s === "ru" || s === "en") LANG = s; } catch(e){}
+// ?lang=ru|en in the URL wins over the stored preference (used by the site nav links)
+try { const q = new URL(location.href).searchParams.get("lang"); if (q === "ru" || q === "en") LANG = q; } catch(e){}
+const L = () => I18N[LANG];
+
+/* Solar term names (节气) → localized */
+const TERM_NAME = {
+  ru: {"立春":"Личунь","雨水":"Дождевая вода","惊蛰":"Пробуждение насекомых","春分":"Весеннее равноденствие",
+       "清明":"Цинмин","谷雨":"Хлебные дожди","立夏":"Начало лета","小满":"Малое изобилие",
+       "芒种":"Колошение","夏至":"Летнее солнцестояние","小暑":"Малая жара","大暑":"Большая жара",
+       "立秋":"Начало осени","处暑":"Конец жары","白露":"Белые росы","秋分":"Осеннее равноденствие",
+       "寒露":"Холодные росы","霜降":"Выпадение инея","立冬":"Начало зимы","小雪":"Малые снега",
+       "大雪":"Большие снега","冬至":"Зимнее солнцестояние","小寒":"Малые холода","大寒":"Большие холода"},
+  en: {"立春":"Lichun","雨水":"Rain Water","惊蛰":"Awakening Insects","春分":"Spring Equinox",
+       "清明":"Qingming","谷雨":"Grain Rain","立夏":"Start of Summer","小满":"Grain Full",
+       "芒种":"Grain in Ear","夏至":"Summer Solstice","小暑":"Minor Heat","大暑":"Major Heat",
+       "立秋":"Start of Autumn","处暑":"End of Heat","白露":"White Dew","秋分":"Autumn Equinox",
+       "寒露":"Cold Dew","霜降":"Frost's Descent","立冬":"Start of Winter","小雪":"Minor Snow",
+       "大雪":"Major Snow","冬至":"Winter Solstice","小寒":"Minor Cold","大寒":"Major Cold"}
+};
+const termLabel = cn => (TERM_NAME[LANG][cn] || cn);
+
+/* ===================== Element maps ===================== */
+const STEM_EL = {甲:"wood",乙:"wood",丙:"fire",丁:"fire",戊:"earth",己:"earth",庚:"metal",辛:"metal",壬:"water",癸:"water"};
+const BRANCH_EL = {子:"water",丑:"earth",寅:"wood",卯:"wood",辰:"earth",巳:"fire",午:"fire",未:"earth",申:"metal",酉:"metal",戌:"earth",亥:"water"};
+const EL_NAME = {
+  ru: {wood:"Дерево",fire:"Огонь",earth:"Земля",metal:"Металл",water:"Вода"},
+  en: {wood:"Wood",fire:"Fire",earth:"Earth",metal:"Metal",water:"Water"}
+};
+const BRANCH_IDX = {子:0,丑:1,寅:2,卯:3,辰:4,巳:5,午:6,未:7,申:8,酉:9,戌:10,亥:11};
+/* 建除十二神 — 12 Day Officers; getZhiXing() returns the char, mapped to 1–12 */
+const OFFICER_NUM = {建:1,除:2,满:3,平:4,定:5,执:6,破:7,危:8,成:9,收:10,开:11,闭:12};
+const OFFICER_CHARS = ["建","除","满","平","定","执","破","危","成","收","开","闭"];
+/* День без богатства (day without wealth): 甲辰 (yang wood/dragon), 乙巳 (yin wood/snake) */
+const NO_WEALTH_DAYS = ["甲辰","乙巳"];
+/* 三煞 (Three Killings) by branch's san-he group. For a year/month branch, days whose
+   branch = jie/zai/sui are 劫煞(robbery)/灾煞(disaster)/岁煞·月煞(sha). Indices are branch idx. */
+const SANSHA = {};
+[ [[8,0,4],  {jie:5, zai:6, sui:7}],    // 申子辰(water) → 煞南 巳午未
+  [[2,6,10], {jie:11,zai:0, sui:1}],    // 寅午戌(fire)  → 煞北 亥子丑
+  [[5,9,1],  {jie:2, zai:3, sui:4}],    // 巳酉丑(metal) → 煞东 寅卯辰
+  [[11,3,7], {jie:8, zai:9, sui:10}]    // 亥卯未(wood)  → 煞西 申酉戌
+].forEach(([grp,s]) => grp.forEach(b => SANSHA[b] = s));
+/* День убивающий мастера (杀师日) — by LUNAR month → lunar day(s). Source: fengi.ru table.
+   Month 7 has two (1 and 29). */
+const KILL_MASTER = {1:[13],2:[11],3:[9],4:[7],5:[5],6:[3],7:[1,29],8:[27],9:[25],10:[23],11:[21],12:[19]};
+/* Mercury retrograde periods (2025–2028). Astronomical station dates: moontracks / astrologyzone. */
+/* Mercury retrograde: date range (for the icon) + UTC station times (moontracks, JPL-DE405-checked).
+   2028 station TIMES not reliably published yet -> date-only (icon shows, no time). */
+const MERCURY_RX = [
+  {s:"2025-03-15",e:"2025-04-07",sU:"2025-03-15 06:45",eU:"2025-04-07 11:07"},
+  {s:"2025-07-18",e:"2025-08-11",sU:"2025-07-18 04:44",eU:"2025-08-11 07:30"},
+  {s:"2025-11-09",e:"2025-11-29",sU:"2025-11-09 19:02",eU:"2025-11-29 17:38"},
+  {s:"2026-02-26",e:"2026-03-20",sU:"2026-02-26 06:47",eU:"2026-03-20 19:32"},
+  {s:"2026-06-29",e:"2026-07-23",sU:"2026-06-29 17:36",eU:"2026-07-23 22:57"},
+  {s:"2026-10-24",e:"2026-11-13",sU:"2026-10-24 07:12",eU:"2026-11-13 15:53"},
+  {s:"2027-02-09",e:"2027-03-03",sU:"2027-02-09 17:36",eU:"2027-03-03 12:31"},
+  {s:"2027-06-10",e:"2027-07-04",sU:"2027-06-10 18:15",eU:"2027-07-04 19:39"},
+  {s:"2027-10-07",e:"2027-10-28",sU:"2027-10-07 14:36",eU:"2027-10-28 14:10"},
+  {s:"2028-01-24",e:"2028-02-14"},{s:"2028-05-21",e:"2028-06-13"},{s:"2028-09-19",e:"2028-10-11"}
+];
+/* Solar & lunar eclipses (2025–2028, UTC dates). Sources: USNO, NASA, Wikipedia, user-confirmed. */
+/* Eclipses: greatest-eclipse UTC times from NASA/Espenak catalogs (eclipse.gsfc.nasa.gov) */
+const ECLIPSES = {
+  "2025-03-14":{t:"lunar",k:"total",pk:"2025-03-14 07:00"},   "2025-03-29":{t:"solar",k:"partial",pk:"2025-03-29 10:49"},
+  "2025-09-07":{t:"lunar",k:"total",pk:"2025-09-07 18:13"},   "2025-09-21":{t:"solar",k:"partial",pk:"2025-09-21 19:43"},
+  "2026-02-17":{t:"solar",k:"annular",pk:"2026-02-17 12:13"}, "2026-03-03":{t:"lunar",k:"total",pk:"2026-03-03 11:35"},
+  "2026-08-12":{t:"solar",k:"total",pk:"2026-08-12 17:47"},   "2026-08-28":{t:"lunar",k:"partial",pk:"2026-08-28 04:14"},
+  "2027-02-06":{t:"solar",k:"annular",pk:"2027-02-06 16:01"}, "2027-02-20":{t:"lunar",k:"penumbral",pk:"2027-02-20 23:14"},
+  "2027-07-18":{t:"lunar",k:"penumbral",pk:"2027-07-18 16:04"},"2027-08-02":{t:"solar",k:"total",pk:"2027-08-02 10:08"}, "2027-08-17":{t:"lunar",k:"penumbral",pk:"2027-08-17 07:15"},
+  "2028-01-12":{t:"lunar",k:"partial",pk:"2028-01-12 04:14"}, "2028-01-26":{t:"solar",k:"annular",pk:"2028-01-26 15:09"},
+  "2028-07-06":{t:"lunar",k:"partial",pk:"2028-07-06 18:21"}, "2028-07-22":{t:"solar",k:"total",pk:"2028-07-22 02:57"},  "2028-12-31":{t:"lunar",k:"total",pk:"2028-12-31 16:53"}
+};
+const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
+const POLARITY = { ru:{yang:"Ян",yin:"Инь"}, en:{yang:"Yang",yin:"Yin"} };
+const ANIMAL = {
+  ru:{子:"Крыса",丑:"Бык",寅:"Тигр",卯:"Кролик",辰:"Дракон",巳:"Змея",午:"Лошадь",未:"Коза",申:"Обезьяна",酉:"Петух",戌:"Собака",亥:"Свинья"},
+  en:{子:"Rat",丑:"Ox",寅:"Tiger",卯:"Rabbit",辰:"Dragon",巳:"Snake",午:"Horse",未:"Goat",申:"Monkey",酉:"Rooster",戌:"Dog",亥:"Pig"}
+};
+/* ── Flying stars (玄空飞星) ── base Lo Shu (center 5) by direction; forward-fly = additive shift */
+const LOSHU = { SE:4, S:9, SW:2, E:3, C:5, W:7, NE:8, N:1, NW:6 };
+const FS_ORDER = ["SE","S","SW","E","C","W","NE","N","NW"];   // row-major, South on top
+const DIR_LABEL = {
+  ru: {SE:"ЮВ",S:"Ю",SW:"ЮЗ",E:"В",C:"",W:"З",NE:"СВ",N:"С",NW:"СЗ"},
+  en: {SE:"SE",S:"S",SW:"SW",E:"E",C:"",W:"W",NE:"NE",N:"N",NW:"NW"}
+};
+const B2MI = {寅:1,卯:2,辰:3,巳:4,午:5,未:6,申:7,酉:8,戌:9,亥:10,子:11,丑:12}; // solar month index (寅=1)
+/* month-1 (寅) center by solar-year branch group: 子午卯酉→8, 辰戌丑未→5, 寅申巳亥→2 */
+const YEARGRP_START = {子:8,午:8,卯:8,酉:8, 辰:5,戌:5,丑:5,未:5, 寅:2,申:2,巳:2,亥:2};
+
+const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
+/* stem sub-label = polarity + element ("Ян Вода"); branch sub-label = animal ("Собака") */
+const stemLabel = g => `${POLARITY[LANG][STEM_YY[g]]} ${EL_NAME[LANG][STEM_EL[g]]}`;
+const animalLabel = z => ANIMAL[LANG][z] || "";
+const gzHtml  = (g,z) => `<span class="${elClass(g)}">${g}</span><span class="${elClass(z)}">${z}</span>`;
+
+/* Double-hour branches; sm = solar start minute-of-day (子 begins 23:00 = 1380) */
+const HOURS = [
+  {h:0,  z:"子", sm:1380}, {h:2,  z:"丑", sm:60},   {h:4,  z:"寅", sm:180},
+  {h:6,  z:"卯", sm:300},  {h:8,  z:"辰", sm:420},  {h:10, z:"巳", sm:540},
+  {h:12, z:"午", sm:660},  {h:14, z:"未", sm:780},  {h:16, z:"申", sm:900},
+  {h:18, z:"酉", sm:1020}, {h:20, z:"戌", sm:1140}, {h:22, z:"亥", sm:1260}
+];
+const pad2 = n => String(n).padStart(2, "0");
+const fmtHM = min => { min = ((min % 1440) + 1440) % 1440; return pad2(Math.floor(min/60)) + ":" + pad2(min%60); };
+/* Clock-time window for a branch = its solar window shifted back by the correction (clock = solar − cm) */
+const rangeLabel = (sm, cm) => `${fmtHM(sm - cm)}–${fmtHM(sm + 120 - cm)}`;
+
+/* ===================== Pillar computation (lunar-javascript) ===================== */
+function eightChar(y, m, d, h) {
+  return Solar.fromYmdHms(y, m, d, h, 0, 0).getLunar().getEightChar();
+}
+/* Year / Month / Day pillars for a Gregorian date, computed at noon (canonical day pillar) */
+let selHour = 12;   /* reference hour for pillars + month-boundary clash (0–23) */
+function dayPillars(date) {
+  const y = date.getFullYear(), m = date.getMonth()+1, d = date.getDate();
+  const lunar = Solar.fromYmdHms(y, m, d, selHour, 0, 0).getLunar();
+  const ec = lunar.getEightChar();
+  return {
+    y: [ec.getYearGan(),  ec.getYearZhi()],
+    m: monthAtHour(lunar, selHour),
+    d: [ec.getDayGan(),   ec.getDayZhi()],
+    lunar
+  };
+}
+
+/* ===================== State ===================== */
+const now = new Date();
+let viewY = now.getFullYear();
+let viewM = now.getMonth();          // 0-based
+let selected = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+const sameDay = (a,b) => a.getFullYear()===b.getFullYear() && a.getMonth()===b.getMonth() && a.getDate()===b.getDate();
+
+/* ── Solar-time correction (city longitude, same method as bazi.html) ── */
+let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", USE_SOLAR = false, _cityTimer = null;
+/* display toggles */
+let SHOW_IND = true, SHOW_CLASH = true, SOLAR_MONTH = true, SHOW_SHA = true;
+let LUNAR_MONTH = false, SHOW_KM = true, SHOW_RX = true, SHOW_ECLIPSE = true;
+function tzOffsetMin(date, tz) {
+  try {
+    const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p = {}; f.formatToParts(date).forEach(x => p[x.type] = x.value);
+    const hh = p.hour === "24" ? "00" : p.hour;
+    return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second) - date.getTime())/60000);
+  } catch(e) { return Math.round(LON/15)*60; }
+}
+/* Solar-term times from lunar-javascript are Beijing (UTC+8) wall-clock.
+   Convert to the calendar's active timezone clock time (DST-aware). */
+function bjToLocal(s) {
+  const utcMs = Date.UTC(s.getYear(), s.getMonth()-1, s.getDay(), s.getHour(), s.getMinute()) - 480*60000;
+  const off = tzOffsetMin(new Date(utcMs), TZNAME);
+  const d = new Date(utcMs + off*60000);
+  return { day: d.getUTCDate(), mon: d.getUTCMonth(), hm: pad2(d.getUTCHours()) + ":" + pad2(d.getUTCMinutes()) };
+}
+/* Month pillar at a LOCAL hour: on a 节 day the solar month switches at the 节's TRUE LOCAL time */
+function shiftMonthEc(js, dm) {
+  const t = new Date(Date.UTC(js.getYear(), js.getMonth()-1, js.getDay(), js.getHour(), js.getMinute()+dm));
+  return Solar.fromYmdHms(t.getUTCFullYear(), t.getUTCMonth()+1, t.getUTCDate(), t.getUTCHours(), t.getUTCMinutes(), 0).getLunar().getEightChar();
+}
+function monthAtHour(lunar, hour) {
+  const s = lunar.getSolar();
+  for (const jq of [lunar.getPrevJie(), lunar.getNextJie()]) {
+    const js = jq.getSolar();
+    if (js.getYear()===s.getYear() && js.getMonth()===s.getMonth() && js.getDay()===s.getDay()) {
+      const [hh, mm] = bjToLocal(js).hm.split(":").map(Number);
+      const ec = (hour >= hh + mm/60) ? shiftMonthEc(js, 2) : shiftMonthEc(js, -2);
+      return [ec.getMonthGan(), ec.getMonthZhi()];
+    }
+  }
+  const ec = lunar.getEightChar();
+  return [ec.getMonthGan(), ec.getMonthZhi()];
+}
+/* minutes to add to clock time to get mean solar time */
+function corrMin(d) { return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
+
+function onCityInput() {
+  clearTimeout(_cityTimer);
+  const q = document.getElementById("cal-city").value.trim();
+  if (q.length < 2) { document.getElementById("cal-city-dd").style.display = "none"; return; }
+  _cityTimer = setTimeout(() => fetchCities(q), 350);
+}
+async function fetchCities(q) {
+  const dd = document.getElementById("cal-city-dd");
+  try {
+    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language="+LANG+"&limit=6&q="+encodeURIComponent(q));
+    const arr = await r.json();
+    if (!arr || !arr.length) { dd.style.display = "none"; return; }
+    dd._data = arr;
+    dd.innerHTML = arr.map((c,i) => `<div class="city-opt" data-i="${i}">${c.display_name}</div>`).join("");
+    dd.style.display = "block";
+    dd.querySelectorAll(".city-opt").forEach(el => el.addEventListener("click", () => selectCity(+el.getAttribute("data-i"))));
+  } catch(e) { dd.style.display = "none"; }
+}
+function selectCity(i) {
+  const dd = document.getElementById("cal-city-dd"), c = dd._data[i];
+  LON = parseFloat(c.lon); CITYNAME = c.display_name.split(",")[0];
+  try { TZNAME = tzlookup(parseFloat(c.lat), LON); } catch(e) {}
+  document.getElementById("cal-city").value = CITYNAME;
+  dd.style.display = "none";
+  if (USE_SOLAR) { renderDayBar(); renderHours(); }
+}
+
+/* ===================== Render: top (date + Solar chart + Lunar chart) ===================== */
+function renderPillars(elId, cols) {
+  document.getElementById(elId).innerHTML = cols.map(c => `
+    <div class="pillar">
+      <div class="pillar-h">${c.lab}</div>
+      <div class="pillar-gz">${gzHtml(c.g, c.z)}</div>
+      <div class="pillar-el">${stemLabel(c.g)} / ${animalLabel(c.z)}</div>
+    </div>`).join("");
+}
+function renderDayBar() {
+  const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
+  const dowIdx = (selected.getDay()+6)%7;
+  document.getElementById("db-greg").textContent =
+    `${d} ${L().months[selected.getMonth()]} ${y}`;
+  { const sd = document.getElementById("sel-day");
+    if (selected.getFullYear()===viewY && selected.getMonth()===viewM && sd.options.length) sd.value = d; }
+  document.getElementById("db-dow").textContent = L().dowFull[dowIdx];
+
+  // effective hour: current hour if today (solar-adjusted when enabled), else noon
+  const lunar = Solar.fromYmdHms(y, m, d, selHour, 0, 0).getLunar();
+  const ec = lunar.getEightChar();
+
+  const term = lunar.getJieQi();
+  document.getElementById("db-term").textContent =
+    (term ? "· " + termLabel(term) : "");
+
+  // SOLAR (BaZi) chart — LiChun year, 节气 month; Hour→Day→Month→Year
+  renderPillars("db-solar", [
+    {lab: L().pHour,  g: ec.getTimeGan(),  z: ec.getTimeZhi()},
+    {lab: L().pDay,   g: ec.getDayGan(),   z: ec.getDayZhi()},
+    {lab: L().pMonth, g: monthAtHour(lunar, selHour)[0], z: monthAtHour(lunar, selHour)[1]},
+    {lab: L().pYear,  g: ec.getYearGan(),  z: ec.getYearZhi()}
+  ]);
+  // LUNAR chart — CNY year, lunar month
+  renderPillars("db-lunar", [
+    {lab: L().pHour,  g: lunar.getTimeGan(),  z: lunar.getTimeZhi()},
+    {lab: L().pDay,   g: lunar.getDayGan(),   z: lunar.getDayZhi()},
+    {lab: L().pMonth, g: lunar.getMonthGan(), z: lunar.getMonthZhi()},
+    {lab: L().pYear,  g: lunar.getYearGan(),  z: lunar.getYearZhi()}
+  ]);
+
+  // captions for the selected day's solar & lunar month
+  const mn = L().months, sr = solarMonthByDate(selected), lr = lunarMonthByDate(selected);
+  const dRange = (a,b) => `${a.getDate()} ${mn[a.getMonth()]} – ${b.getDate()} ${mn[b.getMonth()]}`;
+  const sbj = bjToLocal(sr.jieSolar);
+  document.getElementById("db-solar-cap").textContent =
+    `☀ ${L().solarCaption} · ${termLabel(sr.jie)} · ${dRange(sr.start, sr.end)} · ⏱ ${sbj.day} ${mn[sbj.mon]} ${sbj.hm}`;
+  document.getElementById("db-lunar-cap").textContent =
+    `🌙 ${L().lunarCaptionWord} ${Math.abs(lr.lm)}${lr.leap ? ' ('+L().leapWord+')' : ''} · ${dRange(lr.start, lr.end)} · 🌑 ${lr.start.getDate()} ${mn[lr.start.getMonth()]}`;
+}
+
+/* ===================== Render: month grid ===================== */
+function buildHourOptions() {
+  let o = ""; for (let h = 0; h < 24; h++) o += `<option value="${h}">${pad2(h)}:00</option>`;
+  const el = document.getElementById("sel-hour"); el.innerHTML = o; el.value = selHour;
+}
+function buildYearOptions() {
+  let o = ""; for (let y = 1900; y <= 2100; y++) o += `<option value="${y}">${y}</option>`;
+  document.getElementById("sel-year").innerHTML = o;
+}
+function buildMonthOptions() {
+  document.getElementById("sel-month").innerHTML =
+    L().months.map((n,i) => `<option value="${i}">${n}</option>`).join("");
+}
+function buildDayOptions() {
+  const n = new Date(viewY, viewM+1, 0).getDate();   // days in the viewed month
+  let o = ""; for (let d = 1; d <= n; d++) o += `<option value="${d}">${d}</option>`;
+  document.getElementById("sel-day").innerHTML = o;
+}
+function syncNav() {
+  buildDayOptions();
+  const inView = selected.getFullYear()===viewY && selected.getMonth()===viewM;
+  document.getElementById("sel-day").value = inView ? selected.getDate() : 1;
+  document.getElementById("sel-month").value = viewM;
+  document.getElementById("sel-year").value = viewY;
+}
+
+/* 建除 day officer tag */
+function indHtml(lunar) {
+  const ch = lunar.getZhiXing(), n = OFFICER_NUM[ch] || 0;
+  if (!n) return "";
+  return `<div class="c-ind" title="${n} · ${ch} · ${L().officers[n]}">${n} ${L().officers[n]}</div>`;
+}
+/* day-vs-month (月破) and day-vs-year (岁破) clash tags — labels in RU/EN */
+function clashHtml(p) {
+  const di = BRANCH_IDX[p.d[1]], mi = BRANCH_IDX[p.m[1]], yi = BRANCH_IDX[p.y[1]];
+  let t = "";
+  if ((di + 6) % 12 === mi) t += `<span class="cl-m" title="${L().clashMonthTip}">${L().clashMonthTag}</span>`;
+  if ((di + 6) % 12 === yi) t += `<span class="cl-y" title="${L().clashYearTip}">${L().clashYearTag}</span>`;
+  return t ? `<div class="c-clash">${t}</div>` : "";
+}
+/* 三煞 tags — day branch vs month-branch san-sha and year-branch san-sha (max one each) */
+function shaChip(cls, o) { return `<span class="${cls}" title="${o.tip}">${o.t}</span>`; }
+function shaHtml(p) {
+  const di = BRANCH_IDX[p.d[1]], S = L().sha;
+  const mo = SANSHA[BRANCH_IDX[p.m[1]]], yr = SANSHA[BRANCH_IDX[p.y[1]]];
+  let t = "";
+  if (di === mo.jie) t += shaChip("sha-jie", S.jieM);
+  else if (di === mo.zai) t += shaChip("sha-zai", S.zaiM);
+  else if (di === mo.sui) t += shaChip("sha-sui", S.suiM);
+  if (di === yr.jie) t += shaChip("sha-jie", S.jieY);
+  else if (di === yr.zai) t += shaChip("sha-zai", S.zaiY);
+  else if (di === yr.sui) t += shaChip("sha-sui", S.suiY);
+  return t ? `<div class="c-clash">${t}</div>` : "";
+}
+/* День убивающий мастера — lunar month → lunar day (甲辰 fixed table) */
+function killMasterHtml(p) {
+  const lm = Math.abs(p.lunar.getMonth()), ld = p.lunar.getDay();
+  if ((KILL_MASTER[lm] || []).includes(ld))
+    return `<div class="c-clash"><span class="cl-km" title="${L().kmTip}">${L().kmTag}</span></div>`;
+  return "";
+}
+/* Mercury retrograde + eclipse ICONS at top-left (data 2025–2028; nothing outside that range) */
+const dateKey = d => `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+function rxIcon(dk) {
+  for (const {s,e} of MERCURY_RX) if (dk >= s && dk <= e)
+    return `<span class="ic-merc" title="${L().rxTip}"></span>`;
+  return "";
+}
+/* UTC "YYYY-MM-DD HH:MM" -> active-tz local {dk, hm} (DST-aware) */
+function utcToLocal(str) {
+  const [dp, tp] = str.split(" ");
+  const [Y,Mo,D] = dp.split("-").map(Number), [H,Mi] = tp.split(":").map(Number);
+  const utcMs = Date.UTC(Y, Mo-1, D, H, Mi);
+  const off = tzOffsetMin(new Date(utcMs), TZNAME);
+  const d = new Date(utcMs + off*60000);
+  return { dk: d.getUTCFullYear()+"-"+pad2(d.getUTCMonth()+1)+"-"+pad2(d.getUTCDate()), hm: pad2(d.getUTCHours())+":"+pad2(d.getUTCMinutes()) };
+}
+/* Exact local time Mercury stations retrograde (℞) or direct (→) */
+function rxTimeHtml(dk) {
+  for (const r of MERCURY_RX) {
+    if (r.sU) { const l = utcToLocal(r.sU); if (l.dk === dk) return `<div class="c-evt-t" title="${L().rxTip}">℞ ${l.hm}</div>`; }
+    if (r.eU) { const l = utcToLocal(r.eU); if (l.dk === dk) return `<div class="c-evt-t" title="${L().rxTip}">→ ${l.hm}</div>`; }
+  }
+  return "";
+}
+/* Exact local time of greatest eclipse on its day */
+function eclipseTimeHtml(dk) {
+  for (const k in ECLIPSES) { const ec = ECLIPSES[k];
+    if (ec.pk) { const l = utcToLocal(ec.pk); if (l.dk === dk) return `<div class="c-evt-t">${ec.t==="solar"?"☀":"🌙"} ${l.hm}</div>`; }
+  }
+  return "";
+}
+function eclipseIcon(dk) {
+  const ec = ECLIPSES[dk]; if (!ec) return "";
+  const solar = ec.t === "solar";
+  const tip = `${solar ? L().eclSolar : L().eclLunar} — ${L().eclKinds[ec.k]}`;
+  return `<span class="${solar ? 'ic-esol' : 'ic-elun'}" title="${tip}"></span>`;
+}
+
+/* Solar month range (节→节) containing a given date */
+function solarMonthByDate(dt) {
+  const lu = Solar.fromYmdHms(dt.getFullYear(), dt.getMonth()+1, dt.getDate(), 12, 0, 0).getLunar();
+  const pj = lu.getPrevJie(), nj = lu.getNextJie();
+  const ps = pj.getSolar(), ns = nj.getSolar();
+  const start = new Date(ps.getYear(), ps.getMonth()-1, ps.getDay());
+  const end = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+  end.setDate(end.getDate()-1);
+  return { start, end, jie: pj.getName(), jieSolar: ps };
+}
+/* Lunar month range (lunar day 1 → last lunar day) containing a given date */
+function lunarMonthByDate(dt) {
+  const lu = Solar.fromYmdHms(dt.getFullYear(), dt.getMonth()+1, dt.getDate(), 12, 0, 0).getLunar();
+  const lm = lu.getMonth(), ly = lu.getYear();
+  const start = new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() - (lu.getDay()-1));
+  let end = new Date(start);
+  for (let k = 1; k < 33; k++) {
+    const t = new Date(start); t.setDate(start.getDate()+k);
+    const l2 = Solar.fromYmdHms(t.getFullYear(), t.getMonth()+1, t.getDate(), 12, 0, 0).getLunar();
+    if (l2.getMonth() === lm && l2.getYear() === ly) end = t; else break;
+  }
+  return { start, end, lm, ly, leap: lm < 0, lunarObj: lu };
+}
+/* Grid ranges: anchored on the 15th of the viewed month */
+function solarRange() { return solarMonthByDate(new Date(viewY, viewM, 15)); }
+function lunarRange() { return lunarMonthByDate(new Date(viewY, viewM, 15)); }
+
+/* ===================== Flying stars (玄空飞星) ===================== */
+const dmy = d => `${pad2(d.getDate())}.${pad2(d.getMonth()+1)}.${d.getFullYear()}`;
+/* 立春 (start of solar year) for a Gregorian year — from Feb 20 the prev 节 is 立春 */
+function liChun(gy) {
+  const s = Solar.fromYmdHms(gy, 2, 20, 12, 0, 0).getLunar().getPrevJie().getSolar();
+  return new Date(s.getYear(), s.getMonth()-1, s.getDay());
+}
+/* LiChun-based solar year number containing a date */
+function solarYearNum(dt) { return dt < liChun(dt.getFullYear()) ? dt.getFullYear()-1 : dt.getFullYear(); }
+/* annual center: 2026 solar year = 1, descends by 1 each solar year */
+function yearCenter(sy) { return (((2026 - sy) % 9) + 9) % 9 + 1; }
+/* monthly center: from year-branch group start, descend by 1 per solar month */
+function monthCenter(yearZhi, monthZhi) {
+  const start = YEARGRP_START[yearZhi], mi = B2MI[monthZhi];
+  return ((start - (mi-1) - 1) % 9 + 9) % 9 + 1;
+}
+/* one 3×3 Lo Shu block given a center star */
+function fsBlock(title, range, center) {
+  const cells = FS_ORDER.map(dir => {
+    const base = LOSHU[dir];
+    const val = ((base - 1 + (center - 5)) % 9 + 9) % 9 + 1;
+    return `<div class="fs-cell${dir==="C"?" c":""}">
+        <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
+        <span class="fs-val fs-${val}">${val}</span>
+      </div>`;
+  }).join("");
+  return `<div class="fs-block">
+      <div class="fs-title">${title}</div>
+      <div class="fs-range">${range}</div>
+      <div class="fs-grid">${cells}</div>
+    </div>`;
+}
+/* Combined chart for ONE clicked month: monthly star (big, centre) + annual star (small, bottom-right)
+   in the same 9 cells. Colour: good = both stars in {1,6,8,9} · mixed = one of {1,6,8,9} with 3 or 4 · bad = everything else. */
+const FS_GOOD = [1,6,8,9], FS_MIX = [3,4];
+function fsComboClass(a, m) {
+  if ((a===7 && m===8) || (a===8 && m===7)) return "mixed";   // 7↔8 is always orange, overrides everything else
+  if ((a===7 && m===6) || (a===6 && m===7)) return "mixed";   // 6↔7 is always orange, overrides everything else
+  if ((a===4 && m===3) || (a===3 && m===4)) return "mixed";   // 3↔4 is always orange, overrides everything else
+  const gA = FS_GOOD.includes(a), gM = FS_GOOD.includes(m);
+  if (gA && gM) return "good";
+  const mxA = FS_MIX.includes(a), mxM = FS_MIX.includes(m);
+  if ((gA && mxM) || (gM && mxA)) return "mixed";
+  return "bad";
+}
+function fsBlockCombined(title, range, yCenter, mCenter) {
+  const cells = FS_ORDER.map(dir => {
+    const base = LOSHU[dir];
+    const yv = ((base - 1 + (yCenter - 5)) % 9 + 9) % 9 + 1;
+    const mv = ((base - 1 + (mCenter - 5)) % 9 + 9) % 9 + 1;
+    const cls = fsComboClass(yv, mv);
+    const mk = [];
+    // The centre palace never takes an activator or a cure — markers apply to the 8 directions only.
+    if (dir !== "C") {
+      if (cls === "good")              mk.push(`<span class="fs-mk fs-mk-fountain" title="${L().fsActTip}">⛲</span>`);
+      if (mv === 5 || yv === 5)        mk.push(`<span class="fs-mk fs-mk-bell" title="${L().fsBellTip}">🔔</span>`);
+      if (mv === 7 || yv === 7)        mk.push(`<span class="fs-mk fs-mk-jar" title="${L().fsJarTip}">🫙</span>`);
+    }
+    const marks = mk.length ? `<span class="fs-marks">${mk.join("")}</span>` : "";
+    return `<div class="fs-cell ${cls}${dir==="C"?" c":""}">
+        <span class="fs-dir">${DIR_LABEL[LANG][dir]}</span>
+        <span class="fs-val-m fs-${mv}">${mv}</span>
+        <span class="fs-val-y fs-${yv}">${yv}</span>
+        ${marks}
+      </div>`;
+  }).join("");
+  return `<div class="fs-block fs-big">
+      ${title ? `<div class="fs-title">${title}</div>` : ""}
+      ${range ? `<div class="fs-range">${range}</div>` : ""}
+      <div class="fs-grid">${cells}</div>
+    </div>`;
+}
+function renderLegend() {
+  const el = document.getElementById("ind-legend");
+  if (!SHOW_IND && !SHOW_CLASH && !SHOW_SHA && !SHOW_KM && !SHOW_RX && !SHOW_ECLIPSE) { el.classList.remove("show"); return; }
+  let html = "";
+  if (SHOW_IND) {
+    const items = OFFICER_CHARS.map((c,i) => `<b>${i+1}</b> ${c} ${L().officers[i+1]}`).join(" · ");
+    html += `<div class="lg-title">${L().legendTitle}</div>${items}`;
+  }
+  if (SHOW_CLASH || SHOW_KM) {
+    let ln = "";
+    if (SHOW_CLASH) ln += `<span class="cl-m">${L().clashMonthTag}</span> ${L().clashMonthTip} &nbsp; <span class="cl-y">${L().clashYearTag}</span> ${L().clashYearTip}`;
+    if (SHOW_KM) ln += ` &nbsp; <span class="cl-km">${L().kmTag}</span> ${L().kmTip}`;
+    html += `<div class="lg-clash">${ln}</div>`;
+  }
+  if (SHOW_SHA) {
+    const S = L().sha;
+    const T = L().shaTypes;
+    html += `<div class="lg-clash"><b>${L().optSha}:</b> <span class="sha-jie">${S.jieM.t}</span> <span class="sha-jie">${S.jieY.t}</span> ${T.jie} · <span class="sha-zai">${S.zaiM.t}</span> <span class="sha-zai">${S.zaiY.t}</span> ${T.zai} · <span class="sha-sui">${S.suiM.t}</span> <span class="sha-sui">${S.suiY.t}</span> ${T.sui}</div>`;
+  }
+  if (SHOW_RX || SHOW_ECLIPSE) {
+    let ln = "";
+    if (SHOW_RX) ln += `<span class="ic-merc" style="display:inline-block;vertical-align:middle"></span> ${L().rxTip}`;
+    if (SHOW_ECLIPSE) ln += ` &nbsp; <span class="ic-esol" style="display:inline-block;vertical-align:middle"></span> ${L().eclSolar} &nbsp; <span class="ic-elun" style="display:inline-block;vertical-align:middle"></span> ${L().eclLunar}`;
+    html += `<div class="lg-clash">${ln} &nbsp;·&nbsp; <i>${L().astroNote}</i></div>`;
+  }
+  el.innerHTML = html;
+  el.classList.add("show");
+}
+
+/* Range of the displayed grid: lunar / solar (节→节) / Gregorian, by view mode */
+function monthRange() {
+  try {
+    if (LUNAR_MONTH) { const r = lunarRange(); return { start: r.start, end: r.end }; }
+    if (SOLAR_MONTH) return solarRange();
+  } catch (e) { /* fall through to Gregorian */ }
+  return { start: new Date(viewY, viewM, 1), end: new Date(viewY, viewM+1, 0) };
+}
+
+function renderGrid() {
+  syncNav();
+  document.getElementById("cal-dow").innerHTML =
+    L().dow.map((d,i)=>`<div class="${i>=5?'we':''}">${d}</div>`).join("");
+
+  const { start: mStart, end: mEnd } = monthRange();
+  const isIn = d => d >= mStart && d <= mEnd;
+
+  const lead = (mStart.getDay()+6)%7;                // Mon-first offset
+  const start = new Date(mStart); start.setDate(start.getDate()-lead);
+  const today = new Date();
+
+  let html = "";
+  let cur = new Date(start);
+  for (let w = 0; w < 6; w++) {
+    html += '<div class="cal-week">';
+    for (let i = 0; i < 7; i++) {
+      const inMonth = isIn(cur);
+      const p = dayPillars(cur);
+      const term = p.lunar.getJieQi();
+      const dk = dateKey(cur);
+      const cls = ["cell"];
+      if (!inMonth) cls.push("out");
+      if (sameDay(cur, today)) cls.push("today");
+      if (sameDay(cur, selected)) cls.push("sel");
+      const icons = (SHOW_RX ? rxIcon(dk) : ``) + (SHOW_ECLIPSE ? eclipseIcon(dk) : ``);
+      html += `<div class="${cls.join(' ')}" data-date="${cur.getFullYear()}-${cur.getMonth()}-${cur.getDate()}">
+          <div class="c-num">${cur.getDate()}</div>
+          ${icons ? `<div class="c-icons">${icons}</div>` : ``}
+          ${SHOW_RX ? rxTimeHtml(dk) : ``}
+          ${SHOW_ECLIPSE ? eclipseTimeHtml(dk) : ``}
+          <div class="c-gz">${gzHtml(p.d[0], p.d[1])}</div>
+          ${term ? `<div class="c-term">${termLabel(term)} <span class="c-term-t">${bjToLocal(p.lunar.getJieQiTable()[term]).hm}</span></div>` : ``}
+          ${SHOW_IND ? indHtml(p.lunar) : ``}
+          ${SHOW_SHA ? shaHtml(p) : ``}
+          ${SHOW_CLASH ? clashHtml(p) : ``}
+          ${SHOW_KM ? killMasterHtml(p) : ``}
+        </div>`;
+      cur.setDate(cur.getDate()+1);
+    }
+    html += '</div>';
+    if (cur > mEnd) break;   // next week starts past month end
+  }
+  const body = document.getElementById("cal-body");
+  body.innerHTML = html;
+  body.querySelectorAll(".cell:not(.out)").forEach(el => {
+    el.addEventListener("click", () => {
+      const [yy,mm,dd] = el.getAttribute("data-date").split("-").map(Number);
+      selected = new Date(yy, mm, dd);
+      renderDayBar(); renderHours(); refreshSelection();
+    });
+  });
+  renderLegend();
+}
+
+function refreshSelection() {
+  document.querySelectorAll(".cell").forEach(el => {
+    const a = el.getAttribute("data-date"); if (!a) return;
+    const [yy,mm,dd] = a.split("-").map(Number);
+    el.classList.toggle("sel", sameDay(new Date(yy,mm,dd), selected));
+  });
+}
+
+/* ===================== Render: hour pillars ===================== */
+function renderHours() {
+  const y = selected.getFullYear(), m = selected.getMonth()+1, d = selected.getDate();
+  document.getElementById("hours-title").textContent =
+    `${L().hoursTitle} · ${d} ${L().months[selected.getMonth()]} ${y}`;
+
+  const cm = USE_SOLAR ? corrMin(new Date(y, m-1, d, 12, 0, 0)) : 0;
+  const si = document.getElementById("cal-solar-info");
+  if (USE_SOLAR) {
+    const sign = cm >= 0 ? "+" : "−";
+    si.textContent = `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().min}`;
+  } else si.textContent = "";
+
+  // "now" highlight — solar-adjusted current time when enabled
+  let nowH = -1;
+  if (sameDay(selected, new Date())) {
+    const base = new Date();
+    const eff = USE_SOLAR ? new Date(base.getTime() + cm*60000) : base;
+    nowH = eff.getHours();
+  }
+  document.getElementById("hours-grid").innerHTML = HOURS.map(hr => {
+    const ec = eightChar(y, m, d, hr.h);
+    const g = ec.getTimeGan(), z = ec.getTimeZhi();
+    // "now" = the double-hour containing current hour (子 spans 23–1)
+    let isNow = false;
+    if (nowH >= 0) {
+      if (hr.h === 0) isNow = (nowH === 23 || nowH === 0);
+      else isNow = (nowH === hr.h - 1 || nowH === hr.h);
+    }
+    return `<div class="hcell${isNow?' now':''}">
+        <div class="h-range">${rangeLabel(hr.sm, cm)}</div>
+        <div class="h-gz">${gzHtml(g, z)}</div>
+        <div class="h-el">${stemLabel(g)} / ${animalLabel(z)}</div>
+      </div>`;
+  }).join("");
+}
+
+/* ===================== Navigation ===================== */
+function shiftMonth(delta) {
+  viewM += delta;
+  if (viewM < 0) { viewM = 11; viewY--; }
+  else if (viewM > 11) { viewM = 0; viewY++; }
+  renderGrid();
+}
+document.getElementById("prev").addEventListener("click", () => shiftMonth(-1));
+document.getElementById("next").addEventListener("click", () => shiftMonth(1));
+document.getElementById("sel-month").addEventListener("change", e => { viewM = +e.target.value; renderGrid(); });
+document.getElementById("sel-year").addEventListener("change", e => { viewY = +e.target.value; renderGrid(); });
+document.getElementById("sel-hour").addEventListener("change", e => { selHour = +e.target.value; renderAll(); });
+document.getElementById("sel-day").addEventListener("change", e => {
+  selected = new Date(viewY, viewM, +e.target.value);
+  renderDayBar(); renderHours(); refreshSelection();
+});
+document.getElementById("today").addEventListener("click", () => {
+  const t = new Date();
+  viewY = t.getFullYear(); viewM = t.getMonth();
+  selected = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  renderAll();
+});
+
+/* ===================== Solar-time controls ===================== */
+document.getElementById("cal-solar").addEventListener("change", e => {
+  USE_SOLAR = e.target.checked; renderDayBar(); renderHours();
+});
+document.getElementById("cal-city").addEventListener("input", onCityInput);
+document.addEventListener("click", e => {
+  if (!e.target.closest(".city-wrap")) document.getElementById("cal-city-dd").style.display = "none";
+});
+
+/* ===================== Display-options dropdown ===================== */
+const _dispMenu = document.getElementById("disp-menu");
+document.getElementById("disp-btn").addEventListener("click", e => { e.stopPropagation(); _dispMenu.classList.toggle("open"); });
+document.addEventListener("click", e => { if (!e.target.closest(".disp")) _dispMenu.classList.remove("open"); });
+document.getElementById("opt-solar").addEventListener("change", e => {
+  SOLAR_MONTH = e.target.checked;
+  if (SOLAR_MONTH && LUNAR_MONTH) { LUNAR_MONTH = false; document.getElementById("opt-lunar").checked = false; }
+  renderGrid();
+});
+document.getElementById("opt-lunar").addEventListener("change", e => {
+  LUNAR_MONTH = e.target.checked;
+  if (LUNAR_MONTH && SOLAR_MONTH) { SOLAR_MONTH = false; document.getElementById("opt-solar").checked = false; }
+  renderGrid();
+});
+document.getElementById("opt-ind").addEventListener("change", e => { SHOW_IND = e.target.checked; renderGrid(); });
+document.getElementById("opt-clash").addEventListener("change", e => { SHOW_CLASH = e.target.checked; renderGrid(); });
+document.getElementById("opt-sha").addEventListener("change", e => { SHOW_SHA = e.target.checked; renderGrid(); });
+document.getElementById("opt-km").addEventListener("change", e => { SHOW_KM = e.target.checked; renderGrid(); });
+document.getElementById("opt-rx").addEventListener("change", e => { SHOW_RX = e.target.checked; renderGrid(); });
+document.getElementById("opt-ecl").addEventListener("change", e => { SHOW_ECLIPSE = e.target.checked; renderGrid(); });
+/* Tick all / untick all */
+const _ALL_OPTS = ["opt-solar","opt-lunar","opt-ind","opt-clash","opt-sha","opt-km","opt-rx","opt-ecl"];
+function syncAllOpts() {
+  const cbs = _ALL_OPTS.map(id => document.getElementById(id));
+  const all = cbs.every(c => c.checked), none = cbs.every(c => !c.checked);
+  const a = document.getElementById("opt-all"); a.checked = all; a.indeterminate = !all && !none;
+}
+document.getElementById("opt-all").addEventListener("change", e => {
+  const on = e.target.checked; e.target.indeterminate = false;
+  _ALL_OPTS.forEach(id => { const cb = document.getElementById(id); if (cb.checked !== on) { cb.checked = on; cb.dispatchEvent(new Event("change")); } });
+});
+_ALL_OPTS.forEach(id => document.getElementById(id).addEventListener("change", syncAllOpts));
+
+/* ===================== Year pillars + month pillars of a year =====================
+   Window: 11 decade columns; pages from 1900 to 2100 (the range lunar-javascript covers,
+   same as the year dropdown). Clicking a year opens BOTH month tables below:
+   solar months (节→节) and lunar months (new moon → new moon). */
+const YR_MIN = 1900, YR_MAX = 2100, YR_COLS = 11;
+let yrStart = 1950;                       // first decade of the visible window
+let selYear = solarYearNum(new Date());   // default: the current solar year is open
+let selFsMonth = null;                    // 1–12: solar month clicked for the big combined flying-star chart
+const _YGZ = {};                          // year → [gan, zhi] cache
+const GAN10 = "甲乙丙丁戊己庚辛壬癸";
+const LUNAR_MONTH_ZHI = ["寅","卯","辰","巳","午","未","申","酉","戌","亥","子","丑"];  // lunar month 1 = 寅
+
+/* Year pillar of a LiChun-based solar year (June 1 is safely inside it) */
+function yearGz(y) {
+  if (!_YGZ[y]) {
+    const ec = Solar.fromYmdHms(y, 6, 1, 12, 0, 0).getLunar().getEightChar();
+    _YGZ[y] = [ec.getYearGan(), ec.getYearZhi()];
+  }
+  return _YGZ[y];
+}
+/* Hidden stems (藏干) of a branch — lunar-javascript's classical table */
+const hideGan = z => (typeof LunarUtil !== "undefined" && LunarUtil.ZHI_HIDE_GAN[z]) || [];
+/* Five Tigers month stem: same arithmetic lunar-javascript uses for the solar month pillar,
+   applied to a month index (1 = 寅). */
+function monthStem(yearGan, m) {
+  const yi = GAN10.indexOf(yearGan);
+  const offset = (((yi % 5) + 1) * 2) % 10;
+  return GAN10[(offset + (m - 1)) % 10];
+}
+/* The 12 solar months (节→节) of solar year y, starting at 立春 */
+function yearMonths(y) {
+  const out = []; let cur = liChun(y);
+  for (let i = 0; i < 12; i++) {
+    const rep = new Date(cur); rep.setDate(rep.getDate() + 3);   // date solidly inside the month
+    const lu = Solar.fromYmdHms(rep.getFullYear(), rep.getMonth()+1, rep.getDate(), 12, 0, 0).getLunar();
+    const ec = lu.getEightChar();
+    const ns = lu.getNextJie().getSolar();
+    const nextStart = new Date(ns.getYear(), ns.getMonth()-1, ns.getDay());
+    const end = new Date(nextStart); end.setDate(end.getDate() - 1);
+    out.push({ n: i+1, g: ec.getMonthGan(), z: ec.getMonthZhi(),
+               jie: lu.getPrevJie().getName(), start: new Date(cur), end });
+    cur = nextStart;
+  }
+  return out;
+}
+/* Chinese New Year (lunar 1/1) of year y */
+function cnyDate(y) {
+  const s = Lunar.fromYmd(y, 1, 1).getSolar();
+  return new Date(s.getYear(), s.getMonth()-1, s.getDay());
+}
+/* Lunar months of lunar year y: new moon → last day, pillar by lunar month number
+   (1 = 寅) with the stem from Five Tigers. A leap month has no pillar of its own. */
+function lunarMonths(y) {
+  const yg = yearGz(y)[0], out = [];
+  LunarYear.fromYear(y).getMonths().forEach(mo => {
+    if (mo.getYear() !== y) return;                       // drop the tail of the previous lunar year
+    const s = Solar.fromJulianDay(mo.getFirstJulianDay());
+    const start = new Date(s.getYear(), s.getMonth()-1, s.getDay());
+    const end = new Date(start); end.setDate(end.getDate() + mo.getDayCount() - 1);
+    const leap = mo.getMonth() < 0, n = Math.abs(mo.getMonth());
+    out.push({ n, leap, start, end,
+               g: leap ? null : monthStem(yg, n), z: leap ? null : LUNAR_MONTH_ZHI[n-1] });
+  });
+  return out;
+}
+function renderYears() {
+  const nowY = solarYearNum(new Date());
+  let html = "";
+  for (let c = 0; c < YR_COLS; c++) {
+    const dec = yrStart + c*10;
+    if (dec > YR_MAX) break;
+    let rows = "";
+    for (let y = dec; y < dec + 10 && y <= YR_MAX; y++) {
+      const [g, z] = yearGz(y);
+      rows += `<div class="yr-row${y===selYear?" on":""}${y===nowY?" now":""}" data-y="${y}"
+                    title="${y} · ${stemLabel(g)} / ${animalLabel(z)}">
+        <span class="yr-y">${y}</span><span class="yr-gz">${gzHtml(g,z)}</span></div>`;
+    }
+    html += `<div class="yr-col"><div class="yr-dec">${L().decade(dec)}</div>${rows}</div>`;
+  }
+  const grid = document.getElementById("yr-grid");
+  grid.innerHTML = html;
+  grid.querySelectorAll(".yr-row").forEach(el => el.addEventListener("click", () => {
+    const y = +el.getAttribute("data-y");
+    selYear = (selYear === y) ? null : y;
+    renderYears(); renderYearMonths();
+  }));
+  const last = Math.min(yrStart + YR_COLS*10 - 1, YR_MAX);
+  document.getElementById("yr-range").textContent = `${yrStart} – ${last}`;
+  document.getElementById("yr-prev").disabled = yrStart <= YR_MIN;
+  document.getElementById("yr-next").disabled = last >= YR_MAX;
+}
+function shiftYears(d) {
+  const maxStart = YR_MAX - YR_COLS*10 + 10;                    // last page still ends at YR_MAX
+  yrStart = Math.max(YR_MIN, Math.min(maxStart, yrStart + d*10));
+  renderYears();
+}
+function renderYearMonths() {
+  const box = document.getElementById("ymonths");
+  if (!selYear) { box.innerHTML = ""; return; }
+  const [yg, yz] = yearGz(selYear), ms = L().monthsShort;
+  const dt = x => `${x.getDate()} ${ms[x.getMonth()]}`;
+  const span = (a, b) => `${dt(a)} ${a.getFullYear()} – ${dt(b)} ${b.getFullYear()}`;
+  const hideHtml = z => {
+    const h = hideGan(z); if (!h.length) return "";
+    return `<div class="ym-hide"><div class="ym-hide-l">${L().hiddenLabel}</div>
+      <div class="ym-hide-g">${h.map(g => `<span class="${elClass(g)}">${g}</span>`).join("")}</div></div>`;
+  };
+  /* one month cell — `hide` adds the hidden stems, `extra` the solar term, `mi` makes it clickable
+     (solar months only) for the big combined flying-star chart above */
+  const cell = (m, isLast, hide, extra, mi) => `
+    <div class="ym-cell${m.leap ? " leap" : ""}${isLast ? " last-row" : ""}${mi ? " ym-cell-fs" : ""}${mi && mi===selFsMonth ? " fs-sel" : ""}"${mi ? ` data-mi="${mi}"` : ""}>
+      <div class="ym-n">${L().monthWord} ${m.n}${m.leap ? ` <span class="leap-tag">(${L().leapWord})</span>` : ""}</div>
+      <div class="ym-range">${dt(m.start)} – ${dt(m.end)}</div>
+      ${extra || ""}
+      ${m.z ? `<div class="ym-gz">${gzHtml(m.g, m.z)}</div>
+               <div class="ym-el">${stemLabel(m.g)} / ${animalLabel(m.z)}</div>
+               ${hide ? hideHtml(m.z) : ""}`
+            : `<div class="ym-gz none">—</div>`}
+    </div>`;
+
+  /* ── solar months (节→节) — with hidden stems and the solar-term node ── */
+  const sol = yearMonths(selYear);
+  const solStart = liChun(selYear), solEnd = liChun(selYear+1); solEnd.setDate(solEnd.getDate()-1);
+  const solCells = sol.map((m, i) =>
+    cell(m, i >= 6, true, `<div class="ym-term">${termLabel(m.jie)}</div>`, m.n)).join("");
+
+  /* ── lunar months (new moon → new moon) — no hidden stems, no term names ── */
+  const lun = lunarMonths(selYear);
+  const lunStart = cnyDate(selYear), lunEnd = cnyDate(selYear+1); lunEnd.setDate(lunEnd.getDate()-1);
+  const lunLastRow = Math.floor((lun.length - 1) / 6) * 6;
+  const lunCells = lun.map((m, i) => cell(m, i >= lunLastRow, false, "")).join("");
+
+  /* ── flying stars: the year + each of its 12 solar months ── */
+  const starYear = fsBlock(`${L().yearWord} ${selYear}`, span(solStart, solEnd), yearCenter(selYear));
+  const starMonths = sol.map(m => fsBlock(`${L().monthWord} ${m.n}`,
+    `${dt(m.start)} – ${dt(m.end)}`, monthCenter(yz, m.z))).join("");
+
+  /* ── big combined chart (annual + monthly together) for the clicked solar month ── */
+  let fsBigHtml = "";
+  const fsMonthObj = selFsMonth ? sol.find(m => m.n === selFsMonth) : null;
+  if (fsMonthObj) {
+    const range = `${dt(fsMonthObj.start)} – ${dt(fsMonthObj.end)}`;
+    const goldFold = (brand, sub, cls="") => `
+    <div class="gold-fold">
+      <div class="gold-fold-bar"><span class="gf-chev">▾</span> SuccessCode</div>
+      <div class="gold-fold-body"><div class="gold-banner">
+        <div class="gb-brand ${cls}">${brand}</div>
+        <div class="gb-sub">${sub}</div>
+      </div></div>
+    </div>`;
+    fsBigHtml = `
+    ${goldFold(L().fsBrandTop, "successcode.net/ru", "gb-brand-long")}
+    <div class="ym-block">
+      <div class="ym-head">
+        <span class="ym-title">${L().starsTitle} · ${L().months[fsMonthObj.n % 12]}</span>
+        <span class="fs-tools">
+          <label class="fs-tool" title="${L().fsActTip}"><input type="checkbox" id="fs-act"><span class="fs-tool-ic">⛲</span>${L().fsActivators}</label>
+          <label class="fs-tool" title="${L().fsBellTip}"><input type="checkbox" id="fs-bell"><span class="fs-tool-ic">🔔</span>${L().fsBell}</label>
+          <label class="fs-tool" title="${L().fsJarTip}"><input type="checkbox" id="fs-jar"><span class="fs-tool-ic">🫙</span>${L().fsJar}</label>
+        </span>
+      </div>
+      <div class="fs-big-wrap" id="fs-big-wrap">${fsBlockCombined("", range, yearCenter(selYear), monthCenter(yz, fsMonthObj.z))}</div>
+    </div>
+    ${goldFold(L().calLink, "successcode.net/calendar")}`;
+  }
+
+  box.innerHTML = `
+    <div class="ym-block">
+      <div class="ym-head">
+        <span class="ym-title">${L().monthsTitle} · ${selYear} · ${span(solStart, solEnd)}</span>
+        <span class="ym-year">${gzHtml(yg, yz)}<span class="ym-year-sub">${stemLabel(yg)} / ${animalLabel(yz)}</span></span>
+        <button class="ym-close" id="ym-close" type="button" title="${L().closeWord}">✕</button>
+      </div>
+      <div class="ym-grid">${solCells}</div>
+    </div>
+    <div class="ym-block">
+      <div class="ym-head">
+        <span class="ym-title">${L().lunarMonthsTitle} · ${selYear} · ${span(lunStart, lunEnd)}</span>
+      </div>
+      <div class="ym-grid">${lunCells}</div>
+      ${lun.some(m => m.leap) ? `<div class="ym-note">${L().leapNote}</div>` : ""}
+    </div>${fsBigHtml}
+    <div class="ym-block">
+      <div class="ym-head"><span class="ym-title">${L().starsTitle} · ${selYear}</span></div>
+      <div class="fs-mini">
+        <div class="fs-year-row">${starYear}</div>
+        <div class="fs-months">${starMonths}</div>
+      </div>
+    </div>`;
+  document.getElementById("ym-close").addEventListener("click", () => {
+    selYear = null; renderYears(); renderYearMonths();
+  });
+  box.querySelectorAll(".ym-cell-fs").forEach(el => {
+    el.addEventListener("click", () => {
+      const mi = +el.getAttribute("data-mi");
+      selFsMonth = (selFsMonth === mi) ? null : mi;
+      renderYearMonths();
+    });
+  });
+  /* click a direction box in the big combined chart -> thick gold frame, to spotlight the direction being discussed */
+  box.querySelectorAll(".fs-big .fs-cell").forEach(el => {
+    el.addEventListener("click", () => el.classList.toggle("dir-sel"));
+  });
+  /* Activators (fountain on green) / Bell (on 5) / Jar of water (on 7) toggles */
+  const fsWrap = document.getElementById("fs-big-wrap");
+  const fsAct = document.getElementById("fs-act"), fsBell = document.getElementById("fs-bell"), fsJar = document.getElementById("fs-jar");
+  if (fsWrap && fsAct)  fsAct.addEventListener("change",  () => fsWrap.classList.toggle("act-on",  fsAct.checked));
+  if (fsWrap && fsBell) fsBell.addEventListener("change", () => fsWrap.classList.toggle("bell-on", fsBell.checked));
+  if (fsWrap && fsJar)  fsJar.addEventListener("change",  () => fsWrap.classList.toggle("jar-on",  fsJar.checked));
+  /* Foldable golden brand banners — collapsed by default, opened for phone screen recordings */
+  box.querySelectorAll(".gold-fold-bar").forEach(bar => {
+    bar.addEventListener("click", () => bar.closest(".gold-fold").classList.toggle("open"));
+  });
+}
+document.getElementById("yr-prev").addEventListener("click", () => shiftYears(-1));
+document.getElementById("yr-next").addEventListener("click", () => shiftYears(1));
+
+/* ===================== Language ===================== */
+function applyLang() {
+  document.documentElement.lang = LANG;
+  document.getElementById("tagline").textContent = L().tagline;
+  document.getElementById("cal-link").textContent = L().calLink;
+  document.getElementById("today").textContent = L().today;
+  document.getElementById("print-btn").textContent = "⎙ " + L().print;
+  document.getElementById("backlink").textContent = L().back;
+  document.getElementById("solar-label").textContent = L().solar;
+  document.getElementById("cal-city").setAttribute("placeholder", L().cityPh);
+  document.getElementById("disp-btn").textContent = L().show + " ▾";
+  document.getElementById("lbl-all").textContent = L().optAll;
+  document.getElementById("lbl-solar").textContent = L().optSolarMonth;
+  document.getElementById("lbl-lunar").textContent = L().optLunarMonth;
+  document.getElementById("lbl-ind").textContent = L().optInd;
+  document.getElementById("lbl-clash").textContent = L().optClash;
+  document.getElementById("lbl-sha").textContent = L().optSha;
+  document.getElementById("lbl-km").textContent = L().optKillMaster;
+  document.getElementById("lbl-rx").textContent = L().optRx;
+  document.getElementById("lbl-ecl").textContent = L().optEclipse;
+  document.getElementById("years-title").textContent = L().yearsTitle;
+  document.getElementById("years-hint").textContent = L().yearsHint;
+  document.getElementById("yr-prev").title = L().prevYears;
+  document.getElementById("yr-next").title = L().nextYears;
+  renderYears(); renderYearMonths();
+  buildMonthOptions(); syncNav();
+  document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
+  document.getElementById("lang-en").classList.toggle("on", LANG==="en");
+}
+function setLang(l) {
+  LANG = l;
+  try { localStorage.setItem("sc-lang", l); } catch(e){}
+  applyLang(); renderAll();
+}
+document.getElementById("lang-ru").addEventListener("click", () => setLang("ru"));
+document.getElementById("lang-en").addEventListener("click", () => setLang("en"));
+document.getElementById("print-btn").addEventListener("click", () => window.print());
+
+/* ===================== Init ===================== */
+function renderAll() { renderDayBar(); renderGrid(); renderHours(); }
+document.getElementById("opt-solar").checked = SOLAR_MONTH;
+document.getElementById("opt-lunar").checked = LUNAR_MONTH;
+document.getElementById("opt-ind").checked = SHOW_IND;
+document.getElementById("opt-clash").checked = SHOW_CLASH;
+document.getElementById("opt-sha").checked = SHOW_SHA;
+document.getElementById("opt-km").checked = SHOW_KM;
+document.getElementById("opt-rx").checked = SHOW_RX;
+document.getElementById("opt-ecl").checked = SHOW_ECLIPSE;
+syncAllOpts();
+buildHourOptions();
+buildYearOptions();
+applyLang();
+renderAll();
+</script>
+</body>
+</html>

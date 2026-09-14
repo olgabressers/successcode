@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alena — SuccessCode Sample Report</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:    #3a3c48;
+      --surface:  #42444e;
+      --gold:     #b8903a;
+      --gold2:    #cfa44e;
+      --white:    #eceef8;
+      --dim:      #d4d6e8;
+      --muted:    #c0c2d4;
+      --border:   rgba(184,144,58,0.25);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--black); color: var(--white); -webkit-font-smoothing: antialiased; }
+
+    .page-header {
+      padding: 72px 72px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-eyebrow {
+      font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); font-weight: 600; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .page-eyebrow::before { content: ''; width: 36px; height: 2px; background: var(--gold); }
+    .page-header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 72px);
+      font-weight: 300; line-height: 1.05;
+    }
+    .page-header h1 em { font-style: italic; color: var(--gold2); }
+    .page-header p {
+      font-size: 15px; line-height: 1.8; color: var(--dim);
+      max-width: 620px; margin-top: 24px;
+    }
+
+    .output-section {
+      padding: 80px 72px;
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 80px;
+      border-top: 1px solid var(--border);
+    }
+    .side-label {
+      writing-mode: vertical-rl;
+      font-size: 12px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); padding-top: 6px; font-weight: 600;
+    }
+    .output-intro-h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(32px, 3.5vw, 54px);
+      font-weight: 300; line-height: 1.15; margin-bottom: 20px;
+    }
+    .output-intro-h2 em { font-style: italic; color: var(--gold2); }
+    .output-intro-sub { font-size: 16px; line-height: 1.82; color: var(--dim); max-width: 560px; margin-bottom: 48px; }
+    .output-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-left: 1px solid var(--border);
+      border-top: 1px solid var(--border);
+    }
+    .output-card { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .output-card-q { padding: 28px 32px 22px; border-bottom: 1px solid var(--border); }
+    .output-card-q-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px; font-weight: 600;
+    }
+    .output-card-q-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 400; line-height: 1.3; color: var(--white); }
+    .output-card-a { padding: 22px 32px 32px; background: rgba(0,0,0,0.15); }
+    .output-card-a-label {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 12px; font-weight: 600;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .output-card-a-label::before { content: ''; width: 16px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .output-card-a p { font-size: 13.5px; line-height: 1.82; color: var(--dim); }
+    .output-card-a strong { color: var(--gold2); font-weight: 600; }
+
+    .page-footer {
+      padding: 32px 72px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .page-footer small { font-size: 11px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+  </style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="page-eyebrow">Sample Report · Local Reference</div>
+  <h1>Real questions.<br><em>Structural answers.</em></h1>
+  <p>This is what SuccessCode delivers — not horoscopes, not personality types. Specific, structured responses to the decisions that define careers, capital, and life. Every answer is derived from your permanent structural map and the timing layer active in your current period. Below are six example question types and the form of output each produces.</p>
+</div>
+
+<section class="output-section">
+  <div class="side-label">Reports</div>
+  <div>
+    <div class="output-cards">
+
+      <!-- 1 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">What is my winning edge — and where am I wasting leverage?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your structural advantage is concentrated in <strong>high-stakes complexity</strong> — roles where others bring problems and you bring structure. Your mental palace carries a prestige-and-wealth configuration that performs best at the intersection of significant capital and significant systems. <strong>Optimal domains: financial leadership, premium markets, enterprise technology.</strong> Weakest structural domain: mass-market creative output. Your pattern says fewer bets, bigger stakes — breadth dilutes your structural leverage.</p>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">When should I make my next major investment or capital move?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your wealth palace activates directly in Q2 2026 via annual cycle — a <strong>high-leverage window for capital deployment</strong>. Your current decade (2025–2034) carries a permanent authority channel in your network domain: cold deal-sourcing structurally outperforms warm referrals for you this entire arc. <strong>Best entry window: April–September 2026.</strong> Caution: real-asset positions initiated before January 2026 carry a friction signal — expect renegotiation. Plant in 2026, harvest in 2027.</p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">Should I take on a co-founder or build this alone?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your collaboration domain carries a <strong>decade-long friction marker (2025–2034)</strong> — equity partnerships entered in this arc have a structurally elevated probability of requiring dissolution. This is not a prohibition; it is a pattern. <strong>What works for your structure: contractual collaborators</strong> (agencies, advisors on retainer, contractors) outperform equity co-founders. Solo with a strong operator team is the higher-probability path this decade. If equity is unavoidable: document everything before commitment.</p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">What are my legal and regulatory risks this year?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>2026 carries a <strong>documentation friction signal</strong> in your Life palace — contracts and regulatory filings initiated in <strong>August–October 2026 carry a structurally elevated probability of requiring amendment.</strong> Protective action: close critical agreements before August or after October. Your chart also carries a permanent protection configuration — a noble-influence pattern that consistently surfaces the right advisor when legal pressure appears. The structural pattern is clear: pressure arrives, protection responds.</p>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">When is the best window to raise my next funding round?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your decade (2025–2034) carries a <strong>permanent international recognition channel</strong> — structurally your strongest period for outbound visibility to international audiences. 2026 activates a double authority signal on your network domain: <strong>cold outreach to investors you have no prior relationship with converts at unusually high rates this year.</strong> Structural window for first close: <strong>August–October 2026.</strong> Avoid initiating new investor relationships in Q1 2027 — your asset domain enters a friction period. Plant the seeds in 2026. Close in Q3.</p>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="output-card">
+        <div class="output-card-q">
+          <div class="output-card-q-label">Your question</div>
+          <div class="output-card-q-text">I'm planning a major career move — what is my optimal timing?</div>
+        </div>
+        <div class="output-card-a">
+          <div class="output-card-a-label">SuccessCode output</div>
+          <p>Your Career palace activates directly via the 2026 annual cycle — the <strong>same structural type that produced your strongest expansion years historically</strong> (every 12 years when this cycle returns). Your current decade reinforces this: your career palace sits in the dominant position of your decade arc. <strong>Peak window for a public move or offer acceptance: September–November 2026.</strong> Tactical note: June–July is your negotiation window — put terms on the table then. Sign in October. The sequence matters more than the month.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="page-footer">
+  <small>SuccessCode · Local reference — not deployed</small>
+  <small>Alena's chart · Personal report sample</small>
+</div>
+
+</body>
+</html>

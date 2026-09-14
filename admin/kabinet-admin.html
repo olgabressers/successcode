@@ -49,8 +49,11 @@
   tr:last-child td{ border-bottom:0; }
   .chip{ display:inline-flex; align-items:center; gap:6px; background:rgba(46,125,85,0.20); color:#8fd6ab; border:1px solid rgba(46,125,85,0.45); border-radius:20px; padding:3px 10px; font-size:12px; margin:2px 4px 2px 0; }
   .chip button{ background:transparent; border:0; color:#8fd6ab; cursor:pointer; font-size:13px; line-height:1; padding:0; }
-  .row-grant{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
-  .row-grant select{ width:auto; min-width:150px; padding:7px 10px; font-size:12px; }
+  .acc-list{ display:flex; flex-wrap:wrap; gap:8px; }
+  .acc{ display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border:1px solid var(--border); border-radius:20px; font-size:12px; cursor:pointer; color:var(--muted); user-select:none; transition:background .15s,color .15s,border-color .15s; }
+  .acc input{ width:auto; accent-color:var(--gold); margin:0; }
+  .acc:hover{ border-color:var(--gold2); }
+  .acc.on{ background:rgba(46,125,85,0.20); border-color:rgba(46,125,85,0.45); color:#8fd6ab; }
   .prod{ background:var(--surface); border:1px solid var(--border); padding:20px; margin-bottom:16px; }
   .prod .code{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--gold2); }
   .prod .fields{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:12px 0; }
@@ -83,7 +86,8 @@
     <p class="sub">Открывайте доступ клиентам вручную и загружайте материалы. <a class="hub" href="/admin/delisted.html">← админ-хаб</a></p>
 
     <h2>Клиенты и доступы</h2>
-    <div id="users-wrap"><table id="users"><thead><tr><th>Клиент</th><th>Регистрация</th><th>Доступы</th><th>Открыть доступ</th></tr></thead><tbody></tbody></table></div>
+    <p class="sub">Отметьте продукты, которые клиент купил. Галочка — доступ открыт, снять галочку — доступ закрыт. У одного клиента может быть сколько угодно продуктов.</p>
+    <div id="users-wrap"><table id="users"><thead><tr><th>Клиент</th><th>Регистрация</th><th>Доступы (отметьте купленные)</th></tr></thead><tbody></tbody></table></div>
 
     <h2>Продукты и материалы</h2>
     <div id="prods"></div>
@@ -129,18 +133,23 @@ async function boot(){
 async function loadUsers(){
   const { data }=await api("/api/admin/users");
   const tb=$("users").querySelector("tbody"); tb.innerHTML="";
-  const opts=PRODUCTS.map(p=>`<option value="${p.code}">${esc(p.name_ru)}</option>`).join("");
   (data.users||[]).forEach(u=>{
-    const active=(u.entitlements||[]).filter(e=>e.status==="active");
-    const chips=active.map(e=>`<span class="chip">${esc(e.product_code)}<button title="Закрыть доступ" onclick="revoke('${u.id}','${e.product_code}')">✕</button></span>`).join("")||'<span class="sub" style="font-size:12px">—</span>';
+    const active=new Set((u.entitlements||[]).filter(e=>e.status==="active").map(e=>e.product_code));
+    const boxes=PRODUCTS.map(p=>{
+      const on=active.has(p.code);
+      return `<label class="acc ${on?"on":""}"><input type="checkbox" ${on?"checked":""} onchange="toggleAcc('${u.id}','${p.code}',this.checked)"><span>${esc(p.name_ru)}</span></label>`;
+    }).join("");
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${chips}</td>
-      <td><div class="row-grant"><select id="sel-${u.id}">${opts}</select><button class="btn sm" onclick="grant('${u.id}')">Открыть</button></div></td>`;
+    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td><div class="acc-list">${boxes}</div></td>`;
     tb.appendChild(tr);
   });
 }
-window.grant=async(uid)=>{ const code=$("sel-"+uid).value; await api("/api/admin/grant",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code,note:"выдано вручную"})}); loadUsers(); };
-window.revoke=async(uid,code)=>{ await api("/api/admin/revoke",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code})}); loadUsers(); };
+// One checkbox per product per client: tick = grant, untick = revoke. A client can own any number of products.
+window.toggleAcc=async(uid,code,on)=>{
+  if(on){ await api("/api/admin/grant",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code,note:"выдано вручную"})}); }
+  else  { await api("/api/admin/revoke",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code})}); }
+  loadUsers();
+};
 
 function renderProducts(){
   const box=$("prods"); box.innerHTML="";

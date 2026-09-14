@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="SuccessCode — древнекитайская астрология">
+  <meta property="og:description" content="Цзы Вэй Доу Шу · карта судьбы и персональная стратегия.">
+  <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SuccessCode — древнекитайская астрология">
+  <meta name="twitter:description" content="Цзы Вэй Доу Шу · карта судьбы.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og-successcode.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZWDS Forecast — Money</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+
+    :root {
+      --bg: #f5f3ee;
+      --surface: #ffffff;
+      --border: #d8d4c8;
+      --gold: #b8882a;
+      --gold-dim: #8a6410;
+      --text: #1a1a1a;
+      --text-dim: #555;
+      --text-muted: #888;
+      --pos: #166020;
+      --neg: #aa1010;
+      --suppr: #b35b00;
+      --neutral: #555;
+      --highlight: #fff8e0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 40px 24px;
+      line-height: 1.55;
+    }
+
+    header { text-align: center; margin-bottom: 32px; }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: var(--gold);
+    }
+    header p {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    .step {
+      max-width: 920px;
+      margin: 0 auto 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 24px 28px;
+    }
+    .step h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--gold-dim);
+      margin-bottom: 16px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .step.hidden { display: none; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+      body { padding: 24px 12px; }
+      .step { padding: 16px; }
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px 10px;
+      font-family: inherit;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      background: #fafaf6;
+      color: var(--text);
+    }
+    input:focus, select:focus { outline: none; border-color: var(--gold); }
+
+    button {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      padding: 10px 22px;
+      font-family: inherit;
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+    button:hover { background: var(--gold-dim); }
+
+    .preset-row { margin-bottom: 16px; font-size: 12px; color: var(--text-dim); }
+    .preset-row a {
+      color: var(--gold-dim);
+      text-decoration: underline;
+      cursor: pointer;
+      margin-right: 14px;
+    }
+
+    .chart-summary {
+      background: var(--highlight);
+      border-left: 3px solid var(--gold);
+      padding: 16px 18px;
+      margin: 16px 0 24px;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .chart-summary strong { color: var(--gold-dim); }
+    .chart-summary p { margin: 6px 0; }
+
+    .year-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .year-tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      font-size: 13px;
+      color: var(--text-dim);
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .year-tab.active {
+      border-bottom-color: var(--gold);
+      color: var(--gold-dim);
+      font-weight: 500;
+    }
+    .year-tab.past { opacity: 0.7; }
+    .year-tab:hover { color: var(--text); }
+
+    .year-card { margin-bottom: 12px; }
+    .year-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px;
+      font-weight: 400;
+      color: var(--gold-dim);
+      margin-bottom: 4px;
+    }
+    .year-card .subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+
+    .headline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      line-height: 1.4;
+      color: var(--gold-dim);
+      padding: 18px 20px;
+      background: var(--highlight);
+      border-left: 3px solid var(--gold);
+      margin-bottom: 20px;
+    }
+    .headline.warn { background: #fef3f0; border-left-color: var(--neg); color: var(--neg); }
+    .headline.suppr { background: #fef6ee; border-left-color: var(--suppr); color: var(--suppr); }
+    .headline.neutral { background: #f3f3ee; border-left-color: var(--text-muted); color: var(--text-dim); }
+
+    .section {
+      margin-bottom: 18px;
+    }
+    .section h4 {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .section p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .channel-block {
+      background: #fafaf6;
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .channel-block strong { color: var(--gold-dim); }
+    .channel-block ul { margin: 8px 0 0 18px; padding: 0; }
+    .channel-block li { margin: 4px 0; }
+
+    details.technical {
+      margin-top: 18px;
+      padding: 10px 14px;
+      background: #fafaf6;
+      border: 1px solid var(--border);
+      font-size: 12px;
+    }
+    details.technical summary {
+      cursor: pointer;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    details.technical[open] summary { margin-bottom: 10px; }
+    details.technical .mech-line {
+      padding: 4px 0;
+      border-bottom: 1px dotted var(--border);
+    }
+    details.technical .mech-line:last-child { border-bottom: none; }
+    .mech-pol-positive { color: var(--pos); }
+    .mech-pol-negative { color: var(--neg); }
+    .mech-pol-suppression { color: var(--suppr); }
+    .mech-pol-neutral { color: var(--neutral); }
+
+    .error {
+      background: #fef0f0;
+      border-left: 3px solid var(--neg);
+      padding: 12px 16px;
+      color: var(--neg);
+      font-size: 13px;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 32px;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ZWDS FORECAST</h1>
+    <p>Money axis · deterministic engine v0.1</p>
+  </header>
+
+  <!-- STEP 1 — birth data -->
+  <section class="step" id="step-1">
+    <h2>Birth data</h2>
+    <div class="grid">
+      <div>
+        <label>Birth date</label>
+        <input type="date" id="birth-date" value="">
+      </div>
+      <div>
+        <label>Birth time (local clock)</label>
+        <input type="time" id="birth-time" value="">
+      </div>
+      <div>
+        <label>Sex</label>
+        <select id="birth-sex">
+          <option value="F">Female</option>
+          <option value="M">Male</option>
+        </select>
+      </div>
+      <div>
+        <label>City (for reference)</label>
+        <input type="text" id="birth-city" value="">
+      </div>
+      <div>
+        <label>Longitude (East-positive)</label>
+        <input type="number" step="0.0001" id="birth-lon" value="">
+      </div>
+      <div>
+        <label>UTC offset (hours)</label>
+        <input type="number" step="0.5" id="birth-utc" value="4">
+      </div>
+    </div>
+    <button id="btn-compute">See my Money forecast</button>
+    <div id="step-1-error"></div>
+  </section>
+
+  <!-- STEP 2 — forecast -->
+  <section class="step hidden" id="step-2">
+    <h2>Money forecast</h2>
+    <div id="chart-summary" class="chart-summary"></div>
+    <div id="year-tabs" class="year-tabs"></div>
+    <div id="year-output"></div>
+  </section>
+
+  <p class="footer-note">
+    Deterministic — same birth data + same year always produces the same forecast.<br>
+    Past years can be used to validate accuracy against your own life history.
+  </p>
+
+  <script src="/zwds-engine.bundle.js"></script>
+  <script>
+    'use strict';
+
+    // ====== Money axis: stars that govern wealth no matter which palace they sit in ======
+    const MONEY_STARS = new Set([
+      'Wu Qu', 'Tian Fu', 'Tai Yin', 'Tian Tong',
+      'Qi Sha', 'Lu Cun', 'Zuo Fu',
+    ]);
+
+    // ====== Year-stem flavor — used when no money mechs fire to still give a useful read ======
+    const STEM_FLAVOR = {
+      '甲': 'Restructuring energy. Old structures break; new ones build. Money tends to arrive through structural events — settlements, payouts, lump sums tied to closing chapters.',
+      '乙': 'Smooth and yielding. Money flows through what already exists rather than new openings. Property and visibility windows tend to favor this year.',
+      '丙': 'Visibility year. The chart projects authority outward. Direct/cold approaches (applications, pitches, asks) work better than waiting for warm introductions.',
+      '丁': 'Steady property and visibility energy. Good for closing real-estate moves; not a fresh-start year for new career direction.',
+      '戊': 'Slow, grounded year. Income through stability rather than new openings. Watch for ego-friction in career — patience pays.',
+      '己': 'Centered, sovereign energy. Year of restoration. If this matches your birth stem, your entire enhancer backbone doubles — peak amplitude year.',
+      '庚': 'Sharp, decisive energy. "Demand high" structural marker — negotiation year. Compensation, salary jumps, asset prices respond when you press hard.',
+      '辛': 'Status and recognition. Acknowledgment that translates into income — promotions, awards, formal recognition. Quieter than 庚 but cumulatively strong.',
+      '壬': 'Hidden movement, deep flow. Recognition that converts into wealth flows. Stable accumulation behind the scenes.',
+      '癸': 'Transformation year. Roles change, contracts close, properties sell, structures reset. The strongest "completion / pivot" energy of the cycle.',
+    };
+
+    // ====== Mech → plain-language explanation (axis-agnostic about consumer's career/business state) ======
+    function describeMechPlain(m, polarityIsReversed) {
+      const onP5 = m.target_palace === 5;
+      const star = m.target_star || '';
+
+      if (m.type === 'A') {
+        if (polarityIsReversed) {
+          return 'A structural-restart signal lands on your wealth or life axis. For your chart polarity this is a DELIVERY signal: contracts close, deals complete, decisive events arrive. Not a destruction year — a transformation year that produces cash.';
+        }
+        return 'A friction signal lands on a wealth-axis star. Tension around money this year — typically resolved by year-end, but expect a hard conversation or restructuring around income.';
+      }
+      if (m.type === 'B' && onP5) {
+        return 'The wealth palace itself activates directly. This is the structural "decisive cash event" window — a lump sum, signing event, sale proceeds, or settlement payout. The cash arrives regardless of channel; the form it takes follows whatever channel you have open.';
+      }
+      if (m.type === 'B') {
+        return 'A direct branch activation lands on your structural axis. Major life-domain event of the year tied to that palace.';
+      }
+      if (m.type === 'C') {
+        return 'An authority/power signal lands on the money axis. This is the year to take seniority — negotiate higher comp, take a senior role, raise prices, ask for what you are worth. Structural backing for "demand more".';
+      }
+      if (m.type === 'E') {
+        return 'A recognition/status signal lands on the money axis. Your work and worth become visible this year — awards, promotions, public acknowledgment. Income becomes structurally seen.';
+      }
+      if (m.type === 'Lu_suppression') {
+        if (polarityIsReversed) {
+          return 'A smoothness signal lands on a structural-axis star. For your reversed-polarity chart this DAMPENS growth — comfort without expansion. Stable but flat year; structural breakthroughs are unlikely.';
+        }
+        return 'A smoothness signal lands on a structural-axis star. Money flow is steady and frictionless — not transformative, but reliable.';
+      }
+      if (m.type === 'D') {
+        return 'Background long-cycle wealth amplifier runs in the active decade. Reinforces whatever else fires this year.';
+      }
+      if (m.type === 'annual_movable') {
+        if (star === 'Lu Cun') return 'Annual financial floor lands on this palace — passive money support in that life domain for the year.';
+        if (star === 'Qing Yang') return 'Sharp friction lands on this palace — disputes, sudden expenses, surgical cuts, or accidents in that life domain.';
+        if (star === 'Tuo Luo') return 'Chronic drag lands on this palace — delays, stuck patterns, slow grind in that life domain for the year.';
+        if (star === 'Tian Ma') return 'Movement star lands here — momentum, travel, change of place in that domain.';
+        if (star === 'Hong Luan') return 'Romance star lands here — attraction, new bond, or relationship signal in that domain.';
+        if (star === 'Tian Xi') return 'Joy star lands here — celebration or happy event in that domain.';
+      }
+      return null;
+    }
+
+    // ====== State ======
+    let chart = null;
+    const YEARS = [];
+    for (let y = 2018; y <= 2035; y++) YEARS.push(y);
+    let activeYear = (new Date()).getFullYear();
+    if (activeYear < YEARS[0]) activeYear = YEARS[0];
+    if (activeYear > YEARS[YEARS.length-1]) activeYear = YEARS[YEARS.length-1];
+
+
+    // ====== Step 1: compute chart, jump to forecast ======
+    document.getElementById('btn-compute').addEventListener('click', () => {
+      const errBox = document.getElementById('step-1-error');
+      errBox.innerHTML = '';
+      try {
+        const birth = {
+          date: document.getElementById('birth-date').value,
+          time: document.getElementById('birth-time').value,
+          sex:  document.getElementById('birth-sex').value,
+          city: document.getElementById('birth-city').value,
+          lat:  0,
+          lon:  parseFloat(document.getElementById('birth-lon').value),
+          utc_offset: parseFloat(document.getElementById('birth-utc').value),
+        };
+        chart = ZWDSEngine.buildChart(birth, 'forecast-client');
+        renderForecast();
+        document.getElementById('step-2').classList.remove('hidden');
+        document.getElementById('step-2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) {
+        errBox.innerHTML = '<div class="error">Chart computation failed: ' + (e && e.message ? e.message : e) + '</div>';
+        console.error(e);
+      }
+    });
+
+    // ====== Chart summary — human reading of the chart structure ======
+    function renderChartSummary() {
+      const P5 = chart.palaces.find(p => p.p === 5);
+      const stars5 = (P5.main_stars || []).join(', ') || 'no main star (empty palace)';
+      const polarity = chart.polarity === 'reversed';
+
+      let txt = '<p><strong>Your chart:</strong> ';
+      if (chart.chart_type === 'SPL+Transformational') {
+        txt += 'Sha Po Lang formation with transformational amplification. ';
+      } else if (chart.chart_type === 'SPL') {
+        txt += 'Sha Po Lang formation. ';
+      } else {
+        txt += 'Standard chart. ';
+      }
+      if (polarity) {
+        txt += 'Polarity is <strong>reversed</strong> on your wealth/life/career axis — adversity drives wealth, smooth comfort dampens it. Money tends to arrive through decisive single events rather than steady accumulation.';
+      } else {
+        txt += 'Polarity is <strong>standard</strong> on your wealth/life/career axis — smooth flow signals favor income, friction signals dampen it. Money tends to build through steady accumulation.';
+      }
+      txt += '</p>';
+      txt += '<p><strong>Wealth palace</strong> anchors on stars: <strong>' + stars5 + '</strong>. ';
+      txt += 'Your birth stem is <strong>' + chart.natal_year_stem + '</strong> — this drives your permanent natal "backbone" of money flights.</p>';
+      document.getElementById('chart-summary').innerHTML = txt;
+    }
+
+    // ====== Year tabs ======
+    function renderYearTabs() {
+      const container = document.getElementById('year-tabs');
+      container.innerHTML = '';
+      const currentYear = (new Date()).getFullYear();
+      YEARS.forEach(y => {
+        const tab = document.createElement('div');
+        tab.className = 'year-tab' + (y === activeYear ? ' active' : '') + (y < currentYear ? ' past' : '');
+        tab.textContent = y;
+        tab.addEventListener('click', () => {
+          activeYear = y;
+          renderYearTabs();
+          renderActiveYear();
+        });
+        container.appendChild(tab);
+      });
+    }
+
+    // ====== Money-axis filter — polarity-aware ======
+    //
+    // For SPL / REVERSED charts: the entire 1-5-9 axis (Life + Wealth + Career) IS the wealth engine.
+    //   ANY mech landing on P1, P5, or P9 is a wealth signal — because for reversed polarity,
+    //   1-5-9 activation = income delivery (validated by Alena 2021 income table in CLAUDE.md:
+    //   Mech E on P1 = "salary increase + stock sale + Spanish apt purchase").
+    //
+    // For NORMAL charts: only P5 + money stars + property channel (P10).
+    //
+    // Plus: any palace holding a money star (Wu Qu, Tian Fu, Tai Yin, Tian Tong, Qi Sha)
+    // is wealth-relevant regardless of polarity.
+    function isMoneyMech(m, chartPolarity) {
+      const isReversed = chartPolarity === 'reversed';
+      const wealthPalaces = isReversed ? [1, 5, 9, 10] : [5, 10];
+
+      if (m.target_palace !== null && wealthPalaces.includes(m.target_palace)) return true;
+      if (m.target_star && MONEY_STARS.has(m.target_star)) return true;
+      return false;
+    }
+
+    // ====== Build the year headline ======
+    // yearActive = mechs firing FROM the target year (annual/decade/movable). Natal backbone
+    // always runs in the background — it does not count as "year-specific activation" but it
+    // does set the floor (chart is always alive on its permanent flights).
+    function buildHeadline(yearActivePos, suppression, negative, isReversed, hasMechBP5, hasNatalBackbone) {
+      if (hasMechBP5) {
+        return { text: 'Decisive money event window — your wealth palace activates directly this year.', cls: '' };
+      }
+      if (yearActivePos.length >= 2) {
+        return { text: 'Strong money year — multiple wealth-axis signals stack together this year.', cls: '' };
+      }
+      if (yearActivePos.length === 1) {
+        return { text: 'Active money year — a wealth-axis signal fires this year on top of your permanent natal backbone.', cls: '' };
+      }
+      if (suppression.length) {
+        if (isReversed) {
+          return { text: 'Comfort-without-growth year — money flow stays smooth but structurally flat.', cls: 'suppr' };
+        }
+        return { text: 'Smooth money year — steady flow without amplification.', cls: 'neutral' };
+      }
+      if (negative.length && !hasNatalBackbone) {
+        return { text: 'Friction year on the money axis — pressure without compensating amplification.', cls: 'warn' };
+      }
+      if (hasNatalBackbone) {
+        return { text: 'Background year — your permanent natal wealth-axis signals run, but no fresh year-specific amplification.', cls: 'neutral' };
+      }
+      return { text: 'Quiet money year — no structural amplification or suppression.', cls: 'neutral' };
+    }
+
+    // ====== How the money typically lands (channel-agnostic — describes ALL forms) ======
+    const CHANNEL_PARAGRAPH =
+      'How this typically manifests depends on what channels are currently open in your life:' +
+      '<ul>' +
+        '<li>If you are <strong>employed</strong>: as a major salary increase, bonus, RSU vesting event, or promotion.</li>' +
+        '<li>If you <strong>run a business</strong>: as a major contract close, revenue spike, equity event, or strategic deal.</li>' +
+        '<li>If you are <strong>between roles</strong>: as a severance negotiation, settlement, asset sale, or extraction event.</li>' +
+        '<li>If you hold <strong>passive streams</strong> (rental, dividends, investments): as a new stream activation or significant appreciation of existing assets.</li>' +
+      '</ul>';
+
+    // ====== Render the active year ======
+    function renderActiveYear() {
+      const out = document.getElementById('year-output');
+      const year = activeYear;
+      try {
+        const mechs = ZWDSEngine.detectMechs(chart, year);
+        const resolved = ZWDSEngine.resolveOverrides(chart, year, mechs);
+        const annStem = resolved.annual_stem || '';
+        const annBranch = resolved.annual_branch || '';
+        const decade = resolved.active_decade;
+        const isReversed = chart.polarity === 'reversed';
+
+        const moneyMechs = mechs.filter(m => isMoneyMech(m, chart.polarity));
+        const positive = moneyMechs.filter(m => m.polarity_for_chart === 'positive');
+        const negative = moneyMechs.filter(m => m.polarity_for_chart === 'negative');
+        const suppression = moneyMechs.filter(m => m.polarity_for_chart === 'suppression');
+        const hasMechBP5 = mechs.some(m => m.type === 'B' && m.target_palace === 5);
+        // Permanent natal backbone separated for display
+        const natalBackbone = moneyMechs.filter(m => m.scale === 'natal');
+        const yearActive = moneyMechs.filter(m => m.scale !== 'natal');
+
+        const yearActivePos = yearActive.filter(m => m.polarity_for_chart === 'positive');
+        const head = buildHeadline(yearActivePos, suppression, negative, isReversed, hasMechBP5, natalBackbone.length > 0);
+
+        let html = '<div class="year-card">';
+        html += '<h3>' + year + '</h3>';
+        let sub = 'Annual stem ' + annStem + ' · ';
+        if (decade) {
+          sub += 'inside decade ' + decade.years[0] + '–' + decade.years[1] + ' (decade stem ' + decade.stem + ')';
+        } else {
+          sub += 'outside known decade range';
+        }
+        html += '<div class="subtitle">' + sub + '</div>';
+
+        html += '<div class="headline ' + head.cls + '">' + head.text + '</div>';
+
+        // Year-stem flavor (always shown — useful when no mechs fire)
+        if (STEM_FLAVOR[annStem]) {
+          html += '<div class="section">';
+          html += '<h4>The year\'s energy</h4>';
+          html += '<p>' + STEM_FLAVOR[annStem] + '</p>';
+          html += '</div>';
+        }
+
+        // Show the permanent natal backbone (only once at the top of the explanation)
+        if (natalBackbone.length > 0) {
+          html += '<div class="section">';
+          html += '<h4>Your permanent wealth backbone (runs every year)</h4>';
+          for (const m of natalBackbone) {
+            const txt = describeMechPlain(m, isReversed);
+            if (txt) html += '<p>' + txt + '</p>';
+          }
+          html += '</div>';
+        }
+
+        // Per-mech plain-language explanation — YEAR-SPECIFIC mechs only here
+        if (yearActive.length > 0) {
+          html += '<div class="section">';
+          html += '<h4>What fires THIS year on the money axis</h4>';
+          for (const m of yearActive) {
+            const txt = describeMechPlain(m, isReversed);
+            if (txt) html += '<p>' + txt + '</p>';
+          }
+          html += '</div>';
+        }
+
+        // Channel-agnostic "how this lands" — only when year-specific positive fires or Mech B P5 hits
+        if (yearActivePos.length > 0 || hasMechBP5) {
+          html += '<div class="channel-block"><strong>How this typically lands.</strong> ';
+          html += CHANNEL_PARAGRAPH;
+          html += '<p style="margin-top:10px"><em>Important: the chart guarantees the GROSS structural event. Whether the cash lands in YOUR pocket depends on what contracts, ownership splits, or obligations are attached to the asset/role/contract that becomes the channel. Co-owned assets, divorce settlements, profit-shares can route the cash through your axis without it landing with you.</em></p>';
+          html += '</div>';
+        }
+
+        // Watch-fors
+        if (negative.length > 0) {
+          html += '<div class="section">';
+          html += '<h4>Watch for</h4>';
+          for (const m of negative) {
+            const txt = describeMechPlain(m, isReversed);
+            if (txt) html += '<p>' + txt + '</p>';
+          }
+          html += '</div>';
+        }
+
+        // Override tags (translated to plain language)
+        const tagText = translateTags(resolved.year_quality_tags || []);
+        if (tagText.length) {
+          html += '<div class="section">';
+          html += '<h4>Year-quality notes</h4>';
+          for (const t of tagText) html += '<p>' + t + '</p>';
+          html += '</div>';
+        }
+
+        // Technical detail (collapsible)
+        html += '<details class="technical"><summary>Technical detail (stems · mechs · enhancer flights)</summary>';
+        html += '<div>Annual pillar: <strong>' + annStem + annBranch + '</strong>';
+        if (decade) html += ' · Decade: D' + decade.palace + ' (' + decade.years[0] + '–' + decade.years[1] + ', stem ' + decade.stem + ')';
+        html += ' · Polarity: ' + chart.polarity + '</div>';
+        html += '<div style="margin-top:8px;font-weight:500;color:var(--text-dim)">All detected mechs (' + mechs.length + '):</div>';
+        for (const m of mechs) {
+          html += '<div class="mech-line">';
+          html += '<span class="mech-pol-' + (m.polarity_for_chart || 'neutral') + '">[' + m.scale + ' · Mech ' + m.type + ' · ' + (m.polarity_for_chart || 'neutral') + ']</span> ';
+          html += m.trigger;
+          if (m.note) html += ' <em>(' + m.note + ')</em>';
+          html += '</div>';
+        }
+        if (resolved.overrides_applied && resolved.overrides_applied.length) {
+          html += '<div style="margin-top:8px;font-weight:500;color:var(--text-dim)">Override rules applied:</div>';
+          for (const o of resolved.overrides_applied) {
+            html += '<div class="mech-line">' + o + '</div>';
+          }
+        }
+        html += '</details>';
+
+        html += '</div>';
+        out.innerHTML = html;
+      } catch (e) {
+        out.innerHTML = '<div class="error">Forecast failed for ' + year + ': ' + (e && e.message ? e.message : e) + '</div>';
+        console.error(e);
+      }
+    }
+
+    function translateTags(tags) {
+      const out = [];
+      for (const t of tags) {
+        if (t === 'natal_stem_match_doubled') {
+          out.push('This year your birth stem repeats. Your entire natal enhancer set doubles — every permanent backbone signal runs at double amplitude. Peak amplitude year of the cycle (happens once every ten years).');
+        } else if (t === 'decade_stem_match_doubled') {
+          out.push('This year\'s stem matches your active decade stem. The decade-long signals already running in your life double for this year — whatever the decade is delivering, this year intensifies it.');
+        } else if (t === 'life_axis_restructure') {
+          out.push('Your structural Life axis activates. Major life-direction restructuring is structurally favored — exit/restart energy. New chapters typically open here.');
+        } else if (t === 'career_suppression_active') {
+          out.push('Career growth within existing structures is suppressed this year. Lateral moves or restructuring tend to work better than vertical advancement.');
+        } else if (t === 'wealth_axis_decisive_event') {
+          out.push('Wealth axis decisively activated — structural cash event year.');
+        } else {
+          out.push(t.replace(/_/g, ' '));
+        }
+      }
+      return out;
+    }
+
+    function renderForecast() {
+      renderChartSummary();
+      renderYearTabs();
+      renderActiveYear();
+    }
+  </script>
+</body>
+</html>

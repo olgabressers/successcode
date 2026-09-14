@@ -118,6 +118,7 @@
 <nav>
   <a href="/" class="nav-logo">SuccessCode</a>
   <div class="nav-sections">
+    <a href="/" class="nav-link">Home</a>
     <a href="/calculators?lang=en" class="nav-link">Calculators</a>
     <a href="/calendar" class="nav-link">Calendar</a>
     <a href="/walks" class="nav-link">Walks</a>
@@ -151,7 +152,7 @@
   <!-- AUTH -->
   <section id="auth" class="auth" hidden>
     <div class="tabs">
-      <button id="tab-login" class="on" type="button">Sign in</button>
+      <button id="tab-login" class="on" type="button">Log in</button>
       <button id="tab-reg" type="button">Register</button>
     </div>
     <form id="form">
@@ -159,7 +160,7 @@
       <input id="email" type="email" autocomplete="email" required>
       <label>Password</label>
       <input id="password" type="password" autocomplete="current-password" minlength="6" required>
-      <button class="btn" id="submit" type="submit">Sign in</button>
+      <button class="btn" id="submit" type="submit">Log in</button>
       <div class="msg" id="msg"></div>
       <div class="hint" id="hint">Enter your email and password to open your account.</div>
     </form>
@@ -208,7 +209,7 @@ function setMode(m){
   MODE=m;
   $("tab-login").classList.toggle("on", m==="login");
   $("tab-reg").classList.toggle("on", m==="reg");
-  $("submit").textContent = m==="login" ? "Sign in" : "Create account";
+  $("submit").textContent = m==="login" ? "Log in" : "Create account";
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
   $("hint").textContent = m==="login"
     ? "Enter your email and password to open your account."
@@ -284,7 +285,7 @@ function route(){
   if(token()){ loadCabinet(); }
   else {
     show("loading",false); show("who",false); show("cabinet",false); show("item",false);
-    $("lead").textContent="Sign in or register to open your materials.";
+    $("lead").textContent="Log in or register to open your materials.";
     setMode("login"); show("auth",true);
   }
 }
