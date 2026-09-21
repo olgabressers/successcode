@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
   :root{
-    --black:#3a3c48; --surface:#42444e; --surface2:#4a4c58;
-    --gold:#b8903a; --gold2:#cfa44e; --gold-dim:rgba(184,144,58,0.10);
-    --white:#eceef8; --dim:#d4d6e8; --muted:#c0c2d4; --border:rgba(184,144,58,0.25);
-    --field:#33353f; --line:rgba(255,255,255,0.10);
+    --black:#f5f3ee; --surface:#ffffff; --surface2:#e7e6e2; --card:#e7e6e2;
+    --gold:#b8882a; --gold2:#8a6410; --gold-dim:rgba(184,144,58,0.10);
+    --white:#1a1a1a; --dim:#555555; --muted:#8a8578; --border:#d8d4c8;
+    --field:#f8f6f2; --line:rgba(0,0,0,0.08);
   }
   *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
   [hidden]{ display:none !important; }
@@ -27,9 +27,9 @@
   nav{
     position:fixed; top:0; left:0; right:0; z-index:200;
     padding:22px 56px; display:flex; justify-content:space-between; align-items:center; gap:16px;
-    background:rgba(52,54,64,0.98); border-bottom:1px solid var(--border); backdrop-filter:blur(8px);
+    background:rgba(255,255,255,0.97); border-bottom:1px solid var(--border); backdrop-filter:blur(8px);
   }
-  .nav-logo{ font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
+  .nav-logo{ font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--gold); text-decoration:none; }
   .nav-sections{ display:flex; gap:18px; align-items:center; margin-left:auto; flex-wrap:nowrap; }
   .nav-links{ display:flex; gap:12px; align-items:center; }
   .nav-link{ font-size:11px; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; color:var(--white); font-weight:600; text-decoration:none; transition:color .25s; }
@@ -62,22 +62,22 @@
   input:focus{ border-color:var(--gold2); }
   .btn{ width:100%; margin-top:26px; background:var(--gold); color:#f5f1eb; border:0; padding:15px; font-size:12px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; font-weight:600; transition:background .25s; }
   .btn:hover{ background:var(--gold2); }
-  .msg{ margin-top:16px; font-size:13px; color:#e39393; min-height:18px; text-align:center; }
+  .msg{ margin-top:16px; font-size:13px; color:#c0392b; min-height:18px; text-align:center; }
   .hint{ font-size:13px; color:var(--muted); text-align:center; margin-top:16px; line-height:1.6; }
 
   /* GRID */
   .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:22px; }
-  .tile{ position:relative; background:var(--surface); border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; min-height:230px; transition:transform .18s,box-shadow .18s,border-color .18s; }
+  .tile{ position:relative; background:var(--card); border:1px solid var(--border); overflow:hidden; display:flex; flex-direction:column; min-height:230px; transition:transform .18s,box-shadow .18s,border-color .18s; }
   .tile.open{ cursor:pointer; }
-  .tile.open:hover{ transform:translateY(-4px); box-shadow:0 18px 40px rgba(0,0,0,.35); border-color:var(--gold2); }
-  .tile .art{ height:138px; background:linear-gradient(135deg,#2f313c,#4a4c58); display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); }
+  .tile.open:hover{ transform:translateY(-4px); box-shadow:0 14px 32px rgba(0,0,0,.14); border-color:var(--gold); }
+  .tile .art{ height:138px; background:linear-gradient(135deg,#dedcd6,#e7e6e2); display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--border); }
   .tile .art img{ width:100%; height:100%; object-fit:cover; }
   .tile .art .mono{ font-size:40px; color:var(--gold2); }
   .tile .body{ padding:18px 18px 20px; flex:1; display:flex; flex-direction:column; }
   .tile .name{ font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; line-height:1.2; margin-bottom:10px; }
   .tile .meta{ margin-top:auto; font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); display:flex; align-items:center; justify-content:space-between; }
   .open-tag{ color:var(--gold2); font-weight:600; }
-  .tile.locked{ background:linear-gradient(155deg,#34363f,#42444e); }
+  .tile.locked{ background:linear-gradient(155deg,#e0dfda,#e7e6e2); }
   .lockcard{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:30px 20px; gap:12px; min-height:230px; }
   .lockcard .ln{ font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; line-height:1.2; color:var(--white); }
   .lockcard .li{ font-size:26px; color:var(--gold2); opacity:.85; }
@@ -141,7 +141,7 @@
     <div>
       <p class="eyebrow">SuccessCode</p>
       <h1 class="disp">Your account</h1>
-      <p class="lead" id="lead">Everything you have, in one place. Open items are available at once; the rest unlock after payment.</p>
+      <p class="lead" id="lead"></p>
     </div>
     <div class="acct" id="who" hidden>
       <span id="who-email"></span>
@@ -244,7 +244,7 @@ async function loadCabinet(){
   show("loading",false);
   if(!ok){ show("auth",true); return; }
   $("who-email").textContent=data.email||""; show("who",true);
-  $("lead").textContent="Everything you have, in one place. Open items are available at once; the rest unlock after payment.";
+  $("lead").textContent="";
   const grid=$("grid"); grid.innerHTML="";
   (data.products||[]).forEach(p=>{
     const nm = p.name_en || p.name_ru;
@@ -259,7 +259,7 @@ async function loadCabinet(){
       el.onclick=()=>openItem(p.code);
     } else {
       el.className="tile locked";
-      el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div><div class="li">🔒</div><div class="lp">€${p.price_eur}</div><div class="ls">Access on request</div></div>`;
+      el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div><div class="li">🔒</div></div>`;
     }
     grid.appendChild(el);
   });
@@ -271,7 +271,7 @@ async function openItem(code){
   const { ok, data } = await api("/api/content?code="+encodeURIComponent(code));
   show("loading",false);
   if(!ok) return loadCabinet();
-  if((!data.content_html || !data.content_html.trim()) && data.target_url){ window.location.href=data.target_url; return; }
+  if((!data.content_html || !data.content_html.trim()) && data.target_url){ window.open(data.target_url, "_blank", "noopener"); show("loading",false); show("cabinet",true); return; }
   $("item-title").textContent=data.name_en||data.name_ru||"";
   $("item-content").innerHTML = (data.content_html && data.content_html.trim())
     ? data.content_html
@@ -290,6 +290,8 @@ function route(){
   }
 }
 route();
+// re-render when the page is restored from the browser's back/forward cache (avoids a blank cabinet on Back)
+window.addEventListener("pageshow", (e)=>{ if(e.persisted) route(); });
 
 // back-to-top
 (function(){ const b=$("backToTop"); window.addEventListener("scroll",()=>{ b.style.display = window.scrollY>400 ? "flex":"none"; }); b.onclick=(e)=>{ e.preventDefault(); window.scrollTo({top:0,behavior:"smooth"}); }; })();
