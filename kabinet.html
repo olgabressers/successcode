@@ -213,7 +213,7 @@ function setMode(m){
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
   $("hint").textContent = m==="login"
     ? "Enter your email and password to open your account."
-    : "Choose a password (at least 6 characters). Your account opens right away.";
+    : "Choose a password (at least 6 characters). We'll email you a link to confirm your address.";
   $("msg").textContent="";
 }
 $("tab-login").onclick=()=>setMode("login");
@@ -228,9 +228,13 @@ $("form").addEventListener("submit", async (e)=>{
   const { ok, data } = await api(path, { method:"POST", body:JSON.stringify({email,password}) });
   $("submit").disabled=false;
   if(ok && data.access_token){ setTokens(data); route(); }
+  else if(ok && data.confirm_required){
+    $("form").innerHTML = '<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">We\'ve sent a confirmation email to <b style="color:var(--white)">'+email+'</b>.<br><br>Open it and follow the link to confirm your address — then come back here and log in. If you don\'t see it, check your spam folder.</p>';
+  }
   else {
     const err = data.error_description || data.msg || data.error || "That didn't work. Check your email and password.";
-    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Wrong email or password." : err;
+    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Wrong email or password."
+      : (/not confirmed/i.test(err) ? "Email not confirmed yet. Open the link in your email, then log in." : err);
   }
 });
 
@@ -289,6 +293,11 @@ function route(){
     setMode("login"); show("auth",true);
   }
 }
+// If we arrived from an email-confirmation link, Supabase puts the session in the URL hash — pick it up and sign in.
+(function(){ try{
+  const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
+  if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
+}catch(e){} })();
 route();
 // re-render when the page is restored from the browser's back/forward cache (avoids a blank cabinet on Back)
 window.addEventListener("pageshow", (e)=>{ if(e.persisted) route(); });

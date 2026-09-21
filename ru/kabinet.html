@@ -213,7 +213,7 @@ function setMode(m){
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
   $("hint").textContent = m==="login"
     ? "Введите почту и пароль, чтобы войти в личный кабинет."
-    : "Придумайте пароль (минимум 6 символов). Доступ к аккаунту откроется сразу.";
+    : "Придумайте пароль (минимум 6 символов). Мы пришлём письмо со ссылкой для подтверждения почты.";
   $("msg").textContent="";
 }
 $("tab-login").onclick=()=>setMode("login");
@@ -228,9 +228,13 @@ $("form").addEventListener("submit", async (e)=>{
   const { ok, data } = await api(path, { method:"POST", body:JSON.stringify({email,password}) });
   $("submit").disabled=false;
   if(ok && data.access_token){ setTokens(data); route(); }
+  else if(ok && data.confirm_required){
+    $("form").innerHTML = '<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">Мы отправили письмо для подтверждения на <b style="color:var(--white)">'+email+'</b>.<br><br>Откройте письмо и перейдите по ссылке, чтобы подтвердить почту — затем вернитесь сюда и войдите. Если письма нет, проверьте папку «Спам».</p>';
+  }
   else {
     const err = data.error_description || data.msg || data.error || "Не получилось. Проверьте почту и пароль.";
-    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Неверная почта или пароль." : err;
+    $("msg").textContent = MODE==="login" && /invalid/i.test(err) ? "Неверная почта или пароль."
+      : (/not confirmed|подтвержд/i.test(err) ? "Почта не подтверждена. Откройте ссылку в письме, затем войдите." : err);
   }
 });
 
@@ -288,6 +292,11 @@ function route(){
     setMode("login"); show("auth",true);
   }
 }
+// If we arrived from an email-confirmation link, Supabase puts the session in the URL hash — pick it up and sign in.
+(function(){ try{
+  const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
+  if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
+}catch(e){} })();
 route();
 // re-render when the page is restored from the browser's back/forward cache (avoids a blank cabinet on Back)
 window.addEventListener("pageshow", (e)=>{ if(e.persisted) route(); });
