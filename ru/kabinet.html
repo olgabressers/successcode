@@ -156,6 +156,12 @@
       <button id="tab-reg" type="button">Регистрация</button>
     </div>
     <form id="form">
+      <div id="reg-top" hidden>
+        <label>Имя</label>
+        <input id="first_name" type="text" autocomplete="given-name">
+        <label>Фамилия</label>
+        <input id="last_name" type="text" autocomplete="family-name">
+      </div>
       <label>Почта</label>
       <input id="email" type="email" autocomplete="email" required>
       <label>Пароль</label>
@@ -216,6 +222,7 @@ function setMode(m){
   $("submit").textContent = m==="login" ? "Войти" : "Создать аккаунт";
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
   $("confirm-wrap").hidden = (m!=="reg"); $("password2").value="";
+  $("reg-top").hidden = (m!=="reg");
   $("hint").textContent = m==="login"
     ? "Введите почту и пароль, чтобы войти."
     : "Придумайте пароль (минимум 6 символов). Мы пришлём письмо со ссылкой для подтверждения почты.";
@@ -227,11 +234,16 @@ $("tab-reg").onclick=()=>setMode("reg");
 $("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const email=$("email").value.trim(), password=$("password").value;
+  const first_name=$("first_name").value.trim(), last_name=$("last_name").value.trim();
   if(!email||!password) return;
-  if(MODE==="reg" && password !== $("password2").value){ $("msg").textContent="Пароли не совпадают."; return; }
+  if(MODE==="reg"){
+    if(!first_name||!last_name){ $("msg").textContent="Укажите имя и фамилию."; return; }
+    if(password !== $("password2").value){ $("msg").textContent="Пароли не совпадают."; return; }
+  }
   $("submit").disabled=true; $("msg").textContent="";
   const path = MODE==="login" ? "/api/login" : "/api/register";
-  const { ok, data } = await api(path, { method:"POST", body:JSON.stringify({email,password}) });
+  const body = MODE==="reg" ? {email,password,first_name,last_name} : {email,password};
+  const { ok, data } = await api(path, { method:"POST", body:JSON.stringify(body) });
   $("submit").disabled=false;
   if(ok && data.access_token){ setTokens(data); route(); }
   else if(ok && data.confirm_required){
