@@ -43,11 +43,15 @@
   .marrow:hover{ background:var(--gold); color:#fff; border-color:var(--gold); }
   .marrow.disabled{ opacity:.32; pointer-events:none; }
 
-  .solarbar{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px; }
-  .seg{ display:inline-flex; border:1px solid var(--border); background:var(--surface); }
-  .seg button{ font-family:'Inter',sans-serif; font-size:11px; letter-spacing:1px; text-transform:uppercase; font-weight:600; color:var(--text-dim); background:transparent; border:none; padding:9px 15px; cursor:pointer; transition:background .2s,color .2s; }
-  .seg button.on{ background:var(--gold); color:#fff; }
-  #citySel{ font-family:'Inter',sans-serif; font-size:12px; color:var(--text); background:var(--surface); border:1px solid var(--border); padding:8px 10px; cursor:pointer; }
+  .solarbar{ display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:10px 12px; }
+  .city-wrap{ position:relative; }
+  #wk-city{ font-family:'Inter',sans-serif; font-size:12px; color:var(--text); background:var(--surface); border:1px solid var(--border); padding:8px 12px; width:200px; }
+  #wk-city:focus{ outline:none; border-color:var(--gold); }
+  .city-dd{ position:absolute; top:100%; left:0; right:0; min-width:240px; z-index:60; background:#fff; border:1px solid var(--border); border-top:none; display:none; max-height:230px; overflow:auto; text-align:left; box-shadow:0 8px 20px rgba(0,0,0,.12); }
+  .city-opt{ padding:8px 10px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text); cursor:pointer; border-bottom:1px solid var(--line); }
+  .city-opt:hover{ background:var(--surface2); }
+  .solar-toggle{ display:inline-flex; align-items:center; gap:7px; font-family:'Inter',sans-serif; font-size:12px; color:var(--text-dim); cursor:pointer; }
+  .solar-toggle input{ cursor:pointer; accent-color:var(--gold); width:16px; height:16px; }
   .solar-note{ width:100%; text-align:center; font-size:12px; color:var(--gold-dim); letter-spacing:.3px; }
 
   .toolbar{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
@@ -120,16 +124,21 @@
   .back-to-top svg{ width:22px; height:22px; }
 
   @media print{
-    @page{ size:A4 landscape; margin:8mm; }
-    nav, .solarbar, .toolbar, .monthnav, .back-to-top{ display:none !important; }
-    body{ background:#fff; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    @page{ size:A4 landscape; margin:7mm; }
+    nav, .solarbar, .toolbar, .monthnav, .solar-note, .back-to-top{ display:none !important; }
+    html,body{ width:auto; max-width:none; overflow:visible; }
+    body{ background:#fff; zoom:.72; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
     header.hero{ padding:0 0 8px; }
-    section{ padding:8px 0; }
-    .cell{ min-height:96px; }
+    section{ padding:10px 0; }
+    /* keep the on-screen month grid on paper (never collapse to one column) */
+    .cal-dow{ display:grid !important; grid-template-columns:repeat(7,1fr) !important; }
+    .cal-grid{ grid-template-columns:repeat(7,1fr) !important; }
+    .cell{ min-height:104px; }
+    .cell.out{ display:block !important; }
     .cal, .cal-grid, .cell, .gcard{ break-inside:avoid; }
   }
 
-  @media (max-width:768px){
+  @media screen and (max-width:768px){
     *{ max-width:100vw; }
     nav{ padding:10px 14px 8px; gap:8px; flex-wrap:wrap; }
     .nav-logo{ font-size:13px; letter-spacing:2px; white-space:nowrap; flex-shrink:0; }
@@ -138,7 +147,8 @@
     .wrap{ padding:0 14px; }
     header.hero{ padding:118px 0 4px; }
     .monthnav .mtitle{ font-size:20px; min-width:150px; }
-    #citySel{ max-width:60vw; }
+    #wk-city{ width:64vw; max-width:280px; }
+    .city-dd{ min-width:0; }
     section{ padding:22px 0; }
     #calendar{ padding-top:16px; }
     .cal-dow{ display:none; }
@@ -183,11 +193,11 @@
         <a class="marrow disabled" id="mNext" href="#" aria-label="Следующий месяц">›</a>
       </div>
       <div class="solarbar">
-        <div class="seg" role="group" aria-label="Формат времени">
-          <button type="button" id="btnClock" class="on" onclick="setMode('clock')">Время на часах</button>
-          <button type="button" id="btnSolar" onclick="setMode('solar')">Солнечное время</button>
+        <div class="city-wrap">
+          <input type="text" id="wk-city" autocomplete="off" placeholder="Ваш город">
+          <div class="city-dd" id="wk-city-dd"></div>
         </div>
-        <select id="citySel" onchange="applyTimes()" hidden></select>
+        <label class="solar-toggle"><input type="checkbox" id="wk-solar"> <span>Солнечное время</span></label>
       </div>
       <div class="solar-note" id="solarNote" hidden></div>
       <div class="toolbar">
@@ -248,7 +258,7 @@
       <b>Альтернатива прогулке.</b> Если вы не можете гулять — есть альтернатива. Сядьте в указанный сектор спиной к этому направлению, войдите в состояние, соответствующее структуре, и сделайте медитацию для реализации намерения. Если медитация не получается — сядьте в указанный сектор спиной к направлению и посидите там указанные два часа, думая о намерении или занимаясь делами, соответствующими структуре.
     </div>
     <h3 style="margin-top:34px">Время: часы или солнечное</h3>
-    <p class="lead">Есть два подхода. <b>Время на часах</b> — вы смотрите на часы в том городе, где находитесь, и действуете по ним. <b>Солнечное время</b> — вы переводите время на часах в истинное солнечное время той местности, где находитесь. Так как это метафизика, работают оба подхода — выберите один и следуйте всегда ему. Для первого подхода используйте время, указанное в календаре. Для солнечного времени выберите город наверху — время в таблице пересчитается на истинное солнечное для этого города и даты.</p>
+    <p class="lead">Есть два подхода. <b>Время на часах</b> — вы смотрите на часы в том городе, где находитесь, и действуете по ним. <b>Солнечное время</b> — вы переводите время на часах в истинное солнечное время той местности, где находитесь. Так как это метафизика, работают оба подхода — выберите один и следуйте всегда ему. Для первого подхода используйте время, указанное в календаре. Для солнечного времени укажите ваш город наверху и включите «Солнечное время» — время в таблице пересчитается для вашего города и даты, с учётом перехода на летнее и зимнее время.</p>
   </div>
 </section>
 
@@ -268,6 +278,7 @@
 
 <a href="#" class="back-to-top" id="backToTop" aria-label="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 15l6-6 6 6"/></svg></a>
 
+<script src="/tz.js"></script>
 <script>
 // ── September 2026 schedule (from the Ци Мень «Прогулки — Сентябрь 2026» document) ──
 // day: [date, weekday, [ [animal+branch, time, direction, structure], ... ] ]
@@ -333,56 +344,24 @@ const MONTHS = [
 ];
 const CUR = 0;
 
-// ── Cities: name, longitude °E, standard UTC offset (h), DST region ──
-const CITIES = [
-  {n:"Москва", lon:37.62, utc:3, dst:"none"},
-  {n:"Санкт-Петербург", lon:30.31, utc:3, dst:"none"},
-  {n:"Калининград", lon:20.45, utc:2, dst:"none"},
-  {n:"Краснодар", lon:38.98, utc:3, dst:"none"},
-  {n:"Ростов-на-Дону", lon:39.70, utc:3, dst:"none"},
-  {n:"Самара", lon:50.15, utc:4, dst:"none"},
-  {n:"Екатеринбург", lon:60.61, utc:5, dst:"none"},
-  {n:"Челябинск", lon:61.40, utc:5, dst:"none"},
-  {n:"Новосибирск", lon:82.92, utc:7, dst:"none"},
-  {n:"Красноярск", lon:92.85, utc:7, dst:"none"},
-  {n:"Иркутск", lon:104.30, utc:8, dst:"none"},
-  {n:"Владивосток", lon:131.89, utc:10, dst:"none"},
-  {n:"Минск", lon:27.56, utc:3, dst:"none"},
-  {n:"Киев", lon:30.52, utc:2, dst:"eu"},
-  {n:"Алматы", lon:76.95, utc:5, dst:"none"},
-  {n:"Ташкент", lon:69.24, utc:5, dst:"none"},
-  {n:"Амстердам", lon:4.90, utc:1, dst:"eu"},
-  {n:"Берлин", lon:13.40, utc:1, dst:"eu"},
-  {n:"Прага", lon:14.42, utc:1, dst:"eu"},
-  {n:"Варшава", lon:21.01, utc:1, dst:"eu"},
-  {n:"Париж", lon:2.35, utc:1, dst:"eu"},
-  {n:"Лондон", lon:-0.13, utc:0, dst:"eu"}
-];
+// ── Solar-time correction — same mechanism as the calculator pages (city → longitude, DST-aware tz) ──
+let LON = null, TZNAME = "", CITYNAME = "", USE_SOLAR = false, _cityTimer = null;
 
 const YEAR = 2026, MON = 9;   // this page's month
 const esc = s => (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
-// last Sunday of a month (1-based month) → day-of-month
-function lastSunday(y, month){
-  const last = new Date(Date.UTC(y, month, 0));
-  return last.getUTCDate() - last.getUTCDay();
+// DST-aware UTC offset (minutes) for a timezone at a given date — via Intl
+function tzOffsetMin(date, tz){
+  try{
+    const f = new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+    const p={}; f.formatToParts(date).forEach(x=>p[x.type]=x.value);
+    const hh = p.hour==="24" ? "00" : p.hour;
+    return Math.round((Date.UTC(+p.year,+p.month-1,+p.day,+hh,+p.minute,+p.second) - date.getTime())/60000);
+  }catch(e){ return Math.round(LON/15)*60; }
 }
-// EU summer time active on date?
-function euActive(y,m,d){
-  const start = Date.UTC(y, 2, lastSunday(y,3), 1);   // last Sun March 01:00 UTC
-  const end   = Date.UTC(y, 9, lastSunday(y,10), 1);  // last Sun October 01:00 UTC
-  const t = Date.UTC(y, m-1, d);
-  return t >= start && t < end;
-}
-function dayOfYear(y,m,d){ return Math.round((Date.UTC(y,m-1,d) - Date.UTC(y,0,0)) / 86400000); }
-// equation of time (minutes)
-function eot(N){ const B = 2*Math.PI*(N-81)/364; return 9.87*Math.sin(2*B) - 7.53*Math.cos(B) - 1.5*Math.sin(B); }
-// minutes to add to the listed (nominal) time to get local wall-clock true-solar time
-function offsetMin(city, day){
-  const dstMin = (city.dst==="eu" && euActive(YEAR,MON,day)) ? 60 : 0;
-  const lonCorr = (city.lon - 15*city.utc) * 4;        // minutes
-  return dstMin - lonCorr - eot(dayOfYear(YEAR,MON,day));
-}
+// minutes to add to clock time to get mean solar time (same formula as bazi.html / chinesecalendar.html)
+function corrMin(d){ return Math.round((LON - 15*(tzOffsetMin(d, TZNAME)/60)) * 4); }
+
 function shiftTime(hhmm, off){
   let [h,m] = hhmm.split(":").map(Number);
   let t = (((h*60 + m + Math.round(off)) % 1440) + 1440) % 1440;
@@ -390,33 +369,51 @@ function shiftTime(hhmm, off){
 }
 function shiftRange(r, off){ const [a,b] = r.split("–"); return shiftTime(a,off) + "–" + shiftTime(b,off); }
 
-let MODE = "clock";
+function onCityInput(){
+  clearTimeout(_cityTimer);
+  const q = document.getElementById("wk-city").value.trim();
+  if(q.length < 2){ document.getElementById("wk-city-dd").style.display="none"; return; }
+  _cityTimer = setTimeout(()=>fetchCities(q), 350);
+}
+async function fetchCities(q){
+  const dd = document.getElementById("wk-city-dd");
+  try{
+    const r = await fetch("https://nominatim.openstreetmap.org/search?format=jsonv2&accept-language=ru&limit=6&q="+encodeURIComponent(q));
+    const arr = await r.json();
+    if(!arr || !arr.length){ dd.style.display="none"; return; }
+    dd._data = arr;
+    dd.innerHTML = arr.map((c,i)=>`<div class="city-opt" data-i="${i}">${esc(c.display_name)}</div>`).join("");
+    dd.style.display="block";
+    dd.querySelectorAll(".city-opt").forEach(el=>el.addEventListener("click", ()=>selectCity(+el.getAttribute("data-i"))));
+  }catch(e){ dd.style.display="none"; }
+}
+function selectCity(i){
+  const dd = document.getElementById("wk-city-dd"), c = dd._data[i];
+  LON = parseFloat(c.lon); CITYNAME = c.display_name.split(",")[0];
+  try{ TZNAME = tzlookup(parseFloat(c.lat), LON); }catch(e){ TZNAME = ""; }
+  document.getElementById("wk-city").value = CITYNAME;
+  dd.style.display="none";
+  USE_SOLAR = true; document.getElementById("wk-solar").checked = true;
+  applyTimes();
+}
 
 function applyTimes(){
-  const sel = document.getElementById("citySel");
   const note = document.getElementById("solarNote");
-  if(MODE === "solar"){
-    sel.hidden = false;
-    const city = CITIES[sel.value|0];
+  if(USE_SOLAR && CITYNAME && LON!=null){
     document.querySelectorAll(".w-tm").forEach(el=>{
       const day = +el.closest(".cell").dataset.day;
-      el.textContent = shiftRange(el.dataset.t, offsetMin(city, day));
+      el.textContent = shiftRange(el.dataset.t, corrMin(new Date(Date.UTC(YEAR, MON-1, day, 12, 0))));
     });
-    const summer = (city.dst==="eu" && euActive(YEAR,MON,15));
-    const dstTxt = city.dst==="none" ? "без сезонного перевода часов"
-                 : (summer ? "летнее время" : "зимнее время");
+    const cm = corrMin(new Date(Date.UTC(YEAR, MON-1, 15, 12, 0))), sign = cm>=0 ? "+" : "−";
     note.hidden = false;
-    note.textContent = "Истинное солнечное время для города " + city.n + " · сентябрь 2026 (" + dstTxt + ")";
+    note.textContent = "Солнечное время · " + CITYNAME + " · " + LON.toFixed(2) + "° · " + sign + Math.abs(cm) + " мин к часам";
+  } else if(USE_SOLAR){
+    note.hidden = false; note.textContent = "Укажите ваш город, чтобы пересчитать время";
+    document.querySelectorAll(".w-tm").forEach(el=>{ el.textContent = el.dataset.t; });
   } else {
-    sel.hidden = true; note.hidden = true;
+    note.hidden = true;
     document.querySelectorAll(".w-tm").forEach(el=>{ el.textContent = el.dataset.t; });
   }
-}
-function setMode(m){
-  MODE = m;
-  document.getElementById("btnClock").classList.toggle("on", m==="clock");
-  document.getElementById("btnSolar").classList.toggle("on", m==="solar");
-  applyTimes();
 }
 
 (function(){
@@ -427,9 +424,10 @@ function setMode(m){
   if(prev){ pE.href = prev.url; pE.classList.remove("disabled"); pE.title = prev.label; }
   if(next){ nE.href = next.url; nE.classList.remove("disabled"); nE.title = next.label; }
 
-  // city select
-  const sel = document.getElementById("citySel");
-  CITIES.forEach((c,i)=>{ const o=document.createElement("option"); o.value=i; o.textContent=c.n; sel.appendChild(o); });
+  // solar controls
+  document.getElementById("wk-solar").addEventListener("change", e=>{ USE_SOLAR = e.target.checked; applyTimes(); });
+  document.getElementById("wk-city").addEventListener("input", onCityInput);
+  document.addEventListener("click", e=>{ if(!e.target.closest(".city-wrap")) document.getElementById("wk-city-dd").style.display="none"; });
 
   // calendar — September 2026: 1st is Tuesday → 1 leading blank, 30 days, 5 weeks
   const grid = document.getElementById("grid");
