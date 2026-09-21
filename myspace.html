@@ -92,6 +92,7 @@
   .lockcard .ln{ font-family:'Cormorant Garamond',serif; font-size:24px; font-weight:600; line-height:1.2; color:var(--white); }
   .lockcard .li{ font-size:26px; color:var(--gold2); opacity:.85; }
   .lockcard .lp{ font-size:26px; font-weight:700; color:var(--gold2); font-family:'Cormorant Garamond',serif; }
+  .lockcard .badge{ font-size:14px; font-weight:600; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif; }
   .lockcard .ls{ font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
 
   /* ITEM */
@@ -301,13 +302,14 @@ const SECTIONS=[
 ];
 let PRODS=[];
 const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFixed(2); };
+const badgeEN=b=> b==="Предзаказ" ? "Preorder" : (b||"");
 async function loadCabinet(){
   show("auth",false); show("item",false); show("purchase",false); show("cabinet",false); show("loading",true);
   const { ok, status, data } = await api("/api/cabinet");
   if(status===401){ clearTokens(); return route(); }
   show("loading",false);
   if(!ok){ show("auth",true); return; }
-  $("who-email").textContent=data.email||""; show("who",true);
+  $("who-email").textContent = data.name ? (data.name+" · "+(data.email||"")) : (data.email||""); show("who",true);
   $("lead").textContent="";
   PRODS = data.products||[];
   const grid=$("grid"); grid.innerHTML="";
@@ -321,17 +323,20 @@ async function loadCabinet(){
       const nm = p.name_en || p.name_ru;
       const el=document.createElement("div");
       const price = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : "";
+      const bdg = badgeEN(p.badge);
+      const tag = bdg ? `<div class="lp badge">${bdg}</div>` : (price?`<div class="lp">${price}</div>`:"");
       if(p.unlocked){
         el.className="tile open";
         const art = p.tile_image
           ? `<div class="art"><img src="${p.tile_image}" alt=""></div>`
           : `<div class="art"><span class="mono">${p.is_free?"◇":"✦"}</span></div>`;
-        const foot = `<div class="meta"><span class="open-tag">${p.is_free?"Free":"Available"}</span><span>Open →</span></div>`;
+        const tagText = p.code==="walks-2026-09" ? "" : (p.is_free?"Free":"Available");
+        const foot = `<div class="meta"><span class="open-tag">${tagText}</span><span>Open →</span></div>`;
         el.innerHTML = art + `<div class="body"><div class="name">${nm}</div>${foot}</div>`;
         el.onclick=()=>openItem(p.code);
       } else {
         el.className="tile locked";
-        el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div>${price?`<div class="lp">${price}</div>`:""}<div class="li">🔒</div><button class="openbtn" type="button">Open</button></div>`;
+        el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Open</button></div>`;
         el.querySelector(".openbtn").onclick=()=>openPurchase(p.code);
       }
       tiles.appendChild(el);
@@ -347,9 +352,9 @@ function openPurchase(code){
   const p=PRODS.find(x=>x.code===code); if(!p) return;
   PUR_CODE=code;
   $("pur-title").textContent=(p.name_en||p.name_ru)||"";
-  $("pur-price").textContent = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : "";
+  $("pur-price").textContent = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : badgeEN(p.badge);
   $("pur-msg").textContent=""; $("pur-msg").style.color="";
-  $("pur-send").disabled=false; $("pur-send").textContent="Send request";
+  $("pur-send").disabled=false; $("pur-send").textContent = p.badge ? "Preorder" : "Send request";
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);
 }
 window.openPurchase=openPurchase;
