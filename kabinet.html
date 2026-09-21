@@ -64,8 +64,10 @@
   .btn:hover{ background:var(--gold2); }
   .msg{ margin-top:16px; font-size:13px; color:#c0392b; min-height:18px; text-align:center; }
   .hint{ font-size:13px; color:var(--muted); text-align:center; margin-top:16px; line-height:1.6; }
-  .showpw{ background:transparent; border:0; color:var(--gold2); font-size:12px; letter-spacing:.5px; cursor:pointer; padding:10px 0 0; font-family:inherit; }
-  .showpw:hover{ color:var(--gold); text-decoration:underline; }
+  .pw{ position:relative; }
+  .pw input{ padding-right:46px; }
+  .eye{ position:absolute; right:8px; top:50%; transform:translateY(-50%); background:transparent; border:0; cursor:pointer; font-size:18px; line-height:1; padding:4px 6px; opacity:.65; }
+  .eye:hover{ opacity:1; }
 
   /* GRID */
   .grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:22px; }
@@ -165,14 +167,19 @@
         <input id="last_name" type="text" autocomplete="family-name">
       </div>
       <label>Email</label>
-      <input id="email" type="email" autocomplete="email" required>
+      <input id="email" type="email" autocomplete="off" autocapitalize="off" autocorrect="off" required>
       <label>Password</label>
-      <input id="password" type="password" autocomplete="current-password" minlength="6" required>
+      <div class="pw">
+        <input id="password" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="button" class="eye" id="eye1" aria-label="Show password">👁</button>
+      </div>
       <div id="confirm-wrap" hidden>
         <label>Confirm password</label>
-        <input id="password2" type="password" autocomplete="new-password" minlength="6">
+        <div class="pw">
+          <input id="password2" type="password" autocomplete="new-password" minlength="6">
+          <button type="button" class="eye" id="eye2" aria-label="Show password">👁</button>
+        </div>
       </div>
-      <button type="button" id="showpw" class="showpw">Show password</button>
       <button class="btn" id="submit" type="submit">Log in</button>
       <div class="msg" id="msg"></div>
       <div class="hint" id="hint">Enter your email and password to log in.</div>
@@ -223,7 +230,7 @@ function setMode(m){
   $("tab-login").classList.toggle("on", m==="login");
   $("tab-reg").classList.toggle("on", m==="reg");
   $("submit").textContent = m==="login" ? "Log in" : "Create account";
-  $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
+  $("password").setAttribute("autocomplete", "new-password");
   $("confirm-wrap").hidden = (m!=="reg"); $("password2").value="";
   $("reg-top").hidden = (m!=="reg");
   $("hint").textContent = m==="login"
@@ -233,7 +240,10 @@ function setMode(m){
 }
 $("tab-login").onclick=()=>setMode("login");
 $("tab-reg").onclick=()=>setMode("reg");
-$("showpw").onclick=()=>{ const show=$("password").type==="password"; $("password").type=show?"text":"password"; $("password2").type=show?"text":"password"; $("showpw").textContent=show?"Hide password":"Show password"; };
+function bindEye(btnId,inputId){ const b=$(btnId), i=$(inputId); if(!b||!i) return; b.onclick=()=>{ const show=i.type==="password"; i.type=show?"text":"password"; b.textContent=show?"🙈":"👁"; b.setAttribute("aria-label", show?"Hide password":"Show password"); }; }
+bindEye("eye1","password"); bindEye("eye2","password2");
+// Clear any browser-autofilled login on load so a saved address isn't pre-shown.
+try{ $("email").value=""; $("password").value=""; if($("password2")) $("password2").value=""; }catch(e){}
 
 $("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
