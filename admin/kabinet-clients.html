@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Кабинет · Клиенты</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  :root{
+    --black:#3a3c48; --surface:#42444e; --surface2:#4a4c58;
+    --gold:#b8903a; --gold2:#cfa44e;
+    --white:#eceef8; --dim:#d4d6e8; --muted:#c0c2d4; --border:rgba(184,144,58,0.25);
+    --field:#33353f; --line:rgba(255,255,255,0.10);
+  }
+  *,*::before,*::after{ margin:0; padding:0; box-sizing:border-box; }
+  [hidden]{ display:none !important; }
+  html,body{ max-width:100vw; overflow-x:hidden; }
+  body{ background:var(--black); color:var(--white); font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; font-size:14px; }
+
+  header.top{ background:rgba(52,54,64,0.98); border-bottom:1px solid var(--border); color:#fff; padding:18px 26px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .brand{ font-family:'Cormorant Garamond',serif; font-weight:700; letter-spacing:4px; font-size:16px; text-transform:uppercase; color:#fff; text-decoration:none; }
+  .brand b{ color:var(--gold2); }
+  .who{ font-size:12px; color:var(--muted); display:flex; gap:12px; align-items:center; }
+  .who button{ background:transparent; border:1px solid var(--border); color:#e7e7ea; padding:8px 14px; cursor:pointer; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; transition:background .2s,color .2s; }
+  .who button:hover{ background:var(--gold); color:#f5f1eb; border-color:var(--gold); }
+
+  main{ max-width:960px; margin:0 auto; padding:34px 22px 90px; }
+  h1{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:34px; margin:0 0 6px; }
+  h2{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:24px; margin:44px 0 16px; border-bottom:2px solid var(--gold); padding-bottom:8px; display:inline-block; }
+  .sub{ color:var(--muted); margin:0 0 8px; font-size:13px; }
+  a.hub{ font-size:12px; color:var(--gold2); text-decoration:none; letter-spacing:.4px; }
+  a.hub:hover{ color:var(--gold); }
+
+  .auth{ max-width:400px; margin:64px auto; background:var(--surface); border:1px solid var(--border); padding:30px 28px; }
+  label{ display:block; font-size:11px; letter-spacing:1.5px; color:var(--muted); margin:16px 0 6px; text-transform:uppercase; font-weight:600; }
+  input,select,textarea{ width:100%; padding:11px 13px; border:1px solid var(--border); background:var(--field); color:var(--white); font-size:14px; outline:none; font-family:inherit; }
+  input:focus,select:focus,textarea:focus{ border-color:var(--gold2); }
+  select option{ background:var(--surface); color:var(--white); }
+  textarea{ min-height:150px; resize:vertical; font-family:ui-monospace,Menlo,monospace; font-size:13px; line-height:1.5; }
+  .btn{ background:var(--gold); color:#f5f1eb; border:0; padding:11px 18px; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; font-weight:600; transition:background .2s; }
+  .btn:hover{ background:var(--gold2); } .btn.sm{ padding:8px 13px; font-size:10px; }
+  .btn.ghost{ background:transparent; color:var(--white); border:1px solid var(--border); }
+  .btn.ghost:hover{ background:transparent; border-color:var(--gold2); color:var(--gold2); }
+  .msg{ font-size:12px; color:#e39393; min-height:16px; margin-top:10px; }
+
+  table{ width:100%; border-collapse:collapse; background:var(--surface); border:1px solid var(--border); overflow:hidden; }
+  th,td{ text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); font-size:13px; vertical-align:middle; }
+  th{ background:rgba(0,0,0,0.14); font-size:10px; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); }
+  tr:last-child td{ border-bottom:0; }
+  .chip{ display:inline-flex; align-items:center; gap:6px; background:rgba(46,125,85,0.20); color:#8fd6ab; border:1px solid rgba(46,125,85,0.45); border-radius:20px; padding:3px 10px; font-size:12px; margin:2px 4px 2px 0; }
+  .chip button{ background:transparent; border:0; color:#8fd6ab; cursor:pointer; font-size:13px; line-height:1; padding:0; }
+  .acc-list{ display:flex; flex-wrap:wrap; gap:8px; }
+  .acc{ display:inline-flex; align-items:center; gap:7px; padding:6px 12px; border:1px solid var(--border); border-radius:20px; font-size:12px; cursor:pointer; color:var(--muted); user-select:none; transition:background .15s,color .15s,border-color .15s; }
+  .acc input{ width:auto; accent-color:var(--gold); margin:0; }
+  .acc:hover{ border-color:var(--gold2); }
+  .acc.on{ background:rgba(46,125,85,0.20); border-color:rgba(46,125,85,0.45); color:#8fd6ab; }
+  .prod{ background:var(--surface); border:1px solid var(--border); padding:20px; margin-bottom:16px; }
+  .prod .code{ font-family:ui-monospace,Menlo,monospace; font-size:12px; color:var(--gold2); }
+  .prod .fields{ display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:12px 0; }
+  .prod .full{ grid-column:1/-1; }
+  .flags{ display:flex; gap:20px; align-items:center; font-size:13px; }
+  .flags label{ display:flex; align-items:center; gap:8px; margin:0; text-transform:none; letter-spacing:0; font-size:13px; color:var(--white); }
+  .flags input{ width:auto; accent-color:var(--gold); }
+  .ok{ color:#8fd6ab; font-size:12px; }
+  /* client × product matrix */
+  .mwrap{ overflow-x:auto; border:1px solid var(--border); }
+  table.mx{ border:0; min-width:560px; }
+  table.mx th.sortable{ cursor:pointer; user-select:none; white-space:nowrap; }
+  table.mx th.sortable:hover{ color:var(--gold2); }
+  table.mx th.pcol,table.mx td.cell{ text-align:center; }
+  table.mx td.cell input{ width:19px; height:19px; accent-color:#2e7d55; cursor:pointer; }
+  .sortarrow{ font-size:9px; color:var(--gold2); }
+  /* compact product rows */
+  .prow{ display:grid; grid-template-columns:1.5fr 84px 1.5fr auto auto; gap:10px; align-items:center; background:var(--surface); border:1px solid var(--border); padding:9px 12px; margin-bottom:8px; }
+  .prow input{ padding:8px 10px; font-size:13px; }
+  .prow .pcode{ font-family:ui-monospace,Menlo,monospace; font-size:10px; color:var(--gold2); margin-top:3px; }
+  .prow .fl{ display:flex; gap:12px; white-space:nowrap; }
+  .prow .fl label{ display:flex; align-items:center; gap:5px; margin:0; text-transform:none; letter-spacing:0; font-size:12px; color:var(--white); }
+  .prow .fl input{ width:auto; }
+  @media (max-width:700px){ *{max-width:100vw;} .prod .fields{ grid-template-columns:1fr; } .prow{ grid-template-columns:1fr 1fr; } main{ padding:24px 14px 70px; } th,td{ padding:9px; font-size:12px; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/admin/delisted.html">SUCCESS<b>CODE</b> · Кабинет</a>
+  <div class="who" id="who" hidden><span id="who-email"></span><button id="logout">Выйти</button></div>
+</header>
+<main>
+  <section id="auth" class="auth" hidden>
+    <h1 style="font-size:22px;margin:0 0 14px">Вход для управления</h1>
+    <form id="lform">
+      <label>Почта</label><input id="email" type="email" autocomplete="email" required>
+      <label>Пароль</label><input id="password" type="password" autocomplete="current-password" required>
+      <button class="btn" id="lsubmit" type="submit" style="width:100%;margin-top:18px">Войти</button>
+      <div class="msg" id="lmsg"></div>
+    </form>
+  </section>
+
+  <section id="panel" hidden>
+    <h1>Клиенты и доступы</h1>
+    <p class="sub"><a class="hub" href="/admin/delisted.html">← админ-хаб</a> · <a class="hub" href="/admin/kabinet-products.html">Продукты →</a></p>
+
+    <p class="sub">Строка — клиент, столбец — продукт. Нажмите на клетку, чтобы открыть или закрыть доступ. Заголовки столбцов сортируют таблицу.</p>
+    <input id="usearch" type="search" placeholder="Поиск по почте…" autocomplete="off" oninput="renderUsers()" style="max-width:340px;margin-bottom:16px">
+    <div class="mwrap"><table id="users" class="mx"><thead id="mhead"></thead><tbody></tbody></table></div>
+    <div id="ucount" class="sub" style="margin-top:10px"></div>
+  </section>
+
+  <div id="loading" class="sub" style="text-align:center;padding:44px">Загрузка…</div>
+</main>
+
+<script>
+const API="https://kabinet-api.vercel.app";
+const AT="sc_kab_at";
+const $=id=>document.getElementById(id);
+const show=(id,on)=>{ $(id).hidden=!on; };
+let PRODUCTS=[];
+
+function token(){ try{return localStorage.getItem(AT);}catch(e){return null;} }
+async function api(path,opts){ opts=opts||{}; opts.headers=Object.assign({"content-type":"application/json"},opts.headers||{}); const t=token(); if(t)opts.headers.authorization="Bearer "+t; const r=await fetch(API+path,opts); let d={}; try{d=await r.json();}catch(e){} return {ok:r.ok,status:r.status,data:d}; }
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fdate=s=>{ try{ return new Date(s).toLocaleDateString("ru-RU"); }catch(e){ return ""; } };
+
+$("lform").addEventListener("submit", async e=>{
+  e.preventDefault();
+  $("lsubmit").disabled=true; $("lmsg").textContent="";
+  const { ok, data } = await api("/api/login",{method:"POST",body:JSON.stringify({email:$("email").value.trim(),password:$("password").value})});
+  $("lsubmit").disabled=false;
+  if(ok&&data.access_token){ try{localStorage.setItem(AT,data.access_token);}catch(e){} boot(); }
+  else $("lmsg").textContent="Неверная почта или пароль.";
+});
+$("logout").onclick=()=>{ try{localStorage.removeItem(AT);}catch(e){} location.reload(); };
+
+async function boot(){
+  show("auth",false); show("panel",false); show("loading",true);
+  if(!token()){ show("loading",false); show("auth",true); return; }
+  const p=await api("/api/admin/products");
+  if(p.status===401||p.status===403){ show("loading",false); if(p.status===401){ show("auth",true); } else { $("loading").textContent="Этот аккаунт не имеет прав администратора."; } return; }
+  PRODUCTS=p.data.products||[];
+  await loadUsers();
+  show("loading",false); show("panel",true);
+  $("who-email").textContent=""; show("who",true);
+}
+
+let USERS=[];
+let SORT={ key:"created", dir:-1 };  // newest first by default
+const paidCols=()=>PRODUCTS.filter(p=>!p.is_free && p.is_active);
+const ownsCode=(u,code)=>(u.entitlements||[]).some(e=>e.status==="active" && e.product_code===code);
+const shortLabel=p=>{ const n=p.name_ru||p.code; return n.length>18 ? n.slice(0,17)+"…" : n; };
+
+async function loadUsers(){ const { data }=await api("/api/admin/users"); USERS=data.users||[]; renderUsers(); }
+
+window.setSort=(key)=>{ if(SORT.key===key) SORT.dir=-SORT.dir; else SORT={key,dir:1}; renderUsers(); };
+
+// Client × product matrix. Rows = clients, columns = paid products. A cell tick = access.
+window.renderUsers=()=>{
+  const cols=paidCols();
+  const arrow=k=> SORT.key===k ? `<span class="sortarrow">${SORT.dir>0?"▲":"▼"}</span>` : "";
+  $("mhead").innerHTML =
+    `<tr><th class="sortable" onclick="setSort('email')">Клиент ${arrow('email')}</th>`+
+    `<th class="sortable" onclick="setSort('created')">Регистрация ${arrow('created')}</th>`+
+    `<th class="sortable" onclick="setSort('last')">Вход ${arrow('last')}</th>`+
+    cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(shortLabel(p))} ${arrow(p.code)}</th>`).join("")+`</tr>`;
+
+  const q=($("usearch").value||"").trim().toLowerCase();
+  let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
+  list.sort((a,b)=>{
+    let av,bv;
+    if(SORT.key==="email"){ av=(a.email||"").toLowerCase(); bv=(b.email||"").toLowerCase(); }
+    else if(SORT.key==="created"){ av=a.created_at||""; bv=b.created_at||""; }
+    else if(SORT.key==="last"){ av=a.last_sign_in_at||""; bv=b.last_sign_in_at||""; }
+    else { av=ownsCode(a,SORT.key)?1:0; bv=ownsCode(b,SORT.key)?1:0; }
+    return av<bv? -SORT.dir : av>bv? SORT.dir : 0;
+  });
+  const tb=$("users").querySelector("tbody"); tb.innerHTML="";
+  list.forEach(u=>{
+    const cells=cols.map(p=>`<td class="cell"><input type="checkbox" ${ownsCode(u,p.code)?"checked":""} onchange="toggleAcc('${u.id}','${p.code}',this.checked)"></td>`).join("");
+    const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}`;
+    tb.appendChild(tr);
+  });
+  $("ucount").textContent = q ? `Найдено: ${list.length} из ${USERS.length}` : `Всего клиентов: ${USERS.length}`;
+};
+// tick = grant, untick = revoke
+window.toggleAcc=async(uid,code,on)=>{
+  if(on){ await api("/api/admin/grant",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code,note:"выдано вручную"})}); }
+  else  { await api("/api/admin/revoke",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code})}); }
+  await loadUsers();
+};
+
+// Compact product rows: link to the page, price, visibility. No material editor.
+function renderProducts(){
+  const box=$("prods"); box.innerHTML="";
+  PRODUCTS.filter(p=>p.is_active).forEach(p=>{
+    const d=document.createElement("div"); d.className="prow";
+    d.innerHTML=`
+      <div><input type="text" id="n-${p.code}" value="${esc(p.name_ru)}"><div class="pcode">${esc(p.code)}</div></div>
+      <input type="number" step="0.01" id="pr-${p.code}" value="${p.price_eur??""}" placeholder="€">
+      <input type="text" id="u-${p.code}" value="${esc(p.target_url)}" placeholder="/страница">
+      <div class="fl"><label><input type="checkbox" id="f-${p.code}" ${p.is_free?"checked":""}>беспл.</label><label><input type="checkbox" id="a-${p.code}" ${p.is_active?"checked":""}>показ.</label></div>
+      <div style="display:flex;gap:8px;align-items:center"><span class="ok" id="s-${p.code}"></span><button class="btn sm" onclick="saveProd('${p.code}')">✓</button></div>`;
+    box.appendChild(d);
+  });
+}
+window.saveProd=async(code)=>{
+  const body={ code, name_ru:$("n-"+code).value, price_eur:$("pr-"+code).value, target_url:$("u-"+code).value, is_free:$("f-"+code).checked, is_active:$("a-"+code).checked };
+  const { ok }=await api("/api/admin/product-update",{method:"POST",body:JSON.stringify(body)});
+  $("s-"+code).textContent = ok ? "✓" : "ошибка";
+  setTimeout(()=>{ $("s-"+code).textContent=""; }, 2000);
+};
+boot();
+</script>
+</body>
+</html>
