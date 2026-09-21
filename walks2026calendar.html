@@ -341,7 +341,9 @@ const GLOSSARY = [
 // {label, url}. This September page is index CUR.
 const MONTHS = [
   {label:"Сентябрь 2026", url:"/walks2026calendar"},
-  {label:"Октябрь 2026", url:"/walks2026calendar-10"}
+  {label:"Октябрь 2026", url:"/walks2026calendar-10"},
+  {label:"Ноябрь 2026", url:"/walks2026calendar-11"},
+  {label:"Декабрь 2026", url:"/walks2026calendar-12"}
 ];
 const CUR = 0;
 
@@ -430,20 +432,22 @@ function applyTimes(){
   document.getElementById("wk-city").addEventListener("input", onCityInput);
   document.addEventListener("click", e=>{ if(!e.target.closest(".city-wrap")) document.getElementById("wk-city-dd").style.display="none"; });
 
-  // calendar — September 2026: 1st is Tuesday → 1 leading blank, 30 days, 5 weeks
+  // calendar grid — renders every day of the month; days without a walk show an empty cell
   const grid = document.getElementById("grid");
-  const LEAD = 1, DAYS = 30, TOTAL = 35;
+  const LEAD = 1, DAYS = 30, TOTAL = 35;   // September 2026
+  const WD_LABELS = ["Пн","Вт","Ср","Чт","Пт","Сб","Вс"];
+  const BYDAY = {}; SCHEDULE.forEach(([date,wd,rows])=>{ BYDAY[+date] = rows; });
   for(let i=0;i<TOTAL;i++){
-    const dayIdx = i - LEAD, col = i % 7, weekend = col >= 5;
+    const dayNum = i - LEAD + 1, col = i % 7, weekend = col >= 5;
     const cell = document.createElement("div");
-    if(dayIdx < 0 || dayIdx >= DAYS){ cell.className = "cell out" + (weekend?" we":""); grid.appendChild(cell); continue; }
-    const [date,wd,rows] = SCHEDULE[dayIdx];
+    if(dayNum < 1 || dayNum > DAYS){ cell.className = "cell out" + (weekend?" we":""); grid.appendChild(cell); continue; }
+    const rows = BYDAY[dayNum] || [];
     cell.className = "cell" + (weekend?" we":"");
-    cell.dataset.day = String(dayIdx+1);
+    cell.dataset.day = String(dayNum);
     const walks = rows.map(([an,tm,dir,str])=>
       `<div class="walk"><div class="w-head"><span class="w-an">${esc(an)}</span><span class="w-tm" data-t="${esc(tm)}">${esc(tm)}</span></div><span class="w-dir">${esc(dir)}</span><div class="w-str">${esc(str)}</div></div>`
     ).join("");
-    cell.innerHTML = `<div class="c-date"><span class="c-wd">${esc(wd)}</span><span class="c-num">${esc(date)}</span></div><div class="walks">${walks}</div>`;
+    cell.innerHTML = `<div class="c-date"><span class="c-wd">${WD_LABELS[col]}</span><span class="c-num">${String(dayNum).padStart(2,"0")}</span></div>` + (walks ? `<div class="walks">${walks}</div>` : "");
     grid.appendChild(cell);
   }
 
