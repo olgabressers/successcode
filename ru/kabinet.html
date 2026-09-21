@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Личный кабинет · SuccessCode</title>
+<title>Мое Пространство Успеха · SuccessCode</title>
 <link rel="alternate" hreflang="en" href="https://successcode.net/kabinet">
 <link rel="alternate" hreflang="ru" href="https://successcode.net/ru/kabinet">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -140,7 +140,7 @@
   <div class="page-head">
     <div>
       <p class="eyebrow">SuccessCode</p>
-      <h1 class="disp">Личный кабинет</h1>
+      <h1 class="disp">Мое Пространство Успеха</h1>
       <p class="lead" id="lead"></p>
     </div>
     <div class="acct" id="who" hidden>
@@ -160,9 +160,13 @@
       <input id="email" type="email" autocomplete="email" required>
       <label>Пароль</label>
       <input id="password" type="password" autocomplete="current-password" minlength="6" required>
+      <div id="confirm-wrap" hidden>
+        <label>Повторите пароль</label>
+        <input id="password2" type="password" autocomplete="new-password" minlength="6">
+      </div>
       <button class="btn" id="submit" type="submit">Войти</button>
       <div class="msg" id="msg"></div>
-      <div class="hint" id="hint">Введите почту и пароль, чтобы войти в личный кабинет.</div>
+      <div class="hint" id="hint">Введите почту и пароль, чтобы войти.</div>
     </form>
   </section>
 
@@ -173,7 +177,7 @@
 
   <!-- ITEM -->
   <section id="item" hidden>
-    <button class="back" id="item-back" type="button">← Назад в кабинет</button>
+    <button class="back" id="item-back" type="button">← Назад</button>
     <div class="item">
       <h2 id="item-title"></h2>
       <div class="content" id="item-content"></div>
@@ -211,8 +215,9 @@ function setMode(m){
   $("tab-reg").classList.toggle("on", m==="reg");
   $("submit").textContent = m==="login" ? "Войти" : "Создать аккаунт";
   $("password").setAttribute("autocomplete", m==="login" ? "current-password" : "new-password");
+  $("confirm-wrap").hidden = (m!=="reg"); $("password2").value="";
   $("hint").textContent = m==="login"
-    ? "Введите почту и пароль, чтобы войти в личный кабинет."
+    ? "Введите почту и пароль, чтобы войти."
     : "Придумайте пароль (минимум 6 символов). Мы пришлём письмо со ссылкой для подтверждения почты.";
   $("msg").textContent="";
 }
@@ -223,6 +228,7 @@ $("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const email=$("email").value.trim(), password=$("password").value;
   if(!email||!password) return;
+  if(MODE==="reg" && password !== $("password2").value){ $("msg").textContent="Пароли не совпадают."; return; }
   $("submit").disabled=true; $("msg").textContent="";
   const path = MODE==="login" ? "/api/login" : "/api/register";
   const { ok, data } = await api(path, { method:"POST", body:JSON.stringify({email,password}) });
