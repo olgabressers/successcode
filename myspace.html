@@ -296,7 +296,8 @@ $("logout").onclick=()=>{ clearTokens(); route(); };
 
 // ---- cabinet ----
 const SECTIONS=[
-  ["walks","Magic Walks & Success Dates Calendar"],
+  ["walks","Magic Walks"],
+  ["calendar","Success Dates Calendar"],
   ["yearly","Success Code — Every Year"],
   ["free","Free"],
 ];
@@ -330,7 +331,7 @@ async function loadCabinet(){
         const art = p.tile_image
           ? `<div class="art"><img src="${p.tile_image}" alt=""></div>`
           : `<div class="art"><span class="mono">${p.is_free?"◇":"✦"}</span></div>`;
-        const tagText = p.code==="walks-2026-09" ? "" : (p.is_free?"Free":"Available");
+        const tagText = "Available";
         const foot = `<div class="meta"><span class="open-tag">${tagText}</span><span>Open →</span></div>`;
         el.innerHTML = art + `<div class="body"><div class="name">${nm}</div>${foot}</div>`;
         el.onclick=()=>openItem(p.code);

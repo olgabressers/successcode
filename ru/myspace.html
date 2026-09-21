@@ -296,7 +296,8 @@ $("logout").onclick=()=>{ clearTokens(); route(); };
 
 // ---- cabinet ----
 const SECTIONS=[
-  ["walks","Волшебные прогулки и Календарь Успешных дат"],
+  ["walks","Волшебные прогулки"],
+  ["calendar","Календарь Успешных дат"],
   ["yearly","Код Успеха Каждого Года"],
   ["free","Бесплатно"],
 ];
@@ -327,7 +328,7 @@ async function loadCabinet(){
         const art = p.tile_image
           ? `<div class="art"><img src="${p.tile_image}" alt=""></div>`
           : `<div class="art"><span class="mono">${p.is_free?"◇":"✦"}</span></div>`;
-        const tagText = p.code==="walks-2026-09" ? "" : (p.is_free?"Бесплатно":"Доступно");
+        const tagText = "Доступно";
         const foot = `<div class="meta"><span class="open-tag">${tagText}</span><span>Открыть →</span></div>`;
         el.innerHTML = art + `<div class="body"><div class="name">${p.name_ru}</div>${foot}</div>`;
         el.onclick=()=>openItem(p.code);
