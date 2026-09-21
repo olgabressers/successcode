@@ -246,7 +246,7 @@ $("form").addEventListener("submit", async (e)=>{
   }
   $("submit").disabled=true; $("msg").textContent="";
   const path = MODE==="login" ? "/api/login" : "/api/register";
-  const body = MODE==="reg" ? {email,password,first_name,last_name} : {email,password};
+  const body = MODE==="reg" ? {email,password,first_name,last_name,redirect:location.pathname} : {email,password};
   const { ok, data } = await api(path, { method:"POST", body:JSON.stringify(body) });
   $("submit").disabled=false;
   if(ok && data.access_token){ setTokens(data); route(); }
@@ -315,12 +315,29 @@ function route(){
     setMode("login"); show("auth",true);
   }
 }
-// If we arrived from an email-confirmation link, Supabase puts the session in the URL hash — pick it up and sign in.
-(function(){ try{
-  const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
-  if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
-}catch(e){} })();
-route();
+// Sign-in from an email link — two shapes handled:
+//  (a) our own confirmation link  -> ?confirm=<token_hash>  -> verify + sign in
+//  (b) legacy Supabase hash link  -> #access_token=...      -> pick up the session
+(async function(){
+  try{
+    const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
+    if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
+  }catch(e){}
+  let ctok=null; try{ ctok=new URLSearchParams(location.search).get("confirm"); }catch(e){}
+  if(ctok){
+    show("auth",false); show("who",false); show("cabinet",false); show("item",false); show("loading",true);
+    let done=false;
+    try{
+      const { ok, data } = await api("/api/confirm", { method:"POST", body:JSON.stringify({ token_hash:ctok }) });
+      if(ok && data.access_token){ setTokens(data); done=true; }
+    }catch(e){}
+    history.replaceState(null,"",location.pathname);
+    route();
+    if(!done){ $("msg").textContent="This confirmation link is invalid or has expired. Please sign in or register again."; }
+    return;
+  }
+  route();
+})();
 // re-render when the page is restored from the browser's back/forward cache (avoids a blank cabinet on Back)
 window.addEventListener("pageshow", (e)=>{ if(e.persisted) route(); });
 
