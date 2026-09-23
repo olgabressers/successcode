@@ -135,7 +135,15 @@ async function boot(){
   if(!token()){ show("loading",false); show("auth",true); return; }
   const p=await api("/api/admin/products");
   if(p.status===401){ show("loading",false); show("auth",true); return; }
-  if(p.status===403){ $("loading").textContent="Этот аккаунт не имеет прав администратора."; return; }
+  if(p.status===403){
+    let c={}; try{ c=JSON.parse(atob(token().split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))); }catch(e){}
+    $("loading").innerHTML='Этот аккаунт не имеет прав администратора.'+
+      '<span style="color:var(--muted);font-size:12px;display:block;margin-top:10px">Вы вошли как <b>'+esc(c.email||"—")+'</b>'+
+      '<br>ID аккаунта: <code style="user-select:all;color:var(--gold2)">'+esc(c.sub||"—")+'</code>'+
+      '<br>Нажмите «Выйти» и войдите под аккаунтом администратора.</span>';
+    $("who-email").textContent=c.email||""; show("who",true);
+    return;
+  }
   PRODUCTS=p.data.products||[];
   renderProducts();
   show("loading",false); show("panel",true);
