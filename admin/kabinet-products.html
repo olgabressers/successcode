@@ -202,10 +202,10 @@ function renderProducts(){
   PRODUCTS.filter(p=>p.is_active).forEach(p=>{
     const d=document.createElement("div"); d.className="prow";
     d.innerHTML=`
-      <div><input type="text" id="n-${p.code}" value="${esc(p.name_ru)}"><div class="pcode">${esc(p.code)}</div></div>
-      <input type="number" step="0.01" id="pr-${p.code}" value="${p.price_eur??""}" placeholder="€">
-      <input type="text" id="u-${p.code}" value="${esc(p.target_url)}" placeholder="/страница">
-      <div class="fl"><label><input type="checkbox" id="f-${p.code}" ${p.is_free?"checked":""}>беспл.</label><label><input type="checkbox" id="a-${p.code}" ${p.is_active?"checked":""}>показ.</label></div>
+      <div><input type="text" id="n-${p.code}" value="${esc(p.name_ru)}" onchange="saveProd('${p.code}')"><div class="pcode">${esc(p.code)}</div></div>
+      <input type="number" step="0.01" id="pr-${p.code}" value="${p.price_eur??""}" placeholder="€" onchange="saveProd('${p.code}')">
+      <input type="text" id="u-${p.code}" value="${esc(p.target_url)}" placeholder="/страница" onchange="saveProd('${p.code}')">
+      <div class="fl"><label><input type="checkbox" id="f-${p.code}" ${p.is_free?"checked":""} onchange="saveProd('${p.code}')">беспл.</label><label><input type="checkbox" id="a-${p.code}" ${p.is_active?"checked":""} onchange="saveProd('${p.code}')">показ.</label></div>
       <div style="display:flex;gap:8px;align-items:center"><span class="ok" id="s-${p.code}"></span><button class="btn sm" onclick="saveProd('${p.code}')">✓</button></div>`;
     box.appendChild(d);
   });
