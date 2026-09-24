@@ -64,6 +64,8 @@
   .flags label{ display:flex; align-items:center; gap:8px; margin:0; text-transform:none; letter-spacing:0; font-size:13px; color:var(--white); }
   .flags input{ width:auto; accent-color:var(--gold); }
   .ok{ color:#8fd6ab; font-size:12px; }
+  .delbtn{ background:transparent; border:1px solid rgba(200,90,90,0.45); color:#e39393; padding:4px 10px; cursor:pointer; font-size:13px; line-height:1; border-radius:3px; }
+  .delbtn:hover{ background:#b64d4d; color:#fff; border-color:#b64d4d; }
   /* client × product matrix */
   .mwrap{ overflow-x:auto; border:1px solid var(--border); }
   table.mx{ border:0; min-width:560px; }
@@ -117,6 +119,7 @@ const AT="sc_kab_at";
 const $=id=>document.getElementById(id);
 const show=(id,on)=>{ $(id).hidden=!on; };
 let PRODUCTS=[];
+let ME="";
 
 function token(){ try{return localStorage.getItem(AT);}catch(e){return null;} }
 async function api(path,opts){ opts=opts||{}; opts.headers=Object.assign({"content-type":"application/json"},opts.headers||{}); const t=token(); if(t)opts.headers.authorization="Bearer "+t; const r=await fetch(API+path,opts); let d={}; try{d=await r.json();}catch(e){} return {ok:r.ok,status:r.status,data:d}; }
@@ -148,6 +151,7 @@ async function boot(){
     return;
   }
   PRODUCTS=p.data.products||[];
+  try{ ME=JSON.parse(atob(token().split(".")[1].replace(/-/g,"+").replace(/_/g,"/"))).sub||""; }catch(e){}
   await loadUsers();
   show("loading",false); show("panel",true);
   $("who-email").textContent=""; show("who",true);
@@ -171,7 +175,7 @@ window.renderUsers=()=>{
     `<tr><th class="sortable" onclick="setSort('email')">Клиент ${arrow('email')}</th>`+
     `<th class="sortable" onclick="setSort('created')">Регистрация ${arrow('created')}</th>`+
     `<th class="sortable" onclick="setSort('last')">Вход ${arrow('last')}</th>`+
-    cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(shortLabel(p))} ${arrow(p.code)}</th>`).join("")+`</tr>`;
+    cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(shortLabel(p))} ${arrow(p.code)}</th>`).join("")+`<th class="pcol"></th></tr>`;
 
   const q=($("usearch").value||"").trim().toLowerCase();
   let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
@@ -186,8 +190,9 @@ window.renderUsers=()=>{
   const tb=$("users").querySelector("tbody"); tb.innerHTML="";
   list.forEach(u=>{
     const cells=cols.map(p=>`<td class="cell"><input type="checkbox" ${ownsCode(u,p.code)?"checked":""} onchange="toggleAcc('${u.id}','${p.code}',this.checked)"></td>`).join("");
+    const del = u.id===ME ? '<td class="cell">—</td>' : `<td class="cell"><button class="delbtn" title="Удалить клиента" onclick="delUser('${u.id}')">✕</button></td>`;
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}`;
+    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}${del}`;
     tb.appendChild(tr);
   });
   $("ucount").textContent = q ? `Найдено: ${list.length} из ${USERS.length}` : `Всего клиентов: ${USERS.length}`;
@@ -197,6 +202,14 @@ window.toggleAcc=async(uid,code,on)=>{
   if(on){ await api("/api/admin/grant",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code,note:"выдано вручную"})}); }
   else  { await api("/api/admin/revoke",{method:"POST",body:JSON.stringify({user_id:uid,product_code:code})}); }
   await loadUsers();
+};
+// Permanently delete a client — double confirmation, then remove account + all access.
+window.delUser=async(uid)=>{
+  const u=USERS.find(x=>x.id===uid); const email=u?u.email:uid;
+  if(!confirm("Удалить клиента "+email+"?\n\nАккаунт и все его доступы будут удалены безвозвратно.")) return;
+  const { ok, data }=await api("/api/admin/users",{method:"POST",body:JSON.stringify({user_id:uid})});
+  if(ok){ await loadUsers(); }
+  else{ alert(data&&data.error==="cannot delete an admin account" ? "Нельзя удалить аккаунт администратора." : "Не удалось удалить клиента."); }
 };
 
 // Compact product rows: link to the page, price, visibility. No material editor.
