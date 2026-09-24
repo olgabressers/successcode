@@ -303,6 +303,7 @@ const SECTIONS=[
 ];
 let PRODS=[];
 const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFixed(2); };
+const fmtPrice=v=>`€${fmtEur(v)} (₽${Math.round(Number(v)*100)})`;
 async function loadCabinet(){
   show("auth",false); show("item",false); show("purchase",false); show("cabinet",false); show("loading",true);
   const { ok, status, data } = await api("/api/cabinet");
@@ -321,7 +322,7 @@ async function loadCabinet(){
     const tiles=sec.querySelector(".tiles");
     items.forEach(p=>{
       const el=document.createElement("div");
-      const price = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : "";
+      const price = p.price_eur!=null ? fmtPrice(p.price_eur) : "";
       const tag = p.badge ? `<div class="lp badge">${p.badge}</div>` : (price?`<div class="lp">${price}</div>`:"");
       if(p.unlocked){
         el.className="tile open";
@@ -350,7 +351,7 @@ function openPurchase(code){
   const p=PRODS.find(x=>x.code===code); if(!p) return;
   PUR_CODE=code;
   $("pur-title").textContent=p.name_ru||"";
-  $("pur-price").textContent = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : (p.badge||"");
+  $("pur-price").textContent = p.price_eur!=null ? fmtPrice(p.price_eur) : (p.badge||"");
   $("pur-msg").textContent=""; $("pur-msg").style.color="";
   $("pur-send").disabled=false; $("pur-send").textContent = p.badge ? "Оформить предзаказ" : "Отправить заявку";
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);

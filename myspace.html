@@ -303,6 +303,7 @@ const SECTIONS=[
 ];
 let PRODS=[];
 const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFixed(2); };
+const fmtPrice=v=>`€${fmtEur(v)} (₽${Math.round(Number(v)*100)})`;
 const badgeEN=b=> b==="Предзаказ" ? "Preorder" : (b||"");
 async function loadCabinet(){
   show("auth",false); show("item",false); show("purchase",false); show("cabinet",false); show("loading",true);
@@ -323,7 +324,7 @@ async function loadCabinet(){
     items.forEach(p=>{
       const nm = p.name_en || p.name_ru;
       const el=document.createElement("div");
-      const price = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : "";
+      const price = p.price_eur!=null ? fmtPrice(p.price_eur) : "";
       const bdg = badgeEN(p.badge);
       const tag = bdg ? `<div class="lp badge">${bdg}</div>` : (price?`<div class="lp">${price}</div>`:"");
       if(p.unlocked){
@@ -353,7 +354,7 @@ function openPurchase(code){
   const p=PRODS.find(x=>x.code===code); if(!p) return;
   PUR_CODE=code;
   $("pur-title").textContent=(p.name_en||p.name_ru)||"";
-  $("pur-price").textContent = p.price_eur!=null ? `€${fmtEur(p.price_eur)}` : badgeEN(p.badge);
+  $("pur-price").textContent = p.price_eur!=null ? fmtPrice(p.price_eur) : badgeEN(p.badge);
   $("pur-msg").textContent=""; $("pur-msg").style.color="";
   $("pur-send").disabled=false; $("pur-send").textContent = p.badge ? "Preorder" : "Send request";
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);
