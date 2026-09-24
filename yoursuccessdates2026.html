@@ -1,232 +1,54 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Успешные даты 2026 — SuccessCode</title>
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-  <link rel="stylesheet" href="/assets/fonts/fonts.css">
-  <style>
-    :root {
-      --black:#3a3c48; --surface:#42444e; --surface2:#4a4c58;
-      --gold:#b8903a; --gold2:#cfa44e; --gold-dim:rgba(184,144,58,0.10);
-      --white:#eceef8; --dim:#d4d6e8; --muted:#c0c2d4; --border:rgba(184,144,58,0.25);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { max-width:100vw; width:100%; overflow-x:hidden; position:relative; }
-    body { font-family:'Inter',system-ui,sans-serif; background:var(--black); color:var(--white); line-height:1.6; -webkit-font-smoothing:antialiased; }
-    a { color:inherit; }
-    .wrap { max-width:1000px; margin:0 auto; padding:0 40px; }
-
-    nav {
-      position:sticky; top:0; z-index:40; padding:16px 34px;
-      display:flex; justify-content:space-between; align-items:center; gap:16px;
-      background:rgba(52,54,64,0.98); border-bottom:1px solid var(--border); backdrop-filter:blur(8px);
-    }
-    .nav-logo { font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--white); text-decoration:none; }
-    .nav-sections { display:flex; gap:18px; align-items:center; margin-left:auto; flex-wrap:nowrap; }
-    .nav-link { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; color:var(--white); font-weight:600; text-decoration:none; transition:color .25s; }
-    .nav-link:hover { color:var(--gold2); }
-    .nav-links { display:flex; gap:12px; align-items:center; }
-    .nav-btn { font-size:11px; letter-spacing:1.2px; text-transform:uppercase; font-weight:600; white-space:nowrap; color:#f5f1eb; background:var(--gold); padding:10px 16px; text-decoration:none; transition:background .25s; }
-    .nav-btn:hover { background:var(--gold2); }
-
-    .hero { text-align:center; padding:64px 0 40px;
-      background:radial-gradient(ellipse at 50% 0%, rgba(184,144,58,0.16), transparent 60%), var(--black); }
-    .hero .eyebrow { font-size:13px; letter-spacing:5px; text-transform:uppercase; color:var(--gold2); font-weight:700; margin-bottom:14px; }
-    .hero h1 { font-family:'Cormorant Garamond',serif; font-size:clamp(38px,5.4vw,66px); font-weight:300; line-height:1.04; color:var(--white); }
-    .hero h1 em { font-style:italic; color:var(--gold2); }
-
-    section { padding:56px 0; border-top:1px solid var(--border); }
-    .intro { font-size:17px; color:var(--dim); text-align:center; max-width:640px; margin:0 auto 36px; }
-
-    .months { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-    .month {
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      background:var(--surface); border:1px solid var(--border); padding:20px 22px;
-      text-decoration:none; color:var(--white); transition:background .2s, border-color .2s, transform .2s;
-    }
-    .month:hover { background:var(--surface2); border-color:var(--gold); transform:translateY(-2px); }
-    .month-name { font-family:'Cormorant Garamond',serif; font-size:20px; font-weight:600; letter-spacing:.5px; }
-    .month-cta { font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold2); font-weight:700; white-space:nowrap; }
-    .month-cta::after { content:' →'; }
-
-    .consult { text-align:center; }
-    .consult h2 { font-family:'Cormorant Garamond',serif; font-size:clamp(28px,3.4vw,40px); font-weight:300; color:var(--white); margin-bottom:16px; }
-    .consult p { font-size:16px; color:var(--dim); max-width:600px; margin:0 auto 26px; }
-    .btn-gold { display:inline-block; font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600;
-      color:#f5f1eb; background:var(--gold); padding:16px 40px; text-decoration:none; transition:background .25s; }
-    .btn-gold:hover { background:var(--gold2); }
-
-    .tools { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:8px; }
-    .tool { background:var(--surface); border:1px solid var(--border); padding:28px 26px; text-decoration:none; color:var(--white);
-      display:flex; flex-direction:column; gap:10px; transition:background .2s, border-color .2s; }
-    .tool:hover { background:var(--surface2); border-color:var(--gold); }
-    .tool-name { font-family:'Cormorant Garamond',serif; font-size:22px; font-weight:600; color:var(--gold2); }
-    .tool-desc { font-size:14.5px; color:var(--dim); line-height:1.6; }
-    .tool-cta { margin-top:auto; font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); font-weight:700; }
-
-    .contacts { text-align:center; }
-    .contacts h2 { font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; color:var(--white); margin-bottom:12px; }
-    .contacts p { font-size:15px; color:var(--dim); max-width:560px; margin:0 auto 22px; }
-    .contact-icons { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; }
-    .contact-icons a { width:52px; height:52px; border:1px solid var(--border); border-radius:50%;
-      display:flex; align-items:center; justify-content:center; color:var(--gold2);
-      transition:background .2s, border-color .2s, color .2s, transform .2s; }
-    .contact-icons a:hover { background:var(--gold); border-color:var(--gold); color:#2a0f10; transform:translateY(-2px); }
-    .contact-icons svg { width:24px; height:24px; fill:currentColor; }
-    .contact-email { display:inline-block; margin-top:20px; font-size:15px; letter-spacing:.5px; color:var(--gold2); text-decoration:none; }
-    .contact-email:hover { color:var(--gold); }
-
-    footer { padding:30px 40px; border-top:1px solid var(--border); background:var(--surface); text-align:center; }
-    footer .flinks { display:flex; gap:22px; justify-content:center; flex-wrap:wrap; margin-bottom:12px; }
-    footer .flinks a { font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--muted); text-decoration:none; }
-    footer .flinks a:hover { color:var(--gold2); }
-    footer small { font-size:11px; color:var(--muted); letter-spacing:.5px; line-height:1.6; }
-
-    .back-to-top { position:fixed; bottom:32px; right:32px; width:54px; height:54px; background:var(--gold); color:#f5f1eb;
-      display:flex; align-items:center; justify-content:center; text-decoration:none; border:1px solid var(--gold); z-index:250;
-      opacity:0; pointer-events:none; cursor:pointer; transition:opacity .3s, background .25s, transform .25s; }
-    .back-to-top.visible { opacity:1; pointer-events:auto; }
-    .back-to-top:hover { background:var(--gold2); transform:translateY(-2px); }
-    .back-to-top svg { width:18px; height:18px; stroke:#f5f1eb; fill:none; stroke-width:2.5; }
-
-    @media (max-width:768px) {
-      * { max-width:100vw; }
-      nav { padding:14px 22px; flex-wrap:wrap; gap:12px 14px; }
-      .nav-sections { gap:14px; width:100%; order:3; justify-content:center; flex-wrap:wrap; }
-      .nav-links { margin-left:auto; }
-      .wrap { padding:0 22px; }
-      .months { grid-template-columns:1fr 1fr; }
-      .tools { grid-template-columns:1fr; }
-      section { padding:44px 0; }
-      .back-to-top { width:46px; height:46px; bottom:22px; right:22px; }
-    }
-    @media (max-width:460px) { .months { grid-template-columns:1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Успешные даты 2026 — SuccessCode</title>
+<link rel="canonical" href="https://successcode.net/yoursuccessdates2026">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+  html,body{ margin:0; height:100%; background:#2b2c34; color:#9a9cae;
+    font-family:system-ui,-apple-system,'Segoe UI',sans-serif; }
+  .load{ position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; padding:0 24px; }
+  .brand{ font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; font-weight:700; letter-spacing:3px; color:#b8903a; }
+  .msg{ font-size:13px; letter-spacing:.4px; }
+  .ring{ width:34px; height:34px; border:3px solid #3a3c48; border-top-color:#b8903a; border-radius:50%; animation:spin .8s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  a{ color:#b8903a; }
+</style>
 </head>
 <body>
-
-<nav>
-  <a href="/ru/" class="nav-logo">SuccessCode</a>
-  <div class="nav-sections">
-    <a href="/ru/" class="nav-link">Главная</a>
-    <a href="/calculators?lang=ru" class="nav-link">Калькуляторы</a>
-    <a href="/calendar" class="nav-link">Календарь</a>
-    <a href="/walks" class="nav-link">Прогулки</a>
-    <a href="/training" class="nav-link">Обучение</a>
-    <a href="/2027" class="nav-link">Подготовка к 2027</a>
-    <a href="/ru/myspace" class="nav-link">Войти</a>
-  </div>
-  <div class="nav-links">
-    <a href="#consult" class="nav-btn">Консультация</a>
-  </div>
-</nav>
-
-<div class="hero">
-  <div class="wrap">
-    <div class="eyebrow">Код успеха 2026</div>
-    <h1>Успешные <em>даты 2026</em></h1>
-  </div>
+<!-- Thin loader. The real page lives server-side (kabinet-api, private) and is served
+     ONLY to a signed-in owner of this product. No content ships in this file. -->
+<div class="load">
+  <div class="brand">SuccessCode</div>
+  <div class="ring" id="ring"></div>
+  <div class="msg" id="msg">Открываем ваше пространство…</div>
+  <noscript>Откройте эту страницу из «Мое Пространство Успеха» на <a href="/ru/myspace">successcode.net/ru/myspace</a>.</noscript>
 </div>
-
-<!-- MONTHS -->
-<section>
-  <div class="wrap">
-    <p class="intro">Даты на каждый месяц солнечного 2026 года доступны по ссылке:</p>
-    <div class="months">
-      <a class="month" href="https://disk.yandex.ru/i/vM5D1-d8vKIZ8Q" target="_blank" rel="noopener"><span class="month-name">Февраль 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/FVk8ipx-9mz9sg" target="_blank" rel="noopener"><span class="month-name">Март 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/FMXVK4qLCR0TMw" target="_blank" rel="noopener"><span class="month-name">Апрель 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/Xmah7nso2yJP_w" target="_blank" rel="noopener"><span class="month-name">Май 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/IIAo8oWbL5Xl4g" target="_blank" rel="noopener"><span class="month-name">Июнь 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/ARMdZGgeYnflsw" target="_blank" rel="noopener"><span class="month-name">Июль 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/Jn84eX3LZP3NkA" target="_blank" rel="noopener"><span class="month-name">Август 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/TcBKvTlp6anHKQ" target="_blank" rel="noopener"><span class="month-name">Сентябрь 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/8z1urk2TL_IHeQ" target="_blank" rel="noopener"><span class="month-name">Октябрь 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/iCoevvNEutLpyw" target="_blank" rel="noopener"><span class="month-name">Ноябрь 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/5v-kdRrZbPbQtQ" target="_blank" rel="noopener"><span class="month-name">Декабрь 2026</span><span class="month-cta">Открыть</span></a>
-      <a class="month" href="https://disk.yandex.ru/i/LdqqO2VLBKdwzQ" target="_blank" rel="noopener"><span class="month-name">Январь 2027</span><span class="month-cta">Открыть</span></a>
-    </div>
-  </div>
-</section>
-
-<!-- CONSULT -->
-<section id="consult">
-  <div class="wrap consult">
-    <h2>Личная астрологическая консультация</h2>
-    <p>Вы можете заказать личный разбор своей карты. Стоимость консультации — €250–€350, зависит от запроса.</p>
-    <a class="btn-gold" href="/ru/#booking">Заказать консультацию</a>
-  </div>
-</section>
-
-<!-- TOOLS -->
-<section>
-  <div class="wrap">
-    <div class="tools">
-      <a class="tool" href="/walks">
-        <div class="tool-name">Волшебные прогулки</div>
-        <div class="tool-desc">Оказаться в нужное время в нужном месте — это половина успеха. Так вы обеспечиваете себе больше возможностей.</div>
-        <div class="tool-cta">Подробнее →</div>
-      </a>
-      <a class="tool" href="/calendar">
-        <div class="tool-name">Календарь успешных дат</div>
-        <div class="tool-desc">Энергетический потенциал каждого дня — для денег, ресурсов и решений с начальством.</div>
-        <div class="tool-cta">Подробнее →</div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- CONTACTS -->
-<section>
-  <div class="wrap contacts">
-    <h2>Контакты для связи</h2>
-    <p>В социальных сетях — ещё больше о моих продуктах. По вопросам покупки и применения инструментов пишите в личные сообщения.</p>
-    <div class="contact-icons">
-      <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
-        <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram">
-        <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
-      </a>
-      <a href="https://www.tiktok.com/@alena.successcode" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.2v12.9a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1-2.58-2.6 2.59 2.59 0 0 1 3.36-2.47V7.66a5.79 5.79 0 0 0-6.56 5.74 5.79 5.79 0 0 0 5.78 5.78 5.79 5.79 0 0 0 5.78-5.78V9.01a7.4 7.4 0 0 0 4.3 1.38V7.2a4.28 4.28 0 0 1-2.64-1.38z"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@Alena.successcode/shorts" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.5 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
-      </a>
-      <a href="mailto:successcode.tv@gmail.com" aria-label="Email">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-      </a>
-    </div>
-    <a class="contact-email" href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a>
-  </div>
-</section>
-
-<footer>
-  <div class="flinks">
-    <a href="/ru/privacy.html">Обработка данных</a>
-    <a href="/ru/terms.html">Условия</a>
-  </div>
-  <small>© 2026 Код успеха. Все права защищены. Копирование, в т.ч. системами ИИ, запрещено. Часть изображений создана с помощью ИИ.</small>
-</footer>
-
-<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
-  <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-</a>
 <script>
-  (function () {
-    var btn = document.getElementById('backToTop');
-    function check(){ btn.classList.toggle('visible', window.scrollY > 400); }
-    window.addEventListener('scroll', check, { passive:true });
-    btn.addEventListener('click', function(e){ e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); });
-    check();
-  })();
+(async function(){
+  var API = "https://kabinet-api.vercel.app";
+  var PAGE = "yourdates-2026";        // this page's slug (see kabinet-api product-page.js)
+  var HOME = "/ru/myspace";
+  function bounce(){ location.replace(HOME); }
+  var token = null;
+  try { token = localStorage.getItem("sc_kab_at"); } catch(e){}
+  if (!token) { bounce(); return; }
+  var r;
+  try {
+    r = await fetch(API + "/api/product-page?page=" + PAGE, { headers: { authorization: "Bearer " + token } });
+  } catch(e) { bounce(); return; }
+  if (!r.ok) {                        // 401 not signed in · 403 not owned · else error
+    if (r.status === 401 || r.status === 403) { bounce(); return; }
+    document.getElementById("ring").style.display = "none";
+    document.getElementById("msg").innerHTML = 'Не удалось открыть. Вернитесь в <a href="'+HOME+'">Мое Пространство</a>.';
+    return;
+  }
+  var html = await r.text();
+  document.open(); document.write(html); document.close();
+})();
 </script>
-
 </body>
 </html>
