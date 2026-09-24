@@ -213,26 +213,7 @@ window.delUser=async(uid)=>{
   else{ alert(data&&data.error==="cannot delete an admin account" ? "Нельзя удалить аккаунт администратора." : "Не удалось удалить клиента."); }
 };
 
-// Compact product rows: link to the page, price, visibility. No material editor.
-function renderProducts(){
-  const box=$("prods"); box.innerHTML="";
-  PRODUCTS.filter(p=>p.is_active).forEach(p=>{
-    const d=document.createElement("div"); d.className="prow";
-    d.innerHTML=`
-      <div><input type="text" id="n-${p.code}" value="${esc(p.name_ru)}"><div class="pcode">${esc(p.code)}</div></div>
-      <input type="number" step="0.01" id="pr-${p.code}" value="${p.price_eur??""}" placeholder="€">
-      <input type="text" id="u-${p.code}" value="${esc(p.target_url)}" placeholder="/страница">
-      <div class="fl"><label><input type="checkbox" id="f-${p.code}" ${p.is_free?"checked":""}>беспл.</label><label><input type="checkbox" id="a-${p.code}" ${p.is_active?"checked":""}>показ.</label></div>
-      <div style="display:flex;gap:8px;align-items:center"><span class="ok" id="s-${p.code}"></span><button class="btn sm" onclick="saveProd('${p.code}')">✓</button></div>`;
-    box.appendChild(d);
-  });
-}
-window.saveProd=async(code)=>{
-  const body={ code, name_ru:$("n-"+code).value, price_eur:$("pr-"+code).value, target_url:$("u-"+code).value, is_free:$("f-"+code).checked, is_active:$("a-"+code).checked };
-  const { ok }=await api("/api/admin/product-update",{method:"POST",body:JSON.stringify(body)});
-  $("s-"+code).textContent = ok ? "✓" : "ошибка";
-  setTimeout(()=>{ $("s-"+code).textContent=""; }, 2000);
-};
+// (Product editing lives on kabinet-products.html — not on this clients page.)
 boot();
 </script>
 </body>
