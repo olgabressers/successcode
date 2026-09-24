@@ -72,6 +72,7 @@
   table.mx th.sortable{ cursor:pointer; user-select:none; white-space:nowrap; }
   table.mx th.sortable:hover{ color:var(--gold2); }
   table.mx th.pcol,table.mx td.cell{ text-align:center; }
+  table.mx th.pcol{ white-space:normal; width:120px; min-width:120px; max-width:120px; vertical-align:bottom; line-height:1.25; padding-top:12px; padding-bottom:12px; }
   table.mx td.cell input{ width:19px; height:19px; accent-color:#2e7d55; cursor:pointer; }
   .sortarrow{ font-size:9px; color:var(--gold2); }
   /* compact product rows */
@@ -175,7 +176,7 @@ window.renderUsers=()=>{
     `<tr><th class="sortable" onclick="setSort('email')">Клиент ${arrow('email')}</th>`+
     `<th class="sortable" onclick="setSort('created')">Регистрация ${arrow('created')}</th>`+
     `<th class="sortable" onclick="setSort('last')">Вход ${arrow('last')}</th>`+
-    cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(shortLabel(p))} ${arrow(p.code)}</th>`).join("")+`<th class="pcol"></th></tr>`;
+    cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(p.name_ru||p.code)} ${arrow(p.code)}</th>`).join("")+`<th class="pcol"></th></tr>`;
 
   const q=($("usearch").value||"").trim().toLowerCase();
   let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
