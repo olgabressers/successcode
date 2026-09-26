@@ -323,7 +323,7 @@ async function loadCabinet(){
     items.forEach(p=>{
       const el=document.createElement("div");
       const price = p.price_eur!=null ? fmtPrice(p.price_eur) : "";
-      const tag = p.badge ? `<div class="lp badge">${p.badge}</div>` : (price?`<div class="lp">${price}</div>`:"");
+      const tag = (p.badge?`<div class="lp badge">${p.badge}</div>`:"") + (price?`<div class="lp">${price}</div>`:"");
       if(p.unlocked){
         el.className="tile open";
         const art = p.tile_image

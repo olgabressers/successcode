@@ -326,7 +326,7 @@ async function loadCabinet(){
       const el=document.createElement("div");
       const price = p.price_eur!=null ? fmtPrice(p.price_eur) : "";
       const bdg = badgeEN(p.badge);
-      const tag = bdg ? `<div class="lp badge">${bdg}</div>` : (price?`<div class="lp">${price}</div>`:"");
+      const tag = (bdg?`<div class="lp badge">${bdg}</div>`:"") + (price?`<div class="lp">${price}</div>`:"");
       if(p.unlocked){
         el.className="tile open";
         const art = p.tile_image
