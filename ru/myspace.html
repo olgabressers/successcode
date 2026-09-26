@@ -176,10 +176,12 @@
       </div>
       <label>Почта</label>
       <input id="email" type="email" autocomplete="off" autocapitalize="off" autocorrect="off" required>
+      <div id="pw-block">
       <label>Пароль</label>
       <div class="pw">
         <input id="password" type="password" autocomplete="new-password" minlength="6" required>
         <button type="button" class="eye" id="eye1" aria-label="Показать пароль">👁</button>
+      </div>
       </div>
       <div id="confirm-wrap" hidden>
         <label>Повторите пароль</label>
@@ -191,6 +193,27 @@
       <button class="btn" id="submit" type="submit">Войти</button>
       <div class="msg" id="msg"></div>
       <div class="hint" id="hint">Введите почту и пароль, чтобы войти.</div>
+      <div id="forgot-wrap" style="text-align:center;margin-top:14px"><a href="#" id="forgot" style="font-size:13px;color:var(--gold2);text-decoration:none">Забыли пароль?</a></div>
+    </form>
+  </section>
+
+  <!-- SET NEW PASSWORD (opened from the reset email link) -->
+  <section id="reset" class="auth" hidden>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;margin:0 0 6px">Новый пароль</h2>
+    <p class="hint" style="margin:0 0 10px">Придумайте новый пароль для входа в ваше Пространство Успеха.</p>
+    <form id="rform">
+      <label>Новый пароль</label>
+      <div class="pw">
+        <input id="rpassword" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="button" class="eye" id="eye3" aria-label="Показать пароль">👁</button>
+      </div>
+      <label>Повторите пароль</label>
+      <div class="pw">
+        <input id="rpassword2" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="button" class="eye" id="eye4" aria-label="Показать пароль">👁</button>
+      </div>
+      <button class="btn" id="rsubmit" type="submit" style="margin-top:6px">Сохранить пароль</button>
+      <div class="msg" id="rmsg"></div>
     </form>
   </section>
 
@@ -233,6 +256,7 @@ const AT="sc_kab_at", RT="sc_kab_rt";
 const $=id=>document.getElementById(id);
 const show=(id,on)=>{ $(id).hidden=!on; };
 let MODE="login";
+let RESET_TOKEN=null;
 
 function token(){ try{ return localStorage.getItem(AT); }catch(e){ return null; } }
 function setTokens(j){ try{ if(j.access_token) localStorage.setItem(AT,j.access_token); if(j.refresh_token) localStorage.setItem(RT,j.refresh_token); }catch(e){} }
@@ -251,19 +275,24 @@ function setMode(m){
   MODE=m;
   $("tab-login").classList.toggle("on", m==="login");
   $("tab-reg").classList.toggle("on", m==="reg");
-  $("submit").textContent = m==="login" ? "Войти" : "Создать аккаунт";
+  $("submit").textContent = m==="login" ? "Войти" : m==="reg" ? "Создать аккаунт" : "Отправить ссылку";
   $("password").setAttribute("autocomplete", "new-password");
+  $("pw-block").hidden = (m==="forgot");
+  $("password").required = (m!=="forgot");
   $("confirm-wrap").hidden = (m!=="reg"); $("password2").value="";
   $("reg-top").hidden = (m!=="reg");
+  $("forgot-wrap").hidden = (m!=="login");
   $("hint").textContent = m==="login"
     ? "Введите почту и пароль, чтобы войти."
-    : "Придумайте пароль (минимум 6 символов). Мы пришлём письмо со ссылкой для подтверждения почты.";
+    : m==="reg" ? "Придумайте пароль (минимум 6 символов). Мы пришлём письмо со ссылкой для подтверждения почты."
+    : "Укажите почту — мы пришлём ссылку, чтобы задать новый пароль.";
   $("msg").textContent="";
 }
 $("tab-login").onclick=()=>setMode("login");
 $("tab-reg").onclick=()=>setMode("reg");
+$("forgot").onclick=(e)=>{ e.preventDefault(); setMode("forgot"); };
 function bindEye(btnId,inputId){ const b=$(btnId), i=$(inputId); if(!b||!i) return; b.onclick=()=>{ const show=i.type==="password"; i.type=show?"text":"password"; b.textContent=show?"🙈":"👁"; b.setAttribute("aria-label", show?"Скрыть пароль":"Показать пароль"); }; }
-bindEye("eye1","password"); bindEye("eye2","password2");
+bindEye("eye1","password"); bindEye("eye2","password2"); bindEye("eye3","rpassword"); bindEye("eye4","rpassword2");
 // Clear any browser-autofilled login on load so a saved address isn't pre-shown.
 try{ $("email").value=""; $("password").value=""; if($("password2")) $("password2").value=""; }catch(e){}
 
@@ -271,6 +300,14 @@ $("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const email=$("email").value.trim(), password=$("password").value;
   const first_name=$("first_name").value.trim(), last_name=$("last_name").value.trim();
+  if(MODE==="forgot"){
+    if(!email){ $("msg").textContent="Укажите почту."; return; }
+    $("submit").disabled=true; $("msg").textContent="";
+    await api("/api/login",{ method:"POST", body:JSON.stringify({ reset_request:true, email, redirect:location.pathname }) });
+    $("submit").disabled=false;
+    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">Если такая почта у нас зарегистрирована, мы отправили на <b style="color:var(--white)">'+email+'</b> ссылку, чтобы задать новый пароль.<br><br>Откройте письмо и перейдите по ссылке. Если письма нет, проверьте папку «Спам».</p>';
+    return;
+  }
   if(!email||!password) return;
   if(MODE==="reg"){
     if(!first_name||!last_name){ $("msg").textContent="Укажите имя и фамилию."; return; }
@@ -293,6 +330,19 @@ $("form").addEventListener("submit", async (e)=>{
 });
 
 $("logout").onclick=()=>{ clearTokens(); route(); };
+
+// ---- set a new password (from the reset email link) ----
+$("rform").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const p1=$("rpassword").value, p2=$("rpassword2").value;
+  if(!p1 || p1.length<6){ $("rmsg").textContent="Пароль должен быть не короче 6 символов."; return; }
+  if(p1!==p2){ $("rmsg").textContent="Пароли не совпадают."; return; }
+  $("rsubmit").disabled=true; $("rmsg").textContent="";
+  const { ok, data } = await api("/api/confirm",{ method:"POST", body:JSON.stringify({ token_hash:RESET_TOKEN, type:"recovery", new_password:p1 }) });
+  $("rsubmit").disabled=false;
+  if(ok && data.access_token){ setTokens(data); RESET_TOKEN=null; history.replaceState(null,"",location.pathname); route(); }
+  else{ $("rmsg").textContent="Ссылка недействительна или устарела. Запросите новую на странице входа."; }
+});
 
 // ---- cabinet ----
 const SECTIONS=[
@@ -397,6 +447,12 @@ function route(){
     const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
     if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
   }catch(e){}
+  try{ RESET_TOKEN=new URLSearchParams(location.search).get("reset"); }catch(e){}
+  if(RESET_TOKEN){
+    show("auth",false); show("who",false); show("cabinet",false); show("item",false); show("purchase",false); show("loading",false);
+    show("reset",true);
+    return;
+  }
   let ctok=null; try{ ctok=new URLSearchParams(location.search).get("confirm"); }catch(e){}
   if(ctok){
     show("auth",false); show("who",false); show("cabinet",false); show("item",false); show("loading",true);

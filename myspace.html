@@ -176,10 +176,12 @@
       </div>
       <label>Email</label>
       <input id="email" type="email" autocomplete="off" autocapitalize="off" autocorrect="off" required>
+      <div id="pw-block">
       <label>Password</label>
       <div class="pw">
         <input id="password" type="password" autocomplete="new-password" minlength="6" required>
         <button type="button" class="eye" id="eye1" aria-label="Show password">👁</button>
+      </div>
       </div>
       <div id="confirm-wrap" hidden>
         <label>Confirm password</label>
@@ -191,6 +193,27 @@
       <button class="btn" id="submit" type="submit">Log in</button>
       <div class="msg" id="msg"></div>
       <div class="hint" id="hint">Enter your email and password to log in.</div>
+      <div id="forgot-wrap" style="text-align:center;margin-top:14px"><a href="#" id="forgot" style="font-size:13px;color:var(--gold2);text-decoration:none">Forgot your password?</a></div>
+    </form>
+  </section>
+
+  <!-- SET NEW PASSWORD (opened from the reset email link) -->
+  <section id="reset" class="auth" hidden>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-weight:600;font-size:26px;margin:0 0 6px">New password</h2>
+    <p class="hint" style="margin:0 0 10px">Choose a new password to sign in to your Success Space.</p>
+    <form id="rform">
+      <label>New password</label>
+      <div class="pw">
+        <input id="rpassword" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="button" class="eye" id="eye3" aria-label="Show password">👁</button>
+      </div>
+      <label>Confirm password</label>
+      <div class="pw">
+        <input id="rpassword2" type="password" autocomplete="new-password" minlength="6" required>
+        <button type="button" class="eye" id="eye4" aria-label="Show password">👁</button>
+      </div>
+      <button class="btn" id="rsubmit" type="submit" style="margin-top:6px">Save password</button>
+      <div class="msg" id="rmsg"></div>
     </form>
   </section>
 
@@ -233,6 +256,7 @@ const AT="sc_kab_at", RT="sc_kab_rt";
 const $=id=>document.getElementById(id);
 const show=(id,on)=>{ $(id).hidden=!on; };
 let MODE="login";
+let RESET_TOKEN=null;
 
 function token(){ try{ return localStorage.getItem(AT); }catch(e){ return null; } }
 function setTokens(j){ try{ if(j.access_token) localStorage.setItem(AT,j.access_token); if(j.refresh_token) localStorage.setItem(RT,j.refresh_token); }catch(e){} }
@@ -251,19 +275,24 @@ function setMode(m){
   MODE=m;
   $("tab-login").classList.toggle("on", m==="login");
   $("tab-reg").classList.toggle("on", m==="reg");
-  $("submit").textContent = m==="login" ? "Log in" : "Create account";
+  $("submit").textContent = m==="login" ? "Log in" : m==="reg" ? "Create account" : "Send link";
   $("password").setAttribute("autocomplete", "new-password");
+  $("pw-block").hidden = (m==="forgot");
+  $("password").required = (m!=="forgot");
   $("confirm-wrap").hidden = (m!=="reg"); $("password2").value="";
   $("reg-top").hidden = (m!=="reg");
+  $("forgot-wrap").hidden = (m!=="login");
   $("hint").textContent = m==="login"
     ? "Enter your email and password to log in."
-    : "Choose a password (at least 6 characters). We'll email you a link to confirm your address.";
+    : m==="reg" ? "Choose a password (at least 6 characters). We'll email you a link to confirm your address."
+    : "Enter your email — we'll send you a link to set a new password.";
   $("msg").textContent="";
 }
 $("tab-login").onclick=()=>setMode("login");
 $("tab-reg").onclick=()=>setMode("reg");
+$("forgot").onclick=(e)=>{ e.preventDefault(); setMode("forgot"); };
 function bindEye(btnId,inputId){ const b=$(btnId), i=$(inputId); if(!b||!i) return; b.onclick=()=>{ const show=i.type==="password"; i.type=show?"text":"password"; b.textContent=show?"🙈":"👁"; b.setAttribute("aria-label", show?"Hide password":"Show password"); }; }
-bindEye("eye1","password"); bindEye("eye2","password2");
+bindEye("eye1","password"); bindEye("eye2","password2"); bindEye("eye3","rpassword"); bindEye("eye4","rpassword2");
 // Clear any browser-autofilled login on load so a saved address isn't pre-shown.
 try{ $("email").value=""; $("password").value=""; if($("password2")) $("password2").value=""; }catch(e){}
 
@@ -271,6 +300,14 @@ $("form").addEventListener("submit", async (e)=>{
   e.preventDefault();
   const email=$("email").value.trim(), password=$("password").value;
   const first_name=$("first_name").value.trim(), last_name=$("last_name").value.trim();
+  if(MODE==="forgot"){
+    if(!email){ $("msg").textContent="Please enter your email."; return; }
+    $("submit").disabled=true; $("msg").textContent="";
+    await api("/api/login",{ method:"POST", body:JSON.stringify({ reset_request:true, email, redirect:location.pathname }) });
+    $("submit").disabled=false;
+    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">If that email is registered with us, we\'ve sent a link to <b style="color:var(--white)">'+email+'</b> to set a new password.<br><br>Open it and follow the link. If you don\'t see it, check your spam folder.</p>';
+    return;
+  }
   if(!email||!password) return;
   if(MODE==="reg"){
     if(!first_name||!last_name){ $("msg").textContent="Please enter your first and last name."; return; }
@@ -293,6 +330,19 @@ $("form").addEventListener("submit", async (e)=>{
 });
 
 $("logout").onclick=()=>{ clearTokens(); route(); };
+
+// ---- set a new password (from the reset email link) ----
+$("rform").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  const p1=$("rpassword").value, p2=$("rpassword2").value;
+  if(!p1 || p1.length<6){ $("rmsg").textContent="Password must be at least 6 characters."; return; }
+  if(p1!==p2){ $("rmsg").textContent="Passwords don't match."; return; }
+  $("rsubmit").disabled=true; $("rmsg").textContent="";
+  const { ok, data } = await api("/api/confirm",{ method:"POST", body:JSON.stringify({ token_hash:RESET_TOKEN, type:"recovery", new_password:p1 }) });
+  $("rsubmit").disabled=false;
+  if(ok && data.access_token){ setTokens(data); RESET_TOKEN=null; history.replaceState(null,"",location.pathname); route(); }
+  else{ $("rmsg").textContent="This link is invalid or has expired. Request a new one on the login page."; }
+});
 
 // ---- cabinet ----
 const SECTIONS=[
@@ -400,6 +450,12 @@ function route(){
     const h=new URLSearchParams(location.hash.slice(1)), at=h.get("access_token"), rt=h.get("refresh_token");
     if(at){ localStorage.setItem(AT,at); if(rt) localStorage.setItem(RT,rt); history.replaceState(null,"",location.pathname+location.search); }
   }catch(e){}
+  try{ RESET_TOKEN=new URLSearchParams(location.search).get("reset"); }catch(e){}
+  if(RESET_TOKEN){
+    show("auth",false); show("who",false); show("cabinet",false); show("item",false); show("purchase",false); show("loading",false);
+    show("reset",true);
+    return;
+  }
   let ctok=null; try{ ctok=new URLSearchParams(location.search).get("confirm"); }catch(e){}
   if(ctok){
     show("auth",false); show("who",false); show("cabinet",false); show("item",false); show("loading",true);
