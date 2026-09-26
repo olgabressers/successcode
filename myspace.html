@@ -305,7 +305,7 @@ $("form").addEventListener("submit", async (e)=>{
     $("submit").disabled=true; $("msg").textContent="";
     await api("/api/login",{ method:"POST", body:JSON.stringify({ reset_request:true, email, redirect:location.pathname }) });
     $("submit").disabled=false;
-    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">If that email is registered with us, we\'ve sent a link to <b style="color:var(--white)">'+email+'</b> to set a new password.<br><br>Open it and follow the link. If you don\'t see it, check your spam folder.</p>';
+    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">If that email is registered with us, we\'ve sent a link to <b style="color:var(--white)">'+email+'</b> to set a new password.<br><br>Open the <b style="color:var(--white)">most recent</b> email and set your password right away — each link works once, and only the latest one works. If you don\'t see it, check your spam folder.</p>';
     return;
   }
   if(!email||!password) return;
@@ -341,7 +341,7 @@ $("rform").addEventListener("submit", async (e)=>{
   const { ok, data } = await api("/api/confirm",{ method:"POST", body:JSON.stringify({ token_hash:RESET_TOKEN, type:"recovery", new_password:p1 }) });
   $("rsubmit").disabled=false;
   if(ok && data.access_token){ setTokens(data); RESET_TOKEN=null; history.replaceState(null,"",location.pathname); route(); }
-  else{ $("rmsg").textContent="This link is invalid or has expired. Request a new one on the login page."; }
+  else{ $("rmsg").innerHTML='This link was already used or has expired (only the most recent link works). <a href="/myspace" style="color:var(--gold2)">Request a new link</a>.'; }
 });
 
 // ---- cabinet ----

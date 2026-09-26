@@ -305,7 +305,7 @@ $("form").addEventListener("submit", async (e)=>{
     $("submit").disabled=true; $("msg").textContent="";
     await api("/api/login",{ method:"POST", body:JSON.stringify({ reset_request:true, email, redirect:location.pathname }) });
     $("submit").disabled=false;
-    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">Если такая почта у нас зарегистрирована, мы отправили на <b style="color:var(--white)">'+email+'</b> ссылку, чтобы задать новый пароль.<br><br>Откройте письмо и перейдите по ссылке. Если письма нет, проверьте папку «Спам».</p>';
+    $("form").innerHTML='<p class="hint" style="color:var(--dim);font-size:15px;line-height:1.7">Если такая почта у нас зарегистрирована, мы отправили на <b style="color:var(--white)">'+email+'</b> ссылку, чтобы задать новый пароль.<br><br>Откройте <b style="color:var(--white)">самое последнее</b> письмо и задайте пароль сразу — ссылка одноразовая, и работает только последняя. Если письма нет, проверьте папку «Спам».</p>';
     return;
   }
   if(!email||!password) return;
@@ -341,7 +341,7 @@ $("rform").addEventListener("submit", async (e)=>{
   const { ok, data } = await api("/api/confirm",{ method:"POST", body:JSON.stringify({ token_hash:RESET_TOKEN, type:"recovery", new_password:p1 }) });
   $("rsubmit").disabled=false;
   if(ok && data.access_token){ setTokens(data); RESET_TOKEN=null; history.replaceState(null,"",location.pathname); route(); }
-  else{ $("rmsg").textContent="Ссылка недействительна или устарела. Запросите новую на странице входа."; }
+  else{ $("rmsg").innerHTML='Эта ссылка уже использована или устарела (работает только самая последняя). <a href="/ru/myspace" style="color:var(--gold2)">Запросить новую ссылку</a>.'; }
 });
 
 // ---- cabinet ----
