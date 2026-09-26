@@ -356,7 +356,7 @@ const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFi
 const fmtPrice=v=>`€${fmtEur(v)} (₽${Math.round(Number(v)*100)})`;
 const badgeEN=b=> b==="Предзаказ" ? "Preorder" : (b||"");
 async function loadCabinet(){
-  show("auth",false); show("item",false); show("purchase",false); show("cabinet",false); show("loading",true);
+  show("auth",false); show("reset",false); show("item",false); show("purchase",false); show("cabinet",false); show("loading",true);
   const { ok, status, data } = await api("/api/cabinet");
   if(status===401){ clearTokens(); return route(); }
   show("loading",false);
@@ -437,7 +437,7 @@ $("item-back").onclick=loadCabinet;
 function route(){
   if(token()){ loadCabinet(); }
   else {
-    show("loading",false); show("who",false); show("cabinet",false); show("item",false); show("purchase",false);
+    show("loading",false); show("who",false); show("cabinet",false); show("item",false); show("purchase",false); show("reset",false);
     $("lead").textContent="Log in or register to open your materials.";
     setMode("login"); show("auth",true);
   }
