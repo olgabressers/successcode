@@ -106,7 +106,7 @@
     <p class="sub"><a class="hub" href="/admin/delisted.html">← админ-хаб</a> · <a class="hub" href="/admin/kabinet-products.html">Продукты →</a></p>
 
     <p class="sub">Строка — клиент, столбец — продукт. Нажмите на клетку, чтобы открыть или закрыть доступ. Заголовки столбцов сортируют таблицу.</p>
-    <input id="usearch" type="search" placeholder="Поиск по почте…" autocomplete="off" oninput="renderUsers()" style="max-width:340px;margin-bottom:16px">
+    <input id="usearch" type="search" placeholder="Поиск по имени или почте…" autocomplete="off" oninput="renderUsers()" style="max-width:340px;margin-bottom:16px">
     <div class="mwrap"><table id="users" class="mx"><thead id="mhead"></thead><tbody></tbody></table></div>
     <div id="ucount" class="sub" style="margin-top:10px"></div>
   </section>
@@ -163,6 +163,7 @@ let SORT={ key:"created", dir:-1 };  // newest first by default
 const paidCols=()=>PRODUCTS.filter(p=>!p.is_free && p.is_active);
 const ownsCode=(u,code)=>(u.entitlements||[]).some(e=>e.status==="active" && e.product_code===code);
 const shortLabel=p=>{ const n=p.name_ru||p.code; return n.length>18 ? n.slice(0,17)+"…" : n; };
+const fullName=u=>[u.first_name,u.last_name].map(s=>(s||"").trim()).filter(Boolean).join(" ");
 
 async function loadUsers(){ const { data }=await api("/api/admin/users"); USERS=data.users||[]; renderUsers(); }
 
@@ -173,16 +174,18 @@ window.renderUsers=()=>{
   const cols=paidCols();
   const arrow=k=> SORT.key===k ? `<span class="sortarrow">${SORT.dir>0?"▲":"▼"}</span>` : "";
   $("mhead").innerHTML =
-    `<tr><th class="sortable" onclick="setSort('email')">Клиент ${arrow('email')}</th>`+
+    `<tr><th class="sortable" onclick="setSort('name')">Имя ${arrow('name')}</th>`+
+    `<th class="sortable" onclick="setSort('email')">Почта ${arrow('email')}</th>`+
     `<th class="sortable" onclick="setSort('created')">Регистрация ${arrow('created')}</th>`+
     `<th class="sortable" onclick="setSort('last')">Вход ${arrow('last')}</th>`+
     cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(p.name_ru||p.code)} ${arrow(p.code)}</th>`).join("")+`<th class="pcol"></th></tr>`;
 
   const q=($("usearch").value||"").trim().toLowerCase();
-  let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q));
+  let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q)||fullName(u).toLowerCase().includes(q));
   list.sort((a,b)=>{
     let av,bv;
-    if(SORT.key==="email"){ av=(a.email||"").toLowerCase(); bv=(b.email||"").toLowerCase(); }
+    if(SORT.key==="name"){ av=fullName(a).toLowerCase(); bv=fullName(b).toLowerCase(); }
+    else if(SORT.key==="email"){ av=(a.email||"").toLowerCase(); bv=(b.email||"").toLowerCase(); }
     else if(SORT.key==="created"){ av=a.created_at||""; bv=b.created_at||""; }
     else if(SORT.key==="last"){ av=a.last_sign_in_at||""; bv=b.last_sign_in_at||""; }
     else { av=ownsCode(a,SORT.key)?1:0; bv=ownsCode(b,SORT.key)?1:0; }
@@ -192,8 +195,9 @@ window.renderUsers=()=>{
   list.forEach(u=>{
     const cells=cols.map(p=>`<td class="cell"><input type="checkbox" ${ownsCode(u,p.code)?"checked":""} onchange="toggleAcc('${u.id}','${p.code}',this.checked)"></td>`).join("");
     const del = u.id===ME ? '<td class="cell">—</td>' : `<td class="cell"><button class="delbtn" title="Удалить клиента" onclick="delUser('${u.id}')">✕</button></td>`;
+    const name=fullName(u);
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}${del}`;
+    tr.innerHTML=`<td>${name?esc(name):'<span style="color:var(--muted)">—</span>'}</td><td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}${del}`;
     tb.appendChild(tr);
   });
   $("ucount").textContent = q ? `Найдено: ${list.length} из ${USERS.length}` : `Всего клиентов: ${USERS.length}`;
