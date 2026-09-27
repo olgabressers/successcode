@@ -159,11 +159,12 @@ async function boot(){
 }
 
 let USERS=[];
-let SORT={ key:"created", dir:-1 };  // newest first by default
+let SORT={ key:"num", dir:1 };  // by client number (0000, 0001 …) by default
 const paidCols=()=>PRODUCTS.filter(p=>!p.is_free && p.is_active);
 const ownsCode=(u,code)=>(u.entitlements||[]).some(e=>e.status==="active" && e.product_code===code);
 const shortLabel=p=>{ const n=p.name_ru||p.code; return n.length>18 ? n.slice(0,17)+"…" : n; };
 const fullName=u=>[u.first_name,u.last_name].map(s=>(s||"").trim()).filter(Boolean).join(" ");
+const fmtNo=n=> n==null ? "—" : String(n).padStart(4,"0");
 
 async function loadUsers(){ const { data }=await api("/api/admin/users"); USERS=data.users||[]; renderUsers(); }
 
@@ -174,17 +175,19 @@ window.renderUsers=()=>{
   const cols=paidCols();
   const arrow=k=> SORT.key===k ? `<span class="sortarrow">${SORT.dir>0?"▲":"▼"}</span>` : "";
   $("mhead").innerHTML =
-    `<tr><th class="sortable" onclick="setSort('name')">Имя ${arrow('name')}</th>`+
+    `<tr><th class="sortable" onclick="setSort('num')">№ ${arrow('num')}</th>`+
+    `<th class="sortable" onclick="setSort('name')">Имя ${arrow('name')}</th>`+
     `<th class="sortable" onclick="setSort('email')">Почта ${arrow('email')}</th>`+
     `<th class="sortable" onclick="setSort('created')">Регистрация ${arrow('created')}</th>`+
     `<th class="sortable" onclick="setSort('last')">Вход ${arrow('last')}</th>`+
     cols.map(p=>`<th class="sortable pcol" title="${esc(p.name_ru)}" onclick="setSort('${p.code}')">${esc(p.name_ru||p.code)} ${arrow(p.code)}</th>`).join("")+`<th class="pcol"></th></tr>`;
 
   const q=($("usearch").value||"").trim().toLowerCase();
-  let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q)||fullName(u).toLowerCase().includes(q));
+  let list=USERS.filter(u=>!q||(u.email||"").toLowerCase().includes(q)||fullName(u).toLowerCase().includes(q)||fmtNo(u.client_no).includes(q));
   list.sort((a,b)=>{
     let av,bv;
-    if(SORT.key==="name"){ av=fullName(a).toLowerCase(); bv=fullName(b).toLowerCase(); }
+    if(SORT.key==="num"){ av=a.client_no==null?1e9:a.client_no; bv=b.client_no==null?1e9:b.client_no; }
+    else if(SORT.key==="name"){ av=fullName(a).toLowerCase(); bv=fullName(b).toLowerCase(); }
     else if(SORT.key==="email"){ av=(a.email||"").toLowerCase(); bv=(b.email||"").toLowerCase(); }
     else if(SORT.key==="created"){ av=a.created_at||""; bv=b.created_at||""; }
     else if(SORT.key==="last"){ av=a.last_sign_in_at||""; bv=b.last_sign_in_at||""; }
@@ -197,7 +200,7 @@ window.renderUsers=()=>{
     const del = u.id===ME ? '<td class="cell">—</td>' : `<td class="cell"><button class="delbtn" title="Удалить клиента" onclick="delUser('${u.id}')">✕</button></td>`;
     const name=fullName(u);
     const tr=document.createElement("tr");
-    tr.innerHTML=`<td>${name?esc(name):'<span style="color:var(--muted)">—</span>'}</td><td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}${del}`;
+    tr.innerHTML=`<td style="font-variant-numeric:tabular-nums;color:var(--gold2)">${fmtNo(u.client_no)}</td><td>${name?esc(name):'<span style="color:var(--muted)">—</span>'}</td><td>${esc(u.email)}</td><td>${fdate(u.created_at)}</td><td>${u.last_sign_in_at?fdate(u.last_sign_in_at):"—"}</td>${cells}${del}`;
     tb.appendChild(tr);
   });
   $("ucount").textContent = q ? `Найдено: ${list.length} из ${USERS.length}` : `Всего клиентов: ${USERS.length}`;
