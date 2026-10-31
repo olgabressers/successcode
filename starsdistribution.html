@@ -189,7 +189,7 @@
   .plan-sides { display: flex; gap: 6px; }
   .plan-sides .tool-btn { font-size: 16px; padding: 6px 14px; }
   .plan-stage { margin-top: 12px; }
-  #plan-svg { width: 100%; height: auto; display: block; touch-action: none; }
+  #plan-svg { width: 100%; height: auto; display: block; margin: 0 auto; touch-action: none; }
   #plan-svg .grab { cursor: grab; }
   .fs-year-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 20px 0 10px; }
   .fs-year-head .section-label { margin-bottom: 0; }
@@ -1114,6 +1114,8 @@ function renderPlan() {
   const pw = PLAN.w * scale, ph = PLAN.h * scale;
   const x0 = (W - pw) / 2, y0 = PAD, x1 = x0 + pw, y1 = y0 + ph, H = ph + 2 * PAD;
   svg.setAttribute("viewBox", "0 0 " + W + " " + H);
+  // fit the whole drawing on screen: at most 70% of the window height, at most 620px wide
+  svg.style.maxWidth = Math.round(Math.min(620, window.innerHeight * 0.7 * W / H)) + "px";
   const cx = x0 + PLAN.cx * pw, cy = y0 + PLAN.cy * ph;
 
   svg.appendChild(el("image", { href: PLAN.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
