@@ -759,7 +759,9 @@ function drawOverlay() {
     const cdg = useDecl() ? norm(fd - declValue()) : fd;   // compass frame
     const defs = [];
     if (SHOW_A12)  defs.push({ cells: BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) })) });
-    if (SHOW_M24)  defs.push({ cells: M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg) })) });
+    // the Earth-plate ring also carries the direction code (Ю1 / S1 …) in the page language
+    if (SHOW_M24)  defs.push({ cells: M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg),
+                                                       code: (LANG === "ru" ? m.secRu : m.secEn) + m.i })) });
     if (SHOW_SANHE) {
       // San He shows the two shifted plates alongside the Earth plate, giving
       // the three staggered 24-rings a San He luopan carries.
@@ -787,7 +789,16 @@ function drawOverlay() {
              " A" + ri + " " + ri + " 0 0 0 " + i0[0] + " " + i0[1] + " Z",
           fill: sc.on ? "rgba(244,227,186,.94)" : (band.tint || "rgba(255,255,255,.82)"),
           stroke: "rgba(120,110,90,.5)", "stroke-width": 1 }));
-        const lp = ptAt(cx, cy, (ro + ri) / 2, a0 + sc.span / 2);
+        const mid = a0 + sc.span / 2;
+        const lp = ptAt(cx, cy, sc.code ? (ro + ri) / 2 + bw * 0.16 : (ro + ri) / 2, mid);
+        if (sc.code) {
+          const cp = ptAt(cx, cy, ri + bw * 0.24, mid);
+          const ct = el("text", { x: cp[0], y: cp[1], "text-anchor": "middle",
+            "dominant-baseline": "central", "font-family": "Inter, sans-serif",
+            "font-size": Math.max(10, Math.min(12, bw * 0.24)), "font-weight": sc.on ? 700 : 500,
+            fill: sc.on ? "#8a6410" : "#555" });
+          ct.textContent = sc.code; svg.appendChild(ct);
+        }
         const t = el("text", { x: lp[0], y: lp[1], "text-anchor": "middle",
           "dominant-baseline": "central", "font-family": "Cormorant Garamond, serif",
           "font-size": sc.on ? fs + 3 : fs, "font-weight": sc.on ? 700 : 400,
