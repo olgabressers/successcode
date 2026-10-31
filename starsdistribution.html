@@ -699,7 +699,7 @@ let SHOW_SANHE = false;                        // San He plates (Human + Heaven)
    (Horace-Maxwell/Horosa NEEDLE_OFFSET, AGPL — values used as fact, no code
    copied) and in classical prose: 顺时针错7.5度是天盘，逆时针错7.5度是人盘. */
 const PLATE = { zheng: 0, ren: -7.5, feng: 7.5 };
-let RADIUS = 105;         // px, half-length of the facade line
+let RADIUS = 130;         // px, half-length of the facade line
 const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
                   "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -812,10 +812,10 @@ function drawOverlay() {
     const box2 = $("map").getBoundingClientRect();
     const maxOuter = Math.max(90, Math.min(box2.width, box2.height) / 2 - 12);
     const inner0 = Math.min(RADIUS + 8, maxOuter - 22 * defs.length);
-    const bw = defs.length ? Math.min(62, Math.max(16, (maxOuter - inner0) / defs.length)) : 0;   // band width capped so the ring stays readable, not map-filling
+    const bw = defs.length ? Math.max(16, (maxOuter - inner0) / defs.length) : 0;
     defs.forEach(function (band, bi) {
       const ri = inner0 + bw * bi, ro = ri + bw;
-      const fs = Math.max(11, Math.min(22, bw - 14));
+      const fs = Math.max(10, Math.min(17, bw - 9));
       for (const sc of band.cells) {
         const a0 = sc.s, a1 = sc.s + sc.span;
         const o0 = ptAt(cx, cy, ro, a0), o1 = ptAt(cx, cy, ro, a1);
@@ -833,7 +833,7 @@ function drawOverlay() {
           const cp = ptAt(cx, cy, ri + bw * 0.24, mid);
           const ct = el("text", { x: cp[0], y: cp[1], "text-anchor": "middle",
             "dominant-baseline": "central", "font-family": "Inter, sans-serif",
-            "font-size": Math.max(11, Math.min(14, bw * 0.24)), "font-weight": sc.on ? 700 : 500,
+            "font-size": Math.max(10, Math.min(12, bw * 0.24)), "font-weight": sc.on ? 700 : 500,
             fill: sc.on ? "#8a6410" : "#555" });
           ct.textContent = sc.code; svg.appendChild(ct);
         }
