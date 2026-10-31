@@ -8,7 +8,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="SuccessCode">
   <meta property="og:title" content="SuccessCode — древнекитайская астрология">
-  <meta property="og:description" content="Распределение звёзд · летящие звёзды дома по дате постройки и фасаду.">
+  <meta property="og:description" content="Распределение звёзд · летящие звёзды дома по периоду и фасаду.">
   <meta property="og:image" content="https://successcode.net/assets/og-successcode.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -177,32 +177,28 @@
   .back-to-top svg { width: 22px; height: 22px; stroke: #fff; }
 
   /* ── Stars Distribution chart ── */
-  .date-row { display: grid; grid-template-columns: 0.8fr 1.4fr 1fr; gap: 8px; }
-  .fs-panel { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; margin-bottom: 24px; }
-  .fs-info { font-size: 15px; line-height: 1.7; color: var(--text); margin-bottom: 14px; }
+  .map-row { display: grid; grid-template-columns: 1fr 260px; gap: 16px; align-items: start; margin-bottom: 24px; }
+  .map-row .map-panel { margin-bottom: 0; min-width: 0; }
+  .fs-panel { background: var(--surface); border: 1px solid var(--border); padding: 16px 14px; }
+  .fs-info { font-size: 13px; line-height: 1.6; color: var(--text); margin-bottom: 12px; }
   .fs-info b { font-weight: 600; }
   .fs-info .warn { color: var(--gold-dim); }
-  .fs-tools { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-  .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 560px; margin: 0 auto;
+  .fs-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 232px; margin: 0 auto;
              border: 2px solid var(--text); }
   .fs-cell { position: relative; aspect-ratio: 1 / 1; border: 1px solid var(--border);
              display: flex; align-items: center; justify-content: center; background: var(--surface); }
-  .fs-cell.face { background: #fbf4e4; box-shadow: inset 0 0 0 3px var(--gold); }
-  .fs-cell.sit  { background: #f1efe9; box-shadow: inset 0 0 0 3px var(--text-muted); }
-  .fs-dir { position: absolute; bottom: 8px; left: 0; right: 0; text-align: center;
-            font-size: 13px; color: var(--text-dim); letter-spacing: 1px; }
-  .fs-tag { position: absolute; top: 8px; left: 0; right: 0; text-align: center; font-size: 13px;
+  .fs-cell.face { background: #fbf4e4; box-shadow: inset 0 0 0 2px var(--gold); }
+  .fs-cell.sit  { background: #f1efe9; box-shadow: inset 0 0 0 2px var(--text-muted); }
+  .fs-dir { position: absolute; bottom: 3px; left: 0; right: 0; text-align: center;
+            font-size: 11px; color: var(--text-dim); }
+  .fs-tag { position: absolute; top: 2px; left: 0; right: 0; text-align: center; font-size: 11px;
             font-weight: 600; color: var(--gold-dim); }
-  .fs-m, .fs-f { position: absolute; top: 26%; font-size: 26px; font-weight: 600; }
-  .fs-m { left: 16%; } .fs-f { right: 16%; }
-  .fs-b { font-size: 44px; font-weight: 600; margin-top: 18%; }
+  .fs-m, .fs-f { position: absolute; top: 24%; font-size: 15px; font-weight: 600; }
+  .fs-m { left: 12%; } .fs-f { right: 12%; }
+  .fs-b { font-size: 24px; font-weight: 600; margin-top: 12%; }
   .s1 { color: var(--el-water); } .s2, .s5, .s8 { color: var(--el-earth); } .s3, .s4 { color: var(--el-wood); }
   .s6, .s7 { color: var(--el-metal); } .s9 { color: var(--el-fire); }
-  .fs-legend { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-top: 16px;
-               font-size: 14px; color: var(--text-dim); }
-  .fs-stars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px 18px; max-width: 560px;
-              margin: 18px auto 0; font-size: 14px; }
-  .fs-stars span b { display: inline-block; width: 22px; font-weight: 700; }
   @media (max-width: 700px) {
     * { max-width: 100vw; }
     img, svg, table { max-width: 100% !important; }
@@ -225,8 +221,7 @@
     .res-grid { grid-template-columns: 1fr; gap: 14px; }
     .card { padding: 18px 16px; }
     .fs-panel { padding: 16px 12px; }
-    .fs-b { font-size: 30px; } .fs-m, .fs-f { font-size: 18px; } .fs-dir, .fs-tag { font-size: 11px; }
-    .fs-stars { grid-template-columns: repeat(2, 1fr); }
+    .map-row { grid-template-columns: 1fr; }
     .m-char { font-size: 50px; }
     .tbl-wrap { padding: 14px 12px; }
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
@@ -398,20 +393,9 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
       <div class="form-group">
         <label data-i18n="declLabel"></label>
         <input type="number" id="f-decl" step="0.001" value="0" oninput="onDeclEdit()">
-      </div>
-      <div class="form-group">
-        <label data-i18n="declUseLabel"></label>
         <div class="chk">
           <input type="checkbox" id="f-usedecl" checked onchange="compute()">
           <label for="f-usedecl" data-i18n="useDecl"></label>
-        </div>
-      </div>
-      <div class="form-group">
-        <label data-i18n="buildLabel"></label>
-        <div class="date-row">
-          <select id="f-day" onchange="compute()"></select>
-          <select id="f-month" onchange="fillDays(); compute()"></select>
-          <select id="f-year" onchange="fillDays(); compute()"></select>
         </div>
       </div>
       <div class="form-group">
@@ -421,6 +405,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     </div>
   </div>
 
+  <div class="map-row">
   <div class="map-panel">
     <div class="map-head">
       <div class="section-label" data-i18n="mapTitle"></div>
@@ -428,7 +413,6 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
         <button class="tool-btn on" id="btn-osm"  onclick="setLayer('osm')"  data-i18n="layOsm"></button>
         <button class="tool-btn"    id="btn-sat"  onclick="setLayer('sat')"  data-i18n="laySat"></button>
         <button class="tool-btn on" id="btn-r24" onclick="setRing('m24')"    data-i18n="ring24"></button>
-        <button class="tool-btn on" id="btn-r12" onclick="setRing('a12')"    data-i18n="ring12"></button>
         <button class="tool-btn"    id="btn-sanhe" onclick="setRing('sanhe')" data-i18n="ringSanHe"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
       </div>
@@ -440,12 +424,6 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     </div>
     <div class="map-hint" data-i18n="mapHint"></div>
   </div>
-
-  <div class="res-grid">
-    <div class="card facing" id="card-facing"></div>
-    <div class="card" id="card-sitting"></div>
-  </div>
-
   <div class="fs-panel">
     <div class="section-label" data-i18n="chartTitle"></div>
     <div class="fs-info" id="fs-info"></div>
@@ -455,9 +433,14 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
       <button class="tool-btn" id="btn-sub"  onclick="setChartMode('sub')"  data-i18n="modeSub"></button>
     </div>
     <div class="fs-grid" id="fs-grid"></div>
-    <div class="fs-legend" id="fs-legend"></div>
-    <div class="fs-stars" id="fs-stars"></div>
   </div>
+  </div>
+
+  <div class="res-grid">
+    <div class="card facing" id="card-facing"></div>
+    <div class="card" id="card-sitting"></div>
+  </div>
+
 
   <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
   <div class="src-note" data-i18n="srcNote"></div>
@@ -487,7 +470,6 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 
 <script src="/tz.js"></script>
 <script src="/magvar.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script>
 <script src="/flyingstars.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
@@ -521,17 +503,12 @@ const M24=[
 const I18N = {
   ru: {
     h1: "飞星 · Распределение звёзд",
-    sub: "Летящие звёзды дома по дате постройки и направлению фасада",
-    buildLabel: "Дата постройки дома",
+    sub: "Летящие звёзды дома по периоду и направлению фасада",
     periodLabel: "Период",
-    periodAuto: "по дате постройки",
     periodN: "Период {n}",
     months: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
     chartTitle: "Распределение звёзд · 飞星盘",
     modeAuto: "По градусу", modeOrig: "Обычная схема · 下卦", modeSub: "Замещающая схема · 替卦",
-    infoPeriod: "<b>Период {n}</b> · с 立春 {a} по 立春 {b} года",
-    infoPeriodManual: "<b>Период {n}</b> · выбран вручную",
-    infoLichun: "立春 {y} года — {d}",
     infoMtn: "Тыл <b>{s}</b> · фасад <b>{f}</b> · {deg}° по компасу",
     infoOrig: "Обычная схема · 下卦",
     infoSub: "Замещающая схема · 替卦",
@@ -576,17 +553,12 @@ const I18N = {
   },
   en: {
     h1: "飞星 · Stars Distribution",
-    sub: "A house's flying stars from its build date and facing direction",
-    buildLabel: "Date the house was built",
+    sub: "A house's flying stars from its period and facing direction",
     periodLabel: "Period",
-    periodAuto: "from the build date",
     periodN: "Period {n}",
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     chartTitle: "Stars Distribution · 飞星盘",
     modeAuto: "By degree", modeOrig: "Standard chart · 下卦", modeSub: "Substitute chart · 替卦",
-    infoPeriod: "<b>Period {n}</b> · from 立春 {a} to 立春 {b}",
-    infoPeriodManual: "<b>Period {n}</b> · chosen manually",
-    infoLichun: "立春 {y} — {d}",
     infoMtn: "Sitting <b>{s}</b> · facing <b>{f}</b> · {deg}° by compass",
     infoOrig: "Standard chart · 下卦",
     infoSub: "Substitute chart · 替卦",
@@ -717,7 +689,7 @@ function renderCard(box, m, tagKey) {
 let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
-let SHOW_M24 = true, SHOW_A12 = true;          // concentric rings, both on by default
+let SHOW_M24 = true, SHOW_A12 = false;          // concentric rings, both on by default
 let SHOW_SANHE = false;                        // San He plates (Human + Heaven), off by default
 
 /* ── San He (三合) plates ──────────────────────────────────────────────────
@@ -780,7 +752,6 @@ function setRing(k) {
   if (k === "sanhe") SHOW_SANHE = !SHOW_SANHE;
   if (!SHOW_M24 && !SHOW_A12 && !SHOW_SANHE) SHOW_M24 = true;
   $("btn-r24").classList.toggle("on", SHOW_M24);
-  $("btn-r12").classList.toggle("on", SHOW_A12);
   $("btn-sanhe").classList.toggle("on", SHOW_SANHE);
   drawOverlay(); updateReadout();
 }
@@ -989,57 +960,21 @@ const CELL_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6];   // South on top
 let CHART_MODE = "auto";
 
 function fillSelects() {
-  const now = new Date();
-  const y = $("f-year"), p = $("f-period");
-  if (!y.options.length) {
-    for (let k = 2100; k >= 1700; k--) y.add(new Option(String(k), String(k)));
-    y.value = String(now.getFullYear());
-  }
-  const mo = $("f-month"), keepM = mo.value || String(now.getMonth() + 1);
-  mo.innerHTML = "";
-  L().months.forEach((n, i) => mo.add(new Option(n, String(i + 1))));
-  mo.value = keepM;
-  const keepP = p.value || "auto";
+  const p = $("f-period"), keepP = p.value || "9";
   p.innerHTML = "";
-  p.add(new Option(L().periodAuto, "auto"));
   for (let n = 1; n <= 9; n++) p.add(new Option(L().periodN.replace("{n}", n), String(n)));
   p.value = keepP;
-  fillDays($("f-day").options.length ? 0 : now.getDate());
-}
-function fillDays(want) {
-  const d = $("f-day"), y = +$("f-year").value, m = +$("f-month").value;
-  const keep = want || +d.value || 1, len = new Date(y, m, 0).getDate();
-  d.innerHTML = "";
-  for (let k = 1; k <= len; k++) d.add(new Option(String(k), String(k)));
-  d.value = String(Math.min(keep, len));
 }
 function setChartMode(m) { CHART_MODE = m; compute(); }
 
-/* 立春 of a Gregorian year, Beijing time, from lunar-javascript */
-function lichun(y) {
-  try { return Solar.fromYmd(y, 6, 1).getLunar().getJieQiTable()["立春"]; } catch (e) { return null; }
-}
 
 function renderStars() {
   const t = L(), cd = compassDeg();
   const face = mountainAt(cd), sit = opposite(face);
   const pos = sit.i, sitPal = GUA_PAL[sit.g];
 
-  // period: from the build date (立春 boundary) unless chosen by hand
-  const y = +$("f-year").value, mo = +$("f-month").value, d = +$("f-day").value;
-  let info = [];
-  let period;
-  if ($("f-period").value === "auto") {
-    const lc = lichun(y);
-    const before = lc && (mo < lc.getMonth() || (mo === lc.getMonth() && d < lc.getDay()));
-    const pr = FlyingStars.periodOf(before ? y - 1 : y);
-    period = pr.period;
-    info.push(t.infoPeriod.replace("{n}", period).replace("{a}", pr.start).replace("{b}", pr.end));
-    if (lc) info.push(t.infoLichun.replace("{y}", y).replace("{d}", lc.getDay() + " " + t.months[lc.getMonth() - 1]));
-  } else {
-    period = +$("f-period").value;
-    info.push(t.infoPeriodManual.replace("{n}", period));
-  }
+  const period = +$("f-period").value;
+  const info = ["<b>" + t.periodN.replace("{n}", period) + "</b>"];
 
   const off = Math.round(norm(cd - face.s) * 10) / 10;
   const needSub = FlyingStars.needsSubstitute(face.i, norm(cd - face.s));
@@ -1068,9 +1003,6 @@ function renderStars() {
       '<span class="fs-b s' + c.base[q] + '">' + c.base[q] + '</span>' +
       '<span class="fs-dir">' + t.dirs[q] + '</span></div>';
   }).join("");
-  $("fs-legend").innerHTML = '<span>' + t.legM + '</span><span>' + t.legB + '</span><span>' + t.legF + '</span>';
-  $("fs-stars").innerHTML = t.stars.map((n, i) =>
-    '<span><b class="s' + (i + 1) + '">' + (i + 1) + '</b>' + n + '</span>').join("");
 }
 
 function applyLang() {
