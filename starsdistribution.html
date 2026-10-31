@@ -174,8 +174,11 @@
   .plan-zoom { display: flex; align-items: center; gap: 8px; margin-left: auto; }
   .plan-zoom .tool-btn { font-size: 16px; padding: 4px 14px; }
   .plan-zoom span { font-size: 14px; color: var(--text); min-width: 48px; text-align: center; }
-  #plan-svg { width: 100%; height: auto; display: block; margin: 0 auto; touch-action: none; }
-  #plan-svg .grab { cursor: grab; }
+  .plan-svg { width: 100%; height: auto; display: block; margin: 0 auto; touch-action: none; }
+  .plan-svg .grab { cursor: grab; }
+  .plan-shared { grid-template-columns: 1fr; max-width: 280px; }
+  .plan-floor { border-top: 1px solid var(--border); padding-top: 18px; margin-top: 18px; }
+  .plan-floor .plan-controls { grid-template-columns: 1.4fr 1fr; }
   .fs-year-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 20px 0 10px; }
   .fs-year-head .section-label { margin-bottom: 0; }
   .fs-year-head select { width: auto; }
@@ -221,7 +224,9 @@
     .plan-opts .chk { width: 100%; }
     .plan-opts .chk select { margin-left: auto; }
     .plan-zoom { margin-left: 0; width: 100%; justify-content: center; }
-    #plan-svg { max-width: none !important; }   /* zoom needs it wider than the screen; the stage scrolls */
+    .plan-svg { max-width: none !important; }
+    .plan-shared { max-width: none; }
+    .plan-floor .plan-controls { grid-template-columns: 1fr; }   /* zoom needs it wider than the screen; the stage scrolls */
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
     #map { height: 400px; }
     .site-footer { padding: 30px 4px 24px; }
@@ -472,20 +477,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 
   <div class="plan-panel">
     <div class="section-label" data-i18n="planTitle"></div>
-    <div class="plan-controls">
-      <div class="form-group">
-        <label data-i18n="planFile"></label>
-        <input type="file" id="plan-file" accept="image/*,application/pdf,.pdf" onchange="loadPlan(this)">
-      </div>
-      <div class="form-group">
-        <label data-i18n="planSide"></label>
-        <div class="plan-sides">
-          <button class="tool-btn" id="ps-0"   onclick="setPlanSide(0)">↑</button>
-          <button class="tool-btn" id="ps-90"  onclick="setPlanSide(90)">→</button>
-          <button class="tool-btn" id="ps-180" onclick="setPlanSide(180)">↓</button>
-          <button class="tool-btn" id="ps-270" onclick="setPlanSide(270)">←</button>
-        </div>
-      </div>
+    <div class="plan-controls plan-shared">
       <div class="form-group">
         <label data-i18n="planDeg"></label>
         <input type="number" id="plan-deg" step="0.1" min="0" max="360" oninput="PLAN.degOwn = true; renderPlan()">
@@ -505,7 +497,66 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
       </div>
     </div>
     <div class="map-hint" data-i18n="planHint"></div>
-    <div class="plan-stage" id="plan-stage"><svg id="plan-svg"></svg></div>
+    <!-- up to three floors, each with its own plan and facade side; degree, stars and zoom are shared -->
+    <div class="plan-floors">
+      <div class="plan-floor" id="plan-floor-0">
+        <div class="section-label floor-title" id="floor-title-0"></div>
+        <div class="plan-controls">
+          <div class="form-group">
+            <label data-i18n="planFile"></label>
+            <input type="file" accept="image/*,application/pdf,.pdf" onchange="loadPlan(this, 0)">
+          </div>
+          <div class="form-group">
+            <label data-i18n="planSide"></label>
+            <div class="plan-sides">
+              <button class="tool-btn" id="ps-0-0"   onclick="setPlanSide(0, 0)">↑</button>
+              <button class="tool-btn" id="ps-0-90"  onclick="setPlanSide(90, 0)">→</button>
+              <button class="tool-btn" id="ps-0-180" onclick="setPlanSide(180, 0)">↓</button>
+              <button class="tool-btn" id="ps-0-270" onclick="setPlanSide(270, 0)">←</button>
+            </div>
+          </div>
+        </div>
+        <div class="plan-stage" id="plan-stage-0"><svg class="plan-svg" id="plan-svg-0"></svg></div>
+      </div>
+      <div class="plan-floor" id="plan-floor-1" style="display:none">
+        <div class="section-label floor-title" id="floor-title-1"></div>
+        <div class="plan-controls">
+          <div class="form-group">
+            <label data-i18n="planFile"></label>
+            <input type="file" accept="image/*,application/pdf,.pdf" onchange="loadPlan(this, 1)">
+          </div>
+          <div class="form-group">
+            <label data-i18n="planSide"></label>
+            <div class="plan-sides">
+              <button class="tool-btn" id="ps-1-0"   onclick="setPlanSide(0, 1)">↑</button>
+              <button class="tool-btn" id="ps-1-90"  onclick="setPlanSide(90, 1)">→</button>
+              <button class="tool-btn" id="ps-1-180" onclick="setPlanSide(180, 1)">↓</button>
+              <button class="tool-btn" id="ps-1-270" onclick="setPlanSide(270, 1)">←</button>
+            </div>
+          </div>
+        </div>
+        <div class="plan-stage" id="plan-stage-1"><svg class="plan-svg" id="plan-svg-1"></svg></div>
+      </div>
+      <div class="plan-floor" id="plan-floor-2" style="display:none">
+        <div class="section-label floor-title" id="floor-title-2"></div>
+        <div class="plan-controls">
+          <div class="form-group">
+            <label data-i18n="planFile"></label>
+            <input type="file" accept="image/*,application/pdf,.pdf" onchange="loadPlan(this, 2)">
+          </div>
+          <div class="form-group">
+            <label data-i18n="planSide"></label>
+            <div class="plan-sides">
+              <button class="tool-btn" id="ps-2-0"   onclick="setPlanSide(0, 2)">↑</button>
+              <button class="tool-btn" id="ps-2-90"  onclick="setPlanSide(90, 2)">→</button>
+              <button class="tool-btn" id="ps-2-180" onclick="setPlanSide(180, 2)">↓</button>
+              <button class="tool-btn" id="ps-2-270" onclick="setPlanSide(270, 2)">←</button>
+            </div>
+          </div>
+        </div>
+        <div class="plan-stage" id="plan-stage-2"><svg class="plan-svg" id="plan-svg-2"></svg></div>
+      </div>
+    </div>
   </div>
 
   <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
@@ -593,6 +644,7 @@ const I18N = {
     chartTitle: "Распределение звёзд · 飞星盘",
     stdBtn: "Карта звёзд",
     planTitle: "План дома",
+    floorN: "Этаж {n}",
     planFile: "Загрузить план (JPG, PNG, PDF)",
     planPdfErr: "Не удалось открыть PDF.",
     planSide: "Сторона фасада на плане",
@@ -634,6 +686,7 @@ const I18N = {
     chartTitle: "Stars Distribution · 飞星盘",
     stdBtn: "Stars chart",
     planTitle: "House plan",
+    floorN: "Floor {n}",
     planFile: "Upload a plan (JPG, PNG, PDF)",
     planPdfErr: "Could not open the PDF.",
     planSide: "Facade side on the plan",
@@ -1106,16 +1159,17 @@ function renderStars() {
    Ticks mark where each 15° sector boundary meets the plan's edge;
    the sector codes (С1… / N1…) sit outside, at each sector's middle.
    ============================================================ */
-const PLAN = { img: null, w: 0, h: 0, side: 180, degOwn: false, zoom: 1 };
+const PLAN = { degOwn: false, zoom: 1 };                       // shared by all floors
+const FLOORS = [0, 1, 2].map(() => ({ img: null, w: 0, h: 0, side: 180 }));   // floors 1–3
 const ZOOMS = [0.5, 0.75, 1, 1.25, 1.5, 2, 2.5, 3];
 function planZoom(d) {
   const i = Math.max(0, Math.min(ZOOMS.length - 1, ZOOMS.indexOf(PLAN.zoom) + d));
   PLAN.zoom = ZOOMS[i]; renderPlan();
 }
 
-function setPlanImage(src) {
-  const im = new Image();
-  im.onload = () => { PLAN.img = im.src; PLAN.w = im.naturalWidth; PLAN.h = im.naturalHeight; renderPlan(); };
+function setPlanImage(src, k) {
+  const im = new Image(), P = FLOORS[k];
+  im.onload = () => { P.img = im.src; P.w = im.naturalWidth; P.h = im.naturalHeight; renderPlan(); };
   im.src = src;
 }
 
@@ -1145,19 +1199,19 @@ async function pdfToImage(buf) {
   return cv.toDataURL("image/png");
 }
 
-function loadPlan(inp) {
+function loadPlan(inp, k) {
   const f = inp.files && inp.files[0];
   if (!f) return;
   const rd = new FileReader();
   if (f.type === "application/pdf" || /\.pdf$/i.test(f.name)) {
-    rd.onload = () => pdfToImage(rd.result).then(setPlanImage).catch(() => alert(L().planPdfErr));
+    rd.onload = () => pdfToImage(rd.result).then(src => setPlanImage(src, k)).catch(() => alert(L().planPdfErr));
     rd.readAsArrayBuffer(f);
   } else {
-    rd.onload = () => setPlanImage(rd.result);
+    rd.onload = () => setPlanImage(rd.result, k);
     rd.readAsDataURL(f);
   }
 }
-function setPlanSide(a) { PLAN.side = a; renderPlan(); }
+function setPlanSide(a, k) { FLOORS[k].side = a; renderPlan(); }
 window.addEventListener("resize", () => renderPlan(), { passive: true });   // text sizes depend on the shown width
 function planFacing() {
   const v = $("plan-deg");
@@ -1166,16 +1220,26 @@ function planFacing() {
 }
 
 function renderPlan() {
-  const svg = $("plan-svg"), t = L();
-  [0, 90, 180, 270].forEach(a => $("ps-" + a).classList.toggle("on", PLAN.side === a));
+  const t = L();
   document.querySelector('label[for="plan-natal"]').textContent = t.planNatal;
   document.querySelector('label[for="plan-annual"]').textContent = t.planAnnual;
   document.querySelector('label[for="plan-monthly"]').textContent = t.planMonthly;
   $("plan-month").value = $("f-month").value;
   $("plan-period").value = $("f-period").value; $("plan-ayear").value = $("f-ayear").value;
+  $("plan-zoom-val").textContent = Math.round(PLAN.zoom * 100) + "%";
+  FLOORS.forEach((_, k) => drawFloor(k));
+}
+
+/* One floor: its own plan and facade side; degree, stars and zoom come from the shared controls. */
+function drawFloor(fl) {
+  const t = L(), P = FLOORS[fl], svg = $("plan-svg-" + fl);
+  // floor 2 appears once floor 1 has a plan, floor 3 once floor 2 has one; they stack downwards
+  $("plan-floor-" + fl).style.display = fl === 0 || FLOORS[fl - 1].img ? "" : "none";
+  $("floor-title-" + fl).textContent = t.floorN.replace("{n}", fl + 1);
+  [0, 90, 180, 270].forEach(a => $("ps-" + fl + "-" + a).classList.toggle("on", P.side === a));
   const F = planFacing();
   while (svg.firstChild) svg.removeChild(svg.firstChild);
-  if (!PLAN.img) { svg.removeAttribute("viewBox"); svg.style.display = "none"; return; }
+  if (!P.img) { svg.removeAttribute("viewBox"); svg.style.display = "none"; return; }
   svg.style.display = "block";
 
   /* The drawing is a 900-unit-wide SVG shown at most 620px wide and 70% of the window high.
@@ -1185,11 +1249,11 @@ function renderPlan() {
   const withStars = $("plan-natal").checked || $("plan-annual").checked || $("plan-monthly").checked;
   function layout(shownW) {
     const U = W / shownW, PAD = (withStars ? 112 : 48) * U;   // star boxes need room outside the labels
-    const scale = Math.min((W - 2 * PAD) / PLAN.w, 1.4 * W / PLAN.h);
-    const pw = PLAN.w * scale, ph = PLAN.h * scale;
+    const scale = Math.min((W - 2 * PAD) / P.w, 1.4 * W / P.h);
+    const pw = P.w * scale, ph = P.h * scale;
     return { U: U, PAD: PAD, pw: pw, ph: ph, H: ph + 2 * PAD };
   }
-  const avail = Math.min(620, $("plan-stage").clientWidth || 620);
+  const avail = Math.min(620, $("plan-stage-" + fl).clientWidth || 620);
   let G = layout(avail);
   const fitW = Math.min(avail, window.innerHeight * 0.7 * W / G.H);
   const shown = Math.min(avail, fitW) * PLAN.zoom;   // zoom − / + scales the shown size; the stage scrolls
@@ -1199,9 +1263,8 @@ function renderPlan() {
   svg.setAttribute("viewBox", "0 0 " + W + " " + H);
   svg.style.maxWidth = "none";
   svg.style.width = Math.round(shown) + "px";
-  $("plan-zoom-val").textContent = Math.round(PLAN.zoom * 100) + "%";
 
-  svg.appendChild(el("image", { href: PLAN.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
+  svg.appendChild(el("image", { href: P.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
   svg.appendChild(el("rect", { x: x0, y: y0, width: pw, height: ph, fill: "none", stroke: "#444", "stroke-width": 1.5 * U }));
 
   /* Perimeter split, equal spacing: one side of the plan = 90°, so every 15° mountain is
@@ -1210,7 +1273,7 @@ function renderPlan() {
      centred on the facade side), and compass direction D sits (D − centre)/90 sides clockwise.
      Position u runs clockwise from the top-left corner in side units: top 0–1, right 1–2,
      bottom 2–3, left 3–4. */
-  const fside = Math.round(PLAN.side / 90) % 4;
+  const fside = Math.round(P.side / 90) % 4;
   const faceM = mountainAt(F), k = mIndex(faceM);
   function at(u) {
     u = ((u % 4) + 4) % 4;
@@ -1324,7 +1387,7 @@ function renderPlan() {
     };
   }
   head.addEventListener("pointerdown", drag(p => {
-    PLAN.side = (Math.round(norm(Math.atan2(p.x - cx, -(p.y - cy)) * 180 / Math.PI) / 90) % 4) * 90;
+    P.side = (Math.round(norm(Math.atan2(p.x - cx, -(p.y - cy)) * 180 / Math.PI) / 90) % 4) * 90;
   }));
 }
 
