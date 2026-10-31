@@ -193,10 +193,10 @@
     text-transform: uppercase;
     white-space: normal; word-break: break-word; hyphens: auto;
   }
-  .pillar-qi {
+  .pillar-qi {   /* same font as the polarity line («Огонь Ян») */
     font-family: 'Inter', sans-serif;
-    font-size: 9.5px; letter-spacing: 0.2px;
-    color: var(--gold-dim); font-weight: 600;
+    font-size: 9.5px; letter-spacing: 0.3px;
+    color: var(--text-muted); font-weight: 400;
     line-height: 1.2;
     text-transform: uppercase;
     white-space: normal; word-break: break-word; hyphens: auto;
@@ -222,6 +222,7 @@
   }
   .hide-row .hg { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-weight: 600; text-align: center; }
   .hide-row .hs { font-size: 10.5px; color: var(--text-muted); line-height: 1.3; overflow-wrap: break-word; hyphens: auto; }
+  .hide-row.lead .hs { font-weight: 700; color: var(--text); }   /* leading aspect = main qi (first hidden stem) */
   .pil-void { opacity: .32; }
   .pil-void-tag { display: block; font-size: 8px; letter-spacing: 1.5px;
                   color: var(--text-muted); text-transform: uppercase; margin-top: 3px; font-weight: 600; }
@@ -344,7 +345,7 @@
     .cal-switch .tool-btn { padding: 2px 10px; font-size: 9px; }
     .cal-switch .tool-btn:not(.on) { display: none; }   /* the printout names the calendar it shows */
     .chart-layout .pillar-h { min-height: 58px; display: flex; flex-direction: column; justify-content: center; }
-    .pillar { padding: 8px 5px 10px; gap: 4px; }
+    .pillar { padding: 6px 5px 8px; gap: 2px; }
     .pillar-h { font-size: 8px; padding: 4px 5px; margin: -8px -5px 3px; width: calc(100% + 10px); }
     .pillar-stem, .pillar-branch { font-size: 23px; }
     .pillar-god { font-size: 8px; }
@@ -352,7 +353,7 @@
     .pillar-qi { font-size: 7.5px; }
     .hide-row .hg { font-size: 14px; }
     .hide-row .hs { font-size: 8px; }
-    .aux-item { padding: 5px 10px; }
+    .aux-item { padding: 3px 10px; }
     .aux-pos { font-size: 11px; }
     .aux-pos .cn { font-size: 15px; }
     .aux-title { padding: 6px 10px; }
@@ -563,7 +564,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 
 <header>
   <h1>八字 · BaZi Calculator</h1>
-  <p data-i18n="tagline">Ба Цзы · Четыре столпа судьбы · Солнечный календарь</p>
+  <p data-i18n="tagline">Ба Цзы · Четыре столпа судьбы · Солнечный и лунный календарь</p>
 </header>
 <a class="study-link" id="study-link" href="/training">Хочу пройти курс Ба Цзы</a>
 
@@ -661,8 +662,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 /* ===== i18n ===== */
 const I18N = {
   ru: {
-    tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный календарь",
-    taglineLunar: "Ба Цзы · Четыре столпа судьбы · Лунный календарь",
+    tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный и лунный календарь",
     birthTitle: "Дата, время и город рождения",
     name: "Имя",
     year: "Год", month: "Месяц", day: "День",
@@ -724,8 +724,7 @@ const I18N = {
     spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
   en: {
-    tagline: "Ba Zi · Four Pillars of Destiny · Solar Calendar",
-    taglineLunar: "Ba Zi · Four Pillars of Destiny · Lunar Calendar",
+    tagline: "Ba Zi · Four Pillars of Destiny · Solar and Lunar Calendar",
     birthTitle: "Birth date, time and city",
     name: "Name",
     year: "Year", month: "Month", day: "Day",
@@ -1134,11 +1133,17 @@ function pillarsCells(ec){
   };
 }
 
+/* Branch animals — same names as the Chinese Calendar page */
+const ANIMAL = {
+  ru:{子:"Крыса",丑:"Бык",寅:"Тигр",卯:"Кролик",辰:"Дракон",巳:"Змея",午:"Лошадь",未:"Коза",申:"Обезьяна",酉:"Петух",戌:"Собака",亥:"Свинья"},
+  en:{子:"Rat",丑:"Ox",寅:"Tiger",卯:"Rabbit",辰:"Dragon",巳:"Snake",午:"Horse",未:"Goat",申:"Monkey",酉:"Rooster",戌:"Dog",亥:"Pig"}
+};
+
 /* One pillar column. o = { head (html), stem, zhi, god (stem Ten God, null = hidden slot),
    hide: [stems], hideGod: [Ten Gods], dm, cls, tag } */
 function pillarCol(o){
   const hideRows = (o.hide || []).map((g, j) =>
-    `<div class="hide-row"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg((o.hideGod || [])[j] || "")}</span></div>`
+    `<div class="hide-row${j === 0 ? " lead" : ""}"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg((o.hideGod || [])[j] || "")}</span></div>`
   ).join("");
   return `<div class="pillar${o.cls || ""}">
       <div class="pillar-h">${o.head}${o.tag || ""}</div>
@@ -1147,6 +1152,7 @@ function pillarCol(o){
       ${o.god == null ? `<div class="pillar-god hidden-slot">·</div>` : `<div class="pillar-god">${tg(o.god)}</div>`}
       <div class="pillar-branch ${elClass(o.zhi)}">${o.zhi}</div>
       <div class="pillar-el">${polarity(o.zhi)}</div>
+      <div class="pillar-el">${(ANIMAL[LANG] || ANIMAL.ru)[o.zhi] || ""}</div>
       <div class="pillar-qi">${qiPhase(o.dm, o.zhi)}</div>
       ${hideRows ? `<div class="pillar-hide">${hideRows}</div>` : ""}
     </div>`;
@@ -1498,7 +1504,6 @@ function renderLiunian(ec){
 
 function render(ec, lunar, sex, cm, baziYear){
   const chart = CAL === "lunar" ? lunarView(ec, lunar) : ec;   // the luck pillars follow the chosen calendar too
-  document.querySelector('[data-i18n="tagline"]').textContent = CAL === "lunar" ? L().taglineLunar : L().tagline;
   renderPillars(chart);
   LAST_EC = chart; LAST_SEX = sex;
   TSEL.luck = null;   // a new chart: luck pillar follows the chosen year again
