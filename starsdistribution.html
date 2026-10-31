@@ -688,7 +688,7 @@ let SHOW_SANHE = false;                        // San He plates (Human + Heaven)
    (Horace-Maxwell/Horosa NEEDLE_OFFSET, AGPL — values used as fact, no code
    copied) and in classical prose: 顺时针错7.5度是天盘，逆时针错7.5度是人盘. */
 const PLATE = { zheng: 0, ren: -7.5, feng: 7.5 };
-let RADIUS = 130;         // px, half-length of the facade line
+let RADIUS = 80;          // px, half-length of the facade line (kept small so the ring stays compact)
 const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
                   "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
 const SVGNS = "http://www.w3.org/2000/svg";
@@ -801,7 +801,7 @@ function drawOverlay() {
     const box2 = $("map").getBoundingClientRect();
     const maxOuter = Math.max(90, Math.min(box2.width, box2.height) / 2 - 12);
     const inner0 = Math.min(RADIUS + 8, maxOuter - 22 * defs.length);
-    const bw = defs.length ? Math.max(16, (maxOuter - inner0) / defs.length) : 0;
+    const bw = defs.length ? Math.min(38, Math.max(16, (maxOuter - inner0) / defs.length)) : 0;   // fixed-width bands: compact ring
     defs.forEach(function (band, bi) {
       const ri = inner0 + bw * bi, ro = ri + bw;
       const fs = Math.max(10, Math.min(17, bw - 9));
