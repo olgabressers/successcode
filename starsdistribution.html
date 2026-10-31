@@ -566,7 +566,7 @@ const I18N = {
     planFile: "Загрузить план (JPG, PNG)",
     planSide: "Сторона фасада на плане",
     planDeg: "Градус фасада",
-    planHint: "Выберите, какая сторона плана — фасад, или потяните красную стрелку. Крестик в центре можно перетащить в центр дома. План остаётся в вашем браузере и никуда не отправляется.",
+    planHint: "Выберите, какая сторона плана — фасад, или потяните красную стрелку. Каждая сторона плана делится на 6 равных частей, гора фасада — в середине стороны фасада. План остаётся в вашем браузере и никуда не отправляется.",
     yearTitle: "Годовые звёзды",
     rotBtn: "Повернуть к фасаду",
     infoMtn: "Фасад <b>{f}</b> · тыл <b>{s}</b> · {deg}° по компасу",
@@ -616,7 +616,7 @@ const I18N = {
     planFile: "Upload a plan (JPG, PNG)",
     planSide: "Facade side on the plan",
     planDeg: "Facing degree",
-    planHint: "Choose which side of the plan is the facade, or drag the red arrow. The cross in the middle can be dragged to the centre of the house. The plan stays in your browser and is not sent anywhere.",
+    planHint: "Choose which side of the plan is the facade, or drag the red arrow. Each side of the plan is divided into 6 equal parts, with the facing mountain in the middle of the facade side. The plan stays in your browser and is not sent anywhere.",
     yearTitle: "Annual stars",
     rotBtn: "Rotate to facing",
     infoMtn: "Facing <b>{f}</b> · sitting <b>{s}</b> · {deg}° by compass",
@@ -1079,7 +1079,7 @@ function renderStars() {
    Ticks mark where each 15° sector boundary meets the plan's edge;
    the sector codes (С1… / N1…) sit outside, at each sector's middle.
    ============================================================ */
-const PLAN = { img: null, w: 0, h: 0, side: 180, cx: 0.5, cy: 0.5, degOwn: false };
+const PLAN = { img: null, w: 0, h: 0, side: 180, degOwn: false };
 const PAD = 64;   // room around the plan for the labels
 
 function loadPlan(inp) {
@@ -1088,8 +1088,7 @@ function loadPlan(inp) {
   const rd = new FileReader();
   rd.onload = () => {
     const im = new Image();
-    im.onload = () => { PLAN.img = im.src; PLAN.w = im.naturalWidth; PLAN.h = im.naturalHeight;
-                        PLAN.cx = 0.5; PLAN.cy = 0.5; renderPlan(); };
+    im.onload = () => { PLAN.img = im.src; PLAN.w = im.naturalWidth; PLAN.h = im.naturalHeight; renderPlan(); };
     im.src = rd.result;
   };
   rd.readAsDataURL(f);
@@ -1116,63 +1115,62 @@ function renderPlan() {
   svg.setAttribute("viewBox", "0 0 " + W + " " + H);
   // fit the whole drawing on screen: at most 70% of the window height, at most 620px wide
   svg.style.maxWidth = Math.round(Math.min(620, window.innerHeight * 0.7 * W / H)) + "px";
-  const cx = x0 + PLAN.cx * pw, cy = y0 + PLAN.cy * ph;
 
   svg.appendChild(el("image", { href: PLAN.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
   svg.appendChild(el("rect", { x: x0, y: y0, width: pw, height: ph, fill: "none", stroke: "#444", "stroke-width": 2 }));
 
-  // where a ray from the centre at screen angle a leaves the plan
-  function edge(a) {
-    const r = a * Math.PI / 180, dx = Math.sin(r), dy = -Math.cos(r);
-    let tt = Infinity;
-    if (dx > 1e-9) tt = Math.min(tt, (x1 - cx) / dx); if (dx < -1e-9) tt = Math.min(tt, (x0 - cx) / dx);
-    if (dy > 1e-9) tt = Math.min(tt, (y1 - cy) / dy); if (dy < -1e-9) tt = Math.min(tt, (y0 - cy) / dy);
-    return { x: cx + dx * tt, y: cy + dy * tt, dx: dx, dy: dy };
+  /* Perimeter split, equal spacing, exact degree: one side of the plan = 90°, so every
+     15° mountain is exactly 1/6 of a side. The EXACT facing degree sits in the middle of the
+     facade side, and every compass direction D sits (D − facing°)/90 sides further clockwise —
+     so the ticks shift with every degree, not just with the mountain.
+     Position u runs clockwise from the top-left corner in side units: top 0–1, right 1–2,
+     bottom 2–3, left 3–4. */
+  const fside = Math.round(PLAN.side / 90) % 4;
+  const faceM = mountainAt(F), k = mIndex(faceM);
+  function at(u) {
+    u = ((u % 4) + 4) % 4;
+    const sd = Math.floor(u), fr = u - sd;
+    if (sd === 0) return { x: x0 + fr * pw, y: y0, nx: 0, ny: -1, sd: sd };
+    if (sd === 1) return { x: x1, y: y0 + fr * ph, nx: 1, ny: 0, sd: sd };
+    if (sd === 2) return { x: x1 - fr * pw, y: y1, nx: 0, ny: 1, sd: sd };
+    return { x: x0, y: y1 - fr * ph, nx: -1, ny: 0, sd: sd };
   }
-  const scr = D => norm(PLAN.side + (D - F));
+  const pos = D => fside + 0.5 + ((((D - F) % 360) + 540) % 360 - 180) / 90;   // compass D → perimeter
+  const mid = j => pos(M24[j].s + 7.5);           // centre of mountain j on the perimeter
 
-  // sector boundaries → ticks across the edge
-  for (const m of M24) {
-    const e = edge(scr(m.s));
-    const vert = Math.abs(e.x - x0) < 0.5 || Math.abs(e.x - x1) < 0.5;   // on a left/right edge
-    const L1 = 9;
-    svg.appendChild(el("line", vert
+  for (let j = 0; j < 24; j++) {
+    // tick at the start boundary of mountain j
+    const e = at(pos(M24[j].s)), L1 = 9;
+    svg.appendChild(el("line", e.nx
       ? { x1: e.x - L1, y1: e.y, x2: e.x + L1, y2: e.y, stroke: "#222", "stroke-width": 2 }
       : { x1: e.x, y1: e.y - L1, x2: e.x, y2: e.y + L1, stroke: "#222", "stroke-width": 2 }));
-  }
-  // sector codes outside the plan, at each sector's middle
-  for (const m of M24) {
-    const e = edge(scr(m.s + 7.5));
-    const onFace = m === mountainAt(F), onSit = m === opposite(mountainAt(F));
-    const tx = el("text", { x: e.x + e.dx * 30, y: e.y + e.dy * 30, "text-anchor": "middle",
+    // label outside, at the mountain's middle; a corner label goes out diagonally
+    const u = mid(j), c = at(u), r = ((u % 1) + 1) % 1;
+    let nx = c.nx, ny = c.ny;
+    if (r < 0.04 || r > 0.96) { const pv = at(u + (r < 0.5 ? -0.05 : 0.05)); nx += pv.nx; ny += pv.ny; }   // near a corner: go out diagonally
+    const m = M24[(j + 24) % 24], onFace = j === k, onSit = j === (k + 12) % 24;
+    const tx = el("text", { x: c.x + nx * 26, y: c.y + ny * 26, "text-anchor": "middle",
       "dominant-baseline": "central", "font-family": "Inter, sans-serif", "font-size": 15,
       "font-weight": onFace || onSit ? 700 : 500, fill: onFace ? "#c62828" : "#333" });
     tx.textContent = (LANG === "ru" ? m.secRu : m.secEn) + m.i;
     svg.appendChild(tx);
   }
-  // facade (outward) and back (inward) markers, red
-  function tri(a, out) {
-    const e = edge(a), r = a * Math.PI / 180, nx = Math.cos(r), ny = Math.sin(r);
-    const tip = out ? 16 : -16, b = out ? -2 : 2;
-    const px = e.x + e.dx * tip, py = e.y + e.dy * tip;
-    const bx = e.x + e.dx * b, by = e.y + e.dy * b;
-    svg.appendChild(el("polygon", { points: px + "," + py + " " + (bx + nx * 9) + "," + (by + ny * 9) + " " + (bx - nx * 9) + "," + (by - ny * 9),
-      fill: "#e53935" }));
+  // facade (pointing out) and back (pointing in) markers, red
+  function tri(u, out) {
+    const e = at(u), tx = -e.ny, ty = e.nx, tip = out ? 16 : -16, b = out ? -2 : 2;
+    const px = e.x + e.nx * tip, py = e.y + e.ny * tip, bx = e.x + e.nx * b, by = e.y + e.ny * b;
+    svg.appendChild(el("polygon", { points: px + "," + py + " " + (bx + tx * 9) + "," + (by + ty * 9) + " " +
+      (bx - tx * 9) + "," + (by - ty * 9), fill: "#e53935" }));
   }
-  tri(PLAN.side, true);
-  tri(norm(PLAN.side + 180), false);   // back marker points into the plan, same way as the facade
+  tri(pos(F), true);
+  tri(pos(F + 180), false);
 
-  // facade arrow from the centre (drag its head to rotate)
-  const fe = edge(PLAN.side), hx = cx + (fe.x - cx) * 0.55, hy = cy + (fe.y - cy) * 0.55;
+  // facade arrow from the plan's middle; drag its head — it snaps to the nearest side
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, fe = at(pos(F));
+  const hx = cx + (fe.x - cx) * 0.55, hy = cy + (fe.y - cy) * 0.55;
   svg.appendChild(el("line", { x1: cx, y1: cy, x2: hx, y2: hy, stroke: "#e53935", "stroke-width": 3 }));
   const head = el("circle", { cx: hx, cy: hy, r: 10, fill: "#e53935", stroke: "#fff", "stroke-width": 2, class: "grab" });
   svg.appendChild(head);
-  // centre cross (drag to move)
-  const cross = el("g", { class: "grab" });
-  cross.appendChild(el("circle", { cx: cx, cy: cy, r: 12, fill: "rgba(255,255,255,.6)", stroke: "#222", "stroke-width": 1.5 }));
-  cross.appendChild(el("line", { x1: cx - 16, y1: cy, x2: cx + 16, y2: cy, stroke: "#222", "stroke-width": 1.5 }));
-  cross.appendChild(el("line", { x1: cx, y1: cy - 16, x2: cx, y2: cy + 16, stroke: "#222", "stroke-width": 1.5 }));
-  svg.appendChild(cross);
 
   function svgPt(ev) {
     const pt = (ev.touches ? ev.touches[0] : ev), b = svg.getBoundingClientRect();
@@ -1187,10 +1185,7 @@ function renderPlan() {
     };
   }
   head.addEventListener("pointerdown", drag(p => {
-    PLAN.side = Math.round(norm(Math.atan2(p.x - cx, -(p.y - cy)) * 180 / Math.PI));
-  }));
-  cross.addEventListener("pointerdown", drag(p => {
-    PLAN.cx = Math.min(1, Math.max(0, (p.x - x0) / pw)); PLAN.cy = Math.min(1, Math.max(0, (p.y - y0) / ph));
+    PLAN.side = (Math.round(norm(Math.atan2(p.x - cx, -(p.y - cy)) * 180 / Math.PI) / 90) % 4) * 90;
   }));
 }
 
