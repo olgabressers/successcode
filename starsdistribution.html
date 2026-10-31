@@ -117,7 +117,6 @@
   .readout .mtn { font-family: 'Cormorant Garamond', serif; font-size: 21px; color: var(--gold-dim); }
 
   /* results */
-  .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
   .card { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; }
   .card.facing { border-color: var(--gold); border-width: 2px; }
   .card-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
@@ -168,7 +167,6 @@
   .footer-disclaimer { font-size: 11px; line-height: 1.75; color: var(--text-muted);
                        padding-top: 22px; border-top: 1px solid var(--border); margin-bottom: 16px; }
   .site-footer small { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; line-height: 1.7; }
-  .src-note { text-align: center; font-size: 10.5px; color: var(--text-muted); line-height: 1.7; margin-top: 14px; }
 
   .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 54px; height: 54px; z-index: 400;
                  background: var(--gold); display: none; align-items: center; justify-content: center;
@@ -217,8 +215,7 @@
     header p { font-size: 9px; letter-spacing: 1.5px; }
     .form-panel { padding: 16px 14px; }
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
-    .res-grid { grid-template-columns: 1fr; gap: 14px; }
-    .card { padding: 18px 16px; }
+      .card { padding: 18px 16px; }
     .fs-panel { padding: 16px 12px; }
     .map-row { grid-template-columns: 1fr; }
     .m-char { font-size: 50px; }
@@ -430,14 +427,9 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   </div>
   </div>
 
-  <div class="res-grid">
-    <div class="card facing" id="card-facing"></div>
-    <div class="card" id="card-sitting"></div>
-  </div>
 
 
   <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
-  <div class="src-note" data-i18n="srcNote"></div>
 </div>
 
 <footer class="site-footer">
@@ -502,7 +494,7 @@ const I18N = {
     periodN: "Период {n}",
     months: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
     chartTitle: "Распределение звёзд · 飞星盘",
-    infoMtn: "Тыл <b>{s}</b> · фасад <b>{f}</b> · {deg}° по компасу",
+    infoMtn: "Фасад <b>{f}</b> · тыл <b>{s}</b> · {deg}° по компасу",
     legM: "слева вверху — звезда горы · 山星", legB: "в центре — звезда периода · 运星", legF: "справа вверху — звезда фасада · 向星",
     tagFace: "向 · фасад", tagSit: "坐 · тыл",
     dirs: {4:"ЮВ",9:"Ю",2:"ЮЗ",3:"В",5:"Центр",7:"З",8:"СВ",1:"С",6:"СЗ"},
@@ -536,7 +528,6 @@ const I18N = {
     flipBtn: "Развернуть на 180°",
     mapHint: "Найдите дом в поиске выше. <b>Синюю линию поставьте вдоль фасада</b> — тяните за круглые ручки на её концах. <b>Золотая стрелка</b> идёт под 90° к фасаду: это и есть направление дома. Если она смотрит внутрь здания — нажмите «Развернуть на 180°». Маркер можно перетаскивать.",
     roFacing: "Компас", roTrue: "Истинное", roWall: "Фасад",
-    srcNote: "Схемы летящих звёзд для периодов 1–9 сверены со всеми 216 схемами книги <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> (Wikibooks, CC BY-SA 4.0). Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
   },
   en: {
     h1: "飞星 · Stars Distribution",
@@ -545,7 +536,7 @@ const I18N = {
     periodN: "Period {n}",
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     chartTitle: "Stars Distribution · 飞星盘",
-    infoMtn: "Sitting <b>{s}</b> · facing <b>{f}</b> · {deg}° by compass",
+    infoMtn: "Facing <b>{f}</b> · sitting <b>{s}</b> · {deg}° by compass",
     legM: "top left — mountain star · 山星", legB: "centre — period star · 运星", legF: "top right — facing star · 向星",
     tagFace: "向 · facing", tagSit: "坐 · sitting",
     dirs: {4:"SE",9:"S",2:"SW",3:"E",5:"Centre",7:"W",8:"NE",1:"N",6:"NW"},
@@ -579,7 +570,6 @@ const I18N = {
     flipBtn: "Flip 180°",
     mapHint: "Find the house with the search above. <b>Lay the blue line along the facade</b> — drag the round handles at its ends. The <b>gold arrow</b> sits at 90° to the facade: that is the house's facing. If it points into the building, press &quot;Flip 180°&quot;. The marker can be dragged.",
     roFacing: "Compass", roTrue: "True", roWall: "Facade",
-    srcNote: "Flying-star charts for Periods 1–9 are checked against all 216 charts in the <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> book (Wikibooks, CC BY-SA 4.0). The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
   }
 };
 
@@ -639,23 +629,6 @@ function onDeclEdit() { DECL_AUTO = false; compute(); }
 
 function elClass(el) { return "el-" + el; }
 
-function renderCard(box, m, tagKey) {
-  const t = L();
-  const secFull = LANG === "ru" ? m.secFullRu : m.secFullEn;
-  const sec     = LANG === "ru" ? m.secRu     : m.secEn;
-  const read    = LANG === "ru" ? m.ru        : m.py;
-  box.innerHTML =
-    '<div class="card-tag">' + t[tagKey] + '</div>' +
-    '<div class="m-char ' + elClass(m.el) + '">' + m.n + '</div>' +
-    '<div class="m-names"><b>' + read + '</b>' + (LANG === "ru" ? ' · ' + m.py : '') + '</div>' +
-    '<div class="m-rows">' +
-      row(t.range,    m.s + '° – ' + m.e + '°') +
-      row(t.sector,   sec + ' · ' + secFull) +
-      row(t.trigram,  '<span class="gua-sym">' + GUA_SYM[m.g] + '</span> ' + m.g + ' ' + m.ge) +
-      row(t.element,  '<span class="' + elClass(m.el) + '">' + t.els[m.el] + '</span>') +
-    '</div>';
-  function row(k, v) { return '<div class="m-row"><span>' + k + '</span><b>' + v + '</b></div>'; }
-}
 
 
 
@@ -920,8 +893,6 @@ function compute() {
   const face = mountainAt(cd);          // read off the luopan ring
   const sit  = opposite(face);
 
-  renderCard($("card-facing"),  face, "facing");
-  renderCard($("card-sitting"), sit,  "sitting");
 
 
   $("coord-hint").textContent = t.coordHint.replace("{lat}", LAT.toFixed(4)).replace("{lon}", LON.toFixed(4));
