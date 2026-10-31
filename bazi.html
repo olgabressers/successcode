@@ -109,9 +109,6 @@
                  letter-spacing: 0.3px; text-transform: none; color: var(--text-dim); cursor: pointer; }
   .check-label input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0;
                  accent-color: var(--gold); cursor: pointer; flex: 0 0 auto; }
-  .solar-birth { display: none; max-width: 900px; margin: 0 auto 16px; text-align: center;
-                 font-size: 13px; font-weight: 600; letter-spacing: 0.4px; color: var(--gold-dim); }
-  .solar-birth.show { display: block; }
   .error-msg { max-width: 820px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
@@ -377,7 +374,8 @@
     .dayun-liu-gz { font-size: 9px; }
   }
 
-  @media (max-width: 640px) {
+  /* phone rules — SCREEN only, or a printer with wide margins would print the phone layout */
+  @media screen and (max-width: 640px) {
     body { padding: 40px 14px 30px; }
     .site-nav { justify-content: center; gap: 9px 12px; padding: 10px 12px; margin: -40px -14px 0; }
     .nl-logo { width: 100%; text-align: center; }
@@ -655,9 +653,33 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 </div>
 
 <script src="/tz.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script>
 <script>
-/* ===== i18n ===== */
+/* ==========================================================================
+   BA ZI (八字) CALCULATOR — page script
+   Live: https://successcode.net/bazi (?lang=ru | en)
+   Engine: lunar-javascript 1.7.7 (Solar → Lunar → EightChar, getYun for luck pillars);
+           /tz.js for the birth city's time zone (solar-time correction).
+   Full architecture: "Architecture Ba Zi.docx" (Chinese Metaphysics SaaS/Calculators/Calculator Ba Zi).
+
+   Order of this file:
+     1. I18N               every visible text, RU + EN (data-i18n="key" or L().key)
+     2. tables             elements, polarity labels, Ten Gods names, Qi phases, animals
+     3. city + solar time  Nominatim search, corrMin() = solar − clock in minutes
+     4. persistence        last calculation kept 1 hour in localStorage ("bazi-last")
+     5. compute()          the single entry point: form → solar time → EightChar → render()
+     6. lunar chart        lunarView(): year by Chinese New Year + lunar month (ZWDS rule)
+     7. render             pillarCol() builds every pillar column; natal pillars, luck pillars
+     8. time columns       luck pillar / year / month of a chosen date, with dropdowns
+     9. aux stars + Ming Gua (八宅 directions)
+    10. language + wiring  setLang(), button handlers, restore + first compute on load
+   Options: «Солнечное время», «Время рождения неизвестно» (empty hour pillar),
+            «Солнечный календарь | Лунный календарь» (solar is the default).
+   Phone CSS is "@media screen and (max-width: 640px)" (screen only — keeps print stable);
+   print = one A4 page (see @media print).
+   ========================================================================== */
+
+/* ===== 1. i18n ===== */
 const I18N = {
   ru: {
     tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный и лунный календарь",
@@ -669,20 +691,10 @@ const I18N = {
     print: "PDF / Печать",
     course: "Хочу пройти курс Ба Цзы",
     city: "Город (для пересчёта в солнечное время)",
-    cityPh: "Начните вводить город...",
     compute: "Рассчитать",
     hourP: "Час", dayP: "День", monthP: "Месяц", yearP: "Год",
-    tenGodStem: "Десять богов (ствол)",
-    tenGodBranch: "Десять богов (ветвь)",
     voidTag: "Пустая",
-    stem: "Ствол", branch: "Ветвь",
-    hidden: "Скрытые стволы",
-    nayin: "На Инь",
-    dayMaster: "Хозяин дня",
-    dayMasterEl: "Стихия хозяина дня",
-    season: "Сезон",
     voidBranches: "Пустые ветви (空亡)",
-    lunarDate: "Лунная дата",
     dayunTitle: "Большие циклы (大运)",
     dayunStart: "Начало: возраст",
     age: "возраст",
@@ -695,15 +707,9 @@ const I18N = {
     guaTitle: "Гуа человека",
     guaGood: "Благоприятные направления",
     guaBad: "Неблагоприятные направления",
-    starPosition: "Позиции",
-    starInPillar: "В столпе",
-    starAbsent: "Отсутствует в чарте",
-    starPillarHour: "Час", starPillarDay: "День", starPillarMonth: "Месяц", starPillarYear: "Год",
-    liunianTitle: "Текущий год (流年)",
     luckCol: "Текущий столп удачи", yearCol: "Текущий год", monthCol: "Месяц", ageShort: "возраст",
     childhoodShort: "детство",
     monthNames: ["Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь","Январь"],
-    computeFirst: "Введите данные и нажмите «Рассчитать».",
     invalidDate: "Такой даты не существует.",
     checkDT: "Проверьте дату и время.",
     calcErr: "Ошибка расчёта: ",
@@ -714,12 +720,6 @@ const I18N = {
     noTimeLabel: "Время рождения неизвестно",
     calSolar: "Солнечный календарь", calLunar: "Лунный календарь",
     noTimeInfo: "Время неизвестно — столп часа не строится",
-    solarBirth: "Солнечное время рождения",
-    clockBirth: "Время рождения (по часам)",
-    solarShort: "солнечное время", clockShort: "по часам",
-    minsAfter: "Минут после начала часа",
-    yang: "Ян", yin: "Инь",
-    spring: "Весна", summer: "Лето", autumn: "Осень", winter: "Зима"
   },
   en: {
     tagline: "Ba Zi · Four Pillars of Destiny · Solar and Lunar Calendar",
@@ -731,20 +731,10 @@ const I18N = {
     print: "PDF / Print",
     course: "I want to take the Ba Zi course",
     city: "City (for solar-time correction)",
-    cityPh: "Start typing a city...",
     compute: "Compute",
     hourP: "Hour", dayP: "Day", monthP: "Month", yearP: "Year",
-    tenGodStem: "Ten Gods (Stem)",
-    tenGodBranch: "Ten Gods (Branch)",
     voidTag: "Void",
-    stem: "Stem", branch: "Branch",
-    hidden: "Hidden Stems",
-    nayin: "Na Yin",
-    dayMaster: "Day Master",
-    dayMasterEl: "Day Master Element",
-    season: "Season",
     voidBranches: "Void (Kong Wang)",
-    lunarDate: "Lunar date",
     dayunTitle: "Luck Pillars (大运)",
     dayunStart: "Start age",
     age: "age",
@@ -757,15 +747,9 @@ const I18N = {
     guaTitle: "Life Gua",
     guaGood: "Auspicious directions",
     guaBad: "Inauspicious directions",
-    starPosition: "Positions",
-    starInPillar: "In pillar",
-    starAbsent: "Not present in the chart",
-    starPillarHour: "Hour", starPillarDay: "Day", starPillarMonth: "Month", starPillarYear: "Year",
-    liunianTitle: "Current Year (流年)",
     luckCol: "Current luck pillar", yearCol: "Current year", monthCol: "Month", ageShort: "age",
     childhoodShort: "childhood",
     monthNames: ["February","March","April","May","June","July","August","September","October","November","December","January"],
-    computeFirst: "Enter data and press Compute.",
     invalidDate: "This date does not exist.",
     checkDT: "Check date and time.",
     calcErr: "Calculation error: ",
@@ -776,12 +760,6 @@ const I18N = {
     noTimeLabel: "Birth time unknown",
     calSolar: "Solar calendar", calLunar: "Lunar calendar",
     noTimeInfo: "Time unknown — no hour pillar",
-    solarBirth: "Solar birth time",
-    clockBirth: "Birth time (clock)",
-    solarShort: "solar time", clockShort: "clock time",
-    minsAfter: "Minutes after hour start",
-    yang: "Yang", yin: "Yin",
-    spring: "Spring", summer: "Summer", autumn: "Autumn", winter: "Winter"
   }
 };
 /* Language: URL ?lang= > localStorage sc-lang > default 'ru' */
@@ -796,14 +774,10 @@ function initLang(){
 let LANG = initLang();
 const L = () => I18N[LANG];
 
-/* ===== Element / stem-branch tables ===== */
+/* ===== 2. Element / stem-branch tables ===== */
 const STEM_EL = {甲:"wood",乙:"wood",丙:"fire",丁:"fire",戊:"earth",己:"earth",庚:"metal",辛:"metal",壬:"water",癸:"water"};
 const BRANCH_EL = {子:"water",丑:"earth",寅:"wood",卯:"wood",辰:"earth",巳:"fire",午:"fire",未:"earth",申:"metal",酉:"metal",戌:"earth",亥:"water"};
-const STEM_YY = {甲:"yang",乙:"yin",丙:"yang",丁:"yin",戊:"yang",己:"yin",庚:"yang",辛:"yin",壬:"yang",癸:"yin"};
-const EL_NAME_RU = {wood:"Дерево",fire:"Огонь",earth:"Земля",metal:"Металл",water:"Вода"};
-const EL_NAME_EN = {wood:"Wood",fire:"Fire",earth:"Earth",metal:"Metal",water:"Water"};
 const elClass = ch => "el-" + (STEM_EL[ch] || BRANCH_EL[ch] || "");
-const elName  = ch => (LANG === "ru" ? EL_NAME_RU : EL_NAME_EN)[STEM_EL[ch] || BRANCH_EL[ch]] || "";
 
 /* Ten God translations (drop Chinese chars in display) */
 const TEN_GOD = {
@@ -812,12 +786,6 @@ const TEN_GOD = {
 };
 const tg = s => (TEN_GOD[LANG] && TEN_GOD[LANG][s]) || s || "";
 
-/* Na Yin translations (30 pairs) */
-const NAYIN = {
-  ru: {"海中金":"Металл в море","炉中火":"Огонь в печи","大林木":"Дерево леса","路旁土":"Земля у дороги","剑锋金":"Металл клинка","山头火":"Огонь вершины","涧下水":"Вода в ущелье","城头土":"Земля крепости","白蜡金":"Восковой металл","杨柳木":"Ива","泉中水":"Родниковая вода","屋上土":"Земля крыши","霹雳火":"Гром-огонь","松柏木":"Сосна","长流水":"Проточная вода","沙中金":"Металл в песке","山下火":"Огонь у горы","平地木":"Дерево равнины","壁上土":"Земля стены","金箔金":"Сусальный металл","覆灯火":"Огонь лампы","天河水":"Небесная река","大驿土":"Земля тракта","钗钏金":"Металл заколки","桑柘木":"Тутовое дерево","大溪水":"Ручей","沙中土":"Земля песка","天上火":"Небесный огонь","石榴木":"Гранат","大海水":"Океан"},
-  en: {"海中金":"Sea Metal","炉中火":"Furnace Fire","大林木":"Forest Wood","路旁土":"Roadside Earth","剑锋金":"Blade Metal","山头火":"Peak Fire","涧下水":"Ravine Water","城头土":"Rampart Earth","白蜡金":"Wax Metal","杨柳木":"Willow","泉中水":"Spring Water","屋上土":"Roof Earth","霹雳火":"Thunder Fire","松柏木":"Pine","长流水":"Flowing Water","沙中金":"Sand Metal","山下火":"Foothill Fire","平地木":"Plain Wood","壁上土":"Wall Earth","金箔金":"Gilded Metal","覆灯火":"Lamp Fire","天河水":"River Water","大驿土":"Highway Earth","钗钏金":"Ornament Metal","桑柘木":"Mulberry","大溪水":"Stream","沙中土":"Sand Earth","天上火":"Sky Fire","石榴木":"Pomegranate","大海水":"Ocean"}
-};
-const ny = s => (NAYIN[LANG] && NAYIN[LANG][s]) || s || "";
 
 /* Element polarity labels for each stem and branch (external polarity for branches) */
 const STEM_POLARITY = {
@@ -849,20 +817,13 @@ function qiPhase(dayStem, branch) {
   return (LANG === "ru" ? QI_PHASE_RU : QI_PHASE_EN)[idx];
 }
 
-/* Ten Gods table: index by (DM index, target index) — computed via lunar-js */
 
 /* Hour-branch (时辰) by the odd hour at which the 2-hour block STARTS */
 const BRANCH_BY_START_HOUR = {23:"子",1:"丑",3:"寅",5:"卯",7:"辰",9:"巳",11:"午",13:"未",15:"申",17:"酉",19:"戌",21:"亥"};
 
 /* Season from month branch (BaZi solar month) */
-const SEASON_BY_BRANCH = {
-  寅:"spring",卯:"spring",辰:"spring",
-  巳:"summer",午:"summer",未:"summer",
-  申:"autumn",酉:"autumn",戌:"autumn",
-  亥:"winter",子:"winter",丑:"winter"
-};
 
-/* ===== City + solar time ===== */
+/* ===== 3. City + solar time ===== */
 let LON = 4.9041, TZNAME = "Europe/Amsterdam", CITYNAME = "Amsterdam", _cityTimer = null;
 const v = id => document.getElementById(id).value;
 const pad = n => String(n).padStart(2, "0");
@@ -934,7 +895,7 @@ function updateSolarInfo(){
     `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
 }
 
-/* ===== Persist last calculation for 1 hour across reloads ===== */
+/* ===== 4. Persist last calculation for 1 hour across reloads ===== */
 const LAST_KEY = "bazi-last", LAST_TTL = 3600000; // 1 hour
 function saveState(){
   try {
@@ -972,7 +933,7 @@ function loadState(){
   } catch(e){ return false; }
 }
 
-/* ===== Compute ===== */
+/* ===== 5. Compute ===== */
 function compute(){
   hideError();
   try{
@@ -1043,7 +1004,7 @@ function compute(){
   }
 }
 
-/* ===== Lunar calendar chart =====
+/* ===== 6. Lunar calendar chart =====
    Same rule as the lunar Ba Zi on the ZWDS calculator (calculator.html, "lunarBazi"):
    day and hour pillars are the solar ones; the YEAR follows Chinese New Year
    (lunar.getYearGan/Zhi) and the MONTH is the lunar month — branch by 寅 = month 1,
@@ -1075,7 +1036,6 @@ function lunarView(ec, lunar){
     getYearHideGan: () => hide(yZ), getMonthHideGan: () => hide(mZ),
     getYearShiShenZhi: () => hide(yZ).map(g => tenGodStem(dm, g)),
     getMonthShiShenZhi: () => hide(mZ).map(g => tenGodStem(dm, g)),
-    getYearNaYin: () => LunarUtil.NAYIN[yG + yZ], getMonthNaYin: () => LunarUtil.NAYIN[mG + mZ],
     getYearXunKong: () => LunarUtil.getXunKong(yG + yZ)
   });
   return v;
@@ -1087,7 +1047,7 @@ function setCal(c){
   compute();
 }
 
-/* ===== Render ===== */
+/* ===== 7. Render ===== */
 function pillarsCells(ec){
   // Order columns: Hour, Day, Month, Year (traditional right-to-left; we display L->R)
   const yZ=ec.getYearZhi(),  yStem=ec.getYearGan();
@@ -1107,11 +1067,6 @@ function pillarsCells(ec){
   const dHide = ec.getDayHideGan(),   dHideShen = ec.getDayShiShenZhi();
   const tHide = ec.getTimeHideGan(),  tHideShen = ec.getTimeShiShenZhi();
 
-  // Nayin
-  const yNy = ec.getYearNaYin();
-  const mNy = ec.getMonthNaYin();
-  const dNy = ec.getDayNaYin();
-  const tNy = ec.getTimeNaYin();
 
   // Void branches (空亡) — grey any pillar whose BRANCH is in this set
   const kong = ec.getDayXunKong ? (ec.getDayXunKong()||"") : "";
@@ -1121,12 +1076,10 @@ function pillarsCells(ec){
   return {
     labels:   [L().hourP, L().dayP, L().monthP, L().yearP],
     shenStem: [tShen, dShen, mShen, yShen],                          // Ten Gods for stems (day = 比肩)
-    shenBranch: [tHideShen && tHideShen[0], dHideShen && dHideShen[0], mHideShen && mHideShen[0], yHideShen && yHideShen[0]], // primary hidden-stem Ten God
     stem:     [tStem, dStem, mStem, yStem],
     zhi:      [tZ, dZ, mZ, yZ],
     hide:     [tHide, dHide, mHide, yHide],
     hideShen: [tHideShen, dHideShen, mHideShen, yHideShen],
-    nayin:    [tNy, dNy, mNy, yNy],
     isVoid:   isVoid
   };
 }
@@ -1156,7 +1109,7 @@ function pillarCol(o){
     </div>`;
 }
 
-/* ===== Luck pillar, year and month of a chosen date (right of the natal pillars) =====
+/* ===== 8. Luck pillar, year and month of a chosen date (right of the natal pillars) =====
    Year = the solar (立春) year; month = solar month from its 节 (month 1 = 寅, starts ~4 Feb).
    Pillars come from lunar-javascript EightChar at a date safely inside that year / month
    (1 June; the 15th of the month — every 节 falls on the 4th–8th). Luck pillar = the 大运 that
@@ -1241,44 +1194,8 @@ function renderPillars(ec){
   document.getElementById("pillars").innerHTML = cols.join("");
 }
 
-function renderSummary(ec, lunar){
-  const dmStem = ec.getDayGan();
-  const dmEl = STEM_EL[dmStem];
-  const dmYY = STEM_YY[dmStem];
-  const dmYYName = dmYY === "yang" ? L().yang : L().yin;
 
-  const monthZhi = ec.getMonthZhi();
-  const season = SEASON_BY_BRANCH[monthZhi];
-  const seasonName = L()[season] || "";
-
-  // Void branches: use day-pillar-based Xun Kong
-  const kong = ec.getDayXunKong ? ec.getDayXunKong() : "";
-  const kongStr = kong ? kong.split("").map(z=>`<span class="cn ${elClass(z)}">${z}</span>`).join(" ") : "—";
-
-  // Lunar date
-  const lunarStr = `${lunar.getYearInChinese()} · ${lunar.getMonthInChinese()}月 · ${lunar.getDayInChinese()}`;
-
-  document.getElementById("summary").innerHTML = `
-    <div class="sum-item">
-      <div class="sum-label">${L().dayMaster}</div>
-      <div class="sum-value"><span class="cn ${elClass(dmStem)}">${dmStem}</span></div>
-    </div>
-    <div class="sum-item">
-      <div class="sum-label">${L().dayMasterEl}</div>
-      <div class="sum-value"><span class="${elClass(dmStem)}">${elName(dmStem)} · ${dmYYName}</span></div>
-    </div>
-    <div class="sum-item">
-      <div class="sum-label">${L().season}</div>
-      <div class="sum-value"><span class="cn ${elClass(monthZhi)}">${monthZhi}</span> ${seasonName}</div>
-    </div>
-    <div class="sum-item">
-      <div class="sum-label">${L().voidBranches}</div>
-      <div class="sum-value">${kongStr}</div>
-    </div>
-  `;
-}
-
-/* ===== Auxiliary Stars (神煞) ===== */
+/* ===== 9. Auxiliary Stars (神煞) ===== */
 const NOBLE_BY_DAY_STEM = {
   甲:["丑","未"], 戊:["丑","未"], 庚:["丑","未"],
   乙:["子","申"], 己:["子","申"],
@@ -1451,21 +1368,10 @@ function renderDayun(ec, sex){
 
 /* Ten Gods relative to Day Master */
 const STEM_IDX = {甲:0,乙:1,丙:2,丁:3,戊:4,己:5,庚:6,辛:7,壬:8,癸:9};
-const TEN_GODS_RU = ["比肩","劫财","食神","伤官","偏财","正财","七杀","正官","偏印","正印"];
 // Map: (target_el rel to DM_el, target_polarity rel to DM_polarity) → ten god
 function tenGodStem(dm, target){
   if (!dm || !target) return "";
-  const dmEl = STEM_EL[dm], tEl = STEM_EL[target];
-  const dmY = STEM_YY[dm], tY = STEM_YY[target];
-  const rel = elRelation(dmEl, tEl); // "self","gen_out","overc_out","overc_in","gen_in"
-  const same = (dmY === tY);
-  const map = {
-    self:     same ? "比肩" : "劫财",
-    gen_out:  same ? "食神" : "伤官",
-    overc_out:same ? "七杀" : "正官",   // note: overc_out from DM's perspective is DM overcoming target
-    // reversed
-  };
-  // Simpler: use standard 10-gods matrix by (dm_idx, target_idx)
+  // standard 10-gods matrix: row = Day Master, column = the other stem
   const M = [
     // 甲  乙  丙  丁  戊  己  庚  辛  壬  癸
     ["比肩","劫财","食神","伤官","偏财","正财","七杀","正官","偏印","正印"], // 甲
@@ -1481,24 +1387,7 @@ function tenGodStem(dm, target){
   ];
   return M[STEM_IDX[dm]][STEM_IDX[target]];
 }
-function elRelation(){ return ""; } // placeholder; not used
 
-function renderLiunian(ec){
-  const dm = ec.getDayGan();
-  const y = (new Date()).getFullYear();
-  const S = Solar.fromYmdHms(y, 6, 1, 12, 0, 0); // any mid-year date
-  const lu = S.getLunar();
-  const yStem = lu.getYearGanByLiChun();
-  const yZhi = lu.getYearZhiByLiChun();
-  const shen = tenGodStem(dm, yStem);
-  document.getElementById("liunian").innerHTML = `
-    <div class="liunian-label">${y} · ${L().liunianTitle}</div>
-    <div class="liunian-gz">
-      <span class="${elClass(yStem)}">${yStem}</span><span class="${elClass(yZhi)}">${yZhi}</span>
-    </div>
-    <div class="liunian-meta">${tg(shen)} · ${elName(yStem)} / ${elName(yZhi)}</div>
-  `;
-}
 
 function render(ec, lunar, sex, cm, baziYear){
   const chart = CAL === "lunar" ? lunarView(ec, lunar) : ec;   // the luck pillars follow the chosen calendar too
@@ -1512,7 +1401,7 @@ function render(ec, lunar, sex, cm, baziYear){
   updateSolarInfo();
 }
 
-/* ===== i18n apply + wiring ===== */
+/* ===== 10. Language + wiring ===== */
 function applyLang(){
   document.documentElement.lang = LANG;
   document.querySelectorAll("[data-i18n]").forEach(el => {
