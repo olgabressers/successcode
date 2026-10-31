@@ -211,6 +211,11 @@
     .map-row { grid-template-columns: 1fr; }
     .plan-controls { grid-template-columns: 1fr; }
     .plan-panel { padding: 16px 12px; }
+    .plan-opts { gap: 10px; }
+    .plan-opts .chk { width: 100%; }
+    .plan-opts .chk select { margin-left: auto; }
+    .plan-zoom { margin-left: 0; width: 100%; justify-content: center; }
+    #plan-svg { max-width: none !important; }   /* zoom needs it wider than the screen; the stage scrolls */
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
     #map { height: 400px; }
     .site-footer { padding: 30px 4px 24px; }
@@ -438,6 +443,11 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
       <select id="f-ayear" onchange="compute()"></select>
     </div>
     <div class="fs-stage"><div class="fs-grid" id="fs-agrid"></div></div>
+    <div class="fs-year-head">
+      <div class="section-label" data-i18n="monthTitle"></div>
+      <select id="f-month" onchange="compute()"></select>
+    </div>
+    <div class="fs-stage"><div class="fs-grid" id="fs-mgrid"></div></div>
   </div>
   </div>
 
@@ -469,6 +479,8 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
         <select id="plan-period" onchange="planPick('f-period', this.value)"></select></div>
       <div class="chk"><input type="checkbox" id="plan-annual" onchange="renderPlan()"><label for="plan-annual" data-i18n="planAnnual"></label>
         <select id="plan-ayear" onchange="planPick('f-ayear', this.value)"></select></div>
+      <div class="chk"><input type="checkbox" id="plan-monthly" onchange="renderPlan()"><label for="plan-monthly" data-i18n="planMonthly"></label>
+        <select id="plan-month" onchange="planPick('f-month', this.value)"></select></div>
       <div class="plan-zoom">
         <button class="tool-btn" onclick="planZoom(-1)" aria-label="−">−</button>
         <span id="plan-zoom-val">100%</span>
@@ -570,10 +582,14 @@ const I18N = {
     planAnnual: "Годовые звёзды",
     planHint: "Выберите, какая сторона плана — фасад, или потяните красную стрелку. Каждая сторона плана делится на 6 равных частей, гора фасада — в середине стороны фасада. План остаётся в вашем браузере и никуда не отправляется.",
     yearTitle: "Годовые звёзды",
+    monthTitle: "Месячные звёзды",
+    planMonthly: "Месячные звёзды",
+    monthN: "Месяц {n} · {r}",
+    monthR: ["фев–мар","мар–апр","апр–май","май–июн","июн–июл","июл–авг","авг–сен","сен–окт","окт–ноя","ноя–дек","дек–янв","янв–фев"],
     rotBtn: "Повернуть к фасаду",
     infoMtn: "Фасад <b>{f}</b> · тыл <b>{s}</b> · {deg}° по компасу",
     tagFace: "向 · фасад", tagSit: "坐 · тыл",
-    dirs: {4:"ЮВ",9:"Ю",2:"ЮЗ",3:"В",5:"Центр",7:"З",8:"СВ",1:"С",6:"СЗ"},
+    dirs: {4:"ЮВ",9:"Ю",2:"ЮЗ",3:"В",5:"",7:"З",8:"СВ",1:"С",6:"СЗ"},
     inputTitle: "Направление",
     degLabel: "Градус направления (фасад)",
     declLabel: "Магнитное склонение, °",
@@ -606,10 +622,14 @@ const I18N = {
     planAnnual: "Annual stars",
     planHint: "Choose which side of the plan is the facade, or drag the red arrow. Each side of the plan is divided into 6 equal parts, with the facing mountain in the middle of the facade side. The plan stays in your browser and is not sent anywhere.",
     yearTitle: "Annual stars",
+    monthTitle: "Monthly stars",
+    planMonthly: "Monthly stars",
+    monthN: "Month {n} · {r}",
+    monthR: ["Feb–Mar","Mar–Apr","Apr–May","May–Jun","Jun–Jul","Jul–Aug","Aug–Sep","Sep–Oct","Oct–Nov","Nov–Dec","Dec–Jan","Jan–Feb"],
     rotBtn: "Rotate to facing",
     infoMtn: "Facing <b>{f}</b> · sitting <b>{s}</b> · {deg}° by compass",
     tagFace: "向 · facing", tagSit: "坐 · sitting",
-    dirs: {4:"SE",9:"S",2:"SW",3:"E",5:"Centre",7:"W",8:"NE",1:"N",6:"NW"},
+    dirs: {4:"SE",9:"S",2:"SW",3:"E",5:"",7:"W",8:"NE",1:"N",6:"NW"},
     inputTitle: "Direction",
     degLabel: "Facing degree (facade)",
     declLabel: "Magnetic declination, °",
@@ -973,6 +993,12 @@ function fillSelects() {
   $("plan-period").innerHTML = p.innerHTML; $("plan-period").value = p.value;
   if (!$("plan-ayear").options.length) $("plan-ayear").innerHTML = ay.innerHTML;
   $("plan-ayear").value = ay.value;
+  // solar months from 立春 (month 1 = 寅); labels follow the language, the value is kept
+  const mo = $("f-month"), keepM = mo.value || "1";
+  mo.innerHTML = "";
+  for (let m = 1; m <= 12; m++) mo.add(new Option(L().monthN.replace("{n}", m).replace("{r}", L().monthR[m - 1]), String(m)));
+  mo.value = keepM;
+  $("plan-month").innerHTML = mo.innerHTML; $("plan-month").value = mo.value;
 }
 
 function planPick(id, v) { $(id).value = v; compute(); }
@@ -1018,9 +1044,20 @@ function renderStars() {
       '<span class="fs-dir">' + t.dirs[q] + '</span></div></div>';
   }).join("");
 
+  // monthly stars (月紫白) for the chosen month of the same year
+  const mon = FlyingStars.monthly(+$("f-ayear").value, +$("f-month").value);
+  $("fs-mgrid").innerHTML = CELL_ORDER.map(q => {
+    const cls = q === c.facePal ? " face" : q === c.sitPal ? " sit" : "";
+    const tag = q === c.facePal ? t.tagFace : q === c.sitPal ? t.tagSit : "";
+    return '<div class="fs-cell' + cls + '"><div class="fs-in">' +
+      (tag ? '<span class="fs-tag">' + tag + '</span>' : '') +
+      '<span class="fs-a s' + mon[q] + '">' + mon[q] + '</span>' +
+      '<span class="fs-dir">' + t.dirs[q] + '</span></div></div>';
+  }).join("");
+
   const ang = ROTATE ? norm(180 - PAL_ANGLE[c.facePal]) : 0;
   const diag = ang % 90 !== 0;
-  ["fs-grid", "fs-agrid"].forEach(id => {
+  ["fs-grid", "fs-agrid", "fs-mgrid"].forEach(id => {
     $(id).style.transform = "rotate(" + ang + "deg)" + (diag ? " scale(.72)" : "");
     document.querySelectorAll("#" + id + " .fs-in").forEach(e => { e.style.transform = "rotate(" + (-ang) + "deg)"; });
   });
@@ -1066,6 +1103,8 @@ function renderPlan() {
   [0, 90, 180, 270].forEach(a => $("ps-" + a).classList.toggle("on", PLAN.side === a));
   document.querySelector('label[for="plan-natal"]').textContent = t.planNatal;
   document.querySelector('label[for="plan-annual"]').textContent = t.planAnnual;
+  document.querySelector('label[for="plan-monthly"]').textContent = t.planMonthly;
+  $("plan-month").value = $("f-month").value;
   $("plan-period").value = $("f-period").value; $("plan-ayear").value = $("f-ayear").value;
   const F = planFacing();
   while (svg.firstChild) svg.removeChild(svg.firstChild);
@@ -1076,7 +1115,7 @@ function renderPlan() {
      U = drawing units per screen pixel, so every size below is given in SCREEN pixels
      (labels stay 13px on a phone and on a desktop). */
   const W = 900;
-  const withStars = $("plan-natal").checked || $("plan-annual").checked;
+  const withStars = $("plan-natal").checked || $("plan-annual").checked || $("plan-monthly").checked;
   function layout(shownW) {
     const U = W / shownW, PAD = (withStars ? 112 : 48) * U;   // star boxes need room outside the labels
     const scale = Math.min((W - 2 * PAD) / PLAN.w, 1.4 * W / PLAN.h);
@@ -1152,10 +1191,11 @@ function renderPlan() {
      Cells are assigned so the facade side's middle cell is the facing palace and the
      other palaces follow clockwise (N, NE, E, SE, S, SW, W, NW). */
   if (withStars) {
-    const showN = $("plan-natal").checked, showA = $("plan-annual").checked;
+    const showN = $("plan-natal").checked, showA = $("plan-annual").checked, showM = $("plan-monthly").checked;
     const sit = opposite(faceM), period = +$("f-period").value;
     const ch = FlyingStars.chart(period, GUA_PAL[sit.g], sit.i, false);
     const ann = FlyingStars.annual(+$("f-ayear").value);
+    const mon = FlyingStars.monthly(+$("f-ayear").value, +$("f-month").value);
     for (let i = 1; i <= 2; i++) {
       svg.appendChild(el("line", { x1: x0 + pw * i / 3, y1: y0, x2: x0 + pw * i / 3, y2: y1, stroke: "#222", "stroke-width": U }));
       svg.appendChild(el("line", { x1: x0, y1: y0 + ph * i / 3, x2: x1, y2: y0 + ph * i / 3, stroke: "#222", "stroke-width": U }));
@@ -1173,7 +1213,8 @@ function renderPlan() {
       const lab = el("text", { x: gx, y: gy - bh / 2 - 8 * U, "text-anchor": "middle", "font-family": "Inter, sans-serif",
         "font-size": fs, "font-weight": 700, fill: "#333" });
       lab.textContent = t.dirs[q]; svg.appendChild(lab);
-      const bx = gx - (showA ? bw / 2 + cr : bw / 2);
+      const circles = showA || showM;
+      const bx = gx - (circles ? bw / 2 + cr : bw / 2);
       if (showN) {
         svg.appendChild(el("rect", { x: bx, y: gy - bh / 2, width: bw, height: bh, fill: "#fff", stroke: "#444", "stroke-width": U }));
         const num = (x, y, v) => { const e = el("text", { x: x, y: y, "text-anchor": "middle", "dominant-baseline": "central",
@@ -1182,13 +1223,17 @@ function renderPlan() {
         num(bx + bw * 0.72, gy - bh * 0.22, ch.facing[q]);
         num(bx + bw * 0.5,  gy + bh * 0.24, ch.base[q]);
       }
-      if (showA) {
-        const ccx = showN ? bx + bw + cr + 4 * U : gx, five = ann[q] === 5;
-        svg.appendChild(el("circle", { cx: ccx, cy: gy - bh * 0.22, r: cr, fill: five ? "#e53935" : "#fff", stroke: five ? "#e53935" : "#444", "stroke-width": U }));
-        const a = el("text", { x: ccx, y: gy - bh * 0.22, "text-anchor": "middle", "dominant-baseline": "central",
+      // annual circle on top, monthly circle below it (reference layout); a 5 is filled red
+      const ccx = showN ? bx + bw + cr + 4 * U : gx;
+      const circle = (cy, v) => {
+        const five = v === 5;
+        svg.appendChild(el("circle", { cx: ccx, cy: cy, r: cr, fill: five ? "#e53935" : "#fff", stroke: five ? "#e53935" : "#444", "stroke-width": U }));
+        const a = el("text", { x: ccx, y: cy, "text-anchor": "middle", "dominant-baseline": "central",
           "font-family": "Inter, sans-serif", "font-size": fs, "font-weight": 600, fill: five ? "#fff" : "#222" });
-        a.textContent = ann[q]; svg.appendChild(a);
-      }
+        a.textContent = v; svg.appendChild(a);
+      };
+      if (showA) circle(gy - bh * 0.22, ann[q]);
+      if (showM) circle(gy + bh * 0.24, mon[q]);
     });
   }
 

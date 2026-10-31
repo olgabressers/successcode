@@ -73,8 +73,19 @@
   function annualCenter(year) { return ((((2026 - year) % 9) + 9) % 9) + 1; }
   function annual(year) { return fly(annualCenter(year), 1); }   // annual stars always fly forward
 
+  /* Monthly (月紫白) centre star, solar months from 立春: m = 1 (寅) … 12 (丑).
+     Month 1 starts at 8 in 子午卯酉 years, 5 in 辰戌丑未 years, 2 in 寅申巳亥 years,
+     then one lower each month. Same rule as the site's Chinese Calendar page (monthCenter). */
+  var GRP_START = [8, 5, 2, 8, 5, 2, 8, 5, 2, 8, 5, 2];   // by year branch 子丑寅卯辰巳午未申酉戌亥
+  function monthCenter(year, m) {
+    var start = GRP_START[(((year - 4) % 12) + 12) % 12];
+    return ((((start - (m - 1) - 1) % 9) + 9) % 9) + 1;
+  }
+  function monthly(year, m) { return fly(monthCenter(year, m), 1); }   // monthly stars fly forward
+
   var api = { fly: fly, polarity: polarity, chart: chart, needsSubstitute: needsSubstitute,
-              periodOf: periodOf, annualCenter: annualCenter, annual: annual, SUB: SUB };
+              periodOf: periodOf, annualCenter: annualCenter, annual: annual,
+              monthCenter: monthCenter, monthly: monthly, SUB: SUB };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.FlyingStars = api;
 })(this);
