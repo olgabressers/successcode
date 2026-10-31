@@ -97,6 +97,8 @@
               padding: 14px 18px; border-bottom: 1px solid var(--border); }
   .map-head .section-label { margin-bottom: 0; }
   .map-tools { margin-left: auto; display: flex; gap: 8px; flex-wrap: wrap; }
+  .map-zoom { display: inline-flex; gap: 6px; }
+  .map-zoom .tool-btn { font-size: 16px; padding: 4px 12px; }
   .tool-btn { width: auto; background: #f8f6f2; border: 1px solid var(--border); color: var(--text-dim);
               padding: 7px 12px; font-size: 11px; letter-spacing: .5px; text-transform: none;
               font-family: 'Inter', sans-serif; cursor: pointer; }
@@ -201,7 +203,9 @@
   .fs-b { font-size: 24px; font-weight: 600; margin-top: 12%; }
   .s1 { color: var(--el-water); } .s2, .s5, .s8 { color: var(--el-earth); } .s3, .s4 { color: var(--el-wood); }
   .s6, .s7 { color: var(--el-metal); } .s9 { color: var(--el-fire); }
-  @media (max-width: 700px) {
+  /* phone rules: SCREEN only — an A4 page is ~700px wide in print and would otherwise
+     switch the printout to the phone layout on some printers */
+  @media screen and (max-width: 700px) {
     * { max-width: 100vw; }
     img, svg, table { max-width: 100% !important; }
     body { padding: 40px 12px 24px; }
@@ -212,7 +216,7 @@
     .nl-sections { order: 3; width: 100%; margin-left: 0; justify-content: center; gap: 10px 12px; }
     .nl-link { font-size: 10px; letter-spacing: 0.8px; }
     header h1 { font-size: 20px; letter-spacing: 1px; }
-    header p { font-size: 9px; letter-spacing: 1.5px; }
+    header p { font-size: 11px; letter-spacing: 1.5px; }
     .form-panel { padding: 16px 14px; }
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
     .fs-panel { padding: 16px 12px; }
@@ -236,16 +240,27 @@
     .footer-disclaimer { font-size: 10px; line-height: 1.7; }
     .map-head { padding: 12px 12px; }
     .map-tools { margin-left: 0; width: 100%; }
-    .tool-btn { flex: 1; padding: 7px 8px; font-size: 10px; }
+    .tool-btn { flex: 1; padding: 7px 8px; font-size: 12px; }
   }
   @media print {
     @page { size: A4 portrait; margin: 10mm; }
     body { padding: 0; background: #fff; color: #000;
            -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .site-nav, .lang-switch, .print-btn, .form-panel, .city-dd, .backnav, .back-to-top,
-    .map-tools, .map-hint, .footer-links { display: none !important; }
+    .map-tools, .map-hint, .site-footer { display: none !important; }
     header { margin-bottom: 10px; padding-top: 0; }
-    .fs-panel, .plan-panel { break-inside: avoid; }
+    /* fixed print layout, identical on paper and in "Save as PDF":
+       page 1 = map + the three charts side by side, then the house plan, each floor kept whole */
+    #map { height: 330px; }
+    .map-row { margin-bottom: 8px; }
+    .fs-row { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .fs-stage { min-height: 0; }
+    .fs-panel { break-inside: avoid; padding: 10px; margin-bottom: 0; }
+    .plan-panel { break-before: page; }
+    .plan-opts .plan-zoom, .plan-floor .plan-controls { display: none !important; }
+    .plan-floor { break-inside: avoid; }
+    .plan-floor.empty, .plan-panel.empty { display: none !important; }   /* nothing uploaded → not printed */
+    .plan-stage { max-height: none; overflow: visible; }
   }
 </style>
 
@@ -273,7 +288,7 @@
   padding: 8px 16px; transition: background .25s;
 }
 .ev27-btn:hover { background: #cfa44e; color: #f5f1eb; }
-@media (max-width: 700px) {
+@media screen and (max-width: 700px) {
   .ev27-in { padding: 8px 14px; gap: 7px 12px; }
   .ev27-main { flex-direction: column; gap: 3px; }
   .ev27-main b { font-size: 13px; }
@@ -432,6 +447,10 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
         <button class="tool-btn on" id="btn-r24" onclick="setRing('m24')"    data-i18n="ring24"></button>
         <button class="tool-btn"    id="btn-sanhe" onclick="setRing('sanhe')" data-i18n="ringSanHe"></button>
         <button class="tool-btn"    id="btn-flip" onclick="flipFacing()"     data-i18n="flipBtn"></button>
+        <span class="map-zoom">
+          <button class="tool-btn" onclick="MAP && MAP.zoomOut()" aria-label="−">−</button>
+          <button class="tool-btn" onclick="MAP && MAP.zoomIn()"  aria-label="+">+</button>
+        </span>
       </div>
     </div>
     <div style="position:relative">
@@ -601,10 +620,15 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
      2. I18N         every visible text, RU + EN (setLang() switches; ?lang=en works)
      3. helpers      mountainAt(), opposite(), compass/true degree, declination
      4. map          Leaflet map + SVG overlay: facade line, facing arrow, 24-mountain ring
-     5. stars        renderStars(): house chart (period + facing) and annual chart, rotation
-     6. house plan   renderPlan(): uploaded plan split into the 24 sectors
+     5. stars        renderStars(): natal (period + facing), annual and monthly charts under the
+                     map; "Rotate to facing" turns all three. Defaults = today (nowSolar()).
+     6. house plan   renderPlan() → drawFloor(0..2): up to three floors (JPG/PNG/PDF via pdf.js),
+                     each split into the 24 sectors with natal/annual/monthly star boxes; zoom shared
      7. inputs/lang  compute() is the single re-render entry point; address search (Nominatim)
      8. init
+   Print: phone CSS is "screen and (max-width:700px)" ONLY — an A4 page is ~700px wide and
+   would otherwise get the phone layout on some printers. Page 1 = map + charts, then one
+   page per floor.
    Compass vs true: the degree box is a COMPASS (magnetic) reading — the mountain is read
    from it. The map is true-north-up, so the overlay uses true = compass + declination.
    ========================================================================== */
@@ -1153,8 +1177,9 @@ function renderStars() {
 }
 
 /* ============================================================
-   HOUSE PLAN — the uploaded plan split into the 24 mountains.
-   The facade points at screen angle PLAN.side (0 = up, clockwise).
+   HOUSE PLAN — up to three floors, each an uploaded plan split into the 24 mountains.
+   Shared by all floors (PLAN): facing degree, star options, zoom.
+   Per floor (FLOORS[k]): the image and its facade side — screen angle side (0 = up, clockwise).
    Compass direction D therefore sits at screen angle side + (D − facing°).
    Ticks mark where each 15° sector boundary meets the plan's edge;
    the sector codes (С1… / N1…) sit outside, at each sector's middle.
@@ -1227,6 +1252,7 @@ function renderPlan() {
   $("plan-month").value = $("f-month").value;
   $("plan-period").value = $("f-period").value; $("plan-ayear").value = $("f-ayear").value;
   $("plan-zoom-val").textContent = Math.round(PLAN.zoom * 100) + "%";
+  document.querySelector(".plan-panel").classList.toggle("empty", !FLOORS[0].img);
   FLOORS.forEach((_, k) => drawFloor(k));
 }
 
@@ -1235,6 +1261,7 @@ function drawFloor(fl) {
   const t = L(), P = FLOORS[fl], svg = $("plan-svg-" + fl);
   // floor 2 appears once floor 1 has a plan, floor 3 once floor 2 has one; they stack downwards
   $("plan-floor-" + fl).style.display = fl === 0 || FLOORS[fl - 1].img ? "" : "none";
+  $("plan-floor-" + fl).classList.toggle("empty", !P.img);
   $("floor-title-" + fl).textContent = t.floorN.replace("{n}", fl + 1);
   [0, 90, 180, 270].forEach(a => $("ps-" + fl + "-" + a).classList.toggle("on", P.side === a));
   const F = planFacing();
@@ -1298,9 +1325,13 @@ function drawFloor(fl) {
     let nx = c.nx, ny = c.ny;
     if (r < 0.04 || r > 0.96) { const pv = at(u + (r < 0.5 ? -0.05 : 0.05)); nx += pv.nx; ny += pv.ny; }   // near a corner: go out diagonally
     const m = M24[(j + 24) % 24], onFace = j === k, onSit = j === (k + 12) % 24;
-    const tx = el("text", { x: c.x + nx * 20 * U, y: c.y + ny * 20 * U, "text-anchor": "middle",
+    // a top/bottom side too short for six flat codes (phones) gets upright codes, like an axis
+    const upright = !nx && pw / 6 < 34 * U;
+    const lx = c.x + nx * (upright ? 10 : 20) * U, ly = c.y + ny * (upright ? 10 : 20) * U;
+    const tx = el("text", { x: lx, y: ly, "text-anchor": upright ? (ny < 0 ? "start" : "end") : "middle",
       "dominant-baseline": "central", "font-family": "Inter, sans-serif", "font-size": 13 * U,
       "font-weight": onFace || onSit ? 700 : 500, fill: onFace ? "#c62828" : "#333" });
+    if (upright) tx.setAttribute("transform", "rotate(-90 " + lx + " " + ly + ")");
     tx.textContent = (LANG === "ru" ? m.secRu : m.secEn) + m.i;
     svg.appendChild(tx);
   }
