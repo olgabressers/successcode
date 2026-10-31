@@ -1051,7 +1051,11 @@ function compute(){
    day and hour pillars are the solar ones; the YEAR follows Chinese New Year
    (lunar.getYearGan/Zhi) and the MONTH is the lunar month — branch by 寅 = month 1,
    stem by Five Tigers from the year stem; a leap month counts as its month number.
-   lunarView() wraps the EightChar so every renderer reads these two pillars instead. */
+   lunarView() wraps the EightChar so every renderer reads these two pillars instead —
+   including the luck pillars: lunar-javascript's getYun() takes the direction from the
+   year stem (yang + male / yin + female = forward) and steps from the month pillar, so the
+   wrapped lunar object hands it the Chinese-New-Year year stem and the lunar month pillar.
+   The start age is still counted from birth to the nearest 节 in that direction. */
 let CAL = "solar";                               // default chart = solar calendar
 const STEMS_CN = "甲乙丙丁戊己庚辛壬癸", BRANCHES_CN = "子丑寅卯辰巳午未申酉戌亥";
 const FIVE_TIGERS = [2, 4, 6, 8, 0, 2, 4, 6, 8, 0];   // year stem → stem of month 1 (寅)
@@ -1062,8 +1066,12 @@ function lunarView(ec, lunar){
   const mG = STEMS_CN[(FIVE_TIGERS[STEMS_CN.indexOf(yG)] + lm - 1) % 10];
   const mZ = BRANCHES_CN[(lm + 1) % 12];
   const hide = z => LunarUtil.ZHI_HIDE_GAN[z] || [];
+  const lu = Object.create(lunar);                 // what getYun() reads
+  lu.getYearGanIndexExact = () => STEMS_CN.indexOf(yG);
+  lu.getMonthInGanZhiExact = () => mG + mZ;
   const v = Object.create(ec);
   Object.assign(v, {
+    getLunar: () => lu,
     getYearGan: () => yG, getYearZhi: () => yZ,
     getMonthGan: () => mG, getMonthZhi: () => mZ,
     getYearShiShenGan: () => tenGodStem(dm, yG), getMonthShiShenGan: () => tenGodStem(dm, mG),
@@ -1489,15 +1497,15 @@ function renderLiunian(ec){
 }
 
 function render(ec, lunar, sex, cm, baziYear){
-  const chart = CAL === "lunar" ? lunarView(ec, lunar) : ec;   // luck pillars stay on the solar chart
+  const chart = CAL === "lunar" ? lunarView(ec, lunar) : ec;   // the luck pillars follow the chosen calendar too
   document.querySelector('[data-i18n="tagline"]').textContent = CAL === "lunar" ? L().taglineLunar : L().tagline;
   renderPillars(chart);
-  LAST_EC = ec; LAST_SEX = sex;
+  LAST_EC = chart; LAST_SEX = sex;
   TSEL.luck = null;   // a new chart: luck pillar follows the chosen year again
   renderTimePillars();
   renderStars(chart);
   renderBagua(baziYear, sex);
-  renderDayun(ec, sex);
+  renderDayun(chart, sex);
   updateSolarInfo();
 }
 
