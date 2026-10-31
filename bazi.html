@@ -455,7 +455,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <div class="ev27-in">
     <a class="ev27-main" href="/2027">
       <b data-ev27="ru">Код успеха 2027</b><b data-ev27="en" style="display:none">SuccessCode 2027</b>
-      <i data-ev27="ru">Воскресенье, 29 ноября, 11:30 · Утрехт и онлайн</i><i data-ev27="en" style="display:none">Sunday, 29 November, 11:30 · Utrecht and online</i>
+      <i data-ev27="ru">Ваш 2027 - Код Успеха. Живой канал с 01.11-31.12</i><i data-ev27="en" style="display:none">Your 2027 - SuccessCode. Live channel 01.11-31.12</i>
     </a>
     <a class="ev27-btn" href="/2027#request"><span data-ev27="ru">Регистрация</span><span data-ev27="en" style="display:none">Register</span></a>
   </div>
@@ -511,6 +511,20 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
   </div>
 </nav>
+<script>
+/* Top bar: when the bar wraps on a desktop width, keep RU/EN, print and booking on the right */
+(function(){
+  function place(){
+    var r=document.querySelector('.nl-right'), s=document.querySelector('.nl-sections');
+    if(!r||!s) return;
+    r.style.marginLeft='';
+    if(window.innerWidth>768 && r.offsetTop>s.offsetTop+5) r.style.marginLeft='auto';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',place); else place();
+  window.addEventListener('resize',place,{passive:true});
+  window.addEventListener('load',place);
+})();
+</script>
 
 <header>
   <h1>八字 · BaZi Calculator</h1>

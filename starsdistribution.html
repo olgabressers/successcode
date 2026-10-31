@@ -183,7 +183,7 @@
   .fs-info .warn { color: var(--gold-dim); }
   .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 232px; margin: 0 auto;
              border: 2px solid var(--text); }
-  .fs-rot { display: block; margin: 0 auto 12px; }
+  .fs-rot { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; margin: 0 auto 12px; }
   .fs-stage { display: flex; align-items: center; justify-content: center; min-height: 232px; }
   .fs-grid { width: 100%; transition: transform .35s ease; }
   .fs-in { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -311,7 +311,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <div class="ev27-in">
     <a class="ev27-main" href="/2027">
       <b data-ev27="ru">Код успеха 2027</b><b data-ev27="en" style="display:none">SuccessCode 2027</b>
-      <i data-ev27="ru">Воскресенье, 29 ноября, 11:30 · Утрехт и онлайн</i><i data-ev27="en" style="display:none">Sunday, 29 November, 11:30 · Utrecht and online</i>
+      <i data-ev27="ru">Ваш 2027 - Код Успеха. Живой канал с 01.11-31.12</i><i data-ev27="en" style="display:none">Your 2027 - SuccessCode. Live channel 01.11-31.12</i>
     </a>
     <a class="ev27-btn" href="/2027#request"><span data-ev27="ru">Регистрация</span><span data-ev27="en" style="display:none">Register</span></a>
   </div>
@@ -366,6 +366,20 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
   </div>
 </nav>
+<script>
+/* Top bar: when the bar wraps on a desktop width, keep RU/EN, print and booking on the right */
+(function(){
+  function place(){
+    var r=document.querySelector('.nl-right'), s=document.querySelector('.nl-sections');
+    if(!r||!s) return;
+    r.style.marginLeft='';
+    if(window.innerWidth>768 && r.offsetTop>s.offsetTop+5) r.style.marginLeft='auto';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',place); else place();
+  window.addEventListener('resize',place,{passive:true});
+  window.addEventListener('load',place);
+})();
+</script>
 
 <header>
   <h1 data-i18n="h1"></h1>
@@ -428,7 +442,10 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <div class="fs-panel">
     <div class="section-label" data-i18n="chartTitle"></div>
     <div class="fs-info" id="fs-info"></div>
-    <button class="tool-btn fs-rot" id="btn-rot" onclick="toggleRotate()" data-i18n="rotBtn"></button>
+    <div class="fs-rot">
+      <button class="tool-btn" id="btn-std" onclick="setRotate(false)" data-i18n="stdBtn"></button>
+      <button class="tool-btn" id="btn-rot" onclick="setRotate(true)"  data-i18n="rotBtn"></button>
+    </div>
     <div class="fs-stage"><div class="fs-grid" id="fs-grid"></div></div>
   </div>
   </div>
@@ -500,6 +517,7 @@ const I18N = {
     periodN: "Период {n}",
     months: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
     chartTitle: "Распределение звёзд · 飞星盘",
+    stdBtn: "Карта звёзд",
     rotBtn: "Повернуть к фасаду",
     infoMtn: "Фасад <b>{f}</b> · тыл <b>{s}</b> · {deg}° по компасу",
     legM: "слева вверху — звезда горы · 山星", legB: "в центре — звезда периода · 运星", legF: "справа вверху — звезда фасада · 向星",
@@ -543,6 +561,7 @@ const I18N = {
     periodN: "Period {n}",
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     chartTitle: "Stars Distribution · 飞星盘",
+    stdBtn: "Stars chart",
     rotBtn: "Rotate to facing",
     infoMtn: "Facing <b>{f}</b> · sitting <b>{s}</b> · {deg}° by compass",
     legM: "top left — mountain star · 山星", legB: "centre — period star · 运星", legF: "top right — facing star · 向星",
@@ -929,7 +948,7 @@ const GUA_PAL = { "坎":1, "坤":2, "震":3, "巽":4, "乾":6, "兑":7, "艮":8,
 const CELL_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6];   // South on top
 const PAL_ANGLE = { 1: 0, 8: 45, 3: 90, 4: 135, 9: 180, 2: 225, 7: 270, 6: 315 };   // compass angle of each palace
 let ROTATE = false;
-function toggleRotate() { ROTATE = !ROTATE; compute(); }
+function setRotate(v) { ROTATE = v; compute(); }
 
 function fillSelects() {
   const p = $("f-period"), keepP = p.value || "9";
@@ -973,6 +992,7 @@ function renderStars() {
   $("fs-grid").style.transform = "rotate(" + ang + "deg)" + (diag ? " scale(.72)" : "");
   document.querySelectorAll("#fs-grid .fs-in").forEach(e => { e.style.transform = "rotate(" + (-ang) + "deg)"; });
   $("btn-rot").classList.toggle("on", ROTATE);
+  $("btn-std").classList.toggle("on", !ROTATE);
 }
 
 function applyLang() {
