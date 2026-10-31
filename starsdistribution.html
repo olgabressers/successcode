@@ -811,7 +811,9 @@ function drawOverlay() {
 
     const box2 = $("map").getBoundingClientRect();
     const maxOuter = Math.max(90, Math.min(box2.width, box2.height) / 2 - 12);
-    const inner0 = Math.min(RADIUS + 8, maxOuter - 22 * defs.length);
+    // inner edge pushed outward (bands ≈70px) so the direction codes sit close to the characters;
+    // the outer edge stays at the map edge
+    const inner0 = Math.max(Math.min(RADIUS + 8, maxOuter - 22 * defs.length), maxOuter - 70 * defs.length);
     const bw = defs.length ? Math.max(16, (maxOuter - inner0) / defs.length) : 0;
     defs.forEach(function (band, bi) {
       const ri = inner0 + bw * bi, ro = ri + bw;
