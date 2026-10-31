@@ -160,6 +160,9 @@
   .plan-panel { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; margin-bottom: 24px; }
   .plan-controls { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 16px; align-items: end; margin-bottom: 10px; }
   .plan-sides { display: flex; gap: 6px; }
+  .plan-opts { display: flex; gap: 24px; flex-wrap: wrap; margin: 4px 0 10px; }
+  .plan-opts .chk { margin-top: 0; }
+  .plan-opts .chk label { font-size: 14px; color: var(--text); }
   .plan-sides .tool-btn { font-size: 16px; padding: 6px 14px; }
   .plan-stage { margin-top: 12px; }
   #plan-svg { width: 100%; height: auto; display: block; margin: 0 auto; touch-action: none; }
@@ -457,6 +460,10 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
         <input type="number" id="plan-deg" step="0.1" min="0" max="360" oninput="PLAN.degOwn = true; renderPlan()">
       </div>
     </div>
+    <div class="plan-opts">
+      <div class="chk"><input type="checkbox" id="plan-natal" onchange="renderPlan()"><label for="plan-natal" data-i18n="planNatal"></label></div>
+      <div class="chk"><input type="checkbox" id="plan-annual" onchange="renderPlan()"><label for="plan-annual" data-i18n="planAnnual"></label></div>
+    </div>
     <div class="map-hint" data-i18n="planHint"></div>
     <div class="plan-stage" id="plan-stage"><svg id="plan-svg"></svg></div>
   </div>
@@ -548,6 +555,8 @@ const I18N = {
     planFile: "Загрузить план (JPG, PNG)",
     planSide: "Сторона фасада на плане",
     planDeg: "Градус фасада",
+    planNatal: "Натальные звёзды (период {n})",
+    planAnnual: "Годовые звёзды ({y})",
     planHint: "Выберите, какая сторона плана — фасад, или потяните красную стрелку. Каждая сторона плана делится на 6 равных частей, гора фасада — в середине стороны фасада. План остаётся в вашем браузере и никуда не отправляется.",
     yearTitle: "Годовые звёзды",
     rotBtn: "Повернуть к фасаду",
@@ -582,6 +591,8 @@ const I18N = {
     planFile: "Upload a plan (JPG, PNG)",
     planSide: "Facade side on the plan",
     planDeg: "Facing degree",
+    planNatal: "Natal stars (Period {n})",
+    planAnnual: "Annual stars ({y})",
     planHint: "Choose which side of the plan is the facade, or drag the red arrow. Each side of the plan is divided into 6 equal parts, with the facing mountain in the middle of the facade side. The plan stays in your browser and is not sent anywhere.",
     yearTitle: "Annual stars",
     rotBtn: "Rotate to facing",
@@ -1031,6 +1042,8 @@ function planFacing() {
 function renderPlan() {
   const svg = $("plan-svg"), t = L();
   [0, 90, 180, 270].forEach(a => $("ps-" + a).classList.toggle("on", PLAN.side === a));
+  document.querySelector('label[for="plan-natal"]').textContent = t.planNatal.replace("{n}", $("f-period").value);
+  document.querySelector('label[for="plan-annual"]').textContent = t.planAnnual.replace("{y}", $("f-ayear").value);
   const F = planFacing();
   while (svg.firstChild) svg.removeChild(svg.firstChild);
   if (!PLAN.img) { svg.removeAttribute("viewBox"); svg.style.display = "none"; return; }
@@ -1040,8 +1053,9 @@ function renderPlan() {
      U = drawing units per screen pixel, so every size below is given in SCREEN pixels
      (labels stay 13px on a phone and on a desktop). */
   const W = 900;
+  const withStars = $("plan-natal").checked || $("plan-annual").checked;
   function layout(shownW) {
-    const U = W / shownW, PAD = 48 * U;
+    const U = W / shownW, PAD = (withStars ? 112 : 48) * U;   // star boxes need room outside the labels
     const scale = Math.min((W - 2 * PAD) / PLAN.w, 1.4 * W / PLAN.h);
     const pw = PLAN.w * scale, ph = PLAN.h * scale;
     return { U: U, PAD: PAD, pw: pw, ph: ph, H: ph + 2 * PAD };
@@ -1104,6 +1118,53 @@ function renderPlan() {
   }
   tri(pos(AN), true);
   tri(pos(AN + 180), false);
+
+  /* Natal + annual stars on the plan (reference calculator layout):
+     3×3 grid over the plan; outside each of the 8 outer cells a box —
+     natal: mountain star (top left), facing star (top right), period star (below);
+     annual: the year's star in a circle to the right (the year's 5 filled red).
+     Cells are assigned so the facade side's middle cell is the facing palace and the
+     other palaces follow clockwise (N, NE, E, SE, S, SW, W, NW). */
+  if (withStars) {
+    const showN = $("plan-natal").checked, showA = $("plan-annual").checked;
+    const sit = opposite(faceM), period = +$("f-period").value;
+    const ch = FlyingStars.chart(period, GUA_PAL[sit.g], sit.i, false);
+    const ann = FlyingStars.annual(+$("f-ayear").value);
+    for (let i = 1; i <= 2; i++) {
+      svg.appendChild(el("line", { x1: x0 + pw * i / 3, y1: y0, x2: x0 + pw * i / 3, y2: y1, stroke: "#222", "stroke-width": U }));
+      svg.appendChild(el("line", { x1: x0, y1: y0 + ph * i / 3, x2: x1, y2: y0 + ph * i / 3, stroke: "#222", "stroke-width": U }));
+    }
+    const RING = [1, 8, 3, 4, 9, 2, 7, 6];                     // palaces clockwise from North
+    // plan's outer cells clockwise from top-middle: anchor on the edge + outward direction
+    const CELLS = [[0.5, 0, 0, -1], [1, 0, 1, -1], [1, 0.5, 1, 0], [1, 1, 1, 1],
+                   [0.5, 1, 0, 1], [0, 1, -1, 1], [0, 0.5, -1, 0], [0, 0, -1, -1]];
+    const f = RING.indexOf(GUA_PAL[faceM.g]), fc = fside * 2;  // facade side's middle cell
+    const fs = 13 * U, bw = 46 * U, bh = 38 * U, cr = 10 * U;
+    CELLS.forEach((cd, ci) => {
+      const q = RING[(f + ci - fc + 16) % 8];
+      const ax = x0 + cd[0] * pw, ay = y0 + cd[1] * ph;
+      const gx = ax + cd[2] * 72 * U, gy = ay + cd[3] * 70 * U;   // box centre, outside the sector labels
+      const lab = el("text", { x: gx, y: gy - bh / 2 - 8 * U, "text-anchor": "middle", "font-family": "Inter, sans-serif",
+        "font-size": fs, "font-weight": 700, fill: "#333" });
+      lab.textContent = t.dirs[q]; svg.appendChild(lab);
+      const bx = gx - (showA ? bw / 2 + cr : bw / 2);
+      if (showN) {
+        svg.appendChild(el("rect", { x: bx, y: gy - bh / 2, width: bw, height: bh, fill: "#fff", stroke: "#444", "stroke-width": U }));
+        const num = (x, y, v) => { const e = el("text", { x: x, y: y, "text-anchor": "middle", "dominant-baseline": "central",
+          "font-family": "Inter, sans-serif", "font-size": fs, "font-weight": 600, fill: "#222" }); e.textContent = v; svg.appendChild(e); };
+        num(bx + bw * 0.28, gy - bh * 0.22, ch.mountain[q]);
+        num(bx + bw * 0.72, gy - bh * 0.22, ch.facing[q]);
+        num(bx + bw * 0.5,  gy + bh * 0.24, ch.base[q]);
+      }
+      if (showA) {
+        const ccx = showN ? bx + bw + cr + 4 * U : gx, five = ann[q] === 5;
+        svg.appendChild(el("circle", { cx: ccx, cy: gy - bh * 0.22, r: cr, fill: five ? "#e53935" : "#fff", stroke: five ? "#e53935" : "#444", "stroke-width": U }));
+        const a = el("text", { x: ccx, y: gy - bh * 0.22, "text-anchor": "middle", "dominant-baseline": "central",
+          "font-family": "Inter, sans-serif", "font-size": fs, "font-weight": 600, fill: five ? "#fff" : "#222" });
+        a.textContent = ann[q]; svg.appendChild(a);
+      }
+    });
+  }
 
   // facade arrow from the plan's middle; drag its head — it snaps to the nearest side
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, fe = at(pos(AN));
