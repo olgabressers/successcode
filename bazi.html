@@ -98,7 +98,13 @@
   .city-opt { padding: 8px 12px; font-size: 12px; cursor: pointer; border-bottom: 1px solid #eee; }
   .city-opt:hover { background: #faf7ef; }
   .solar-info { font-size: 11px; color: var(--gold-dim); margin-top: 6px; min-height: 14px; grid-column: 1 / -1; }
-  .check-group { grid-column: 1 / -1; }
+  .check-group { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 28px; }
+  /* «birth time unknown»: hour, minute, city and solar time grey out */
+  .time-dep.off label { color: var(--text-muted); }
+  .time-dep.off input { background: #ecebe6; color: var(--text-muted); cursor: not-allowed; }
+  .check-label.off { color: var(--text-muted); cursor: not-allowed; }
+  .pillar-empty .pillar-none { font-family: 'Cormorant Garamond', serif; font-size: 32px; line-height: 1;
+                               color: var(--text-muted); padding: 6px 0; }
   .check-label { display: flex; align-items: center; gap: 9px; font-size: 12px;
                  letter-spacing: 0.3px; text-transform: none; color: var(--text-dim); cursor: pointer; }
   .check-label input[type="checkbox"] { width: 16px; height: 16px; padding: 0; margin: 0;
@@ -560,15 +566,15 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
         <option value="0" data-i18n="female">Женский</option>
       </select>
     </div>
-    <div class="form-group">
+    <div class="form-group time-dep">
       <label data-i18n="hour">Час</label>
       <input type="number" id="f-hour" value="12" min="0" max="23">
     </div>
-    <div class="form-group">
+    <div class="form-group time-dep">
       <label data-i18n="minute">Минута</label>
       <input type="number" id="f-min" value="0" min="0" max="59">
     </div>
-    <div class="form-group wide2">
+    <div class="form-group wide2 time-dep">
       <label data-i18n="city">Город (для пересчёта в солнечное время)</label>
       <input type="text" id="f-city" value="Amsterdam" autocomplete="off">
       <div class="city-dd" id="city-dd"></div>
@@ -576,6 +582,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     <div class="solar-info" id="solar-info"></div>
     <div class="form-group check-group">
       <label class="check-label"><input type="checkbox" id="f-solar" checked><span data-i18n="solarTimeLabel">Солнечное время</span></label>
+      <label class="check-label"><input type="checkbox" id="f-notime"><span data-i18n="noTimeLabel">Время рождения неизвестно</span></label>
     </div>
   </div>
   <div class="form-actions">
@@ -665,6 +672,8 @@ const I18N = {
     hourBoundary: "Граница часа",
     hbBefore: "До", hbAfter: "После",
     solarTimeLabel: "Солнечное время",
+    noTimeLabel: "Время рождения неизвестно",
+    noTimeInfo: "Время неизвестно — столп часа не строится",
     solarBirth: "Солнечное время рождения",
     clockBirth: "Время рождения (по часам)",
     solarShort: "солнечное время", clockShort: "по часам",
@@ -721,6 +730,8 @@ const I18N = {
     hourBoundary: "Hour boundary",
     hbBefore: "Before", hbAfter: "After",
     solarTimeLabel: "Solar time",
+    noTimeLabel: "Birth time unknown",
+    noTimeInfo: "Time unknown — no hour pillar",
     solarBirth: "Solar birth time",
     clockBirth: "Birth time (clock)",
     solarShort: "solar time", clockShort: "clock time",
@@ -850,7 +861,24 @@ function selectCity(i){
   document.getElementById("f-city").value=CITYNAME; dd.style.display="none";
   updateSolarInfo();
 }
+/* «Birth time unknown»: the hour pillar is left empty; day, month and year pillars are built
+   for 12:00 clock time with no solar correction (time and city play no part). */
+const noTime = () => document.getElementById("f-notime").checked;
+function applyNoTime(){
+  const off = noTime();
+  document.querySelectorAll(".time-dep").forEach(g => {
+    g.classList.toggle("off", off);
+    g.querySelectorAll("input").forEach(i => { i.disabled = off; });
+  });
+  const solar = document.getElementById("f-solar");
+  solar.disabled = off;
+  solar.closest(".check-label").classList.toggle("off", off);
+  if (off) document.getElementById("city-dd").style.display = "none";
+  updateSolarInfo();
+}
+
 function updateSolarInfo(){
+  if (noTime()) { document.getElementById("solar-info").textContent = L().noTimeInfo; return; }
   const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
   if(!y||!mo||!d) return;
   const clock=new Date(y,mo-1,d,h,mi,0);
@@ -871,6 +899,7 @@ function saveState(){
       y:v("f-year"), mo:v("f-month"), d:v("f-day"),
       h:v("f-hour"), mi:v("f-min"), sex:v("f-sex"),
       solar: document.getElementById("f-solar").checked,
+      notime: noTime(),
       city:v("f-city"), lon:LON, tz:TZNAME, cityName:CITYNAME,
       ts: Date.now()
     }));
@@ -890,6 +919,7 @@ function loadState(){
     document.getElementById("f-min").value   = st.mi;
     document.getElementById("f-sex").value   = st.sex;
     document.getElementById("f-solar").checked = !!st.solar;
+    document.getElementById("f-notime").checked = !!st.notime;
     document.getElementById("f-city").value  = st.city;
     if(st.lon != null && !isNaN(parseFloat(st.lon))) LON = parseFloat(st.lon);
     if(st.tz)       TZNAME   = st.tz;
@@ -902,14 +932,16 @@ function loadState(){
 function compute(){
   hideError();
   try{
-    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day"),h=+v("f-hour")||0,mi=+v("f-min")||0;
+    const unknown = noTime();
+    const y=+v("f-year"),mo=+v("f-month"),d=+v("f-day");
+    const h = unknown ? 12 : (+v("f-hour")||0), mi = unknown ? 0 : (+v("f-min")||0);
     const sex=+v("f-sex"); // 1=male, 0=female
     if(!y||!mo||!d){ showError(L().checkDT); return; }
     const clock=new Date(y,mo-1,d,h,mi,0);
     if(clock.getFullYear()!==y||clock.getMonth()!==mo-1||clock.getDate()!==d){
       showError(L().invalidDate); return;
     }
-    const useSolar = document.getElementById("f-solar").checked;
+    const useSolar = !unknown && document.getElementById("f-solar").checked;
     const cm = useSolar ? corrMin(clock) : 0;
     const solar=new Date(clock.getTime()+cm*60000);
     const sy=solar.getFullYear(), smo=solar.getMonth()+1, sd=solar.getDate(),
@@ -938,7 +970,7 @@ function compute(){
     const r = ((((solMin - 60) % 120) + 120) % 120);   // minutes into the current branch
     const distToBoundary = Math.min(r, 120 - r);
     const hb = document.getElementById("hour-boundary");
-    if (distToBoundary <= 15) {
+    if (!unknown && distToBoundary <= 15) {
       const bMin = (r <= 60) ? (solMin - r) : (solMin - r + 120); // nearest boundary (calc frame)
       const bH   = ((Math.round(bMin / 60)) % 24 + 24) % 24;      // boundary hour (odd)
       const beforeBr = BRANCH_BY_START_HOUR[(bH - 2 + 24) % 24];  // branch before the boundary
@@ -996,7 +1028,7 @@ function pillarsCells(ec){
   // Void branches (空亡) — grey any pillar whose BRANCH is in this set
   const kong = ec.getDayXunKong ? (ec.getDayXunKong()||"") : "";
   const voidSet = new Set(kong.split(""));
-  const isVoid = [voidSet.has(tZ), voidSet.has(dZ), voidSet.has(mZ), voidSet.has(yZ)];
+  const isVoid = [!noTime() && voidSet.has(tZ), voidSet.has(dZ), voidSet.has(mZ), voidSet.has(yZ)];
 
   return {
     labels:   [L().hourP, L().dayP, L().monthP, L().yearP],
@@ -1018,6 +1050,11 @@ function renderPillars(ec){
   const isDayCol = i => i === 1;
 
   for (let i = 0; i < 4; i++) {
+    if (i === 0 && noTime()) {   // birth time unknown → empty hour pillar
+      cols.push(`<div class="pillar pillar-empty"><div class="pillar-h">${p.labels[0]}</div>` +
+                `<div class="pillar-none">—</div><div class="pillar-none">—</div></div>`);
+      continue;
+    }
     const voidCls = p.isVoid[i] ? " pil-void" : "";
     const voidTagHtml = p.isVoid[i] ? `<span class="pil-void-tag">${L().voidTag}</span>` : "";
     const hideArr = p.hide[i] || [];
@@ -1316,9 +1353,7 @@ function render(ec, lunar, sex, cm, baziYear){
   renderStars(ec);
   renderBagua(baziYear, sex);
   renderDayun(ec, sex);
-  const sign=cm>=0?"+":"-";
-  document.getElementById("solar-info").textContent =
-    `${CITYNAME} · ${LON.toFixed(2)}° · ${sign}${Math.abs(cm)} ${L().mm}`;
+  updateSolarInfo();
 }
 
 /* ===== i18n apply + wiring ===== */
@@ -1348,13 +1383,14 @@ document.getElementById("f-city").addEventListener("input", onCityInput);
 ["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
   document.getElementById(id).addEventListener("input", updateSolarInfo));
 document.getElementById("f-solar").addEventListener("change", updateSolarInfo);
+document.getElementById("f-notime").addEventListener("change", () => { applyNoTime(); compute(); });
 document.addEventListener("click", e=>{
   if(!e.target.closest(".form-group")) document.getElementById("city-dd").style.display="none";
 });
 
 applyLang();
 loadState(); // restore last calculation if it is less than 1 hour old
-updateSolarInfo();
+applyNoTime();
 // Auto-compute on load (restored inputs if available, otherwise defaults)
 try { compute(); } catch(e) {}
 </script>
