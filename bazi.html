@@ -116,6 +116,11 @@
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
   .result { max-width: 1180px; margin: 0 auto; display: none; }
+  .cal-switch { display: flex; justify-content: center; gap: 6px; margin: 0 0 14px; }
+  .tool-btn { width: auto; background: #f8f6f2; border: 1px solid var(--border); color: var(--text-dim);
+              padding: 7px 14px; font-size: 12px; letter-spacing: .5px; font-family: 'Inter', sans-serif; cursor: pointer; }
+  .tool-btn:hover { border-color: var(--gold); color: var(--gold-dim); background: #f8f6f2; }
+  .tool-btn.on { background: var(--gold); border-color: var(--gold); color: #fff; }
   .pillars.pillars-time { grid-template-columns: repeat(3, minmax(0, 1fr)); }   /* beats .pillars' 4 columns */
   .pillars-time .pillar-h { color: var(--gold-dim); min-height: 78px; display: flex; flex-direction: column; justify-content: center; }
   /* desktop: natal headers as tall as the time headers so all seven rows of characters line up */
@@ -334,6 +339,10 @@
     .chart-layout { gap: 8px; margin-bottom: 8px; grid-template-columns: 4fr 3fr; }
     .chart-layout .aux { grid-column: 1 / -1; }
     .pillar-h select { border: none; background: none; padding: 0; font-size: 9px; appearance: none; }
+    .result { position: relative; }
+    .cal-switch { position: absolute; top: -26px; right: 0; margin: 0; }   /* beside the title, no extra height */
+    .cal-switch .tool-btn { padding: 2px 10px; font-size: 9px; }
+    .cal-switch .tool-btn:not(.on) { display: none; }   /* the printout names the calendar it shows */
     .chart-layout .pillar-h { min-height: 58px; display: flex; flex-direction: column; justify-content: center; }
     .pillar { padding: 8px 5px 10px; gap: 4px; }
     .pillar-h { font-size: 8px; padding: 4px 5px; margin: -8px -5px 3px; width: calc(100% + 10px); }
@@ -615,6 +624,12 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <!-- Person's name (shown when provided) -->
   <div class="chart-name" id="chart-name"></div>
 
+  <!-- Solar (default) / lunar calendar chart -->
+  <div class="cal-switch">
+    <button class="tool-btn on" id="cal-solar" type="button" data-i18n="calSolar">Солнечный календарь</button>
+    <button class="tool-btn"    id="cal-lunar" type="button" data-i18n="calLunar">Лунный календарь</button>
+  </div>
+
   <!-- Hour-branch boundary warning (±15 min of a 时辰 switch) -->
   <div class="hour-boundary" id="hour-boundary"></div>
 
@@ -647,6 +662,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 const I18N = {
   ru: {
     tagline: "Ба Цзы · Четыре столпа судьбы · Солнечный календарь",
+    taglineLunar: "Ба Цзы · Четыре столпа судьбы · Лунный календарь",
     birthTitle: "Дата, время и город рождения",
     name: "Имя",
     year: "Год", month: "Месяц", day: "День",
@@ -698,6 +714,7 @@ const I18N = {
     hbBefore: "До", hbAfter: "После",
     solarTimeLabel: "Солнечное время",
     noTimeLabel: "Время рождения неизвестно",
+    calSolar: "Солнечный календарь", calLunar: "Лунный календарь",
     noTimeInfo: "Время неизвестно — столп часа не строится",
     solarBirth: "Солнечное время рождения",
     clockBirth: "Время рождения (по часам)",
@@ -708,6 +725,7 @@ const I18N = {
   },
   en: {
     tagline: "Ba Zi · Four Pillars of Destiny · Solar Calendar",
+    taglineLunar: "Ba Zi · Four Pillars of Destiny · Lunar Calendar",
     birthTitle: "Birth date, time and city",
     name: "Name",
     year: "Year", month: "Month", day: "Day",
@@ -759,6 +777,7 @@ const I18N = {
     hbBefore: "Before", hbAfter: "After",
     solarTimeLabel: "Solar time",
     noTimeLabel: "Birth time unknown",
+    calSolar: "Solar calendar", calLunar: "Lunar calendar",
     noTimeInfo: "Time unknown — no hour pillar",
     solarBirth: "Solar birth time",
     clockBirth: "Birth time (clock)",
@@ -1025,6 +1044,42 @@ function compute(){
     console.error(err);
     showError(L().calcErr + err.message);
   }
+}
+
+/* ===== Lunar calendar chart =====
+   Same rule as the lunar Ba Zi on the ZWDS calculator (calculator.html, "lunarBazi"):
+   day and hour pillars are the solar ones; the YEAR follows Chinese New Year
+   (lunar.getYearGan/Zhi) and the MONTH is the lunar month — branch by 寅 = month 1,
+   stem by Five Tigers from the year stem; a leap month counts as its month number.
+   lunarView() wraps the EightChar so every renderer reads these two pillars instead. */
+let CAL = "solar";                               // default chart = solar calendar
+const STEMS_CN = "甲乙丙丁戊己庚辛壬癸", BRANCHES_CN = "子丑寅卯辰巳午未申酉戌亥";
+const FIVE_TIGERS = [2, 4, 6, 8, 0, 2, 4, 6, 8, 0];   // year stem → stem of month 1 (寅)
+function lunarView(ec, lunar){
+  const dm = ec.getDayGan();
+  const yG = lunar.getYearGan(), yZ = lunar.getYearZhi();
+  const lm = Math.abs(lunar.getMonth());
+  const mG = STEMS_CN[(FIVE_TIGERS[STEMS_CN.indexOf(yG)] + lm - 1) % 10];
+  const mZ = BRANCHES_CN[(lm + 1) % 12];
+  const hide = z => LunarUtil.ZHI_HIDE_GAN[z] || [];
+  const v = Object.create(ec);
+  Object.assign(v, {
+    getYearGan: () => yG, getYearZhi: () => yZ,
+    getMonthGan: () => mG, getMonthZhi: () => mZ,
+    getYearShiShenGan: () => tenGodStem(dm, yG), getMonthShiShenGan: () => tenGodStem(dm, mG),
+    getYearHideGan: () => hide(yZ), getMonthHideGan: () => hide(mZ),
+    getYearShiShenZhi: () => hide(yZ).map(g => tenGodStem(dm, g)),
+    getMonthShiShenZhi: () => hide(mZ).map(g => tenGodStem(dm, g)),
+    getYearNaYin: () => LunarUtil.NAYIN[yG + yZ], getMonthNaYin: () => LunarUtil.NAYIN[mG + mZ],
+    getYearXunKong: () => LunarUtil.getXunKong(yG + yZ)
+  });
+  return v;
+}
+function setCal(c){
+  CAL = c;
+  document.getElementById("cal-solar").classList.toggle("on", c === "solar");
+  document.getElementById("cal-lunar").classList.toggle("on", c === "lunar");
+  compute();
 }
 
 /* ===== Render ===== */
@@ -1434,11 +1489,13 @@ function renderLiunian(ec){
 }
 
 function render(ec, lunar, sex, cm, baziYear){
-  renderPillars(ec);
+  const chart = CAL === "lunar" ? lunarView(ec, lunar) : ec;   // luck pillars stay on the solar chart
+  document.querySelector('[data-i18n="tagline"]').textContent = CAL === "lunar" ? L().taglineLunar : L().tagline;
+  renderPillars(chart);
   LAST_EC = ec; LAST_SEX = sex;
   TSEL.luck = null;   // a new chart: luck pillar follows the chosen year again
   renderTimePillars();
-  renderStars(ec);
+  renderStars(chart);
   renderBagua(baziYear, sex);
   renderDayun(ec, sex);
   updateSolarInfo();
@@ -1467,6 +1524,8 @@ document.getElementById("lang-ru").addEventListener("click", ()=>setLang("ru"));
 document.getElementById("lang-en").addEventListener("click", ()=>setLang("en"));
 document.getElementById("btn-compute").addEventListener("click", compute);
 document.getElementById("print-btn").addEventListener("click", ()=>window.print());
+document.getElementById("cal-solar").addEventListener("click", ()=>setCal("solar"));
+document.getElementById("cal-lunar").addEventListener("click", ()=>setCal("lunar"));
 document.getElementById("f-city").addEventListener("input", onCityInput);
 ["f-year","f-month","f-day","f-hour","f-min"].forEach(id =>
   document.getElementById(id).addEventListener("input", updateSolarInfo));
