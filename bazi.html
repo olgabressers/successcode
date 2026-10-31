@@ -57,10 +57,10 @@
                         cursor: pointer; font-family: 'Inter', sans-serif; }
   .lang-switch button.on { background: #b8903a; border-color: #b8903a; color: #f5f1eb; }
 
-  .print-btn { background: transparent;
-               border: 1px solid rgba(184,144,58,0.45); color: #c0c2d4; padding: 5px 11px;
-               font-size: 11px; letter-spacing: 1px; cursor: pointer; font-family: 'Inter', sans-serif; }
-  .print-btn:hover { background: transparent; border-color: #cfa44e; color: #cfa44e; }
+  .print-btn { width: auto; background: transparent; border: 1px solid rgba(184,144,58,0.45); color: #c0c2d4;
+               padding: 6px 12px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+               font-family: 'Inter', sans-serif; cursor: pointer; }
+  .print-btn:hover { border-color: #cfa44e; color: #cfa44e; }
 
   .study-link { display: block; text-align: center; margin: -14px auto 26px;
                 font-family: 'Cormorant Garamond', serif;
@@ -527,7 +527,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
       <button id="lang-ru" class="on" type="button">RU</button>
       <button id="lang-en" type="button">EN</button>
     </div>
-    <button class="print-btn" id="print-btn" type="button">⎙ Печать</button>
+    <button class="print-btn" id="print-btn" type="button">PDF / Печать</button>
     <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
   </div>
 </nav>
@@ -646,7 +646,7 @@ const I18N = {
     year: "Год", month: "Месяц", day: "День",
     hour: "Час", minute: "Минута",
     sex: "Пол", male: "Мужской", female: "Женский",
-    print: "Печать",
+    print: "PDF / Печать",
     course: "Хочу пройти курс Ба Цзы",
     city: "Город (для пересчёта в солнечное время)",
     cityPh: "Начните вводить город...",
@@ -681,7 +681,7 @@ const I18N = {
     starPillarHour: "Час", starPillarDay: "День", starPillarMonth: "Месяц", starPillarYear: "Год",
     liunianTitle: "Текущий год (流年)",
     luckCol: "Текущий столп удачи", yearCol: "Текущий год", monthCol: "Месяц", ageShort: "возраст",
-    childhood: "детство (до первого столпа)",
+    childhoodShort: "детство",
     monthNames: ["Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь","Январь"],
     computeFirst: "Введите данные и нажмите «Рассчитать».",
     invalidDate: "Такой даты не существует.",
@@ -707,7 +707,7 @@ const I18N = {
     year: "Year", month: "Month", day: "Day",
     hour: "Hour", minute: "Minute",
     sex: "Sex", male: "Male", female: "Female",
-    print: "Print",
+    print: "PDF / Print",
     course: "I want to take the Ba Zi course",
     city: "City (for solar-time correction)",
     cityPh: "Start typing a city...",
@@ -742,7 +742,7 @@ const I18N = {
     starPillarHour: "Hour", starPillarDay: "Day", starPillarMonth: "Month", starPillarYear: "Year",
     liunianTitle: "Current Year (流年)",
     luckCol: "Current luck pillar", yearCol: "Current year", monthCol: "Month", ageShort: "age",
-    childhood: "childhood (before the first pillar)",
+    childhoodShort: "childhood",
     monthNames: ["February","March","April","May","June","July","August","September","October","November","December","January"],
     computeFirst: "Enter data and press Compute.",
     invalidDate: "This date does not exist.",
@@ -1088,7 +1088,7 @@ function pillarCol(o){
    Pillars come from lunar-javascript EightChar at a date safely inside that year / month
    (1 June; the 15th of the month — every 节 falls on the 4th–8th). Luck pillar = the 大运 that
    contains the chosen year. Defaults = today. */
-const TSEL = { y: null, m: null };
+const TSEL = { y: null, m: null, luck: null };   // luck = index into getDaYun (null = the one holding y)
 let LAST_EC = null, LAST_SEX = 1;
 const JIE_MONTH = { 立春:1, 惊蛰:2, 清明:3, 立夏:4, 芒种:5, 小暑:6, 立秋:7, 白露:8, 寒露:9, 立冬:10, 大雪:11, 小寒:12 };
 function todaySolar(){
@@ -1116,22 +1116,29 @@ function renderTimePillars(){
   for (let yy = 1900; yy <= 2100; yy++) yOpts += `<option value="${yy}"${yy === y ? " selected" : ""}>${yy}</option>`;
   const mOpts = L().monthNames.map((n, i) => `<option value="${i + 1}"${i + 1 === m ? " selected" : ""}>${n}</option>`).join("");
 
-  // luck pillar containing the chosen year
+  // luck pillar: chosen in its own dropdown; by default (and after a year change) the one holding the year
   const dy = ec.getYun(LAST_SEX, 2).getDaYun(11);
-  let luck = null;
-  for (let i = 1; i < dy.length; i++) if (y >= dy[i].getStartYear() && y <= dy[i].getEndYear()) { luck = dy[i]; break; }
+  if (TSEL.luck == null) {
+    TSEL.luck = 0;
+    for (let i = 1; i < dy.length; i++) if (y >= dy[i].getStartYear() && y <= dy[i].getEndYear()) { TSEL.luck = i; break; }
+  }
+  const luck = TSEL.luck > 0 ? dy[TSEL.luck] : null;
+  let lOpts = `<option value="0"${TSEL.luck === 0 ? " selected" : ""}>${L().childhoodShort}</option>`;
+  for (let i = 1; i < dy.length; i++)
+    lOpts += `<option value="${i}"${i === TSEL.luck ? " selected" : ""}>${dy[i].getStartYear()}–${String(dy[i].getEndYear()).slice(-2)}</option>`;   // 2034–43 fits the narrow column
+  const luckSel = `<select id="t-luck" onchange="TSEL.luck=+this.value; renderTimePillars()">${lOpts}</select>`;
   let luckHtml;
   if (luck) {
     const gz = luck.getGanZhi();
-    const head = `${L().luckCol}<span class="ph-sub">${luck.getStartYear()}–${luck.getEndYear()} · ${L().ageShort} ${luck.getStartAge()}–${luck.getEndAge()}</span>`;
+    const head = `${L().luckCol}${luckSel}<span class="ph-sub">${L().ageShort} ${luck.getStartAge()}–${luck.getEndAge()}</span>`;
     luckHtml = timeCol(head, gz.charAt(0), gz.charAt(1), dm);
   } else {
-    luckHtml = `<div class="pillar pillar-empty"><div class="pillar-h">${L().luckCol}<span class="ph-sub">${L().childhood}</span></div>` +
+    luckHtml = `<div class="pillar pillar-empty"><div class="pillar-h">${L().luckCol}${luckSel}</div>` +
                `<div class="pillar-none">—</div><div class="pillar-none">—</div></div>`;
   }
   document.getElementById("pillars-time").innerHTML =
     luckHtml +
-    timeCol(`${L().yearCol}<select id="t-year" onchange="TSEL.y=+this.value; renderTimePillars()">${yOpts}</select>`,
+    timeCol(`${L().yearCol}<select id="t-year" onchange="TSEL.y=+this.value; TSEL.luck=null; renderTimePillars()">${yOpts}</select>`,
             yEc.getYearGan(), yEc.getYearZhi(), dm) +
     timeCol(`${L().monthCol}<select id="t-month" onchange="TSEL.m=+this.value; renderTimePillars()">${mOpts}</select>`,
             mEc.getMonthGan(), mEc.getMonthZhi(), dm);
@@ -1422,6 +1429,7 @@ function renderLiunian(ec){
 function render(ec, lunar, sex, cm, baziYear){
   renderPillars(ec);
   LAST_EC = ec; LAST_SEX = sex;
+  TSEL.luck = null;   // a new chart: luck pillar follows the chosen year again
   renderTimePillars();
   renderStars(ec);
   renderBagua(baziYear, sex);
@@ -1438,7 +1446,7 @@ function applyLang(){
   });
   document.getElementById("lang-ru").classList.toggle("on", LANG==="ru");
   document.getElementById("lang-en").classList.toggle("on", LANG==="en");
-  document.getElementById("print-btn").textContent = "⎙ " + L().print;
+  document.getElementById("print-btn").textContent = L().print;
   document.getElementById("study-link").textContent = L().course;
 }
 function setLang(l){
