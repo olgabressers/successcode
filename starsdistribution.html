@@ -536,6 +536,7 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 <script src="/tz.js"></script>
 <script src="/magvar.js"></script>
 <script src="/flyingstars.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lunar-javascript@1.7.7/lunar.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 /* ==========================================================================
@@ -996,13 +997,27 @@ const PAL_ANGLE = { 1: 0, 8: 45, 3: 90, 4: 135, 9: 180, 2: 225, 7: 270, 6: 315 }
 let ROTATE = false;
 function setRotate(v) { ROTATE = v; compute(); }
 
+/* Today's solar year and month (both start at a 节: year at 立春, month 1 = 寅).
+   lunar-javascript gives the last 节 before today; 小寒 (month 12) falls in January,
+   so it still belongs to the previous solar year. null if the library failed to load. */
+const JIE_MONTH = { 立春:1, 惊蛰:2, 清明:3, 立夏:4, 芒种:5, 小暑:6, 立秋:7, 白露:8, 寒露:9, 立冬:10, 大雪:11, 小寒:12 };
+function nowSolar() {
+  try {
+    const jie = Solar.fromDate(new Date()).getLunar().getPrevJie(true);
+    const m = JIE_MONTH[jie.getName()], js = jie.getSolar();
+    if (!m) return null;
+    return { y: js.getYear() - (m === 12 && js.getMonth() === 1 ? 1 : 0), m: m };
+  } catch (e) { return null; }
+}
+
 function fillSelects() {
   const ay = $("f-ayear");
+  const now = ay.options.length ? null : nowSolar();   // defaults = today's period, year and month
   if (!ay.options.length) {
     for (let y = 1950; y <= 2100; y++) ay.add(new Option(String(y), String(y)));
-    ay.value = "2027";
+    ay.value = now ? String(now.y) : "2027";
   }
-  const p = $("f-period"), keepP = p.value || "9";
+  const p = $("f-period"), keepP = p.value || (now ? String(FlyingStars.periodOf(now.y).period) : "9");
   p.innerHTML = "";
   for (let n = 1; n <= 9; n++) p.add(new Option(L().periodN.replace("{n}", n), String(n)));
   p.value = keepP;
@@ -1011,7 +1026,7 @@ function fillSelects() {
   if (!$("plan-ayear").options.length) $("plan-ayear").innerHTML = ay.innerHTML;
   $("plan-ayear").value = ay.value;
   // solar months from 立春 (month 1 = 寅); labels follow the language, the value is kept
-  const mo = $("f-month"), keepM = mo.value || "1";
+  const mo = $("f-month"), keepM = mo.value || (now ? String(now.m) : "1");
   mo.innerHTML = "";
   for (let m = 1; m <= 12; m++) mo.add(new Option(L().monthN.replace("{n}", m).replace("{r}", L().monthR[m - 1]), String(m)));
   mo.value = keepM;
