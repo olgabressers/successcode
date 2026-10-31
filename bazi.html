@@ -115,7 +115,17 @@
   .error-msg { max-width: 820px; margin: 0 auto 20px; background: #fde8e8; border: 1px solid #d08080;
                color: #8a2020; padding: 12px 16px; font-size: 13px; display: none; }
 
-  .result { max-width: 900px; margin: 0 auto; display: none; }
+  .result { max-width: 1180px; margin: 0 auto; display: none; }
+  .pillars-time { grid-template-columns: repeat(3, 1fr); }
+  .pillars-time .pillar-h { color: var(--gold-dim); min-height: 78px; display: flex; flex-direction: column; justify-content: center; }
+  /* desktop: natal headers as tall as the time headers so all seven rows of characters line up */
+  @media screen and (min-width: 641px) {
+    .chart-layout .pillar-h { min-height: 78px; display: flex; flex-direction: column; justify-content: center; }
+  }
+  .pillar-h select { display: block; width: 100%; margin-top: 5px; padding: 3px 4px; font-size: 12px;
+                     text-transform: none; letter-spacing: 0; }
+  .pillar-h .ph-sub { display: block; margin-top: 3px; font-size: 10px; letter-spacing: 0.3px;
+                      text-transform: none; color: var(--text-dim); font-weight: 500; }
   .chart-name { display: none; text-align: center; font-family: 'Cormorant Garamond', serif;
                 font-size: 22px; font-weight: 600; color: var(--gold); letter-spacing: 1px;
                 margin-bottom: 14px; }
@@ -137,7 +147,7 @@
   /* ── Chart layout: 4 pillars on the left, Aux Stars on the right ── */
   .chart-layout {
     display: grid;
-    grid-template-columns: minmax(0, 2fr) minmax(240px, 1fr);
+    grid-template-columns: minmax(0, 4fr) minmax(0, 3fr) minmax(220px, 2fr);
     gap: 18px;
     margin-bottom: 18px;
   }
@@ -315,7 +325,10 @@
 
     /* Whole page onto one A4: keep blocks intact and compress */
     .chart-layout, .pillars, .aux, .dayun, .bagua, .hour-boundary { break-inside: avoid; }
-    .chart-layout { gap: 8px; margin-bottom: 8px; }
+    .chart-layout { gap: 8px; margin-bottom: 8px; grid-template-columns: 4fr 3fr; }
+    .chart-layout .aux { grid-column: 1 / -1; }
+    .pillar-h select { border: none; background: none; padding: 0; font-size: 9px; appearance: none; }
+    .chart-layout .pillar-h { min-height: 58px; display: flex; flex-direction: column; justify-content: center; }
     .pillar { padding: 8px 5px 10px; gap: 4px; }
     .pillar-h { font-size: 8px; padding: 4px 5px; margin: -8px -5px 3px; width: calc(100% + 10px); }
     .pillar-stem, .pillar-branch { font-size: 23px; }
@@ -368,6 +381,7 @@
     .form-group.wide2 { grid-column: 1 / -1; }
 
     .chart-layout { grid-template-columns: 1fr; gap: 12px; }
+    .pillars-time { grid-template-columns: repeat(3, 1fr); }
     .pillars { grid-template-columns: repeat(4, 1fr); }
     .pillar { padding: 10px 4px 12px; gap: 6px; }
     .pillar-h { font-size: 9px; letter-spacing: 1px; padding: 5px 4px; margin: -10px -4px 4px; width: calc(100% + 8px); }
@@ -601,6 +615,8 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <!-- Chart: 4 pillars on the left, Auxiliary Stars + Void on the right -->
   <div class="chart-layout">
     <div class="pillars" id="pillars"></div>
+    <!-- luck pillar, year and month of the chosen date — to the right of the natal pillars -->
+    <div class="pillars pillars-time" id="pillars-time"></div>
     <div class="aux" id="aux"></div>
   </div>
 
@@ -664,6 +680,9 @@ const I18N = {
     starAbsent: "Отсутствует в чарте",
     starPillarHour: "Час", starPillarDay: "День", starPillarMonth: "Месяц", starPillarYear: "Год",
     liunianTitle: "Текущий год (流年)",
+    luckCol: "Текущий столп удачи", yearCol: "Текущий год", monthCol: "Месяц", ageShort: "возраст",
+    childhood: "детство (до первого столпа)",
+    monthNames: ["Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь","Январь"],
     computeFirst: "Введите данные и нажмите «Рассчитать».",
     invalidDate: "Такой даты не существует.",
     checkDT: "Проверьте дату и время.",
@@ -722,6 +741,9 @@ const I18N = {
     starAbsent: "Not present in the chart",
     starPillarHour: "Hour", starPillarDay: "Day", starPillarMonth: "Month", starPillarYear: "Year",
     liunianTitle: "Current Year (流年)",
+    luckCol: "Current luck pillar", yearCol: "Current year", monthCol: "Month", ageShort: "age",
+    childhood: "childhood (before the first pillar)",
+    monthNames: ["February","March","April","May","June","July","August","September","October","November","December","January"],
     computeFirst: "Enter data and press Compute.",
     invalidDate: "This date does not exist.",
     checkDT: "Check date and time.",
@@ -1043,6 +1065,78 @@ function pillarsCells(ec){
   };
 }
 
+/* One pillar column. o = { head (html), stem, zhi, god (stem Ten God, null = hidden slot),
+   hide: [stems], hideGod: [Ten Gods], dm, cls, tag } */
+function pillarCol(o){
+  const hideRows = (o.hide || []).map((g, j) =>
+    `<div class="hide-row"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg((o.hideGod || [])[j] || "")}</span></div>`
+  ).join("");
+  return `<div class="pillar${o.cls || ""}">
+      <div class="pillar-h">${o.head}${o.tag || ""}</div>
+      <div class="pillar-stem ${elClass(o.stem)}">${o.stem}</div>
+      <div class="pillar-el">${polarity(o.stem)}</div>
+      ${o.god == null ? `<div class="pillar-god hidden-slot">·</div>` : `<div class="pillar-god">${tg(o.god)}</div>`}
+      <div class="pillar-branch ${elClass(o.zhi)}">${o.zhi}</div>
+      <div class="pillar-el">${polarity(o.zhi)}</div>
+      <div class="pillar-qi">${qiPhase(o.dm, o.zhi)}</div>
+      ${hideRows ? `<div class="pillar-hide">${hideRows}</div>` : ""}
+    </div>`;
+}
+
+/* ===== Luck pillar, year and month of a chosen date (right of the natal pillars) =====
+   Year = the solar (立春) year; month = solar month from its 节 (month 1 = 寅, starts ~4 Feb).
+   Pillars come from lunar-javascript EightChar at a date safely inside that year / month
+   (1 June; the 15th of the month — every 节 falls on the 4th–8th). Luck pillar = the 大运 that
+   contains the chosen year. Defaults = today. */
+const TSEL = { y: null, m: null };
+let LAST_EC = null, LAST_SEX = 1;
+const JIE_MONTH = { 立春:1, 惊蛰:2, 清明:3, 立夏:4, 芒种:5, 小暑:6, 立秋:7, 白露:8, 寒露:9, 立冬:10, 大雪:11, 小寒:12 };
+function todaySolar(){
+  const jie = Solar.fromDate(new Date()).getLunar().getPrevJie(true);
+  const m = JIE_MONTH[jie.getName()] || 1, js = jie.getSolar();
+  return { y: js.getYear() - (m === 12 && js.getMonth() === 1 ? 1 : 0), m: m };   // 小寒 in January = previous year
+}
+function hiddenOf(zhi, dm){
+  const hide = (LunarUtil.ZHI_HIDE_GAN && LunarUtil.ZHI_HIDE_GAN[zhi]) || [];
+  return { hide: hide, hideGod: hide.map(g => tenGodStem(dm, g)) };
+}
+function timeCol(head, stem, zhi, dm){
+  return pillarCol(Object.assign({ head: head, stem: stem, zhi: zhi, god: tenGodStem(dm, stem), dm: dm }, hiddenOf(zhi, dm)));
+}
+function renderTimePillars(){
+  const ec = LAST_EC; if (!ec) return;
+  if (TSEL.y == null) { const t = todaySolar(); TSEL.y = t.y; TSEL.m = t.m; }
+  const dm = ec.getDayGan(), y = TSEL.y, m = TSEL.m;
+
+  const yEc = Solar.fromYmdHms(y, 6, 1, 12, 0, 0).getLunar().getEightChar();
+  const mEc = (m <= 11 ? Solar.fromYmdHms(y, m + 1, 15, 12, 0, 0) : Solar.fromYmdHms(y + 1, 1, 15, 12, 0, 0))
+                .getLunar().getEightChar();
+
+  let yOpts = "";
+  for (let yy = 1900; yy <= 2100; yy++) yOpts += `<option value="${yy}"${yy === y ? " selected" : ""}>${yy}</option>`;
+  const mOpts = L().monthNames.map((n, i) => `<option value="${i + 1}"${i + 1 === m ? " selected" : ""}>${n}</option>`).join("");
+
+  // luck pillar containing the chosen year
+  const dy = ec.getYun(LAST_SEX, 2).getDaYun(11);
+  let luck = null;
+  for (let i = 1; i < dy.length; i++) if (y >= dy[i].getStartYear() && y <= dy[i].getEndYear()) { luck = dy[i]; break; }
+  let luckHtml;
+  if (luck) {
+    const gz = luck.getGanZhi();
+    const head = `${L().luckCol}<span class="ph-sub">${luck.getStartYear()}–${luck.getEndYear()} · ${L().ageShort} ${luck.getStartAge()}–${luck.getEndAge()}</span>`;
+    luckHtml = timeCol(head, gz.charAt(0), gz.charAt(1), dm);
+  } else {
+    luckHtml = `<div class="pillar pillar-empty"><div class="pillar-h">${L().luckCol}<span class="ph-sub">${L().childhood}</span></div>` +
+               `<div class="pillar-none">—</div><div class="pillar-none">—</div></div>`;
+  }
+  document.getElementById("pillars-time").innerHTML =
+    luckHtml +
+    timeCol(`${L().yearCol}<select id="t-year" onchange="TSEL.y=+this.value; renderTimePillars()">${yOpts}</select>`,
+            yEc.getYearGan(), yEc.getYearZhi(), dm) +
+    timeCol(`${L().monthCol}<select id="t-month" onchange="TSEL.m=+this.value; renderTimePillars()">${mOpts}</select>`,
+            mEc.getMonthGan(), mEc.getMonthZhi(), dm);
+}
+
 function renderPillars(ec){
   const p = pillarsCells(ec);
   const dm = ec.getDayGan();
@@ -1055,36 +1149,13 @@ function renderPillars(ec){
                 `<div class="pillar-none">—</div><div class="pillar-none">—</div></div>`);
       continue;
     }
-    const voidCls = p.isVoid[i] ? " pil-void" : "";
-    const voidTagHtml = p.isVoid[i] ? `<span class="pil-void-tag">${L().voidTag}</span>` : "";
-    const hideArr = p.hide[i] || [];
-    const hideShen = p.hideShen[i] || [];
-    const hideRows = hideArr.map((g,j) =>
-      `<div class="hide-row"><span class="hg ${elClass(g)}">${g}</span><span class="hs">${tg(hideShen[j]||"")}</span></div>`
-    ).join("");
-
-    // Stem Ten God — hidden entirely under the Day Master (per user rule)
-    const stemGodHtml = isDayCol(i)
-      ? `<div class="pillar-god hidden-slot">·</div>`
-      : `<div class="pillar-god">${tg(p.shenStem[i])}</div>`;
-
-    // Element polarity under stem AND branch
-    const stemEl = polarity(p.stem[i]);
-    const branchEl = polarity(p.zhi[i]);
-
-    // Qi Phase under the branch (calculated from Day Master)
-    const qi = qiPhase(dm, p.zhi[i]);
-
-    cols.push(`<div class="pillar${voidCls}">
-      <div class="pillar-h">${p.labels[i]}${voidTagHtml}</div>
-      <div class="pillar-stem ${elClass(p.stem[i])}">${p.stem[i]}</div>
-      <div class="pillar-el">${stemEl}</div>
-      ${stemGodHtml}
-      <div class="pillar-branch ${elClass(p.zhi[i])}">${p.zhi[i]}</div>
-      <div class="pillar-el">${branchEl}</div>
-      <div class="pillar-qi">${qi}</div>
-      ${hideRows ? `<div class="pillar-hide">${hideRows}</div>` : ""}
-    </div>`);
+    cols.push(pillarCol({
+      head: p.labels[i], stem: p.stem[i], zhi: p.zhi[i], dm: dm,
+      god: isDayCol(i) ? null : p.shenStem[i],          // no stem Ten God under the Day Master
+      hide: p.hide[i], hideGod: p.hideShen[i],
+      cls: p.isVoid[i] ? " pil-void" : "",
+      tag: p.isVoid[i] ? `<span class="pil-void-tag">${L().voidTag}</span>` : ""
+    }));
   }
 
   document.getElementById("pillars").innerHTML = cols.join("");
@@ -1350,6 +1421,8 @@ function renderLiunian(ec){
 
 function render(ec, lunar, sex, cm, baziYear){
   renderPillars(ec);
+  LAST_EC = ec; LAST_SEX = sex;
+  renderTimePillars();
   renderStars(ec);
   renderBagua(baziYear, sex);
   renderDayun(ec, sex);
