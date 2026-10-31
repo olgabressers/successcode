@@ -117,37 +117,10 @@
   .readout .mtn { font-family: 'Cormorant Garamond', serif; font-size: 21px; color: var(--gold-dim); }
 
   /* results */
-  .card { background: var(--surface); border: 1px solid var(--border); padding: 22px 24px; }
-  .card.facing { border-color: var(--gold); border-width: 2px; }
-  .card-tag { font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase;
-              color: var(--gold); font-weight: 600; margin-bottom: 12px; }
-  .m-char { font-family: 'Cormorant Garamond', serif; font-size: 62px; line-height: 1; font-weight: 400; }
-  .m-names { font-size: 15px; color: var(--text-dim); margin-top: 6px; }
-  .m-names b { color: var(--text); font-weight: 600; }
-  .m-rows { margin-top: 16px; border-top: 1px solid var(--border); padding-top: 12px; }
-  .m-row { display: flex; justify-content: space-between; gap: 14px; font-size: 13px;
-           color: var(--text-dim); line-height: 1.9; }
-  .m-row span:first-child { color: var(--text-muted); }
-  .m-row b { color: var(--text); font-weight: 600; }
-  .el-wood{color:var(--el-wood)} .el-fire{color:var(--el-fire)} .el-earth{color:var(--el-earth)}
-  .el-metal{color:var(--el-metal)} .el-water{color:var(--el-water)}
 
 
   /* compass */
 
-  /* reference table */
-  .tbl-wrap { background: var(--surface); border: 1px solid var(--border); padding: 20px 24px; margin-bottom: 24px; overflow-x: auto; max-width: 100%; }
-  .tbl-split { display: grid; grid-template-columns: 1fr 1fr; gap: 0 26px; }
-  .gua-sym { font-size: 22px; color: var(--gold-dim); line-height: 1; vertical-align: -3px; letter-spacing: 1px; }
-  .m-row .gua-sym { font-size: 25px; vertical-align: -4px; }
-  table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
-  th { text-align: left; font-size: 9.5px; letter-spacing: .8px; text-transform: uppercase;
-       color: var(--text-muted); font-weight: 600; padding: 6px 5px; border-bottom: 1px solid var(--border); white-space: nowrap; }
-  td { padding: 5px 5px; border-bottom: 1px solid #eee; color: var(--text-dim); white-space: nowrap; font-size: 12px; }
-  td.ch { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--text); }
-  td.num { color: var(--text-muted); }
-  tr.hit td { background: #fdf8ec; color: var(--text); font-weight: 600; }
-  tr.hit td.ch { color: var(--gold-dim); }
 
   .backnav { text-align: center; margin-top: 30px; }
   .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
@@ -217,11 +190,6 @@
     * { max-width: 100vw; }
     img, svg, table { max-width: 100% !important; }
     body { padding: 40px 12px 24px; }
-    .m-row { flex-wrap: wrap; gap: 2px 10px; line-height: 1.6; }
-    .m-row b { text-align: right; }
-    .tbl-wrap { padding: 14px 10px; }
-    .tbl-split { grid-template-columns: 1fr; gap: 0; }
-    .tbl-wrap table { min-width: 420px; }
     .step-row input { min-width: 0; }
     .site-nav { justify-content: center; gap: 9px 12px; padding: 10px 12px; margin: -40px -12px 0; }
     .nl-logo { width: 100%; text-align: center; }
@@ -232,13 +200,10 @@
     header p { font-size: 9px; letter-spacing: 1.5px; }
     .form-panel { padding: 16px 14px; }
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
-      .card { padding: 18px 16px; }
     .fs-panel { padding: 16px 12px; }
     .map-row { grid-template-columns: 1fr; }
     .plan-controls { grid-template-columns: 1fr; }
     .plan-panel { padding: 16px 12px; }
-    .m-char { font-size: 50px; }
-    .tbl-wrap { padding: 14px 12px; }
     .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
     #map { height: 400px; }
     .site-footer { padding: 30px 4px 24px; }
@@ -257,7 +222,7 @@
     .site-nav, .lang-switch, .print-btn, .form-panel, .city-dd, .backnav, .back-to-top,
     .map-tools, .map-hint, .footer-links { display: none !important; }
     header { margin-bottom: 10px; padding-top: 0; }
-    .card, .tbl-wrap, .fs-panel { break-inside: avoid; }
+    .fs-panel, .plan-panel { break-inside: avoid; }
   }
 </style>
 
@@ -526,6 +491,24 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
 <script src="/flyingstars.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
+/* ==========================================================================
+   STARS DISTRIBUTION (飞星) — page script
+   Live: https://successcode.net/starsdistribution
+   Engine (pure functions, no DOM): /flyingstars.js  → window.FlyingStars
+   Full architecture: "Stars Distribution — Architecture.docx" (project repo)
+
+   Order of this file:
+     1. M24          the 24-mountain table (degrees, trigram, position 1–3, labels)
+     2. I18N         every visible text, RU + EN (setLang() switches; ?lang=en works)
+     3. helpers      mountainAt(), opposite(), compass/true degree, declination
+     4. map          Leaflet map + SVG overlay: facade line, facing arrow, 24-mountain ring
+     5. stars        renderStars(): house chart (period + facing) and annual chart, rotation
+     6. house plan   renderPlan(): uploaded plan split into the 24 sectors
+     7. inputs/lang  compute() is the single re-render entry point; address search (Nominatim)
+     8. init
+   Compass vs true: the degree box is a COMPASS (magnetic) reading — the mountain is read
+   from it. The map is true-north-up, so the overlay uses true = compass + declination.
+   ========================================================================== */
 const M24=[
   {n:"壬",s:337.5,e:352.5,yy:"阳",g:"坎",ge:"Kǎn",i:1,el:"water",k:"stem",py:"Rén",ru:"Жэнь",secRu:"С",secEn:"N",secFullRu:"Север",secFullEn:"North",kRu:"небесный ствол",kEn:"heavenly stem"},
   {n:"子",s:352.5,e:7.5,yy:"阴",g:"坎",ge:"Kǎn",i:2,el:"water",k:"branch",py:"Zǐ",ru:"Цзы",secRu:"С",secEn:"N",secFullRu:"Север",secFullEn:"North",kRu:"земная ветвь",kEn:"earthly branch"},
@@ -559,7 +542,6 @@ const I18N = {
     sub: "Летящие звёзды дома",
     periodLabel: "Период",
     periodN: "Период {n}",
-    months: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
     chartTitle: "Распределение звёзд · 飞星盘",
     stdBtn: "Карта звёзд",
     planTitle: "План дома",
@@ -570,29 +552,14 @@ const I18N = {
     yearTitle: "Годовые звёзды",
     rotBtn: "Повернуть к фасаду",
     infoMtn: "Фасад <b>{f}</b> · тыл <b>{s}</b> · {deg}° по компасу",
-    legM: "слева вверху — звезда горы · 山星", legB: "в центре — звезда периода · 运星", legF: "справа вверху — звезда фасада · 向星",
     tagFace: "向 · фасад", tagSit: "坐 · тыл",
     dirs: {4:"ЮВ",9:"Ю",2:"ЮЗ",3:"В",5:"Центр",7:"З",8:"СВ",1:"С",6:"СЗ"},
-    stars: ["Белая","Чёрная","Изумрудная","Зелёная","Жёлтая","Белая","Красная","Белая","Пурпурная"],
     inputTitle: "Направление",
     degLabel: "Градус направления (фасад)",
-    cityLabel: "Город (для магнитного склонения)",
-    cityPh: "Начните вводить город…",
     declLabel: "Магнитное склонение, °",
     useDecl: "Учитывать магнитное склонение",
-    tblTitle: "Все 24 горы",
     back: "← Все калькуляторы",
-    facing: "Фасад · 向",
-    sitting: "Тыл · 坐",
-    range: "Сектор горы",
-    sector: "Сектор 45°",
-    trigram: "Триграмма",
-    element: "Стихия",
-    east: "восточное склонение", west: "западное склонение",
     coordHint: "Широта {lat}, долгота {lon}",
-    els: { wood:"Дерево", fire:"Огонь", earth:"Земля", metal:"Металл", water:"Вода" },
-    thNum:"№", thM:"Гора", thPy:"Пиньинь", thRu:"Чтение", thFrom:"От°", thTo:"До°", thYY:"Инь/Ян",
-    thGua:"Триграмма", thSec:"Сектор", thEl:"Стихия",
     addrLabel: "Адрес дома",
     addrPh: "Улица, дом, город — например: Дам 1, Амстердам",
     searching: "Поиск…", noHits: "Ничего не найдено",
@@ -609,7 +576,6 @@ const I18N = {
     sub: "A house's flying stars",
     periodLabel: "Period",
     periodN: "Period {n}",
-    months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     chartTitle: "Stars Distribution · 飞星盘",
     stdBtn: "Stars chart",
     planTitle: "House plan",
@@ -620,29 +586,14 @@ const I18N = {
     yearTitle: "Annual stars",
     rotBtn: "Rotate to facing",
     infoMtn: "Facing <b>{f}</b> · sitting <b>{s}</b> · {deg}° by compass",
-    legM: "top left — mountain star · 山星", legB: "centre — period star · 运星", legF: "top right — facing star · 向星",
     tagFace: "向 · facing", tagSit: "坐 · sitting",
     dirs: {4:"SE",9:"S",2:"SW",3:"E",5:"Centre",7:"W",8:"NE",1:"N",6:"NW"},
-    stars: ["White","Black","Jade","Green","Yellow","White","Red","White","Purple"],
     inputTitle: "Direction",
     degLabel: "Facing degree (facade)",
-    cityLabel: "City (for magnetic declination)",
-    cityPh: "Start typing a city…",
     declLabel: "Magnetic declination, °",
     useDecl: "Apply magnetic declination",
-    tblTitle: "All 24 mountains",
     back: "← All calculators",
-    facing: "Facing · 向",
-    sitting: "Sitting · 坐",
-    range: "Mountain span",
-    sector: "45° sector",
-    trigram: "Trigram",
-    element: "Element",
-    east: "east", west: "west",
     coordHint: "Latitude {lat}, longitude {lon}",
-    els: { wood:"Wood", fire:"Fire", earth:"Earth", metal:"Metal", water:"Water" },
-    thNum:"#", thM:"Mtn", thPy:"Pinyin", thRu:"Reading", thFrom:"From°", thTo:"To°", thYY:"Yin/Yang",
-    thGua:"Trigram", thSec:"Sector", thEl:"Element",
     addrLabel: "Address",
     addrPh: "Street, number, city — e.g. Dam 1, Amsterdam",
     searching: "Searching…", noHits: "Nothing found",
@@ -710,7 +661,6 @@ function refreshDeclination() {
 }
 function onDeclEdit() { DECL_AUTO = false; compute(); }
 
-function elClass(el) { return "el-" + el; }
 
 
 
@@ -725,7 +675,7 @@ function elClass(el) { return "el-" + el; }
 let MAP = null, MARKER = null, LAYERS = {}, CUR_LAYER = "osm";
 let WALL_DEG = 90;        // bearing of the facade line itself
 let FLIP = 0;             // 0 or 180 — which side the facing arrow points
-let SHOW_M24 = true, SHOW_A12 = false;          // concentric rings, both on by default
+let SHOW_M24 = true;                           // 24-mountain ring, on by default
 let SHOW_SANHE = false;                        // San He plates (Human + Heaven), off by default
 
 /* ── San He (三合) plates ──────────────────────────────────────────────────
@@ -745,8 +695,6 @@ let SHOW_SANHE = false;                        // San He plates (Human + Heaven)
    copied) and in classical prose: 顺时针错7.5度是天盘，逆时针错7.5度是人盘. */
 const PLATE = { zheng: 0, ren: -7.5, feng: 7.5 };
 let RADIUS = 130;         // px, half-length of the facade line
-const GUA_SYM = { "乾":"☰", "兑":"☱", "离":"☲", "震":"☳",
-                  "巽":"☴", "坎":"☵", "艮":"☶", "坤":"☷" };
 const SVGNS = "http://www.w3.org/2000/svg";
 /* NB: this page already uses L() as the i18n getter, which shadows Leaflet's
    global L in lexical scope. Bind Leaflet explicitly via window. */
@@ -784,34 +732,14 @@ function setLayer(k) {
 }
 function setRing(k) {
   if (k === "m24")   SHOW_M24   = !SHOW_M24;
-  if (k === "a12")   SHOW_A12   = !SHOW_A12;
   if (k === "sanhe") SHOW_SANHE = !SHOW_SANHE;
-  if (!SHOW_M24 && !SHOW_A12 && !SHOW_SANHE) SHOW_M24 = true;
+  if (!SHOW_M24 && !SHOW_SANHE) SHOW_M24 = true;
   $("btn-r24").classList.toggle("on", SHOW_M24);
   $("btn-sanhe").classList.toggle("on", SHOW_SANHE);
   drawOverlay(); updateReadout();
 }
 /* a bearing read on a shifted plate — the sign is the inverse of the rotation */
 function plateMountain(deg, plate) { return mountainAt(norm(deg - PLATE[plate])); }
-/* The 12-animal ring is the same circle at 30° per branch: each earthly branch
-   sits on its own 15° mountain widened by 7.5° either side. Derived from the
-   cited M24 table, so there is no second source of truth. */
-const BRANCH12 = M24.filter(m => m.k === "branch")
-  .map(m => ({ n: m.n, el: m.el, s: norm(m.s - 7.5), c: norm(m.s + 7.5) }));
-const ANIMAL = {
-  ru: {"子":"Крыса","丑":"Бык","寅":"Тигр","卯":"Кролик","辰":"Дракон","巳":"Змея",
-       "午":"Лошадь","未":"Коза","申":"Обезьяна","酉":"Петух","戌":"Собака","亥":"Свинья"},
-  en: {"子":"Rat","丑":"Ox","寅":"Tiger","卯":"Rabbit","辰":"Dragon","巳":"Snake",
-       "午":"Horse","未":"Goat","申":"Monkey","酉":"Rooster","戌":"Dog","亥":"Pig"}
-};
-function branchAt(deg) {
-  const d = norm(deg);
-  for (const b of BRANCH12) {
-    const e = norm(b.s + 30);
-    if (b.s <= e ? (d >= b.s && d < e) : (d >= b.s || d < e)) return b;
-  }
-  return BRANCH12[0];
-}
 function flipFacing() { FLIP = FLIP ? 0 : 180; syncFromMap(); }
 
 /* map angle -> screen point. 0° = true north = up, clockwise. */
@@ -835,13 +763,13 @@ function drawOverlay() {
   const p = MAP.latLngToContainerPoint(MARKER.getLatLng());
   const cx = p.x, cy = p.y;
   const fd = facingDeg();
+  let R = RADIUS;           // facade half-length actually drawn (shortened on narrow maps)
 
   {
     // Concentric rings, read outward like a luopan. Band widths adapt so that
     // every enabled ring fits inside the map, however many are switched on.
     const cdg = useDecl() ? norm(fd - declValue()) : fd;   // compass frame
     const defs = [];
-    if (SHOW_A12)  defs.push({ cells: BRANCH12.map(b => ({ n: b.n, s: b.s, span: 30, on: b === branchAt(cdg) })) });
     // the Earth-plate ring also carries the direction code (Ю1 / S1 …) in the page language
     if (SHOW_M24)  defs.push({ cells: M24.map(m => ({ n: m.n, s: m.s, span: 15, on: m === mountainAt(cdg),
                                                        code: (LANG === "ru" ? m.secRu : m.secEn) + m.i })) });
@@ -859,6 +787,7 @@ function drawOverlay() {
     // inner edge pushed outward (bands ≈70px) so the direction codes sit close to the characters;
     // the outer edge stays at the map edge
     const inner0 = Math.max(Math.min(RADIUS + 8, maxOuter - 22 * defs.length), maxOuter - 70 * defs.length);
+    if (defs.length) R = Math.min(RADIUS, inner0 - 8);   // phones: keep the line and handles inside the ring
     const bw = defs.length ? Math.max(16, (maxOuter - inner0) / defs.length) : 0;
     defs.forEach(function (band, bi) {
       const ri = inner0 + bw * bi, ro = ri + bw;
@@ -894,8 +823,8 @@ function drawOverlay() {
   }
 
   // facade line (blue) with a drag handle at each end
-  const w0 = ptAt(cx, cy, RADIUS, WALL_DEG);
-  const w1 = ptAt(cx, cy, RADIUS, norm(WALL_DEG + 180));
+  const w0 = ptAt(cx, cy, R, WALL_DEG);
+  const w1 = ptAt(cx, cy, R, norm(WALL_DEG + 180));
   svg.appendChild(el("line", { x1: w0[0], y1: w0[1], x2: w1[0], y2: w1[1],
     stroke: "#1565c0", "stroke-width": 4, "stroke-linecap": "round", opacity: .95 }));
   [w0, w1].forEach(function (w, i) {
@@ -907,11 +836,11 @@ function drawOverlay() {
   });
 
   // facing arrow (gold), perpendicular to the facade
-  const f = ptAt(cx, cy, RADIUS + 4, fd);
+  const f = ptAt(cx, cy, R + 4, fd);
   svg.appendChild(el("line", { x1: cx, y1: cy, x2: f[0], y2: f[1],
     stroke: "#b8882a", "stroke-width": 4, "stroke-linecap": "round" }));
-  const bl = ptAt(cx, cy, RADIUS - 12, norm(fd - 5)),
-        br = ptAt(cx, cy, RADIUS - 12, norm(fd + 5));
+  const bl = ptAt(cx, cy, R - 12, norm(fd - 5)),
+        br = ptAt(cx, cy, R - 12, norm(fd + 5));
   svg.appendChild(el("polygon", {
     points: f[0] + "," + f[1] + " " + bl[0] + "," + bl[1] + " " + br[0] + "," + br[1],
     fill: "#b8882a" }));
@@ -925,7 +854,7 @@ function drawOverlay() {
 
   // the facing degree, printed on the arrow (compass frame — same number as the box)
   const cdeg = useDecl() ? norm(fd - declValue()) : fd;
-  const lp = ptAt(cx, cy, RADIUS * 0.60, fd);
+  const lp = ptAt(cx, cy, R * 0.60, fd);
   const label = r1(cdeg) + "\u00B0";
   const lw = label.length * 8.4 + 16;
   svg.appendChild(el("rect", { x: lp[0] - lw / 2, y: lp[1] - 12, width: lw, height: 24,
@@ -970,10 +899,9 @@ function syncFromInputs() {
 function updateReadout() {
   const t = L(), fd = facingDeg();
   const cd = useDecl() ? norm(fd - declValue()) : fd;
-  const m = mountainAt(cd), b = branchAt(cd);
+  const m = mountainAt(cd);
   const parts = [];
   if (SHOW_M24) parts.push("<span class='mtn'>" + m.n + "</span> " + (LANG === "ru" ? m.ru : m.py));
-  if (SHOW_A12) parts.push("<span class='mtn'>" + b.n + "</span> " + ANIMAL[LANG][b.n]);
   if (SHOW_SANHE) {
     parts.push(t.plateHuman  + " <span class='mtn'>" + plateMountain(cd, "ren").n  + "</span>");
     parts.push(t.plateHeaven + " <span class='mtn'>" + plateMountain(cd, "feng").n + "</span>");
@@ -1080,7 +1008,6 @@ function renderStars() {
    the sector codes (С1… / N1…) sit outside, at each sector's middle.
    ============================================================ */
 const PLAN = { img: null, w: 0, h: 0, side: 180, degOwn: false };
-const PAD = 64;   // room around the plan for the labels
 
 function loadPlan(inp) {
   const f = inp.files && inp.files[0];
@@ -1094,6 +1021,7 @@ function loadPlan(inp) {
   rd.readAsDataURL(f);
 }
 function setPlanSide(a) { PLAN.side = a; renderPlan(); }
+window.addEventListener("resize", () => renderPlan(), { passive: true });   // text sizes depend on the shown width
 function planFacing() {
   const v = $("plan-deg");
   if (!PLAN.degOwn) v.value = r1(compassDeg());
@@ -1108,16 +1036,27 @@ function renderPlan() {
   if (!PLAN.img) { svg.removeAttribute("viewBox"); svg.style.display = "none"; return; }
   svg.style.display = "block";
 
-  // fit the plan into a 900-wide drawing, keep its proportions
-  const W = 900, scale = Math.min((W - 2 * PAD) / PLAN.w, 700 / PLAN.h);
-  const pw = PLAN.w * scale, ph = PLAN.h * scale;
-  const x0 = (W - pw) / 2, y0 = PAD, x1 = x0 + pw, y1 = y0 + ph, H = ph + 2 * PAD;
+  /* The drawing is a 900-unit-wide SVG shown at most 620px wide and 70% of the window high.
+     U = drawing units per screen pixel, so every size below is given in SCREEN pixels
+     (labels stay 13px on a phone and on a desktop). */
+  const W = 900;
+  function layout(shownW) {
+    const U = W / shownW, PAD = 48 * U;
+    const scale = Math.min((W - 2 * PAD) / PLAN.w, 1.4 * W / PLAN.h);
+    const pw = PLAN.w * scale, ph = PLAN.h * scale;
+    return { U: U, PAD: PAD, pw: pw, ph: ph, H: ph + 2 * PAD };
+  }
+  const avail = Math.min(620, $("plan-stage").clientWidth || 620);
+  let G = layout(avail);
+  const fitW = Math.min(avail, window.innerHeight * 0.7 * W / G.H);
+  if (fitW < avail) G = layout(fitW);
+  const U = G.U, pw = G.pw, ph = G.ph, H = G.H;
+  const x0 = (W - pw) / 2, y0 = G.PAD, x1 = x0 + pw, y1 = y0 + ph;
   svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-  // fit the whole drawing on screen: at most 70% of the window height, at most 620px wide
-  svg.style.maxWidth = Math.round(Math.min(620, window.innerHeight * 0.7 * W / H)) + "px";
+  svg.style.maxWidth = Math.round(Math.min(avail, fitW)) + "px";
 
   svg.appendChild(el("image", { href: PLAN.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
-  svg.appendChild(el("rect", { x: x0, y: y0, width: pw, height: ph, fill: "none", stroke: "#444", "stroke-width": 2 }));
+  svg.appendChild(el("rect", { x: x0, y: y0, width: pw, height: ph, fill: "none", stroke: "#444", "stroke-width": 1.5 * U }));
 
   /* Perimeter split, equal spacing: one side of the plan = 90°, so every 15° mountain is
      exactly 1/6 of a side. The degree picks the facing mountain; that mountain's CENTRE sits in
@@ -1141,27 +1080,27 @@ function renderPlan() {
 
   for (let j = 0; j < 24; j++) {
     // tick at the start boundary of mountain j
-    const e = at(pos(M24[j].s)), L1 = 9;
+    const e = at(pos(M24[j].s)), L1 = 7 * U;
     svg.appendChild(el("line", e.nx
-      ? { x1: e.x - L1, y1: e.y, x2: e.x + L1, y2: e.y, stroke: "#222", "stroke-width": 2 }
-      : { x1: e.x, y1: e.y - L1, x2: e.x, y2: e.y + L1, stroke: "#222", "stroke-width": 2 }));
+      ? { x1: e.x - L1, y1: e.y, x2: e.x + L1, y2: e.y, stroke: "#222", "stroke-width": 1.5 * U }
+      : { x1: e.x, y1: e.y - L1, x2: e.x, y2: e.y + L1, stroke: "#222", "stroke-width": 1.5 * U }));
     // label outside, at the mountain's middle; a corner label goes out diagonally
     const u = mid(j), c = at(u), r = ((u % 1) + 1) % 1;
     let nx = c.nx, ny = c.ny;
     if (r < 0.04 || r > 0.96) { const pv = at(u + (r < 0.5 ? -0.05 : 0.05)); nx += pv.nx; ny += pv.ny; }   // near a corner: go out diagonally
     const m = M24[(j + 24) % 24], onFace = j === k, onSit = j === (k + 12) % 24;
-    const tx = el("text", { x: c.x + nx * 26, y: c.y + ny * 26, "text-anchor": "middle",
-      "dominant-baseline": "central", "font-family": "Inter, sans-serif", "font-size": 15,
+    const tx = el("text", { x: c.x + nx * 20 * U, y: c.y + ny * 20 * U, "text-anchor": "middle",
+      "dominant-baseline": "central", "font-family": "Inter, sans-serif", "font-size": 13 * U,
       "font-weight": onFace || onSit ? 700 : 500, fill: onFace ? "#c62828" : "#333" });
     tx.textContent = (LANG === "ru" ? m.secRu : m.secEn) + m.i;
     svg.appendChild(tx);
   }
   // facade (pointing out) and back (pointing in) markers, red
   function tri(u, out) {
-    const e = at(u), tx = -e.ny, ty = e.nx, tip = out ? 16 : -16, b = out ? -2 : 2;
+    const e = at(u), tx = -e.ny, ty = e.nx, tip = (out ? 12 : -12) * U, b = (out ? -2 : 2) * U, hw = 7 * U;
     const px = e.x + e.nx * tip, py = e.y + e.ny * tip, bx = e.x + e.nx * b, by = e.y + e.ny * b;
-    svg.appendChild(el("polygon", { points: px + "," + py + " " + (bx + tx * 9) + "," + (by + ty * 9) + " " +
-      (bx - tx * 9) + "," + (by - ty * 9), fill: "#e53935" }));
+    svg.appendChild(el("polygon", { points: px + "," + py + " " + (bx + tx * hw) + "," + (by + ty * hw) + " " +
+      (bx - tx * hw) + "," + (by - ty * hw), fill: "#e53935" }));
   }
   tri(pos(AN), true);
   tri(pos(AN + 180), false);
@@ -1169,8 +1108,8 @@ function renderPlan() {
   // facade arrow from the plan's middle; drag its head — it snaps to the nearest side
   const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, fe = at(pos(AN));
   const hx = cx + (fe.x - cx) * 0.55, hy = cy + (fe.y - cy) * 0.55;
-  svg.appendChild(el("line", { x1: cx, y1: cy, x2: hx, y2: hy, stroke: "#e53935", "stroke-width": 3 }));
-  const head = el("circle", { cx: hx, cy: hy, r: 10, fill: "#e53935", stroke: "#fff", "stroke-width": 2, class: "grab" });
+  svg.appendChild(el("line", { x1: cx, y1: cy, x2: hx, y2: hy, stroke: "#e53935", "stroke-width": 2.5 * U }));
+  const head = el("circle", { cx: hx, cy: hy, r: 9 * U, fill: "#e53935", stroke: "#fff", "stroke-width": 2 * U, class: "grab" });
   svg.appendChild(head);
 
   function svgPt(ev) {
