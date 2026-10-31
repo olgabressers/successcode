@@ -148,9 +148,14 @@
   .back-to-top svg { width: 22px; height: 22px; stroke: #fff; }
 
   /* ── Stars Distribution chart ── */
-  .map-row { display: grid; grid-template-columns: 1fr 260px; gap: 16px; align-items: start; margin-bottom: 24px; }
+  .map-row { margin-bottom: 16px; }
   .map-row .map-panel { margin-bottom: 0; min-width: 0; }
-  .fs-panel { background: var(--surface); border: 1px solid var(--border); padding: 16px 14px; }
+  .fs-panel { background: var(--surface); border: 1px solid var(--border); padding: 16px 14px; margin-bottom: 24px; }
+  .fs-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+  .fs-top .fs-info { margin-bottom: 0; }
+  .fs-top .fs-rot { margin: 0; }
+  .fs-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .fs-col { min-width: 0; max-width: 260px; width: 100%; justify-self: center; }
   .fs-info { font-size: 13px; line-height: 1.6; color: var(--text); margin-bottom: 12px; }
   .fs-info b { font-weight: 600; }
   .fs-info .warn { color: var(--gold-dim); }
@@ -208,7 +213,8 @@
     .form-panel { padding: 16px 14px; }
     .form-grid { grid-template-columns: 1fr; gap: 12px; }
     .fs-panel { padding: 16px 12px; }
-    .map-row { grid-template-columns: 1fr; }
+    .fs-row { grid-template-columns: 1fr; gap: 8px; }
+    .fs-top { justify-content: center; text-align: center; }
     .plan-controls { grid-template-columns: 1fr; }
     .plan-panel { padding: 16px 12px; }
     .plan-opts { gap: 10px; }
@@ -430,25 +436,36 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
     </div>
     <div class="map-hint" data-i18n="mapHint"></div>
   </div>
-  <div class="fs-panel">
-    <div class="section-label" data-i18n="chartTitle"></div>
-    <div class="fs-info" id="fs-info"></div>
-    <div class="fs-rot">
-      <button class="tool-btn" id="btn-std" onclick="setRotate(false)" data-i18n="stdBtn"></button>
-      <button class="tool-btn" id="btn-rot" onclick="setRotate(true)"  data-i18n="rotBtn"></button>
-    </div>
-    <div class="fs-stage"><div class="fs-grid" id="fs-grid"></div></div>
-    <div class="fs-year-head">
-      <div class="section-label" data-i18n="yearTitle"></div>
-      <select id="f-ayear" onchange="compute()"></select>
-    </div>
-    <div class="fs-stage"><div class="fs-grid" id="fs-agrid"></div></div>
-    <div class="fs-year-head">
-      <div class="section-label" data-i18n="monthTitle"></div>
-      <select id="f-month" onchange="compute()"></select>
-    </div>
-    <div class="fs-stage"><div class="fs-grid" id="fs-mgrid"></div></div>
   </div>
+  <!-- the three charts sit under the map, side by side (stacked on phones) -->
+  <div class="fs-panel">
+    <div class="fs-top">
+      <div class="fs-info" id="fs-info"></div>
+      <div class="fs-rot">
+        <button class="tool-btn" id="btn-std" onclick="setRotate(false)" data-i18n="stdBtn"></button>
+        <button class="tool-btn" id="btn-rot" onclick="setRotate(true)"  data-i18n="rotBtn"></button>
+      </div>
+    </div>
+    <div class="fs-row">
+      <div class="fs-col">
+        <div class="fs-year-head"><div class="section-label" data-i18n="chartTitle"></div></div>
+        <div class="fs-stage"><div class="fs-grid" id="fs-grid"></div></div>
+      </div>
+      <div class="fs-col">
+        <div class="fs-year-head">
+          <div class="section-label" data-i18n="yearTitle"></div>
+          <select id="f-ayear" onchange="compute()"></select>
+        </div>
+        <div class="fs-stage"><div class="fs-grid" id="fs-agrid"></div></div>
+      </div>
+      <div class="fs-col">
+        <div class="fs-year-head">
+          <div class="section-label" data-i18n="monthTitle"></div>
+          <select id="f-month" onchange="compute()"></select>
+        </div>
+        <div class="fs-stage"><div class="fs-grid" id="fs-mgrid"></div></div>
+      </div>
+    </div>
   </div>
 
 
