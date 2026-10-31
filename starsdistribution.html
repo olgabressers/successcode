@@ -1119,10 +1119,10 @@ function renderPlan() {
   svg.appendChild(el("image", { href: PLAN.img, x: x0, y: y0, width: pw, height: ph, preserveAspectRatio: "none" }));
   svg.appendChild(el("rect", { x: x0, y: y0, width: pw, height: ph, fill: "none", stroke: "#444", "stroke-width": 2 }));
 
-  /* Perimeter split, equal spacing, exact degree: one side of the plan = 90°, so every
-     15° mountain is exactly 1/6 of a side. The EXACT facing degree sits in the middle of the
-     facade side, and every compass direction D sits (D − facing°)/90 sides further clockwise —
-     so the ticks shift with every degree, not just with the mountain.
+  /* Perimeter split, equal spacing: one side of the plan = 90°, so every 15° mountain is
+     exactly 1/6 of a side. The degree picks the facing mountain; that mountain's CENTRE sits in
+     the middle of the facade side (matches the reference calculator: facing 99° → В3,
+     centred on the facade side), and compass direction D sits (D − centre)/90 sides clockwise.
      Position u runs clockwise from the top-left corner in side units: top 0–1, right 1–2,
      bottom 2–3, left 3–4. */
   const fside = Math.round(PLAN.side / 90) % 4;
@@ -1135,7 +1135,8 @@ function renderPlan() {
     if (sd === 2) return { x: x1 - fr * pw, y: y1, nx: 0, ny: 1, sd: sd };
     return { x: x0, y: y1 - fr * ph, nx: -1, ny: 0, sd: sd };
   }
-  const pos = D => fside + 0.5 + ((((D - F) % 360) + 540) % 360 - 180) / 90;   // compass D → perimeter
+  const AN = faceM.s + 7.5;                       // centre of the facing mountain
+  const pos = D => fside + 0.5 + ((((D - AN) % 360) + 540) % 360 - 180) / 90;   // compass D → perimeter
   const mid = j => pos(M24[j].s + 7.5);           // centre of mountain j on the perimeter
 
   for (let j = 0; j < 24; j++) {
@@ -1162,11 +1163,11 @@ function renderPlan() {
     svg.appendChild(el("polygon", { points: px + "," + py + " " + (bx + tx * 9) + "," + (by + ty * 9) + " " +
       (bx - tx * 9) + "," + (by - ty * 9), fill: "#e53935" }));
   }
-  tri(pos(F), true);
-  tri(pos(F + 180), false);
+  tri(pos(AN), true);
+  tri(pos(AN + 180), false);
 
   // facade arrow from the plan's middle; drag its head — it snaps to the nearest side
-  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, fe = at(pos(F));
+  const cx = (x0 + x1) / 2, cy = (y0 + y1) / 2, fe = at(pos(AN));
   const hx = cx + (fe.x - cx) * 0.55, hy = cy + (fe.y - cy) * 0.55;
   svg.appendChild(el("line", { x1: cx, y1: cy, x2: hx, y2: hy, stroke: "#e53935", "stroke-width": 3 }));
   const head = el("circle", { cx: hx, cy: hy, r: 10, fill: "#e53935", stroke: "#fff", "stroke-width": 2, class: "grab" });
