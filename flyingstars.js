@@ -68,8 +68,13 @@
     return { period: (((n % 9) + 9) % 9) + 1, start: 1864 + 20 * n, end: 1864 + 20 * n + 20 };
   }
 
+  /* Annual (流年紫白) centre star for a solar year (立春 to 立春): 2026 = 1, one lower each year.
+     Same rule on the site's Chinese Calendar page and in Sudo-Biao xuankong_advanced.py (1984 = 7). */
+  function annualCenter(year) { return ((((2026 - year) % 9) + 9) % 9) + 1; }
+  function annual(year) { return fly(annualCenter(year), 1); }   // annual stars always fly forward
+
   var api = { fly: fly, polarity: polarity, chart: chart, needsSubstitute: needsSubstitute,
-              periodOf: periodOf, SUB: SUB };
+              periodOf: periodOf, annualCenter: annualCenter, annual: annual, SUB: SUB };
   if (typeof module !== "undefined" && module.exports) module.exports = api;
   else root.FlyingStars = api;
 })(this);
