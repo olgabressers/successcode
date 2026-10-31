@@ -183,7 +183,6 @@
   .fs-info { font-size: 13px; line-height: 1.6; color: var(--text); margin-bottom: 12px; }
   .fs-info b { font-weight: 600; }
   .fs-info .warn { color: var(--gold-dim); }
-  .fs-tools { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
   .fs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; max-width: 232px; margin: 0 auto;
              border: 2px solid var(--text); }
   .fs-cell { position: relative; aspect-ratio: 1 / 1; border: 1px solid var(--border);
@@ -427,11 +426,6 @@ body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
   <div class="fs-panel">
     <div class="section-label" data-i18n="chartTitle"></div>
     <div class="fs-info" id="fs-info"></div>
-    <div class="fs-tools">
-      <button class="tool-btn" id="btn-auto" onclick="setChartMode('auto')" data-i18n="modeAuto"></button>
-      <button class="tool-btn" id="btn-orig" onclick="setChartMode('orig')" data-i18n="modeOrig"></button>
-      <button class="tool-btn" id="btn-sub"  onclick="setChartMode('sub')"  data-i18n="modeSub"></button>
-    </div>
     <div class="fs-grid" id="fs-grid"></div>
   </div>
   </div>
@@ -508,14 +502,7 @@ const I18N = {
     periodN: "Период {n}",
     months: ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],
     chartTitle: "Распределение звёзд · 飞星盘",
-    modeAuto: "По градусу", modeOrig: "Обычная схема · 下卦", modeSub: "Замещающая схема · 替卦",
     infoMtn: "Тыл <b>{s}</b> · фасад <b>{f}</b> · {deg}° по компасу",
-    infoOrig: "Обычная схема · 下卦",
-    infoSub: "Замещающая схема · 替卦",
-    infoWhyOrig: "фасад дальше 3° от края горы или на краю, где замещение не применяется",
-    infoWhySub: "фасад в пределах 3° от края горы ({off}° от начала сектора {m})",
-    infoSame: "здесь замещающая схема совпадает с обычной",
-    infoForced: "выбрано вручную",
     legM: "слева вверху — звезда горы · 山星", legB: "в центре — звезда периода · 运星", legF: "справа вверху — звезда фасада · 向星",
     tagFace: "向 · фасад", tagSit: "坐 · тыл",
     dirs: {4:"ЮВ",9:"Ю",2:"ЮЗ",3:"В",5:"Центр",7:"З",8:"СВ",1:"С",6:"СЗ"},
@@ -549,7 +536,7 @@ const I18N = {
     flipBtn: "Развернуть на 180°",
     mapHint: "Найдите дом в поиске выше. <b>Синюю линию поставьте вдоль фасада</b> — тяните за круглые ручки на её концах. <b>Золотая стрелка</b> идёт под 90° к фасаду: это и есть направление дома. Если она смотрит внутрь здания — нажмите «Развернуть на 180°». Маркер можно перетаскивать.",
     roFacing: "Компас", roTrue: "Истинное", roWall: "Фасад",
-    srcNote: "Схемы летящих звёзд для периодов 1–9, обычные и замещающие, сверены со всеми 432 схемами книги <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> (Wikibooks, CC BY-SA 4.0). Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
+    srcNote: "Схемы летящих звёзд для периодов 1–9 сверены со всеми 216 схемами книги <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> (Wikibooks, CC BY-SA 4.0). Таблица 24 гор — по «Шэнь ши сюань кун сюэ», раздел «Ай син». Магнитное склонение — модель WMM2025 (NOAA), действует до 31 декабря 2029 года."
   },
   en: {
     h1: "飞星 · Stars Distribution",
@@ -558,14 +545,7 @@ const I18N = {
     periodN: "Period {n}",
     months: ["January","February","March","April","May","June","July","August","September","October","November","December"],
     chartTitle: "Stars Distribution · 飞星盘",
-    modeAuto: "By degree", modeOrig: "Standard chart · 下卦", modeSub: "Substitute chart · 替卦",
     infoMtn: "Sitting <b>{s}</b> · facing <b>{f}</b> · {deg}° by compass",
-    infoOrig: "Standard chart · 下卦",
-    infoSub: "Substitute chart · 替卦",
-    infoWhyOrig: "facing more than 3° from a mountain edge, or on an edge where no substitute applies",
-    infoWhySub: "facing within 3° of a mountain edge ({off}° from the start of {m})",
-    infoSame: "here the substitute chart is identical to the standard one",
-    infoForced: "chosen manually",
     legM: "top left — mountain star · 山星", legB: "centre — period star · 运星", legF: "top right — facing star · 向星",
     tagFace: "向 · facing", tagSit: "坐 · sitting",
     dirs: {4:"SE",9:"S",2:"SW",3:"E",5:"Centre",7:"W",8:"NE",1:"N",6:"NW"},
@@ -599,7 +579,7 @@ const I18N = {
     flipBtn: "Flip 180°",
     mapHint: "Find the house with the search above. <b>Lay the blue line along the facade</b> — drag the round handles at its ends. The <b>gold arrow</b> sits at 90° to the facade: that is the house's facing. If it points into the building, press &quot;Flip 180°&quot;. The marker can be dragged.",
     roFacing: "Compass", roTrue: "True", roWall: "Facade",
-    srcNote: "Flying-star charts for Periods 1–9, standard and substitute, are checked against all 432 charts in the <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> book (Wikibooks, CC BY-SA 4.0). The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
+    srcNote: "Flying-star charts for Periods 1–9 are checked against all 216 charts in the <a href=\"https://en.wikibooks.org/wiki/Feng_Shui/Flying_Star_Feng_Shui\" target=\"_blank\" rel=\"noopener\">Feng Shui</a> book (Wikibooks, CC BY-SA 4.0). The 24-mountain table follows Shen's Xuan Kong Xue, the Ai Xing section. Magnetic declination uses the WMM2025 model (NOAA), valid to 31 December 2029."
   }
 };
 
@@ -957,7 +937,6 @@ function compute() {
    ============================================================ */
 const GUA_PAL = { "坎":1, "坤":2, "震":3, "巽":4, "乾":6, "兑":7, "艮":8, "离":9 };
 const CELL_ORDER = [4, 9, 2, 3, 5, 7, 8, 1, 6];   // South on top
-let CHART_MODE = "auto";
 
 function fillSelects() {
   const p = $("f-period"), keepP = p.value || "9";
@@ -965,7 +944,6 @@ function fillSelects() {
   for (let n = 1; n <= 9; n++) p.add(new Option(L().periodN.replace("{n}", n), String(n)));
   p.value = keepP;
 }
-function setChartMode(m) { CHART_MODE = m; compute(); }
 
 
 function renderStars() {
@@ -976,22 +954,10 @@ function renderStars() {
   const period = +$("f-period").value;
   const info = ["<b>" + t.periodN.replace("{n}", period) + "</b>"];
 
-  const off = Math.round(norm(cd - face.s) * 10) / 10;
-  const needSub = FlyingStars.needsSubstitute(face.i, norm(cd - face.s));
-  const useSub = CHART_MODE === "sub" || (CHART_MODE === "auto" && needSub);
-  const c = FlyingStars.chart(period, sitPal, pos, useSub);
-  const plain = FlyingStars.chart(period, sitPal, pos, false);
-  const same = useSub && [1,2,3,4,5,6,7,8,9].every(q => c.mountain[q] === plain.mountain[q] && c.facing[q] === plain.facing[q]);
+  const c = FlyingStars.chart(period, sitPal, pos, false);
 
   info.push(t.infoMtn.replace("{s}", sit.n).replace("{f}", face.n).replace("{deg}", r1(cd)));
-  let kind = "<b>" + (useSub ? t.infoSub : t.infoOrig) + "</b> · ";
-  if (CHART_MODE !== "auto") kind += t.infoForced;
-  else kind += needSub ? t.infoWhySub.replace("{off}", off).replace("{m}", face.n) : t.infoWhyOrig;
-  if (same) kind += " · " + t.infoSame;
-  info.push(kind);
   $("fs-info").innerHTML = info.join("<br>");
-
-  ["auto", "orig", "sub"].forEach(k => $("btn-" + k).classList.toggle("on", CHART_MODE === k));
 
   $("fs-grid").innerHTML = CELL_ORDER.map(q => {
     const cls = q === c.facePal ? " face" : q === c.sitPal ? " sit" : "";
