@@ -336,7 +336,11 @@
     }
     .req-submit:hover { background: var(--gold2); }
     .hero-side { display: flex; flex-direction: column; gap: 12px; max-width: 100%; }
-    .req-pay { display: flex; flex-direction: column; gap: 14px; margin: 6px 0 24px; }
+    .req-h { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; line-height: 1.2; color: var(--white); margin-bottom: 20px; }
+    .req-cost { font-size: 18px; color: var(--dim); margin-bottom: 20px; }
+    .req-col .contact-icons { margin-top: 24px; }
+    .hero-side .req-pay-btn { background: #fff; color: #2a0f10; }
+    .hero-side .req-pay-btn:hover { background: #f0ece6; }
     .req-pay-btns { display: flex; gap: 10px; flex-wrap: wrap; }
     .req-pay-btn {
       flex: 1 1 200px; text-align: center; padding: 14px 16px; font-size: 14.5px; line-height: 1.3;
@@ -392,6 +396,7 @@
       .btn-white, .btn-outline { padding: 14px 26px; }
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
+      .req-h { font-size: 26px; }
       .q-grid, .feat-grid, .req, .auth-stats, .auth-grid { grid-template-columns: 1fr; }
       .auth-grid { gap: 32px; }
       .auth-body p.auth-lead { font-size: 18px; }
@@ -632,35 +637,10 @@
 <!-- REQUEST -->
 <section id="request" class="s-light">
   <div class="wrap">
+    <div class="side-label">Регистрация</div>
     <div class="req">
-      <div class="req-copy">
-        <div class="side-label">Регистрация</div>
-        <h2 class="sec-h2">Для регистрации и ручной оплаты заполните форму</h2>
-        <div class="req-pay">
-          <p class="lead">Для автоматической оплаты €55 (5500 ₽) нажмите кнопку:</p>
-          <div class="req-pay-btns">
-            <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить на сайте Tribute</a>
-            <a class="req-pay-btn" href="https://t.me/tribute/app?startapp=s1bA3" target="_blank" rel="noopener">Оплатить в Telegram</a>
-          </div>
-        </div>
-        <div class="contact-icons">
-          <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
-          </a>
-          <a href="https://www.tiktok.com/@alena.successcode" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.2v12.9a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1-2.58-2.6 2.59 2.59 0 0 1 3.36-2.47V7.66a5.79 5.79 0 0 0-6.56 5.74 5.79 5.79 0 0 0 5.78 5.78 5.79 5.79 0 0 0 5.78-5.78V9.01a7.4 7.4 0 0 0 4.3 1.38V7.2a4.28 4.28 0 0 1-2.64-1.38z"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@Alena.successcode/shorts" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.5 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
-      </a>
-      <a href="mailto:successcode.tv@gmail.com" aria-label="Email">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </a>
-        </div>
-      </div>
+      <div class="req-col">
+      <h2 class="req-h">Для регистрации и ручной оплаты заполните форму</h2>
       <form class="req-form" action="https://formspree.io/f/xaqkqweb" method="POST">
         <input class="req-input" type="text"  name="name"  placeholder="Ваше имя" required>
         <input class="req-input" type="email" name="email" placeholder="Email" required>
@@ -709,6 +689,32 @@
         // ничего не отменяем — обычная отправка в Formspree продолжается
       });
       </script>
+      </div>
+      <div class="req-col">
+        <h2 class="req-h">Для автоматической оплаты нажмите кнопку:</h2>
+        <p class="req-cost">€55 (5500 ₽)</p>
+        <div class="req-pay-btns">
+          <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить на сайте Tribute</a>
+          <a class="req-pay-btn" href="https://t.me/tribute/app?startapp=s1bA3" target="_blank" rel="noopener">Оплатить в Telegram</a>
+        </div>
+        <div class="contact-icons">
+          <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@alena.successcode" target="_blank" rel="noopener" aria-label="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.2v12.9a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1-2.58-2.6 2.59 2.59 0 0 1 3.36-2.47V7.66a5.79 5.79 0 0 0-6.56 5.74 5.79 5.79 0 0 0 5.78 5.78 5.79 5.79 0 0 0 5.78-5.78V9.01a7.4 7.4 0 0 0 4.3 1.38V7.2a4.28 4.28 0 0 1-2.64-1.38z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/@Alena.successcode/shorts" target="_blank" rel="noopener" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.5 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
+      </a>
+      <a href="mailto:successcode.tv@gmail.com" aria-label="Email">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </section>
