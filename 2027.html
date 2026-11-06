@@ -293,6 +293,7 @@
     .req-copy .lead { margin-bottom: 20px; }
     .req-email { font-size: 15px; color: var(--dim); }
     .req-email a { color: var(--gold2); }
+    footer .req-email { margin-bottom: 16px; }
     .req-form { display: flex; flex-direction: column; gap: 14px; }
     .req-input, .req-textarea {
       width: 100%; background: var(--surface); border: 1px solid var(--border);
@@ -334,13 +335,14 @@
       transition: background .25s;
     }
     .req-submit:hover { background: var(--gold2); }
-    .req-pay { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+    .hero-side { display: flex; flex-direction: column; gap: 12px; max-width: 100%; }
+    .req-pay { display: flex; flex-direction: column; gap: 14px; margin: 6px 0 24px; }
     .req-pay-btns { display: flex; gap: 10px; flex-wrap: wrap; }
     .req-pay-btn {
       flex: 1 1 200px; text-align: center; padding: 14px 16px; font-size: 14.5px; line-height: 1.3;
-      color: var(--gold); border: 1px solid var(--gold); text-decoration: none; transition: background .2s;
+      color: #fff; background: #c62828; font-weight: 600; text-decoration: none; transition: background .2s;
     }
-    .req-pay-btn:hover { background: var(--gold-dim); }
+    .req-pay-btn:hover { background: #a91f1f; }
     .req-mini { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
     .special-cta {
       display: block; width: max-content; max-width: 100%; margin: 48px auto 0;
@@ -443,11 +445,18 @@
         <a href="#request" class="btn-white">Зарегистрироваться</a>
         <a href="#program" class="btn-outline">Программа</a>
       </div>
+      <div class="hero-side">
       <div class="date-badge">
         <div class="db-meta">
           <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">01.11 – 31.12.2026</div>
+          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
+          <div class="db-when">Остаётся с вами до конца 2027</div>
         </div>
+      </div>
+      <div class="req-pay-btns">
+        <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить на сайте Tribute</a>
+        <a class="req-pay-btn" href="https://t.me/tribute/app?startapp=s1bA3" target="_blank" rel="noopener">Оплатить в Telegram</a>
+      </div>
       </div>
     </div>
   </div>
@@ -525,7 +534,8 @@
       <div class="date-badge">
         <div class="db-meta">
           <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">01.11 – 31.12.2026</div>
+          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
+          <div class="db-when">Остаётся с вами до конца 2027</div>
         </div>
       </div>
     </div>
@@ -603,7 +613,8 @@
       <div class="date-badge">
         <div class="db-meta">
           <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">01.11 – 31.12.2026</div>
+          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
+          <div class="db-when">Остаётся с вами до конца 2027</div>
         </div>
       </div>
     </div>
@@ -624,10 +635,14 @@
     <div class="req">
       <div class="req-copy">
         <div class="side-label">Регистрация</div>
-        <h2 class="sec-h2">Оставьте заявку на участие</h2>
-        <p class="lead">Оставьте контакты — я напишу вам и пришлю все детали участия.</p>
-        <p class="req-email">Или напишите напрямую:
-          <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a></p>
+        <h2 class="sec-h2">Для регистрации и ручной оплаты заполните форму</h2>
+        <div class="req-pay">
+          <p class="lead">Для автоматической оплаты €55 (5500 ₽) нажмите кнопку:</p>
+          <div class="req-pay-btns">
+            <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить на сайте Tribute</a>
+            <a class="req-pay-btn" href="https://t.me/tribute/app?startapp=s1bA3" target="_blank" rel="noopener">Оплатить в Telegram</a>
+          </div>
+        </div>
         <div class="contact-icons">
           <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
             <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
@@ -672,13 +687,6 @@
             и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
         </div>
         <button class="req-submit" type="submit">Зарегистрироваться</button>
-        <div class="req-pay">
-          <span class="req-choice-label">Оплата участия, €55 (5500 ₽)</span>
-          <div class="req-pay-btns">
-            <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить на сайте Tribute</a>
-            <a class="req-pay-btn" href="https://t.me/tribute/app?startapp=s1bA3" target="_blank" rel="noopener">Оплатить в Telegram</a>
-          </div>
-        </div>
       </form>
       <script>
       // Одна регистрация — два независимых получателя.
@@ -714,6 +722,7 @@
       <a href="/ru/terms.html">Условия</a>
     </div>
   </div>
+  <p class="req-email">По всем вопросам пишите на <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a></p>
   <div class="footer-disclaimer">Материалы носят ориентировочный характер и не заменяют профессиональную помощь.</div>
   <small>© 2026 Код успеха. Все права защищены. Копирование, в т.ч. системами ИИ, запрещено. Часть изображений создана с помощью ИИ.</small>
 </footer>
