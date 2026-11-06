@@ -289,7 +289,7 @@
     .auth-cap { font-size: 14px; color: var(--dim); line-height: 1.5; }
 
     /* REQUEST FORM */
-    .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
     .req-copy .lead { margin-bottom: 20px; }
     .req-email { font-size: 15px; color: var(--dim); }
     .req-email a { color: var(--gold2); }
@@ -339,7 +339,8 @@
     .hero-side .hero-eyebrow { margin: 6px 0 0; }
     .req-h { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; line-height: 1.2; color: var(--white); margin-bottom: 20px; }
     .req-cost { font-size: 18px; color: var(--dim); margin-bottom: 20px; }
-    .req-col .contact-icons { margin-top: 24px; }
+    .req-col { display: flex; flex-direction: column; }
+    .req-col .contact-icons { margin-top: auto; padding-top: 24px; justify-content: flex-end; }
     .hero-side .req-pay-btn { background: #fff; color: #2a0f10; }
     .hero-side .req-pay-btn:hover { background: #f0ece6; }
     .req-pay-btns { display: flex; gap: 10px; flex-wrap: wrap; }
@@ -397,6 +398,7 @@
       .btn-white, .btn-outline { padding: 14px 26px; }
       section { padding: 58px 0; }
       .sec-h2 { font-size: 30px; }
+      .req-col .contact-icons { justify-content: flex-start; }
       .hero-eyebrow { font-size: 17px; letter-spacing: 3px; }
       .req-h { font-size: 26px; }
       .q-grid, .feat-grid, .req, .auth-stats, .auth-grid { grid-template-columns: 1fr; }
