@@ -541,18 +541,19 @@
     /* JOIN */
     .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
     .req-col { display: flex; flex-direction: column; }
-    .req-h { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; line-height: 1.2; color: var(--white); margin-bottom: 20px; }
-    .req-cost { font-size: 18px; color: var(--dim); margin-bottom: 20px; }
+    .req-h { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1.2; color: var(--white); margin-bottom: 14px; }
+    .req-cost { font-size: 16px; line-height: 1.6; color: var(--dim); margin-bottom: 16px; }
     #join .pay a { color: #fff; background: var(--gold); }
     #join .pay a:hover { background: var(--gold2); }
-    .form { display: flex; flex-direction: column; gap: 14px; }
-    .form input[type=text], .form input[type=email], .form input[type=tel], .form textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--white); padding: 14px 16px; font-family: inherit; font-size: 14px; }
+    .form { display: flex; flex-direction: column; gap: 10px; }
+    .form input[type=text], .form input[type=email], .form input[type=tel], .form textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--white); padding: 13px 16px; font-family: inherit; font-size: 15px; border-radius: 12px; }
     .form textarea { min-height: 96px; resize: vertical; }
-    .form input::placeholder, .form textarea::placeholder { color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
-    .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+    .form input::placeholder, .form textarea::placeholder { color: var(--muted); font-size: 15px; }
+    .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--dim); line-height: 1.5; }
     .consent a { color: var(--gold2); }
-    .form button { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; color: #f5f1eb; background: var(--gold); padding: 16px; border: none; cursor: pointer; }
-    .req-email { font-size: 17px; color: var(--dim); margin-top: 24px; }
+    .form button { font-family: inherit; font-size: 14.5px; font-weight: 600; color: #f5f1eb; background: var(--gold); padding: 14px 16px; border: none; cursor: pointer; }
+    .form button:hover { background: var(--gold2); }
+    .req-email { font-size: 16px; color: var(--dim); margin-top: 20px; }
     .req-email a { color: var(--gold2); }
     .icons { display: flex; gap: 16px; justify-content: flex-end; flex-wrap: wrap; margin-top: auto; padding-top: 24px; }
     .icons a { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold2); transition: background .2s; }
@@ -638,7 +639,7 @@
     .box.hl .box-d, .yr.hl p { color: #f6e3e3; border-top-color: rgba(255,255,255,.25); }
     .quote { color: var(--red-l); }
     .s-light .quote { color: var(--red); }
-    .join-quote { margin-top: 0; margin-bottom: 20px; font-style: normal; }
+    .join-h { color: var(--red); margin-bottom: 22px; }
     .auth-role { color: var(--red); }
     .grid9 .c { background: var(--red); border-color: var(--red); }
     .reasons p b, .s-light .trends li span { color: var(--red-l); }
@@ -839,7 +840,7 @@
 
 <section id="join" class="s-light">
   <div class="wrap">
-    <p class="quote join-quote">Telegram-канал «Ваш 2027 — Код Успеха». Идёт прямо сейчас, присоединяйтесь!</p>
+    <h2 class="sec-h2 join-h">Telegram-канал «Ваш 2027 — Код Успеха». Идёт прямо сейчас, присоединяйтесь!</h2>
     <div class="req">
       <div class="req-col">
         <h2 class="req-h">Для регистрации и ручной оплаты заполните форму</h2>
