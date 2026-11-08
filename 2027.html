@@ -20,370 +20,563 @@
   <meta name="twitter:title" content="Код успеха 2027 — Год Огненной Козы">
   <meta name="twitter:description" content="Событие о наступающем годе Огненной Козы. Telegram live-канал 01.11 – 31.12.2026.">
   <meta name="twitter:image" content="https://successcode.net/assets/year-of-goat-2027.png">
-  <link rel="stylesheet" href="/assets/fonts/fonts.css">
+  <style>
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-italic-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-italic-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-italic-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-italic-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-300-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-400-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-500-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-600-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-600-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-600-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/cormorant-garamond-600-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/inter-300-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/inter-300-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/inter-300-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(/assets/fonts/inter-300-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/inter-400-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/inter-400-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/inter-400-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(/assets/fonts/inter-400-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/inter-500-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/inter-500-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/inter-500-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(/assets/fonts/inter-500-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/inter-600-normal-cyrillic-ext.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/inter-600-normal-cyrillic.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/inter-600-normal-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(/assets/fonts/inter-600-normal-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+</style>
   <style>
     :root {
-      --black:    #3a3c48;
-      --surface:  #42444e;
-      --surface2: #4a4c58;
-      --gold:     #b8903a;
-      --gold2:    #cfa44e;
-      --gold-dim: rgba(184,144,58,0.10);
-      --white:    #eceef8;
-      --dim:      #d4d6e8;
-      --muted:    #c0c2d4;
-      --border:   rgba(184,144,58,0.25);
+      --black: #3a3c48; --surface: #42444e; --surface2: #4a4c58;
+      --gold: #b8903a; --gold2: #cfa44e; --gold-dim: rgba(184,144,58,0.10);
+      --white: #eceef8; --dim: #d4d6e8; --muted: #c0c2d4; --border: rgba(184,144,58,0.25);
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
-    body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--black); color: var(--white);
-      line-height: 1.6; -webkit-font-smoothing: antialiased;
-    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--black); color: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
     a { color: inherit; }
     .wrap { max-width: 1180px; margin: 0 auto; padding: 0 56px; }
 
-    /* NAV */
-    nav {
-      position: sticky; top: 0; z-index: 40;
-      padding: 16px 34px;
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      background: rgba(52,54,64,0.98);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(8px);
-    }
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 18px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--white); text-decoration: none;
-    }
+    nav { position: sticky; top: 0; z-index: 40; padding: 16px 34px; display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      background: rgba(52,54,64,0.98); border-bottom: 1px solid var(--border); backdrop-filter: blur(8px); }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; color: var(--white); text-decoration: none; }
     .nav-sections { display: flex; gap: 18px; align-items: center; margin-left: auto; flex-wrap: nowrap; }
-    .nav-link {
-      font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap;
-      color: var(--white); font-weight: 600; text-decoration: none; transition: color .25s;
-    }
+    .nav-link { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; white-space: nowrap; color: var(--white); font-weight: 600; text-decoration: none; transition: color .25s; }
     .nav-link:hover { color: var(--gold2); }
     .nav-links { display: flex; gap: 12px; align-items: center; }
-    .nav-btn {
-      font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600; white-space: nowrap;
-      color: #f5f1eb; background: var(--gold); padding: 10px 16px; text-decoration: none;
-      transition: background .25s;
-    }
+    .nav-btn { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600; white-space: nowrap; color: #f5f1eb; background: var(--gold); padding: 10px 16px; text-decoration: none; transition: background .25s; }
     .nav-btn:hover { background: var(--gold2); }
     .lang-switch { display: inline-flex; align-items: center; border: 1px solid var(--border); }
-    .lang-switch a {
-      font-size: 11px; letter-spacing: 2px; font-weight: 600; color: var(--muted);
-      padding: 8px 12px; font-family: 'Inter', sans-serif; text-decoration: none;
-      transition: background .2s, color .2s;
-    }
+    .lang-switch a { font-size: 11px; letter-spacing: 2px; font-weight: 600; color: var(--muted); padding: 8px 12px; text-decoration: none; }
     .lang-switch a.active { background: var(--gold); color: #f5f1eb; }
-    .lang-switch a:not(.active):hover { color: var(--gold2); }
 
-    /* back-to-top arrow (site-wide rule) */
-    .back-to-top {
-      position: fixed; bottom: 32px; right: 32px; width: 54px; height: 54px;
-      background: var(--gold); color: #f5f1eb; display: flex; align-items: center; justify-content: center;
-      text-decoration: none; border: 1px solid var(--gold); z-index: 250;
-      opacity: 0; pointer-events: none; cursor: pointer;
-      transition: opacity .3s, background .25s, transform .25s;
-    }
-    .back-to-top.visible { opacity: 1; pointer-events: auto; }
-    .back-to-top:hover { background: var(--gold2); transform: translateY(-2px); }
-    .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
-
-    /* HERO — full-bleed image, title overlaid */
-    .hero {
-      position: relative; min-height: 88vh;
-      display: flex; align-items: flex-end;
-      background: #1c0a0b; overflow: hidden;
-      border-bottom: 1px solid var(--border);
-    }
-    .hero-bg {
-      position: absolute; inset: 0; width: 100%; height: 100%;
-      object-fit: cover; object-position: center; z-index: 0;
-    }
-    .hero::after {
-      content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-      background: linear-gradient(180deg,
-        rgba(20,8,9,0.30) 0%, rgba(20,8,9,0) 26%,
-        rgba(20,8,9,0.52) 60%, rgba(20,8,9,0.94) 100%);
-    }
-    .hero-inner {
-      position: relative; z-index: 2; width: 100%;
-      max-width: 1180px; margin: 0 auto; padding: 0 56px 64px;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 16px;
-      font-size: 20px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold2); margin-bottom: 18px; font-weight: 700;
-      text-shadow: 0 2px 12px rgba(0,0,0,.6);
-    }
+    /* HERO — as on /2027 */
+    .hero { position: relative; min-height: 60vh; display: flex; align-items: flex-end; background: #1c0a0b; overflow: hidden; border-bottom: 1px solid var(--border); }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 30%; z-index: 0; }
+    .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+      background: linear-gradient(180deg, rgba(20,8,9,0.30) 0%, rgba(20,8,9,0) 26%, rgba(20,8,9,0.52) 60%, rgba(20,8,9,0.94) 100%); }
+    .hero-inner { position: relative; z-index: 2; width: 100%; max-width: 1180px; margin: 0 auto; padding: 40px 56px 36px; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 16px; font-size: 20px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold2); margin-bottom: 18px; font-weight: 700; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
     .hero-eyebrow::before { content: ''; width: 40px; height: 2px; background: var(--gold2); }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(48px, 6vw, 94px); font-weight: 300; line-height: 1.0;
-      letter-spacing: -1px; color: #fff; text-shadow: 0 3px 24px rgba(0,0,0,.55);
-    }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 6vw, 94px); font-weight: 300; line-height: 1.0; letter-spacing: -1px; color: #fff; text-shadow: 0 3px 24px rgba(0,0,0,.55); }
     .hero h1 em { font-style: italic; color: var(--gold2); }
-    .hero-bottom {
-      display: flex; justify-content: space-between; align-items: flex-end;
-      gap: 24px; flex-wrap: wrap; margin-top: 36px;
-    }
-    .date-badge {
-      display: inline-flex; align-items: center; gap: 14px;
-      border: 1px solid rgba(255,255,255,0.25); border-left: 3px solid var(--gold2);
-      background: rgba(20,8,9,0.55); backdrop-filter: blur(4px);
-      padding: 13px 20px;
-    }
-    .date-badge .db-day {
-      font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600;
-      color: var(--gold2); line-height: 1;
-    }
+    .hero-text { font-size: 18px; line-height: 1.6; color: #f1ebe2; max-width: 720px; margin-top: 18px; text-shadow: 0 2px 12px rgba(0,0,0,.6); }
+    .hero-text b { color: #fff; }
+    .hero-inner { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end; }
+    .hero-side { display: flex; flex-direction: column; gap: 12px; width: 420px; }
+    .hero-side .date-badge { display: flex; }
+    .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-top: 36px; }
+    .date-badge { display: inline-flex; align-items: center; gap: 14px; border: 1px solid rgba(255,255,255,0.25); border-left: 3px solid var(--gold2); background: rgba(20,8,9,0.55); backdrop-filter: blur(4px); padding: 13px 20px; }
     .date-badge .db-meta { display: flex; flex-direction: column; gap: 3px; }
-    .date-badge .db-dow {
-      font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold2); font-weight: 700;
-    }
+    .date-badge .db-dow { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold2); font-weight: 700; }
     .date-badge .db-when { font-size: 13px; color: #e8e0d6; letter-spacing: .5px; }
-    .date-badge .db-online {
-      font-size: 13px; color: var(--gold2); font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase;
-    }
-    .special-note {
-      display: block; width: max-content; max-width: 100%; margin-top: 24px;
-      background: var(--gold); color: #2a0f10;
-      font-weight: 700; font-size: 14px; letter-spacing: 1.2px; text-transform: uppercase;
-      padding: 13px 22px; box-shadow: 0 8px 26px rgba(0,0,0,.4);
-    }
-    .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 0; }
-    .btn-white {
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: #2a0f10; background: #fff; padding: 16px 40px; text-decoration: none;
-      transition: background .25s, color .25s;
-    }
-    .btn-white:hover { background: var(--gold2); }
-    .btn-outline {
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: #fff; border: 1px solid rgba(255,255,255,0.5); padding: 16px 40px;
-      text-decoration: none; transition: border-color .25s, color .25s;
-    }
-    .btn-outline:hover { border-color: var(--gold2); color: var(--gold2); }
+    .pay { display: flex; gap: 10px; flex-wrap: wrap; }
+    .pay a { flex: 1 1 200px; text-align: center; padding: 14px 16px; font-size: 14.5px; line-height: 1.3; font-weight: 600; text-decoration: none; transition: background .2s; color: #f5f1eb; background: var(--gold); }
+    .pay a:hover { background: var(--gold2); }
+    .hero .pay a { flex: 1 1 0; }
+    .hero h1 { white-space: nowrap; font-size: clamp(34px, 4.4vw, 70px); }
+    .boxes.five { grid-template-columns: repeat(5, 1fr); gap: 16px; }
+    .boxes.three { grid-template-columns: repeat(3, 1fr); }
+    .after-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 20px; flex-wrap: wrap; }
+    .after-pay { flex: 0 0 420px; }
+    .after-pay a { flex: 1 1 0; }
 
-    .btn-gold {
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: #f5f1eb; background: var(--gold); padding: 16px 40px; text-decoration: none;
-      transition: background .25s;
-    }
-    .btn-gold:hover { background: var(--gold2); }
-    .btn-ghost {
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: var(--white); border: 1px solid var(--border); padding: 16px 40px;
-      text-decoration: none; transition: border-color .25s, color .25s;
-    }
-    .btn-ghost:hover { border-color: var(--gold); color: var(--gold2); }
+    /* light section override — as on /2027 */
+    .s-light { --black: #f8f6f1; --surface: #ffffff; --surface2: #f2efe8; --gold: #9a6e20; --gold2: #b8882a; --gold-dim: rgba(154,110,32,0.08);
+      --white: #1e1c28; --dim: #3a3844; --muted: #6a6878; --border: rgba(154,110,32,0.20); background: #f8f6f1; color: #1e1c28; }
 
-    /* light section override */
-    .s-light {
-      --black:    #f8f6f1;
-      --surface:  #ffffff;
-      --surface2: #f2efe8;
-      --gold:     #9a6e20;
-      --gold2:    #b8882a;
-      --gold-dim: rgba(154,110,32,0.08);
-      --white:    #1e1c28;
-      --dim:      #3a3844;
-      --muted:    #6a6878;
-      --border:   rgba(154,110,32,0.20);
-      background: #f8f6f1; color: #1e1c28;
-    }
-
-    /* SECTION scaffold */
-    section { padding: 88px 0; border-bottom: 1px solid var(--border); }
-    .side-label {
-      display: flex; align-items: center; gap: 16px;
-      font-size: 13px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--gold); font-weight: 600; margin-bottom: 22px;
-    }
+    section { padding: 36px 0; border-bottom: 1px solid var(--border); }
+    .side-label { display: flex; align-items: center; gap: 16px; font-size: 13px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-bottom: 12px; }
     .side-label::before { content: ''; width: 44px; height: 2px; background: var(--gold); }
-    .sec-head {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 32px; flex-wrap: wrap; margin-bottom: 26px;
-    }
-    .sec-head-copy { min-width: 0; flex: 1 1 320px; }
-    .sec-head .sec-h2 { margin-bottom: 0; }
-    .sec-head .date-badge { flex-shrink: 0; }
-    .sec-h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.08;
-      color: var(--white); margin-bottom: 26px;
-    }
-    .lead { font-size: 17px; line-height: 1.8; color: var(--dim); max-width: 760px; }
-    .lead b { color: var(--white); font-weight: 600; }
+    .sec-h2 { font-family: 'Cormorant Garamond', serif; font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.08; color: var(--white); margin-bottom: 8px; }
+    .lead { font-size: 17px; line-height: 1.6; color: var(--dim); max-width: 760px; }
+    .after { margin-top: 20px; }
 
-    /* KEY QUESTIONS — 3 cards */
-    .q-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-top: 44px; }
-    .q-card {
-      position: relative; overflow: hidden;
-      background: var(--surface); border: 1px solid var(--border); padding: 34px 30px;
-      min-height: 220px; display: flex; align-items: flex-end;
-    }
-    .q-card::before {
-      content: ''; position: absolute; inset: 0; z-index: 0;
-      background-image: url('/assets/year-of-goat-2027.png');
-      background-size: cover; background-position: center;
-    }
-    /* goat image behind each box — transparency graduates from bigger (faint) to smaller (stronger) */
-    .q-card:nth-child(1)::before { opacity: 0.10; }
-    .q-card:nth-child(2)::before { opacity: 0.20; }
-    .q-card:nth-child(3)::before { opacity: 0.30; }
-    .q-text {
-      position: relative; z-index: 1;
-      font-family: 'Cormorant Garamond', serif; font-size: 23px; font-weight: 500;
-      color: var(--white); line-height: 1.35;
-    }
+    /* BOXES — 4 in a row, rounded */
+    .boxes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 18px; }
+    .box { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 20px 22px; display: flex; flex-direction: column; }
+    .box-n { font-family: 'Cormorant Garamond', serif; font-size: 28px; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+    .box-t { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600; line-height: 1.2; color: var(--white); margin-bottom: 6px; }
+    .box-d { font-size: 14.5px; color: var(--dim); line-height: 1.55; margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); }
+    .box.wide { grid-column: 1 / -1; flex-direction: row; align-items: center; gap: 28px; }
+    .box.wide .box-n, .box.wide .box-t { margin-bottom: 0; }
+    .box.wide .box-d { margin-top: 0; padding-top: 0; border-top: 0; padding-left: 28px; border-left: 1px solid var(--border); }
 
-    /* PROGRAM — numbered list */
-    .prog { margin-top: 44px; display: flex; flex-direction: column; gap: 2px;
-            background: var(--border); border: 1px solid var(--border); }
-    .prog-item { background: var(--surface); padding: 26px 30px; display: flex; gap: 26px; align-items: baseline; }
-    .prog-num {
-      font-family: 'Cormorant Garamond', serif; font-size: 34px; color: var(--gold);
-      line-height: 1; min-width: 54px; flex-shrink: 0;
-    }
-    .prog-body { display: flex; flex-direction: column; gap: 6px; }
-    .prog-title {
-      font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 600;
-      color: var(--white); line-height: 1.2;
-    }
-    .prog-desc { font-size: 14.5px; color: var(--dim); line-height: 1.6; }
+    /* PERIOD */
+    .period { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .quote { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; line-height: 1.3; color: var(--gold2); margin-top: 22px; }
+    .trends { columns: 3; column-gap: 28px; }
+    .trends li { list-style: none; break-inside: avoid; font-size: 15px; color: var(--white); padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .trends li span { color: var(--gold); margin-right: 10px; }
+    .years { margin-top: 28px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .yr { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; padding: 24px 26px; }
+    .yr b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 600; color: var(--gold); line-height: 1; margin-bottom: 10px; }
+    .yr p { font-size: 14.5px; color: var(--dim); line-height: 1.6; }
 
-    /* BENEFITS */
-    .feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-                 background: var(--border); border: 1px solid var(--border); margin-top: 44px; }
-    .feat { background: var(--surface); padding: 32px 28px; }
-    .feat-name {
-      font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600;
-      color: var(--gold2); margin-bottom: 10px;
-    }
-    .feat-desc { font-size: 14.5px; color: var(--dim); line-height: 1.65; }
+    /* NINE */
+    .keypoint { margin-top: 18px; padding: 16px 20px; border-left: 3px solid var(--red-l); background: var(--surface); font-size: 18px; line-height: 1.6; font-weight: 500; color: #f5f1eb; }
+    .nine { display: grid; grid-template-columns: 250px 1fr; gap: 48px; align-items: center; }
+    .grid9 { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 6px; aspect-ratio: 1; height: auto; align-self: center; }
+    .grid9 div { border: 1px solid var(--border); border-radius: 10px; background: var(--surface); }
+    .grid9 .c { display: flex; align-items: center; justify-content: center; font-family: 'Cormorant Garamond', serif; font-size: 64px; color: #f5f1eb; background: var(--gold); border-color: var(--gold); }
+    .reasons p { font-size: 16px; color: var(--dim); line-height: 1.7; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .reasons p b { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--gold2); margin-right: 10px; }
 
+    /* AUTHOR — as on /2027 */
+    .auth { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+    .auth-role { font-size: 20px; color: var(--gold2); margin-bottom: 20px; font-weight: 600; }
+    .auth p.b { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
+    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 26px; }
+    .stat { background: var(--surface); padding: 24px 26px; }
+    .stat b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: var(--gold2); line-height: 1; margin-bottom: 8px; }
+    .stat span { font-size: 14px; color: var(--dim); }
+    .video-cap { font-size: 15px; font-weight: 600; color: var(--gold2); line-height: 1.4; margin-bottom: 14px; }
+    .video { position: relative; display: block; width: 100%; padding-top: 56.25%; background: #000 center/cover no-repeat; border: 1px solid var(--border); cursor: pointer; }
+    .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 70px; height: 70px; border-radius: 50%; background: rgba(20,8,9,.72); border: 1px solid #fff; display: flex; align-items: center; justify-content: center; }
+    .video-play svg { width: 24px; height: 24px; fill: #fff; margin-left: 4px; }
 
-    /* AUTHOR */
-    .auth-body p.auth-lead { font-size: 20px; color: var(--gold2); margin-bottom: 20px; font-weight: 600; }
-    .auth-body { max-width: 760px; }
-    .auth-body p { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
-    .auth-body p:last-child { margin-bottom: 0; }
-    .auth-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
-    .auth-grid .auth-body { max-width: 100%; }
-    .auth-video-title {
-      font-size: 15px; font-weight: 600; color: var(--gold2); line-height: 1.4;
-      margin-bottom: 14px;
-    }
-    .video-embed { position: relative; width: 100%; padding-top: 56.25%; background: #000; border: 1px solid var(--border); }
-    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
-    .auth-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
-                  background: var(--border); border: 1px solid var(--border); margin-top: 36px; }
-    .auth-stat { background: var(--surface); padding: 24px 26px; }
-    .auth-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600;
-                color: var(--gold2); line-height: 1; margin-bottom: 8px; }
-    .auth-cap { font-size: 14px; color: var(--dim); line-height: 1.5; }
+    /* REVIEWS — as on /2027 */
+    .tst-hint { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 0 0 18px; }
+    .tst { display: flex; gap: 22px; overflow-x: auto; padding-bottom: 18px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
+    .tst p { flex: 0 0 380px; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--border); padding: 30px 28px; font-size: 14.5px; color: var(--dim); line-height: 1.75; }
 
-    /* REQUEST FORM */
+    /* JOIN */
     .req { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: stretch; }
-    .req-copy .lead { margin-bottom: 20px; }
-    .req-email { font-size: 15px; color: var(--dim); }
-    .req-email a { color: var(--gold2); }
-    #request .req-email { margin-top: 24px; font-size: 17px; }
-    .req-form { display: flex; flex-direction: column; gap: 14px; }
-    .req-input, .req-textarea {
-      width: 100%; background: var(--surface); border: 1px solid var(--border);
-      color: var(--white); padding: 14px 16px; font-family: 'Inter', sans-serif;
-      font-size: 14px; letter-spacing: .5px;
-    }
-    .req-input::placeholder, .req-textarea::placeholder { color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
-    .req-input:focus, .req-textarea:focus { outline: none; border-color: var(--gold); }
-    .req-textarea { min-height: 96px; resize: vertical; }
-    .req-choice { display: flex; flex-direction: column; gap: 10px; }
-    .req-choice-label {
-      font-size: 12px; letter-spacing: 1px; text-transform: uppercase;
-      color: var(--muted); font-weight: 600;
-    }
-    .req-opt {
-      display: flex; gap: 12px; align-items: flex-start; cursor: pointer;
-      background: var(--surface); border: 1px solid var(--border);
-      padding: 14px 16px; transition: border-color .25s;
-    }
-    .req-opt:hover { border-color: var(--gold); }
-    .req-opt input { margin-top: 3px; accent-color: var(--gold); flex-shrink: 0; }
-    .req-opt-text { display: flex; flex-direction: column; gap: 3px; }
-    .req-opt-head { display: flex; align-items: baseline; gap: 0; flex-wrap: wrap; }
-    .req-opt-name { font-size: 14.5px; color: var(--white); line-height: 1.4; }
-    .req-opt-price { font-size: 14.5px; color: var(--white); line-height: 1.4; white-space: nowrap; }
-    .req-opt-note { font-size: 13px; color: var(--dim); line-height: 1.5; }
-    .req-opt-fine { font-size: 13px; color: var(--muted); line-height: 1.5; }
-    .req-opt-seats {
-      align-self: flex-start; font-size: 13.5px; font-weight: 700; color: var(--white);
-      background: var(--gold-dim); border-left: 2px solid var(--gold);
-      padding: 7px 11px; line-height: 1.45; margin-top: 2px;
-    }
-    .consent-row { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
-    .consent-row input { margin-top: 3px; accent-color: var(--gold); }
-    .consent-row a { color: var(--gold2); }
-    .req-submit {
-      font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600;
-      color: #f5f1eb; background: var(--gold); padding: 16px; border: none; cursor: pointer;
-      transition: background .25s;
-    }
-    .req-submit:hover { background: var(--gold2); }
-    .hero-side { display: flex; flex-direction: column; gap: 12px; max-width: 100%; }
-    .hero-side .hero-eyebrow { margin: 6px 0 0; }
+    .req-col { display: flex; flex-direction: column; }
     .req-h { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 400; line-height: 1.2; color: var(--white); margin-bottom: 20px; }
     .req-cost { font-size: 18px; color: var(--dim); margin-bottom: 20px; }
-    .req-col { display: flex; flex-direction: column; }
-    .req-col .contact-icons { margin-top: auto; padding-top: 24px; justify-content: flex-end; }
-    .hero-side .req-pay-btn { background: var(--gold); color: #f5f1eb; }
-    .hero-side .req-pay-btn:hover { background: var(--gold2); }
-    .req-pay-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-    .req-pay-btn {
-      flex: 1 1 200px; text-align: center; padding: 14px 16px; font-size: 14.5px; line-height: 1.3;
-      color: #fff; background: #c62828; font-weight: 600; text-decoration: none; transition: background .2s;
-    }
-    .req-pay-btn:hover { background: #a91f1f; }
-    .req-mini { font-size: 12.5px; color: var(--muted); margin-top: 4px; }
-    .special-cta {
-      display: block; width: max-content; max-width: 100%; margin: 48px auto 0;
-      text-align: center; background: var(--gold); color: #2a0f10;
-      font-weight: 700; font-size: 15px; letter-spacing: 1px; text-transform: uppercase;
-      padding: 18px 34px; text-decoration: none;
-      box-shadow: 0 10px 30px rgba(154,110,32,0.28); transition: background .25s;
-    }
-    .special-cta:hover { background: var(--gold2); }
+    #join .pay a { color: #fff; background: var(--gold); }
+    #join .pay a:hover { background: var(--gold2); }
+    .form { display: flex; flex-direction: column; gap: 14px; }
+    .form input[type=text], .form input[type=email], .form input[type=tel], .form textarea { width: 100%; background: var(--surface); border: 1px solid var(--border); color: var(--white); padding: 14px 16px; font-family: inherit; font-size: 14px; }
+    .form textarea { min-height: 96px; resize: vertical; }
+    .form input::placeholder, .form textarea::placeholder { color: var(--muted); letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
+    .consent { display: flex; gap: 10px; align-items: flex-start; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+    .consent a { color: var(--gold2); }
+    .form button { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; color: #f5f1eb; background: var(--gold); padding: 16px; border: none; cursor: pointer; }
+    .req-email { font-size: 17px; color: var(--dim); margin-top: 24px; }
+    .req-email a { color: var(--gold2); }
+    .icons { display: flex; gap: 16px; justify-content: flex-end; flex-wrap: wrap; margin-top: auto; padding-top: 24px; }
+    .icons a { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--gold2); transition: background .2s; }
+    .icons a:hover { background: var(--gold); border-color: var(--gold); color: #fff; }
+    .icons svg { width: 22px; height: 22px; fill: currentColor; }
 
-    /* REVIEWS */
-    .tst-hint { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin: 6px 0 30px; }
-    .tst-scroll { display: flex; gap: 22px; overflow-x: auto; padding-bottom: 18px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; }
-    .tst-card { flex: 0 0 380px; scroll-snap-align: start; background: var(--surface); border: 1px solid var(--border); padding: 30px 28px; }
-    .tst-text { font-size: 14.5px; color: var(--dim); line-height: 1.75; }
-
-    /* CONTACT ICONS (registration) */
-    .contact-icons { display: flex; gap: 16px; justify-content: flex-start; flex-wrap: wrap; margin-top: 22px; }
-    .contact-icons a { width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; color: var(--gold2);
-      transition: background .2s, border-color .2s, color .2s, transform .2s; }
-    .contact-icons a:hover { background: var(--gold); border-color: var(--gold); color: #fff; transform: translateY(-2px); }
-    .contact-icons svg { width: 22px; height: 22px; fill: currentColor; }
-
-    /* FOOTER */
     footer { padding: 38px 56px 26px; background: var(--surface); }
     .footer-top { display: flex; justify-content: space-between; align-items: center; gap: 32px; flex-wrap: wrap; margin-bottom: 18px; }
     .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; color: var(--dim); }
     .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
-    .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color .2s; font-weight: 500; }
-    .footer-links a:hover { color: var(--gold2); }
+    .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); text-decoration: none; font-weight: 500; }
     .footer-disclaimer { max-width: 980px; font-size: 11px; line-height: 1.6; color: var(--muted); padding-top: 16px; border-top: 1px solid var(--border); margin-bottom: 10px; }
     footer small { font-size: 12px; color: var(--muted); letter-spacing: 1px; }
 
-    /* MOBILE */
+    .back-to-top { position: fixed; bottom: 32px; right: 32px; width: 54px; height: 54px; background: var(--gold); display: flex; align-items: center; justify-content: center; text-decoration: none; border: 1px solid var(--gold); z-index: 250; opacity: 0; pointer-events: none; cursor: pointer; transition: opacity .3s; }
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+    .back-to-top svg { width: 18px; height: 18px; stroke: #f5f1eb; fill: none; stroke-width: 2.5; }
+
+    @media (max-width: 1000px) {
+      .boxes, .years { grid-template-columns: repeat(2, 1fr); }
+      .boxes.five { grid-template-columns: repeat(2, 1fr); }
+      .boxes.three { grid-template-columns: 1fr; }
+      .period, .nine { grid-template-columns: 1fr; gap: 36px; }
+      .grid9 { max-width: 300px; width: 100%; }
+      .trends { columns: 2; }
+    }
     @media (max-width: 768px) {
       * { max-width: 100vw; }
       img, iframe, video, table { max-width: 100% !important; }
@@ -391,33 +584,63 @@
       nav { padding: 14px 22px; flex-wrap: wrap; gap: 12px 14px; }
       .nav-sections { gap: 14px; width: 100%; order: 3; justify-content: center; flex-wrap: wrap; }
       .nav-links { margin-left: auto; }
-      .hero { min-height: 80vh; }
+      .hero { min-height: 52vh; }
       .hero-inner { padding: 0 22px 42px; }
-      .hero h1 { font-size: 46px; }
-      .special-note { font-size: 12px; letter-spacing: .6px; padding: 12px 16px; white-space: normal; }
-      .btn-white, .btn-outline { padding: 14px 26px; }
-      section { padding: 58px 0; }
+      .hero h1 { font-size: 38px !important; white-space: normal !important; line-height: 1.1; }
+      .hero h1 em { white-space: nowrap; text-shadow: 0 2px 10px rgba(0,0,0,.95), 0 0 24px rgba(0,0,0,.8); }
+      .side-label { font-size: 11.5px; letter-spacing: 2px; gap: 10px; align-items: flex-start; }
+      .side-label::before { flex: 0 0 24px; margin-top: 7px; }
+      .boxes.five .box:last-child { grid-column: 1 / -1; }
+      .grid9 .c { line-height: 1; }
+      .grid9 div { min-height: 0; }
+      .hero-eyebrow { font-size: 15px; letter-spacing: 3px; }
+      .hero-text { font-size: 16px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 28px; }
+      .hero-side { width: 100%; }
+      section { padding: 28px 0; }
+      .after-pay { flex: 1 1 100%; }
       .sec-h2 { font-size: 30px; }
-      .req-col .contact-icons { justify-content: flex-start; }
-      .hero-eyebrow { font-size: 17px; letter-spacing: 3px; }
-      .req-h { font-size: 26px; }
-      .q-grid, .feat-grid, .req, .auth-stats, .auth-grid { grid-template-columns: 1fr; }
-      .auth-grid { gap: 32px; }
-      .auth-body p.auth-lead { font-size: 18px; }
-      .auth-body p { font-size: 15px; }
-      .sec-head { flex-direction: column; gap: 20px; }
-      .sec-head-copy { flex: 0 0 auto; width: 100%; }
-      .sec-head .date-badge { align-self: flex-start; }
-      .date-badge { max-width: 100%; gap: 12px; padding: 12px 16px; }
-      .date-badge .db-meta { min-width: 0; }
-      .date-badge .db-when { font-size: 12.5px; letter-spacing: .2px; }
-      .tst-card { flex-basis: 82vw; }
-      .prog-item { gap: 18px; padding: 22px 22px; }
-      .prog-num { font-size: 28px; min-width: 40px; }
-      .prog-title { font-size: 21px; }
+      .stats, .req, .auth { grid-template-columns: 1fr; }
+      .boxes, .boxes.five, .years { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .boxes.three { grid-template-columns: 1fr; gap: 10px; }
+      .box { padding: 14px 14px; border-radius: 14px; }
+      .box-n { font-size: 22px; margin-bottom: 4px; }
+      .box-t { font-size: 18px; }
+      .box-d { font-size: 13.5px; padding-top: 8px; }
+      .yr { padding: 14px; border-radius: 14px; }
+      .years { margin-top: 18px; }
+      .trends li { font-size: 14px; padding: 6px 0; }
+      .grid9 { max-width: 170px; margin: 0 auto; }
+      .period, .nine { gap: 20px !important; }
+      .hero-inner { padding: 28px 16px 28px; }
+      .wrap { padding: 0 16px; }
+      .box.wide { flex-direction: column; align-items: flex-start; gap: 10px; }
+      .box.wide .box-d { padding-left: 0; border-left: 0; padding-top: 12px; border-top: 1px solid var(--border); }
+      .trends { columns: 2; column-gap: 16px; }
+      .quote { font-size: 24px; }
+      .grid9 .c { font-size: 44px; }
+      .icons { justify-content: flex-start; }
+      .tst p { flex-basis: 82vw; }
       .back-to-top { width: 46px; height: 46px; bottom: 22px; right: 22px; }
       footer { padding: 30px 22px 22px; }
     }
+    /* red highlights (from the previous version) */
+    :root { --red: #9c1a24; --red-l: #e0636b; }
+    .box { border-top: 3px solid var(--red); }
+    .s-light .box-n, .s-light .yr b { color: var(--red); }
+    .box-n, .yr b { color: var(--red-l); }
+    .box.hl, .yr.hl { background: var(--red); border-color: var(--red); }
+    .box.hl .box-n, .yr.hl b { color: #f0d9a8; }
+    .box.hl .box-t { color: #fff; }
+    .box.hl .box-d, .yr.hl p { color: #f6e3e3; border-top-color: rgba(255,255,255,.25); }
+    .quote { color: var(--red-l); }
+    .s-light .quote { color: var(--red); }
+    .grid9 .c { background: var(--red); border-color: var(--red); }
+    .reasons p b, .s-light .trends li span { color: var(--red-l); }
+    .s-light .trends li span { color: var(--red); }
+    .side-label::before { background: var(--red); }
+    .hero-eyebrow::before { background: var(--red-l); }
+    .date-badge { border-left-color: var(--red); }
   </style>
 </head>
 <body>
@@ -439,292 +662,233 @@
       <a href="/2027" class="active">RU</a>
       <a href="/">EN</a>
     </div>
-    <a href="#request" class="nav-btn">Регистрация</a>
+    <a href="#join" class="nav-btn">Регистрация</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
-  <img class="hero-bg" src="/assets/year-of-goat-2027.png" alt="Код успеха 2027 — Год Огненной Козы">
+  <img class="hero-bg" src="/assets/year-of-goat-2027.png" alt="Год Огненной Козы 2027">
   <div class="hero-inner">
-    <h1>Код успеха <em>2027</em></h1>
-    <div class="hero-bottom">
-      <div class="hero-cta">
-        <a href="#request" class="btn-white">Зарегистрироваться</a>
-        <a href="#program" class="btn-outline">Программа</a>
-      </div>
-      <div class="hero-side">
-      <div class="date-badge">
-        <div class="db-meta">
-          <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
-          <div class="db-when">Материалы остаются с вами до конца 2027</div>
-        </div>
-      </div>
-      <div class="req-pay-btns">
-        <a class="req-pay-btn" href="https://web.tribute.tg/s/1bBk" target="_blank" rel="noopener">Оплатить в евро</a>
-        <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить в рублях</a>
-      </div>
-      <div class="hero-eyebrow">Год Огненной Козы</div>
+    <div class="hero-main">
+      <div class="hero-eyebrow">Telegram-канал</div>
+      <h1>Ваш 2027 — <em>Код Успеха</em></h1>
+      <p class="hero-text">Этот канал посвящён наступающему 2027 году, году Огненной Козы. Здесь мы создаём <b>ваш успешный 2027 год</b>.</p>
+      <p class="hero-text">В тенденциях 2027 года я фокусируюсь не столько на том, что происходит вовне, в мире и в стране, сколько на том, что происходит лично для вас.</p>
+    </div>
+    <div class="hero-side">
+      <div class="date-badge"><div class="db-meta">
+        <div class="db-dow">Telegram live-канал</div>
+        <div class="db-when">Идёт сейчас, до 31.12.2026</div>
+        <div class="db-when">Материалы остаются с вами до конца 2027</div>
+      </div></div>
+      <div class="pay">
+        <a href="https://web.tribute.tg/s/1bBk" target="_blank" rel="noopener">Оплатить в евро</a>
+        <a href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить в рублях</a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- AUTHOR -->
-<section id="author">
+<section id="topics" class="s-light">
+  <div class="wrap">
+    <div class="side-label">Программа канала</div>
+    <h2 class="sec-h2">Основные темы</h2>
+    <p class="lead">В течение двух месяцев мы разбираем много разных тем, связанных с 2027 годом.</p>
+    
+  </div>
+  <div class="wrap">
+    <div class="boxes">
+      <div class="box"><div class="box-n">01</div><div class="box-t">9-й период Огня</div><div class="box-d">Задаёт фон нашей жизни до 2044 года</div></div>
+      <div class="box"><div class="box-n">02</div><div class="box-t">Тренды года Огненной Козы</div><div class="box-d">Тенденции 2027 года</div></div>
+      <div class="box"><div class="box-n">03</div><div class="box-t">Астрология 2027</div><div class="box-d">Тенденции в вашей жизни и жизни ваших близких</div></div>
+      <div class="box"><div class="box-n">04</div><div class="box-t">Важные даты 2027</div><div class="box-d">Планируйте заранее</div></div>
+      <div class="box"><div class="box-n">05</div><div class="box-t">Поездки 2027</div><div class="box-d">Для планирования отпуска</div></div>
+      <div class="box"><div class="box-n">06</div><div class="box-t">Фэн-шуй 2027</div><div class="box-d">Самый лёгкий способ взять себе удачу из пространства</div></div>
+      <div class="box"><div class="box-n">07</div><div class="box-t">Ремонт 2027</div><div class="box-d">Сильнейшие активизации</div></div>
+      <div class="box hl"><div class="box-n">08</div><div class="box-t">Ваш персональный Код успеха на 2027 год</div><div class="box-d">Подводим итоги и составляем план</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="side-label">Из канала</div>
+    <h2 class="sec-h2">Как подключиться к энергиям 2027 года</h2>
+    <p class="lead">и стать успешным на ближайшие 20 лет</p>
+    
+  </div>
+  <div class="wrap">
+    <div class="boxes">
+      <div class="box"><div class="box-n">I</div><div class="box-t">Деятельность</div><div class="box-d">Что вы делаете, как и где</div></div>
+      <div class="box"><div class="box-n">II</div><div class="box-t">Карта Ба Цзы</div><div class="box-d">Что дано вам при рождении</div></div>
+      <div class="box"><div class="box-n">III</div><div class="box-t">Партнёрство</div><div class="box-d">Люди, у которых есть недостающие элементы вашей карты</div></div>
+      <div class="box"><div class="box-n">IV</div><div class="box-t">Фэн-шуй</div><div class="box-d">Пространство, настроенное на энергию 9 периода</div></div>
+    </div>
+    <div class="after-row">
+    <p class="lead">Подробности в Telegram-канале «Ваш 2027 — Код Успеха».</p>
+    <div class="pay after-pay">
+      <a href="https://web.tribute.tg/s/1bBk" target="_blank" rel="noopener">Оплатить в евро</a>
+      <a href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить в рублях</a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-light">
+  <div class="wrap">
+    <div class="period">
+      <div>
+        <div class="side-label">Большая картинка</div>
+        <h2 class="sec-h2">9-й период Огня</h2>
+        <p class="lead">Это 20-летний период Огня, в котором мы сейчас живём. Он длится с 2024 по 2044 год. Именно с его приходом наша жизнь резко поменялась.</p>
+        <p class="quote">«Назад пути нет. Время поменялось».</p>
+      </div>
+      <div>
+        <div class="side-label">Основные тенденции периода</div>
+        <ul class="trends">
+          <li><span>01</span>Скорость</li><li><span>02</span>Публичность</li><li><span>03</span>Женская энергия</li><li><span>04</span>Духовное развитие</li><li><span>05</span>Иллюзии</li>
+          <li><span>06</span>Красота</li><li><span>07</span>Виральность</li><li><span>08</span>Стресс</li><li><span>09</span>Искусственный интеллект</li><li><span>10</span>Деньги уходят в нематериальное</li>
+          <li><span>11</span>Создание информации</li><li><span>12</span>Давление на иерархии</li><li><span>13</span>Эмоциональный интеллект</li><li><span>14</span>Здоровье</li><li><span>15</span>Нестабильность</li>
+        </ul>
+      </div>
+    </div>
+    <div class="years">
+      <div class="yr"><b>2024</b><p>Пошёл резкий толчок трансформации.</p></div>
+      <div class="yr"><b>2026</b><p>Мы подошли к Огню, и всё начало гореть и трансформироваться.</p></div>
+      <div class="yr now"><b>2027</b><p>Мы увидим, с чем остались.</p></div>
+      <div class="yr"><b>2028</b><p>Мы начнём строить что-то совершенно новое.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap nine">
+    <div class="grid9" aria-label="Карта летящих звёзд 2027 года, девятка в центре">
+      <div></div><div></div><div></div>
+      <div></div><div class="c">9</div><div></div>
+      <div></div><div></div><div></div>
+    </div>
+    <div>
+      <div class="side-label">2027 в 9-м периоде</div>
+      <h2 class="sec-h2">Почему 2027 год особенный</h2>
+      <div class="reasons">
+        <p><b>1</b>Это год Огня в Огненном периоде.</p>
+        <p><b>2</b>На карте летящих звёзд 2027 года в центральном дворце стоит девятка, символ 9-го периода.</p>
+        <p><b>3</b>Нет никакого другого года до 2044-го, который соответствовал бы обоим критериям.</p>
+      </div>
+      <p class="keypoint">2027 год открывает две возможности: трансформироваться и найти новый способ жизни и деятельности, или не успеть адаптироваться к новым условиям.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s-light">
+  <div class="wrap">
+    <div class="side-label">Канал идёт с 1 ноября до 31 декабря 2026. Материалы остаются с вами до конца 2027</div>
+    <h2 class="sec-h2">Что уже вышло в канале</h2>
+    <p class="lead">После каждой темы — практическое применение для вашей жизни.</p>
+    
+  </div>
+  <div class="wrap">
+    <div class="boxes five">
+      <div class="box"><div class="box-n">2.11</div><div class="box-t">Большая картинка: 9-й период Огня</div><div class="box-d">15 тенденций периода и задание: готовы ли вы жить в новых условиях</div></div>
+      <div class="box"><div class="box-n">3.11</div><div class="box-t">Женская энергия</div><div class="box-d">Какие методы ведения дел перестают работать и что приходит на смену</div></div>
+      <div class="box"><div class="box-n">4.11</div><div class="box-t">Чем отличаются 2026 и 2027 годы</div><div class="box-d">Что останется после Огня и что начнётся в 2028 году</div></div>
+      <div class="box"><div class="box-n">5.11</div><div class="box-t">Давление на иерархии</div><div class="box-d">Сетевые государства и как зарабатывать вне устоявшихся организаций</div></div>
+      <div class="box"><div class="box-n">6.11</div><div class="box-t">Почему 2027 год особенный в 9-м периоде</div><div class="box-d">Год Огня в Огненном периоде и девятка в центре. Две возможности, которые появятся в 2027 году</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="sec-h2">Как устроен канал</h2>
+  </div>
+  <div class="wrap">
+    <div class="boxes three">
+      <div class="box"><div class="box-n">I</div><div class="box-t">Каждый день</div><div class="box-d">Новая тема 2027 года и её практическое применение для вашей жизни.</div></div>
+      <div class="box"><div class="box-n">II</div><div class="box-t">Ваши вопросы</div><div class="box-d">К каждой публикации открыт чат для вопросов. Вопросы по темам канала принимаются до 31 декабря 2026 года.</div></div>
+      <div class="box"><div class="box-n">III</div><div class="box-t">Материалы остаются с вами</div><div class="box-d">Доступ ко всем публикациям сохраняется до конца 2027 года.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="s-light" id="author">
   <div class="wrap">
     <div class="side-label">Кто ведёт</div>
     <h2 class="sec-h2">Алёна Брессерс</h2>
-    <div class="auth-grid">
-      <div class="auth-body">
-        <p class="auth-lead">Мастер китайской метафизики</p>
-        <p>Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
-        <p>Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
-        <p>Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
+    <div class="auth">
+      <div>
+        <p class="auth-role">Мастер китайской метафизики</p>
+        <p class="b">Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
+        <p class="b">Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
+        <p class="b">Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
       </div>
-      <div class="auth-video">
-        <p class="auth-video-title">Код Успеха 2026. Тренды года. Часть 1</p>
-        <div class="video-embed">
-          <iframe src="https://www.youtube-nocookie.com/embed/o6aOwJrKOWo?rel=0"
-                  title="Код Успеха 2026. Тренды года. Часть 1"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerpolicy="strict-origin-when-cross-origin"
-                  allowfullscreen></iframe>
-        </div>
+      <div>
+        <p class="video-cap">Код Успеха 2026. Тренды года. Часть 1</p>
+        <a class="video" id="video" href="https://www.youtube.com/watch?v=o6aOwJrKOWo" target="_blank" rel="noopener" style="background-image:url('https://i.ytimg.com/vi/o6aOwJrKOWo/hqdefault.jpg')" aria-label="Смотреть видео">
+          <span class="video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </a>
       </div>
     </div>
-    <div class="auth-stats">
-      <div class="auth-stat">
-        <div class="auth-num">10 лет</div>
-        <div class="auth-cap">ежедневной практики</div>
-      </div>
-      <div class="auth-stat">
-        <div class="auth-num">Сотни</div>
-        <div class="auth-cap">личных консультаций</div>
-      </div>
-      <div class="auth-stat">
-        <div class="auth-num">6 стран</div>
-        <div class="auth-cap">обучения у мастеров</div>
-      </div>
+    <div class="stats">
+      <div class="stat"><b>10 лет</b><span>ежедневной практики</span></div>
+      <div class="stat"><b>Сотни</b><span>личных консультаций</span></div>
+      <div class="stat"><b>6 стран</b><span>обучения у мастеров</span></div>
     </div>
   </div>
 </section>
 
-<!-- KEY QUESTIONS -->
-<section id="about" class="s-light">
+<section id="join" class="s-light">
   <div class="wrap">
-    <div class="side-label">О чём это событие</div>
-    <h2 class="sec-h2">Год начинается заранее — с понимания его энергии</h2>
-    <p class="lead">В новом году — новые возможности. На этой встрече я раскрою секреты наступающего года Огненной Козы: куда идут тренды, как ими воспользоваться и на что опереться в своих решениях. Зная характер года заранее, вы принимаете важные решения точнее и мягче проходите сложные периоды.</p>
-    <div class="q-grid">
-      <div class="q-card">
-        <div class="q-text">Как достигнуть желаемого в наступающем 2027 году?</div>
-      </div>
-      <div class="q-card">
-        <div class="q-text">Какие тенденции ждут мир в год Огненной Козы?</div>
-      </div>
-      <div class="q-card">
-        <div class="q-text">Как воспользоваться трендами времени с наибольшей пользой для себя?</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROGRAM -->
-<section id="program">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-head-copy">
-        <div class="side-label">Программа встречи</div>
-        <h2 class="sec-h2">Что мы разберём</h2>
-      </div>
-      <div class="date-badge">
-        <div class="db-meta">
-          <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
-          <div class="db-when">Материалы остаются с вами до конца 2027</div>
-        </div>
-      </div>
-    </div>
-    <div class="prog">
-      <div class="prog-item">
-        <div class="prog-num">01</div>
-        <div class="prog-body">
-          <div class="prog-title">Ожидания и тренды года Огненной Козы</div>
-          <div class="prog-desc">Каким будет 2027 год по характеру и энергии, к чему стоит подготовиться заранее.</div>
-        </div>
-      </div>
-      <div class="prog-item">
-        <div class="prog-num">02</div>
-        <div class="prog-body">
-          <div class="prog-title">Астрология 2027</div>
-          <div class="prog-desc">Карьера, деньги, здоровье и отношения — на что смотреть в наступающем году.</div>
-        </div>
-      </div>
-      <div class="prog-item">
-        <div class="prog-num">03</div>
-        <div class="prog-body">
-          <div class="prog-title">Важные даты 2027</div>
-          <div class="prog-desc">Ключевые периоды года и их влияние на деньги и большие решения.</div>
-        </div>
-      </div>
-      <div class="prog-item">
-        <div class="prog-num">04</div>
-        <div class="prog-body">
-          <div class="prog-title">Фэн-шуй 2027</div>
-          <div class="prog-desc">Как настроить дом и рабочее пространство под энергии наступающего года.</div>
-        </div>
-      </div>
-      <div class="prog-item">
-        <div class="prog-num">05</div>
-        <div class="prog-body">
-          <div class="prog-title">Ваш персональный Код успеха на 2027 год</div>
-          <div class="prog-desc">Как перевести тренды года в конкретную стратегию именно для вас.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BENEFITS -->
-<section class="s-light">
-  <div class="wrap">
-    <div class="side-label">Что вы получите</div>
-    <h2 class="sec-h2">Встреча, после которой у вас есть план на год</h2>
-    <div class="feat-grid">
-      <div class="feat">
-        <div class="feat-name">Ясная картина года</div>
-        <div class="feat-desc">Понимание трендов 2027-го и того, как они касаются лично вас.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-name">Ответы на ваши вопросы</div>
-        <div class="feat-desc">Ответы на ваши личные вопросы о том, каким будет для вас наступающий год.</div>
-      </div>
-      <div class="feat">
-        <div class="feat-name">Стратегия на 2027 год</div>
-        <div class="feat-desc">Личный ориентир: когда действовать, а когда выдержать паузу.</div>
-      </div>
-    </div>
-    <a href="#request" class="special-cta">Успейте зарегистрироваться на специальных условиях</a>
-  </div>
-</section>
-
-<!-- REVIEWS -->
-<section>
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="sec-head-copy">
-        <div class="side-label">Отзывы</div>
-        <h2 class="sec-h2">Отзывы о прошлых встречах</h2>
-      </div>
-      <div class="date-badge">
-        <div class="db-meta">
-          <div class="db-dow">Telegram live-канал</div>
-          <div class="db-when">Идёт сейчас, до 31.12.2026</div>
-          <div class="db-when">Материалы остаются с вами до конца 2027</div>
-        </div>
-      </div>
-    </div>
-    <p class="tst-hint">Листайте в бок, чтобы ознакомиться →</p>
-    <div class="tst-scroll">
-      <div class="tst-card"><p class="tst-text">Алёна, благодарю тебя за семинар «Код Успеха». Благодаря твоему семинару, ты подготовила нас всех ещё в январе. Мне лично было как-то спокойнее пережить этот год. Ко всем шоковым новостям я относилась с принятием и пониманием. Много знаний осталось, и я периодически возвращаюсь к ним даже в конце года. Благодарю тебя от всей души и жду новых прогнозов и продуктов от тебя!</p></div>
-      <div class="tst-card"><p class="tst-text">Моя подруга настоятельно рекомендовала пойти на эту встречу и привела несколько примеров, как она воспользовалась советами Алены. На встрече я записывала всё, что рассказывали, и удивлялась — неужели всё может быть до такой степени. Все рекомендации Алены я учла и оказалась подготовленной. Имея заранее информацию, я смогла подготовиться и была спокойна. В этом году собираюсь опять идти на встречу, и вам рекомендую!</p></div>
-      <div class="tst-card"><p class="tst-text">В начале года мне посчастливилось попасть на живое мероприятие «Код успеха», проводившееся в Нидерландах. Год уже заканчивается, и я могу с полным правом сказать, что поражена точностью прогноза, который был озвучен. Очень ценной оказалась информация, которую я могла применить на практике — относительно собственной жизни и собственного жилья: какие секторы дома благоприятны, а какие нет, в какие дни лучше не совершать крупные покупки. Обязательно пойду снова!</p></div>
-      <div class="tst-card"><p class="tst-text">В это сложно поверить, но ровно год назад нам было сказано о том, чем «отличится» этот год. Мы слушали о том, что уходит огонь и приходит вода, что есть тенденции к заболеваниям лёгких. Но даже тогда никто из нас не мог себе представить, насколько сильно это воплотится в реальность. Календарь благоприятных и неблагоприятных дней я сохранила на весь год и всегда открывала перед принятием важных решений. Алена, спасибо тебе огромное!</p></div>
-      <div class="tst-card"><p class="tst-text">За несколько последних лет я участвовала во многих очных и заочных мероприятиях, организованных Аленой, и с уверенностью могу сказать, что вся информация подаётся конструктивно, чётко и ясно. После каждой встречи я приобретаю частичку знаний, которые использую как действующий инструмент для своих действий в разных аспектах жизни. Кто владеет информацией, тот владеет миром — почему не воспользоваться и этим шансом?</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- REQUEST -->
-<section id="request" class="s-light">
-  <div class="wrap">
-    <div class="side-label">Регистрация</div>
+    <div class="side-label">Telegram-канал «Ваш 2027 — Код Успеха». Идёт прямо сейчас, присоединяйтесь!</div>
     <div class="req">
       <div class="req-col">
-      <h2 class="req-h">Для регистрации и ручной оплаты заполните форму</h2>
-      <form class="req-form" action="https://formspree.io/f/xaqkqweb" method="POST">
-        <input class="req-input" type="text"  name="name"  placeholder="Ваше имя" required>
-        <input class="req-input" type="email" name="email" placeholder="Email" required>
-        <input class="req-input" type="tel"   name="phone" placeholder="Телефон">
-        <textarea class="req-textarea" name="message" placeholder="Что вам важно узнать о 2027 годе" maxlength="1000"></textarea>
-        <div class="req-choice">
-          <span class="req-choice-label">Формат участия</span>
-          <label class="req-opt">
-            <input type="radio" name="format" value="Telegram live-канал 01.11 – 31.12, доступ до конца 2027, €55 (₽5500)" checked required>
-            <span class="req-opt-text">
-              <span class="req-opt-head">
-                <span class="req-opt-name">Telegram live-канал 01.11 – 31.12</span>
-                <span class="req-opt-price">, €55 (₽5500)</span>
-              </span>
-              <span class="req-opt-note">Доступ к каналу сохраняется до конца 2027 года.</span>
-            </span>
-          </label>
-        </div>
+        <h2 class="req-h">Для регистрации и ручной оплаты заполните форму</h2>
+        <form class="form req-form" action="https://formspree.io/f/xaqkqweb" method="POST">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Телефон">
+        <textarea name="message" placeholder="Что вам важно узнать о 2027 годе" maxlength="1000"></textarea>
+        <input type="hidden" name="format" value="Telegram live-канал 01.11 – 31.12, доступ до конца 2027, €55 (₽5500)">
         <input type="hidden" name="source" value="event-2027">
         <input type="hidden" name="_subject" value="Код успеха 2027 — регистрация">
-        <div class="consent-row">
-          <input type="checkbox" id="consent" name="consent" value="accepted" required>
-          <label for="consent">Принимаю <a href="/ru/terms.html" target="_blank" rel="noopener">Условия</a>
-            и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</label>
-        </div>
-        <button class="req-submit" type="submit">Зарегистрироваться</button>
+        <label class="consent"><input type="checkbox" name="consent" value="accepted" required>
+          <span>Принимаю <a href="/ru/terms.html" target="_blank" rel="noopener">Условия</a> и <a href="/ru/privacy.html" target="_blank" rel="noopener">Политику обработки данных</a>.</span></label>
+        <button type="submit">Зарегистрироваться</button>
       </form>
       <script>
-      // Одна регистрация — два независимых получателя.
-      // Копия уходит в CRM в тот же момент, что и отправка в Formspree.
-      // keepalive: запрос переживает переход страницы, поэтому форма ведёт
-      // себя ровно как раньше. Если CRM недоступна — Formspree всё равно
-      // получит заявку; если у Formspree закончился лимит — заявка уже в CRM.
+      // Одна регистрация — два независимых получателя: копия уходит в CRM, отправка в Formspree продолжается как обычно.
       document.querySelector('.req-form').addEventListener('submit', function () {
         try {
           var d = {};
           new FormData(this).forEach(function (v, k) { d[k] = v; });
           fetch('https://astrocrm-rho.vercel.app/api/leads', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(d),
-            keepalive: true,
-            mode: 'cors'
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(d), keepalive: true, mode: 'cors'
           }).catch(function () {});
         } catch (e) {}
-        // ничего не отменяем — обычная отправка в Formspree продолжается
       });
       </script>
       </div>
       <div class="req-col">
         <h2 class="req-h">Для автоматической оплаты нажмите кнопку:</h2>
         <p class="req-cost">Доступ к каналу останется с вами до конца 2027 года.</p>
-        <div class="req-pay-btns">
-          <a class="req-pay-btn" href="https://web.tribute.tg/s/1bBk" target="_blank" rel="noopener">Оплатить €55</a>
-          <a class="req-pay-btn" href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить ₽5500</a>
+        <div class="pay">
+          <a href="https://web.tribute.tg/s/1bBk" target="_blank" rel="noopener">Оплатить €55</a>
+          <a href="https://web.tribute.tg/s/1bA3" target="_blank" rel="noopener">Оплатить ₽5500</a>
         </div>
         <p class="req-email">По всем вопросам пишите на <a href="mailto:successcode.tv@gmail.com">successcode.tv@gmail.com</a></p>
-        <div class="contact-icons">
-          <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
-          </a>
-          <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram">
-            <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
-          </a>
-          <a href="https://www.tiktok.com/@alena.successcode" target="_blank" rel="noopener" aria-label="TikTok">
-        <svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.2v12.9a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1-2.58-2.6 2.59 2.59 0 0 1 3.36-2.47V7.66a5.79 5.79 0 0 0-6.56 5.74 5.79 5.79 0 0 0 5.78 5.78 5.79 5.79 0 0 0 5.78-5.78V9.01a7.4 7.4 0 0 0 4.3 1.38V7.2a4.28 4.28 0 0 1-2.64-1.38z"/></svg>
-      </a>
-      <a href="https://www.youtube.com/@Alena.successcode/shorts" target="_blank" rel="noopener" aria-label="YouTube">
-        <svg viewBox="0 0 24 24"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.5 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg>
-      </a>
-      <a href="mailto:successcode.tv@gmail.com" aria-label="Email">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          </a>
-        </div>
+        <div class="icons">
+      <a href="https://t.me/AlenaSuccessCode" target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg></a>
+      <a href="https://www.instagram.com/alena.successcode/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.12 1.38C1.36 2.67.95 3.34.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.12.66.66 1.33 1.07 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.12-1.38.66-.66 1.07-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.31-.79-.72-1.46-1.38-2.12-.66-.66-1.33-1.07-2.12-1.38-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84A6.16 6.16 0 1 0 18.16 12 6.16 6.16 0 0 0 12 5.84zM12 16a4 4 0 1 1 4-4 4 4 0 0 1-4 4z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg></a>
+      <a href="https://www.tiktok.com/@alena.successcode" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.82a4.28 4.28 0 0 1-1.05-2.82h-3.2v12.9a2.59 2.59 0 0 1-2.59 2.5 2.59 2.59 0 0 1-2.58-2.6 2.59 2.59 0 0 1 3.36-2.47V7.66a5.79 5.79 0 0 0-6.56 5.74 5.79 5.79 0 0 0 5.78 5.78 5.79 5.79 0 0 0 5.78-5.78V9.01a7.4 7.4 0 0 0 4.3 1.38V7.2a4.28 4.28 0 0 1-2.64-1.38z"/></svg></a>
+      <a href="https://www.youtube.com/@Alena.successcode/shorts" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.5 6.5a3.02 3.02 0 0 0-2.12-2.14C19.5 3.85 12 3.85 12 3.85s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.5 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.5 3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"/></svg></a>
+    </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-top">
     <div class="footer-logo">SuccessCode</div>
@@ -747,8 +911,12 @@
     window.addEventListener('scroll', check, { passive: true });
     btn.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     check();
+    var v = document.getElementById('video');
+    v.addEventListener('click', function (e) {
+      e.preventDefault();
+      v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/o6aOwJrKOWo?rel=0&autoplay=1" title="Код Успеха 2026. Тренды года. Часть 1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+    });
   })();
-
 </script>
 
 </body>
