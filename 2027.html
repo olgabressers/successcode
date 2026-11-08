@@ -525,6 +525,7 @@
     .stat { background: var(--surface); padding: 24px 26px; }
     .stat b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: var(--gold2); line-height: 1; margin-bottom: 8px; }
     .stat span { font-size: 14px; color: var(--dim); }
+    .auth-one { max-width: 900px; }
     .video-cap { font-size: 15px; font-weight: 600; color: var(--gold2); line-height: 1.4; margin-bottom: 14px; }
     .video { position: relative; display: block; width: 100%; padding-top: 56.25%; background: #000 center/cover no-repeat; border: 1px solid var(--border); cursor: pointer; }
     .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -815,19 +816,13 @@
 <section class="s-light" id="author">
   <div class="wrap">
     <div class="side-label">Кто ведёт</div>
-    <h2 class="sec-h2">Алёна Брессерс</h2>
-    <div class="auth">
+    <h2 class="sec-h2">Алёна</h2>
+    <div class="auth-one">
       <div>
         <p class="auth-role">Мастер китайской метафизики</p>
         <p class="b">Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
         <p class="b">Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
         <p class="b">Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
-      </div>
-      <div>
-        <p class="video-cap">Код Успеха 2026. Тренды года. Часть 1</p>
-        <a class="video" id="video" href="https://www.youtube.com/watch?v=o6aOwJrKOWo" target="_blank" rel="noopener" style="background-image:url('https://i.ytimg.com/vi/o6aOwJrKOWo/hqdefault.jpg')" aria-label="Смотреть видео">
-          <span class="video-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
-        </a>
       </div>
     </div>
     <div class="stats">
@@ -911,11 +906,6 @@
     window.addEventListener('scroll', check, { passive: true });
     btn.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
     check();
-    var v = document.getElementById('video');
-    v.addEventListener('click', function (e) {
-      e.preventDefault();
-      v.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/o6aOwJrKOWo?rel=0&autoplay=1" title="Код Успеха 2026. Тренды года. Часть 1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
-    });
   })();
 </script>
 
