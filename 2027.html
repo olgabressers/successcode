@@ -520,12 +520,13 @@
     /* AUTHOR — as on /2027 */
     .auth { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
     .auth-role { font-size: 20px; color: var(--gold2); margin-bottom: 20px; font-weight: 600; }
-    .auth p.b { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
+    .auth p.b, .auth-row p.b { font-size: 16px; color: var(--dim); line-height: 1.75; margin-bottom: 16px; }
     .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 26px; }
     .stat { background: var(--surface); padding: 24px 26px; }
     .stat b { display: block; font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; color: var(--gold2); line-height: 1; margin-bottom: 8px; }
     .stat span { font-size: 14px; color: var(--dim); }
-    .auth-one { max-width: 900px; }
+    .auth-row { display: grid; grid-template-columns: 1fr 300px; gap: 48px; align-items: center; }
+    .stats.stats-v { grid-template-columns: 1fr; margin-top: 0; }
     .video-cap { font-size: 15px; font-weight: 600; color: var(--gold2); line-height: 1.4; margin-bottom: 14px; }
     .video { position: relative; display: block; width: 100%; padding-top: 56.25%; background: #000 center/cover no-repeat; border: 1px solid var(--border); cursor: pointer; }
     .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
@@ -601,7 +602,8 @@
       section { padding: 28px 0; }
       .after-pay { flex: 1 1 100%; }
       .sec-h2 { font-size: 30px; }
-      .stats, .req, .auth { grid-template-columns: 1fr; }
+      .stats, .req, .auth, .auth-row { grid-template-columns: 1fr; }
+      .auth-row { gap: 20px; }
       .boxes, .boxes.five, .years { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .boxes.three { grid-template-columns: 1fr; gap: 10px; }
       .box { padding: 14px 14px; border-radius: 14px; }
@@ -817,18 +819,18 @@
   <div class="wrap">
     <div class="side-label">Кто ведёт</div>
     <h2 class="sec-h2">Алёна</h2>
-    <div class="auth-one">
+    <div class="auth-row">
       <div>
         <p class="auth-role">Мастер китайской метафизики</p>
         <p class="b">Помогаю людям решать жизненные задачи методами китайского искусства: императорская астрология Цзы Вэй Доу Шу, Ба Цзы, прогностический метод Ци Мень и классический фэн-шуй.</p>
         <p class="b">Чтобы учиться у лучших мастеров, я объехала полмира — Сингапур, Китай, Малайзия, Таиланд, Россия, ОАЭ. За плечами десять лет ежедневной практики и сотни клиентов.</p>
         <p class="b">Это и позволяет мне читать тренды, которые несёт наступающее время, — и видеть, как они отзовутся и в обществе, и в жизни каждого из нас.</p>
       </div>
-    </div>
-    <div class="stats">
-      <div class="stat"><b>10 лет</b><span>ежедневной практики</span></div>
-      <div class="stat"><b>Сотни</b><span>личных консультаций</span></div>
-      <div class="stat"><b>6 стран</b><span>обучения у мастеров</span></div>
+      <div class="stats stats-v">
+        <div class="stat"><b>10 лет</b><span>ежедневной практики</span></div>
+        <div class="stat"><b>Сотни</b><span>личных консультаций</span></div>
+        <div class="stat"><b>6 стран</b><span>обучения у мастеров</span></div>
+      </div>
     </div>
   </div>
 </section>
