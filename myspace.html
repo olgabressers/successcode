@@ -124,6 +124,13 @@
     .sec-h{ font-size:21px; }
     .back-to-top{ width:46px; height:46px; }
   }
+  .pur-wrap{ display:flex; gap:28px; align-items:flex-start; }
+  .pur-wrap .content{ flex:1; min-width:0; }
+  .pur-img{ width:44%; max-width:340px; height:auto; display:block; }
+  .pur-img[hidden]{ display:none; }
+  .paybtn{ display:inline-block; margin:10px 10px 0 0; background:#7f1d1d; color:#fff; padding:10px 20px; font-size:12px; letter-spacing:1px; text-transform:uppercase; font-weight:600; text-decoration:none; border-radius:6px; }
+  .paybtn:hover{ background:#991b1b; }
+  @media screen and (max-width:700px){ .pur-wrap{ flex-direction:column-reverse; } .pur-img{ width:100%; max-width:none; } }
 </style>
 </head>
 <body>
@@ -236,12 +243,15 @@
     <button class="back" id="pur-back" type="button">← Back</button>
     <div class="item">
       <h2 id="pur-title"></h2>
+      <div class="pur-wrap">
       <div class="content">
         <p id="pur-price" class="pur-price"></p>
         <div id="pur-pay" hidden></div>
         <p id="pur-note" style="font-size:15px;line-height:1.7;color:var(--dim)">Leave a request — we'll contact you to take payment and open access.</p>
         <button class="btn" id="pur-send" type="button" style="margin-top:6px">Send request</button>
         <div class="msg" id="pur-msg" style="margin-top:14px"></div>
+      </div>
+      <img id="pur-img" class="pur-img" alt="" hidden>
       </div>
     </div>
   </section>
@@ -414,8 +424,9 @@ function openPurchase(code){
   $("pur-send").disabled=false; $("pur-send").textContent = p.badge ? "Preorder" : "Send request";
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);
   const pay=PAY[code];
-  $("pur-pay").innerHTML = pay ? pay.map(([t,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;margin-top:10px">${t}</a>`).join("") : "";
+  $("pur-pay").innerHTML = pay ? pay.map(([t,u])=>`<a class="paybtn" href="${u}" target="_blank" rel="noopener">${t}</a>`).join("") : "";
   $("pur-pay").hidden=!pay; $("pur-send").hidden=!!pay;
+  const im=$("pur-img"); if(pay && p.tile_image){ im.src=p.tile_image; im.hidden=false; } else { im.hidden=true; im.removeAttribute("src"); }
   $("pur-note").textContent = pay ? 'Online payment. After payment you get access to the Telegram channel.' : PUR_NOTE;
 }
 window.openPurchase=openPurchase;
