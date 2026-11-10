@@ -346,9 +346,9 @@ $("rform").addEventListener("submit", async (e)=>{
 
 // ---- cabinet ----
 const SECTIONS=[
+  ["yearly","Success Code — Every Year"],
   ["walks","Magic Walks"],
   ["calendar","Success Dates Calendar"],
-  ["yearly","Success Code — Every Year"],
   ["free","Free"],
 ];
 let PRODS=[];
@@ -388,7 +388,7 @@ async function loadCabinet(){
         el.onclick=()=>openItem(p.code);
       } else {
         el.className="tile locked";
-        el.innerHTML = `<div class="lockcard"><div class="ln">${nm}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Open</button></div>`;
+        el.innerHTML = (p.tile_image?`<div class="art"><img src="${p.tile_image}" alt=""></div>`:"") + `<div class="lockcard"><div class="ln">${nm}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Open</button></div>`;
         el.querySelector(".openbtn").onclick=()=>openPurchase(p.code);
       }
       tiles.appendChild(el);
