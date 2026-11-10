@@ -68,6 +68,8 @@
   .delbtn:hover{ background:#b64d4d; color:#fff; border-color:#b64d4d; }
   /* client × product matrix */
   .mwrap{ overflow-x:auto; border:1px solid var(--border); }
+  /* client table uses the full window width, not the 960px page column */
+  .mwrap{ width:calc(100vw - 44px); margin-left:calc(50% - 50vw + 22px); }
   /* freeze № + Имя while scrolling right */
   .mx th:nth-child(1), .mx td:nth-child(1){ position:sticky; left:0; z-index:2; width:70px; min-width:70px; max-width:70px; box-sizing:border-box; background:var(--surface); }
   .mx th:nth-child(2), .mx td:nth-child(2){ position:sticky; left:70px; z-index:2; background:var(--surface); box-shadow:2px 0 0 var(--border); }
