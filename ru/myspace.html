@@ -126,11 +126,13 @@
   }
   .pur-wrap{ display:flex; gap:28px; align-items:flex-start; }
   .pur-wrap .content{ flex:1; min-width:0; }
-  .pur-img{ width:44%; max-width:340px; height:auto; display:block; }
+  .item.has-art{ position:relative; padding-right:calc(45% + 34px); min-height:340px; }
+  .item.has-art .pur-img{ position:absolute; top:0; right:0; bottom:0; width:45%; height:100%; object-fit:cover; display:block; }
   .pur-img[hidden]{ display:none; }
+  .item .content a.paybtn, .item .content a.paybtn:hover{ color:#fff; }
   .paybtn{ display:inline-block; margin:10px 10px 0 0; background:#7f1d1d; color:#fff; padding:10px 20px; font-size:12px; letter-spacing:1px; text-transform:uppercase; font-weight:600; text-decoration:none; border-radius:6px; }
   .paybtn:hover{ background:#991b1b; }
-  @media screen and (max-width:700px){ .pur-wrap{ flex-direction:column-reverse; } .pur-img{ width:100%; max-width:none; } }
+  @media screen and (max-width:700px){ .item.has-art{ padding:0 0 30px; min-height:0; } .item.has-art .pur-img{ position:static; width:100%; height:200px; margin-bottom:22px; } .item.has-art h2, .item.has-art .content{ padding:0 22px; } .pur-wrap{ flex-direction:column-reverse; } }
 </style>
 </head>
 <body>
@@ -423,7 +425,7 @@ function openPurchase(code){
   const pay=PAY[code];
   $("pur-pay").innerHTML = pay ? pay.map(([t,u])=>`<a class="paybtn" href="${u}" target="_blank" rel="noopener">${t}</a>`).join("") : "";
   $("pur-pay").hidden=!pay; $("pur-send").hidden=!!pay;
-  const im=$("pur-img"); if(pay && p.tile_image){ im.src=p.tile_image; im.hidden=false; } else { im.hidden=true; im.removeAttribute("src"); }
+  const im=$("pur-img"), box=im.closest(".item"); if(pay && p.tile_image){ im.src=p.tile_image; im.hidden=false; box.classList.add("has-art"); } else { im.hidden=true; im.removeAttribute("src"); box.classList.remove("has-art"); }
   $("pur-note").textContent = pay ? 'Оплата онлайн. После оплаты откроется доступ к Telegram-каналу.' : PUR_NOTE;
 }
 window.openPurchase=openPurchase;
