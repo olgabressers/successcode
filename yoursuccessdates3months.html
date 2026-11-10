@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Календарь Успешных дат — 3 месяца — SuccessCode</title>
+<link rel="canonical" href="https://successcode.net/yoursuccessdates3months">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<style>
+  html,body{ margin:0; height:100%; background:#2b2c34; color:#9a9cae;
+    font-family:system-ui,-apple-system,'Segoe UI',sans-serif; }
+  .load{ position:fixed; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; text-align:center; padding:0 24px; }
+  .brand{ font-family:'Cormorant Garamond',Georgia,serif; font-size:22px; font-weight:700; letter-spacing:3px; color:#b8903a; }
+  .msg{ font-size:13px; letter-spacing:.4px; }
+  .ring{ width:34px; height:34px; border:3px solid #3a3c48; border-top-color:#b8903a; border-radius:50%; animation:spin .8s linear infinite; }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  a{ color:#b8903a; }
+</style>
+</head>
+<body>
+<!-- Thin loader. The real page lives server-side (kabinet-api, private) and is served
+     ONLY to a signed-in owner of this product. No content ships in this file. -->
+<div class="load">
+  <div class="brand">SuccessCode</div>
+  <div class="ring" id="ring"></div>
+  <div class="msg" id="msg">Открываем ваше пространство…</div>
+  <noscript>Откройте эту страницу из «Мое Пространство Успеха» на <a href="/ru/myspace">successcode.net/ru/myspace</a>.</noscript>
+</div>
+<script>
+(async function(){
+  var API = "https://kabinet-api.vercel.app";
+  var PAGE = "yourdates-3m";        // this page's slug (see kabinet-api product-page.js)
+  var HOME = "/ru/myspace";
+  function bounce(){ location.replace(HOME); }
+  var token = null;
+  try { token = localStorage.getItem("sc_kab_at"); } catch(e){}
+  if (!token) { bounce(); return; }
+  var r;
+  try {
+    r = await fetch(API + "/api/product-page?page=" + PAGE, { headers: { authorization: "Bearer " + token } });
+  } catch(e) { bounce(); return; }
+  if (!r.ok) {                        // 401 not signed in · 403 not owned · else error
+    if (r.status === 401 || r.status === 403) { bounce(); return; }
+    document.getElementById("ring").style.display = "none";
+    document.getElementById("msg").innerHTML = 'Не удалось открыть. Вернитесь в <a href="'+HOME+'">Мое Пространство</a>.';
+    return;
+  }
+  var html = await r.text();
+  document.open(); document.write(html); document.close();
+})();
+</script>
+</body>
+</html>
