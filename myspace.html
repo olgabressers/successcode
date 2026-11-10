@@ -250,6 +250,7 @@
       <div class="pur-wrap">
       <div class="content">
         <p id="pur-price" class="pur-price"></p>
+        <p id="pur-terms" style="font-size:17px;font-weight:600;line-height:1.6;color:#7f1d1d;margin:4px 0 6px" hidden></p>
         <div id="pur-pay" hidden></div>
         <p id="pur-note" style="font-size:15px;line-height:1.7;color:var(--dim)">Leave a request — we'll contact you to take payment and open access.</p>
         <button class="btn" id="pur-send" type="button" style="margin-top:6px">Send request</button>
@@ -396,7 +397,7 @@ async function loadCabinet(){
       const price = p.price_eur!=null ? fmtPrice(p.price_eur,p.code) : "";
       const bdg = badgeEN(p.badge);
       const tag = (bdg?`<div class="lp badge">${bdg}</div>`:"") + (price?`<div class="lp">${price}</div>`:"");
-      const join = (JOIN[p.code] ? `<div class="join">${JOIN[p.code]}</div>` : "") + (TERMS[p.code] ? `<div class="terms">${TERMS[p.code]}</div>` : "");
+      const join = (JOIN[p.code] ? `<div class="join">${JOIN[p.code]}</div>` : "");
       if(p.unlocked){
         el.className="tile open";
         const art = p.tile_image
@@ -435,6 +436,7 @@ function openPurchase(code){
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);
   const pay=PAY[code];
   $("pur-pay").innerHTML = pay ? pay.map(([t,u])=>`<a class="paybtn" href="${u}" target="_blank" rel="noopener">${t}</a>`).join("") : "";
+  $("pur-terms").innerHTML = TERMS[p.code]||""; $("pur-terms").hidden=!TERMS[p.code];
   $("pur-pay").hidden=!pay; $("pur-send").hidden=!!pay;
   const im=$("pur-img"), box=im.closest(".item"); if(pay && p.tile_image){ im.src=p.tile_image; im.hidden=false; box.classList.add("has-art"); } else { im.hidden=true; im.removeAttribute("src"); box.classList.remove("has-art"); }
   $("pur-note").textContent = pay ? 'Online payment. After payment you get access to the Telegram channel.' : PUR_NOTE;
