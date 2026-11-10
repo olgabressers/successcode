@@ -93,6 +93,7 @@
   .lockcard .li{ font-size:26px; color:var(--gold2); opacity:.85; }
   .lockcard .lp{ font-size:26px; font-weight:700; color:var(--gold2); font-family:'Cormorant Garamond',serif; }
   .lockcard .badge{ font-size:14px; font-weight:600; letter-spacing:2px; text-transform:uppercase; font-family:'Inter',sans-serif; }
+  .lockcard .join{ display:inline-block; background:#7f1d1d; color:#fff; padding:12px 30px; border-radius:6px; font-family:'Inter',sans-serif; font-size:18px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; cursor:pointer; box-shadow:0 4px 14px rgba(127,29,29,.35); }
   .lockcard .ls{ font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); }
 
   /* ITEM */
@@ -367,6 +368,7 @@ const SECTIONS=[
 let PRODS=[];
 const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFixed(2); };
 // Ruble price = euro × 100, unless a product has its own ruble price here.
+const JOIN={"code-2027":"Присоединяйтесь!"};
 const RUB={"success-calendar-3m":5500};
 const fmtPrice=(v,code)=>`€${fmtEur(v)} (₽${RUB[code]!=null?RUB[code]:Math.round(Number(v)*100)})`;
 async function loadCabinet(){
@@ -389,6 +391,7 @@ async function loadCabinet(){
       const el=document.createElement("div");
       const price = p.price_eur!=null ? fmtPrice(p.price_eur,p.code) : "";
       const tag = (p.badge?`<div class="lp badge">${p.badge}</div>`:"") + (price?`<div class="lp">${price}</div>`:"");
+      const join = JOIN[p.code] ? `<div class="join">${JOIN[p.code]}</div>` : "";
       if(p.unlocked){
         el.className="tile open";
         const art = p.tile_image
@@ -401,8 +404,9 @@ async function loadCabinet(){
       } else {
         el.className="tile locked";
         if(p.tile_image) el.style.background=`linear-gradient(rgba(231,230,226,.72),rgba(231,230,226,.72)), url(${p.tile_image}) center/cover no-repeat`;
-        el.innerHTML = `<div class="lockcard"><div class="ln">${p.name_ru}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Открыть</button></div>`;
+        el.innerHTML = `<div class="lockcard"><div class="ln">${p.name_ru}</div>${tag}${join}<div class="li">🔒</div><button class="openbtn" type="button">Открыть</button></div>`;
         el.querySelector(".openbtn").onclick=()=>openPurchase(p.code);
+        const jb=el.querySelector(".join"); if(jb) jb.onclick=()=>openPurchase(p.code);
       }
       tiles.appendChild(el);
     });
