@@ -68,6 +68,10 @@
   .delbtn:hover{ background:#b64d4d; color:#fff; border-color:#b64d4d; }
   /* client × product matrix */
   .mwrap{ overflow-x:auto; border:1px solid var(--border); }
+  /* freeze № + Имя while scrolling right */
+  .mx th:nth-child(1), .mx td:nth-child(1){ position:sticky; left:0; z-index:2; width:70px; min-width:70px; max-width:70px; box-sizing:border-box; background:var(--surface); }
+  .mx th:nth-child(2), .mx td:nth-child(2){ position:sticky; left:70px; z-index:2; background:var(--surface); box-shadow:2px 0 0 var(--border); }
+  .mx thead th:nth-child(1), .mx thead th:nth-child(2){ z-index:3; background:linear-gradient(rgba(0,0,0,0.14),rgba(0,0,0,0.14)), var(--surface); }
   table.mx{ border:0; min-width:560px; }
   table.mx th.sortable{ cursor:pointer; user-select:none; white-space:nowrap; }
   table.mx th.sortable:hover{ color:var(--gold2); }
