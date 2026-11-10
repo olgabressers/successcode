@@ -386,7 +386,8 @@ async function loadCabinet(){
         el.onclick=()=>openItem(p.code);
       } else {
         el.className="tile locked";
-        el.innerHTML = (p.tile_image?`<div class="art"><img src="${p.tile_image}" alt=""></div>`:"") + `<div class="lockcard"><div class="ln">${p.name_ru}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Открыть</button></div>`;
+        if(p.tile_image) el.style.background=`linear-gradient(rgba(231,230,226,.72),rgba(231,230,226,.72)), url(${p.tile_image}) center/cover no-repeat`;
+        el.innerHTML = `<div class="lockcard"><div class="ln">${p.name_ru}</div>${tag}<div class="li">🔒</div><button class="openbtn" type="button">Открыть</button></div>`;
         el.querySelector(".openbtn").onclick=()=>openPurchase(p.code);
       }
       tiles.appendChild(el);
