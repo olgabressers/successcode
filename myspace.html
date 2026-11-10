@@ -238,7 +238,8 @@
       <h2 id="pur-title"></h2>
       <div class="content">
         <p id="pur-price" class="pur-price"></p>
-        <p style="font-size:15px;line-height:1.7;color:var(--dim)">Leave a request — we'll contact you to take payment and open access.</p>
+        <div id="pur-pay" hidden></div>
+        <p id="pur-note" style="font-size:15px;line-height:1.7;color:var(--dim)">Leave a request — we'll contact you to take payment and open access.</p>
         <button class="btn" id="pur-send" type="button" style="margin-top:6px">Send request</button>
         <div class="msg" id="pur-msg" style="margin-top:14px"></div>
       </div>
@@ -400,6 +401,9 @@ async function loadCabinet(){
 
 // ---- purchase request (name + email come from the signed-in account, server-side) ----
 let PUR_CODE=null;
+// Products paid online: buttons open the payment page; payment gives Telegram channel access.
+const PAY={"code-2027":[["Pay €55","https://web.tribute.tg/s/1bBk"],["Pay ₽5500","https://web.tribute.tg/s/1bA3"]]};
+const PUR_NOTE="Leave a request — we'll contact you to take payment and open access.";
 function openPurchase(code){
   const p=PRODS.find(x=>x.code===code); if(!p) return;
   PUR_CODE=code;
@@ -408,6 +412,10 @@ function openPurchase(code){
   $("pur-msg").textContent=""; $("pur-msg").style.color="";
   $("pur-send").disabled=false; $("pur-send").textContent = p.badge ? "Preorder" : "Send request";
   show("cabinet",false); show("item",false); show("loading",false); show("purchase",true);
+  const pay=PAY[code];
+  $("pur-pay").innerHTML = pay ? pay.map(([t,u])=>`<a class="btn" href="${u}" target="_blank" rel="noopener" style="display:block;text-align:center;text-decoration:none;margin-top:10px">${t}</a>`).join("") : "";
+  $("pur-pay").hidden=!pay; $("pur-send").hidden=!!pay;
+  $("pur-note").textContent = pay ? 'Online payment. After payment you get access to the Telegram channel.' : PUR_NOTE;
 }
 window.openPurchase=openPurchase;
 $("pur-back").onclick=loadCabinet;
