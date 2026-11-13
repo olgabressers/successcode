@@ -9,8 +9,7 @@
 <link rel="stylesheet" href="/assets/fonts/fonts.css">
 <style>
   :root{
-    --bg:#f5f3ee; --surface:#ffffff; --card:#efede7;
-    --gold:#b8882a; --gold2:#8a6410; --gold-dim:rgba(184,144,58,0.10);
+    --bg:#f5f3ee; --surface:#ffffff; --gold:#b8882a; --gold2:#8a6410;
     --ink:#1a1a1a; --dim:#555555; --muted:#8a8578; --border:#d8d4c8;
     --field:#fbfaf7; --red:#a8322a;
   }
@@ -22,83 +21,116 @@
 
   nav{ position:fixed; top:0; left:0; right:0; z-index:200; padding:20px 56px; display:flex; justify-content:space-between; align-items:center; gap:16px; background:rgba(255,255,255,0.97); border-bottom:1px solid var(--border); backdrop-filter:blur(8px); }
   .nav-logo{ font-family:'Cormorant Garamond',serif; font-size:18px; font-weight:700; letter-spacing:5px; text-transform:uppercase; color:var(--gold); text-decoration:none; }
-  .nav-r{ display:flex; gap:12px; align-items:center; }
+  .nav-r{ display:flex; gap:14px; align-items:center; }
   .nav-link{ font-size:11px; letter-spacing:1.2px; text-transform:uppercase; white-space:nowrap; font-weight:600; text-decoration:none; }
   .nav-link:hover{ color:var(--gold2); }
-  .btn{ font-family:inherit; font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:600; color:#f5f1eb; background:var(--gold); padding:12px 22px; text-decoration:none; border:0; cursor:pointer; transition:background .25s; }
+  .btn{ font-family:inherit; font-size:12px; letter-spacing:2px; text-transform:uppercase; font-weight:600; color:#f5f1eb; background:var(--gold); padding:12px 22px; text-decoration:none; border:0; cursor:pointer; transition:background .25s; display:inline-block; }
   .btn:hover{ background:var(--gold2); }
   .btn.ghost{ background:transparent; color:var(--ink); border:1px solid var(--border); }
   .btn.ghost:hover{ background:var(--gold); color:#f5f1eb; border-color:var(--gold); }
 
-  main{ max-width:980px; margin:0 auto; padding:120px 40px 90px; }
+  main{ max-width:980px; margin:0 auto; padding:110px 40px 80px; }
 
   /* COVER */
-  .cover{ position:relative; background:#16130e; color:#f5f1eb; padding:48px 48px 42px; overflow:hidden; }
+  .cover{ position:relative; background:#16130e; color:#f5f1eb; padding:44px 48px 38px; overflow:hidden; }
   .cover::after{ content:"9"; position:absolute; right:-10px; bottom:-70px; font-family:'Cormorant Garamond',serif; font-size:300px; line-height:1; color:rgba(184,136,42,.16); font-weight:600; pointer-events:none; }
-  .eyebrow{ font-size:12px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:16px; font-weight:600; }
+  .eyebrow{ font-size:12px; letter-spacing:4px; text-transform:uppercase; color:var(--gold); margin-bottom:14px; font-weight:600; }
   .cover h1{ font-family:'Cormorant Garamond',serif; font-weight:600; font-size:50px; line-height:1.05; }
   .cover h1 em{ font-style:normal; color:var(--gold); }
-  .chapter{ display:flex; align-items:baseline; gap:16px; margin-top:28px; padding-top:24px; border-top:1px solid rgba(245,241,235,.18); position:relative; z-index:1; }
+  .chapter{ display:flex; align-items:baseline; gap:16px; margin-top:24px; padding-top:22px; border-top:1px solid rgba(245,241,235,.18); position:relative; z-index:1; }
   .chapter .n{ font-family:'Cormorant Garamond',serif; font-size:44px; color:var(--gold); line-height:1; }
   .chapter .t{ font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; }
   .chapter .s{ font-size:16px; color:#d9d2c3; margin-top:6px; }
-  .cover-bar{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:26px; position:relative; z-index:1; }
-  .saved{ font-size:13px; color:#d9d2c3; }
+  .cover-bar{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin-top:24px; position:relative; z-index:1; }
+  .saved{ font-size:14px; color:#d9d2c3; }
+
+  /* CONTENTS */
+  .toc{ background:var(--surface); border:1px solid var(--border); padding:26px 40px; margin-top:18px; }
+  .toc h2{ font-family:'Cormorant Garamond',serif; font-size:26px; font-weight:600; margin-bottom:12px; }
+  .toc ol{ list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:6px 28px; }
+  .toc a{ display:flex; gap:12px; align-items:baseline; text-decoration:none; font-size:15px; padding:5px 0; border-bottom:1px solid #eeeae1; }
+  .toc a:hover{ color:var(--gold2); }
+  .toc .d{ font-size:13px; color:var(--gold2); font-weight:700; min-width:42px; }
 
   /* SECTIONS */
-  .sec{ background:var(--surface); border:1px solid var(--border); padding:34px 40px; margin-top:22px; }
-  .sec-head{ display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
-  .sec-n{ font-family:'Cormorant Garamond',serif; font-size:26px; color:var(--gold); line-height:1; }
+  .sec{ background:var(--surface); border:1px solid var(--border); padding:30px 40px; margin-top:18px; scroll-margin-top:90px; }
+  .sec-head{ display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; }
+  .date{ font-size:13px; font-weight:700; color:#fff; background:var(--gold); padding:4px 10px; letter-spacing:1px; }
   .sec h2{ font-family:'Cormorant Garamond',serif; font-size:30px; font-weight:600; line-height:1.15; }
-  .hint{ font-size:15px; color:var(--dim); line-height:1.6; margin:6px 0 18px; }
-  .quote{ font-family:'Cormorant Garamond',serif; font-size:24px; color:var(--red); margin:4px 0 6px; }
+  .hint{ font-size:15px; color:var(--dim); line-height:1.6; margin:10px 0 4px; }
+  .task{ margin-top:18px; border-top:1px solid #eeeae1; padding-top:16px; }
+  .task-t{ font-size:13px; letter-spacing:2px; text-transform:uppercase; color:var(--red); font-weight:700; }
 
-  label.q{ display:block; font-size:15px; font-weight:600; margin:18px 0 8px; }
-  textarea, input[type=text], select{ width:100%; font-family:inherit; font-size:15px; color:var(--ink); background:var(--field); border:1px solid var(--border); padding:13px 15px; outline:none; transition:border-color .2s, background .2s; }
-  textarea{ min-height:110px; resize:vertical; line-height:1.75;
+  label.q, .q{ display:block; font-size:15px; font-weight:600; margin:16px 0 8px; line-height:1.45; }
+  textarea, input[type=text], select{ width:100%; font-family:inherit; font-size:15px; color:var(--ink); background:var(--field); border:1px solid var(--border); padding:12px 14px; outline:none; transition:border-color .2s, background .2s; }
+  textarea{ min-height:96px; resize:vertical; line-height:1.75;
     background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(184,136,42,.14) 25px, rgba(184,136,42,.14) 26px);
-    background-attachment:local; background-position:0 12px; }
+    background-attachment:local; background-position:0 11px; }
   textarea:focus, input:focus, select:focus{ border-color:var(--gold); background-color:#fff; }
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:0 18px; }
 
-  /* TRENDS */
-  .trends{ display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
-  .trend{ border:1px solid var(--border); background:var(--field); padding:12px 12px; font-size:14px; line-height:1.3; cursor:pointer; text-align:left; font-family:inherit; color:var(--ink); transition:all .2s; min-height:62px; }
-  .trend span{ display:block; font-size:12px; color:var(--gold2); font-weight:700; margin-bottom:4px; }
-  .trend.on{ background:var(--gold); border-color:var(--gold); color:#fff; }
-  .trend.on span{ color:#fff; }
-  .count{ font-size:14px; color:var(--muted); margin-top:10px; }
+  /* option pills */
+  .opts{ display:flex; flex-wrap:wrap; gap:8px; }
+  .pill{ position:relative; }
+  .pill input{ position:absolute; opacity:0; pointer-events:none; }
+  .pill span{ display:inline-block; border:1px solid var(--border); background:var(--field); padding:10px 16px; font-size:15px; cursor:pointer; transition:all .2s; line-height:1.3; }
+  .pill input:checked + span{ background:var(--gold); border-color:var(--gold); color:#fff; }
+  .pill input:focus-visible + span{ outline:2px solid var(--gold2); }
 
-  /* YEARS */
-  .years{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-  .yr{ border:1px solid var(--border); padding:18px 16px; background:var(--field); display:flex; flex-direction:column; }
+  /* trends readiness */
+  .trow{ display:grid; grid-template-columns:34px 1fr auto; gap:12px; align-items:center; padding:9px 0; border-bottom:1px solid #eeeae1; }
+  .trow .i{ font-size:13px; color:var(--gold2); font-weight:700; }
+  .trow .n{ font-size:15px; }
+  .trow .pill span{ padding:7px 14px; font-size:14px; }
+  .tsum{ font-size:14px; color:var(--muted); margin-top:10px; }
+
+  /* checklist */
+  .checks{ display:grid; gap:8px; }
+  .chk{ display:flex; gap:12px; align-items:flex-start; font-size:15px; line-height:1.45; cursor:pointer; padding:8px 12px; border:1px solid var(--border); background:var(--field); }
+  .chk input{ margin-top:3px; accent-color:var(--gold); width:18px; height:18px; flex:none; }
+  .checks.cols{ grid-template-columns:1fr 1fr; }
+
+  /* years */
+  .years{ display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:14px; }
+  .yr{ border:1px solid var(--border); padding:16px 14px; background:var(--field); display:flex; flex-direction:column; }
   .yr.now{ border-color:var(--gold); box-shadow:inset 0 3px 0 var(--gold); background:#fff; }
   .yr b{ font-family:'Cormorant Garamond',serif; font-size:30px; color:var(--gold2); line-height:1; }
   .yr p{ font-size:14px; color:var(--dim); margin:8px 0 10px; line-height:1.45; min-height:40px; }
   .yr .ask{ font-size:14px; font-weight:600; margin-bottom:8px; }
-  .yr textarea{ min-height:120px; flex:1; }
+  .yr textarea{ min-height:110px; flex:1; }
 
-  /* CHOICE */
-  .keypoint{ border-left:3px solid var(--red); padding:4px 0 4px 18px; font-size:16px; line-height:1.6; margin:4px 0 6px; }
-  .choice{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
-  .choice label.opt{ display:flex; gap:12px; align-items:flex-start; border:1px solid var(--border); padding:16px; cursor:pointer; background:var(--field); font-size:15px; line-height:1.45; }
-  .choice input{ margin-top:3px; accent-color:var(--gold); width:18px; height:18px; flex:none; }
+  /* structures table */
+  .stab{ width:100%; border-collapse:collapse; margin-top:10px; }
+  .stab th{ text-align:left; font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); font-weight:700; padding:8px 8px 8px 0; border-bottom:1px solid var(--border); }
+  .stab td{ padding:12px 8px 12px 0; border-bottom:1px solid #eeeae1; vertical-align:top; font-size:15px; }
+  .stab td.nm b{ display:block; }
+  .stab td.nm small{ font-size:13px; color:var(--gold2); font-weight:600; }
+  .stab .pill span{ padding:7px 12px; font-size:14px; }
+  .stab input[type=text]{ padding:9px 12px; }
 
-  /* ACTIONS */
+  /* backup rows, income */
+  .grid-rows{ display:grid; grid-template-columns:1fr 1fr; gap:8px 14px; }
+  .grid-rows .h{ font-size:13px; letter-spacing:1px; text-transform:uppercase; color:var(--muted); font-weight:700; }
+  .income{ display:grid; grid-template-columns:1fr 1fr; gap:8px 18px; counter-reset:inc; }
+  .income div{ display:grid; grid-template-columns:28px 1fr; align-items:center; gap:8px; }
+  .income span{ font-family:'Cormorant Garamond',serif; font-size:20px; color:var(--gold); text-align:right; }
+  .income input{ padding:9px 12px; }
+
+  /* actions */
   .act{ display:grid; grid-template-columns:28px 1fr 190px 34px; gap:10px; align-items:center; margin-bottom:10px; }
   .act .i{ font-family:'Cormorant Garamond',serif; font-size:22px; color:var(--gold); text-align:center; }
   .act .del{ width:34px; height:46px; border:1px solid var(--border); background:transparent; color:var(--muted); font-size:18px; cursor:pointer; }
   .act .del:hover{ color:var(--red); border-color:var(--red); }
   .add{ margin-top:6px; }
 
-  /* PLAN */
+  /* final plan */
   .plan{ background:#16130e; color:#f5f1eb; border-color:#16130e; }
-  .plan h2{ color:#f5f1eb; }
-  .plan .hint{ color:#d9d2c3; }
+  .plan h2, .plan label.q{ color:#f5f1eb; }
   .plan textarea{ background-color:#221d15; color:#f5f1eb; border-color:#3a3226; background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 25px, rgba(184,136,42,.22) 25px, rgba(184,136,42,.22) 26px); }
   .plan textarea:focus{ background-color:#2a241a; border-color:var(--gold); }
-  .plan label.q{ color:#f5f1eb; }
+  .plan .date{ background:#f5f1eb; color:#16130e; }
 
-  .foot{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; margin-top:26px; }
+  .foot{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:14px; margin-top:24px; }
   .foot .small{ font-size:14px; color:var(--muted); }
 
   .back-to-top{ position:fixed; right:22px; bottom:22px; width:52px; height:52px; background:var(--gold); color:#f5f1eb; display:none; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.25); z-index:50; }
@@ -108,16 +140,22 @@
     * { max-width:100vw; }
     nav{ padding:14px 16px; }
     .nav-link{ display:none; }
-    main{ padding:84px 16px 70px; }
-    .cover{ padding:32px 22px 28px; }
+    main{ padding:80px 16px 70px; }
+    .cover{ padding:30px 20px 26px; }
     .cover h1{ font-size:36px; }
     .cover::after{ font-size:200px; bottom:-40px; }
     .chapter .n{ font-size:34px; } .chapter .t{ font-size:24px; }
-    .sec{ padding:24px 18px; }
+    .toc, .sec{ padding:22px 18px; }
+    .toc ol, .two, .checks.cols, .income, .grid-rows{ grid-template-columns:1fr; }
+    .grid-rows .h:nth-child(2){ display:none; }
     .sec h2{ font-size:25px; }
-    .trends{ grid-template-columns:repeat(2,1fr); }
     .years{ grid-template-columns:1fr 1fr; }
-    .choice{ grid-template-columns:1fr; }
+    .trow{ grid-template-columns:28px 1fr; }
+    .trow .opts{ grid-column:2; }
+    .stab thead{ display:none; }
+    .stab, .stab tbody, .stab tr, .stab td{ display:block; width:100%; }
+    .stab tr{ border-bottom:1px solid var(--border); padding:10px 0; }
+    .stab td{ border:0; padding:5px 0; }
     .act{ grid-template-columns:22px 1fr 34px; }
     .act select{ grid-column:2 / 3; }
     .act .del{ grid-row:1; grid-column:3; }
@@ -127,11 +165,11 @@
 
   @media print{
     @page{ size:A4; margin:12mm; }
-    nav, .back-to-top, .cover-bar, .foot, .del, .add{ display:none !important; }
+    nav, .back-to-top, .cover-bar, .foot, .del, .add, .toc{ display:none !important; }
     body{ background:#fff; }
     main{ padding:0; max-width:none; }
-    .sec, .yr, .cover{ break-inside:avoid; }
-    textarea{ min-height:0; height:auto; overflow:visible; }
+    .yr, .cover, .trow, .stab tr{ break-inside:avoid; }
+    textarea{ min-height:0; overflow:visible; }
   }
 </style>
 </head>
@@ -159,69 +197,246 @@
     </div>
     <div class="cover-bar">
       <button class="btn" type="button" onclick="window.print()">Сохранить в PDF</button>
-      <span class="saved" id="saved">Записи сохраняются автоматически</span>
+      <span class="saved" id="saved">Записи сохраняются в этом браузере</span>
     </div>
   </header>
 
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">I</span><h2>Большая картинка</h2></div>
-    <p class="hint">Это 20-летний период Огня, в котором мы сейчас живём. Он длится с 2024 по 2044 год. Именно с его приходом наша жизнь резко поменялась.</p>
-    <p class="quote">«Назад пути нет. Время поменялось».</p>
-    <label class="q" for="f_change">Что в моей жизни резко поменялось с 2024 года?</label>
-    <textarea id="f_change" data-k="change"></textarea>
+  <div class="toc">
+    <h2>Содержание</h2>
+    <ol>
+      <li><a href="#s1"><span class="d">2.11</span>Большая картинка: готова ли я</a></li>
+      <li><a href="#s2"><span class="d">3.11</span>Женская энергия</a></li>
+      <li><a href="#s3"><span class="d">4.11</span>Пожар и пепел: моя новая жизнь</a></li>
+      <li><a href="#s4"><span class="d">5.11</span>Давление на иерархии</a></li>
+      <li><a href="#s5"><span class="d">6.11</span>Почему 2027 особенный</a></li>
+      <li><a href="#s6"><span class="d">7.11</span>Как я подключаюсь к 9 периоду</a></li>
+      <li><a href="#s7"><span class="d">7–13.11</span>Мои структуры в карте Ба Цзы</a></li>
+      <li><a href="#s8"><span class="d">9.11</span>Деятельность: где</a></li>
+      <li><a href="#s9"><span class="d">10.11</span>Конец глобализации · Цветок персика</a></li>
+      <li><a href="#s10"><span class="d">11.11</span>Бизнес и карьера · 20 источников дохода</a></li>
+      <li><a href="#s11"><span class="d">12.11</span>Личный бренд и самопродвижение</a></li>
+      <li><a href="#s12"><span class="d">13.11</span>Управление неопределённостью</a></li>
+      <li><a href="#s13"><span class="d">Итог</span>Мои выводы, действия и план 2027</a></li>
+    </ol>
+  </div>
+
+  <!-- 2.11 -->
+  <section class="sec" id="s1">
+    <div class="sec-head"><span class="date">2.11</span><h2>Большая картинка: 9-й период Огня</h2></div>
+    <p class="hint">Посмотрите на то, как устроена ваша жизнь, и проанализируйте, насколько вы готовы к изменениям с учётом каждой тенденции.</p>
+    <div class="two">
+      <div><label class="q">Кем и где я работаю</label><textarea data-k="life_work"></textarea></div>
+      <div><label class="q">Чем занимаются мои дети, муж или жена</label><textarea data-k="life_family"></textarea></div>
+      <div><label class="q">Как построена экономическая система моего дома</label><textarea data-k="life_econ"></textarea></div>
+      <div><label class="q">Мои планы по управлению рисками, если вдруг что-то изменится</label><textarea data-k="life_risk"></textarea></div>
+    </div>
+    <div class="task">
+      <div class="task-t">Задание</div>
+      <p class="q">Насколько я готова к каждой тенденции периода</p>
+      <div id="trends"></div>
+      <p class="tsum" id="tsum"></p>
+      <p class="q">Готова ли я жить в этой новой реальности комфортно?</p>
+      <div class="opts">
+        <label class="pill"><input type="radio" name="ready" value="да"><span>Да</span></label>
+        <label class="pill"><input type="radio" name="ready" value="нет"><span>Нет</span></label>
+      </div>
+      <label class="q">Что нужно сделать в течение 2027 года, чтобы полностью перестроить свою жизнь в новый формат</label>
+      <textarea data-k="rebuild"></textarea>
+    </div>
   </section>
 
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">II</span><h2>Мои тенденции периода</h2></div>
-    <p class="hint">Отметьте тенденции, которые вы уже видите в своей жизни.</p>
-    <div class="trends" id="trends"></div>
-    <p class="count" id="tcount">Отмечено: 0 из 15</p>
-    <label class="q" for="f_trends">Как они проявляются в моей жизни и деятельности?</label>
-    <textarea id="f_trends" data-k="trends_text"></textarea>
+  <!-- 3.11 -->
+  <section class="sec" id="s2">
+    <div class="sec-head"><span class="date">3.11</span><h2>Женская энергия</h2></div>
+    <div class="task">
+      <div class="task-t">Попробуйте</div>
+      <label class="q">Ситуация на моей работе или в бизнесе, которую я пока не могу разрешить</label>
+      <textarea data-k="fe_case"></textarea>
+      <p class="q">Сейчас я пытаюсь разрешить её</p>
+      <div class="opts">
+        <label class="pill"><input type="radio" name="fe_method" value="мужскими"><span>мужскими методами</span></label>
+        <label class="pill"><input type="radio" name="fe_method" value="женскими"><span>женскими методами</span></label>
+      </div>
+      <p class="q">Иньский подход, который я применяю</p>
+      <div class="checks cols">
+        <label class="chk"><input type="checkbox" data-k="yin1">умение договариваться</label>
+        <label class="chk"><input type="checkbox" data-k="yin2">эмоциональный интеллект и поддержка</label>
+        <label class="chk"><input type="checkbox" data-k="yin3">умение входить в положение всех участников процесса</label>
+        <label class="chk"><input type="checkbox" data-k="yin4">признавать сильные стороны других и действовать сообща</label>
+        <label class="chk"><input type="checkbox" data-k="yin5">умение слушать и слышать</label>
+        <label class="chk"><input type="checkbox" data-k="yin6">умение выстраивать связи и работать в сети</label>
+        <label class="chk"><input type="checkbox" data-k="yin7">гибкость</label>
+        <label class="chk"><input type="checkbox" data-k="yin8">забота о людях и о команде</label>
+        <label class="chk"><input type="checkbox" data-k="yin9">решения, которые принимаются вместе</label>
+      </div>
+      <label class="q">Что у меня получилось</label>
+      <textarea data-k="fe_result"></textarea>
+    </div>
   </section>
 
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">III</span><h2>Мои годы в 9-м периоде</h2></div>
-    <p class="hint">Пройдите по годам и запишите, что происходит лично у вас.</p>
+  <!-- 4.11 -->
+  <section class="sec" id="s3">
+    <div class="sec-head"><span class="date">4.11</span><h2>Пожар и пепел: моя новая жизнь</h2></div>
     <div class="years">
       <div class="yr"><b>2024</b><p>Пошёл резкий толчок трансформации.</p><div class="ask">Мой толчок</div><textarea data-k="y2024" aria-label="2024"></textarea></div>
       <div class="yr"><b>2026</b><p>Мы подошли к Огню, и всё начало гореть и трансформироваться.</p><div class="ask">Что у меня горит</div><textarea data-k="y2026" aria-label="2026"></textarea></div>
       <div class="yr now"><b>2027</b><p>Мы увидим, с чем остались.</p><div class="ask">С чем я остаюсь</div><textarea data-k="y2027" aria-label="2027"></textarea></div>
       <div class="yr"><b>2028</b><p>Мы начнём строить что-то совершенно новое.</p><div class="ask">Что новое я строю</div><textarea data-k="y2028" aria-label="2028"></textarea></div>
     </div>
-  </section>
-
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">IV</span><h2>Мой выбор 2027</h2></div>
-    <p class="keypoint">2027 год открывает две возможности: трансформироваться и найти новый способ жизни и деятельности, или не успеть адаптироваться к новым условиям.</p>
-    <div class="choice">
-      <label class="opt"><input type="checkbox" data-k="ch_transform">Я трансформируюсь и нахожу новый способ жизни и деятельности</label>
-      <label class="opt"><input type="checkbox" data-k="ch_adapt">Я вижу, где рискую не успеть адаптироваться</label>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <label class="q">Как выглядит моя жизнь в мире, где все тенденции 9 периода уже реализованы</label>
+      <textarea data-k="fantasy"></textarea>
+      <label class="q">Мои сценарии: какие решения я принимаю в тех или иных ситуациях</label>
+      <textarea data-k="scenarios"></textarea>
     </div>
-    <label class="q" for="f_way">Мой новый способ жизни и деятельности</label>
-    <textarea id="f_way" data-k="way"></textarea>
   </section>
 
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">V</span><h2>Заметки и выводы</h2></div>
-    <label class="q" for="f_notes">Заметки по теме</label>
-    <textarea id="f_notes" data-k="notes"></textarea>
-    <label class="q" for="f_concl">Мои выводы</label>
-    <textarea id="f_concl" data-k="conclusions"></textarea>
+  <!-- 5.11 -->
+  <section class="sec" id="s4">
+    <div class="sec-head"><span class="date">5.11</span><h2>Давление на иерархии и сетевые государства</h2></div>
+    <label class="q">Знала ли я об этом тренде и что я о нём думаю</label>
+    <textarea data-k="net_think"></textarea>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <label class="q">Как я буду функционировать и экономически успешно зарабатывать деньги, когда структура, которой я привыкла принадлежать, перестанет существовать</label>
+      <textarea data-k="net_after"></textarea>
+    </div>
   </section>
 
-  <section class="sec">
-    <div class="sec-head"><span class="sec-n">VI</span><h2>Мои действия</h2></div>
-    <p class="hint">Конкретный шаг и месяц, когда вы его делаете.</p>
+  <!-- 6.11 -->
+  <section class="sec" id="s5">
+    <div class="sec-head"><span class="date">6.11</span><h2>Почему 2027 год особенный</h2></div>
+    <p class="q">В 2027 году появятся две возможности. Моя:</p>
+    <div class="opts">
+      <label class="pill"><input type="radio" name="wave" value="1"><span>обуздать энергию периода, трансформироваться и нащупать свой новый способ жизни</span></label>
+      <label class="pill"><input type="radio" name="wave" value="2"><span>пока не успеваю адаптироваться и поймать новую волну</span></label>
+    </div>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <label class="q">Моя стратегия адаптации к новому образу и новым законам общества</label>
+      <textarea data-k="strategy"></textarea>
+      <label class="q">Что я начинаю реализовывать уже сейчас</label>
+      <textarea data-k="strategy_now"></textarea>
+    </div>
+  </section>
+
+  <!-- 7.11 -->
+  <section class="sec" id="s6">
+    <div class="sec-head"><span class="date">7.11</span><h2>Как я подключаюсь к энергиям 9 периода</h2></div>
+    <p class="hint">Четыре способа встроиться в энергии периода.</p>
+    <div class="two">
+      <div><label class="q">1. Деятельность: что, как и где я делаю</label><textarea data-k="way_act"></textarea></div>
+      <div><label class="q">2. Моя карта Ба Цзы: что в ней есть</label><textarea data-k="way_chart"></textarea></div>
+      <div><label class="q">3. Партнёрство: с кем я соединяюсь</label><textarea data-k="way_partner"></textarea></div>
+      <div><label class="q">4. Фэн-шуй: где я живу и работаю</label><textarea data-k="way_fs"></textarea></div>
+    </div>
+  </section>
+
+  <!-- structures -->
+  <section class="sec" id="s7">
+    <div class="sec-head"><span class="date">7–13.11</span><h2>Мои структуры в карте Ба Цзы</h2></div>
+    <p class="hint">Откройте свою карту и карты близких. Сначала всегда начинайте с себя.</p>
+    <table class="stab">
+      <thead><tr><th>Структура</th><th>В моей карте</th><th>У близких</th></tr></thead>
+      <tbody id="stab"></tbody>
+    </table>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <label class="q">Императоры в моём окружении: к чьему мнению я прислушиваюсь и с кем стараюсь подружиться</label>
+      <textarea data-k="emperors"></textarea>
+    </div>
+  </section>
+
+  <!-- 9.11 -->
+  <section class="sec" id="s8">
+    <div class="sec-head"><span class="date">9.11</span><h2>Деятельность: где</h2></div>
+    <p class="hint">В 9 периоде процветают Азия и Африка, Америка и Европа стагнируют.</p>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <label class="q">Рассматриваю ли я иммиграцию или деятельность, не привязанную к географии? Куда и как</label>
+      <textarea data-k="geo"></textarea>
+    </div>
+  </section>
+
+  <!-- 10.11 -->
+  <section class="sec" id="s9">
+    <div class="sec-head"><span class="date">10.11</span><h2>Конец глобализации · Цветок персика</h2></div>
+    <div class="task">
+      <div class="task-t">Важно в 2027 году: запасные варианты</div>
+      <div class="grid-rows" id="backup">
+        <div class="h">Что я покупаю за границей или от чего зависит мой бизнес</div><div class="h">Моя альтернатива</div>
+      </div>
+    </div>
+    <div class="task">
+      <div class="task-t">Цветок персика</div>
+      <label class="q">Как я инвестирую в свою внешность</label>
+      <textarea data-k="looks"></textarea>
+    </div>
+  </section>
+
+  <!-- 11.11 -->
+  <section class="sec" id="s10">
+    <div class="sec-head"><span class="date">11.11</span><h2>Главные изменения в бизнесе и карьере</h2></div>
+    <p class="q">Что из 8 периода я до сих пор считаю правилом</p>
+    <div class="checks">
+      <label class="chk"><input type="checkbox" data-k="old1">Хорошо учиться и получать хорошие оценки, что гарантирует работу в хорошей компании</label>
+      <label class="chk"><input type="checkbox" data-k="old2">Сама цель получить работу в хорошей компании</label>
+      <label class="chk"><input type="checkbox" data-k="old3">Хороший сотрудник = хорошая компания = карьерный рост = стабильность и гарантии</label>
+      <label class="chk"><input type="checkbox" data-k="old4">Стабильность как данность</label>
+      <label class="chk"><input type="checkbox" data-k="old5">Запись о международной компании в резюме гарантирует светлое будущее</label>
+    </div>
+    <div class="task">
+      <div class="task-t">Задание на подумать</div>
+      <p class="q">20 способов, которыми я могу создать себе дополнительный источник дохода</p>
+      <div class="income" id="income"></div>
+    </div>
+  </section>
+
+  <!-- 12.11 -->
+  <section class="sec" id="s11">
+    <div class="sec-head"><span class="date">12.11</span><h2>Личный бренд и самопродвижение</h2></div>
+    <div class="two">
+      <div><label class="q">Как меня воспринимает аудитория сейчас</label><textarea data-k="brand_now"></textarea></div>
+      <div><label class="q">Что я подсвечиваю дальше: новый фокус и подача</label><textarea data-k="brand_next"></textarea></div>
+    </div>
+    <label class="q">Как я рассказываю о себе: говорение, визуальная картинка, имидж</label>
+    <textarea data-k="selfpromo"></textarea>
+    <label class="q">Какие профессии и сферы периода мне близки</label>
+    <textarea data-k="professions"></textarea>
+  </section>
+
+  <!-- 13.11 -->
+  <section class="sec" id="s12">
+    <div class="sec-head"><span class="date">13.11</span><h2>Управление неопределённостью</h2></div>
+    <div class="task">
+      <div class="task-t">Практическое применение</div>
+      <p class="q">Метафизические знания для меня</p>
+      <div class="opts">
+        <label class="pill"><input type="checkbox" data-k="meta_use"><span>пользоваться</span></label>
+        <label class="pill"><input type="checkbox" data-k="meta_learn"><span>изучать самой</span></label>
+      </div>
+      <label class="q">Что именно и как я применяю</label>
+      <textarea data-k="meta_text"></textarea>
+    </div>
+  </section>
+
+  <!-- final -->
+  <section class="sec" id="s13">
+    <div class="sec-head"><span class="date">Итог</span><h2>Мои выводы и действия</h2></div>
+    <label class="q">Мои заметки</label>
+    <textarea data-k="notes"></textarea>
+    <label class="q">Мои выводы</label>
+    <textarea data-k="conclusions"></textarea>
+    <p class="q">Мои действия и месяц</p>
     <div id="acts"></div>
     <button class="btn ghost add" type="button" id="addAct">+ Добавить действие</button>
   </section>
 
   <section class="sec plan">
-    <div class="sec-head"><span class="sec-n">VII</span><h2>В мой план 2027</h2></div>
-    <p class="hint">Одна–три строки из этой темы, которые войдут в ваш итоговый Код Успеха 2027.</p>
-    <label class="q" for="f_plan">Я задаю фон моей жизни до 2044 года так:</label>
-    <textarea id="f_plan" data-k="plan"></textarea>
+    <div class="sec-head"><span class="date">План</span><h2>В мой план 2027</h2></div>
+    <label class="q">Я задаю фон моей жизни до 2044 года так:</label>
+    <textarea data-k="plan"></textarea>
   </section>
 
   <div class="foot">
@@ -239,53 +454,71 @@
 <script>
 (function(){
   var KEY='sc_plan2027_01';
-  var TRENDS=['Скорость','Публичность','Женская энергия','Духовное развитие','Иллюзии','Красота','Виральность','Стресс','Искусственный интеллект','Деньги уходят в нематериальное','Создание информации','Давление на иерархии','Эмоциональный интеллект','Здоровье','Нестабильность'];
+  var TRENDS=['Скорость','Публичность','Женская энергия','Духовное развитие','Иллюзии','Красота','Виральность','Стресс','Искусственный интеллект и технологии','Деньги уходят в нематериальное','Создание и распространение информации','Давление на иерархии','Эмоциональный интеллект и сотрудничество','Здоровье','Нестабильность'];
+  var STRUCT=[['Структура трёх императоров','7.11'],['Скрытый император','9.11'],['Цветок персика','10.11'],['Треугольник Феникса','13.11'],['Столб Ян Огня на Лошади','13.11']];
   var MONTHS=['Месяц','Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'];
   var data={};
   try{ data=JSON.parse(localStorage.getItem(KEY)||'{}')||{}; }catch(e){ data={}; }
-  if(!data.trends) data.trends=[];
   if(!data.acts||!data.acts.length) data.acts=[{t:'',m:''},{t:'',m:''},{t:'',m:''}];
 
   var savedEl=document.getElementById('saved'), timer;
   function save(){
-    try{ localStorage.setItem(KEY, JSON.stringify(data)); savedEl.textContent='Сохранено'; }
+    try{ localStorage.setItem(KEY, JSON.stringify(data)); savedEl.textContent='Сохранено в этом браузере'; }
     catch(e){ savedEl.textContent='Сохраните PDF, чтобы не потерять записи'; }
-    clearTimeout(timer); timer=setTimeout(function(){ savedEl.textContent='Записи сохраняются автоматически'; },1800);
+    clearTimeout(timer); timer=setTimeout(function(){ savedEl.textContent='Записи сохраняются в этом браузере'; },1800);
   }
-  function grow(t){ t.style.height='auto'; t.style.height=Math.max(t.scrollHeight+2, t.classList.contains('min')?0:0)+'px'; }
+  function grow(t){ t.style.height='auto'; t.style.height=(t.scrollHeight+2)+'px'; }
+  function el(tag,cls,html){ var e=document.createElement(tag); if(cls) e.className=cls; if(html!=null) e.innerHTML=html; return e; }
+  function pill(name,val,label){ return '<label class="pill"><input type="radio" name="'+name+'" value="'+val+'"><span>'+label+'</span></label>'; }
 
-  document.querySelectorAll('[data-k]').forEach(function(el){
-    var k=el.dataset.k;
-    if(el.type==='checkbox'){ el.checked=!!data[k]; el.addEventListener('change',function(){ data[k]=el.checked; save(); }); }
-    else { el.value=data[k]||''; el.addEventListener('input',function(){ data[k]=el.value; if(el.tagName==='TEXTAREA') grow(el); save(); }); }
+  // trends readiness
+  var tw=document.getElementById('trends');
+  TRENDS.forEach(function(n,i){
+    var r=el('div','trow'); r.innerHTML='<span class="i">'+String(i+1).padStart(2,'0')+'</span><span class="n">'+n+'</span><div class="opts">'+pill('tr'+i,'готова','готова')+pill('tr'+i,'не готова','не готова')+'</div>';
+    tw.appendChild(r);
+  });
+  function tsum(){ var y=0,n=0; for(var i=0;i<15;i++){ if(data['tr'+i]==='готова') y++; else if(data['tr'+i]==='не готова') n++; } document.getElementById('tsum').textContent='Готова: '+y+' · Не готова: '+n+' · из 15'; }
+
+  // structures
+  var sb=document.getElementById('stab');
+  STRUCT.forEach(function(s,i){
+    var r=el('tr'); r.innerHTML='<td class="nm"><b>'+s[0]+'</b><small>'+s[1]+'</small></td><td><div class="opts">'+pill('st'+i,'есть','есть')+pill('st'+i,'частично','частично')+pill('st'+i,'нет','нет')+'</div></td><td><input type="text" data-k="stc'+i+'" placeholder="у кого и что"></td>';
+    sb.appendChild(r);
   });
 
-  var tw=document.getElementById('trends'), tc=document.getElementById('tcount');
-  function countT(){ tc.textContent='Отмечено: '+data.trends.length+' из 15'; }
-  TRENDS.forEach(function(name,i){
-    var b=document.createElement('button'); b.type='button'; b.className='trend'+(data.trends.indexOf(i)>-1?' on':'');
-    b.innerHTML='<span>'+String(i+1).padStart(2,'0')+'</span>'+name;
-    b.addEventListener('click',function(){
-      var p=data.trends.indexOf(i);
-      if(p>-1){ data.trends.splice(p,1); b.classList.remove('on'); } else { data.trends.push(i); b.classList.add('on'); }
-      countT(); save();
-    });
-    tw.appendChild(b);
-  });
-  countT();
+  // backup rows
+  var bk=document.getElementById('backup');
+  for(var b=0;b<4;b++){ bk.insertAdjacentHTML('beforeend','<input type="text" data-k="bk_w'+b+'"><input type="text" data-k="bk_a'+b+'">'); }
 
+  // 20 income ways
+  var inc=document.getElementById('income');
+  for(var k=0;k<20;k++){ inc.insertAdjacentHTML('beforeend','<div><span>'+(k+1)+'</span><input type="text" data-k="inc'+k+'" aria-label="Способ '+(k+1)+'"></div>'); }
+
+  // bind all fields
+  document.querySelectorAll('[data-k]').forEach(function(f){
+    var k=f.dataset.k;
+    if(f.type==='checkbox'){ f.checked=!!data[k]; f.addEventListener('change',function(){ data[k]=f.checked; save(); }); }
+    else { f.value=data[k]||''; f.addEventListener('input',function(){ data[k]=f.value; if(f.tagName==='TEXTAREA') grow(f); save(); }); }
+  });
+  document.querySelectorAll('input[type=radio]').forEach(function(f){
+    if(data[f.name]===f.value) f.checked=true;
+    f.addEventListener('change',function(){ data[f.name]=f.value; if(f.name.indexOf('tr')===0) tsum(); save(); });
+  });
+  tsum();
+
+  // actions
   var aw=document.getElementById('acts');
   function renderActs(){
     aw.innerHTML='';
     data.acts.forEach(function(a,i){
-      var row=document.createElement('div'); row.className='act';
-      var n=document.createElement('div'); n.className='i'; n.textContent=i+1;
+      var row=el('div','act');
+      var n=el('div','i',String(i+1));
       var inp=document.createElement('input'); inp.type='text'; inp.placeholder='Что я делаю'; inp.value=a.t;
       inp.addEventListener('input',function(){ a.t=inp.value; save(); });
       var sel=document.createElement('select');
       MONTHS.forEach(function(m,j){ var o=document.createElement('option'); o.value=j?m:''; o.textContent=m; if((j?m:'')===a.m) o.selected=true; sel.appendChild(o); });
       sel.addEventListener('change',function(){ a.m=sel.value; save(); });
-      var d=document.createElement('button'); d.type='button'; d.className='del'; d.setAttribute('aria-label','Удалить'); d.textContent='×';
+      var d=el('button','del','×'); d.type='button'; d.setAttribute('aria-label','Удалить');
       d.addEventListener('click',function(){ data.acts.splice(i,1); if(!data.acts.length) data.acts.push({t:'',m:''}); renderActs(); save(); });
       row.appendChild(n); row.appendChild(inp); row.appendChild(sel); row.appendChild(d); aw.appendChild(row);
     });
