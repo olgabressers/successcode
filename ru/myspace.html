@@ -375,7 +375,7 @@ let PRODS=[];
 const fmtEur=v=>{ const n=Number(v); return Number.isInteger(n)?String(n):n.toFixed(2); };
 // Ruble price = euro × 100, unless a product has its own ruble price here.
 const TERMS={"code-2027":"Живой канал до 31.12.2026<br>Материалы доступны до конца 2027"};
-const SECNOTE={"education":"При покупке двух курсов — скидка 20%"};
+const SECNOTE={};
 const JOIN={"code-2027":"Присоединяйтесь!"};
 const RUB={"success-calendar-3m":5500};
 const fmtPrice=(v,code)=>`€${fmtEur(v)} (₽${RUB[code]!=null?RUB[code]:Math.round(Number(v)*100)})`;
