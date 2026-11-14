@@ -1,0 +1,395 @@
+<!doctype html>
+<!--
+  Солнечное время · successcode.net/solartime
+  READABLE MASTER. The live copy SuccessCode/solartime.html is written by `node build.js solartime.html`
+  (scrambled). Never edit the live copy. Engines: solartime-core.js, places-core.js (tested).
+  Method: algorithms/19_solar_time.md
+-->
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SuccessCode">
+  <meta property="og:title" content="Солнечное время · Двойные часы — Success Code">
+  <meta property="og:description" content="Двойные часы по местному солнечному времени: зимнее и летнее время.">
+  <meta property="og:image" content="https://successcode.net/assets/og/og-solartime.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Солнечное время · Двойные часы — Success Code">
+  <meta name="twitter:description" content="Двойные часы по местному солнечному времени: зимнее и летнее время.">
+  <meta name="twitter:image" content="https://successcode.net/assets/og/og-solartime.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Солнечное время</title>
+<link rel="canonical" href="https://successcode.net/solartime">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+  /* =====================================================================
+     1. Design tokens
+     Map colours live here only: the page script reads them with
+     getComputedStyle, so the map, the tickbox swatches and the CSS agree.
+     ===================================================================== */
+  :root {
+    --bg: #f5f3ee; --surface: #ffffff; --field: #f8f6f2; --border: #d8d4c8;
+    --gold: #b8882a; --gold-dim: #8a6410;
+    --text: #1a1a1a; --text-dim: #555; --text-muted: #888;
+
+  }
+
+  /* =====================================================================
+     2. Site chrome — identical on every SuccessCode calculator page
+     (body frame, top bar, footer, back-to-top). Change site-wide, not here only.
+     ===================================================================== */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { max-width: 100vw; width: 100%; overflow-x: hidden; position: relative; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg);
+         color: var(--text); min-height: 100vh; padding: 40px 24px; }
+  .lang-switch { display: flex; gap: 4px; }
+  .lang-switch button { width: auto; background: transparent; border: 1px solid rgba(184,144,58,0.45);
+                        color: #c0c2d4; padding: 5px 11px; font-size: 11px; letter-spacing: 1px;
+                        cursor: pointer; font-family: 'Inter', sans-serif; }
+  .lang-switch button.on { background: #b8903a; border-color: #b8903a; color: #f5f1eb; }
+  .site-nav { position: sticky; top: 0; z-index: 300; display: flex; align-items: center; gap: 16px;
+    padding: 16px 24px; margin: -40px -24px 0; background: rgba(52,54,64,0.98);
+    border-bottom: 1px solid rgba(184,144,58,0.25); backdrop-filter: blur(8px); flex-wrap: wrap; }
+  .nl-logo { font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 700;
+    letter-spacing: 5px; text-transform: uppercase; color: #eceef8; text-decoration: none; }
+  .nl-sections { display: flex; gap: 18px; align-items: center; margin-left: auto; flex-wrap: wrap; }
+  .nl-link { font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; color: #eceef8;
+    font-weight: 600; text-decoration: none; white-space: nowrap; transition: color .25s; }
+  .nl-link:hover { color: #cfa44e; }
+  .nl-right { display: flex; gap: 10px; align-items: center; }
+  .nl-btn { width: auto; font-size: 11px; letter-spacing: 1.2px; text-transform: uppercase; font-weight: 600;
+    color: #f5f1eb; background: #b8903a; padding: 9px 16px; text-decoration: none; border: 0; transition: background .25s; }
+  .nl-btn:hover { background: #cfa44e; }
+  .print-btn { width: auto; background: transparent; border: 1px solid rgba(184,144,58,0.45); color: #c0c2d4;
+               padding: 6px 12px; font-size: 11px; letter-spacing: 1px; text-transform: uppercase;
+               font-family: 'Inter', sans-serif; cursor: pointer; }
+  .print-btn:hover { border-color: #cfa44e; color: #cfa44e; }
+
+  .backnav { text-align: center; margin-top: 30px; }
+  .backnav a { color: var(--gold-dim); font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; text-decoration: none; }
+  .backnav a:hover { color: var(--gold); }
+  .site-footer { max-width: 980px; margin: 40px auto 0; padding: 40px 4px 30px; border-top: 1px solid var(--border); }
+  .footer-top { display: flex; justify-content: space-between; align-items: center;
+                margin-bottom: 30px; gap: 32px; flex-wrap: wrap; }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 14px; font-weight: 600;
+                 letter-spacing: 5px; text-transform: uppercase; color: var(--text-dim); }
+  .footer-links span { display: flex; gap: 28px; flex-wrap: wrap; }
+  .footer-links a { font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+                    color: var(--text-muted); text-decoration: none; font-weight: 500; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-disclaimer { font-size: 11px; line-height: 1.75; color: var(--text-muted);
+                       padding-top: 22px; border-top: 1px solid var(--border); margin-bottom: 16px; }
+  .site-footer small { font-size: 12px; color: var(--text-muted); letter-spacing: 1px; line-height: 1.7; }
+
+  .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 54px; height: 54px; z-index: 400;
+                 background: var(--gold); display: none; align-items: center; justify-content: center;
+                 text-decoration: none; opacity: .92; transition: opacity .25s, background .25s; }
+  .back-to-top:hover { opacity: 1; background: var(--gold-dim); }
+  .back-to-top svg { width: 22px; height: 22px; stroke: #fff; }
+
+  /* =====================================================================
+     3. Page — compact: route, tickboxes and both azimuths sit above the map
+     ===================================================================== */
+  header { text-align: center; padding-top: 18px; margin-bottom: 14px; }
+  header h1 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400;
+              letter-spacing: 2px; color: var(--gold); }
+  header p { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  .wrap { max-width: 980px; margin: 0 auto; width: 100%; }
+
+  /* place */
+  .form-panel { background: var(--surface); border: 1px solid var(--border); padding: 12px 18px; margin-bottom: 12px; }
+  .form-group { display: flex; flex-direction: column; gap: 4px; position: relative; }
+  label { font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  input { background: var(--field); border: 1px solid var(--border); color: var(--text);
+          padding: 8px 12px; font-size: 14px; font-family: 'Inter', sans-serif;
+          outline: none; width: 100%; transition: border-color .2s; }
+  input:focus { border-color: var(--gold); }
+  .hint { font-size: 11px; color: var(--gold-dim); margin-top: 2px; line-height: 1.5; }
+
+  /* address suggestions */
+  .city-dd { position: absolute; top: 100%; left: 0; right: 0; z-index: 1000; background: #fff;
+             border: 1px solid var(--border); border-top: none; max-height: 300px; overflow-y: auto; display: none; }
+  .city-opt { padding: 9px 12px; font-size: 12.5px; cursor: pointer; border-bottom: 1px solid #eee; line-height: 1.45; }
+  .city-opt:hover { background: #faf7ef; }
+  .city-opt b { display: block; color: var(--text); font-weight: 600; }
+  .city-opt span { color: var(--text-muted); font-size: 11.5px; }
+  .searching { padding: 9px 12px; font-size: 12px; color: var(--text-muted); }
+
+  /* double-hour table */
+  .st-panel { background: var(--surface); border: 1px solid var(--border); margin-bottom: 24px; }
+  .st-head { display: flex; align-items: center; gap: 12px; padding: 12px 18px; border-bottom: 1px solid var(--border); }
+  .zone-line { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .zone-line b { color: var(--text); }
+  .tool-btn { margin-left: auto; flex: none; width: auto; background: var(--field); border: 1px solid var(--border); color: var(--text-dim);
+              padding: 7px 12px; font-size: 11px; letter-spacing: .5px; font-family: 'Inter', sans-serif; cursor: pointer; }
+  .tool-btn:hover { border-color: var(--gold); color: var(--gold-dim); }
+  .st-scroll { overflow-x: auto; }
+  .st-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .st-table th { text-align: left; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold-dim);
+                 font-weight: 600; padding: 12px 18px; border-bottom: 2px solid var(--gold); background: #fbf8f1; vertical-align: bottom; }
+  .st-table th small { display: block; text-transform: none; letter-spacing: 0; font-size: 12px; color: var(--text-muted); font-weight: 500; margin-top: 3px; }
+  .st-table td { padding: 9px 18px; border-bottom: 1px solid #eee; color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .st-table tr.even td { background: #fcfaf5; }
+  .st-table td.hour { color: var(--text-dim); }
+  .st-table .br { display: inline-block; width: 30px; font-family: 'Cormorant Garamond', serif; font-size: 22px;
+                  color: var(--gold-dim); vertical-align: -2px; }
+  .st-table td.solar { color: var(--text-muted); }
+  .st-note { padding: 11px 18px; font-size: 12px; color: var(--text-dim); border-top: 1px solid var(--border); background: #fbf8f1; line-height: 1.6; }
+
+  /* =====================================================================
+     4. Phone. Scoped to `screen` so these rules never leak into print.
+     ===================================================================== */
+  @media screen and (max-width: 768px) {
+    * { max-width: 100vw; }
+    body { padding: 40px 12px 24px; }
+    .site-nav { justify-content: center; gap: 9px 12px; padding: 10px 12px; margin: -40px -12px 0; }
+    .nl-logo { width: 100%; text-align: center; }
+    .nl-right { order: 2; width: 100%; justify-content: center; flex-wrap: wrap; }
+    .nl-sections { order: 3; width: 100%; margin-left: 0; justify-content: center; gap: 10px 12px; }
+    .nl-link { font-size: 10px; letter-spacing: 0.8px; }
+    .site-footer { padding: 30px 4px 24px; }
+    .footer-top { flex-direction: column; gap: 18px; text-align: center; }
+    .footer-links span { justify-content: center; gap: 16px; }
+    .footer-links a { font-size: 10px; letter-spacing: 1.5px; }
+    .footer-disclaimer { font-size: 10px; line-height: 1.7; }
+    .back-to-top { width: 46px; height: 46px; bottom: 18px; right: 18px; }
+
+    header { padding-top: 10px; margin-bottom: 10px; }
+    header h1 { font-size: 20px; letter-spacing: 1px; }
+    header p { font-size: 9px; letter-spacing: 1.5px; }
+    .form-panel { padding: 12px 14px; }
+    input { font-size: 16px; }                    /* 16px stops iPhone zooming into the field */
+    .city-dd { max-height: 45vh; }
+    .city-opt { padding: 11px 12px; font-size: 14px; }
+    .st-head { flex-direction: column; align-items: stretch; padding: 10px 12px; }
+    .tool-btn { margin-left: 0; }
+    .st-table { font-size: 13px; }
+    .st-table th, .st-table td { padding: 8px 8px; }
+    .st-table th small { font-size: 11px; }
+    .st-table .br { width: 22px; font-size: 18px; }
+  }
+  @media print {
+    @page { size: A4 portrait; margin: 10mm; }
+    body { padding: 0; background: #fff; color: #000; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .site-nav, .print-btn, .city-dd, .tool-btn, .backnav, .back-to-top, .footer-links { display: none !important; }
+    header { margin-bottom: 10px; padding-top: 0; }
+  }
+</style>
+
+<style id="ev27-style">
+/* EVENT BANNER — Код успеха 2027 · shared component, identical on every page.
+   Colours taken from the event page itself: its deep red #2a0f10 with gold. */
+.ev27 { background: #2a0f10; color: #e8e0d6; font-family: 'Inter', sans-serif;
+        border-bottom: 1px solid rgba(184,144,58,0.35); }
+.ev27-in {
+  max-width: 1180px; margin: 0 auto; padding: 9px 22px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px 18px; flex-wrap: wrap; text-align: center;
+}
+.ev27-main {
+  display: flex; align-items: baseline; justify-content: center;
+  gap: 10px; flex-wrap: wrap; text-decoration: none; color: #e8e0d6;
+}
+.ev27-main b { font-size: 14px; font-weight: 700; letter-spacing: .6px; color: #cfa44e; }
+.ev27-main i { font-style: normal; font-size: 13px; font-weight: 500; color: #e8e0d6; }
+.ev27-main:hover b { text-decoration: underline; }
+.ev27-btn {
+  display: inline-block; background: #b8903a; color: #f5f1eb;
+  text-decoration: none; font-size: 11px; font-weight: 600;
+  letter-spacing: 1.4px; text-transform: uppercase;
+  padding: 8px 16px; transition: background .25s;
+}
+.ev27-btn:hover { background: #cfa44e; color: #f5f1eb; }
+@media (max-width: 700px) {
+  .ev27-in { padding: 8px 14px; gap: 7px 12px; }
+  .ev27-main { flex-direction: column; gap: 3px; }
+  .ev27-main b { font-size: 13px; }
+  .ev27-main i { font-size: 12px; line-height: 1.4; }
+  .ev27-btn { font-size: 10px; padding: 7px 14px; letter-spacing: 1.2px; }
+}
+@media print { .ev27 { display: none !important; } }
+
+/* goat picture + larger text (2026-11-14) */
+.ev27-in { padding: 10px 22px; gap: 10px 22px; }
+.ev27-goat { display: block; flex: none; line-height: 0; }
+.ev27-goat img { display: block; height: 64px; width: auto; border-radius: 4px;
+                 border: 1px solid rgba(207,164,78,.55); box-shadow: 0 2px 10px rgba(0,0,0,.45); }
+.ev27-main b { font-size: 19px; letter-spacing: .8px; }
+.ev27-main i { font-size: 16px; }
+.ev27-btn { font-size: 12px; padding: 10px 18px; }
+@media (max-width: 700px) {
+  .ev27-in { padding: 9px 14px; gap: 8px 14px; flex-wrap: nowrap; text-align: left; }
+  .ev27-goat img { height: 56px; }
+  .ev27-main { align-items: flex-start; }
+  .ev27-main b { font-size: 16px; }
+  .ev27-main i { font-size: 13px; }
+  .ev27-btn { font-size: 10px; padding: 8px 12px; }
+}
+</style>
+<style id="ev27-inflow">
+/* This page's body carries its own padding and the header cancels it with a
+   negative margin. The banner sits in normal flow, breaks out of that padding
+   (negative margins measured from the page itself), and the header's own pull-up
+   is neutralised so it lands directly underneath. */
+body.ev27-on .site-nav, body.ev27-on nav { margin-top: 0; }
+@media print { body.ev27-on .site-nav, body.ev27-on nav { margin-top: -40px; } }
+</style>
+<script>
+(function(){
+  function size(){
+    var b = document.querySelector('.ev27');
+    if (!b) return;
+    var cs = getComputedStyle(document.body);
+    b.style.marginTop   = '-' + cs.paddingTop + '';
+    b.style.marginLeft  = '-' + cs.paddingLeft + '';
+    b.style.marginRight = '-' + cs.paddingRight + '';
+    document.body.classList.add('ev27-on');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', size);
+  else size();
+  window.addEventListener('resize', size, { passive: true });
+})();
+</script>
+</head>
+<body>
+<!-- EVENT BANNER — Код успеха 2027 (shared component; follows the page language) -->
+<div class="ev27">
+  <div class="ev27-in">
+    <a class="ev27-goat" href="/2027" aria-hidden="true" tabindex="-1"><img src="/assets/ev27-goat.jpg" alt="" width="67" height="64"></a>
+    <a class="ev27-main" href="/2027">
+      <b data-ev27="ru">Код успеха 2027</b><b data-ev27="en" style="display:none">SuccessCode 2027</b>
+      <i data-ev27="ru">Ваш 2027 - Код Успеха. Живой канал с 01.11-31.12</i><i data-ev27="en" style="display:none">Your 2027 - SuccessCode. Live channel 01.11-31.12</i>
+    </a>
+    <a class="ev27-btn" href="/2027#request"><span data-ev27="ru">Регистрация</span><span data-ev27="en" style="display:none">Register</span></a>
+  </div>
+</div>
+<script>
+(function(){
+  function cur(){
+    var q = null;
+    try { q = new URL(location.href).searchParams.get('lang'); } catch(e){}
+    if (q !== 'ru' && q !== 'en') { try { q = localStorage.getItem('sc-lang'); } catch(e){} }
+    if (q !== 'ru' && q !== 'en') { q = document.body.getAttribute('data-current-lang'); }
+    return q === 'en' ? 'en' : 'ru';
+  }
+  function paint(){
+    var lang = cur();
+    var nodes = document.querySelectorAll('[data-ev27]');
+    for (var i = 0; i < nodes.length; i++) {
+      nodes[i].style.display = (nodes[i].getAttribute('data-ev27') === lang) ? '' : 'none';
+    }
+  }
+  paint();
+  document.addEventListener('click', function(e){
+    var t = e.target;
+    while (t && t !== document.body) {
+      if (t.hasAttribute && (t.hasAttribute('data-set-lang') || (t.parentNode && t.parentNode.className && String(t.parentNode.className).indexOf('lang-switch') > -1))) {
+        setTimeout(paint, 0); return;
+      }
+      t = t.parentNode;
+    }
+  });
+})();
+</script>
+
+<nav class="site-nav">
+  <a href="/ru/" class="nl-logo">SuccessCode</a>
+  <div class="nl-sections">
+    <a href="/ru/" class="nl-link"><span data-lang="ru">Главная</span><span data-lang="en">Home</span></a>
+    <a href="/calculators" class="nl-link"><span data-lang="ru">Калькуляторы</span><span data-lang="en">Calculators</span></a>
+    <a href="/calendar" class="nl-link"><span data-lang="ru">Календарь</span><span data-lang="en">Calendar</span></a>
+    <a href="/walks" class="nl-link"><span data-lang="ru">Прогулки</span><span data-lang="en">Walks</span></a>
+    <a href="/training" class="nl-link"><span data-lang="ru">Обучение</span><span data-lang="en">Training</span></a>
+    <a href="/2027" class="nl-link"><span data-lang="ru">Подготовка к 2027</span><span data-lang="en">Prepare for 2027</span></a>
+    <a href="/businessastrology" class="nl-link"><span data-lang="ru">Достижение цели</span><span data-lang="en">Goals</span></a>
+    <a href="/ru/myspace" class="nl-link"><span data-lang="ru">Войти</span><span data-lang="en">Log in</span></a>
+  </div>
+  <div class="nl-right">
+    <div class="lang-switch">
+      <button id="lang-ru" class="on" onclick="setLang('ru')">RU</button>
+      <button id="lang-en" onclick="setLang('en')">EN</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">PDF / Печать</button>
+    <a href="/ru/#booking" class="nl-btn"><span data-lang="ru">Записаться</span><span data-lang="en">Book</span></a>
+  </div>
+</nav>
+<script>
+/* Top bar: when the bar wraps on a desktop width, keep RU/EN, print and booking on the right */
+(function(){
+  function place(){
+    var r=document.querySelector('.nl-right'), s=document.querySelector('.nl-sections');
+    if(!r||!s) return;
+    r.style.marginLeft='';
+    if(window.innerWidth>768 && r.offsetTop>s.offsetTop+5) r.style.marginLeft='auto';
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',place); else place();
+  window.addEventListener('resize',place,{passive:true});
+  window.addEventListener('load',place);
+})();
+</script>
+
+<header>
+  <h1 data-i18n="title"></h1>
+  <p data-i18n="sub"></p>
+</header>
+
+<main class="wrap">
+
+  <!-- Place -->
+  <section class="form-panel">
+    <div class="form-group">
+      <label for="f-addr" data-i18n="addrLabel"></label>
+      <input type="text" id="f-addr" autocomplete="off">
+      <div class="city-dd" id="dd-addr"></div>
+      <div class="hint" id="hint-addr"></div>
+    </div>
+  </section>
+
+  <!-- Double hours on the clock -->
+  <section class="st-panel">
+    <div class="st-head">
+      <div class="zone-line" id="zone-line" aria-live="polite"></div>
+      <button type="button" class="tool-btn" id="btn-link" data-i18n="copyLink"></button>
+    </div>
+    <div class="st-scroll"><table class="st-table" id="hours"></table></div>
+    <div class="st-note" data-i18n="note"></div>
+  </section>
+
+  <div class="backnav"><a href="/calculators" data-i18n="back"></a></div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-logo">SuccessCode</div>
+    <div class="footer-links">
+      <span data-lang="ru"><a href="/ru/privacy.html">Обработка данных</a><a href="/ru/terms.html">Условия</a></span>
+      <span data-lang="en"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></span>
+    </div>
+  </div>
+  <div class="footer-disclaimer">
+    <span data-lang="ru">Материалы носят ориентировочный характер и не заменяют профессиональную помощь.</span>
+    <span data-lang="en">Content is for guidance only and does not replace professional advice.</span>
+  </div>
+  <small>
+    <span data-lang="ru">© 2026 Код успеха. Все права защищены. Копирование, в т.ч. системами ИИ, запрещено. Часть изображений создана с помощью ИИ.</span>
+    <span data-lang="en">© 2026 SuccessCode. All rights reserved. Copying, incl. by AI systems, prohibited. Some images are AI-generated.</span>
+  </small>
+</footer>
+
+<a href="#" class="back-to-top" id="backToTop" aria-label="Наверх">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+</a>
+
+<script src="/tz.js"></script>
+<script src="/places-core.js"></script>
+<script src="/solartime-core.js"></script>
+<script>
+'use strict';(function(a,b){const d=a();function z(a,b){return sc_solartime_html_i(a- -0xc7,b);}function y(a,b){return sc_solartime_html_i(b-0x40,a);}while(!![]){try{const e=parseInt(y(0x1b6,0x22d))/(-0x1094+-0x2608+0x369d)+-parseInt(y(0x1f4,0x20a))/(0x3d*0x9b+0x215b*-0x1+-0x2*0x1c9)*(parseInt(y(0x168,0x1d8))/(-0x445+0x1*-0x3c7+0x80f))+parseInt(z(0xb1,0x146))/(-0x38*0x10+-0x177*-0x11+-0x1563)*(-parseInt(z(0x90,0x102))/(0x1d9e+0x21a9+-0x3f42))+-parseInt(y(0x2ae,0x216))/(-0x5*0x2bd+-0x77f+0x5*0x43e)*(-parseInt(y(0x17e,0x131))/(0x2366+0x453+0x2*-0x13d9))+-parseInt(y(0x1eb,0x255))/(0x1*-0x1a34+0x5*0xa5+0x1703)*(parseInt(z(0x20,-0xb0))/(0x2*-0x128f+0x27b*-0xa+0x3df5))+-parseInt(y(0x22a,0x218))/(0x1f*-0x10d+-0x1b4*-0x11+0x3a9)*(-parseInt(y(0x240,0x22f))/(0x436*-0x9+-0x1f*-0x5+0x9*0x426))+-parseInt(z(-0xa,-0x7f))/(-0x21b4+-0x2694+-0x607*-0xc);if(e===b)break;else d['push'](d['shift']());}catch(f){d['push'](d['shift']());}}}(sc_solartime_html_h,-0x15950a+-0x17fb03+0x3b2096));const Solar=window['SolarTim'+'eCore'],Places=window[sc_solartime_html_A(0x1ba,0x229)+'re'],$=a=>document[sc_solartime_html_B(0x56,0x41)+sc_solartime_html_B(0x154,0x93)](a),sc_solartime_html_j={};sc_solartime_html_j[sc_solartime_html_A(0x2ab,0x227)]=52.37403,sc_solartime_html_j['lon']=4.88969;function sc_solartime_html_A(a,b){return sc_solartime_html_i(b-0x106,a);}const DEFAULT_PLACE=sc_solartime_html_j,PHOTON=sc_solartime_html_B(-0x53,0x6)+sc_solartime_html_A(0x3ce,0x317)+sc_solartime_html_A(0x1d2,0x243)+sc_solartime_html_A(0x35b,0x2e0),NOMINATIM=sc_solartime_html_B(0x47,0x6)+sc_solartime_html_A(0x2d3,0x33a)+sc_solartime_html_A(0x2c0,0x353)+sc_solartime_html_A(0x39a,0x318)+sc_solartime_html_A(0x304,0x271),sc_solartime_html_k={};sc_solartime_html_k[sc_solartime_html_B(-0x5,-0x29)]=sc_solartime_html_A(0x3c6,0x301)+'е\x20время',sc_solartime_html_k[sc_solartime_html_A(0x2a1,0x24e)]=sc_solartime_html_A(0x384,0x315)+sc_solartime_html_B(0x128,0xc8)+'по\x20местн'+sc_solartime_html_B(0xa,-0x2e)+'ечному\x20в'+'ремени',sc_solartime_html_k[sc_solartime_html_A(0x140,0x1f6)+'l']=sc_solartime_html_A(0x1f4,0x20f)+sc_solartime_html_B(-0xe,0x79),sc_solartime_html_k[sc_solartime_html_B(-0x20,-0x2)]='Город,\x20з'+'атем\x20Ent'+'er',sc_solartime_html_k[sc_solartime_html_B(0xe,0x88)]=sc_solartime_html_B(-0x8f,0x3c)+sc_solartime_html_B(0x8a,-0x28),sc_solartime_html_k['colHour']=sc_solartime_html_B(-0xb4,0x19),sc_solartime_html_k['colSolar']=sc_solartime_html_B(0x79,0x77)+sc_solartime_html_A(0x2f4,0x251),sc_solartime_html_k[sc_solartime_html_A(0x2bd,0x306)+'r']=sc_solartime_html_B(-0xb1,-0x6f)+sc_solartime_html_B(-0x6f,-0x6c),sc_solartime_html_k[sc_solartime_html_B(0x5c,0xc6)+'r']=sc_solartime_html_B(-0x10,0x80)+'ремя',sc_solartime_html_k[sc_solartime_html_B(0xe6,0x75)]=sc_solartime_html_B(0xdb,0x3a)+sc_solartime_html_B(-0xe1,-0xc8),sc_solartime_html_k[sc_solartime_html_B(-0xf8,-0x95)]=sc_solartime_html_A(0x3ab,0x349)+sc_solartime_html_A(0x1cb,0x22a)+sc_solartime_html_B(0x3a,-0x64)+sc_solartime_html_B(0x1c,-0x1d),sc_solartime_html_k[sc_solartime_html_A(0x39b,0x2d8)]=sc_solartime_html_A(0x1a4,0x1f9),sc_solartime_html_k['since']='с',sc_solartime_html_k['shiftWin'+sc_solartime_html_B(0x69,0x94)]=sc_solartime_html_B(0x1,0x5d)+'т\x20вперед'+sc_solartime_html_A(0x1c7,0x1fc)+sc_solartime_html_A(0x21e,0x27f),sc_solartime_html_k[sc_solartime_html_A(0x35d,0x328)+sc_solartime_html_A(0x2e3,0x2f8)]=sc_solartime_html_B(-0x139,-0xcd)+'тают\x20от\x20'+sc_solartime_html_A(0x1c2,0x1d0)+'а',sc_solartime_html_k[sc_solartime_html_A(0x268,0x28a)]=sc_solartime_html_A(0x218,0x21c),sc_solartime_html_k['hr']='ч',sc_solartime_html_k[sc_solartime_html_A(0x126,0x1da)]=sc_solartime_html_B(0xe,-0xb3)+'среднее\x20'+'солнечно'+sc_solartime_html_B(-0x3,-0x5e)+sc_solartime_html_B(-0x151,-0xa4)+sc_solartime_html_B(0xf,0x42)+sc_solartime_html_B(0x25,0x61)+sc_solartime_html_B(-0x1f,0x74)+sc_solartime_html_A(0x21f,0x220)+sc_solartime_html_B(-0xfc,-0x8a)+sc_solartime_html_A(0x37e,0x2bd)+'го\x20пояса'+'.',sc_solartime_html_k[sc_solartime_html_B(-0xc8,-0x37)]=sc_solartime_html_B(-0x81,-0x9f)+sc_solartime_html_B(-0x87,0x8)+'ку',sc_solartime_html_k[sc_solartime_html_B(0x60,-0x1e)]=sc_solartime_html_A(0x376,0x33e)+sc_solartime_html_A(0x36e,0x35b)+'на',sc_solartime_html_k[sc_solartime_html_B(-0x87,0x30)]='←\x20Все\x20ка'+sc_solartime_html_A(0x262,0x270)+'ры',sc_solartime_html_k[sc_solartime_html_B(-0x16,-0x8f)+'g']=sc_solartime_html_B(0x63,-0x17),sc_solartime_html_k[sc_solartime_html_A(0x29a,0x341)]='Ничего\x20н'+sc_solartime_html_B(0x37,0x2d)+'о',sc_solartime_html_k[sc_solartime_html_B(-0x5f,-0x63)]=sc_solartime_html_B(-0x22,0x8a),sc_solartime_html_k[sc_solartime_html_B(-0xda,-0xbd)]=sc_solartime_html_A(0x3dc,0x32f),sc_solartime_html_k[sc_solartime_html_B(-0xf3,-0x50)]=[sc_solartime_html_A(0x2b1,0x2b3),sc_solartime_html_A(0x109,0x1d5),'Тигр',sc_solartime_html_A(0x153,0x1d1),sc_solartime_html_A(0x26b,0x2ad),sc_solartime_html_B(0xe4,0x5a),sc_solartime_html_A(0x24c,0x213),'Коза',sc_solartime_html_B(-0x2,0xab),sc_solartime_html_B(-0xd9,-0x4a),sc_solartime_html_A(0x256,0x2e8),sc_solartime_html_A(0x32d,0x25b)],sc_solartime_html_k[sc_solartime_html_A(0x3fa,0x32c)]='Амстерда'+sc_solartime_html_B(0x5c,0x3d)+sc_solartime_html_A(0x1ae,0x1c7),sc_solartime_html_k[sc_solartime_html_A(0x2e4,0x2d4)]='PDF\x20/\x20Пе'+sc_solartime_html_A(0x24b,0x1e5),sc_solartime_html_k['toTop']=sc_solartime_html_B(0x9e,0x67);const sc_solartime_html_l={};sc_solartime_html_l[sc_solartime_html_A(0x18e,0x261)]=sc_solartime_html_A(0x3e3,0x32e)+'me',sc_solartime_html_l[sc_solartime_html_B(-0xb0,-0x3c)]=sc_solartime_html_B(0xf2,0x62)+sc_solartime_html_B(0x36,0x50)+'by\x20local'+sc_solartime_html_B(0x25,0x22)+sc_solartime_html_A(0x310,0x2ef),sc_solartime_html_l[sc_solartime_html_B(0x26,-0x94)+'l']='City\x20or\x20'+sc_solartime_html_A(0x157,0x1c1),sc_solartime_html_l[sc_solartime_html_A(0x2fb,0x288)]=sc_solartime_html_A(0x1dd,0x1de)+sc_solartime_html_B(0x106,0x4d),sc_solartime_html_l[sc_solartime_html_B(0x60,0x88)]=sc_solartime_html_B(0xd1,0x82)+'e',sc_solartime_html_l[sc_solartime_html_B(-0x9a,0x2e)]=sc_solartime_html_B(-0x115,-0x5b),sc_solartime_html_l[sc_solartime_html_A(0x257,0x2d3)]='Solar\x20ti'+'me',sc_solartime_html_l[sc_solartime_html_A(0x36f,0x306)+'r']=sc_solartime_html_A(0x2a8,0x299)+sc_solartime_html_B(0xf6,0x65),sc_solartime_html_l[sc_solartime_html_B(0x9f,0xc6)+'r']=sc_solartime_html_B(-0xc2,-0x70)+'ime',sc_solartime_html_l['colZone']=sc_solartime_html_A(0x276,0x297)+'e',sc_solartime_html_l['noSummer']=sc_solartime_html_A(0x301,0x2bc)+sc_solartime_html_B(-0x100,-0x9e),sc_solartime_html_l[sc_solartime_html_B(0x116,0x4e)]=sc_solartime_html_B(-0x72,0x4e),sc_solartime_html_l[sc_solartime_html_B(0x82,0xd4)]='from',sc_solartime_html_l[sc_solartime_html_A(0x268,0x203)+sc_solartime_html_A(0x3d8,0x31e)]=sc_solartime_html_A(0x25c,0x1d4)+sc_solartime_html_A(0x24b,0x2ce)+sc_solartime_html_A(0x2c3,0x210)+sc_solartime_html_B(-0xa5,0xa),sc_solartime_html_l[sc_solartime_html_B(0x102,0x9e)+sc_solartime_html_B(0xfb,0x6e)]=sc_solartime_html_A(0x269,0x1d4)+'un\x20behin'+sc_solartime_html_A(0x2b6,0x27a)+'n\x20by',sc_solartime_html_l[sc_solartime_html_A(0x25a,0x28a)]='min',sc_solartime_html_l['hr']='h',sc_solartime_html_l[sc_solartime_html_B(-0x76,-0xb0)]=sc_solartime_html_B(0x1a,0x8c)+sc_solartime_html_A(0x312,0x309)+sc_solartime_html_A(0x278,0x322)+sc_solartime_html_B(-0xc7,-0xa)+sc_solartime_html_A(0x230,0x1cb)+'ree\x20of\x20l'+sc_solartime_html_A(0x319,0x2db)+'\x20from\x20th'+sc_solartime_html_B(0xb2,0x5c)+sc_solartime_html_A(0x1f5,0x219)+sc_solartime_html_B(-0x70,-0x25),sc_solartime_html_l[sc_solartime_html_A(0x278,0x253)]=sc_solartime_html_B(0x44,0xc)+'k',sc_solartime_html_l[sc_solartime_html_B(-0xdf,-0x1e)]=sc_solartime_html_A(0x2bc,0x246)+sc_solartime_html_B(-0xb2,-0x11),sc_solartime_html_l[sc_solartime_html_A(0x24a,0x2ba)]='←\x20All\x20ca'+sc_solartime_html_A(0x2b0,0x24d)+'s',sc_solartime_html_l[sc_solartime_html_B(-0xd0,-0x8f)+'g']=sc_solartime_html_B(0x5,0x12)+'g…',sc_solartime_html_l[sc_solartime_html_B(0xa1,0xb7)]=sc_solartime_html_A(0x1ea,0x263)+'found',sc_solartime_html_l[sc_solartime_html_B(0x49,-0x63)]=sc_solartime_html_B(-0x14,-0xbb),sc_solartime_html_l[sc_solartime_html_A(0x18c,0x1cd)]=sc_solartime_html_B(0x14,0xa8)+'e',sc_solartime_html_l[sc_solartime_html_B(-0x59,-0x50)]=[sc_solartime_html_B(0x64,0xbd),'Ox',sc_solartime_html_B(0x124,0xaa),'Rabbit',sc_solartime_html_B(0xa,-0x49),sc_solartime_html_B(-0x45,0x26),sc_solartime_html_B(0x3a,-0x92),'Goat',sc_solartime_html_A(0x29f,0x252),sc_solartime_html_A(0x186,0x1e8),sc_solartime_html_B(0xfa,0xd6),sc_solartime_html_B(0x12,0x90)],sc_solartime_html_l[sc_solartime_html_B(0xd5,0xa2)]='Amsterda'+sc_solartime_html_B(-0xfa,-0xb8)+sc_solartime_html_A(0x2fc,0x254),sc_solartime_html_l['print']=sc_solartime_html_B(0x184,0xb3)+sc_solartime_html_A(0x2bc,0x31c),sc_solartime_html_l[sc_solartime_html_A(0x36e,0x345)]=sc_solartime_html_A(0x31a,0x34a)+'top';const sc_solartime_html_m={};sc_solartime_html_m['ru']=sc_solartime_html_k,sc_solartime_html_m['en']=sc_solartime_html_l;const TEXT=sc_solartime_html_m,sc_solartime_html_n={...DEFAULT_PLACE},state={'lang':initialLanguage(),'place':sc_solartime_html_n},t=()=>TEXT[state[sc_solartime_html_B(0x5b,0x1)]];function initialLanguage(){function D(a,b){return sc_solartime_html_A(a,b- -0x27e);}const h={'RMDZZ':'(((.+)+)'+C(-0x171,-0x151),'tyvaw':C(-0x6c,-0x87)+'ructor(\x22'+C(-0xd2,-0xee)+D(0xe8,0x42),'BrpeD':D(-0x89,-0x5a),'BDKXd':C(-0x135,-0xa2),'oUJAF':C(-0xe1,-0x197)+'n','osKdR':D(-0x1b,-0xb0),'lSSFp':function(o){return o();},'pWAxt':function(o,p,q){return o(p,q);},'aIrfj':function(o,p){return o!==p;},'QJMhm':D(-0x83,-0x42),'uTLoL':function(o,p){return o===p;}},i=(function(){let o=!![];return function(p,q){const r=o?function(){function E(a,b){return sc_solartime_html_i(a- -0x204,b);}if(q){const s=q[E(-0x134,-0x133)](p,arguments);return q=null,s;}}:function(){};return o=![],r;};}()),j=i(this,function(){function G(a,b){return D(b,a-0x48b);}function F(a,b){return D(a,b-0x2bd);}return j[F(0x30e,0x2c8)]()[F(0x356,0x360)](h[F(0x206,0x23c)])['toString']()[G(0x488,0x43f)+'tor'](j)['search'](F(0x2d3,0x2a6)+'+)+$');});h[D(-0x9c,-0x2f)](j);const k=(function(){let o=!![];return function(p,q){const r=o?function(){function H(a,b){return sc_solartime_html_i(b- -0x203,a);}if(q){const s=q[H(-0x7e,-0x133)](p,arguments);return q=null,s;}}:function(){};return o=![],r;};}());(function(){function I(a,b){return C(b-0x23d,a);}const o={'SoFlF':function(p,q){return p(q);},'OXboA':I(0xfa,0xcf)};k(this,function(){const p=new RegExp(J(0xa,0xc)+J(0xa0,-0x1a)),q=new RegExp(K(0x11b,0x80)+':[a-zA-Z'+'_$][0-9a'+J(-0xb4,-0x6)+'*)','i');function J(a,b){return I(a,b- -0x1c0);}function K(a,b){return I(b,a-0x8b);}const r=o['SoFlF'](c,'init');!p['test'](r+o[K(0x1a4,0x178)])||!q[J(0xd,-0x13)](r+J(-0x142,-0xe6))?o['SoFlF'](r,'0'):c();})();}());const l=(function(){let o=!![];return function(p,q){const r=o?function(){function L(a,b){return sc_solartime_html_i(a-0x1ab,b);}if(q){const s=q[L(0x27b,0x2ce)](p,arguments);return q=null,s;}}:function(){};return o=![],r;};}()),m=h[C(-0x68,-0xcb)](l,this,function(){let o;function M(a,b){return C(a-0x175,b);}try{const r=Function(M(0x70,0x50)+'function'+M(0x132,0x202)+h['tyvaw']+');');o=r();}catch(s){o=window;}function N(a,b){return C(b-0x5c4,a);}const p=o['console']=o['console']||{},q=[h[M(0xea,0x64)],h[M(-0x46,0x59)],N(0x5da,0x548),'error',h[N(0x3d6,0x44c)],N(0x57b,0x52a),h['osKdR']];for(let u=0x20ac+0x93f+-0x29eb;u<q['length'];u++){const v=l[N(0x43d,0x4c6)+'tor'][M(0xf6,0xf7)+'e']['bind'](l),w=q[u],x=p[w]||v;v[M(-0x11,-0xd1)+'_']=l[N(0x4b9,0x481)](l),v[M(0x85,0xff)]=x['toString']['bind'](x),p[w]=v;}});m();let n=null;try{n=new URL(location[C(-0x161,-0x98)])[C(-0x111,-0x153)+D(0x74,-0x26)]['get']('lang');}catch(o){}function C(a,b){return sc_solartime_html_A(b,a- -0x379);}if(h[D(-0x31,-0x33)](n,'ru')&&n!=='en')try{n=localStorage['getItem'](h[D(-0x7c,0x6)]);}catch(p){}return h['uTLoL'](n,'en')?'en':'ru';}const shortDate=a=>String(a['getUTCDa'+'te']())[sc_solartime_html_B(-0x141,-0x96)](-0x3*0x349+-0x47*-0x16+0x3c3,'0')+'.'+String(a[sc_solartime_html_B(-0x5b,-0xa9)+'nth']()+(-0x506*0x7+0x1*-0x1a67+0x3d92*0x1))[sc_solartime_html_A(0x1b1,0x1f4)](-0x1*-0x16cf+0x2200+-0x38cd,'0')+'.'+a[sc_solartime_html_A(0x195,0x233)+sc_solartime_html_A(0x3bf,0x331)]();function duration(a){const b={'QPeBW':function(f,g){return f+g;},'Shitv':function(f){return f();},'rhbga':function(f,g){return f%g;}};function P(a,b){return sc_solartime_html_B(b,a-0x2d1);}const d=Math[O(0x85,0x8a)](Math['abs'](a)),e=Math[O(0x62,0x29)](d/(-0xed8+0x2482*0x1+0x156e*-0x1));function O(a,b){return sc_solartime_html_B(a,b-0x83);}return b[P(0x27e,0x21d)](b[P(0x27e,0x243)](e?b['QPeBW'](e+'\x20'+b[O(0x10d,0x126)](t)['hr'],'\x20'):'',b['rhbga'](d,-0x1*0x1bb+0x9d*-0x2+0x331*0x1))+'\x20',t()[O(0x43,0x83)]);}function render(){const a={'QQHyN':function(o,q){return o===q;},'tJWHy':function(o){return o();},'LANCX':function(o,q,r){return o(q,r);},'gXRWr':function(o){return o();},'Tcrpd':function(o,q){return o+q;},'kDaQl':function(o){return o();},'exGAV':function(o){return o();},'LgWCI':Q(-0x46,0x43)+'r','oeLmH':function(o){return o();}},b=state['place'],d=new Date();let f=R(-0xe1,-0xa1);try{f=a['LANCX'](tzlookup,b[R(-0x1a7,-0x134)],b['lon']);}catch(o){}const g=Solar['zoneOffs'+R(-0xbe,-0x59)](f,d[R(-0x19b,-0xe2)+Q(0x18f,0x15f)]()),h=Solar[Q(0xa8,-0x12)+'t'](f,d);function Q(a,b){return sc_solartime_html_A(a,b- -0x1d2);}const i=Solar[Q(-0x81,0x1f)+R(-0x1cf,-0x21b)](f,d,-0x1567*-0x1+0x1*-0x1123+-0x4*0xad),j=(q,r)=>{const s=i['find'](v=>v['offset']===q);function S(a,b){return Q(b,a-0x179);}const u=a[S(0x16c,0xaf)](q,h)?t()[T(0x2bc,0x2cd)]:s?a[T(0x2a0,0x34a)](t)[S(0x305,0x347)]+'\x20'+shortDate(s[T(0x255,0x27a)]):'';function T(a,b){return R(b-0x3c3,a);}return{'offset':q,'rows':Solar[T(0x2f9,0x334)+'urTable'](q,b[S(0x174,0xdd)]),'head':r+'<small>'+Solar['formatOf'+T(0x114,0x1e4)](q)+(u?S(0x300,0x331)+u:'')+T(0x290,0x349)};},k=g['summer']===null?[j(g[R(-0x178,-0x1fc)],a[R(-0x71,-0xc1)](t)[Q(0xb8,0x12d)])]:[j(g['winter'],a[R(-0x79,0x53)](t)[Q(0x115,0x134)+'r']),j(g[Q(0xb7,0xed)],t()[R(-0x7e,-0x5c)+'r'])],l=Solar[Q(0x10d,0xc3)+'ft'](g[Q(0x11c,0x84)],b[R(-0x201,-0x1a3)]);$(Q(0x164,0xd6)+'e')['innerHTM'+'L']=a[Q(0xe4,0x56)](t()[Q(0xca,0x140)]+Q(0xb,0x4b)+f+R(-0x118,-0x1ac)+(g['summer']===null?Q(0x113,0x187)+a[R(-0x14b,-0xaf)](t)[Q(0x0,0x23)]:''),R(-0x75,-0x9e)+(l>=-0x1219*0x1+-0x1c11*-0x1+-0x58*0x1d?t()[Q(-0x58,0x31)+'ter']:a[Q(0x14f,0x17b)](t)[R(-0xa6,-0x7a)+'ind'])+Q(0x176,0xff)+duration(l)+Q(0x39,0xe4))+(g['summer']===null?'':'\x20('+t()[R(-0xc8,-0x69)+'r'][Q(0x199,0xdf)+R(-0xd5,-0x37)]()+')');function R(a,b){return sc_solartime_html_B(b,a- -0x144);}const m=R(-0xc9,-0x156)+t()[Q(0x185,0xe6)]+(Q(0x5e,0xf3)+'>')+t()[R(-0xfb,-0x37)]+Q(0xce,0x85)+k[R(-0x95,-0x58)](q=>Q(-0xa0,0x11)+q[Q(0x110,0x77)]+'</th>')[R(-0x195,-0x1cb)]('')+'</tr>',n=Solar[Q(0x19e,0x18a)+R(-0x12d,-0x11a)][Q(0x1b3,0x167)]((q,r)=>'<tr'+(q['branch']%(0x19af+-0x3ee+-0x15bf)?'':R(-0x74,-0x40)+Q(0x7a,0xb))+'>'+(Q(0x195,0xcd)+'s=\x22hour\x22'+'><span\x20c'+Q(0x89,0xfb)+'\x22>'+Solar['BRANCHES'][q[R(-0x8a,0x11)]]+Q(0x1a6,0x179)+t()['animals'][q[Q(0x150,0x172)]]+Q(-0x60,0x59))+(Q(0x133,0xcd)+Q(-0x2c,0x6c)+'\x22>'+Solar[Q(-0x14,0x2c)+'ock'](q[R(-0x9b,-0x132)])+'\x20–\x20'+Solar[R(-0x1d0,-0x114)+R(-0x151,-0x1c2)](q['to'])+R(-0x1a3,-0x107))+k[R(-0x95,-0xbf)](s=>Q(0x13a,0xf1)+Solar[R(-0x1d0,-0x264)+R(-0x151,-0x168)](s['rows'][r][R(-0xab,-0x34)+'m'])+'\x20–\x20'+Solar[R(-0x1d0,-0x1e6)+'ock'](s['rows'][r][Q(0x146,0x132)])+R(-0x1a3,-0x157))[Q(0x4f,0x67)]('')+Q(0x73,0x32))[R(-0x195,-0x122)]('');$('hours')[Q(0x120,0x9c)+'L']=R(-0x1ab,-0x118)+m+(Q(0x149,0x157)+Q(0x11f,0x76))+n+R(-0x20f,-0x20f),$(a[Q(0xdc,0xa5)])[Q(0x91,0x12a)+R(-0xf9,-0xfc)]=a[Q(0xb7,0xe3)](t)[Q(0x57,0x55)]+'\x20'+Places['formatDm'+'s'](b[R(-0x1a7,-0x1d5)],'N','S')+'\x20·\x20'+t()[R(-0x201,-0x19b)]+'\x20'+Places[R(-0x88,-0x105)+'s'](b[R(-0x201,-0x15e)],'E','W');}function sc_solartime_html_i(a,b){const c=sc_solartime_html_h();return sc_solartime_html_i=function(d,e){d=d-(-0x1040+0xde1+0x314);let f=c[d];if(sc_solartime_html_i['xflMSN']===undefined){var g=function(l){const m='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let n='',o='',p=n+g;for(let q=0x2616+-0x23b6+-0x20*0x13,r,s,t=-0xd*0x95+-0x1f68*0x1+-0x26f9*-0x1;s=l['charAt'](t++);~s&&(r=q%(0x2*-0x11de+0x1*-0x244d+-0x9b*-0x77)?r*(0x114f+0x1a0a+-0x2b19)+s:s,q++%(-0x21a1*0x1+-0x2aa+0x244f))?n+=p['charCodeAt'](t+(-0x215+0x2ba+-0x5*0x1f))-(-0x31a+0x3c4*0x8+0x2*-0xd7e)!==0x25b7*0x1+0x26b3+-0x2*0x2635?String['fromCharCode'](-0x5*-0x270+-0x2202*0x1+0x16d1&r>>(-(0x1cb5+0x22b3+0x3f66*-0x1)*q&-0xb77+0xb*-0x18c+0x1c81)):q:-0xe19*-0x2+-0x13f7+0x83b*-0x1){s=m['indexOf'](s);}for(let u=-0x5c0+0x7a7*-0x3+0x1cb5,v=n['length'];u<v;u++){o+='%'+('00'+n['charCodeAt'](u)['toString'](0x2*0x447+-0x15ea+-0x1*-0xd6c))['slice'](-(0x467*-0x2+0xb21+-0x251));}return decodeURIComponent(o);};sc_solartime_html_i['saXFGu']=g,a=arguments,sc_solartime_html_i['xflMSN']=!![];}const h=c[0x1*0xd5+-0x11a1+0x10cc],i=d+h,j=a[i];if(!j){const k=function(l){this['JBKKLe']=l,this['UoliVA']=[-0x224e+0x1*0xad9+0x1776,-0xb*-0x2+-0x17b*0xc+0x3e*0x49,0x13*-0x71+0x267e+0x44d*-0x7],this['KTDMNr']=function(){return'newState';},this['GGelaS']='\x5cw+\x20*\x5c(\x5c)\x20*{\x5cw+\x20*',this['BHZbGL']='[\x27|\x22].+[\x27|\x22];?\x20*}';};k['prototype']['yGrDgX']=function(){const l=new RegExp(this['GGelaS']+this['BHZbGL']),m=l['test'](this['KTDMNr']['toString']())?--this['UoliVA'][-0x17ce+0x25e8+-0xe19*0x1]:--this['UoliVA'][0x25*0xa7+0x3d*-0x17+-0x12a8];return this['gsFvXt'](m);},k['prototype']['gsFvXt']=function(l){if(!Boolean(~l))return l;return this['sgwTRa'](this['JBKKLe']);},k['prototype']['sgwTRa']=function(l){for(let m=-0x3a6+-0x2*-0x767+0x165*-0x8,n=this['UoliVA']['length'];m<n;m++){this['UoliVA']['push'](Math['round'](Math['random']())),n=this['UoliVA']['length'];}return l(this['UoliVA'][0xd66+-0x6*-0x24f+-0x1b40]);},new k(sc_solartime_html_i)['yGrDgX'](),f=sc_solartime_html_i['saXFGu'](f),a[i]=f;}else f=j;return f;},sc_solartime_html_i(a,b);}function sc_solartime_html_h(){const aD=['BM93','pgrPDIbJBge','B3vYCYdML7BOVRaG','B25NAxr1zgu','mZeXodGWywzAuvDJ','zgf0yxnLDa','mty3nJe0mgTry0Xfva','DgfIBgu','l2fWAs8','pc9KAxy+','icPCkcaQxcK','zgqTywrKCG','0jFqVnc10y8','zwzHDwX0','zsb0Aw1LihO','0kFqSngb0ySG0lJqTngd','0khqVTcX0ldqUTcW','DgvZDa','Aw1PDd04jMe','0ylrIYdqVDcWincZ0ya','rg91yMXLigG','vvrd','qNjWzuq','Aw1L','BMDD','0j3qSncY0lxrGngf','y2XPy2S','mtyWmZq0n1Pkuw1kBW','Dgf0zq','otL3EffsA3C','lxPblvPFjf0','D29qzLC','Aw5K','yxnL','ChjVDg90Exa','qwnJzxb0','Dgv4DenVBNq','Aw5MBW','0ldqTngd0yeG0ltqVTc7','y29SwM9Uzq','jNf1B3q7','0khqVTc70l3qTDgh0l3qVG','CgXHy2u','0lGG0ldqTnga0lxrGq','y2XVy2TuBW','phrYpJX0Ad4','y29Sv2LUDgu','ywnLCW','zNvUy3rPB24','yw4GC29Syxi','0jVqTDgc0l3qTDc1incY','twz0tNC','vgLTzsb6B24','E30Uy29UC3q','B1zuqLC','y2XPCgjVyxi','zxrZ','CfDbEhq','EM9Uzq','zwn0','0kJqUnga0l7rGTcW','0jtqSTc+0lNqVDgl0luG','tg9JywWGBwu','CgHVDg9UlMS','CMvLDg1HCc4','zwn0B3i','ugLN','mti4zvnXvKrt','Aw50','BNrcEuLK','DgvY','y291BNrLCG','zM9JDxm','C2vHCMnO','ihrPBwu6idq','y2XVy2TgCM8','twv2Evu','wvboy1C','Dg9Nz2XL','Dg9W','C2HPzNrczwG','pc90AgvHzd4','AMz0Aee','DMfS','zgvMugXHy2u','u2HPDhy','u29SyxiGDgK','0jtqVTc70lpqVTgc0la','sgz2uKe','BgXzzwfY','tg9Uz2L0Dwq','zNjVBq','vgLNzxi','0j7qSDc10lFrJngp0l3qSa','kcKG','CMvWBgfJzq','zwn0B3jbBgW','BwfW','BM9TAw5HDgK','pc9ZCgfUpJW','zgf0ys1JDxi','uergic8Guhi','0khrGDgl0lVqUTcWingb','zg91yMXLsg8','BgfUzY1YDq','BM9iAxrZ','Dw5PCxvLugW','BKrfzg4','yNjHBMnO','Dg9uB3a','zM9YBwf0rg0','uMf0','AeTdtMW','0l/qTDga0lxrHDc+0ltqSa','qMfJAYb0BYa','pc9ZCgfUpG','C2v0qxr0CMK','zxHhqvy','C2v0tgfUzW','DMfSDwu','y29Su3vTBwu','ANnVBG','0yFqSngb0ySG5PE26l6Wia','Bs5VCgvUC3q','pc9ZBwfSBd4','DePxshK','A2v5','y2XHC3nmAxm','v3DQufm','imk3ia','ignSyxnZpsi','0lRqVTc/0lJrGnc+0llqSa','re9vqKXfx0G','z1Hsv3i','C2LUy2u','yM9KEq','rg9N','wNzetuG','CxvLCNK','0kFqSngb0ySG0l7rGTgb','qKrlwgq','pc90yM9KEt4','DxrJt2zMC2u','ywrKCMvZCW','0y/rGDcW','otq2mtmXnMPnve5oqW','s1PIELO','uvfiEu4','C2nYB2XSwq','0lVqSnc90ltrIW','y2HPBMCIpG','CMrhtKe','vunVt2q','ihbLCIbKzwC','xcTCkYaQkd8','Bg9U','DhjHy2u','tgf0Axr1zgu','0yhqVTc70l3rHTcWinc9','0jRrGnc+0lVqUnc6','BsWGtMv0Agu','qvbSt0y','q2XVy2TZihi','0jhrI9c6','yxbWBhK','0jZqTDgb0ylqVDc+0luG','BfPXEKW','zM9YBwf0pwO','BM90zq','zI1HzgrY','lNbYAw50lwi','zxzLBIi','q2L0EsWGDgG','CxvLCNLtzwW','y2XVC2vZDa','z2v0vvrdtw8','ywLSCZ0XjMW','phrOpG','AgvHzgvYCW','0yFqSngc0yW','inc/0l7qV9ga0ldqSTc6','BgvUz3rO','uM9VC3rLCG','zgvMyxvSDa','jNe9','0khqUTc+0l/qUnga0l7qSG','CIb0Aw1L','ntuXmtuXzKLgDhLi','A1L1AuS','zNnLDa','CNvJDg9Ykci','DhjHBNnPDgK','AM9ktNu','x19WCM90B18','CgfKu3rHCNq','BM9tDw1Tzxi','ywrKCKXHyMu','mtK2uhzTr2LZ','sg9YC2u','0yhqTDc50yFqSngb','Ate4BG','C2vHCMnOAw4','0lGG0yhqVTc70l3rHTcW','uK1ewLO','zM9YBwf0q2W','B25Z','0lZqTDga0lJqTnc40ldqVq','B1vkquy','vvfIsgS','C2HPzNrxAw4','pc90CJ4','DMPSwNa','C2v0sw50zxi','w2rHDgeTAgK','kYKRja','yNrUlwXPBMS','wgHPwxa','y2HHAw4','D2HPBguGkhq','Bg5tyNC','sfjcEuC','0jpqVTga0l7qTcdqUnc7','ig9MihrOzsa','tLHTzNm','DgfYz2v0','0jVqVTgi0ldqTngm','z3rhsMe','AgLUDc1Hzgq','Aw5WDxq','C3r5Bgu','AhjLzG','B25Lj3mGBwu','u3vTBwvYihq','0jFqUnc80l3qTDc1incY','0lZqUnc9','oIa8yJ4','0ydqTDc80y8','DhjPBq','0lpqVTgc0ySG0l7rGIa','z0TkAhm','AgL0','phrOzwfKpG','Bg9N','ywrKrxzLBNq','0lxqTsdqSTga0lxqVngp','Bgf0','vgnYCgq','ugXHy2vZq28','inc90laG0lVqTDgc0l0','pc90zd4','0luG0llrGnc10lZrJZO','yNv0zq','AfDHwue','sg91CG','zMXVB3i','jMXHBMC9','BxfRv2O','z2v0vvrdrNu','B3jPz2LU','vfzsrKi','yMLUza','uvbLqLC','DgHLBG','AM9PBG','yw5PBwfSCW','u3jzuKq','C2mTBgfUzW','wMvLEum','CZ0IC29Syxi','ywn0Aw9U','0j/qTDgc0yprHq','rhjHz29U','AMfTDfC','B21VB3qUAw8','D2fYBG','Chzkruq','tgLUAYbJB3a','zgvY','phrIB2r5pG','AgvHza','CLzqDei','yuLYzMO','jMX0oW','Bgn1Bgf0B3i','C3vI','BfntrNa','CvzKrvq','0luG0llrGnc10lZrJW','tw9UA2v5','y29WEuXPBMS','CMXHBMrZ','t1HIB0e','D2LUDgvY','pc90Ad4','CMfTCW','jMfTCdS','tMX2tva','0khqSTc40l3rJngp','0l7qVngdingb0l7qU9c9','nxrVAMHpsa','BhLIwNm','C3m9iNnLyxi','i2rKlwfKzhi','DgL0Bgu','0l/qVTgp0ye','tM90AgLUzYa','zgvIDq','CMLKAwfUlG','CNvLksb7Fq','kcGOlISPkYK','C2vHCMnOuge','C3m9iMnPDhK','zMvHDhvYzxm','venUs2W','y29WAwvK','inc90lxrGG','Aw5Uzxjive0','Aw9Ul2PZB24','0lVrJnc60ypqU9gp0ylqVG','B3jN','CMvWBgfJzvm','0j/qVTc40yhqUUkaPG','CMv0DxjUicG','z2DLCG','l3nLyxjJAd8','tgDxq0K','zg9JDw1LBNq','AwvK','zcb0AguGC3u','y29UC3rYDwm','zgLZCgXHEq','B2nR','mJqYndGYmeDUEuXjAa','inc90la','ig1PBNv0zxm','C3rYAw5N','A2v5zg93BG','A0rHuwW','uuPnAg0','zgf0zq','l2rPDJ4','CgXHy2vgCM8','ywrKCLbO','Dg9tDhjPBMC','BwLU','BgfUzW','CgXHy2vZ','iJ48yJ4','CgfZC2L2zq','pc9IpJXZCge','Ahr0Chm6lY8','CM91BMq','0ldrGTgmingb0yhrI9c7','BMD1ywDLpq','C3vUigj5','y2XVy2TtAgK','q29WEsbSAw4','wM9Uzsb0Aw0','zxHJzxb0Aw8','v2LUDgvYihq','p2XHBMC9zw4','z2v0','u2vHCMnOAw4','ChjLDMvUDeq','otC3otC5yuLmCgft','phrKignSyxm','EMzcu20','t1vsuW','zfj2vMO','0kFqSngb','r0DzBfG','yMfJA1rVvg8','C2v0','CMv0DxjUihq','EM9Uzs1SAw4','uKDZCha','BvbOB3rVBG','y2fSBa','ihnVBgfYihq','0jtrGncW0lRqVTc9','Dg9Y','EeL0que','u25HA2u','Dg9mB3DLCKm','zhjLC3nKzxq','0jRrGngl0yhqSa','Aw5JBhvKzxm','B2vmBuG','pc9IpG','0luG0l3qSnc50ltqTDc9','y29Ssg91CG','BM9Uzq','yMfJAW','Dg9gAxHLza','BM8GC3vTBwu','0laG0yFqSngb0l7qSTc+','BgfUzY1LBG','C3vTBwvY','AgLZiIKOicK','w2rHDgeTBge','C2v0sxrLBq','phrKpG','0jlrGnc10lZrJYdqV9c+','pc90Ad48DgG','0kFqSngb0l7qSTc+0lKG','0lWSincD0lJqTnc10ya','Bu5VBwLUyxq','C3rHDgvpyMO','zM9YrwfJAa','z2v0rwXLBwu','0laGncdqVnc40l3rGW','BgfZCZ0IyNi','Dw4GywHLywq','yMvOyxzPB3i','og9pwg9ntq','idXIpG','tgLZDgvUzxi','y29Su29Syxi','ChjPBNq','zw50','w2rHDgeTAte','zw4Grw50zxi'];sc_solartime_html_h=function(){return aD;};return sc_solartime_html_h();}let searchTimer=null,searchRun=0x37c*0x8+0x52c*0x6+-0x3ae8;function onAddressInput(){const a={'gKJhs':function(d,e){return d(e);},'KZbzZ':U(0x2a,0x9c)};clearTimeout(searchTimer);const b=$(U(0x39,-0x42))[V(0x19,0xac)]['trim']();function U(a,b){return sc_solartime_html_B(a,b-0x6d);}if(b[U(-0x69,-0x36)]<0x1*-0x11c3+0xbc3*0x1+0x603){a[U(0x28,0x4)]($,'dd-addr')[U(0x69,-0x6)][U(0x3c,0x5f)]=a[U(0x2f,-0x59)];return;}function V(a,b){return sc_solartime_html_A(b,a- -0x336);}searchTimer=setTimeout(()=>searchPlaces(b),-0x23d8+-0x13b1+0x3883);}async function findPlaces(d){const f={'vjlZp':function(k,l){return k(l);},'TVRFB':function(k,l,m){return k(l,m);}},g=['en','de','fr'][W(0xab,0xd)](state[X(-0x1a3,-0x17d)])?state['lang']:X(-0x28f,-0x21f);try{const k=await f[W(-0x19,-0xa2)](fetch,PHOTON+('?limit=8'+X(-0x270,-0x1d7))+g+W(-0xf,-0xbd)+f[W(-0x11b,-0xa2)](encodeURIComponent,d)),l=Places[W(-0xf,0x9b)+W(0x4d,0x60)](((await k[X(-0xec,-0xb7)]())[W(-0x1b,-0x3d)]||[])[X(-0x190,-0xcf)](Places[W(-0xc,-0x20)+W(0x72,0x3)]));if(l[W(-0x48,-0xc0)])return l;}catch(m){}const h=NOMINATIM+(W(0x6f,-0x31)+W(-0x16a,-0xce)+'sonv2&ad'+X(-0xb5,-0x156)+W(-0xde,-0xc5)+X(-0x106,-0x11e)+'ccept-la'+X(-0xbe,-0x175))+state[X(-0x11d,-0x17d)]+X(-0x2b5,-0x21e)+encodeURIComponent(d),i={};i[W(0x31,0x54)]='applicat'+X(-0x177,-0x199);const j={};function W(a,b){return sc_solartime_html_B(a,b- -0x1d);}j[W(0xf,-0xc3)]=i;function X(a,b){return sc_solartime_html_A(a,b- -0x408);}return(await(await f[X(-0x217,-0x1d3)](fetch,h,j))[W(0x132,0xaa)]()||[])[X(-0x18c,-0xcf)](Places[X(-0x224,-0x181)+X(-0x160,-0x140)+'im']);}async function searchPlaces(a,b){function Y(a,b){return sc_solartime_html_A(b,a- -0x320);}const d={'joJNu':function(h,i){return h(i);},'kYuiK':function(h){return h();},'lnSbw':'block','XhiYp':function(h,i){return h!==i;},'YypRg':function(h,i){return h(i);},'APlOF':function(h,i){return h===i;}};function Z(a,b){return sc_solartime_html_B(b,a-0x4e5);}const f=++searchRun,g=d['joJNu']($,'dd-addr');g[Y(-0xb2,-0xed)+'L']=Z(0x534,0x5e6)+'ss=\x22sear'+Y(-0x158,-0x111)+d[Z(0x449,0x3ad)](t)[Y(-0x125,-0x114)+'g']+Y(-0x3f,0x93),g[Z(0x472,0x43b)][Z(0x4d7,0x440)]=d[Y(-0x113,-0x6d)];try{const h=await d[Y(-0x12e,-0x14c)](findPlaces,a);if(d[Z(0x465,0x45c)](f,searchRun))return;if(!h[Z(0x442,0x4d5)]){g[Y(-0xb2,-0xe6)+'L']=Y(-0x47,0x70)+Z(0x4ba,0x3f4)+Z(0x423,0x410)+t()[Z(0x59c,0x5eb)]+Z(0x53c,0x566);return;}g[Y(-0x94,-0xd9)]=h,g[Y(-0x164,-0x224)]=a;if(b){d['YypRg'](pickPlace,0x1*-0x378+0x1463*0x1+-0x10eb);return;}g['innerHTM'+'L']=h[Z(0x594,0x4f3)]((j,k)=>Z(0x534,0x4dd)+Y(-0xb7,-0x54)+'-opt\x22\x20da'+'ta-hit=\x22'+k+Y(-0x93,-0xa1)+escapeHtml(j[Z(0x4a4,0x55e)])+(Y(-0x91,-0xe8)+'n>')+escapeHtml(j['rest'])+(Y(0x1b,-0x59)+Y(-0x9a,-0x115)))['join']('');}catch(i){if(d[Y(-0x14d,-0x7a)](f,searchRun))g[Y(-0xb2,-0x34)+'L']=Z(0x534,0x596)+Z(0x4ba,0x4d6)+'ching\x22>'+t()[Z(0x59c,0x591)]+Y(-0x3f,-0x70);}}function pickPlace(b){function a1(a,b){return sc_solartime_html_B(a,b-0x3a7);}const d={'dRvVj':'dd-addr','AkRkv':function(h,j){return h(j);},'MevyU':function(h){return h();}},e=$(d[a0(0x1c9,0x1dc)]),f=e[a0(0x1b3,0x137)][b];function a0(a,b){return sc_solartime_html_A(b,a- -0xd9);}d['AkRkv']($,a0(0x102,0xe2))['value']=f['full'],e[a0(0x13e,0x129)][a0(0x1a3,0x164)]=a1(0x30a,0x3d6);const g={};g[a0(0x14e,0x198)]=f[a0(0x14e,0x164)],g[a0(0xf4,0x129)]=f[a1(0x2d6,0x2ea)],state[a1(0x47c,0x41f)]=g,d[a0(0x24b,0x2d3)](render);}const sc_solartime_html_o={};sc_solartime_html_o['&']=sc_solartime_html_A(0x25e,0x259),sc_solartime_html_o['<']=sc_solartime_html_A(0x17c,0x24c),sc_solartime_html_o['>']='&gt;',sc_solartime_html_o['\x22']=sc_solartime_html_A(0x360,0x300);const escapeHtml=a=>String(a||'')[sc_solartime_html_B(0xf7,0xad)](/[&<>"]/g,b=>sc_solartime_html_o[b]);function shareUrl(){const b={};b[a2(0x2d4,0x259)]=a3(0x4ae,0x49d);function a3(a,b){return sc_solartime_html_B(b,a-0x4ad);}b[a2(0x33c,0x36c)]=function(f,g){return f+g;};const d=b,e=new URLSearchParams({'share':'1','lat':state[a3(0x525,0x5bf)][a3(0x44a,0x4f3)][a2(0x3c5,0x428)](0x2*0x83+0x25a9*-0x1+0x2e*0xcc),'lon':state[a3(0x525,0x4df)][a2(0x2d7,0x2f5)]['toFixed'](0x12b7+0x139*0x1b+-0x33b5),'a':$(a3(0x3fe,0x373))['value']});function a2(a,b){return sc_solartime_html_B(b,a-0x394);}if(state['lang']==='en')e[a3(0x4c9,0x499)](d['UCoOd'],'en');return d[a3(0x455,0x483)](location[a2(0x33e,0x37f)]+location['pathname']+'?',e['toString']());}function copyLink(){const a={'pvJED':function(e){return e();},'jLHCk':function(e,f){return e(f);}},b=a['jLHCk']($,a4(0x3f,0x8b));function a8(a,b){return sc_solartime_html_A(a,b- -0xb);}const d=()=>{function a5(a,b){return a4(a- -0x14a,b);}b['textCont'+'ent']=a[a5(-0xcf,-0x13)](t)[a5(-0xa8,-0x88)];function a6(a,b){return a4(b- -0x19d,a);}setTimeout(()=>{function a7(a,b){return a6(b,a-0x40e);}b['textCont'+'ent']=t()[a7(0x2fa,0x271)];},0x1471+-0xd41+0x2*0x50);};function a4(a,b){return sc_solartime_html_A(b,a- -0x1ca);}if(navigator[a4(0x145,0x211)+'d'])navigator['clipboar'+'d']['writeTex'+'t'](shareUrl())[a8(0x24d,0x22d)](d,d);else d();}function readSharedLink(){function a9(a,b){return sc_solartime_html_B(a,b-0x24f);}const a={'hWaYA':function(g,h){return g+h;},'bvmda':a9(0x27c,0x250),'IjTJn':aa(-0x102,-0x164),'NXmfs':function(g,h){return g!==h;},'gtGJa':a9(0x240,0x192),'MftNw':function(g,h){return g(h);},'nDEdn':aa(-0x1c1,-0x11c)};let b;try{b=new URL(location[a9(0x1b6,0x1dd)])[a9(0x24d,0x22d)+aa(-0x144,-0xfb)];}catch(g){return;}function aa(a,b){return sc_solartime_html_B(b,a- -0x112);}try{history[a9(0x1e1,0x237)+aa(-0xa8,-0x90)](null,'',a[aa(-0x16e,-0x1c4)](location['pathname'],b[aa(-0x101,-0x4c)](a['bvmda'])==='en'?a['IjTJn']:''));}catch(h){}if(a[aa(-0x18b,-0x17d)](b[a9(0x2a4,0x260)]('share'),'1'))return;const d=parseFloat(b[a9(0x2bc,0x260)](a9(0x26d,0x1ec))),f=parseFloat(b[a9(0x1a5,0x260)](a[a9(0x28a,0x1d9)]));if(a[a9(0x259,0x2d0)](isFinite,d)&&isFinite(f))state[a9(0x28b,0x2c7)]={'lat':d,'lon':f};if(b[a9(0x237,0x260)]('a'))$(a[a9(0x249,0x308)])[aa(-0x4d,-0xb1)]=b[a9(0x2ce,0x260)]('a');}function applyLanguage(){const a={'hKCNl':function(e){return e();},'ZeeyC':function(e,f){return e(f);},'lZqzL':function(e,f){return e===f;},'jamtW':ab(-0xc,0x93),'lybZs':function(e,f){return e===f;},'rVPtB':function(e,f){return e(f);},'NlvMP':ab(-0x25,0x9b)+'p'};function ac(a,b){return sc_solartime_html_B(a,b- -0x1dd);}function ab(a,b){return sc_solartime_html_B(b,a- -0x40);}const b=a[ac(-0x18f,-0x11f)](t);document[ac(-0x133,-0x1ef)+'Element'][ab(-0x3f,-0x94)]=state[ac(-0x137,-0x1dc)],document[ac(-0x4b,-0x108)][ac(-0xf3,-0x11b)+ac(-0x181,-0x23a)](ac(-0xf5,-0x12b)+'rent-lan'+'g',state['lang']),document['title']=b[ac(-0x13d,-0x206)],document[ac(-0x238,-0x288)+ab(0x6e,-0x4a)](ac(-0x14d,-0x1a6)+ac(-0xe5,-0x177))[ac(-0x19f,-0x19d)](e=>{function ad(a,b){return ab(b-0x1aa,a);}function ae(a,b){return ab(a-0x302,b);}e[ad(0x10e,0xf7)]['display']=e[ad(0x1de,0x1bd)][ae(0x2c3,0x2d3)]===state[ad(0xa3,0x16b)]?'':'none';}),document[ac(-0x33e,-0x288)+ab(0x6e,0x64)](ab(0xc,0xc9)+'8n]')[ab(0x0,-0x60)](e=>{function ag(a,b){return ac(b,a-0x67f);}function af(a,b){return ac(a,b-0x133);}e[af(-0x3b,-0xc6)+'L']=b[e['dataset'][af(-0xba,-0x13a)]];}),$(ab(-0xef,-0xac))['placehol'+ac(-0x2ea,-0x220)]=b[ab(-0x42,-0xa5)],a[ab(-0x8d,-0x151)]($,ac(-0x84,-0x127))[ab(0x8d,0x70)+'t'][ab(0x5c,-0x58)]('on',a[ab(-0xf2,-0xbd)](state[ab(-0x3f,0x76)],'ru')),$(a[ab(-0x88,-0x10e)])[ac(-0x4a,-0x110)+'t'][ab(0x5c,-0x64)]('on',a[ab(-0x6c,-0xe2)](state[ac(-0x265,-0x1dc)],'en')),a[ab(-0x80,-0x10d)]($,a[ac(-0x14f,-0x20d)])['setAttri'+ac(-0x1a3,-0x23a)]('aria-lab'+'el',b[ac(-0x135,-0x122)]);const d=document[ab(-0xeb,-0xad)+ac(-0x10e,-0x14e)](ac(-0x1f1,-0x28b)+'tn');if(d)d[ab(0x32,0x76)+'ent']=b['print'];}function setLang(a){const b={'oVTBW':ah(0x356,0x3b3),'zfBSm':function(d){return d();}};function ah(a,b){return sc_solartime_html_A(b,a-0x11a);}function ai(a,b){return sc_solartime_html_A(a,b- -0x182);}state[ah(0x3a5,0x2e3)]=a;try{localStorage[ai(0x19a,0x140)](b[ah(0x428,0x4d5)],a);}catch(d){}b[ah(0x3ba,0x33b)](applyLanguage),render();}window[sc_solartime_html_A(0x367,0x34e)]=setLang;function bindEvents(){const b={'xItAA':'Enter','UQbHk':aj(0x548,0x4c7),'HfvRA':function(f,g){return f>=g;},'WwjPS':function(f,g){return f(g);},'QINsY':aj(0x508,0x444),'xblWg':'f-addr','YPNcW':'flex','YRqvF':function(f,g){return f(g);},'rdGNA':function(f,g){return f(g);},'BoayI':ak(0x3d3,0x420)};$('f-addr')[aj(0x4ce,0x409)+'Listener'](ak(0x367,0x332),onAddressInput),b['YRqvF']($,aj(0x2ec,0x3bf))['addEvent'+'Listener'](ak(0x471,0x3ed),onAddressInput),b[aj(0x2f3,0x3ad)]($,aj(0x3e1,0x3bf))[aj(0x4d1,0x409)+aj(0x543,0x4b6)](b['BoayI'],f=>{if(f[al(0x579,0x601)]!==b[al(0x4d2,0x4e3)])return;function am(a,b){return ak(b- -0x128,a);}f[al(0x4c0,0x4d7)+al(0x508,0x50a)]();function al(a,b){return ak(a-0xd2,b);}clearTimeout(searchTimer);const g=$(b[al(0x425,0x450)]),h=$(am(0x207,0x204))['value'][am(0x26e,0x248)]();if(g[al(0x4af,0x478)]&&g[al(0x4af,0x4b9)][al(0x40a,0x36b)]&&g['query']===h)pickPlace(-0x2b1+0x118d*-0x1+0x143e);else{if(b[al(0x553,0x5f7)](h[al(0x40a,0x3f5)],-0x101c*0x2+-0x2ba*0x2+0x25af))searchPlaces(h,!![]);}}),$(b['UQbHk'])[ak(0x376,0x3f6)+ak(0x423,0x393)](ak(0x443,0x3f6),f=>{const g=f['target'][an(0x1e,0x73)](an(0x45,-0x47)+'t]');function ao(a,b){return ak(b- -0x26,a);}function an(a,b){return ak(a- -0x313,b);}if(g)b[an(0x196,0x1c5)](pickPlace,+g[ao(0x4cd,0x408)][an(0x60,0xaa)]);}),b[ak(0x4a9,0x3dc)]($,'btn-link')['addEvent'+ak(0x423,0x3c4)](aj(0x499,0x4d6),copyLink);function aj(a,b){return sc_solartime_html_B(a,b-0x46e);}document[aj(0x4ad,0x409)+ak(0x423,0x3de)](aj(0x4d0,0x4d6),f=>{function ap(a,b){return ak(b-0x12d,a);}function aq(a,b){return aj(b,a- -0x6b9);}if(!f['target'][ap(0x4c6,0x45e)](b['QINsY'])&&f[ap(0x54b,0x490)]['id']!==b['xblWg'])b['WwjPS']($,b[ap(0x3cd,0x480)])[aq(-0x2be,-0x296)][aq(-0x259,-0x22e)]=ap(0x5d0,0x537);});const d=$('backToTo'+'p');function ak(a,b){return sc_solartime_html_B(b,a-0x3db);}const e={};e[aj(0x433,0x472)]=!![],window[aj(0x3d5,0x409)+aj(0x521,0x4b6)]('scroll',()=>{function ar(a,b){return aj(b,a- -0x36b);}function as(a,b){return aj(a,b- -0x535);}d[ar(0x90,-0x11)][ar(0xf5,0x13f)]=window[ar(0x3f,0x46)]>0x1*-0x641+-0xf*0x5d+0x1*0xd44?b[ar(0x19e,0x22e)]:as(-0x38,-0x98);},e),d['addEvent'+ak(0x423,0x406)](ak(0x443,0x439),f=>{f[at(-0x4f,0x35)+at(-0x7,-0x71)]();function at(a,b){return aj(b,a- -0x4d0);}const g={};function au(a,b){return ak(b- -0x5c7,a);}g[at(0x3b,0x17)]=0x0,g[at(-0x1d,0x4f)]='smooth',window['scrollTo'](g);});}(function start(){const a={'jfthA':function(b){return b();},'GGYlX':function(b){return b();}};a[av(0x36d,0x35b)](readSharedLink),applyLanguage();function av(a,b){return sc_solartime_html_A(b,a-0x43);}if(!$('f-addr')[av(0x392,0x45c)])$('f-addr')[av(0x392,0x3db)]=t()[av(0x36f,0x358)];function aw(a,b){return sc_solartime_html_A(b,a- -0x1b1);}bindEvents(),a[aw(0xf3,0x29)](render);}());function c(b){const d={};d[ax(-0x316,-0x2a5)]=ax(-0x2dc,-0x254)+ay(-0x119,-0xf9),d[ay(-0x9d,-0xf4)]=ay(0x2b,-0x40),d[ax(-0x1ae,-0x225)]=function(g,h){return g!==h;},d['uaDtM']=function(g,h){return g/h;},d[ay(-0x115,-0x68)]=function(g,h){return g+h;};function ax(a,b){return sc_solartime_html_A(a,b- -0x460);}d['lcdUF']='debu',d[ax(-0x1ed,-0x1b7)]=ay(-0x141,-0x120),d[ay(-0x113,-0x151)]=function(g,h){return g+h;},d[ay(-0xe4,-0x10f)]=ay(0x2a,-0x96)+ax(-0x85,-0x14d);const e=d;function ay(a,b){return sc_solartime_html_A(a,b- -0x35f);}function f(g){if(typeof g===az(0x4a5,0x4ff))return function(h){}[aA(0x4f1,0x536)+aA(0x524,0x4d7)](e[aA(0x431,0x4b6)])[aA(0x44c,0x40a)](e[az(0x491,0x4e9)]);else e[az(0x573,0x4b9)]((''+e['uaDtM'](g,g))[az(0x42a,0x465)],0x7*0x233+0xa53+-0x19b7)||g%(-0x1ec5+-0x2128+0x4001)===-0x12ec+-0x2*-0x31d+0xcb2?function(){return!![];}['construc'+aA(0x524,0x4a5)](e[aA(0x56d,0x4fe)](e['lcdUF'],aA(0x4eb,0x51b)))[aA(0x521,0x4b9)](e['RGspp']):function(){return![];}[az(0x44d,0x4f9)+az(0x494,0x52c)](e['HRByG'](az(0x4c5,0x4e2),az(0x50b,0x4f3)))[az(0x48b,0x454)](e['qVdET']);function aA(a,b){return ax(b,a-0x6d6);}function az(a,b){return ax(a,b-0x6de);}f(++g);}try{if(b)return f;else f(-0x25b*0x1+0x4ca+-0x1*0x26f);}catch(g){}}function sc_solartime_html_B(a,b){return sc_solartime_html_i(b- -0x184,a);}(function(){function aC(a,b){return sc_solartime_html_A(b,a-0x1b8);}let a;try{const b=Function(aB(-0xfc,-0x77)+aC(0x4c0,0x43d)+aC(0x4ee,0x4e1)+(aC(0x4c5,0x46b)+aB(-0x180,-0xae)+aC(0x45f,0x527)+aB(-0xb0,-0xa1))+');');a=b();}catch(d){a=window;}function aB(a,b){return sc_solartime_html_B(b,a- -0xe6);}a[aB(-0x16a,-0xf1)+aB(-0x45,-0xdd)](c,-0x3b*0x57+0x244c+-0x9f);}());
+</script>
+</body>
+</html>
