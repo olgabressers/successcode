@@ -179,13 +179,15 @@
       display: block;
       width: 100%;
       background: #f5f1eb;
-      flex: 1;
       text-decoration: none;
     }
+    /* every preview is cut to the same short frame (top of the page shown) */
     .card-screenshot img {
       display: block;
       width: 100%;
-      height: auto;
+      aspect-ratio: 980 / 682;
+      object-fit: cover;
+      object-position: top center;
     }
 
     .consult-band {
