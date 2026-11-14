@@ -371,12 +371,30 @@
   .ev27-btn { font-size: 10px; padding: 7px 14px; letter-spacing: 1.2px; }
 }
 @media print { .ev27 { display: none !important; } }
+
+/* goat picture + larger text (2026-11-14) */
+.ev27-in { padding: 10px 22px; gap: 10px 22px; }
+.ev27-goat { display: block; flex: none; line-height: 0; }
+.ev27-goat img { display: block; height: 64px; width: auto; border-radius: 4px;
+                 border: 1px solid rgba(207,164,78,.55); box-shadow: 0 2px 10px rgba(0,0,0,.45); }
+.ev27-main b { font-size: 19px; letter-spacing: .8px; }
+.ev27-main i { font-size: 16px; }
+.ev27-btn { font-size: 12px; padding: 10px 18px; }
+@media (max-width: 700px) {
+  .ev27-in { padding: 9px 14px; gap: 8px 14px; flex-wrap: nowrap; text-align: left; }
+  .ev27-goat img { height: 56px; }
+  .ev27-main { align-items: flex-start; }
+  .ev27-main b { font-size: 16px; }
+  .ev27-main i { font-size: 13px; }
+  .ev27-btn { font-size: 10px; padding: 8px 12px; }
+}
 </style>
 </head>
 <body>
 <!-- EVENT BANNER — SuccessCode 2027 (shared component) -->
 <div class="ev27">
   <div class="ev27-in">
+    <a class="ev27-goat" href="/2027" aria-hidden="true" tabindex="-1"><img src="/assets/ev27-goat.jpg" alt="" width="67" height="64"></a>
     <a class="ev27-main" href="/2027">
       <b>SuccessCode 2027</b>
       <i>Your 2027 - SuccessCode. Live channel 01.11-31.12</i>
